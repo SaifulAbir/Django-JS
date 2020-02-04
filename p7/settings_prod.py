@@ -1,4 +1,4 @@
-from p7.settings.settings_dev import *
+from p7.settings_dev import *
 
 DEBUG=False
 ALLOWED_HOSTS = ['*']
