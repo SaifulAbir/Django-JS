@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 source venv/bin/activate
 pip install -r requirements.txt
-export DJANGO_SETTINGS_MODULE="projectzero.settings_dev"
+export DJANGO_SETTINGS_MODULE="p7.settings_dev"
 python manage.py migrate
 cat <<EOF | python manage.py shell
 from django.contrib.auth import get_user_model
@@ -13,7 +13,7 @@ if not User.objects.filter(username='admin').exists():
 EOF
 echo ----------------------------------------------------
 echo Run the following to run the worker
-echo export DJANGO_SETTINGS_MODULE="assessment.settings_dev"
+echo export DJANGO_SETTINGS_MODULE="p7.settings_dev"
 echo python manage.py rqworker
 echo ----------------------------------------------------
 python manage.py runserver 0:8080
