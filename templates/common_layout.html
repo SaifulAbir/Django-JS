@@ -34,7 +34,8 @@
     <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
     <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/icon-72x72.png' %}">
     <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/icon-114x114.png' %}">
-
+    {% block extra_css %}
+    {% endblock %}
 
     <!--[if lt IE 9]>
     <script src="{% static '/assets/js/html5shiv.min.js' %}"></script>
@@ -321,7 +322,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-4 order-lg-1">
-                                <p class="copyright-text">Copyright <a href="#">Oficiona</a> 2019, All right reserved</p>
+                                <p class="copyright-text">Copyright <a href="#">P7</a> 2019, All right reserved</p>
                             </div>
                             <div class="col-xl-4 col-lg-3 order-lg-3">
                                 <div class="back-to-top">
@@ -360,6 +361,7 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC87gjXWLqrHuLKR0CTV5jNLdP4pEHMhmg"></script>
 <script src="{% static 'js/map.js' %}"></script>
-
+{% block extra_js %}
+{% endblock %}
 </body>
 </html>
