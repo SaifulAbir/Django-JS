@@ -91,9 +91,10 @@ function initAjaxSelects(container){
     if(!container) container = "body";
     $(container).find('select[data-src]').each(function() {
         var select = $(this);
-        var parent = $(this).attr("data-parent");
+        var parentSelector = $(this).attr("data-parent");
         var url = select.attr('data-src');
-        if (parent){
+        if (parentSelector){
+            var parent = $(parentSelector);
             parent.on("change", function(){
                 url += "/" + parent.val();
                 populateSelect(select, url);
