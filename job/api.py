@@ -1,6 +1,9 @@
 from rest_framework.decorators import api_view
 from rest_framework.utils import json
+from .models import Company
+from .serializers import CompanySerializer
 from rest_framework.response import Response
+from rest_framework import generics
 
 
 @api_view(["POST"])
@@ -20,3 +23,9 @@ def joblist(request):
     }
 
     return Response(data)
+
+
+class CompanyList(generics.ListCreateAPIView):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+
