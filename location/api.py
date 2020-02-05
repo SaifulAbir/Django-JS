@@ -7,7 +7,11 @@ from rest_framework.response import Response
 from rest_framework import generics
 
 
-class Division(generics.ListCreateAPIView):
+class DivisionListCreate(generics.ListCreateAPIView):
+    queryset = Division.objects.all()
+    serializer_class = DivisionSerializer
+
+class DivisionUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Division.objects.all()
     serializer_class = DivisionSerializer
 

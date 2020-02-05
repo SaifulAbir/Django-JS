@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-cd /var/projectseven/web/
+cd /var/p7
 git pull
 source venv/bin/activate
-pip3 install -r requirements.txt
-export DJANGO_SETTINGS_MODULE="assessment.settings_prod"
+pip3 install -r requirements/req-prod.txt
+export DJANGO_SETTINGS_MODULE="p7.settings_prod"
 python manage.py migrate
 cat <<EOF | python manage.py shell
 from django.contrib.auth import get_user_model
