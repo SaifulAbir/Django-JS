@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+
+from location.models import Division, District
 from resources import strings_job
 # Create your models here.
 
@@ -7,6 +9,8 @@ from resources import strings_job
 class Company(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
+    division = models.ForeignKey(Division, on_delete=models.PROTECT)
+    district = models.ForeignKey(District, on_delete=models.PROTECT)
 
 
 
