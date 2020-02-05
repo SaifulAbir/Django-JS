@@ -66,7 +66,7 @@ class Job(models.Model):
     job_type = models.ForeignKey(JobType, on_delete=models.PROTECT,)
     job_location = models.CharField(max_length=256)
     experience = models.CharField(max_length=128)
-    salary_range = models.CharField(blank=True, null= True)
+    salary_range = models.CharField(blank=True, null= True, max_length=128)
     qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT )
     gender = models.CharField(max_length=128)
     descriptions = models.TextField(blank=True, null=True)
