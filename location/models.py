@@ -6,4 +6,5 @@ class Division(models.Model):
     name = models.CharField(max_length=30, primary_key=True)
 
 class District(models.Model):
-    name = models.ForeignKey(Division, on_delete=models.PROTECT, primary_key=True)
+    name = models.CharField(max_length=30, primary_key=True)
+    division = models.ForeignKey(Division, on_delete=models.PROTECT)
