@@ -1,5 +1,5 @@
 function get(url, callback) {
-    if(!callback) callback = void;
+    if(!callback) callback = () => {};
     if(typeof(callback) !== "function") callback = window[callback];
     $.ajax({
         type : 'get',
@@ -9,7 +9,7 @@ function get(url, callback) {
 }
 
 
-function delete(url, callback) {
+function del(url, callback) {
     var csrf = getCsrfToken();
 	$.ajax({
 		url : url,
@@ -26,7 +26,7 @@ function delete(url, callback) {
 
 function send(url, method, data, callback) {
     var csrf = getCsrfToken();
-    if(!callback) callback = void;
+    if(!callback) callback = () => {};
     if(typeof(callback) !== "function") callback = window[callback];
     $.ajax({
         beforeSend : function(xhr) {
