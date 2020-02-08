@@ -39,3 +39,4 @@ def district_list(request, division):
     }
     return Response(data, HTTP_200_OK)
 
+
