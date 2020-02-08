@@ -6,6 +6,11 @@ class DistrictSerializer(serializers.ModelSerializer):
         model = District
         fields = ['name', 'division']
 
+class DistrictNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = District
+        fields = ['name']
+
 class DivisionSerializer(serializers.ModelSerializer):
     district = DistrictSerializer(many=True)
     class Meta:

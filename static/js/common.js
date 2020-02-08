@@ -76,7 +76,7 @@ function initAjaxForms() {
         var formId = $(this).attr("id");
         var data = form2Json(formId);
         var method = $(this).prop('method');
-        var callback= $(this).data("callback");
+        var callback= $(this).data("callback");  // $(this).attr("data-callback");
         send(url, method, data, callback);
 		return false;
 	}).addClass("ajax-linked");
@@ -96,7 +96,7 @@ function initAjaxSelects(container){
         if (parentSelector){
             var parent = $(parentSelector);
             parent.on("change", function(){
-                url = "/" + parent.val();
+                url += "/" + parent.val();
                 populateSelect(select, url);
             });
         } else {
@@ -107,15 +107,15 @@ function initAjaxSelects(container){
 
 function populateSelect(select, url){
     select.find('option').remove();
-    select.append('<option>------</option>');
+    select.append('<option>' + select.attr('data-placeholder') + '</option>');
     $.ajax({
         url: url,
         success: function(options) {
             options.map(function(item) {
                 var option = $('<option>');
                 option
-                    .val( item.name)
-                    .text( item.name);
+                    .val( item[select.attr('data-value')])
+                    .text( item[select.attr('data-text')]);
                 select.append(option);
             });
         }
