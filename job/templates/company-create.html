@@ -51,7 +51,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control">
+                                                        <select class="form-control" id="division" data-src="http://127.0.0.1:8000/api/division">
                                                             <option>Division</option>
                                                         </select>
                                                         <i class="fa fa-caret-down"></i>
@@ -113,18 +113,7 @@
 {% block extra_js %}
     <script>
         $(document).ready(function() {
-            $.ajax({
-                type: 'GET',
-                url: '/api/division/',
-                success: loadCallBack
-            });
+            initAjaxSelects();
         });
-
-        //callback function starts//
-        function loadCallBack(data){
-            list = data;
-            console.log(list)
-        }
-        //callback function ends//
     </script>
 {% endblock %}
