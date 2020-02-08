@@ -96,7 +96,7 @@ function initAjaxSelects(container){
         if (parentSelector){
             var parent = $(parentSelector);
             parent.on("change", function(){
-                url += "/" + parent.val();
+                url = "/" + parent.val();
                 populateSelect(select, url);
             });
         } else {
@@ -107,15 +107,15 @@ function initAjaxSelects(container){
 
 function populateSelect(select, url){
     select.find('option').remove();
-    select.append('<option></option>');
+    select.append('<option>------</option>');
     $.ajax({
         url: url,
         success: function(options) {
             options.map(function(item) {
                 var option = $('<option>');
                 option
-                    .val( item[select.attr('data-value')])
-                    .text( item[select.attr('data-text')]);
+                    .val( item.name)
+                    .text( item.name);
                 select.append(option);
             });
         }
