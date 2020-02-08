@@ -17,14 +17,15 @@ class DivisionUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Division.objects.all()
     serializer_class = DivisionSerializer
 
-class District(generics.ListCreateAPIView):
+class Districtlist(generics.ListCreateAPIView):
     queryset = District.objects.all()
     serializer_class = DistrictSerializer
 
 @api_view(["GET"])
 def district_list(request, division):
     try:
-        district_obj = District.objects.filter(division=division).order_by('-id')
+        district_obj = District.objects.filter(division_id=division).all()
+        print(district_obj)
         district_list = DistrictNameSerializer(district_obj)
     except District.DoesNotExist:
         district_list = []
@@ -33,7 +34,7 @@ def district_list(request, division):
         'status': 'success',
         'code': HTTP_200_OK,
         "data": {
-            "district_list": district_list.data,
+            "district_list": district_list,
         }
     }
     return Response(data, HTTP_200_OK)
