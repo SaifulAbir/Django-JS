@@ -66,12 +66,12 @@ class Qualification(models.Model):
 #Job Model
 class Job(models.Model):
     name = models.CharField(max_length=128)
-    industry = models.ForeignKey(Industry, on_delete=models.PROTECT,)
-    job_type = models.ForeignKey(JobType, on_delete=models.PROTECT,)
+    industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,)
+    job_type = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,)
     job_location = models.CharField(max_length=256)
     experience = models.CharField(max_length=128)
     salary_range = models.CharField(blank=True, null= True, max_length=128)
-    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT )
+    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT,blank=True, null= True, )
     gender = models.CharField(max_length=128)
     descriptions = models.TextField(blank=True, null=True)
     responsibilities = models.TextField(blank=True, null=True)
