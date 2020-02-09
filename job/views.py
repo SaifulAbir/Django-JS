@@ -1,6 +1,5 @@
 from rest_framework.views import APIView
 from .models import Company
-from .serializers import CompanySerializer
 from rest_framework.response import Response
 from rest_framework import generics
 
@@ -12,6 +11,6 @@ from rest_framework import generics
 #         return Response({"company": serializer.data})
 
 
-class CompanyList(generics.ListCreateAPIView):
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
+# class CompanyList(generics.ListCreateAPIView):
+#     queryset = Company.objects.all()
+#     serializer_class = CompanySerializer

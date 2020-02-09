@@ -2,10 +2,10 @@ from rest_framework import serializers
 from .models import Company,Job
 
 
-class CompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = ['name', 'division', 'district','address']
+# class CompanySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Company
+#         fields = ['name', 'division', 'district','address']
 
 
 
