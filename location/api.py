@@ -24,9 +24,8 @@ class Districtlist(generics.ListCreateAPIView):
 @api_view(["GET"])
 def district_list(request, division):
     try:
-        district_obj = District.objects.filter(division_id=division).all()
-        print(district_obj)
-        district_list = DistrictNameSerializer(district_obj)
+        district_obj = District.objects.all()
+        district_list = DistrictSerializer(district_obj)
     except District.DoesNotExist:
         district_list = []
 
