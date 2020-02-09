@@ -35,7 +35,7 @@ function send(url, method, data, callback) {
         type : method,
         contentType : 'application/json',
         url : url,
-        data : JSON.stringify(data),
+        data : data,
         async: true,        // Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
         cache: false,       // This will force requested pages not to be cached by the browser
         processData: false, // To avoid making query String instead of JSON
@@ -75,6 +75,7 @@ function initAjaxForms() {
         var url = $(this).prop('action');
         var formId = $(this).attr("id");
         var data = form2Json(formId);
+        console.log(data);
         var method = $(this).prop('method');
         var callback= $(this).data("callback");  // $(this).attr("data-callback");
         send(url, method, data, callback);
@@ -96,8 +97,9 @@ function initAjaxSelects(container){
         if (parentSelector){
             var parent = $(parentSelector);
             parent.on("change", function(){
-                url += "/" + parent.val();
-                populateSelect(select, url);
+                var prev_url = url
+                var final_url = prev_url+ "/" + parent.val();
+                populateSelect(select, final_url);
             });
         } else {
             populateSelect(select, url);

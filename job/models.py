@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from rest_framework.utils import json
 
 from location.models import Division, District
 from resources import strings_job
@@ -12,6 +13,9 @@ class Company(models.Model):
     division = models.ForeignKey(Division, on_delete=models.PROTECT)
     district = models.ForeignKey(District, on_delete=models.PROTECT)
 
+
+    def load_data(self, json_data):
+        self.__dict__ = json_data
 
 
 divisions = [
