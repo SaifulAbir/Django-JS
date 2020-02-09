@@ -88,6 +88,23 @@ function form2Json(id){
     return JSON.stringify(form2js(id));
 }
 
+function json2Form(data, id){
+    for(key in data){
+        var el = $("#" + id).find("[name='"+ key +"']");
+        console.log(el.data("parent"));
+        if(el.data("parent")){
+            var elChild = el;
+            var v = data[key];
+            setTimeout(function () {
+                elChild.val(v).change();
+            },50);
+        }else{
+            el.val(data[key]).change();
+        }
+
+    }
+}
+
 function initAjaxSelects(container){
     if(!container) container = "body";
     $(container).find('select[data-src]').each(function() {

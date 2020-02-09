@@ -1,8 +1,11 @@
 from rest_framework.decorators import api_view
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import UpdateModelMixin
 from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 
 from job.models import Company
+from job.serializers import CompanySerializer
 from .models import Division
 from .models import District
 from .serializers import DivisionSerializer, DistrictNameSerializer, DistrictPopulateSerializer
@@ -33,6 +36,16 @@ def company_create(request):
     company_obj = Company(**company_data)
     company_obj.save()
     return Response(HTTP_200_OK)
+
+class CompanyUpdateView(GenericAPIView, UpdateModelMixin):
+    '''
+    You just need to provide the field which is to be modified.
+    '''
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
 
 class DistrictPopulate(generics.ListAPIView):
