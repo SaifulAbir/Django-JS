@@ -159,21 +159,21 @@ class GenderTest(TestCase):
 
 class JobTypeTest(TestCase):
     def test_when_everything_required_is_given_should_pass(self):
-        company = JobType(name='Part Time')
+        job_type = JobType(name='Part Time')
         try:
-            company.full_clean()
+            job_type.full_clean()
         except:
             self.fail()
 
     def test_when_name_is_null_should_raise_error(self):
-        company = JobType()
+        job_type = JobType()
         with self.assertRaises(ValidationError):
-            company.full_clean()
+            job_type.full_clean()
 
     def test_when_name_is_blank_should_raise_error(self):
-        company = JobType(name='')
+        job_type = JobType(name='')
         with self.assertRaises(ValidationError):
-            company.full_clean()
+            job_type.full_clean()
 
 #JOBTYPE TESTS
 
@@ -181,21 +181,21 @@ class JobTypeTest(TestCase):
 
 class ExperienceTest(TestCase):
     def test_when_everything_required_is_given_should_pass(self):
-        company = Experience(name='Part Time')
+        experience = Experience(name='Part Time')
         try:
-            company.full_clean()
+            experience.full_clean()
         except:
             self.fail()
 
     def test_when_name_is_null_should_raise_error(self):
-        company = Experience()
+        experience = Experience()
         with self.assertRaises(ValidationError):
-            company.full_clean()
+            experience.full_clean()
 
     def test_when_name_is_blank_should_raise_error(self):
-        company = Experience(name='')
+        experience = Experience(name='')
         with self.assertRaises(ValidationError):
-            company.full_clean()
+            experience.full_clean()
 
 
 #Experience TESTS
