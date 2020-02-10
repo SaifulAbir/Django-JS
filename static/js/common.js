@@ -99,7 +99,7 @@ function json2Form(data, id){
                 elChild.val(v).change();
             },50);
         }else{
-            el.val(data[key]).change();
+            el.val(data[key]).change();//.change() is needed??
         }
 
     }

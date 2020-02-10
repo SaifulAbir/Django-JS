@@ -16,6 +16,11 @@ class Company(models.Model):
     district = models.ForeignKey(District, on_delete=models.PROTECT, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        verbose_name = strings_job.COMPANY_VERBOSE_NAME
+        verbose_name_plural = strings_job.COMPANY_VERBOSE_NAME_PLURAL
+        db_table = 'company'
+
 
     def load_data(self, json_data):
         self.__dict__ = json_data
@@ -43,7 +48,7 @@ class JobType(models.Model):
     class Meta:
         verbose_name = strings_job.JOB_TYPE_VERBOSE_NAME
         verbose_name_plural = strings_job.JOB_TYPE_VERBOSE_NAME_PLURAL
-        db_table = 'Job_type'
+        db_table = 'job_type'
 #JobType Model
 
 
@@ -55,7 +60,7 @@ class Qualification(models.Model):
     class Meta:
         verbose_name = strings_job.QUALIFICATION_VERBOSE_NAME
         verbose_name_plural = strings_job.QUALIFICATION_VERBOSE_NAME_PLURAL
-        db_table = 'Qualification'
+        db_table = 'qualification'
 #Qualification Model
 
 
@@ -67,7 +72,7 @@ class Experience(models.Model):
     class Meta:
         verbose_name = strings_job.EXPERIENCE_VERBOSE_NAME
         verbose_name_plural = strings_job.EXPERIENCE_VERBOSE_NAME_PLURAL
-        db_table = 'Experience'
+        db_table = 'experience'
 #Experience Model
 
 #Gender Model
@@ -78,7 +83,7 @@ class Gender(models.Model):
     class Meta:
         verbose_name = strings_job.GENDER_VERBOSE_NAME
         verbose_name_plural = strings_job.GENDER_VERBOSE_NAME_PLURAL
-        db_table = 'Gender'
+        db_table = 'gender'
 #Gender Model
 
 
@@ -86,25 +91,27 @@ class Gender(models.Model):
 #Job Model
 class Job(models.Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False)
-    job_title = models.CharField(max_length=255, blank=True,null=True)
+    title = models.CharField(max_length=255, blank=True,null=True)
     industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,)
-    job_type = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,)
+    employment_status = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,)
     job_location = models.CharField(max_length=255, blank=True,null=True)
     experience =  models.ForeignKey(Experience, on_delete=models.PROTECT,blank=True, null= True,)
     salary_min = models.DecimalField(max_digits=10, blank=True, null= True)
     salary_max = models.DecimalField(max_digits=10, blank=True, null= True)
     qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT,blank=True, null= True, )
     gender = models.ForeignKey(Gender, on_delete=models.PROTECT,blank=True, null= True, )
+    application_deadline = models.DateField(null=True, blank=True)
     descriptions = models.TextField(blank=True, null=True)
     responsibilities = models.TextField(blank=True, null=True)
     education = models.TextField(blank=True, null=True)
-    other_benefits = models.TextField(max_length=128, blank=True, null=True)
-    comapny_name = models.ForeignKey(Company, blank=True, null = True)
-    division = models.ForeignKey(Division, blank=True, null = True)
-    district = models.ForeignKey(District, blank=True, null = True)
+    other_benefits = models.TextField(max_length=255, blank=True, null=True)
+    comapny_name = models.ForeignKey(Company,on_delete=models.PROTECT, blank=True, null = True)
+    division = models.ForeignKey(Division,on_delete=models.PROTECT, blank=True, null = True)
+    district = models.ForeignKey(District,on_delete=models.PROTECT, blank=True, null = True)
     zipcode = models.CharField(max_length=255, blank=True, null = True)
     comapny_location = models.CharField(max_length=255, blank=True, null = True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
+    created_date = models.DateTimeField(default=timezone.now)
 
 
     class Meta:
