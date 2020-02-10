@@ -25,12 +25,12 @@ class CompanyTest(TestCase):
             self.fail()
 
     def test_when_name_is_null_should_raise_error(self):
-        company = Company(web_address='www.ishraak.com')
+        company = Company(web_address='www.ishraak.com', division = self.div, district=self.dis)
         with self.assertRaises(ValidationError):
             company.full_clean()
 
     def test_when_name_is_blank_should_raise_error(self):
-        company = Company(name='', web_address='www.ishraak.com')
+        company = Company(name='', web_address='www.ishraak.com', division = self.div, district=self.dis)
         with self.assertRaises(ValidationError):
             company.full_clean()
 
@@ -49,6 +49,28 @@ class CompanyTest(TestCase):
             self.fail()
 
 #COMPANY TESTS
+
+#JOBTYPE TESTS
+
+class JobTypeTest(TestCase):
+    def test_when_everything_required_is_given_should_pass(self):
+        company = Company(name='Part Time')
+        try:
+            company.full_clean()
+        except:
+            self.fail()
+
+    def test_when_name_is_null_should_raise_error(self):
+        company = Company()
+        with self.assertRaises(ValidationError):
+            company.full_clean()
+
+    def test_when_name_is_blank_should_raise_error(self):
+        company = Company(name='')
+        with self.assertRaises(ValidationError):
+            company.full_clean()
+
+#JOBTYPE TESTS
 
 #JOB TESTS
 # class JobTest(TestCase):
