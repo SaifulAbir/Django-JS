@@ -190,12 +190,12 @@ class ExperienceTest(TestCase):
     def test_when_name_is_null_should_raise_error(self):
         experience = Experience()
         with self.assertRaises(ValidationError):
-            company.full_clean()
+            experience.full_clean()
 
     def test_when_name_is_blank_should_raise_error(self):
         experience = Experience(name='')
         with self.assertRaises(ValidationError):
-            company.full_clean()
+            experience.full_clean()
 
 
 #Experience TESTS
