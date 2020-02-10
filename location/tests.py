@@ -40,32 +40,38 @@ class DivisionTest(TestCase):
 
 # District tests
 class DistrictTest(TestCase):
+
+    def setUp(self):
+        d1 = Division(name='Dhaka')
+        d1.save()
+        self.division = d1
+
     def test_when_everything_required_is_given_should_pass(self):
-        district = District(name='Dhaka')
+        district = District(name='Dhaka', division=self.division)
         try:
             district.full_clean()
         except:
             self.fail()
 
-    def test_when_division_name_is_null_should_raise_error(self):
-        district = Division()
+    def test_when_district_name_is_null_should_raise_error(self):
+        district = District(division=self.division)
         with self.assertRaises(ValidationError):
             district.full_clean()
 
-    def test_when_division_name_is_blank_should_raise_error(self):
-        district = Division(name='')
+    def test_when_district_name_is_blank_should_raise_error(self):
+        district = District(name='', division=self.division)
         with self.assertRaises(ValidationError):
             district.full_clean()
 
     def test_when_name_is_more_than_max_length_should_raise_error(self):
-        district = Division(name='Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+        district = District(name='Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
                           'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, '
                           'when an unknown printer took a galley of type and scrambled it to make a type '
                           'specimen book. It has survived not only five centuries, but also the leap into '
                           'electronic typesetting, remaining essentially unchanged. It was popularised in '
                           'the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, '
                           'and more recently with desktop publishing software like Aldus PageMaker '
-                          'including versions of Lorem Ipsum.')
+                          'including versions of Lorem Ipsum.', division=self.division)
         with self.assertRaises(ValidationError):
             district.full_clean()
 # District tests
