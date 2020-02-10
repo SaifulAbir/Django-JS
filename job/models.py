@@ -91,7 +91,7 @@ class Gender(models.Model):
 #Job Model
 class Job(models.Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False,db_column='id')
-    title = models.CharField(max_length=255, blank=True,null=True)
+    title = models.CharField(max_length=255)
     industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,db_column='industry')
     employment_status = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,db_column='employment_status')
     job_location = models.CharField(max_length=255, blank=True,null=True)
