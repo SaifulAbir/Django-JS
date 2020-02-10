@@ -90,7 +90,7 @@ class Gender(models.Model):
 
 #Job Model
 class Job(models.Model):
-    job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False)
+    job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False,db_column='id')
     title = models.CharField(max_length=255, blank=True,null=True)
     industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,db_column='industry')
     employment_status = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,db_column='employment_status')
@@ -105,7 +105,7 @@ class Job(models.Model):
     responsibilities = models.TextField(blank=True, null=True)
     education = models.TextField(blank=True, null=True)
     other_benefits = models.TextField(max_length=255, blank=True, null=True)
-    company_name = models.ForeignKey(Company,on_delete=models.PROTECT, blank=True, null = True)
+    company_name = models.ForeignKey(Company,on_delete=models.PROTECT, blank=True, null = True, db_column='company')
     division = models.ForeignKey(Division,on_delete=models.PROTECT, blank=True, null = True,db_column='division')
     district = models.ForeignKey(District,on_delete=models.PROTECT, blank=True, null = True, db_column='district')
     zipcode = models.CharField(max_length=255, blank=True, null = True)
