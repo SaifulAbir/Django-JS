@@ -120,5 +120,8 @@ class Job(models.Model):
         verbose_name = strings_job.JOB_VERBOSE_NAME
         verbose_name_plural = strings_job.JOB_VERBOSE_NAME_PLURAL
         db_table = 'jobs'
+
+    def load_data(self, json_data):
+        self.__dict__ = json_data
 #job Model
 

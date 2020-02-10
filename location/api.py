@@ -7,24 +7,24 @@ from rest_framework.utils import json
 from job.models import Company
 from .models import Division
 from .models import District
-# from .serializers import DivisionSerializer, DistrictNameSerializer, DistrictPopulateSerializer
+from .serializers import DivisionSerializer, DistrictPopulateSerializer
 # from .serializers import DistrictSerializer
 from rest_framework.response import Response
 from rest_framework import generics
 
 
-# class DivisionListCreate(generics.ListCreateAPIView):
-#     queryset = Division.objects.all()
-#     serializer_class = DivisionSerializer
-#
+class DivisionListCreate(generics.ListCreateAPIView):
+    queryset = Division.objects.all()
+    serializer_class = DivisionSerializer
+
 # class DivisionUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = Division.objects.all()
 #     serializer_class = DivisionSerializer
 #
-# class Districtlist(generics.ListCreateAPIView):
+# class DistrictList(generics.ListCreateAPIView):
 #     queryset = District.objects.all()
 #     serializer_class = DistrictSerializer
-#
+
 # @api_view(["POST"])
 # def company_create(request):
 #     company_data = json.loads(request.body)
@@ -35,7 +35,7 @@ from rest_framework import generics
 #     company_obj = Company(**company_data)
 #     company_obj.save()
 #     return Response(HTTP_200_OK)
-#
+
 # class CompanyUpdateView(GenericAPIView, UpdateModelMixin):
 #     '''
 #     You just need to provide the field which is to be modified.
@@ -47,18 +47,18 @@ from rest_framework import generics
 #         return self.update(request, *args, **kwargs)
 #
 #
-# class DistrictPopulate(generics.ListAPIView):
-#     serializer_class = DistrictPopulateSerializer
-#
-#     def get_queryset(self):
-#         """
-#         Optionally restricts the returned purchases to a given user,
-#         by filtering against a `username` query parameter in the URL.
-#         """
-#         queryset = District.objects.all()
-#         division = self.kwargs['division']
-#         print(division)
-#         if division is not None:
-#             queryset = queryset.filter(division=division)
-#             print(queryset)
-#         return queryset
+class DistrictPopulate(generics.ListAPIView):
+    serializer_class = DistrictPopulateSerializer
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        queryset = District.objects.all()
+        division = self.kwargs['division']
+        print(division)
+        if division is not None:
+            queryset = queryset.filter(division=division)
+            print(queryset)
+        return queryset
