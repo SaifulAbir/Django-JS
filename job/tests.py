@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-from job.models import Job, Company, JobType, Qualification, Gender, Industry
+from job.models import Job,Company,JobType,Qualification,Gender,Experience,Industry
 from location.models import Division, District
 
 
@@ -159,23 +159,47 @@ class GenderTest(TestCase):
 
 class JobTypeTest(TestCase):
     def test_when_everything_required_is_given_should_pass(self):
-        company = Company(name='Part Time')
+        company = JobType(name='Part Time')
         try:
             company.full_clean()
         except:
             self.fail()
 
     def test_when_name_is_null_should_raise_error(self):
-        company = Company()
+        company = JobType()
         with self.assertRaises(ValidationError):
             company.full_clean()
 
     def test_when_name_is_blank_should_raise_error(self):
-        company = Company(name='')
+        company = JobType(name='')
         with self.assertRaises(ValidationError):
             company.full_clean()
 
 #JOBTYPE TESTS
+
+#Experience TESTS
+
+class ExperienceTest(TestCase):
+    def test_when_everything_required_is_given_should_pass(self):
+        company = Experience(name='Part Time')
+        try:
+            company.full_clean()
+        except:
+            self.fail()
+
+    def test_when_name_is_null_should_raise_error(self):
+        company = Experience()
+        with self.assertRaises(ValidationError):
+            company.full_clean()
+
+    def test_when_name_is_blank_should_raise_error(self):
+        company = Experience(name='')
+        with self.assertRaises(ValidationError):
+            company.full_clean()
+
+
+#Experience TESTS
+
 
 #JOB TESTS
 # class JobTest(TestCase):
