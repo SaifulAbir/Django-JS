@@ -1,10 +1,15 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from job.models import Job,Company
 
-# Create your tests here.
-from job.models import Job
+#COMPANY TESTS
 
+# class CompanyTest(TestCase):
+#     def when Company na6
 
+#COMPANY TESTS
+
+#JOB TESTS
 class JobTest(TestCase):
     def test_when_everything_required_is_given_should_pass(self):
         s = Job(name='Software Engineer',job_location='mirpur',experience='1', gender='Male')
@@ -59,3 +64,6 @@ class JobTest(TestCase):
         s = Job(name='Software Engineer',job_location='mirpur',experience='1', gender='')
         with self.assertRaises(ValidationError):
             s.full_clean()
+
+
+#JOB TESTS
