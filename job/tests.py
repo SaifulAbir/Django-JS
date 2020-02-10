@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-from job.models import Job,Company,JobType,Qualification,Gender
+from job.models import Job, Company, JobType, Qualification, Gender, Industry
 from location.models import Division, District
 
 
@@ -49,6 +49,76 @@ class CompanyTest(TestCase):
             self.fail()
 
 #COMPANY TESTS
+
+#INDUSTRY TESTS
+
+class IndustryTest(TestCase):
+
+    def test_when_everything_required_is_given_should_pass(self):
+        industry = Industry(name='Information Technology')
+        try:
+            industry.full_clean()
+        except:
+            self.fail()
+
+    def test_when_name_is_null_should_raise_error(self):
+        industry = Industry()
+        with self.assertRaises(ValidationError):
+            industry.full_clean()
+
+    def test_when_name_is_blank_should_raise_error(self):
+        industry = Industry(name='')
+        with self.assertRaises(ValidationError):
+            industry.full_clean()
+
+    def test_when_name_is_more_than_max_length_should_raise_error(self):
+        industry = Industry(name='Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                          'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, '
+                          'when an unknown printer took a galley of type and scrambled it to make a type '
+                          'specimen book. It has survived not only five centuries, but also the leap into '
+                          'electronic typesetting, remaining essentially unchanged. It was popularised in '
+                          'the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, '
+                          'and more recently with desktop publishing software like Aldus PageMaker '
+                          'including versions of Lorem Ipsum.')
+        with self.assertRaises(ValidationError):
+            industry.full_clean()
+
+#INDUSTRY TESTS
+
+#QUALIFICATION TESTS
+
+class QualificationTest(TestCase):
+
+    def test_when_everything_required_is_given_should_pass(self):
+        qualification = Qualification(name='Information Technology')
+        try:
+            qualification.full_clean()
+        except:
+            self.fail()
+
+    def test_when_name_is_null_should_raise_error(self):
+        qualification = Qualification()
+        with self.assertRaises(ValidationError):
+            qualification.full_clean()
+
+    def test_when_name_is_blank_should_raise_error(self):
+        qualification = Qualification(name='')
+        with self.assertRaises(ValidationError):
+            qualification.full_clean()
+
+    def test_when_name_is_more_than_max_length_should_raise_error(self):
+        qualification = Qualification(name='Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                          'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, '
+                          'when an unknown printer took a galley of type and scrambled it to make a type '
+                          'specimen book. It has survived not only five centuries, but also the leap into '
+                          'electronic typesetting, remaining essentially unchanged. It was popularised in '
+                          'the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, '
+                          'and more recently with desktop publishing software like Aldus PageMaker '
+                          'including versions of Lorem Ipsum.')
+        with self.assertRaises(ValidationError):
+            qualification.full_clean()
+
+#QUALIFICATION TESTS
 
 #JOB TESTS
 # class JobTest(TestCase):
