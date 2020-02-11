@@ -16,6 +16,17 @@ class JobList(generics.ListAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializerAllField
 
+class JobObject(generics.ListAPIView):
+    serializer_class = JobSerializer
+
+    def get_queryset(self):
+
+        queryset = Job.objects.all()
+        job = self.kwargs['pk']
+        if job is not None:
+            queryset = queryset.filter(job_id=job)
+        return queryset
+
 class IndustryList(generics.ListCreateAPIView):
     queryset = Industry.objects.all()
     serializer_class = IndustrySerializer

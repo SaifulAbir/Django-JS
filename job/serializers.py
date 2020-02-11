@@ -37,7 +37,7 @@ class GenderSerializer(serializers.ModelSerializer):
 class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
-        fields = ['title', 'industry', 'employment_status','job_location', 'experience',]
+        fields = fields = '__all__'
 
 class JobSerializerAllField(serializers.ModelSerializer):
     class Meta:

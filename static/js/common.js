@@ -76,7 +76,8 @@ function initAjaxForms() {
         var formId = $(this).attr("id");
         var data = form2Json(formId);
         console.log(data);
-        var method = $(this).prop('method');
+        var method = $(this).attr('method');
+        alert(method);
         var callback= $(this).data("callback");  // $(this).attr("data-callback");
         send(url, method, data, callback);
 		return false;
@@ -90,16 +91,17 @@ function form2Json(id){
 
 function json2Form(data, id){
     for(key in data){
-        var el = $("#" + id).find("[name='"+ key +"']");
+        // var el = $("#" + id).find("[name='"+ key +"']");
+        var el = $("#" + id).find("[id='"+ key +"']");
         console.log(el.data("parent"));
         if(el.data("parent")){
             var elChild = el;
             var v = data[key];
             setTimeout(function () {
                 elChild.val(v).change();
-            },50);
+            },3000);
         }else{
-            el.val(data[key]).change();//.change() is needed??
+            el.val(data[key]).change();
         }
 
     }

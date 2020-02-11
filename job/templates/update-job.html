@@ -8,11 +8,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="breadcrumb-area">
-                        <h1>Post A Job</h1>
+                        <h1>Update A Job</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Post A Job</li>
+                                <li class="breadcrumb-item active" aria-current="page">Update A Job</li>
                             </ol>
                         </nav>
                     </div>
@@ -36,7 +36,7 @@
                 <div class="col">
                     <div class="post-container">
                         <div class="post-content-wrapper">
-                            <form action="/api/job_create/" id="job-post-form" class="job-post-form ajax" method="POST" >
+                            <form action="/api/job_update/0eb456ec-857b-4b6a-98e0-28eb91ee5c13/" id="job-update-form" class="job-post-form ajax" method="PUT" >
                                 <div class="basic-info-input">
                                     <h4><i data-feather="plus-circle"></i>Post A Job</h4>
                                     <div id="job-title" class="form-group row">
@@ -89,7 +89,7 @@
                                                     <div class="form-group">
                                                         <select class="form-control" name="gender_id" id="gender" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender">
                                                         </select>
-                                                        <i class="fa fa-caret-down"></i>ggygy
+                                                        <i class="fa fa-caret-down"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -172,7 +172,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="company_name_id" id="company" data-text="name" data-value="name" data-placeholder="Company" data-src="/api/company">
+                                                        <select class="form-control" name="company_name_id" id="company_name" data-text="name" data-value="name" data-placeholder="Company" data-src="/api/company">
                                                         </select>
                                                         <i class="fa fa-caret-down"></i>
                                                     </div>
@@ -256,7 +256,19 @@
     <script>
         $(document).ready(function() {
             initAjaxSelects();
+            var path = window.location.pathname.split('/')
+            var id = path[path.length-2]
+            var url = '/api/job-update/'+ id + '/'
+            get(url, loadJob);
             initAjaxForms();
+
         });
+        function  loadJob(data){
+            id = $('form.ajax').attr('id');
+            if(data.length==1){
+                json2Form(data[0], id);
+            }
+
+        }
     </script>
 {% endblock %}
