@@ -36,7 +36,7 @@
                 <div class="col">
                     <div class="post-container">
                         <div class="post-content-wrapper">
-                            <form action="/api/job_update/0eb456ec-857b-4b6a-98e0-28eb91ee5c13/" id="job-update-form" class="job-post-form ajax" method="PUT" >
+                            <form action="" id="job-update-form" class="job-post-form ajax" method="PUT" >
                                 <div class="basic-info-input">
                                     <h4><i data-feather="plus-circle"></i>Post A Job</h4>
                                     <div id="job-title" class="form-group row">
@@ -258,9 +258,14 @@
             initAjaxSelects();
             var path = window.location.pathname.split('/')
             var id = path[path.length-2]
-            var url = '/api/job-update/'+ id + '/'
-            get(url, loadJob);
+            var getUrl = '/api/job-update/'+ id + '/'
+            get(getUrl, loadJob);
+
+            var postUrl = '/api/job_update/'+ id + '/';
+            $('form.ajax').attr('action',postUrl)
+
             initAjaxForms();
+
 
         });
         function  loadJob(data){
