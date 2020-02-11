@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from job.api import *
 urlpatterns = [
     path('', TemplateView.as_view(template_name='post-job.html')),
+    path('job-list', TemplateView.as_view(template_name='company-list.html')),
     path('company/', CompanyList.as_view()),
     path('industry/', IndustryList.as_view()),
     path('job_type/', JobTypeList.as_view()),

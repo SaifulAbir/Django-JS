@@ -140,3 +140,15 @@ function populateSelect(select, url){
         }
     });
 }
+
+function makeListHtml(data, template){
+	var html = "";
+	for (i=0; i < data.length; i++){
+		var templateEl = $(template);
+		for( k in data[i]){
+			templateEl.find(".__" + k).text(data[i][k]);
+		}
+		html+= templateEl.html()
+	}
+	return html;
+}
