@@ -4,8 +4,7 @@ from rest_framework.mixins import UpdateModelMixin
 from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from .models import Company, Job,Industry,JobType,Experience,Qualification,Gender
-from .serializers import CompanySerializer, IndustrySerializer, JobTypeSerializer, QualificationSerializer, \
-    ExperienceSerializer, GenderSerializer, JobSerializer
+from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
 
@@ -15,7 +14,7 @@ class CompanyList(generics.ListCreateAPIView):
 
 class JobList(generics.ListAPIView):
     queryset = Job.objects.all()
-    serializer_class = JobSerializer
+    serializer_class = JobSerializerAllField
 
 class IndustryList(generics.ListCreateAPIView):
     queryset = Industry.objects.all()

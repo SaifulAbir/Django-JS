@@ -59,29 +59,8 @@
                                 </div>
                             </div>
                             <div class="job-filter-result">
-                                <div class="job-list display-none">
-                                    <div class="thumb">
-                                        <a href="#">
-                                            <img src="{% static 'images/job/company-logo-1.png' %}" class="img-fluid" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="body">
-                                        <div class="content">
-                                            <h4><a href="job-details.html">Designer Required</a></h4>
-                                            <div class="info">
-                                                <span class="company"><a href="#"><i data-feather="briefcase"></i>Theoreo</a></span>
-                                                <span class="office-location"><a href="#"><i data-feather="map-pin"></i>New York City</a></span>
-                                                <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>Full Time</a></span>
-                                            </div>
-                                        </div>
-                                        <div class="more">
-                                            <div class="buttons">
-                                                <a href="#" class="button" data-toggle="modal" data-target="#apply-popup-id">Apply Now</a>
-                                                <a href="#" class="favourite"><i data-feather="heart"></i></a>
-                                            </div>
-                                            <p class="deadline">Deadline: Oct 31,  2019</p>
-                                        </div>
-                                    </div>
+                                <div class="job-result">
+
                                 </div>
                                 <div class="apply-popup">
                                     <div class="modal fade" id="apply-popup-id" tabindex="-1" role="dialog" aria-hidden="true">
@@ -266,15 +245,45 @@
         </div>
     </div>
     <!-- Call to Action End -->
+    <div class="template display-none">
+        <div class="job-list">
+            <div class="thumb">
+                <a href="#">
+                    <img src="{% static 'images/job/company-logo-1.png' %}" class="img-fluid" alt="images">
+                </a>
+            </div>
+            <div class="body">
+                <div class="content">
+                    <h4><a href="/job/" class="__job_id dynamic-link"><span class="__title "></span></a></h4>
+                    <div class="info">
+                        <span class="company"><a href="#" ><i data-feather="briefcase"></i><span class="__company_name"></span></a></span>
+                        <span class="office-location"><a href="#"><i data-feather="map-pin"></i><span class="__job_location"></span></a></span>
+                        <span class="job-type full-time"><a href="#"><i data-feather="clock"></i><span class="__employment_status"></span></a></span>
+                    </div>
+                </div>
+                <div class="more">
+                    <div class="buttons">
+                        <a href="/edit/" class="button __job_id dynamic-link">Edit</a>
+                        <a href="#" class="favourite"><i data-feather="heart"></i></a>
+                    </div>
+                    <p class="deadline">Deadline: <span class="__application_deadline"></span></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 {% endblock %}
 {% block extra_js %}
     <script>
         $(document).ready(function () {
             get('/api/job_list/',callback);
-            var template = $('.job-list.display-none').html();
+            var template = $('.template').html();
+
             function callback(data){
-                makeListHtml(data, template);
+                var list = makeListHtml(data, template);
+
+                $('.job-result').html(list);
             }
         })
     </script>

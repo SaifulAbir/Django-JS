@@ -142,14 +142,22 @@ function populateSelect(select, url){
 }
 
 function makeListHtml(data, template){
-	var html = "";
-	console.log()
+	var wrapper = $("<div>");
 	for (i=0; i < data.length; i++){
 		var templateEl = $(template);
 		for( k in data[i]){
-			templateEl.find(".__" + k).text(data[i][k]);
+			var el = templateEl.find(".__" + k);
+			el.each(function (_, item) {
+                if($(item).hasClass("dynamic-link")){
+                    var href = $(item).attr("href") + data[i][k];
+                    $(item).attr("href", href);
+                } else {
+                    $(item).html(data[i][k]);
+                }
+			});
+
 		}
-		html+= templateEl.html()
+		wrapper.append(templateEl)
 	}
-	return html;
+	return wrapper.html();
 }
