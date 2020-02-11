@@ -1,8 +1,11 @@
 from rest_framework.decorators import api_view
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import UpdateModelMixin
 from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from .models import Company, Job,Industry,JobType,Experience,Qualification,Gender
-from .serializers import CompanySerializer, IndustrySerializer,JobTypeSerializer,QualificationSerializer,ExperienceSerializer,GenderSerializer
+from .serializers import CompanySerializer, IndustrySerializer, JobTypeSerializer, QualificationSerializer, \
+    ExperienceSerializer, GenderSerializer, JobSerializer
 from rest_framework.response import Response
 from rest_framework import generics
 
@@ -57,4 +60,10 @@ def job_create(request):
     job_obj.save()
     return Response(HTTP_200_OK)
 
+class JobUpdateView(GenericAPIView, UpdateModelMixin):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 

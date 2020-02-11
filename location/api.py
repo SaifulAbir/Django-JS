@@ -45,8 +45,8 @@ class DivisionListCreate(generics.ListCreateAPIView):
 #
 #     def put(self, request, *args, **kwargs):
 #         return self.update(request, *args, **kwargs)
-#
-#
+
+
 class DistrictPopulate(generics.ListAPIView):
     serializer_class = DistrictPopulateSerializer
 

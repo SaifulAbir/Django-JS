@@ -9,6 +9,7 @@ urlpatterns = [
     path('experience/', ExperienceList.as_view()),
     path('qualification/', QualificationList.as_view()),
     path('gender/', GenderList.as_view()),
+    path('job_update/<str:pk>/', JobUpdateView.as_view()),
     # path('add', TemplateView.as_view(template_name='company-create.html')),
     # path('list', TemplateView.as_view(template_name='company-list.html')),
     # path('update', TemplateView.as_view(template_name='company-update.html')),
