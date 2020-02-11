@@ -13,6 +13,10 @@ class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
 
+class JobList(generics.ListAPIView):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
+
 class IndustryList(generics.ListCreateAPIView):
     queryset = Industry.objects.all()
     serializer_class = IndustrySerializer

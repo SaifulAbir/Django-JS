@@ -143,6 +143,7 @@ function populateSelect(select, url){
 
 function makeListHtml(data, template){
 	var html = "";
+	console.log()
 	for (i=0; i < data.length; i++){
 		var templateEl = $(template);
 		for( k in data[i]){
