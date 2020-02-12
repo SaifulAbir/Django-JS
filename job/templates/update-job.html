@@ -36,7 +36,7 @@
                 <div class="col">
                     <div class="post-container">
                         <div class="post-content-wrapper">
-                            <form action="" id="job-update-form" class="job-post-form ajax" method="PUT" >
+                            <form action="" id="job-update-form" class="job-post-form ajax" data-callback="redirectPage" method="PUT" >
                                 <div class="basic-info-input">
                                     <h4><i data-feather="plus-circle"></i>Post A Job</h4>
                                     <div id="job-title" class="form-group row">
@@ -273,6 +273,10 @@
             if(data.length==1){
                 json2Form(data[0], id);
             }
+
+        }
+        function redirectPage() {
+            window.location.href = "/job-list";
 
         }
     </script>

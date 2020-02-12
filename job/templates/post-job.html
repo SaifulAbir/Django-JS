@@ -36,7 +36,7 @@
                 <div class="col">
                     <div class="post-container">
                         <div class="post-content-wrapper">
-                            <form action="/api/job_create/" id="job-post-form" class="job-post-form ajax" method="POST" >
+                            <form action="/api/job_create/" id="job-post-form" class="job-post-form ajax" method="POST" data-callback = "redirectPage" >
                                 <div class="basic-info-input">
                                     <h4><i data-feather="plus-circle"></i>Post A Job</h4>
                                     <div id="job-title" class="form-group row">
@@ -258,5 +258,8 @@
             initAjaxSelects();
             initAjaxForms();
         });
+        function redirectPage() {
+            window.location.href = "/job-list";
+        }
     </script>
 {% endblock %}
