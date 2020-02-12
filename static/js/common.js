@@ -114,7 +114,7 @@ function initAjaxSelects(container){
         if (parentSelector){
             var parent = $(parentSelector);
             parent.on("change", function(){
-                var prev_url = url
+                var prev_url = url;
                 var final_url = prev_url+ "/" + parent.val();
                 populateSelect(select, final_url);
             });
