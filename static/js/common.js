@@ -110,7 +110,7 @@ function json2Div(data, container){
         // var el = $("#" + id).find("[name='"+ key +"']");
         var el = $(container).find("[id='" + key + "']");
         console.log(el)
-        el.text(data[key]);
+        el.html(data[key]);
     }
 }
 
