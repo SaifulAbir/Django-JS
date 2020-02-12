@@ -2,7 +2,7 @@
 {% load static %}
 {% block body_block %}
 <!-- Candidates Details -->
-<div class="alice-bg padding-top-60 section-padding-bottom">
+<div class="alice-bg padding-top-60 section-padding-bottom job-detail">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -13,7 +13,7 @@
                                 <img src="{% static 'images/job/company-logo-1.png' %}" class="img-fluid" alt="">
                             </div>
                             <div class="title-body">
-                                <h4>Designer Required</h4>
+                                <h4 id="title">Designer Required</h4>
                                 <div class="info">
                                     <span class="company"><a href="#"><i data-feather="briefcase"></i>Theoreo</a></span>
                                     <span class="office-location"><a href="#"><i data-feather="map-pin"></i>New York City</a></span>
@@ -332,4 +332,26 @@
 </div>
 <!-- Call to Action End -->
 
+{% endblock %}
+{% block extra_js %}
+    <script>
+        $(document).ready(function() {
+            var path = window.location.pathname.split('/')
+            var id = path[path.length-2]
+            var getUrl = '/api/load_job/'+ id + '/'
+            get(getUrl, loadJob);
+
+        });
+        function  loadJob(data){
+            container = $('.job-detail');
+            if(data.length==1){
+                json2Div(data[0], container);
+            }
+
+        }
+        function redirectPage() {
+            window.location.href = "/job-list";
+
+        }
+    </script>
 {% endblock %}

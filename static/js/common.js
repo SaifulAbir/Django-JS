@@ -105,6 +105,15 @@ function json2Form(data, id){
     }
 }
 
+function json2Div(data, container){
+    for(key in data) {
+        // var el = $("#" + id).find("[name='"+ key +"']");
+        var el = $(container).find("[id='" + key + "']");
+        console.log(el)
+        el.text(data[key]);
+    }
+}
+
 function initAjaxSelects(container){
     if(!container) container = "body";
     $(container).find('select[data-src]').each(function() {

@@ -260,7 +260,6 @@
             var id = path[path.length-2]
             var getUrl = '/api/load_job/'+ id + '/'
             get(getUrl, loadJob);
-
             var postUrl = '/api/job_update/'+ id + '/';
             $('form.ajax').attr('action',postUrl)
 
