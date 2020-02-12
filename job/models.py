@@ -110,10 +110,11 @@ class Job(models.Model):
     district = models.ForeignKey(District,on_delete=models.PROTECT, blank=True, null = True, db_column='district')
     zipcode = models.CharField(max_length=255, blank=True, null = True)
     company_location = models.CharField(max_length=255, blank=True, null = True)
+    company_profile = models.CharField(max_length=255, blank=True, null = True)
     latitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
-    created_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateField(default=timezone.now)
 
 
     class Meta:

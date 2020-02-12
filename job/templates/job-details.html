@@ -1,6 +1,7 @@
 {% extends 'common_layout.html' %}
 {% load static %}
 {% block body_block %}
+    {% autoescape off %}
 <!-- Candidates Details -->
 <div class="alice-bg padding-top-60 section-padding-bottom job-detail">
     <div class="container">
@@ -13,11 +14,11 @@
                                 <img src="{% static 'images/job/company-logo-1.png' %}" class="img-fluid" alt="">
                             </div>
                             <div class="title-body">
-                                <h4 id="title">Designer Required</h4>
+                                <h4 id="title"></h4>
                                 <div class="info">
-                                    <span class="company"><a href="#"><i data-feather="briefcase"></i>Theoreo</a></span>
-                                    <span class="office-location"><a href="#"><i data-feather="map-pin"></i>New York City</a></span>
-                                    <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>Full Time</a></span>
+                                    <span class="company"><a href="#"><i data-feather="briefcase"></i><span id="company_name"></span></a></span>
+                                    <span class="office-location"><a href="#"><i data-feather="map-pin"></i><span id="company_location"></span></a></span>
+                                    <span class="job-type full-time"><a href="#"><i data-feather="clock"></i><span id="employment_status"></span></a></span>
                                 </div>
                             </div>
                         </div>
@@ -31,38 +32,23 @@
                             <div class="col-xl-7 col-lg-8">
                                 <div class="description details-section">
                                     <h4><i data-feather="align-left"></i>Job Description</h4>
-                                    <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including.</p>
-                                    <p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable </p>
+                                    <span id="descriptions">
+                                    </span>
                                 </div>
                                 <div class="responsibilities details-section">
                                     <h4><i data-feather="zap"></i>Responsibilities</h4>
-                                    <ul>
-                                        <li>The applicants should have experience in the following areas</li>
-                                        <li>Skills on M.S Word, Excel, and Integrated Accounting package i.e. Software</li>
-                                        <li>Have sound knowledge of commercial activities.</li>
-                                        <li>Should have vast knowledge in IAS/ IFRS, Company Act, Income Tax, VAT.</li>
-                                        <li>Good verbal and written communication skills.</li>
-                                        <li>Leadership, analytical, and problem-solving abilities.</li>
-                                    </ul>
+                                    <span id="responsibilities">
+                                    </span>
                                 </div>
                                 <div class="edication-and-experience details-section">
                                     <h4><i data-feather="book"></i>Education + Experience</h4>
-                                    <ul>
-                                        <li>M.Com (Accounting) / M.B.S / M.B.A under National University with CA course complete.</li>
-                                        <li>M.S (Statistics) any Public University / National University.</li>
-                                        <li>Masters of library science any Public University.</li>
-                                        <li>2 to 3 year(s) Experiance</li>
-                                        <li>Females candidate are discourage to apply.</li>
-                                    </ul>
+                                    <span id="education">
+                                    </span>
                                 </div>
                                 <div class="other-benifit details-section">
                                     <h4><i data-feather="gift"></i>Other Benefits</h4>
-                                    <ul>
-                                        <li>Health and life insurance </li>
-                                        <li>2 days of weekend </li>
-                                        <li>2 annual performanc Bonuses</li>
-                                        <li>Lunch &amp; Snacks</li>
-                                    </ul>
+                                    <span id="other_benefits">
+                                    </span>
                                 </div>
                                 <div class="job-apply-buttons">
                                     <a href="#" class="apply"  data-toggle="modal" data-target="#apply-popup-id">Apply Online</a>
@@ -74,14 +60,14 @@
                                     <div class="job-summary">
                                         <h4>Job Summary</h4>
                                         <ul>
-                                            <li><span>Published on:</span> Oct 6,  2019</li>
+                                            <li><span>Published on:</span> <span id="created_date"></span></li>
                                             <li><span>Vacancy:</span> 08</li>
-                                            <li><span>Employment Status:</span> Full-time</li>
-                                            <li><span>Experience:</span> 2 to 3 year(s)</li>
-                                            <li><span>Job Location:</span> New ork City</li>
-                                            <li><span>Salary:</span> $32k - $36k</li>
-                                            <li><span>Gender:</span> Any</li>
-                                            <li><span>Application Deadline:</span> Oct 15,  2019</li>
+                                            <li><span>Employment Status:</span> <span id="employment_status"></span></li>
+                                            <li><span>Experience:</span> <span id="experience"></span></li>
+                                            <li><span>Job Location:</span> <span id="job_location"></span></li>
+                                            <li><span>Salary:</span> $<span id="salary_min"></span>- $<span id="salary_max"></span></li>
+                                            <li><span>Gender:</span> <span id="gender"></span></li>
+                                            <li><span>Application Deadline:</span> <span id="application_deadline"></span></li>
                                         </ul>
                                     </div>
                                     <div class="share-job-post">
@@ -113,9 +99,9 @@
                             <div class="company-information details-section">
                                 <h4><i data-feather="briefcase"></i>About the Company</h4>
                                 <ul>
-                                    <li><span>Company Name:</span> The Oreo Company Ltd.</li>
-                                    <li><span>Address:</span> Queens, NY 11375 USA</li>
-                                    <li><span>Website:</span> <a href="#">www.theoreoltd.com</a></li>
+                                    <li><span>Company Name:</span> <span id="company_name"></span></li>
+                                    <li><span>Address:</span> <span id="company_location"></span></li>
+                                    <li><span>Website:</span> <a id="web_address" href="#"></a></li>
                                     <li><span>Company Profile:</span></li>
                                     <li>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum looked up one of the more obscure Latin words, consectetur.</li>
                                 </ul>
@@ -331,7 +317,7 @@
     </div>
 </div>
 <!-- Call to Action End -->
-
+{% endautoescape %}
 {% endblock %}
 {% block extra_js %}
     <script>
