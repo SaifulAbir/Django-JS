@@ -1,5 +1,5 @@
 import uuid
-
+import datetime
 from django.db import models
 from django.utils import timezone
 from rest_framework.utils import json
@@ -114,7 +114,7 @@ class Job(models.Model):
     latitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
-    created_date = models.DateField(default=timezone.now)
+    created_date = models.DateField(default=datetime.date.today)
 
 
     class Meta:
