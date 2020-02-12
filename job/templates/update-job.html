@@ -258,7 +258,7 @@
             initAjaxSelects();
             var path = window.location.pathname.split('/')
             var id = path[path.length-2]
-            var getUrl = '/api/job-update/'+ id + '/'
+            var getUrl = '/api/load_job/'+ id + '/'
             get(getUrl, loadJob);
 
             var postUrl = '/api/job_update/'+ id + '/';

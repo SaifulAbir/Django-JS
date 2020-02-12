@@ -13,7 +13,7 @@ urlpatterns = [
     path('qualification/', QualificationList.as_view()),
     path('gender/', GenderList.as_view()),
     path('job_update/<str:pk>/', JobUpdateView.as_view()),
-    path('job-update/<str:pk>/', JobObject.as_view()),
+    path('load_job/<str:pk>/', JobObject.as_view()),
     # path('add', TemplateView.as_view(template_name='company-create.html')),
     # path('list', TemplateView.as_view(template_name='company-list.html')),
     # path('update', TemplateView.as_view(template_name='company-update.html')),
