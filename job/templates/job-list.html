@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                                 <div class="showing-number">
-                                    <span>Showing 1–12 of 28 Jobs</span>
+                                    <span class="pagination-summary display-none"></span>
                                 </div>
                             </div>
                             <div class="job-filter-result">
@@ -281,8 +281,17 @@
             var template = $('.template').html();
 
             function callback(data){
-                var list = makeListHtml(data, template);
+                var totalNumberOfData = data.count;
+                console.log(data);
+                console.log(typeof(data.previous));
 
+                if (data.previous == null && totalNumberOfData > 0){
+                    var numberOfDataInSinglePage = data.results.length;
+                    var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
+                    $('.pagination-summary').show().html(paginationSummary);
+                }
+
+                var list = makeListHtml(data.results, template);
                 $('.job-result').html(list);
             }
         })

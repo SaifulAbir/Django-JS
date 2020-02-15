@@ -1,11 +1,18 @@
 from rest_framework import serializers
 from .models import Company,Job,Industry,JobType,Experience,Qualification,Gender
+from rest_framework.validators import *
 
 
 class CompanySerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=255, label='company_name')
+    contact_no = serializers.CharField(required=True, max_length=11)
+    email = serializers.CharField(max_length=30, validators=[UniqueValidator(queryset=Company.objects.all())])
+
     class Meta:
         model = Company
-        fields = ['name']
+        fields = '__all__'
+        extra_kwargs = {'client': {'required': False}}
+
 
 class IndustrySerializer(serializers.ModelSerializer):
     class Meta:
