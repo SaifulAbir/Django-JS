@@ -105,16 +105,7 @@
                                 </div>
                             </div>
                             <div class="pagination-list text-center">
-                                <nav class="navigation pagination">
-                                    <div class="nav-links">
-                                        <a class="prev page-numbers" href="#"><i class="fas fa-angle-left"></i></a>
-                                        <a class="page-numbers" href="#">1</a>
-                                        <span aria-current="page" class="page-numbers current">2</span>
-                                        <a class="page-numbers" href="#">3</a>
-                                        <a class="page-numbers" href="#">4</a>
-                                        <a class="next page-numbers" href="#"><i class="fas fa-angle-right"></i></a>
-                                    </div>
-                                </nav>
+                                {#                                comes from js#}
                             </div>
                         </div>
                         <div class="job-filter-wrapper">
@@ -277,14 +268,13 @@
 {% block extra_js %}
     <script>
         $(document).ready(function () {
-            get('/api/job_list/',callback);
+
+            var pageSize = 3;
+            get('/api/job_list/?page=1&page_size='+pageSize,callback);
             var template = $('.template').html();
 
             function callback(data){
                 var totalNumberOfData = data.count;
-                console.log(data);
-                console.log(typeof(data.previous));
-
                 if (data.previous == null && totalNumberOfData > 0){
                     var numberOfDataInSinglePage = data.results.length;
                     var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
@@ -293,7 +283,19 @@
 
                 var list = makeListHtml(data.results, template);
                 $('.job-result').html(list);
+                var url = '/job_list';
+
+                makePagination(totalNumberOfData, pageSize, url);
             }
+
+            $("body").delegate(".page-numbers", "click", function(){
+                $('.page-numbers').removeClass('current');
+                $(this).addClass('current');
+                var pageNumber = parseInt($(this).html());
+                get('/api/job_list/?page='+ pageNumber +'&page_size='+pageSize,callback);
+
+            });
+
         })
     </script>
 {% endblock %}

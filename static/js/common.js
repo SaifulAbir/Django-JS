@@ -170,3 +170,23 @@ function makeListHtml(data, template){
 	}
 	return wrapper.html();
 }
+
+function makePagination(totalRecord, pageSize, url){
+    var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><a class="prev page-numbers" href="#"><i class="fas fa-angle-left"></i></a>';
+
+    var numberOfPaginationIndex = totalRecord/pageSize;
+    var numberOfPaginationIndex = Math.ceil(numberOfPaginationIndex);
+
+    var paginationIndexString = '';
+    for (var i=1; i <= numberOfPaginationIndex; i++){
+        var str ="<a class='page-numbers' href='javascript:void(0);' data-pazesize='"+ pageSize +"' data-url='"+ url +"/?page=" + i + "&page_size="+ pageSize +"'>"+i+"</a>";
+        paginationIndexString += str;
+    }
+
+    var a = '<a class="page-numbers" href="#">1</a><a class="page-numbers" href="#">3</a>' +
+    ' <a class="page-numbers" href="#">4</a>';
+
+    var paginationStringEnd = '<a class="next page-numbers" href="#"><i class="fas fa-angle-right"></i></a></div></nav>';
+    var paginationString = paginationStringStart + paginationIndexString + paginationStringEnd;
+    $('.pagination-list').html(paginationString);
+}
