@@ -11,11 +11,16 @@ from resources import strings_job
 #Company Model
 class Company(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
+    company_name_bdjobs = models.CharField(max_length=255, blank=True, null=True)
+    company_name_facebook = models.CharField(max_length=255, blank=True, null=True)
+    company_name_google = models.CharField(max_length=255, blank=True, null=True)
     basis_membership_no = models.CharField(max_length=50, blank=True, null=True)
     year_of_eastablishment = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=500, blank=True, null=True)
     post_code = models.PositiveSmallIntegerField(null=True, blank=True)
-    contact_no = models.CharField(max_length=50)
+    company_contact_no_one = models.CharField(max_length=50, blank=True, null=True)
+    company_contact_no_two = models.CharField(max_length=50, blank=True, null=True)
+    company_contact_no_three = models.CharField(max_length=50, blank=True, null=True)
     email = models.CharField(max_length=50, null=True, blank=True)
     web_address = models.CharField(max_length=255, blank=True, null=True)
     organization_head = models.CharField(max_length=60, blank=True, null=True)
@@ -29,7 +34,7 @@ class Company(models.Model):
     contact_person = models.CharField(max_length=50, blank=True, null=True)
     contact_person_designation = models.CharField(max_length=50, blank=True, null=True) ## need to recheck (foreign key)
     contact_person_mobile_no = models.CharField(max_length=20, blank=True, null=True)
-    contact_email = models.CharField(max_length=30, blank=True, null=True)
+    contact_person_email = models.CharField(max_length=30, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:

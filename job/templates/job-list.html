@@ -269,32 +269,51 @@
     <script>
         $(document).ready(function () {
 
-            var pageSize = 3;
-            get('/api/job_list/?page=1&page_size='+pageSize,callback);
+            var pageSize = 2;
+            get('/api/job_list/?page=1&page_size='+pageSize,fetchDatacallback);
             var template = $('.template').html();
 
-            function callback(data){
+            function fetchDatacallback(data){
                 var totalNumberOfData = data.count;
                 if (data.previous == null && totalNumberOfData > 0){
                     var numberOfDataInSinglePage = data.results.length;
                     var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
                     $('.pagination-summary').show().html(paginationSummary);
                 }
-
                 var list = makeListHtml(data.results, template);
                 $('.job-result').html(list);
                 var url = '/job_list';
 
                 makePagination(totalNumberOfData, pageSize, url);
+                $(".page-numbers:nth-child(2)").addClass('current');
+
+
             }
 
             $("body").delegate(".page-numbers", "click", function(){
                 $('.page-numbers').removeClass('current');
                 $(this).addClass('current');
-                var pageNumber = parseInt($(this).html());
-                get('/api/job_list/?page='+ pageNumber +'&page_size='+pageSize,callback);
+                var paginationIndex = $(this).data('value');
+                if (paginationIndex=='prev'){
+
+                }else if(paginationIndex==next){
+
+                }
+                get('/api/job_list/?page='+ paginationIndex +'&page_size='+pageSize,fetchPaginationDatacallback);
 
             });
+
+            function fetchPaginationDatacallback(data){
+                var totalNumberOfData = data.count;
+                if (data.previous == null && totalNumberOfData > 0){
+                    var numberOfDataInSinglePage = data.results.length;
+                    var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
+                    $('.pagination-summary').show().html(paginationSummary);
+                }
+                var list = makeListHtml(data.results, template);
+                $('.job-result').html(list);
+                var url = '/job_list';
+            }
 
         })
     </script>
