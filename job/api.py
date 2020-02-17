@@ -1,9 +1,12 @@
+from django.http import Http404
 from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.pagination import *
 from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
+from rest_framework.views import APIView
+
 from .models import Company, Job,Industry,JobType,Experience,Qualification,Gender
 from .serializers import *
 from rest_framework.response import Response
@@ -69,3 +72,22 @@ class JobUpdateView(GenericAPIView, UpdateModelMixin):
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
+# class CompanyPopulate(generics.ListAPIView):
+#     serializer_class = CompanyPopulateSerializer
+#
+#     def get_queryset(self):
+#         """
+#         Optionally restricts the returned purchases to a given user,
+#         by filtering against a `username` query parameter in the URL.
+#         """
+#         queryset = Company.objects.all()
+#         company = self.kwargs['company']
+#         print(company)
+#         if company is not None:
+#             queryset = queryset.filter(name=company)
+#             print(queryset)
+#         return queryset
+
+class CompanyPopulate(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Company.objects.all()
+    serializer_class = CompanyPopulateSerializer
