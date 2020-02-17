@@ -283,8 +283,8 @@
                 var list = makeListHtml(data.results, template);
                 $('.job-result').html(list);
                 var url = '/job_list';
-
-                makePagination(totalNumberOfData, pageSize, url);
+                var startingIndex=1;
+                makePagination(totalNumberOfData, pageSize, url, startingIndex);
                 $(".page-numbers:nth-child(2)").addClass('current');
 
 
@@ -296,14 +296,16 @@
                 var paginationIndex = $(this).data('value');
                 if (paginationIndex=='prev'){
 
-                }else if(paginationIndex==next){
+                }else if(paginationIndex=='next'){
 
                 }
                 get('/api/job_list/?page='+ paginationIndex +'&page_size='+pageSize,fetchPaginationDatacallback);
 
+
             });
 
             function fetchPaginationDatacallback(data){
+                var currentIndex=$('.page-numbers.current').data('value');
                 var totalNumberOfData = data.count;
                 if (data.previous == null && totalNumberOfData > 0){
                     var numberOfDataInSinglePage = data.results.length;
@@ -313,6 +315,10 @@
                 var list = makeListHtml(data.results, template);
                 $('.job-result').html(list);
                 var url = '/job_list';
+                makePagination(totalNumberOfData, pageSize, url, currentIndex);
+
+                $('.page-numbers[data-value=' + currentIndex + ']').addClass("current");
+
             }
 
         })
