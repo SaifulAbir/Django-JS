@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 # Create your models here.
+from job.models import Industry
 from resources import strings_pro
 
 # PROFESSIONAL MODEL
@@ -12,7 +13,7 @@ class Professional(models.Model):
     email = models.EmailField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=255, blank=True, null=True)
     address = models.CharField(max_length=255, null=True, blank=True)
-    industry_expertise = models.CharField(max_length=255, null=True, blank=True)
+    industry_expertise = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True)
     about_me = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     password = models.CharField(max_length=255, blank=True, null=True)
@@ -21,4 +22,5 @@ class Professional(models.Model):
         verbose_name = strings_pro.PROFESSIONAL_VERBOSE_NAME
         verbose_name_plural = strings_pro.PROFESSIONAL_VERBOSE_NAME_PLURAL
         db_table = 'professionals'
+
 # PROFESSIONAL MODEL
