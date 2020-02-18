@@ -171,19 +171,39 @@ function makeListHtml(data, template){
 	return wrapper.html();
 }
 
-function makePagination(totalRecord, pageSize, url){
-    var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><a class="prev page-numbers" data-value="prev" href="javascript:void(0);"><i class="fas fa-angle-left"></i></a>';
-
+function makePagination(totalRecord, pageSize, url, startingIndex){
+    var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><button disabled class="prev page-numbers cursor-pointer cursor-pointer" data-value="prev"><i class="fas fa-angle-left"></i></button>';
+    startingIndex = parseInt(startingIndex);
     var numberOfPaginationIndex = totalRecord/pageSize;
-    var numberOfPaginationIndex = Math.ceil(numberOfPaginationIndex);
-
+    numberOfPaginationIndex = Math.ceil(numberOfPaginationIndex);
+    var primaryNumberOfPaginationIndex = numberOfPaginationIndex;
     var paginationIndexString = '';
-    for (var i=1; i <= numberOfPaginationIndex; i++){
-        if (i==1 || i==numberOfPaginationIndex){
-            var str ="<a class='page-numbers' href='javascript:void(0);' data-pazesize='"+ pageSize +"' data-value='"+ i +"' data-url='"+ url +"/?page=" + i + "&page_size="+ pageSize +"'>"+i+"</a>";
+    if (numberOfPaginationIndex > 10){
+        numberOfPaginationIndex=10;
+    }
 
+    var paginationPadding = startingIndex-6
+    if (startingIndex<7){
+        startingIndex=1;
+    }else {
+        startingIndex=startingIndex-5;
+        numberOfPaginationIndex = numberOfPaginationIndex+paginationPadding;
+        if (numberOfPaginationIndex > primaryNumberOfPaginationIndex){
+            numberOfPaginationIndex = primaryNumberOfPaginationIndex;
+            //startingIndex = startingIndex-paginationPadding;
+            console.log('paginationPadding '+paginationPadding);
+            console.log('startingindex '+startingIndex);
+            var paddingStartingIndex =10-(primaryNumberOfPaginationIndex-startingIndex);
+            console.log(paddingStartingIndex);
+            startingIndex = startingIndex-paddingStartingIndex;
+        }
+    }
+
+    for (startingIndex; startingIndex <= numberOfPaginationIndex; startingIndex++){
+        if (startingIndex==1 || startingIndex==numberOfPaginationIndex){
+            var str ="<a class='page-numbers' href='javascript:void(0);' data-pazesize='"+ pageSize +"' data-value='"+ startingIndex +"' data-url='"+ url +"/?page=" + startingIndex + "&page_size="+ pageSize +"'>"+startingIndex+"</a>";
         }else {
-            var str ="<a class='page-numbers' href='javascript:void(0);' data-pazesize='"+ pageSize +"' data-value='"+ i +"' data-url='"+ url +"/?page=" + i + "&page_size="+ pageSize +"'>"+i+"</a>";
+            var str ="<a class='page-numbers' href='javascript:void(0);' data-pazesize='"+ pageSize +"' data-value='"+ startingIndex +"' data-url='"+ url +"/?page=" + startingIndex + "&page_size="+ pageSize +"'>"+startingIndex+"</a>";
         }
         paginationIndexString += str;
 
