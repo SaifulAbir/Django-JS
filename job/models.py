@@ -21,7 +21,7 @@ class Company(models.Model):
     company_contact_no_one = models.CharField(max_length=50, blank=True, null=True)
     company_contact_no_two = models.CharField(max_length=50, blank=True, null=True)
     company_contact_no_three = models.CharField(max_length=50, blank=True, null=True)
-    email = models.CharField(max_length=50, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
     web_address = models.CharField(max_length=255, blank=True, null=True)
     organization_head = models.CharField(max_length=60, blank=True, null=True)
     organization_head_designation =  models.CharField(max_length=30, null=True, blank=True)
@@ -34,7 +34,7 @@ class Company(models.Model):
     contact_person = models.CharField(max_length=50, blank=True, null=True)
     contact_person_designation = models.CharField(max_length=50, blank=True, null=True) ## need to recheck (foreign key)
     contact_person_mobile_no = models.CharField(max_length=20, blank=True, null=True)
-    contact_person_email = models.CharField(max_length=50, blank=True, null=True)
+    contact_person_email = models.CharField(max_length=100, blank=True, null=True)
     company_profile = models.CharField(max_length=255, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
