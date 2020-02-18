@@ -47,6 +47,9 @@ class Company(models.Model):
     def load_data(self, json_data):
         self.__dict__ = json_data
 
+    def __str__(self):
+        return self.name
+
 #Company Model
 
 
@@ -59,6 +62,9 @@ class Industry(models.Model):
         verbose_name = strings_job.INDUSTRY_VERBOSE_NAME
         verbose_name_plural = strings_job.INDUSTRY_VERBOSE_NAME_PLURAL
         db_table = 'industries'
+
+    def __str__(self):
+        return self.name
 #Industry Model
 
 
@@ -71,6 +77,9 @@ class JobType(models.Model):
         verbose_name = strings_job.JOB_TYPE_VERBOSE_NAME
         verbose_name_plural = strings_job.JOB_TYPE_VERBOSE_NAME_PLURAL
         db_table = 'job_types'
+
+    def __str__(self):
+        return self.name
 #JobType Model
 
 
@@ -83,6 +92,9 @@ class Qualification(models.Model):
         verbose_name = strings_job.QUALIFICATION_VERBOSE_NAME
         verbose_name_plural = strings_job.QUALIFICATION_VERBOSE_NAME_PLURAL
         db_table = 'qualifications'
+
+    def __str__(self):
+        return self.name
 #Qualification Model
 
 
@@ -95,6 +107,9 @@ class Experience(models.Model):
         verbose_name = strings_job.EXPERIENCE_VERBOSE_NAME
         verbose_name_plural = strings_job.EXPERIENCE_VERBOSE_NAME_PLURAL
         db_table = 'experiences'
+
+    def __str__(self):
+        return self.name
 #Experience Model
 
 #Gender Model
@@ -106,6 +121,9 @@ class Gender(models.Model):
         verbose_name = strings_job.GENDER_VERBOSE_NAME
         verbose_name_plural = strings_job.GENDER_VERBOSE_NAME_PLURAL
         db_table = 'genders'
+
+    def __str__(self):
+        return self.name
 #Gender Model
 
 
@@ -146,5 +164,8 @@ class Job(models.Model):
 
     def load_data(self, json_data):
         self.__dict__ = json_data
-#job Model
+
+    def __str__(self):
+        return self.title
+    #job Model
 

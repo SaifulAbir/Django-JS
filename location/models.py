@@ -11,6 +11,9 @@ class Division(models.Model):
         verbose_name_plural = strings_location.DIVISION_VERBOSE_NAME_PLURAL
         db_table = 'divisions'
 
+    def __str__(self):
+        return self.name
+
 class District(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
     division = models.ForeignKey(Division, related_name='district', on_delete=models.PROTECT, db_column='division')
@@ -19,3 +22,6 @@ class District(models.Model):
         verbose_name = strings_location.DISTRICT_VERBOSE_NAME
         verbose_name_plural = strings_location.DISTRICT_VERBOSE_NAME_PLURAL
         db_table = 'districts'
+
+    def __str__(self):
+        return self.name
