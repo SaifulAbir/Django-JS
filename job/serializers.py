@@ -5,7 +5,7 @@ from rest_framework.validators import *
 
 class CompanySerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=255, label='company_name')
-    contact_no = serializers.CharField(required=True, max_length=11)
+    # contact_no = serializers.CharField(required=True, max_length=11)
     email = serializers.CharField(max_length=30, validators=[UniqueValidator(queryset=Company.objects.all())])
 
     class Meta:
@@ -50,3 +50,8 @@ class JobSerializerAllField(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = '__all__'
+
+class CompanyPopulateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ['name', 'web_address', 'company_profile']
