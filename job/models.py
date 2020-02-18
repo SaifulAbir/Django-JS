@@ -34,7 +34,7 @@ class Company(models.Model):
     contact_person = models.CharField(max_length=50, blank=True, null=True)
     contact_person_designation = models.CharField(max_length=50, blank=True, null=True) ## need to recheck (foreign key)
     contact_person_mobile_no = models.CharField(max_length=20, blank=True, null=True)
-    contact_person_email = models.CharField(max_length=30, blank=True, null=True)
+    contact_person_email = models.CharField(max_length=50, blank=True, null=True)
     company_profile = models.CharField(max_length=255, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
