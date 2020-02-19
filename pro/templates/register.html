@@ -72,16 +72,16 @@
               <div class="form-header">
                 <h5><i data-feather="edit"></i>Register Account</h5>
               </div>
-{#              <div class="account-type">#}
-{#                <label for="idRegisterCan">#}
-{#                  <input id="idRegisterCan" type="radio" name="register">#}
-{#                  <span>Candidate</span>#}
-{#                </label>#}
-{#                <label for="idRegisterEmp">#}
-{#                  <input id="idRegisterEmp" type="radio" name="register">#}
-{#                  <span>Employer</span>#}
-{#                </label>#}
-{#              </div>#}
+              <div class="account-type display-none">
+                <label for="idRegisterCan">
+                  <input id="idRegisterCan" type="radio" name="register">
+                  <span>Candidate</span>
+                </label>
+                <label for="idRegisterEmp">
+                  <input id="idRegisterEmp" type="radio" name="register">
+                  <span>Employer</span>
+                </label>
+              </div>
               <form action="#">
                 <div class="form-group">
                   <input type="email" placeholder="Email Address" class="form-control" required>
@@ -99,18 +99,18 @@
                   <div class="mt-0 terms">
                     <input class="custom-radio" type="checkbox" id="radio-4" name="termsandcondition" checked>
                     <label for="radio-4">
-                      <span class="dot"></span> I accept the <a href="#">terms & conditions</a>
+                      <span class="dot"></span> I accept the <a href="/terms-and-condition">terms & conditions</a>
                     </label>
                   </div>
                 </div>
                 <button class="button primary-bg btn-block">Register</button>
               </form>
               <div class="shortcut-login">
-{#                <span>Or connect with</span>#}
-{#                <div class="buttons">#}
-{#                  <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Facebook</a>#}
-{#                  <a href="#" class="google"><i class="fab fa-google"></i>Google</a>#}
-{#                </div>#}
+                <span class="display-none">Or connect with</span>
+                <div class="buttons display-none">
+                  <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Facebook</a>
+                  <a href="#" class="google"><i class="fab fa-google"></i>Google</a>
+                </div>
                 <p>Already have an account? <a href="login.html">Login</a></p>
               </div>
             </div>
