@@ -72,12 +72,14 @@ function put(url, data, callback){
 function initAjaxForms() {
 	$("form.ajax:not(.ajax-linked)").on('submit', function(event) {
     	event.preventDefault();
-        var url = $(this).prop('action');
-        var formId = $(this).attr("id");
-        var data = form2Json(formId);
-        var method = $(this).attr('method');
-        var callback= $(this).data("callback");  // $(this).attr("data-callback");
-        send(url, method, data, callback);
+    	if ($(this).valid()){
+            var url = $(this).prop('action');
+            var formId = $(this).attr("id");
+            var data = form2Json(formId);
+            var method = $(this).attr('method');
+            var callback= $(this).data("callback");  // $(this).attr("data-callback");
+            send(url, method, data, callback);
+        }
 		return false;
 	}).addClass("ajax-linked");
 }
@@ -170,6 +172,15 @@ function makeListHtml(data, template){
 	}
 	return wrapper.html();
 }
+
+$.validator.addMethod(
+    "regex",
+    function(value, element, regexp) {
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    },
+    "Please check your input."
+);
 
 function makePagination(totalRecord, pageSize, url, startingIndex){
     var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><button disabled class="prev page-numbers cursor-pointer cursor-pointer" data-value="prev"><i class="fas fa-angle-left"></i></button>';
