@@ -21,7 +21,7 @@ class Company(models.Model):
     company_contact_no_one = models.CharField(max_length=50, blank=True, null=True)
     company_contact_no_two = models.CharField(max_length=50, blank=True, null=True)
     company_contact_no_three = models.CharField(max_length=50, blank=True, null=True)
-    email = models.CharField(max_length=50, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
     web_address = models.CharField(max_length=255, blank=True, null=True)
     organization_head = models.CharField(max_length=60, blank=True, null=True)
     organization_head_designation =  models.CharField(max_length=30, null=True, blank=True)
@@ -34,7 +34,8 @@ class Company(models.Model):
     contact_person = models.CharField(max_length=50, blank=True, null=True)
     contact_person_designation = models.CharField(max_length=50, blank=True, null=True) ## need to recheck (foreign key)
     contact_person_mobile_no = models.CharField(max_length=20, blank=True, null=True)
-    contact_person_email = models.CharField(max_length=30, blank=True, null=True)
+    contact_person_email = models.CharField(max_length=100, blank=True, null=True)
+    company_profile = models.CharField(max_length=255, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -45,6 +46,9 @@ class Company(models.Model):
 
     def load_data(self, json_data):
         self.__dict__ = json_data
+
+    def __str__(self):
+        return self.name
 
 #Company Model
 
@@ -58,6 +62,9 @@ class Industry(models.Model):
         verbose_name = strings_job.INDUSTRY_VERBOSE_NAME
         verbose_name_plural = strings_job.INDUSTRY_VERBOSE_NAME_PLURAL
         db_table = 'industries'
+
+    def __str__(self):
+        return self.name
 #Industry Model
 
 
@@ -70,6 +77,9 @@ class JobType(models.Model):
         verbose_name = strings_job.JOB_TYPE_VERBOSE_NAME
         verbose_name_plural = strings_job.JOB_TYPE_VERBOSE_NAME_PLURAL
         db_table = 'job_types'
+
+    def __str__(self):
+        return self.name
 #JobType Model
 
 
@@ -82,6 +92,9 @@ class Qualification(models.Model):
         verbose_name = strings_job.QUALIFICATION_VERBOSE_NAME
         verbose_name_plural = strings_job.QUALIFICATION_VERBOSE_NAME_PLURAL
         db_table = 'qualifications'
+
+    def __str__(self):
+        return self.name
 #Qualification Model
 
 
@@ -94,6 +107,9 @@ class Experience(models.Model):
         verbose_name = strings_job.EXPERIENCE_VERBOSE_NAME
         verbose_name_plural = strings_job.EXPERIENCE_VERBOSE_NAME_PLURAL
         db_table = 'experiences'
+
+    def __str__(self):
+        return self.name
 #Experience Model
 
 #Gender Model
@@ -105,6 +121,9 @@ class Gender(models.Model):
         verbose_name = strings_job.GENDER_VERBOSE_NAME
         verbose_name_plural = strings_job.GENDER_VERBOSE_NAME_PLURAL
         db_table = 'genders'
+
+    def __str__(self):
+        return self.name
 #Gender Model
 
 
@@ -145,5 +164,8 @@ class Job(models.Model):
 
     def load_data(self, json_data):
         self.__dict__ = json_data
-#job Model
+
+    def __str__(self):
+        return self.title
+    #job Model
 
