@@ -82,7 +82,7 @@
                   <span>Employer</span>
                 </label>
               </div>
-              <form action="#" id="sign-up" novalidate="novalidate">
+              <form action="#" id="sign-up" class="ajax" method="POST" novalidate="novalidate">
                 <div class="form-group">
                   <input type="email" name="email" placeholder="Email Address" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
                 </div>
@@ -147,6 +147,7 @@
     <script>
         $(document).ready(function() {
             $('#sign-up').validate();
+            initAjaxForms();
         });
     </script>
   </body>
