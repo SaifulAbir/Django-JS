@@ -81,6 +81,16 @@ class ProfessionalTest(TestCase):
         with self.assertRaises(ValidationError):
             professional.full_clean()
 
+    def test_when_password_contains_special_character_should_pass(self):
+        professional = Professional(full_name='Peter',
+                                    email='peter@any.com', phone='01626296800', address='Dhaka',
+                                    industry_expertise=self.industry, about_me='This is Peter',
+                                    password='asd#123$')
+        try:
+            professional.full_clean()
+        except:
+            self.fail()
+
     def test_when_password_length_less_than_8_should_raise_error(self):
         professional = Professional(full_name='Peter',
                                     email='peter@any.com', phone='01626296800', address='Dhaka',
