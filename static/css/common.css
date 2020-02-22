@@ -8,3 +8,9 @@
     color: #e0c7c7 !important;
     cursor: default
 }
+.signin-button {
+    background: transparent;
+    font-size: 1.3rem;
+    position: relative;
+    padding-left: 15px;
+}

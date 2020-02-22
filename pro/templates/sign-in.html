@@ -56,7 +56,7 @@
                         <a href="index.html"><img src="images/logo-2.png" alt=""></a>
                     </div>
                     <div class="top-nav">
-                        <a href="login.html" class="account-page-link">Login</a>
+                        <a href="/register" class="account-page-link">Register</a>
                     </div>
                 </div>
             </div>
@@ -65,50 +65,37 @@
 </header>
 
 <div class="padding-top-90 padding-bottom-90 access-page-bg">
-    <div class="container padding-top-100">
+    <div class="container">
         <div class="row">
             <div class="col-xl-4 col-md-6">
                 <div class="access-form">
                     <div class="form-header">
-                        <h5><i data-feather="edit"></i>Forget Password</h5>
+                        <h5><i data-feather="user"></i>Sign In</h5>
                     </div>
-                    <div class="account-type display-none">
-                        <label for="idRegisterCan">
-                            <input id="idRegisterCan" type="radio" name="register">
-                            <span>Candidate</span>
-                        </label>
-                        <label for="idRegisterEmp">
-                            <input id="idRegisterEmp" type="radio" name="register">
-                            <span>Employer</span>
-                        </label>
-                    </div>
-                    <form action="#" id="forget-password-form" novalidate="novalidate">
+                    <form action="#" id="sign-in" novalidate="novalidate">
                         <div class="form-group">
-                            <input type="email" placeholder="Email Address" class="form-control" required data-msg-required="Please enter a valid email">
+                            <input type="email" placeholder="Email Address" class="form-control" required>
                         </div>
-                        <div class="form-group display-none">
+                        <div class="form-group">
                             <input type="password" placeholder="Password" class="form-control" required>
                         </div>
-                        <div class="form-group display-none">
-                            <input type="password" placeholder="Confirm Password" class="form-control" required>
-                        </div>
-                        <div class="more-option terms display-none">
+                        <div class="more-option">
                             <div class="mt-0 terms">
-                                <input class="custom-radio" type="checkbox" id="radio-4" name="termsandcondition" checked>
+                                <input class="custom-radio" type="checkbox" id="radio-4" name="termsandcondition">
                                 <label for="radio-4">
-                                    <span class="dot"></span> I accept the <a href="/terms-and-condition">terms & conditions</a>
+                                    <span class="dot"></span> Remember Me
                                 </label>
                             </div>
+                            <a href="/forget-password">Forget Password?</a>
                         </div>
-                        <button class="button primary-bg btn-block">Send Email</button>
+                        <button class="button primary-bg btn-block">Sign In</button>
                     </form>
                     <div class="shortcut-login">
-                        <span class="display-none">Or connect with</span>
                         <div class="buttons display-none">
                             <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Facebook</a>
                             <a href="#" class="google"><i class="fab fa-google"></i>Google</a>
                         </div>
-                        <p>Already have an account? <a href="/sign-in">Login</a></p>
+                        <p>Don't have an account? <a href="/register">Register</a></p>
                     </div>
                 </div>
             </div>
@@ -134,6 +121,7 @@
 <script src="{% static '/assets/js/slick.min.js' %}"></script>
 <script src="{% static '/assets/js/jquery.ajaxchimp.min.js' %}"></script>
 <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+
 <script src="{% static 'js/custom.js' %}"></script>
 <script src="{% static '/assets/js/form2js.js' %}"></script>
 <script src="{% static 'js/common.js' %}"></script>
@@ -142,9 +130,8 @@
 <script src="{% static 'dashboard/js/upload-input.js' %}"></script>
 <script>
     $(document).ready(function() {
-        $("#forget-password-form").validate();
+        $('#sign-in').validate();
     });
 </script>
 </body>
-
 </html>
