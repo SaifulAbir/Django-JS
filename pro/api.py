@@ -64,7 +64,7 @@ def profile_create_with_user_create(request):
             profile_data['terms_and_condition_status']=1
         elif profile_data['terms_and_condition_status'] == 'off':
             profile_data['terms_and_condition_status'] = 0
-
+        del profile_data['confirm password']
         profile_obj = Professional(**profile_data)
         profile_obj.user_id=user.id
         profile_obj.save()
