@@ -20,7 +20,7 @@ class Professional(models.Model):
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     terms_and_condition_status = models.BooleanField(default=False)
     password = models.CharField(max_length=255, validators=[check_valid_password, MinLengthValidator(8)])
-    user_id = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name = strings_pro.PROFESSIONAL_VERBOSE_NAME

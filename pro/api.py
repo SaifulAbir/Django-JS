@@ -12,7 +12,6 @@ from pro.models import Professional
 def profile_create_with_user_create(request):
     profile_data = json.loads(request.body)
     data = {}
-    print(profile_data)
     if 'email' not in profile_data:
         data = {
             'status': 'failed',
@@ -60,24 +59,25 @@ def profile_create_with_user_create(request):
     elif profile_data['email'] and profile_data['password']:
         hash_password = make_password(profile_data['password'])
         user = User(email=profile_data['email'], password=hash_password, username=profile_data['email'], is_active=0)
-        if user.save() :
-            if profile_data['terms_and_condition_status'] == 'on':
-                profile_data['terms_and_condition_status']=1
-            else:
-                profile_data['terms_and_condition_status'] = 0
+        user.save()
+        if profile_data['terms_and_condition_status'] == 'on':
+            profile_data['terms_and_condition_status']=1
+        elif profile_data['terms_and_condition_status'] == 'off':
+            profile_data['terms_and_condition_status'] = 0
 
-            profile_obj = Professional(**profile_data)
-            profile_obj.save()
-            data = {
-                'status': 'success',
-                'code': HTTP_200_OK,
-                "message": 'ok',
-                "result": {
-                    "user": {
-                        "email": profile_data['password'],
-                    }
+        profile_obj = Professional(**profile_data)
+        profile_obj.user_id=user.id
+        profile_obj.save()
+        data = {
+            'status': 'success',
+            'code': HTTP_200_OK,
+            "message": 'ok',
+            "result": {
+                "user": {
+                    "email": profile_data['password'],
                 }
             }
+        }
     return Response(data)
 
 @api_view(["POST"])
