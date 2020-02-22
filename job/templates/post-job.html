@@ -36,13 +36,13 @@
                 <div class="col">
                     <div class="post-container">
                         <div class="post-content-wrapper">
-                            <form action="/api/job_create/" id="job-post-form" class="job-post-form ajax" method="POST" data-callback = "redirectPage" >
+                            <form action="/api/job_create/" id="job-post-form" class="job-post-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
                                 <div class="basic-info-input">
                                     <h4><i data-feather="plus-circle"></i>Post A Job</h4>
                                     <div id="job-title" class="form-group row">
                                         <label class="col-md-3 col-form-label">Job Title</label>
                                         <div class="col-md-9">
-                                            <input name="title" id="title" type="text" regex='[A-Z]' class="form-control" placeholder="Your job title here">
+                                            <input name="title" id="title" required type="text" regex='[A-Z]' class="form-control" minlength="5" maxlength="20" placeholder="Your job title here">
                                         </div>
                                     </div>
                                     <div id="job-summery" class="row">
@@ -77,12 +77,12 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input name="salary_min" id="salary_min" type="text" class="form-control" placeholder="Minimum Salary">
+                                                        <input min="5000" max="500000" name="salary_min" id="salary_min" type="text" class="form-control" placeholder="Minimum Salary">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input name="salary_max" id="salary_max" type="text" class="form-control" placeholder="Maximum Salary">
+                                                        <input min="5000" max="500000" name="salary_max" id="salary_max" type="text" class="form-control" placeholder="Maximum Salary">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -149,7 +149,7 @@
                                                         <i class="fa fa-caret-down"></i>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input name="zipcode" id="zipcode" type="text" class="form-control" placeholder="Zip Code">
+                                                        <input name="zipcode" id="zipcode" type="dij" class="form-control" placeholder="Zip Code">
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="text" name="company_location" id="company_location" class="form-control" placeholder="Company Location">
@@ -179,7 +179,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="text"  name="web_address" id="web_address" class="form-control" placeholder="Web Address">
+                                                        <input type="url"  name="web_address" id="web_address" class="form-control" placeholder="Web Address">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">

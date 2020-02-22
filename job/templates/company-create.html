@@ -51,7 +51,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="division_id" id="division" data-text="name" data-value="name" data-placeholder="Division" data-src="http://127.0.0.1:8000/api/division">
+                                                        <select class="form-control" required name="division_id" id="division" data-text="name" data-value="name" data-placeholder="Division" data-src="http://127.0.0.1:8000/api/division">
                                                         </select>
                                                         <i class="fa fa-caret-down"></i>
                                                     </div>
@@ -114,6 +114,7 @@
         $(document).ready(function() {
             initAjaxSelects();
             initAjaxForms();
+            $("#company-form").validate();
         });
     </script>
 {% endblock %}
