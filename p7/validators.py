@@ -30,11 +30,10 @@ class MinLengthValidator(BaseValidator):
             raise ValidationError(DEFAULT_MIN_LENGTH_ERROR.format(b))
 
 def check_valid_password(value):
-    regex = re.compile('[A-Za-z0-9]')
-    if not regex.search(value) == None:
+    # regex = re.compile('[A-Za-z0-9]')
+    if not re.findall("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$", value):
         raise ValidationError(DEFAULT_INVALID_PASSWORD_ERROR)
 
 def check_valid_phone_number(value):
-    regex = re.compile('[0-9]')
-    if not regex.search(value) == None:
+    if not re.findall('^\d{11}$', value):
         raise ValidationError(DEFAULT_INVALID_PHONE_NUMBER_ERROR)
