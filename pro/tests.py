@@ -3,11 +3,11 @@ from django.test import TestCase
 
 # Create your tests here.
 
-#PROFESSIONAL TESTS
+
 from job.models import Industry
 from pro.models import Professional
 
-
+#PROFESSIONAL TESTS
 class ProfessionalTest(TestCase):
 
     def setUp(self):
