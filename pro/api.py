@@ -59,7 +59,7 @@ def profile_create_with_user_create(request):
         }
     elif profile_data['email'] and profile_data['password']:
         hash_password = make_password(profile_data['password'])
-        user = User(email=profile_data['email'], password=hash_password, username=profile_data['email'])
+        user = User(email=profile_data['email'], password=hash_password, username=profile_data['email'], is_active=0)
         if user.save() :
             if profile_data['terms_and_condition_status'] == 'on':
                 profile_data['terms_and_condition_status']=1
