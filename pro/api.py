@@ -23,10 +23,10 @@ def profile_create(request):
 @api_view(["POST"])
 def login(request):
     login_data = json.loads(request.body)
-    if login_data["username"] is None or login_data["password"] is None:
+    if login_data["email"] is None or login_data["password"] is None:
         return Response({'error': LOGIN_CREDENTIAL_BLANK_ERROR},
                         status=HTTP_400_BAD_REQUEST)
-    user = authenticate(username=login_data["username"], password=login_data["password"])
+    user = authenticate(username=login_data["email"], password=login_data["password"])
     if not user:
         return Response({'error': LOGIN_CREDENTIAL_ERROR_MSG},
                         status=HTTP_404_NOT_FOUND)
