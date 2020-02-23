@@ -1,0 +1,7 @@
+http://localhost/api/professional/create_with_user/
+
+{
+"email":"test@gmail.com",
+"password":"123",
+"terms_and_condition_status":"1"
+}
