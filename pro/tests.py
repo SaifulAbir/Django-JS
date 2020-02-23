@@ -1,3 +1,6 @@
+from unittest.mock import MagicMock
+
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
@@ -5,6 +8,7 @@ from django.test import TestCase
 
 
 from job.models import Industry
+from pro import utils
 from pro.models import Professional
 
 #PROFESSIONAL TESTS
@@ -98,5 +102,17 @@ class ProfessionalTest(TestCase):
                                     password='123abcd')
         with self.assertRaises(ValidationError):
             professional.full_clean()
+
+# class LoginTest(TestCase):
+#     def setUp(self) :
+#         self.user= User()
+#         self.user.email = 'test@ishraak.com'
+#         self.user.username = 'test@ishraak.com'
+#         self.user.password = 'abcd123@'
+#
+#     def testCheckProfessionalLogin_whenInputRightEmailPassword_shouldLoginSuccessfully(self):
+#         email = 'test@ishraak.com'
+#         password = 'abcd123@'
+#         utils.checkValidEmailPassword = MagicMock(return_value=(email == self.user.username and password == self.user.password))
 
 
