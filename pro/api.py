@@ -6,6 +6,7 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.response import Response
 from pro.models import Professional
+from resources.strings_pro import *
 
 
 @api_view(["POST"])
@@ -16,7 +17,7 @@ def profile_create_with_user_create(request):
         data = {
             'status': 'failed',
             'code': 500,
-            "message": 'Email cannot be empty',
+            "message": EMAIL_BLANK_ERROR_MSG,
             "result": {
                 "user": {
 
@@ -27,7 +28,7 @@ def profile_create_with_user_create(request):
         data = {
             'status': 'failed',
             'code': 500,
-            "message": 'Password cannot be empty',
+            "message": PASSWORD_BLANK_ERROR_MSG,
             "result": {
                 "user": {
 
@@ -38,7 +39,7 @@ def profile_create_with_user_create(request):
         data = {
             'status': 'failed',
             'code': 500,
-            "message": 'Mobile number cannot be empty',
+            "message": MOBILE_BLANK_ERROR_MSG,
             "result": {
                 "user": {
 
@@ -49,7 +50,7 @@ def profile_create_with_user_create(request):
         data = {
             'status': 'failed',
             'code': 500,
-            "message": 'This email already exist!!',
+            "message": EMAIL_EXIST_ERROR_MSG,
             "result": {
                 "user": {
                     'email': profile_data['email']
