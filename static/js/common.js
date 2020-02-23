@@ -8,7 +8,6 @@ function get(url, callback) {
     });
 }
 
-
 function del(url, callback) {
     var csrf = getCsrfToken();
 	$.ajax({

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -104,10 +105,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 100,
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # 'PAGE_SIZE': 100,
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
     ]
 }
 
@@ -126,7 +127,7 @@ USE_TZ = True
 
 DATE_FORMAT = 'd-m-Y'
 DATE_INPUT_FORMATS = [
-'%d-%m-%Y',
+    '%d-%m-%Y',
 ]
 
 # Static files (CSS, JavaScript, Images)
@@ -139,3 +140,10 @@ STATICFILES_DIRS = [
 ]
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ishraak.office@gmail.com'
+EMAIL_HOST_PASSWORD = 'rashed016'
+EMAIL_USE_TLS = True
+SESSION_COOKIE_AGE = 6000
