@@ -82,7 +82,7 @@
                   <span>Employer</span>
                 </label>
               </div>
-              <form action="/api/professional/create_with_user/" id="sign-up" class="ajax" method="POST" novalidate="novalidate">
+              <form action="/api/professional/create_with_user/" id="sign-up" class="ajax" method="POST" novalidate="novalidate" data-callback="signUpCallback">
                 <div class="form-group">
                   <input type="email" name="email" placeholder="Email Address" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
                 </div>
@@ -93,7 +93,7 @@
                   <input type="password" minlength="8" id="password" regex='(?=.*?[0-9])(?=.*?[A-Za-z]).+' name="password" placeholder="Password" class="form-control" required data-msg-required="Password is required">
                 </div>
                 <div class="form-group">
-                  <input type="password" name="confirm password" placeholder="Confirm Password" class="form-control" required data-msg-required="Confirm Password is required" data-rule-equalto="#password" data-msg-equalto="Password and confirm password should be same!!">
+                  <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" required data-msg-required="Confirm Password is required" data-rule-equalto="#password" data-msg-equalto="Password and confirm password should be same!!">
                 </div>
                 <div class="more-option terms">
                   <div class="mt-0 terms">
@@ -136,7 +136,7 @@
 <script src="{% static '/assets/js/tinymce.min.js' %}"></script>
 <script src="{% static '/assets/js/slick.min.js' %}"></script>
 <script src="{% static '/assets/js/jquery.ajaxchimp.min.js' %}"></script>
-
+<script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
 <script src="{% static '/assets/js/form2js.js' %}"></script>
 <script src="{% static 'js/jquery.validate.min.js' %}"></script>
@@ -149,6 +149,14 @@
             $('#sign-up').validate();
             initAjaxForms();
         });
+        function  signUpCallback(data){
+            if(data.responseJSON.code == 200){
+                showSuccess("Created!","Account Created Sucessfully")
+            }
+            else {
+                showError('Failed!','Email already exists!')
+            }
+        };
     </script>
   </body>
 </html>

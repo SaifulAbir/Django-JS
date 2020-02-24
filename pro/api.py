@@ -13,8 +13,6 @@ from resources.strings_pro import *
 @api_view(["POST"])
 def profile_create_with_user_create(request):
     profile_data = json.loads(request.body)
-    print(profile_data)
-    return False
     data = {}
     if 'email' not in profile_data:
         data = {
