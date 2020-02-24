@@ -92,18 +92,12 @@ function json2Form(data, id){
     for(key in data){
         // var el = $("#" + id).find("[name='"+ key +"']");
         var el = $("#" + id).find("[id='"+ key +"']");
-        console.log(el.data("parent"));
-        if(el.data("parent")){
-            var elChild = el;
-            var v = data[key];
+            let elChild = el;
+            let dataValue = data[key];
             setTimeout(function () {
-                elChild.val(v).change();
-            },3000);
-        }else{
-            el.val(data[key]).change();
+                elChild.val(dataValue).change();
+            },500);
         }
-
-    }
 }
 
 function json2Div(data, container){
