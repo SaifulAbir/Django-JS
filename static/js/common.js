@@ -130,7 +130,7 @@ function initAjaxSelects(container){
 
 function populateSelect(select, url){
     select.find('option').remove();
-    select.append('<option>' + select.attr('data-placeholder') + '</option>');
+    select.append('<option value="">' + select.attr('data-placeholder') + '</option>');
     $.ajax({
         url: url,
         success: function(options) {
