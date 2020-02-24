@@ -8,19 +8,18 @@ function get(url, callback) {
     });
 }
 
-
 function del(url, callback) {
     var csrf = getCsrfToken();
-	$.ajax({
-		url : url,
+    $.ajax({
+        url : url,
         beforeSend : function(xhr) {
             if(csrf) xhr.setRequestHeader(csrf.header, csrf.token);
         },
-		type : 'DELETE',
-		cache : false,
-		complete : callback
-	});
-	return false;
+        type : 'DELETE',
+        cache : false,
+        complete : callback
+    });
+    return false;
 }
 
 
@@ -70,9 +69,9 @@ function put(url, data, callback){
 
 
 function initAjaxForms() {
-	$("form.ajax:not(.ajax-linked)").on('submit', function(event) {
-    	event.preventDefault();
-    	if ($(this).valid()){
+    $("form.ajax:not(.ajax-linked)").on('submit', function(event) {
+        event.preventDefault();
+        if ($(this).valid()){
             var url = $(this).prop('action');
             var formId = $(this).attr("id");
             var data = form2Json(formId);
@@ -80,8 +79,8 @@ function initAjaxForms() {
             var callback= $(this).data("callback");  // $(this).attr("data-callback");
             send(url, method, data, callback);
         }
-		return false;
-	}).addClass("ajax-linked");
+        return false;
+    }).addClass("ajax-linked");
 }
 
 
@@ -153,24 +152,59 @@ function populateSelect(select, url){
 }
 
 function makeListHtml(data, template){
-	var wrapper = $("<div>");
-	for (i=0; i < data.length; i++){
-		var templateEl = $(template);
-		for( k in data[i]){
-			var el = templateEl.find(".__" + k);
-			el.each(function (_, item) {
+    var wrapper = $("<div>");
+    for (i=0; i < data.length; i++){
+        var templateEl = $(template);
+        for( k in data[i]){
+            var el = templateEl.find(".__" + k);
+            el.each(function (_, item) {
                 if($(item).hasClass("dynamic-link")){
                     var href = $(item).attr("href") + data[i][k];
                     $(item).attr("href", href);
                 } else {
                     $(item).html(data[i][k]);
                 }
-			});
+            });
 
-		}
-		wrapper.append(templateEl)
-	}
-	return wrapper.html();
+        }
+        wrapper.append(templateEl)
+    }
+    return wrapper.html();
+}
+
+function showSuccess(title, msg) {
+    Swal.fire({
+        icon: 'success',
+        title: title,
+        text: msg
+    })
+}
+
+function showError(title, msg) {
+    Swal.fire({
+        icon: 'error',
+        title: title,
+        text: msg
+    })
+}
+
+function showQuestion(title, msg, yesCallback, noCallback) {
+    Swal.fire({
+        title: title,
+        text: msg,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        console.log(result.value)
+        if (result.value && typeof (yesCallback) ==='function') {
+            yesCallback();
+        } else if(result.dismiss=='cancel' && typeof(noCallback) ==='function'){
+            noCallback();
+        }
+    })
 }
 
 // $.validator.addMethod(
@@ -221,7 +255,7 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
     }
 
     var a = '<a class="page-numbers" href="#">1</a><a class="page-numbers" href="#">3</a>' +
-    ' <a class="page-numbers" href="#">4</a>';
+        ' <a class="page-numbers" href="#">4</a>';
 
     var paginationStringEnd = '<a class="next page-numbers" data-value="next" href="javascript:void(0);"><i class="fas fa-angle-right"></i></a></div></nav>';
     var paginationString = paginationStringStart + paginationIndexString + paginationStringEnd;
