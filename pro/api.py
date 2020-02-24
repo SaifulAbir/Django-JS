@@ -70,7 +70,7 @@ def profile_create_with_user_create(request):
         profile_obj = Professional(**profile_data)
         profile_obj.user_id=user.id
         profile_obj.save()
-        #sendSignupEmail(profile_data['email'])
+        sendSignupEmail(profile_data['email'])
         data = {
             'status': 'success',
             'code': HTTP_200_OK,
