@@ -78,6 +78,7 @@ def profile_create_with_user_create(request):
             "result": {
                 "user": {
                     "email": profile_data['password'],
+                    "professional": profile_obj.id
                 }
             }
         }
@@ -90,3 +91,44 @@ def profile_create(request):
     profile_obj = Professional(**profile_data)
     profile_obj.save()
     return Response(HTTP_200_OK)
+
+
+@api_view(["POST"])
+def examinee_signup_email_verification(request):
+    received_json_data = json.loads(request.body)
+    code = received_json_data["code"]
+    email = received_json_data["email"]
+
+    try:
+        examinee=Examinee.objects.get(email=email, signup_verification_code=code)
+        examinee.signup_verification_code= ''
+        examinee.save()
+        status=HTTP_200_OK
+    except Examinee.DoesNotExist:
+        status=HTTP_404_NOT_FOUND
+
+    if status == HTTP_200_OK:
+        data = {
+            'status': messages_en.SUCCESS,
+            'code': HTTP_200_OK,
+            "message": messages_en.SIGNUP_EMAIL_VERIFICATION_SUCCESS_MESSAGE,
+            "result": {
+                "user": {
+                    "email": email,
+                    "examinee_id": examinee.id
+                }
+            }
+        }
+    else:
+        data = {
+            'status': messages_en.FAILED,
+            'code': HTTP_401_UNAUTHORIZED,
+            "message": messages_en.INVALID_VERIFICATION_CODE,
+            "result": {
+                "user": {
+                    "email": email
+                }
+            }
+        }
+
+    return Response(data)
