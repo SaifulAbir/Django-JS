@@ -2,7 +2,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
-from rest_framework.status import HTTP_200_OK
+from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 from rest_framework.utils import json
 from rest_framework.response import Response
 from pro.models import Professional
@@ -97,38 +97,25 @@ def profile_create(request):
 def examinee_signup_email_verification(request):
     received_json_data = json.loads(request.body)
     code = received_json_data["code"]
-    email = received_json_data["email"]
+    token = received_json_data["token"]
 
     try:
-        examinee=Examinee.objects.get(email=email, signup_verification_code=code)
-        examinee.signup_verification_code= ''
-        examinee.save()
+        professional=Professional.objects.get(id=token, signup_verification_code=code)
+        professional.signup_verification_code= ''
+        professional.save()
         status=HTTP_200_OK
-    except Examinee.DoesNotExist:
+    except Professional.DoesNotExist:
         status=HTTP_404_NOT_FOUND
 
     if status == HTTP_200_OK:
         data = {
-            'status': messages_en.SUCCESS,
+            'status': 'success',
             'code': HTTP_200_OK,
-            "message": messages_en.SIGNUP_EMAIL_VERIFICATION_SUCCESS_MESSAGE,
-            "result": {
-                "user": {
-                    "email": email,
-                    "examinee_id": examinee.id
-                }
-            }
         }
     else:
         data = {
-            'status': messages_en.FAILED,
+            'status': 'failed',
             'code': HTTP_401_UNAUTHORIZED,
-            "message": messages_en.INVALID_VERIFICATION_CODE,
-            "result": {
-                "user": {
-                    "email": email
-                }
-            }
         }
 
     return Response(data)
