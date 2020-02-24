@@ -103,6 +103,8 @@ def examinee_signup_email_verification(request):
         professional=Professional.objects.get(id=token, signup_verification_code=code)
         professional.signup_verification_code= ''
         professional.save()
+        user = User.objects.get(id=professional.user)
+        print(user)
         status=HTTP_200_OK
     except Professional.DoesNotExist:
         status=HTTP_404_NOT_FOUND
