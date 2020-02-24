@@ -151,7 +151,9 @@
         });
         function  signUpCallback(data){
             if(data.responseJSON.code == 200){
-                showSuccess("Created!","Account Created Sucessfully")
+                var id = data.responseJSON.result.user.professional;
+                showSuccess("Sign Up Successful!", "A verification code was sent to your email")
+                window.location.href = "/professional/sign-up-verification/"+ id ;
             }
             else {
                 showError('Failed!','Email already exists!')
