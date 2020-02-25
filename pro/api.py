@@ -188,7 +188,7 @@ class CustomPasswordTokenVerificationView(APIView):
 
 
 @api_view(["POST"])
-def examinee_signup_email_verification(request):
+def professional_signup_email_verification(request):
     received_json_data = json.loads(request.body)
     code = received_json_data["code"]
     token = received_json_data["token"]
