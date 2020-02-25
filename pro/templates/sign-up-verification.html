@@ -82,7 +82,7 @@
                             <span>Employer</span>
                         </label>
                     </div>
-                    <form action="/api/professional/signup-email-verification/" id="forget-password-form" novalidate="novalidate" class="ajax" method="post">
+                    <form action="/api/professional/signup-email-verification/" id="forget-password-form" novalidate="novalidate" class="ajax" method="post" data-callback="verificationCallback">
                         <div class="form-group ">
                             <input type="hidden" name='token' id="token">
                             <input type="digits" name="code" id="code" placeholder="Verification Code" class="form-control" required data-msg-required="Please enter a valid Code">
@@ -126,7 +126,17 @@
         var id = path[path.length-2]
         $('#token').val(id)
         initAjaxForms()
+
     });
+    function  verificationCallback(data){
+        if(data.responseJSON.code == 200){
+            showSuccess("Verification Complete!", "Your Account Is verified")
+
+        }
+        else {
+            showError('Verification Failed!','Enter a valid verification code!')
+        }
+    };
 </script>
 </body>
 
