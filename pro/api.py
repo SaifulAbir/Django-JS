@@ -7,7 +7,7 @@ from rest_framework import parsers, renderers, status
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
-from rest_framework.status import HTTP_200_OK
+from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 from rest_framework.utils import json
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -30,8 +30,6 @@ from resources.strings_pro import *
 @api_view(["POST"])
 def profile_create_with_user_create(request):
     profile_data = json.loads(request.body)
-    print(profile_data)
-    return False
     data = {}
     if 'email' not in profile_data:
         data = {
@@ -89,7 +87,7 @@ def profile_create_with_user_create(request):
         profile_obj = Professional(**profile_data)
         profile_obj.user_id=user.id
         profile_obj.save()
-        #sendSignupEmail(profile_data['email'])
+        sendSignupEmail(profile_data['email'])
         data = {
             'status': 'success',
             'code': HTTP_200_OK,
@@ -97,6 +95,7 @@ def profile_create_with_user_create(request):
             "result": {
                 "user": {
                     "email": profile_data['password'],
+                    "professional": profile_obj.id
                 }
             }
         }
@@ -186,3 +185,34 @@ class CustomPasswordTokenVerificationView(APIView):
             return Response({'status': 'irrelevant'})
 
         return Response({'status': 'OK'})
+
+
+@api_view(["POST"])
+def examinee_signup_email_verification(request):
+    received_json_data = json.loads(request.body)
+    code = received_json_data["code"]
+    token = received_json_data["token"]
+
+    try:
+        professional=Professional.objects.get(id=token, signup_verification_code=code)
+        professional.signup_verification_code= ''
+        professional.save()
+        user = User.objects.get(id=professional.user.id)
+        user.is_active = 'True'
+        user.save()
+        status=HTTP_200_OK
+    except Professional.DoesNotExist:
+        status=HTTP_404_NOT_FOUND
+
+    if status == HTTP_200_OK:
+        data = {
+            'status': 'success',
+            'code': HTTP_200_OK,
+        }
+    else:
+        data = {
+            'status': 'failed',
+            'code': HTTP_401_UNAUTHORIZED,
+        }
+
+    return Response(data)
