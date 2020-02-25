@@ -9,3 +9,8 @@ FAILED_TXT = 'failed'
 ON_TXT = 'on'
 OFF_TXT = 'off'
 # PROFESSIONAL_STRINGS
+
+# LOGIN_STRINGS
+LOGIN_CREDENTIAL_BLANK_ERROR = 'Please provide both username and password'
+LOGIN_CREDENTIAL_ERROR_MSG = 'Invalid Credentials'
+# LOGIN_STRINGS

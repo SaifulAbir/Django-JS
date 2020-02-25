@@ -36,7 +36,7 @@
                 <div class="col">
                     <div class="dashboard-container">
                         <div class="dashboard-content-wrapper">
-                            <form action="/api/professional/create/" id="profile-form" class="dashboard-form ajax" method="POST" enctype="multipart/form-data">
+                            <form action="" id="profile-form" class="dashboard-form ajax" method="PUT" data-callback = "profileUpdateCallback" enctype="multipart/form-data" novalidate="novalidate">
                                 <div class="dashboard-section upload-profile-photo">
                                     <div class="update-photo">
                                         <img class="image" src="{% static 'dashboard/images/user-1.jpg' %}" alt="">
@@ -50,61 +50,67 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Professional ID</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="professional_id" class="form-control" placeholder="Professional ID">
+                                            <input type="text" name="professional_id" id="professional_id" class="form-control" placeholder="Professional ID">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Full Name</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="full_name" class="form-control" placeholder="Full Name">
+                                            <input type="text" id="full_name" name="full_name" class="form-control" placeholder="Full Name" required data-msg-required="Name is required">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="form-group row display-none">
                                         <label class="col-sm-3 col-form-label">Username</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="username" class="form-control" placeholder="@username">
+                                            <input type="text" id="username" name="username" class="form-control" placeholder="@username">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Email Address</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="email" class="form-control" placeholder="email@example.com">
+                                            <input type="text" name="email" id="email" class="form-control" placeholder="email@example.com" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Phone</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="phone" class="form-control" placeholder="+55 123 4563 4643">
+                                            <input type="digits" maxlength="11" minlength="11" id="phone" name="phone" class="form-control" placeholder="01626296800" required data-msg-required="Phone is required">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Address</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="address" class="form-control" placeholder="Washington D.C">
+                                            <input type="text" id="address" name="address" class="form-control" placeholder="Washington D.C">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Industry Expertise</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" name="industry_expertise_id" id="industry" data-text="name" data-value="name" data-placeholder="Select Category" data-src="/api/industry">
+                                            <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name" data-placeholder="Select Category" required data-src="/api/industry">
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">About Me</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" name="about_me" placeholder="Introduce Yourself"></textarea>
+                                            <textarea class="form-control" id="about_me" name="about_me" placeholder="Introduce Yourself"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label"></label>
+                                        <div class="col-sm-9">
+                                            <button class="button">Save</button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="dashboard-section basic-info-input">
+                                <div class="dashboard-section basic-info-input display-none">
                                     <h4><i data-feather="lock"></i>Password</h4>
-{#                                    <div class="form-group row">#}
-{#                                        <label class="col-sm-3 col-form-label">Current Password</label>#}
-{#                                        <div class="col-sm-9">#}
-{#                                            <input type="password" class="form-control" placeholder="Current Password">#}
-{#                                        </div>#}
-{#                                    </div>#}
+                                    {#                                    <div class="form-group row">#}
+                                    {#                                        <label class="col-sm-3 col-form-label">Current Password</label>#}
+                                    {#                                        <div class="col-sm-9">#}
+                                    {#                                            <input type="password" class="form-control" placeholder="Current Password">#}
+                                    {#                                        </div>#}
+                                    {#                                    </div>#}
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Password</label>
                                         <div class="col-sm-9">
@@ -222,7 +228,28 @@
     <script>
         $(document).ready(function() {
             initAjaxSelects();
+            $('#profile-form').validate();
+            var path = window.location.pathname.split('/');
+            var id = path[path.length-2];
+            var getUrl = '/api/professional/profile/'+ id + '/';
+            get(getUrl, loadProfile);
+            var postUrl = '/api/professional/profile_update/'+ id + '/';
+            $('form.ajax').attr('action',postUrl);
             initAjaxForms();
         });
+        function  loadProfile(data){
+            console.log(data);
+            id = $('form.ajax').attr('id');
+            json2Form(data, id);
+
+        }
+        function  profileUpdateCallback(data){
+            if(data.status == 200){
+                showSuccess("Profile Done","Updated succesesfully!");
+            }
+            else {
+                showError('Profile Not Updated','Enter Valid Data');
+            }
+        };
     </script>
 {% endblock %}

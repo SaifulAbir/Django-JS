@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from datetime import timedelta
 
 from django.contrib.auth.hashers import make_password
@@ -5,13 +6,17 @@ from django.utils import timezone
 from django_rest_passwordreset.models import ResetPasswordToken
 from rest_framework import parsers, renderers, status
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 from rest_framework.utils import json
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_rest_passwordreset.views import get_password_reset_token_expiry_time
+
+from rest_framework.views import APIView
 
 from pro.models import Professional
 from django.core.mail import EmailMultiAlternatives
@@ -23,6 +28,13 @@ from django_rest_passwordreset.signals import reset_password_token_created
 
 from pro.serializers import CustomTokenSerializer
 from pro.strings import site_url, site_shortcut_name
+from pro.serializers import ProfessionalSerializer
+from resources.strings_pro import *
+from rest_framework.status import (
+    HTTP_400_BAD_REQUEST,
+    HTTP_404_NOT_FOUND,
+    HTTP_200_OK
+)
 from pro.utils import sendSignupEmail
 from resources.strings_pro import *
 
@@ -108,6 +120,39 @@ def profile_create(request):
     profile_obj = Professional(**profile_data)
     profile_obj.save()
     return Response(HTTP_200_OK)
+
+@api_view(["POST"])
+def login(request):
+    login_data = json.loads(request.body)
+    if login_data["email"] is None or login_data["password"] is None:
+        return Response({'error': LOGIN_CREDENTIAL_BLANK_ERROR},
+                        status=HTTP_400_BAD_REQUEST)
+    user = authenticate(username=login_data["email"], password=login_data["password"])
+    if not user:
+        return Response({'error': LOGIN_CREDENTIAL_ERROR_MSG},
+                        status=HTTP_404_NOT_FOUND)
+    return Response(HTTP_200_OK)
+
+class ProfessionalDetail(APIView):
+    def get(self, request, pk):
+        profile = get_object_or_404(Professional, pk=pk)
+        data = ProfessionalSerializer(profile).data
+        return Response(data)
+
+class ProfessionalUpdateView(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Professional.objects.get(pk=pk)
+        except Professional.DoesNotExist:
+            raise Http404
+    def put(self, request, pk, format=None):
+        profile = self.get_object(pk)
+        serializer = ProfessionalSerializer(profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomPasswordResetView:

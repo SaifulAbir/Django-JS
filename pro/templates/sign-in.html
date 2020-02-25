@@ -72,12 +72,12 @@
                     <div class="form-header">
                         <h5><i data-feather="user"></i>Sign In</h5>
                     </div>
-                    <form action="#" id="sign-in" novalidate="novalidate">
+                    <form action="/api/professional/login/" id="sign-in" class="ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
                         <div class="form-group">
-                            <input type="email" placeholder="Email Address" class="form-control" required>
+                            <input type="email" placeholder="Email Address" name="email" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
                         </div>
                         <div class="form-group">
-                            <input type="password" placeholder="Password" class="form-control" required>
+                            <input type="password" placeholder="Password" name="password" class="form-control" required data-msg-required="Password is required">
                         </div>
                         <div class="more-option">
                             <div class="mt-0 terms">
@@ -131,7 +131,11 @@
 <script>
     $(document).ready(function() {
         $('#sign-in').validate();
+        initAjaxForms();
     });
+    function redirectPage() {
+        window.location.href = "/";
+    }
 </script>
 </body>
 </html>
