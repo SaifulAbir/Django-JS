@@ -37,3 +37,14 @@ def check_valid_password(value):
 def check_valid_phone_number(value):
     if not re.findall('^\d{11}$', value):
         raise ValidationError(DEFAULT_INVALID_PHONE_NUMBER_ERROR)
+
+class ResetPasswordValidator(object):
+    def validate(self, password, user=None):
+        if not re.findall("(?=.*?[0-9])(?=.*?[A-Za-z]).+", password):
+            raise ValidationError(
+                _(DEFAULT_INVALID_PASSWORD_ERROR),
+                code='password_no_symbol',
+            )
+
+    def get_help_text(self):
+        return _(DEFAULT_INVALID_PASSWORD_ERROR)
