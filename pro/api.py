@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.utils import json
 from rest_framework.response import Response
@@ -105,4 +106,8 @@ def login(request):
     if not user:
         return Response({'error': LOGIN_CREDENTIAL_ERROR_MSG},
                         status=HTTP_404_NOT_FOUND)
-    return Response(HTTP_200_OK)
+    elif user.is_active == False:
+        return Response({'error': LOGIN_CREDENTIAL_ERROR_MSG},
+                        status=HTTP_404_NOT_FOUND)
+    # token, _ = Token.objects.get_or_create(user=user)
+    return Response(status=HTTP_200_OK)

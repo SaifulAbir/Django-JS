@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'job',
     'rest_framework',
     'location',
-    'pro'
+    'pro',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
