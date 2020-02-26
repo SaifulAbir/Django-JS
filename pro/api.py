@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 from rest_framework.utils import json
@@ -88,7 +89,10 @@ def profile_create_with_user_create(request):
     #         }
     #     }
     elif profile_data['email'] and profile_data['password']:
-        user_obj = User.objects.get(email=profile_data['email'])
+        try:
+            user_obj = User.objects.get(email=profile_data['email'])
+        except User.DoesNotExist:
+            user_obj = None
         if User.objects.filter(email=profile_data['email']).count()>0 and user_obj.is_active != 1:
             hash_password = make_password(profile_data['password'])
             user = User.objects.get(email=profile_data['email'])
@@ -160,7 +164,8 @@ def login(request):
     if not user:
         return Response({'error': LOGIN_CREDENTIAL_ERROR_MSG},
                         status=HTTP_404_NOT_FOUND)
-    return Response(HTTP_200_OK)
+    token, _ = Token.objects.get_or_create(user=user)
+    return Response({'token': token.key}, status=HTTP_200_OK)
 
 class ProfessionalDetail(APIView):
     def get(self, request, pk):

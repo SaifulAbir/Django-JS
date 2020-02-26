@@ -133,8 +133,11 @@
         $('#sign-in').validate();
         initAjaxForms();
     });
-    function redirectPage() {
-        window.location.href = "/";
+    function redirectPage(data) {
+        //set cookie
+        document.cookie = "token = "+data.responseJSON.token;
+        console.log(document.cookie);
+        {#window.location.href = "/";#}
     }
 </script>
 </body>
