@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 import uuid
 # Create your models here.
+from django.utils import timezone
+
 from job.models import Industry
 from p7.validators import check_valid_password, MinLengthValidator, \
     check_valid_phone_number
@@ -22,6 +24,7 @@ class Professional(models.Model):
     password = models.CharField(max_length=255, validators=[check_valid_password, MinLengthValidator(8)])
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     signup_verification_code = models.CharField(max_length=10, blank=True, null=True)
+    created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name = strings_pro.PROFESSIONAL_VERBOSE_NAME

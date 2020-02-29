@@ -43,6 +43,10 @@ from resources.strings_pro import *
 @api_view(["POST"])
 def profile_create_with_user_create(request):
     profile_data = json.loads(request.body)
+    try:
+        user_obj = User.objects.get(email=profile_data['email'])
+    except User.DoesNotExist:
+        user_obj = None
     data = {}
     if 'email' not in profile_data:
         data = {
@@ -77,17 +81,17 @@ def profile_create_with_user_create(request):
                 }
             }
         }
-    # elif User.objects.filter(email=profile_data['email']).count()>0 :
-    #     data = {
-    #         'status': FAILED_TXT,
-    #         'code': 500,
-    #         "message": EMAIL_EXIST_ERROR_MSG,
-    #         "result": {
-    #             "user": {
-    #                 'email': profile_data['email']
-    #             }
-    #         }
-    #     }
+    elif User.objects.filter(email=profile_data['email']).count()>0 and user_obj.is_active == 1 :
+        data = {
+            'status': FAILED_TXT,
+            'code': 500,
+            "message": EMAIL_EXIST_ERROR_MSG,
+            "result": {
+                "user": {
+                    'email': profile_data['email']
+                }
+            }
+        }
     elif profile_data['email'] and profile_data['password']:
         try:
             user_obj = User.objects.get(email=profile_data['email'])
@@ -108,7 +112,7 @@ def profile_create_with_user_create(request):
             del profile_data['confirm_password']
             Professional.objects.filter(email=profile_data['email']).update(**profile_data)
             profile_obj = Professional.objects.get(email=profile_data['email'])
-            sendSignupEmail(profile_data['email'])
+            sendSignupEmail(profile_data['email'], profile_obj.created_date)
             data = {
                 'status': 'success',
                 'code': HTTP_200_OK,
@@ -132,7 +136,7 @@ def profile_create_with_user_create(request):
             profile_obj = Professional(**profile_data)
             profile_obj.user_id=user.id
             profile_obj.save()
-            sendSignupEmail(profile_data['email'])
+            sendSignupEmail(profile_data['email'], profile_obj.created_date)
             data = {
                 'status': 'success',
                 'code': HTTP_200_OK,
