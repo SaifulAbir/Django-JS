@@ -10,6 +10,7 @@ urlpatterns = [
     path('register/', TemplateView.as_view(template_name='register.html')),
     path('reset-password-successful/', TemplateView.as_view(template_name='reset-password-successful.html')),
     path('sign-in/', TemplateView.as_view(template_name='sign-in.html')),
+    path('sign-out/', logout),
     path('sign-up-verification/<str:id>/', TemplateView.as_view(template_name='sign-up-verification.html')),
     path('signup-email-verification/', professional_signup_email_verification , name='code-verify'),
     path('forget-password/', TemplateView.as_view(template_name='forget_password.html')),

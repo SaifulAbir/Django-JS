@@ -1,9 +1,13 @@
 function get(url, callback) {
+    var access_token = $.cookie("access");
     if(!callback) callback = () => {};
     if(typeof(callback) !== "function") callback = window[callback];
     $.ajax({
         type : 'get',
         url : url,
+        beforeSend : function(xhr) {
+            if(access_token) xhr.setRequestHeader("Authorization", 'Bearer '+access_token);
+        },
         success : callback
     });
 }
@@ -254,4 +258,17 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
     var paginationStringEnd = '<a class="next page-numbers" data-value="next" href="javascript:void(0);"><i class="fas fa-angle-right"></i></a></div></nav>';
     var paginationString = paginationStringStart + paginationIndexString + paginationStringEnd;
     $('.pagination-list').html(paginationString);
+}
+
+function TokenAuthenticate() {
+    var access_token = $.cookie("access")
+    if(access_token){
+        $('#sign-in').hide();
+        $('#sign-out').show();
+    }
+    else {
+        $('#sign-out').hide();
+        $('#sign-in').show();
+    }
+
 }

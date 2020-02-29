@@ -268,7 +268,6 @@
 {% block extra_js %}
     <script>
         $(document).ready(function () {
-
             var pageSize = 2;
             get('/api/job_list/?page=1&page_size='+pageSize,fetchDatacallback);
             var template = $('.template').html();

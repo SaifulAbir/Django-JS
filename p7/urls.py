@@ -24,6 +24,8 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 
+from pro.api import TokenObtainPairCustomView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('', include('job.urls')),
@@ -31,7 +33,7 @@ urlpatterns = [
     path('api/', include('location.urls')),
     path('api/professional/', include('pro.urls')),
     path('professional/', include('pro.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/', TokenObtainPairCustomView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
