@@ -126,6 +126,19 @@ class Gender(models.Model):
         return self.name
 #Gender Model
 
+#Currency Model
+class Currency(models.Model):
+    name = models.CharField(max_length=255, primary_key=True)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = strings_job.CURRENCY_VERBOSE_NAME
+        verbose_name_plural = strings_job.CURRENCY_VERBOSE_NAME_PLURAL
+        db_table = 'currencies'
+
+    def __str__(self):
+        return self.name
+#Currency Model
 
 
 #Job Model
@@ -140,6 +153,8 @@ class Job(models.Model):
     salary_max = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True)
     qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT,blank=True, null= True,db_column='qualification')
     gender = models.ForeignKey(Gender, on_delete=models.PROTECT,blank=True, null= True,db_column='gender' )
+    currency = models.ForeignKey(Currency, on_delete=models.PROTECT, blank=True, null=True, db_column='currency')
+    vacancy = models.PositiveIntegerField(default=0)
     application_deadline = models.DateField(null=True, blank=True)
     descriptions = models.TextField(blank=True, null=True)
     responsibilities = models.TextField(blank=True, null=True)
@@ -169,17 +184,5 @@ class Job(models.Model):
         return self.title
     #job Model
 
-#Currency Model
-class Currency(models.Model):
-    name = models.CharField(max_length=255, primary_key=True)
-    created_date = models.DateTimeField(default=timezone.now)
 
-    class Meta:
-        verbose_name = strings_job.CURRENCY_VERBOSE_NAME
-        verbose_name_plural = strings_job.CURRENCY_VERBOSE_NAME_PLURAL
-        db_table = 'currencies'
-
-    def __str__(self):
-        return self.name
-#Currency Model
 
