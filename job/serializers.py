@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Company,Job,Industry,JobType,Experience,Qualification,Gender
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency
 from rest_framework.validators import *
 
 
@@ -17,6 +17,11 @@ class CompanySerializer(serializers.ModelSerializer):
 class IndustrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Industry
+        fields = ['name']
+
+class CurrencySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Currency
         fields = ['name']
 
 class JobTypeSerializer(serializers.ModelSerializer):
