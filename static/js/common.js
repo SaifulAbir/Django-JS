@@ -75,7 +75,17 @@ function initAjaxForms() {
             var url = $(this).prop('action');
             var formId = $(this).attr("id");
             var data = form2Json(formId);
-            console.log(data);
+
+            // Image uploading code start here
+            var imagesrc = $(".image").attr('src');
+            var imagesrcPart = imagesrc.split(":");
+            if (imagesrcPart[0] == "data"){
+                var jsonObj = JSON.parse(data);
+                jsonObj.image = imagesrc;
+                data = JSON.stringify(jsonObj);
+            }
+            // Image uploading code end here
+
             var method = $(this).attr('method');
             var callback= $(this).data("callback");  // $(this).attr("data-callback");
             send(url, method, data, callback);
@@ -165,6 +175,11 @@ function makeListHtml(data, template){
         wrapper.append(templateEl)
     }
     return wrapper.html();
+}
+
+function imageUPload(selector) {
+    var imageUrl = $(selector).attr('src');
+    console.log(imageUrl);
 }
 
 function showSuccess(title, msg) {
