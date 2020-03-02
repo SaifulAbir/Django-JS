@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate
 from datetime import timedelta
 
@@ -6,7 +7,7 @@ from django.utils import timezone
 from django_rest_passwordreset.models import ResetPasswordToken
 from rest_framework import parsers, renderers, status
 from django.contrib.auth.models import User
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -28,7 +29,7 @@ from django.urls import reverse
 from django_rest_passwordreset.signals import reset_password_token_created
 
 from pro.serializers import CustomTokenSerializer
-from pro.strings import site_url, site_shortcut_name
+from pro import strings
 from pro.serializers import ProfessionalSerializer
 from resources.strings_pro import *
 from rest_framework.status import (
@@ -112,7 +113,7 @@ def profile_create_with_user_create(request):
             del profile_data['confirm_password']
             Professional.objects.filter(email=profile_data['email']).update(**profile_data)
             profile_obj = Professional.objects.get(email=profile_data['email'])
-            sendSignupEmail(profile_data['email'], profile_obj.created_date)
+            sendSignupEmail(profile_data['email'],profile_obj.id, profile_obj.created_date)
             data = {
                 'status': 'success',
                 'code': HTTP_200_OK,
@@ -136,7 +137,7 @@ def profile_create_with_user_create(request):
             profile_obj = Professional(**profile_data)
             profile_obj.user_id=user.id
             profile_obj.save()
-            sendSignupEmail(profile_data['email'], profile_obj.created_date)
+            sendSignupEmail(profile_data['email'],profile_obj.id, profile_obj.created_date)
             data = {
                 'status': 'success',
                 'code': HTTP_200_OK,
@@ -205,9 +206,9 @@ class CustomPasswordResetView:
             'current_user': reset_password_token.user,
             'username': reset_password_token.user.username,
             'email': reset_password_token.user.email,
-            'reset_password_url': "{}/professional/password-reset/{}".format(site_url, reset_password_token.key),
-            'site_name': site_shortcut_name,
-            'site_domain': site_url
+            'reset_password_url': "{}/professional/password-reset/{}".format(strings.site_url, reset_password_token.key),
+            'site_name': strings.site_shortcut_name,
+            'site_domain': strings.site_url
         }
 
         # render email text
@@ -216,7 +217,7 @@ class CustomPasswordResetView:
 
         msg = EmailMultiAlternatives(
             # title:
-            "Password Reset for {}".format(site_shortcut_name),
+            "Password Reset for {}".format(strings.site_shortcut_name),
             # message:
             email_plaintext_message,
             # from:
@@ -270,14 +271,20 @@ class CustomPasswordTokenVerificationView(APIView):
         return Response({'status': 'OK'})
 
 
-@api_view(["POST"])
-def professional_signup_email_verification(request):
-    received_json_data = json.loads(request.body)
-    code = received_json_data["code"]
-    token = received_json_data["token"]
+@api_view(["GET"])
+def professional_signup_email_verification(request,token):
+    # received_json_data = json.loads(request.body)
+    email_start_marker = 'email='
+    email_end_marker = '&token='
+    email = token[token.find(email_start_marker)+len(email_start_marker):token.find(email_end_marker)]
+
+    token_start_marker = 'token='
+    token = token[token.find(token_start_marker)+len(token_start_marker):]
+    print(email)
+    print(token)
 
     try:
-        professional=Professional.objects.get(id=token, signup_verification_code=code)
+        professional=Professional.objects.get(email=email, signup_verification_code=token)
         professional.signup_verification_code= ''
         professional.save()
         user = User.objects.get(id=professional.user.id)
@@ -288,14 +295,8 @@ def professional_signup_email_verification(request):
         status=HTTP_404_NOT_FOUND
 
     if status == HTTP_200_OK:
-        data = {
-            'status': 'success',
-            'code': HTTP_200_OK,
-        }
+        message = strings.PROFILE_VERIFICATION_SUCCESS_MESSAGE
     else:
-        data = {
-            'status': 'failed',
-            'code': HTTP_401_UNAUTHORIZED,
-        }
+        message = strings.PROFILE_VERIFICATION_FAILED_MESSAGE
 
-    return Response(data)
+    return HttpResponseRedirect("/professional/sign-in/?{}".format(message))

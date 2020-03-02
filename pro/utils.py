@@ -19,21 +19,23 @@ from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
 from django.template import loader
 from p7.settings_dev import *
-
+from pro.strings import site_url, site_shortcut_name
 
 from pro.models import Professional
 
 
-def sendSignupEmail(email, date):
+def sendSignupEmail(email,id, date):
     # unique_id = random.randint(100000, 999999)
     # updateExamineeVerficationCode(email, unique_id)
-    activation_link = make_password(email+date)
+    id=str(id)
+    date = str(date)
+    activation_link = make_password(id+date)
     updateProfessionalVerficationLink(email, activation_link)
     data = ''
     html_message = loader.render_to_string(
         'account_activation_email.html',
         {
-            'activation_url': "{}?email={}&token={}".format('h', email, activation_link),
+            'activation_url': "{}/api/professional/signup-email-verification/email={}&token={}".format(site_url, email, activation_link),
             'activation_email': email,
             'subject': 'Thank you from' + data,
         }
