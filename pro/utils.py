@@ -29,7 +29,7 @@ def sendSignupEmail(email,id, date):
     # updateExamineeVerficationCode(email, unique_id)
     id=str(id)
     date = str(date)
-    activation_link = make_password(id+date)
+    activation_link = hash(id+date)
     updateProfessionalVerficationLink(email, activation_link)
     data = ''
     html_message = loader.render_to_string(
