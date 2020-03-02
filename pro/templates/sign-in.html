@@ -121,7 +121,7 @@
 <script src="{% static '/assets/js/slick.min.js' %}"></script>
 <script src="{% static '/assets/js/jquery.ajaxchimp.min.js' %}"></script>
 <script src="{% static 'js/jquery.validate.min.js' %}"></script>
-
+<script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
 <script src="{% static '/assets/js/form2js.js' %}"></script>
 <script src="{% static 'js/common.js' %}"></script>
@@ -132,6 +132,15 @@
     $(document).ready(function() {
         $('#sign-in').validate();
         initAjaxForms();
+        var path = window.location.href
+        var message = path.split('/?').pop()
+        alert(message)
+        if(message == 'verification_success'){
+            showSuccess("Verified!","Your Account Is Verified!")
+        }
+        if(message == 'verification_failed'){
+            showError("Not Verified!", "Your Account Is not Verified!")
+        }
     });
     function redirectPage(data) {
         //set cookie
