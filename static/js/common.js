@@ -79,6 +79,7 @@ function initAjaxForms() {
             var url = $(this).prop('action');
             var formId = $(this).attr("id");
             var data = form2Json(formId);
+            console.log(data);
             var method = $(this).attr('method');
             var callback= $(this).data("callback");  // $(this).attr("data-callback");
             send(url, method, data, callback);
