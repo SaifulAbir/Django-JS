@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate
 from datetime import timedelta
 
@@ -6,9 +7,10 @@ from django.utils import timezone
 from django_rest_passwordreset.models import ResetPasswordToken
 from rest_framework import parsers, renderers, status
 from django.contrib.auth.models import User
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 from rest_framework.utils import json
@@ -27,7 +29,7 @@ from django.urls import reverse
 from django_rest_passwordreset.signals import reset_password_token_created
 
 from pro.serializers import CustomTokenSerializer
-from pro.strings import site_url, site_shortcut_name
+from pro import strings
 from pro.serializers import ProfessionalSerializer
 from resources.strings_pro import *
 from rest_framework.status import (
@@ -42,6 +44,10 @@ from resources.strings_pro import *
 @api_view(["POST"])
 def profile_create_with_user_create(request):
     profile_data = json.loads(request.body)
+    try:
+        user_obj = User.objects.get(email=profile_data['email'])
+    except User.DoesNotExist:
+        user_obj = None
     data = {}
     if 'email' not in profile_data:
         data = {
@@ -76,7 +82,7 @@ def profile_create_with_user_create(request):
                 }
             }
         }
-    elif User.objects.filter(email=profile_data['email']).count()>0 :
+    elif User.objects.filter(email=profile_data['email']).count()>0 and user_obj.is_active == 1 :
         data = {
             'status': FAILED_TXT,
             'code': 500,
@@ -88,29 +94,61 @@ def profile_create_with_user_create(request):
             }
         }
     elif profile_data['email'] and profile_data['password']:
-        hash_password = make_password(profile_data['password'])
-        user = User(email=profile_data['email'], password=hash_password, username=profile_data['email'], is_active=0)
-        user.save()
-        if profile_data['terms_and_condition_status'] == ON_TXT:
-            profile_data['terms_and_condition_status']=1
-        elif profile_data['terms_and_condition_status'] == OFF_TXT:
-            profile_data['terms_and_condition_status'] = 0
-        del profile_data['confirm_password']
-        profile_obj = Professional(**profile_data)
-        profile_obj.user_id=user.id
-        profile_obj.save()
-        sendSignupEmail(profile_data['email'])
-        data = {
-            'status': 'success',
-            'code': HTTP_200_OK,
-            "message": 'success message here', ## will change it later
-            "result": {
-                "user": {
-                    "email": profile_data['password'],
-                    "professional": profile_obj.id
+        try:
+            user_obj = User.objects.get(email=profile_data['email'])
+        except User.DoesNotExist:
+            user_obj = None
+        if User.objects.filter(email=profile_data['email']).count()>0 and user_obj.is_active != 1:
+            hash_password = make_password(profile_data['password'])
+            user = User.objects.get(email=profile_data['email'])
+            user.email = profile_data['email']
+            user.password = hash_password
+            user.username = profile_data['email']
+            user.is_active = 0
+            user.save()
+            if profile_data['terms_and_condition_status'] == ON_TXT:
+                profile_data['terms_and_condition_status']=1
+            elif profile_data['terms_and_condition_status'] == OFF_TXT:
+                profile_data['terms_and_condition_status'] = 0
+            del profile_data['confirm_password']
+            Professional.objects.filter(email=profile_data['email']).update(**profile_data)
+            profile_obj = Professional.objects.get(email=profile_data['email'])
+            sendSignupEmail(profile_data['email'],profile_obj.id, profile_obj.created_date)
+            data = {
+                'status': 'success',
+                'code': HTTP_200_OK,
+                "message": 'success message here',  ## will change it later
+                "result": {
+                    "user": {
+                        "email": profile_data['password'],
+                        "professional": profile_obj.id
+                    }
                 }
             }
-        }
+        else:
+            hash_password = make_password(profile_data['password'])
+            user = User(email=profile_data['email'], password=hash_password, username=profile_data['email'], is_active=0)
+            user.save()
+            if profile_data['terms_and_condition_status'] == ON_TXT:
+                profile_data['terms_and_condition_status']=1
+            elif profile_data['terms_and_condition_status'] == OFF_TXT:
+                profile_data['terms_and_condition_status'] = 0
+            del profile_data['confirm_password']
+            profile_obj = Professional(**profile_data)
+            profile_obj.user_id=user.id
+            profile_obj.save()
+            sendSignupEmail(profile_data['email'],profile_obj.id, profile_obj.created_date)
+            data = {
+                'status': 'success',
+                'code': HTTP_200_OK,
+                "message": 'success message here', ## will change it later
+                "result": {
+                    "user": {
+                        "email": profile_data['password'],
+                        "professional": profile_obj.id
+                    }
+                }
+            }
     return Response(data)
 
 @api_view(["POST"])
@@ -131,7 +169,8 @@ def login(request):
     if not user:
         return Response({'error': LOGIN_CREDENTIAL_ERROR_MSG},
                         status=HTTP_404_NOT_FOUND)
-    return Response(HTTP_200_OK)
+    token, _ = Token.objects.get_or_create(user=user)
+    return Response({'token': token.key}, status=HTTP_200_OK)
 
 class ProfessionalDetail(APIView):
     def get(self, request, pk):
@@ -167,9 +206,9 @@ class CustomPasswordResetView:
             'current_user': reset_password_token.user,
             'username': reset_password_token.user.username,
             'email': reset_password_token.user.email,
-            'reset_password_url': "{}/professional/password-reset/{}".format(site_url, reset_password_token.key),
-            'site_name': site_shortcut_name,
-            'site_domain': site_url
+            'reset_password_url': "{}/professional/password-reset/{}".format(strings.site_url, reset_password_token.key),
+            'site_name': strings.site_shortcut_name,
+            'site_domain': strings.site_url
         }
 
         # render email text
@@ -178,7 +217,7 @@ class CustomPasswordResetView:
 
         msg = EmailMultiAlternatives(
             # title:
-            "Password Reset for {}".format(site_shortcut_name),
+            "Password Reset for {}".format(strings.site_shortcut_name),
             # message:
             email_plaintext_message,
             # from:
@@ -232,14 +271,20 @@ class CustomPasswordTokenVerificationView(APIView):
         return Response({'status': 'OK'})
 
 
-@api_view(["POST"])
-def professional_signup_email_verification(request):
-    received_json_data = json.loads(request.body)
-    code = received_json_data["code"]
-    token = received_json_data["token"]
+@api_view(["GET"])
+def professional_signup_email_verification(request,token):
+    # received_json_data = json.loads(request.body)
+    email_start_marker = 'email='
+    email_end_marker = '&token='
+    email = token[token.find(email_start_marker)+len(email_start_marker):token.find(email_end_marker)]
+
+    token_start_marker = 'token='
+    token = token[token.find(token_start_marker)+len(token_start_marker):]
+    print(email)
+    print(token)
 
     try:
-        professional=Professional.objects.get(id=token, signup_verification_code=code)
+        professional=Professional.objects.get(email=email, signup_verification_code=token)
         professional.signup_verification_code= ''
         professional.save()
         user = User.objects.get(id=professional.user.id)
@@ -250,14 +295,8 @@ def professional_signup_email_verification(request):
         status=HTTP_404_NOT_FOUND
 
     if status == HTTP_200_OK:
-        data = {
-            'status': 'success',
-            'code': HTTP_200_OK,
-        }
+        message = strings.PROFILE_VERIFICATION_SUCCESS_MESSAGE
     else:
-        data = {
-            'status': 'failed',
-            'code': HTTP_401_UNAUTHORIZED,
-        }
+        message = strings.PROFILE_VERIFICATION_FAILED_MESSAGE
 
-    return Response(data)
+    return HttpResponseRedirect("/professional/sign-in/?{}".format(message))

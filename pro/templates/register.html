@@ -82,29 +82,32 @@
                   <span>Employer</span>
                 </label>
               </div>
-              <form action="/api/professional/create_with_user/" id="sign-up" class="ajax" method="POST" novalidate="novalidate" data-callback="signUpCallback">
-                <div class="form-group">
-                  <input type="email" name="email" placeholder="Email Address" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
-                </div>
-                <div class="form-group">
-                  <input type="digits" minlength="11" maxlength="11" name="phone" placeholder="Mobile" class="form-control" required data-msg-required="Mobile is required">
-                </div>
-                <div class="form-group">
-                  <input type="password" minlength="8" id="password" regex='(?=.*?[0-9])(?=.*?[A-Za-z]).+' name="password" placeholder="Password" class="form-control" required data-msg-required="Password is required">
-                </div>
-                <div class="form-group">
-                  <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" required data-msg-required="Confirm Password is required" data-rule-equalto="#password" data-msg-equalto="Password and confirm password should be same!!">
-                </div>
-                <div class="more-option terms">
-                  <div class="mt-0 terms">
-                    <input class="custom-radio" type="checkbox" id="radio-4" name="terms_and_condition_status" checked>
-                    <label for="radio-4">
-                      <span class="dot"></span> I accept the <a href="/terms-and-condition">terms & conditions</a>
-                    </label>
-                  </div>
-                </div>
-                <button class="button primary-bg btn-block">Register</button>
-              </form>
+                <form action="/api/professional/create_with_user/" id="sign-up" class="ajax" method="POST" novalidate="novalidate" data-callback="signUpCallback">
+                    <div class="form-group">
+                        <input type="text" name="full_name" id="full_name" placeholder="Name" class="form-control" required data-msg-required="Name is required">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email Address" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
+                    </div>
+                    <div class="form-group">
+                        <input type="digits" regex="\+?(88)?0?1[56789][0-9]{8}\b" name="phone" placeholder="Mobile" class="form-control" required data-msg-required="Mobile is required" data-msg-regex="Enter a valid Mobile Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" minlength="8" id="password" regex='(?=.*?[0-9])(?=.*?[A-Za-z]).+' name="password" placeholder="Password" class="form-control" required data-msg-required="Password is required">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" required data-msg-required="Confirm Password is required" data-rule-equalto="#password" data-msg-equalto="Password and confirm password should be same!!">
+                    </div>
+                    <div class="more-option terms">
+                        <div class="mt-0 terms">
+                            <input class="custom-radio" type="checkbox" id="radio-4" name="terms_and_condition_status" checked>
+                            <label for="radio-4">
+                                <span class="dot"></span> I accept the <a href="/terms-and-condition">terms & conditions</a>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="button primary-bg btn-block">Register</button>
+                </form>
               <div class="shortcut-login">
                 <span class="display-none">Or connect with</span>
                 <div class="buttons display-none">
@@ -146,14 +149,15 @@
 <script src="{% static 'dashboard/js/upload-input.js' %}"></script>
     <script>
         $(document).ready(function() {
-            $('#sign-up').validate();
+            $('#sign-up').validate({
+                errorClass: "my-error-class"
+            });
             initAjaxForms();
         });
         function  signUpCallback(data){
             if(data.responseJSON.code == 200){
-                var id = data.responseJSON.result.user.professional;
-                {#showSuccess("Sign Up Successful!", "A verification code was sent to your email")#}
-                window.location.href = "/professional/sign-up-verification/"+ id ;
+                {#var id = data.responseJSON.result.user.professional;#}
+                showSuccess("Sign Up Successful!", "A verification code was sent to your email")
             }
             else {
                 showError('Failed!','Email already exists!')

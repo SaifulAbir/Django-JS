@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'location',
     'pro',
     'django_rest_passwordreset',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [

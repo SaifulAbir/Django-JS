@@ -14,3 +14,7 @@
     position: relative;
     padding-left: 15px;
 }
+
+.my-error-class{
+    color:#FF0000;
+}
