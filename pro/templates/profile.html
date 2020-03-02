@@ -39,10 +39,10 @@
                             <form action="" id="profile-form" class="dashboard-form ajax" method="PUT" data-callback = "profileUpdateCallback" enctype="multipart/form-data" novalidate="novalidate">
                                 <div class="dashboard-section upload-profile-photo">
                                     <div class="update-photo">
-                                        <img class="image" src="{% static 'dashboard/images/user-1.jpg' %}" alt="">
+                                        <img id="professional-image" class="image" src="{% static 'dashboard/images/user-1.jpg' %}" alt="">
                                     </div>
                                     <div class="file-upload">
-                                        <input type="file" accept="image/*" class="file-input">Change Avatar
+                                        <input src="ok" type="file" accept="image/*" class="file-input">Change Avatar
                                     </div>
                                 </div>
                                 <div class="dashboard-section basic-info-input">
@@ -240,8 +240,10 @@
         function  loadProfile(data){
             id = $('form.ajax').attr('id');
             json2Form(data, id);
-
         }
+
+        imageUPload("#professional-image");
+
         function  profileUpdateCallback(data){
             if(data.status == 200){
                 showSuccess("Profile Done","Updated succesesfully!");
@@ -249,6 +251,6 @@
             else {
                 showError('Profile Not Updated','Enter Valid Data');
             }
-        };
+        }
     </script>
 {% endblock %}
