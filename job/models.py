@@ -169,3 +169,17 @@ class Job(models.Model):
         return self.title
     #job Model
 
+#Currency Model
+class Currency(models.Model):
+    name = models.CharField(max_length=255, primary_key=True)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = strings_job.CURRENCY_VERBOSE_NAME
+        verbose_name_plural = strings_job.CURRENCY_VERBOSE_NAME_PLURAL
+        db_table = 'currencies'
+
+    def __str__(self):
+        return self.name
+#Currency Model
+

@@ -32,3 +32,8 @@ JOB_VERBOSE_NAME_PLURAL = 'Jobs'
 COMPANY_VERBOSE_NAME = 'Company'
 COMPANY_VERBOSE_NAME_PLURAL = 'Companies'
 #COMPANY Strings#
+
+#Currency Strings#
+CURRENCY_VERBOSE_NAME = 'Currency'
+CURRENCY_VERBOSE_NAME_PLURAL = 'Currencies'
+#Currency Strings#
