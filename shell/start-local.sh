@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 source venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements/req-dev.txt
 python manage.py makemigrations
 python manage.py migrate
-python manage.py runserver --insecure 0:80
+python manage.py runserver 0:8000
 
