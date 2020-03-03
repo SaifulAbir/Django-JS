@@ -26,7 +26,7 @@ class Professional(models.Model):
     password = models.CharField(max_length=255, validators=[check_valid_password, MinLengthValidator(8)])
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     signup_verification_code = models.CharField(max_length=10, blank=True, null=True)
-    created_date = models.DateField(default=datetime.date.today)
+
 
     class Meta:
         verbose_name = strings_pro.PROFESSIONAL_VERBOSE_NAME
