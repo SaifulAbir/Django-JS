@@ -277,7 +277,9 @@
 {% block extra_js %}
     <script>
         $(document).ready(function() {
-            $("#job-post-form").validate();
+            $("#job-post-form").validate({
+                errorClass: "my-error-class"
+            });
             initAjaxSelects();
             initAjaxForms();
             salaryType();
