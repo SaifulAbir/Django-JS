@@ -6,6 +6,7 @@
 venv/
 media_cdn/
 env/
+media/
 .env
 .vnv
 
