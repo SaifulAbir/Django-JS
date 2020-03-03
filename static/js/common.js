@@ -84,9 +84,14 @@ function initAjaxForms() {
             var imagesrc = $(".image").attr('src');
             if (imagesrc){
                 var imagesrcPart = imagesrc.split(":");
+                var jsonObj;
                 if (imagesrcPart[0] === "data"){
-                    var jsonObj = JSON.parse(data);
+                    jsonObj = JSON.parse(data);
                     jsonObj.image = imagesrc;
+                    data = JSON.stringify(jsonObj);
+                }else {
+                    jsonObj = JSON.parse(data);
+                    jsonObj.image = '';
                     data = JSON.stringify(jsonObj);
                 }
             }
