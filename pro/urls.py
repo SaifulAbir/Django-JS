@@ -11,8 +11,6 @@ urlpatterns = [
     path('reset-password-successful/', TemplateView.as_view(template_name='reset-password-successful.html')),
     path('sign-in/', TemplateView.as_view(template_name='sign-in.html')),
     path('sign-out/', logout),
-    path('sign-up-verification/<str:id>/', TemplateView.as_view(template_name='sign-up-verification.html')),
-    path('signup-email-verification/', professional_signup_email_verification , name='code-verify'),
     path('sign-in/', TemplateView.as_view(template_name='sign-in.html'), name='sign-in'),
     # path('sign-up-verification/', TemplateView.as_view(template_name='sign-up-verification.html')),
     path('signup-email-verification/<str:token>', professional_signup_email_verification , name='code-verify'),
