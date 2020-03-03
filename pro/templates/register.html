@@ -90,10 +90,10 @@
                         <input type="email" name="email" placeholder="Email Address" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
                     </div>
                     <div class="form-group">
-                        <input type="digits" regex="\+?(88)?0?1[56789][0-9]{8}\b" name="phone" placeholder="Mobile" class="form-control" required data-msg-required="Mobile is required" data-msg-regex="Enter a valid Mobile Number">
+                        <input type="digits" regex="\+?(88)?0?1[56789][0-9]{8}\b" name="phone" placeholder="Mobile" class="form-control" data-msg-regex="Enter a valid Mobile Number" required data-msg-required="Mobile is required">
                     </div>
                     <div class="form-group">
-                        <input type="password" minlength="8" id="password" regex='(?=.*?[0-9])(?=.*?[A-Za-z]).+' data-toggle="tooltip" data-placement="right" title="Password must be eight character long with at least one number and one letter" name="password" placeholder="Password" class="form-control" required data-msg-required="Password is required">
+                        <input type="password" minlength="8" id="password" regex='(?=.*?[0-9])(?=.*?[A-Za-z]).+' data-toggle="tooltip" data-placement="right" title="Password must be eight characters long with at least one number and one letter." name="password" placeholder="Password" class="form-control" required data-msg-required="Password is required">
                     </div>
                     <div class="form-group">
                         <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" required data-msg-required="Confirm Password is required" data-rule-equalto="#password" data-msg-equalto="Password and confirm password should be same!!">

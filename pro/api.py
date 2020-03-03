@@ -1,6 +1,6 @@
 import base64
 import uuid
-
+import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from datetime import timedelta
@@ -122,7 +122,7 @@ def profile_create_with_user_create(request):
             del profile_data['confirm_password']
             Professional.objects.filter(email=profile_data['email']).update(**profile_data)
             profile_obj = Professional.objects.get(email=profile_data['email'])
-            sendSignupEmail(profile_data['email'],profile_obj.id, profile_obj.created_date)
+            sendSignupEmail(profile_data['email'],profile_obj.id, datetime.date.today)
             data = {
                 'status': 'success',
                 'code': HTTP_200_OK,
@@ -146,7 +146,7 @@ def profile_create_with_user_create(request):
             profile_obj = Professional(**profile_data)
             profile_obj.user_id=user.id
             profile_obj.save()
-            sendSignupEmail(profile_data['email'],profile_obj.id, profile_obj.created_date)
+            sendSignupEmail(profile_data['email'],profile_obj.id, datetime.date.today)
             data = {
                 'status': 'success',
                 'code': HTTP_200_OK,
