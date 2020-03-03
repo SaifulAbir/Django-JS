@@ -83,7 +83,7 @@ function initAjaxForms() {
             // Image uploading code start here
             var imagesrc = $(".image").attr('src');
             var imagesrcPart = imagesrc.split(":");
-            if (imagesrcPart[0] == "data"){
+            if (imagesrcPart[0] === "data"){
                 var jsonObj = JSON.parse(data);
                 jsonObj.image = imagesrc;
                 data = JSON.stringify(jsonObj);
