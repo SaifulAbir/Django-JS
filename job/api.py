@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.pagination import *
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
@@ -23,6 +24,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 
 class JobList(generics.ListAPIView):
+
     queryset = Job.objects.all()
     serializer_class = JobSerializerAllField
     pagination_class = StandardResultsSetPagination
@@ -39,6 +41,7 @@ class JobObject(generics.ListAPIView):
         return queryset
 
 class IndustryList(generics.ListCreateAPIView):
+
     queryset = Industry.objects.all()
     serializer_class = IndustrySerializer
 

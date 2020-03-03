@@ -112,6 +112,11 @@ REST_FRAMEWORK = {
     ]
 }
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=6),
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 

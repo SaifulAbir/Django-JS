@@ -121,8 +121,11 @@
                             <option data-content='<span class="flag-icon flag-icon-us"></span> English'>English</option>
                             <option  data-content='<span class="flag-icon flag-icon-mx"></span> Español'>Español</option>
                         </select>
-                        <div class="dropdown header-top-notification">
+                        <div class="dropdown header-top-notification" id="sign-in">
                             <a href="/professional/sign-in" class="signin-button post-job">Sign In</a>
+                        </div>
+                        <div class="dropdown header-top-notification" id="sign-out">
+                            <a href="/professional/sign-out" class="signin-button post-job">Sign Out</a>
                         </div>
                         <div class="dropdown header-top-notification">
                             <a href="/professional/register" class="signin-button post-job">Register</a>
@@ -364,7 +367,7 @@
 <script src="{% static '/assets/js/slick.min.js' %}"></script>
 <script src="{% static '/assets/js/jquery.ajaxchimp.min.js' %}"></script>
 <script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
-
+<script src="{% static '/assets/js/jquery.cookie.min.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
 <script src="{% static 'js/jquery.validate.min.js' %}"></script>
 <script src="{% static '/assets/js/form2js.js' %}"></script>
@@ -374,6 +377,11 @@
 <script src="{% static 'dashboard/js/upload-input.js' %}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC87gjXWLqrHuLKR0CTV5jNLdP4pEHMhmg"></script>
 <script src="{% static 'js/map.js' %}"></script>
+<script type="text/javascript">
+    $(function () {
+       TokenAuthenticate();
+    });
+</script>
 {% block extra_js %}
 {% endblock %}
 </body>

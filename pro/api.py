@@ -4,8 +4,10 @@ from datetime import timedelta
 
 from django.contrib.auth.hashers import make_password
 from django.utils import timezone
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt import serializers
 from django_rest_passwordreset.models import ResetPasswordToken
-from rest_framework import parsers, renderers, status
+from rest_framework import parsers, renderers, status, generics
 from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -19,6 +21,8 @@ from rest_framework.views import APIView
 from django_rest_passwordreset.views import get_password_reset_token_expiry_time
 
 from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import AUTH_HEADER_TYPES
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
 from pro.models import Professional
 from django.core.mail import EmailMultiAlternatives
@@ -173,6 +177,7 @@ def login(request):
     return Response({'token': token.key}, status=HTTP_200_OK)
 
 class ProfessionalDetail(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, pk):
         profile = get_object_or_404(Professional, pk=pk)
         data = ProfessionalSerializer(profile).data
@@ -300,3 +305,42 @@ def professional_signup_email_verification(request,token):
         message = strings.PROFILE_VERIFICATION_FAILED_MESSAGE
 
     return HttpResponseRedirect("/professional/sign-in/?{}".format(message))
+
+class TokenViewBase(generics.GenericAPIView):
+    permission_classes = ()
+    authentication_classes = ()
+
+    serializer_class = None
+
+    www_authenticate_realm = 'api'
+
+    def get_authenticate_header(self, request):
+        return '{0} realm="{1}"'.format(
+            AUTH_HEADER_TYPES[0],
+            self.www_authenticate_realm,
+        )
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+        response = Response(serializer.validated_data, status=status.HTTP_200_OK)
+        response.set_cookie('access', serializer.validated_data["access"])
+        response.set_cookie('refresh', serializer.validated_data["refresh"])
+        return response
+
+class TokenObtainPairCustomView(TokenViewBase):
+    """
+    Takes a set of user credentials and returns an access and refresh JSON web
+    token pair to prove the authentication of those credentials.
+    """
+    serializer_class = serializers.TokenObtainPairSerializer
+
+def logout(request):
+    response = HttpResponseRedirect('/professional/sign-in')
+    response.delete_cookie('access')
+    response.delete_cookie('refresh')
+    return response

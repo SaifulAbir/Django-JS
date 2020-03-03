@@ -72,9 +72,9 @@
                     <div class="form-header">
                         <h5><i data-feather="user"></i>Sign In</h5>
                     </div>
-                    <form action="/api/professional/login/" id="sign-in" class="ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
+                    <form action="/api/token/" id="sign-in" class="ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
                         <div class="form-group">
-                            <input type="email" placeholder="Email Address" name="email" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
+                            <input type="email" placeholder="Email Address" name="username" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
                         </div>
                         <div class="form-group">
                             <input type="password" placeholder="Password" name="password" class="form-control" required data-msg-required="Password is required">
