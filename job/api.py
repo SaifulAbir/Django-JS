@@ -8,7 +8,7 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from .models import Company, Job,Industry,JobType,Experience,Qualification,Gender
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
@@ -48,6 +48,10 @@ class IndustryList(generics.ListCreateAPIView):
 class JobTypeList(generics.ListCreateAPIView):
     queryset = JobType.objects.all()
     serializer_class = JobTypeSerializer
+
+class CurrencyList(generics.ListCreateAPIView):
+    queryset = Currency.objects.all()
+    serializer_class = CurrencySerializer
 
 class ExperienceList(generics.ListCreateAPIView):
     queryset = Experience.objects.all()

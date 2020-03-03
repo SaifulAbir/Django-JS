@@ -12,6 +12,7 @@ urlpatterns = [
     path('industry/', IndustryList.as_view()),
     path('job_type/', JobTypeList.as_view()),
     path('experience/', ExperienceList.as_view()),
+    path('currency/', CurrencyList.as_view()),
     path('qualification/', QualificationList.as_view()),
     path('gender/', GenderList.as_view()),
     path('job_update/<str:pk>/', JobUpdateView.as_view()),
