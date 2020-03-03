@@ -1,7 +1,12 @@
+import base64
+import uuid
+
 from django.contrib.auth import authenticate
 from datetime import timedelta
 
 from django.contrib.auth.hashers import make_password
+from django.core.files.base import ContentFile
+from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
 from django_rest_passwordreset.models import ResetPasswordToken
 from rest_framework import parsers, renderers, status
@@ -148,6 +153,20 @@ class ProfessionalUpdateView(APIView):
             raise Http404
     def put(self, request, pk, format=None):
         profile = self.get_object(pk)
+
+        # image uploading code start here
+        img_base64 = request.data['image']
+        if img_base64:
+            format, imgstr = img_base64.split(';base64,')
+            ext = format.split('/')[-1]
+            filename = str(uuid.uuid4()) + '-professional.' + ext
+            data = ContentFile(base64.b64decode(imgstr), name=filename)
+            fs = FileSystemStorage()
+            filename = fs.save(filename, data)
+            uploaded_file_url = fs.url(filename)
+            request.data['image'] = uploaded_file_url
+        # end of image uploading code
+
         serializer = ProfessionalSerializer(profile, data=request.data)
         if serializer.is_valid():
             serializer.save()
