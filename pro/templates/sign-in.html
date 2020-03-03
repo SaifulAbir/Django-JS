@@ -142,9 +142,15 @@
         }
     });
     function redirectPage(data) {
+        if(data.status==200){
+            window.location.href = "/";
+        }
+        else{
+            showError("Login Error", "No active account found")
+        }
         //set cookie
-        document.cookie = "token = "+data.responseJSON.token;
-        console.log(document.cookie);
+        {#document.cookie = "token = "+data.responseJSON.token;#}
+        {#console.log(document.cookie);#}
         {#window.location.href = "/";#}
     }
 </script>
