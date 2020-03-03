@@ -82,12 +82,15 @@ function initAjaxForms() {
 
             // Image uploading code start here
             var imagesrc = $(".image").attr('src');
-            var imagesrcPart = imagesrc.split(":");
-            if (imagesrcPart[0] === "data"){
-                var jsonObj = JSON.parse(data);
-                jsonObj.image = imagesrc;
-                data = JSON.stringify(jsonObj);
+            if (imagesrc){
+                var imagesrcPart = imagesrc.split(":");
+                if (imagesrcPart[0] === "data"){
+                    var jsonObj = JSON.parse(data);
+                    jsonObj.image = imagesrc;
+                    data = JSON.stringify(jsonObj);
+                }
             }
+
             // Image uploading code end here
 
             var method = $(this).attr('method');
@@ -107,12 +110,12 @@ function json2Form(data, id){
     for(key in data){
         // var el = $("#" + id).find("[name='"+ key +"']");
         var el = $("#" + id).find("[id='"+ key +"']");
-            let elChild = el;
-            let dataValue = data[key];
-            setTimeout(function () {
-                elChild.val(dataValue).change();
-            },500);
-        }
+        let elChild = el;
+        let dataValue = data[key];
+        setTimeout(function () {
+            elChild.val(dataValue).change();
+        },500);
+    }
 }
 
 function json2Div(data, container){
