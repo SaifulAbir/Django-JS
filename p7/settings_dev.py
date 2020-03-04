@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'location',
     'pro',
     'django_rest_passwordreset',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'question',
+    'django_admin_listfilter_dropdown',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
