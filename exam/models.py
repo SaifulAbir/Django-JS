@@ -2,12 +2,10 @@ from ckeditor.fields import RichTextField
 from django.db import models
 from django.core.exceptions import ValidationError
 # Create your models here.
-from questionnaire.models import Questionnaire
-from questionnaire_template.models import Template
+# from questionnaire.models import Questionnaire
+# from questionnaire_template.models import Template
+from question.models import Subject, Topics, SubTopics
 from resources import strings_exam
-from sub_topics.models import SubTopics
-from subject.models import Subject
-from topics.models import Topics
 
 tag_choice=(
     ("exam", strings_exam.EXAM_TAG_CHOICE),
@@ -50,7 +48,7 @@ class Exam(models.Model):
     is_featured = models.BooleanField(default=False, blank=True, null=True)
     instruction = RichTextField()
     question_selection_type = models.CharField(max_length=30, null=True, blank=True)
-    template = models.ForeignKey(Template,null=True,blank=True, on_delete=models.CASCADE)
+    # template = models.ForeignKey(Template,null=True,blank=True, on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True, blank=True)
     exam_type = models.CharField(max_length=50, null=True, blank=True)
     exam_fee = models.CharField(max_length=100, null=True, blank=True)
@@ -82,10 +80,10 @@ class Tag(models.Model):
         verbose_name_plural = strings_exam.TAG_VERBOSE_NAME_PLURAL
         db_table='tags'
 
-class ExamQuestionnaireDetails(models.Model):
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table= 'exam_questionnaire_details'
+# class ExamQuestionnaireDetails(models.Model):
+#     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+#     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
+#
+#     class Meta:
+#         db_table= 'exam_questionnaire_details'
 
