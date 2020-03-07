@@ -1,0 +1,2 @@
+EXAM_TAG_CHOICE = "Exam"
+QUESTIONNAIRE_TAG_CHOICE = "Questionnaire"
