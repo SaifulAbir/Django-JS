@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'question',
     'django_admin_listfilter_dropdown',
     'ckeditor',
+    'exam'
 ]
 
 MIDDLEWARE = [
