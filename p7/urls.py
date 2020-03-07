@@ -31,6 +31,7 @@ urlpatterns = [
     path('', include('job.urls')),
     path('api/', include('job.urls')),
     path('api/', include('location.urls')),
+    path('api/', include('question.urls')),
     path('api/professional/', include('pro.urls')),
     path('professional/', include('pro.urls')),
     path('api/token/', TokenObtainPairCustomView.as_view(), name='token_obtain_pair'),

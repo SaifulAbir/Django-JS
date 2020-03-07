@@ -59,8 +59,8 @@ class AnswerInline(admin.StackedInline):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    # class Media:
-    #     js = ("js/question_script.js","js/common.js",)
+    class Media:
+        js = ("js/question_script.js","js/common.js",)
 
     list_display =['question_id','question_text','qtype','difficulties','subject','topic','sub_topic','status','button']
     list_per_page = 15
