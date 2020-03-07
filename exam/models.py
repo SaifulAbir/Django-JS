@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 # from questionnaire.models import Questionnaire
 # from questionnaire_template.models import Template
 from question.models import Subject, Topics, SubTopics
+from questionnaire.models import Questionnaire
 from resources import strings_exam
 
 tag_choice=(
@@ -80,10 +81,10 @@ class Tag(models.Model):
         verbose_name_plural = strings_exam.TAG_VERBOSE_NAME_PLURAL
         db_table='tags'
 
-# class ExamQuestionnaireDetails(models.Model):
-#     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-#     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
-#
-#     class Meta:
-#         db_table= 'exam_questionnaire_details'
+class ExamQuestionnaireDetails(models.Model):
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table= 'exam_questionnaire_details'
 

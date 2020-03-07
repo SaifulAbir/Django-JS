@@ -3,6 +3,7 @@ from rest_framework.status import (
     HTTP_200_OK
 )
 
+from exam.models import ExamQuestionnaireDetails
 from question.models import Question
 
 def getQuestionListFromDb():
