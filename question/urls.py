@@ -4,4 +4,5 @@ from .api import *
 
 urlpatterns = [
     path('topic_populate/<int:subject>/', TopicstPopulate.as_view()),
+    path('sub_topic_populate/<int:topic>/', SubTopicstPopulate.as_view()),
 ]
