@@ -18,3 +18,9 @@
 .my-error-class{
     color:#FF0000!important;
 }
+
+.question-mark{
+    position: absolute;
+    top: 258px;
+    right: 0px;
+}
