@@ -138,9 +138,9 @@
                                 <div class="thumb">
                                     <img src="dashboard/images/user-1.jpg" class="img-fluid" alt="">
                                 </div>
-                                <div class="user-body">
-                                    <h5>Lula Wallace</h5>
-                                    <span>@username</span>
+                                <div class="user-body ">
+                                    <h5 id="full_user_name">a</h5>
+                                    <span id="user_email">ddd</span>
                                 </div>
                             </div>
                             <div class="profile-progress">
@@ -241,6 +241,8 @@
         function  loadProfile(data){
             id = $('form.ajax').attr('id');
             json2Form(data, id);
+            $('#full_user_name').text(data.full_name)
+            $('#user_email').text(data.email)
         }
 
         imageUPload("#professional-image");
