@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 
+from exam.models import ExamCategory, ExamLevel
 from question.models import Subject, Topics, SubTopics, Question, Difficulty, QuestionType
 from questionnaire.models import Questionnaire
 
@@ -60,3 +61,13 @@ def questionnaire(self):
     questionnaire1 = Questionnaire(name='Questionnaire One', subject=self.subject1, topic=self.topic1, sub_topic=self.subtopic1)
     questionnaire1.save()
     self.questionnaire1 = questionnaire1
+
+def exam_category(self):
+    e_category1 = ExamCategory(name='Category')
+    e_category1.save()
+    self.exam_category1 = e_category1
+
+def exam_level(self):
+    e_level1 = ExamLevel(name='Beginner')
+    e_level1.save()
+    self.exam_level1 = e_level1
