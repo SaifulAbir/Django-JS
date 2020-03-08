@@ -30,6 +30,9 @@ class SubtopicsAdmin(admin.ModelAdmin):
     list_display = ['name', 'subject','topics', 'created_date', ]
     search_fields = ['name']
 
+    class Media:
+        js = ("sub_topic_script.js","js/common.js",)
+
 
 class AnswerInlineFormset(BaseInlineFormSet):
     def clean(self):
