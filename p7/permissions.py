@@ -1,9 +1,11 @@
 from rest_framework.permissions import BasePermission
 
-
 class IsAppAuthenticated(BasePermission):
-    """
-    Allows access only to authenticated users.
-    """
+    message = 'Adding customers not allowed.'
+
     def has_permission(self, request, view):
-        return bool(request.header.app_token == '123')
+        try:
+            app_token = request.headers['app_token']
+        except KeyError:
+            app_token = None
+        return bool(app_token == '123')
