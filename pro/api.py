@@ -29,6 +29,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import AUTH_HEADER_TYPES
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
+from p7.permissions import IsAppAuthenticated
 from pro.models import Professional
 from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
@@ -37,7 +38,7 @@ from django.urls import reverse
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
-from pro.serializers import CustomTokenSerializer
+from pro.serializers import CustomTokenSerializer, TokenObtainCustomPairSerializer
 from pro import strings
 from pro.serializers import ProfessionalSerializer
 from resources.strings_pro import *
@@ -182,7 +183,7 @@ def login(request):
     return Response({'token': token.key}, status=HTTP_200_OK)
 
 class ProfessionalDetail(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAppAuthenticated,)
     def get(self, request, pk):
         profile = get_object_or_404(Professional, pk=pk)
         data = ProfessionalSerializer(profile).data
@@ -341,7 +342,6 @@ class TokenViewBase(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-
         try:
             serializer.is_valid(raise_exception=True)
         except TokenError as e:
@@ -356,10 +356,12 @@ class TokenObtainPairCustomView(TokenViewBase):
     Takes a set of user credentials and returns an access and refresh JSON web
     token pair to prove the authentication of those credentials.
     """
-    serializer_class = serializers.TokenObtainPairSerializer
+    serializer_class = TokenObtainCustomPairSerializer
 
 def logout(request):
     response = HttpResponseRedirect('/professional/sign-in')
     response.delete_cookie('access')
     response.delete_cookie('refresh')
     return response
+
+
