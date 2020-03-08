@@ -31,7 +31,8 @@ class SubtopicsAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
     class Media:
-        js = ("sub_topic_script.js","js/common.js",)
+        js = ('//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+              "js/sub_topic_script.js","js/common.js",)
 
 
 class AnswerInlineFormset(BaseInlineFormSet):

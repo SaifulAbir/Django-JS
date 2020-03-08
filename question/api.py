@@ -14,6 +14,8 @@ class TopicstPopulate(generics.ListAPIView):
         subject = self.kwargs['subject']
         if subject is not None:
             queryset = queryset.filter(subject_id=subject)
+            print('hi')
+            print(queryset)
         return queryset
 
 class SubTopicstPopulate(generics.ListAPIView):
@@ -25,4 +27,5 @@ class SubTopicstPopulate(generics.ListAPIView):
         topic = self.kwargs['topic']
         if topic is not None:
             queryset = queryset.filter(topics=topic)
+            print(queryset)
         return queryset
