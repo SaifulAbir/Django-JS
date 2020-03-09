@@ -1,62 +1,56 @@
-from django.http import Http404, HttpResponse
-from django.shortcuts import render, redirect
-from rest_framework.status import (
-    HTTP_401_UNAUTHORIZED,
-    HTTP_200_OK,
-    HTTP_404_NOT_FOUND
-)
+import json
 
-from question.utils import getRandomQuestionnaire
-from questionnaire_template.models import Template, TemplateDetails
-from resources.strings import *
-from exams.models import ExamQuestionnaireDetails, Exam
-from questionnaire.models import Questionnaire, QuestionnaireDetail
-from registration.models import Registration
-from .models import Subject
-from .models import Topics
-from .models import Difficulties
-from .models import Qtype
-from .models import Question
-from answer.models import Answer
+from django.http import HttpResponse
+from rest_framework.decorators import api_view
+from rest_framework import generics
+from .models import Topics, SubTopics
 from rest_framework.views import APIView
-from .serializers import QuestionSerializer
+from .serializers import TopicsPopulateSerializer, SubTopicsPopulateSerializer
 from rest_framework.response import Response
-from question import utils
-from sub_topics.models import SubTopics
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
-import pandas as pd
-from django.contrib.auth.decorators import login_required, permission_required
+
+# class TopicstPopulate(generics.ListAPIView):
+#     serializer_class = TopicsPopulateSerializer
+#
+#     def get_queryset(self):
+#
+#         queryset = Topics.objects.all()
+#         subject = self.kwargs['subject']
+#         if subject is not None:
+#             queryset = queryset.filter(subject_id=subject)
+#             print('hi')
+#             print(queryset)
+#         return queryset
 
 
-class QuestionListWithAnsFromQuestionnaire(APIView):
-    def get(self, request,exam_id):
+def topics_populate(reques,subject):
+    topic = Topics.objects.get(subject_id = subject)
+    data = [{
+        'id': str(topic.id) ,
+        'name':str(topic.name)
+    }]
+    print(data)
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
-        exmobj = Exam.objects.get(id=exam_id)
-        if not exmobj:
-            data = {
-                'status': FAILED,
-                'code': HTTP_404_NOT_FOUND,
-                'msg': DATA_NOT_FOUND,
-                "data": {
-                    "questionListWithAns": [],
-                }
-            }
-            return Response(data, HTTP_404_NOT_FOUND)
+def sub_topics_populate(reques,topic):
+    sub_topic = SubTopics.objects.get(topics = topic)
+    data = [{
+        'id': str(sub_topic.id) ,
+        'name':str(sub_topic.name)
+    }]
+    print(data)
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
-        questionnaire=getRandomQuestionnaire(exam_id)
-        if not questionnaire:
-            data = {
-                'status': FAILED,
-                'code': HTTP_404_NOT_FOUND,
-                'msg': DATA_NOT_FOUND,
-                "data": {
-                    "questionListWithAns": [],
-                }
-            }
-            return Response(data, HTTP_404_NOT_FOUND)
-        else:
-            question_list= list(QuestionnaireDetail.objects.filter(questionnaire_id_id=questionnaire.questionnaire_id).values_list('question_id_id', flat=True))
-            question = utils.getQuestionListFromDbBasedOnQuestionnareFilter(question_list)
-            serializer = QuestionSerializer(question, many=True)
-            return Response({"questionListWithAns": serializer.data})
+
+
+
+# class SubTopicstPopulate(generics.ListAPIView):
+#     serializer_class = SubTopicsPopulateSerializer
+#
+#     def get_queryset(self):
+#
+#         queryset = SubTopics.objects.all()
+#         topic = self.kwargs['topic']
+#         if topic is not None:
+#             queryset = queryset.filter(topics=topic)
+#             print(queryset)
+#         return queryset

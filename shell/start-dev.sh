@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 source venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements/req-dev.txt
 export DJANGO_SETTINGS_MODULE="p7.settings_dev"
 python manage.py migrate
 cat <<EOF | python manage.py shell
