@@ -30,6 +30,10 @@ class SubtopicsAdmin(admin.ModelAdmin):
     list_display = ['name', 'subject','topics', 'created_date', ]
     search_fields = ['name']
 
+    class Media:
+        js = ('//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+              "js/sub_topic_script.js","js/common.js",)
+
 
 class AnswerInlineFormset(BaseInlineFormSet):
     def clean(self):
@@ -59,10 +63,11 @@ class AnswerInline(admin.StackedInline):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    # class Media:
-    #     js = ("js/question_script.js","js/common.js",)
+    class Media:
+        js = ('//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+              "js/question_script.js","js/common.js",)
 
-    list_display =['question_id','question_text','qtype','difficulties','subject','topic','sub_topic','status','button']
+    list_display =['question_id','question_text','qtype','difficulties','subject','topic','sub_topic','status']
     list_per_page = 15
     search_fields =['question_id__iexact','question__icontains','qtype__name__iexact','difficulties__name__iexact',
                     'subject__name__iexact','topic__name__iexact','sub_topic__name__iexact']
@@ -93,13 +98,13 @@ class QuestionAdmin(admin.ModelAdmin):
         return TemplateResponse(request, "admin/detail_view.html", context)
 
 
-    def button(self, obj):
-
-        return format_html(
-            '<a class="button" href="{}">Details</a>',
-            reverse('admin:ques_detail', args=[obj.pk])
-        )
-    button.short_description = 'Action'
+    # def button(self, obj):
+    #
+    #     return format_html(
+    #         '<a class="button" href="{}">Details</a>',
+    #         reverse('admin:ques_detail', args=[obj.pk])
+    #     )
+    # button.short_description = 'Action'
 
 
 
