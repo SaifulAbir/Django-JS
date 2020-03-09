@@ -121,6 +121,7 @@ def profile_create_with_user_create(request):
             elif profile_data['terms_and_condition_status'] == OFF_TXT:
                 profile_data['terms_and_condition_status'] = 0
             del profile_data['confirm_password']
+            profile_data['password'] = hash_password
             Professional.objects.filter(email=profile_data['email']).update(**profile_data)
             profile_obj = Professional.objects.get(email=profile_data['email'])
             sendSignupEmail(profile_data['email'],profile_obj.id, datetime.date.today)
@@ -145,6 +146,7 @@ def profile_create_with_user_create(request):
                 profile_data['terms_and_condition_status'] = 0
             del profile_data['confirm_password']
             profile_obj = Professional(**profile_data)
+            profile_obj.password = hash_password
             profile_obj.user_id=user.id
             profile_obj.save()
             sendSignupEmail(profile_data['email'],profile_obj.id, datetime.date.today)
