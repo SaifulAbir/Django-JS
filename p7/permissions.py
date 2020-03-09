@@ -10,10 +10,10 @@ class IsAppAuthenticated(BasePermission):
 
     def has_permission(self, request, view):
         try:
-            app_token = request.headers['app_token']
+            app_token = request.headers['api-key']
         except KeyError:
             app_token = None
-        permission = bool(app_token == '123')
+        permission = bool(app_token == '96d56aceeb9049debeab628ac760aa11')
         if not permission:
             raise CustomForbidden
         else:
