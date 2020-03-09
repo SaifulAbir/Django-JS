@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="other-benifit details-section">
                                             <h4><i data-feather="gift"></i>Salary</h4>
-                                            <span id="salary_min"></span> - <span id="salary_max">
+                                            <span id="salary_min"></span><span id="currency"></span> - <span id="salary_max"></span><span id="currency"></span>
                                     </span>
                                         </div>
                                         <div class="other-benifit details-section">
@@ -68,10 +68,10 @@
                                                     <li><span>Published on:</span> <span id="created_date"></span></li>
                                                     <li><span>Vacancy:</span><span id="vacancy"></span></li>
                                                     <li><span>Employment Status:</span> <span id="employment_status"></span></li>
-                                                    <li><span>Experience:</span> <span id="experience"></span></li>
+                                                    <li><span>Year Of Experience:</span> <span id="experience"></span></li>
                                                     <li><span>Job Location:</span> <span id="job_location"></span></li>
-                                                    <li><span>Salary:</span> $<span id="salary_min"></span>- $<span id="salary_max"></span></li>
-                                                    <li><span>Gender:</span> <span id="gender"></span></li>
+                                                    <li><span>Salary:</span><span id="salary_min"></span><span id="currency"></span>- <span id="salary_max"></span><span id="currency"></span></li>
+                                                    <li><span>Gender:</span></span><span id="gender"></span></li>
                                                     <li><span>Application Deadline:</span> <span id="application_deadline"></span></li>
                                                 </ul>
                                             </div>
@@ -332,10 +332,17 @@
             var getUrl = '/api/load_job/'+ id + '/'
             get(getUrl, loadJob);
 
+
+
         });
         function  loadJob(data){
             container = $('.job-detail');
             if(data.length==1){
+                var deadline= data[0].application_deadline
+                var created_date = data[0].created_date
+                data[0].created_date = created_date.split("-").reverse().join("-")
+                data[0].application_deadline = deadline.split("-").reverse().join("-")
+
                 json2Div(data[0], container);
             }
 
