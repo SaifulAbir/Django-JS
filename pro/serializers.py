@@ -7,6 +7,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from pro.models import Professional
 from rest_framework import exceptions
 from django.utils.translation import ugettext_lazy as _
+from resources.strings_pro import *
+
 
 class ProfessionalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,7 +21,7 @@ class TokenObtainCustomSerializer(serializers.Serializer):
     username_field = User.USERNAME_FIELD
 
     default_error_messages = {
-        'no_active_account': _('No active account found with the given credentials')
+        'no_active_account': _(ACTIVE_ACCOUNT_ERROR)
     }
 
     def __init__(self, *args, **kwargs):
