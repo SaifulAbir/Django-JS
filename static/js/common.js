@@ -1,3 +1,6 @@
+
+var apiKey = '96d56aceeb9049debeab628ac760aa11';
+
 function get(url, callback) {
     var access_token = $.cookie("access");
     if(!callback) callback = () => {};
@@ -6,6 +9,7 @@ function get(url, callback) {
         type : 'get',
         url : url,
         beforeSend : function(xhr) {
+            xhr.setRequestHeader('api-key',apiKey);
             if(access_token) xhr.setRequestHeader("Authorization", 'Bearer '+access_token);
         },
         success : callback
@@ -17,6 +21,7 @@ function del(url, callback) {
     $.ajax({
         url : url,
         beforeSend : function(xhr) {
+            xhr.setRequestHeader('api-key',apiKey);
             if(csrf) xhr.setRequestHeader(csrf.header, csrf.token);
         },
         type : 'DELETE',
@@ -33,6 +38,7 @@ function send(url, method, data, callback) {
     if(typeof(callback) !== "function") callback = window[callback];
     $.ajax({
         beforeSend : function(xhr) {
+            xhr.setRequestHeader('api-key',apiKey);
             if(csrf) xhr.setRequestHeader(csrf.header, csrf.token);
         },
         type : method,
@@ -285,7 +291,7 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
 }
 
 function TokenAuthenticate() {
-    var access_token = $.cookie("access")
+    var access_token = $.cookie("access");
     if(access_token){
         $('#sign-in').hide();
         $('#sign-out').show();
