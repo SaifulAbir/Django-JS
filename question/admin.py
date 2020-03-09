@@ -98,13 +98,13 @@ class QuestionAdmin(admin.ModelAdmin):
         return TemplateResponse(request, "admin/detail_view.html", context)
 
 
-    def button(self, obj):
-
-        return format_html(
-            '<a class="button" href="{}">Details</a>',
-            reverse('admin:ques_detail', args=[obj.pk])
-        )
-    button.short_description = 'Action'
+    # def button(self, obj):
+    #
+    #     return format_html(
+    #         '<a class="button" href="{}">Details</a>',
+    #         reverse('admin:ques_detail', args=[obj.pk])
+    #     )
+    # button.short_description = 'Action'
 
 
 
