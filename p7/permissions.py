@@ -1,10 +1,11 @@
 from rest_framework import status
 from rest_framework.exceptions import APIException
 from rest_framework.permissions import BasePermission
+from django.utils.deprecation import MiddlewareMixin
 
 class ApiKeyForbidden(APIException):
     status_code = status.HTTP_403_FORBIDDEN
-    default_detail = "App token not found"
+    default_detail = "Invalid API key"
 
 class IsAppAuthenticated(BasePermission):
 
