@@ -327,7 +327,7 @@ def professional_signup_email_verification(request,token):
     return HttpResponseRedirect("/professional/sign-in/?{}".format(message))
 
 class TokenViewBase(generics.GenericAPIView):
-    permission_classes = ()
+    permission_classes = (IsAppAuthenticated,)
     authentication_classes = ()
 
     serializer_class = None
