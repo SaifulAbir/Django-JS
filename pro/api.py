@@ -39,7 +39,6 @@ from django.urls import reverse
 from django_rest_passwordreset.signals import reset_password_token_created
 
 from pro.serializers import CustomTokenSerializer, TokenObtainCustomPairSerializer
-from pro import strings
 from pro.serializers import ProfessionalSerializer
 from resources.strings_pro import *
 from rest_framework.status import (
@@ -234,8 +233,8 @@ class CustomPasswordResetView:
             'username': reset_password_token.user.username,
             'email': reset_password_token.user.email,
             'reset_password_url': "{}/professional/password-reset/{}".format(strings.site_url, reset_password_token.key),
-            'site_name': strings.site_shortcut_name,
-            'site_domain': strings.site_url
+            'site_name': site_shortcut_name,
+            'site_domain': site_url
         }
 
         # render email text
@@ -244,7 +243,7 @@ class CustomPasswordResetView:
 
         msg = EmailMultiAlternatives(
             # title:
-            "Password Reset for {}".format(strings.site_shortcut_name),
+            "Password Reset for {}".format(site_shortcut_name),
             # message:
             email_plaintext_message,
             # from:
@@ -322,9 +321,9 @@ def professional_signup_email_verification(request,token):
         status=HTTP_404_NOT_FOUND
 
     if status == HTTP_200_OK:
-        message = strings.PROFILE_VERIFICATION_SUCCESS_MESSAGE
+        message = PROFILE_VERIFICATION_SUCCESS_MESSAGE
     else:
-        message = strings.PROFILE_VERIFICATION_FAILED_MESSAGE
+        message = PROFILE_VERIFICATION_FAILED_MESSAGE
 
     return HttpResponseRedirect("/professional/sign-in/?{}".format(message))
 

@@ -19,9 +19,9 @@ from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
 from django.template import loader
 from p7.settings_dev import *
-from pro.strings import site_url, site_shortcut_name
 
 from pro.models import Professional
+from resources.strings_pro import *
 
 
 def sendSignupEmail(email,id, date):
