@@ -64,9 +64,10 @@ class AnswerInline(admin.StackedInline):
 
 class QuestionAdmin(admin.ModelAdmin):
     class Media:
-        js = ("js/question_script.js","js/common.js",)
+        js = ('//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+              "js/question_script.js","js/common.js",)
 
-    list_display =['question_id','question_text','qtype','difficulties','subject','topic','sub_topic','status','button']
+    list_display =['question_id','question_text','qtype','difficulties','subject','topic','sub_topic','status']
     list_per_page = 15
     search_fields =['question_id__iexact','question__icontains','qtype__name__iexact','difficulties__name__iexact',
                     'subject__name__iexact','topic__name__iexact','sub_topic__name__iexact']
