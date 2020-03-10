@@ -119,7 +119,6 @@ function form2Json(id){
 
 function json2Form(data, id){
     for(key in data){
-        // var el = $("#" + id).find("[name='"+ key +"']");
         var el = $("#" + id).find("[id='"+ key +"']");
         let elChild = el;
         let dataValue = data[key];
