@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'django_admin_listfilter_dropdown',
     'ckeditor',
     'questionnaire',
-    'exam'
+    'exam',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -112,6 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # 'PAGE_SIZE': 100,
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication'
     ]

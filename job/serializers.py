@@ -49,12 +49,13 @@ class GenderSerializer(serializers.ModelSerializer):
 class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
-        fields = fields = '__all__'
+        fields = '__all__'
 
 class JobSerializerAllField(serializers.ModelSerializer):
     class Meta:
         model = Job
-        fields = '__all__'
+        fields = ['title', 'salary_min']
+        #fields = '__all__'
 
 class CompanyPopulateSerializer(serializers.ModelSerializer):
     class Meta:

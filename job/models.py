@@ -181,8 +181,8 @@ class Job(models.Model):
     def load_data(self, json_data):
         self.__dict__ = json_data
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
     #job Model
 
 

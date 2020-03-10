@@ -311,6 +311,7 @@ $(document).ready(function() {
 
       $('.selected-options .filtered-options li.' + cls).remove();
       $('.selected-options .filtered-options').append(filteredList);
+      alert(filteredList + '\n' + ll);
     });
   
     $(document).on('click', ".selected-options .filtered-options li span", function() {
@@ -334,7 +335,7 @@ $(document).ready(function() {
     /*----------------------------------------
       Price Range
     ----------------------------------------*/
-
+    var ll=0;
     function priceRange() {
       $('.nstSlider').nstSlider({
         "left_grip_selector": ".leftGrip",
@@ -343,6 +344,7 @@ $(document).ready(function() {
         "value_changed_callback": function (cause, leftValue, rightValue) {
           $(this).parent().find('.leftLabel').text(leftValue);
           $(this).parent().find('.rightLabel').text(rightValue);
+          ll = leftValue;
         }
       });
     }
