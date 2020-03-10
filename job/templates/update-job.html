@@ -128,7 +128,7 @@
                                     <div id="others" class="row">
                                         <label class="col-md-3 col-form-label">Other Benefits</label>
                                         <div class="col-md-9">
-                                            <textarea id="other_benefits" name="other_benefits" class="tinymce-editor tinymce-editor-2" placeholder="Description text here"></textarea>
+                                            <textarea name="other_benefits" id="other_benefits" class="tinymce-editor tinymce-editor-2" placeholder="Description text here"></textarea>
                                         </div>
                                     </div>
                                     <div id="post-location" class="form-group row">
@@ -184,7 +184,7 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Company Profile"></textarea>
+                                                        <textarea class="form-control" name="company_profile" id="company_profile" placeholder="Company Profile"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -255,9 +255,10 @@
 {% block extra_js %}
     <script>
         $(document).ready(function() {
+            tinymce.get("other_benefits").execCommand('mceInsertContent', false, 'your content');
             initAjaxSelects();
             var path = window.location.pathname.split('/')
-            var id = path[path.length-2]
+            var id = path[path.length-2];
             var getUrl = '/api/load_job/'+ id + '/'
             get(getUrl, loadJob);
             var postUrl = '/api/job_update/'+ id + '/';

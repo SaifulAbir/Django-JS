@@ -126,6 +126,7 @@ function json2Form(data, id){
         setTimeout(function () {
             elChild.val(dataValue).change();
         },500);
+
     }
 }
 
