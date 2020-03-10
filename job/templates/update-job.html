@@ -77,10 +77,27 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
+                                                        <select class="form-control" name="salary" id="salary" data-text="name" data-value="name" data-placeholder="Salary">
+                                                            <option value="">Salary</option>
+                                                            <option value="negotiable">Negotiable</option>
+                                                            <option value="salary_range">Salary Range</option>
+                                                        </select>
+                                                        <i class="fa fa-caret-down"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" id="currency-div">
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="currency" id="currency" data-text="name" data-value="name" data-placeholder="Currency" data-src="/api/currency">
+                                                        </select>
+                                                        <i class="fa fa-caret-down"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" id="salary-min">
+                                                    <div class="form-group">
                                                         <input name="salary_min" id="salary_min" type="text" class="form-control" placeholder="Minimum Salary">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6" id="salary-max">
                                                     <div class="form-group">
                                                         <input name="salary_max" id="salary_max" type="text" class="form-control" placeholder="Maximum Salary">
                                                     </div>
@@ -102,6 +119,11 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group datepicker">
                                                         <input name="application_deadline" id="application_deadline" type="date" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="digits" name="vacancy" id="vacancy" type="text" class="form-control" placeholder="Vacancy">
                                                     </div>
                                                 </div>
                                             </div>
@@ -255,7 +277,7 @@
 {% block extra_js %}
     <script>
         $(document).ready(function() {
-            tinymce.get("other_benefits").execCommand('mceInsertContent', false, 'your content');
+
             initAjaxSelects();
             var path = window.location.pathname.split('/')
             var id = path[path.length-2];
@@ -263,9 +285,8 @@
             get(getUrl, loadJob);
             var postUrl = '/api/job_update/'+ id + '/';
             $('form.ajax').attr('action',postUrl)
-
+            salaryType();
             initAjaxForms();
-
 
         });
         function  loadJob(data){
@@ -276,8 +297,19 @@
 
         }
         function redirectPage() {
-            window.location.href = "/job-list";
+            {#window.location.href = "/";#}
 
+        }
+        function salaryType() {
+            $('#salary-max, #salary-min, #currency-div').hide();
+            $('#salary').on('change', function () {
+                var salaryTypeValue = $(this).val();
+                if(salaryTypeValue=='salary_range'){
+                    $('#salary-max, #salary-min, #currency-div').show();
+                }else{
+                    $('#salary-max, #salary-min, #currency-div').hide();
+                }
+            });
         }
     </script>
 {% endblock %}

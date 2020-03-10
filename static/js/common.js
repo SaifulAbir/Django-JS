@@ -122,6 +122,14 @@ function json2Form(data, id){
         var el = $("#" + id).find("[id='"+ key +"']");
         let elChild = el;
         let dataValue = data[key];
+        if(el.hasClass("tinymce-editor")){
+            tinymce.get(key).insertContent(data[key]);
+        }
+        else if(el.data("parent")){
+            setTimeout(function () {
+                elChild.val(dataValue).change();
+            },1000);
+        }
         setTimeout(function () {
             elChild.val(dataValue).change();
         },500);
