@@ -22,7 +22,7 @@
 .question-mark{
     position: absolute;
     top: 258px;
-    right: 0px;
+    right: 2px;
 }
 
 .tooltip .tooltip-inner{
@@ -30,4 +30,10 @@
     color: #000;
     text-align: left;
     min-width: 250px;
+}
+
+.pass-hint{
+    position: absolute;
+    top: 20px;
+    right: 2px;
 }

@@ -18,7 +18,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 from rest_framework.utils import json
 from rest_framework.response import Response
@@ -298,6 +298,7 @@ class CustomPasswordTokenVerificationView(APIView):
 
 
 @api_view(["GET"])
+@permission_classes(())
 def professional_signup_email_verification(request,token):
     # received_json_data = json.loads(request.body)
     email_start_marker = 'email='
