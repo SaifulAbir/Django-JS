@@ -30,6 +30,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('', include('job.urls')),
     path('api/', include('job.urls')),
+    path('api/', include('registration.urls')),
+    path('api/', include('exam.urls')),
     path('api/', include('location.urls')),
     path('api/', include('question.urls')),
     path('api/professional/', include('pro.urls')),

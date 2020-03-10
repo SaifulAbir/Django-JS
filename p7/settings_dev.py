@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_rest_passwordreset',
     'rest_framework.authtoken',
     'question',
+    'registration',
     'django_admin_listfilter_dropdown',
     'ckeditor',
     'questionnaire',
