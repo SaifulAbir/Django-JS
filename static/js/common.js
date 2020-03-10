@@ -162,6 +162,9 @@ function populateSelect(select, url){
     select.append('<option value="">' + select.attr('data-placeholder') + '</option>');
     $.ajax({
         url: url,
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader('api-key',apiKey);
+        },
         success: function(options) {
             options.map(function(item) {
                 var option = $('<option>');
