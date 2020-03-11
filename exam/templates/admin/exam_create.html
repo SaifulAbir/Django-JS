@@ -1,7 +1,16 @@
 {% extends "admin/base_site.html" %}
 {% load static %}
 {% block extrastyle %}
-<link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}" />
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+    <!-- END: Custom CSS-->
+    <!-- BEGIN: Bootstrap-tagsinput CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-tagsinput.css" %}">
+    <!-- END: Bootstrap-tagsinput CSS-->
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
 {% endblock %}
 
 {% block content %}
@@ -55,5 +64,5 @@
     </div>
 {% endblock %}
 {% block extrafooter %}
-<script src="{% static "js/exam.js" %}"></script>
+    <script src="{% static "js/exam.js" %}"></script>
 {% endblock %}
