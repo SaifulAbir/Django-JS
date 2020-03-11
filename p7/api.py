@@ -1,10 +1,9 @@
-from django.conf.urls import url
-from django.db import IntegrityError
-from django.http import JsonResponse, HttpResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.utils import json
 from rest_framework.views import APIView
 from django.core.paginator import Paginator
+
+from pro.models import Professional
 from registration.models import Registration
 from registration.serializers import RegistrationSerializer
 from resources.strings import *
@@ -104,3 +103,68 @@ def dashboard(request, user_id):
 
     return Response(data, HTTP_200_OK)
 
+
+@api_view(["GET"])
+def professional_info(request, user_id):
+    try:
+        user= User.objects.get(id=user_id)
+        try:
+            professional = Professional.objects.get(user_id=user.id)
+            data = {
+                'status': 'success',
+                'code': HTTP_200_OK,
+                "data": {
+                    "user": {
+                        "name": professional.full_name,
+                        "mobile_number": professional.phone,
+                        'id': user_id,
+                        'profile_pic_url': "https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg",
+                        'email': professional.email,
+                        'address': professional.address,
+                        'about': "Entrepreneur and businessman Bill Gates and his business partner Paul Allen founded and built the world's largest software business, Microsoft, through technological innovation, keen business strategy and aggressive business tactics. In the process, Gates became one of the richest men in the world.",
+                        'city': 'Dhaka',
+                    }
+                }
+            }
+        except Professional.DoesNotExist:
+            data = {
+                'status': 'failed',
+                'code': HTTP_404_NOT_FOUND,
+                "data": ''
+            }
+        return Response(data, HTTP_200_OK)
+    except Professional.DoesNotExist:
+        data = {
+            'status': 'failed',
+            'code': HTTP_404_NOT_FOUND,
+            "data": ''
+        }
+        return Response(data, HTTP_200_OK)
+
+    try:
+        professional= Professional.objects.get(user_id=user.id)
+        data= {
+            'status': 'success',
+            'code': HTTP_200_OK,
+            "data": {
+                "user": {
+                    "name": professional.full_name,
+                    "mobile_number": professional.phone,
+                    'id': user_id,
+                    'profile_pic_url': "https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg",
+                    'email': professional.email,
+                    'address': professional.address,
+                    'about': "Entrepreneur and businessman Bill Gates and his business partner Paul Allen founded and built the world's largest software business, Microsoft, through technological innovation, keen business strategy and aggressive business tactics. In the process, Gates became one of the richest men in the world.",
+                    'city': 'Dhaka',
+                }
+            }
+        }
+    except Professional.DoesNotExist:
+        data = {
+            'status': 'failed',
+            'code': HTTP_404_NOT_FOUND,
+            "data": ''
+        }
+
+
+    return Response(data, HTTP_200_OK)
