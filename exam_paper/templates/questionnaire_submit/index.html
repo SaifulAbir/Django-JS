@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% load mathfilters %}
+    <div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-body">
+                <section id="column">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-content collpase">
+                                    <div class="card-body card-dashboard">
+                                    {{ question.comment_set.all.count }}
+                                        <table class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Registration ID</th>
+                                                    <th>Candidate Name</th>
+                                                    <th>Exam Name</th>
+                                                    <th>Duration</th>
+                                                    <th>Result</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+
+
+                                            {% for single_result in result %}
+
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td> {{ single_result.registration_id }} </td>
+                                                    <td> {{ single_result.registration_obj.candidate_name }} </td>
+                                                    <td> {{ single_result.registration_obj.exam_name }} </td>
+                                                    <td> {{ single_result.registration_obj.duration_in_minutes }} </td>
+                                                    <td> {{ single_result.number_of_correct }} out of {{ single_result.number_of_question_id }} <b>({{ single_result.number_of_correct | div:single_result.number_of_question_id | mul:100 }}%)</b> </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}

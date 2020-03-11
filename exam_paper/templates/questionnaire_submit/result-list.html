@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% for instance in object_list %}
+    <p>{{ instance.id }} - <a href="{{ instance.id }}">{{ instance.question_text }}</a> </p>
+{% endfor %}
+
+{% endblock %}
