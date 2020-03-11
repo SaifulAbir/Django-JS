@@ -30,9 +30,9 @@ from pro.api import TokenObtainPairCustomView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    path('api/dashboard/<int:user_id>', dashboard),
+    path('api/app-dashboard/<int:user_id>', dashboard),
     path('api/profile-info/<int:user_id>', professional_info),
-    path('api/', include('job.urls')),
+    path('', include('job.urls')),
     path('api/', include('registration.urls')),
     path('api/', include('exam.urls')),
     path('api/', include('location.urls')),
