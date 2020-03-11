@@ -1,4 +1,5 @@
-Exam List of particular examinee based on email:
+----------------------------------
+1. Featured exam list of particular profession excluded already enrolled:
 ----------------------------------
 request type: GET
 url: http://0.0.0.0:8000/api/featured-examlist/2
@@ -36,3 +37,61 @@ output: {
             ]
         }
     }
+
+----------------------------------
+2. Enroll exam of particular profession excluded already enrolled:
+----------------------------------
+
+request type: POST
+url: http://0.0.0.0:8000/api/exam-enroll/
+body: {
+        "exam_id":2,
+        "professional_id":2
+    }
+output: {
+            "status": "success",
+            "code": 200,
+            "message": "Exam Successfully Enrolled",
+            "result": {
+                "reg_id": 2
+            }
+        }
+    "failed": {
+            "status": "failed",
+            "code": 401,
+            "message": "Duplicate Entry Not Allowed",
+            "result": {
+                "user": {
+                    "reg_id": ""
+                }
+            }
+        }
+}
+
+----------------------------------
+3. Enrolled exam list of particular profession:
+----------------------------------
+request type: GET
+url: http://0.0.0.0:8000/api/featured-examlist/2
+Note: 2 = professional id
+
+output: {
+    "status": "success",
+    "next_pages": false,
+    "code": 200,
+    "data": {
+        "enrolled_exam": [
+            {
+                "id": 2,
+                "exam_code": "Flutter Basic",
+                "exam_name": "Flutter Basic",
+                "duration": "10",
+                "image": null,
+                "exam_fee": null,
+                "discount_price": null,
+                "discount_percent": null,
+                "instruction": "<p>test</p>"
+            }
+        ]
+    }
+}
