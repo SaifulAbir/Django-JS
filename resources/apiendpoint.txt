@@ -1,3 +1,69 @@
+
+
+----------------------------------
+1. Dashboard API:
+----------------------------------
+request type: GET
+url: http://0.0.0.0:8000/api/dashboard/2
+Note: 2 = professional id
+
+output: {
+    "status": "success",
+    "code": 200,
+    "data": {
+        "user": {
+            "name": "apikapik06@gmail.com",
+            "id": 2,
+            "profile_pic_url": "https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg",
+            "email": "apikapik06@gmail.com"
+        },
+        "featured_exam": [
+            {
+                "id": 1,
+                "exam_code": "Python Basic",
+                "exam_name": "Python Basic",
+                "pass_mark": "10",
+                "duration": "30",
+                "image": null,
+                "is_featured": true,
+                "instruction": "<p>test</p>",
+                "question_selection_type": null,
+                "created_date": "2020-03-10T07:00:33.358182Z",
+                "exam_type": null,
+                "exam_fee": null,
+                "promo_code": null,
+                "discount_price": null,
+                "discount_percent": null,
+                "re_registration_delay": null,
+                "exam_category": null,
+                "exam_level": null,
+                "subject": null,
+                "topic": null,
+                "sub_topic": null
+            }
+        ],
+        "enrolled_exam": [
+            {
+                "id": 2,
+                "exam_code": "Flutter Basic",
+                "exam_name": "Flutter Basic",
+                "duration": "10",
+                "image": null,
+                "exam_fee": null,
+                "discount_price": null,
+                "discount_percent": null,
+                "instruction": "<p>test</p>"
+            }
+        ],
+        "recent_exam": [],
+        "exam_chart": {
+            "percentage_of_pass": 80,
+            "percentage_of_fail": 20
+        }
+    }
+}
+
+
 ----------------------------------
 1. Featured exam list of particular profession excluded already enrolled:
 ----------------------------------

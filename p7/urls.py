@@ -23,12 +23,14 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView
 )
+from p7.api import *
+
 
 from pro.api import TokenObtainPairCustomView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    path('', include('job.urls')),
+    path('api/dashboard/<int:user_id>', dashboard),
     path('api/', include('job.urls')),
     path('api/', include('registration.urls')),
     path('api/', include('exam.urls')),
