@@ -1,6 +1,8 @@
-$('#search-questionnaire').on('click', function () {
+$(function () {
+    alert('hi')
+    $('#search-questionnaire').on('click', function () {
     $.ajax({
-        url: '/exams/exam/search_questionnaire/',
+        url: '/admin/exam/exam/search_questionnaire/',
         type: 'get',
         dataType: 'json',
         success: function (data) {
@@ -22,3 +24,5 @@ function showTemplate() {
 $('#questionnaire-table ').on('click','.removebutton',function () {
     $(this).parent().parent().remove()
 });
+
+})
