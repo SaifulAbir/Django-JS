@@ -14,6 +14,7 @@ class SubjectAdmin(admin.ModelAdmin):
 
     list_display = ['name', 'created_date', ]
     search_fields = ['name']
+    save_as = True
 
 class TopicsAdmin(admin.ModelAdmin):
     model = Topics
