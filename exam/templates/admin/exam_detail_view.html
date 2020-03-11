@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+    <div class="col-md-12 col-sm-12">
+        <div class="card border-top-success box-shadow-0 border-bottom-danger">
+            <div class="card-header">
+                <h4 class="card-title">Exam Details</h4>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 border box-shadow-0">
+                            <p class=" ">
+                                <strong>Exam Code:</strong> {{ detail.exam_code }}
+                            </p>
+                        </div>
+                        <div class="col-6 border box-shadow-0">
+                            <p class=" ">
+                                <strong>Exam Name:</strong> {{ detail.exam_name }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

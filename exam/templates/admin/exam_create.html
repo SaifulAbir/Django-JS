@@ -1,0 +1,59 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="content-body"><!-- Basic tabs start -->
+        <section id="basic-tabs-components">
+            <div class="row match-height">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ exam_strings.EXAM_PAGE_HEADING }}</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body tab-wrapper">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="tab1" href="#tab1" role="tab" aria-selected="true">{{ exam_strings.EXAM_PAGE_FIRST_TAB_HEADING_TEXT }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" role="tab" aria-selected="false">{{ exam_strings.EXAM_PAGE_SECOND_TAB_HEADING_TEXT }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" role="tab" aria-selected="false">{{ exam_strings.EXAM_PAGE_THIRD_TAB_HEADING_TEXT }}</a>
+                                    </li>
+                                </ul>
+                                <form method="post" enctype="multipart/form-data" novalidate>
+                                    {% csrf_token %}
+                                    <span id = "alert_placeholder">
+                                        {% if exam_form.errors %}
+                                            <div id="alertdiv" style="font-size:15px;margin-top:15px;padding-top: 2px;
+                                            padding-bottom: 3px;" class="alert alert-danger">
+                                            <span>
+                                                {% for field in exam_form %}
+                                                    <li class="help-block" style="color:red;margin-bottom: 5px;">{{ field.errors|striptags }}</li>
+                                                {% endfor %}
+                                            </span>
+                                        </div>
+                                        {% endif %}
+                                    </span>
+                                    <div class="tab-content px-1 pt-1">
+                                        {% include "admin/exam_info.html" %}
+                                        {% include "admin/questionnaires.html" %}
+                                        {% include "admin/additional_info.html" %}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block extrafooter %}
+<script src="{% static "js/exam.js" %}"></script>
+{% endblock %}
