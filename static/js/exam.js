@@ -1,5 +1,4 @@
 $(function () {
-    alert('hi')
     $('#search-questionnaire').on('click', function () {
     $.ajax({
         url: '/admin/exam/exam/search_questionnaire/',
