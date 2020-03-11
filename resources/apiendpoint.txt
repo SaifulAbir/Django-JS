@@ -95,3 +95,40 @@ output: {
         ]
     }
 }
+
+----------------------------------
+4. Exam instruction of specific exam:
+----------------------------------
+request type: GET
+url: http://0.0.0.0:8000/api/exam-instruction/2
+Note: 2 = exam id
+
+output: {
+    "status": "success",
+    "code": 200,
+    "data": {
+        "exam": {
+            "id": 2,
+            "exam_code": "Flutter Basic",
+            "exam_name": "Flutter Basic",
+            "pass_mark": "30",
+            "duration": "10",
+            "image": null,
+            "is_featured": false,
+            "instruction": "<p>test</p>",
+            "question_selection_type": null,
+            "created_date": "2020-03-10T07:01:18.486290Z",
+            "exam_type": null,
+            "exam_fee": null,
+            "promo_code": null,
+            "discount_price": null,
+            "discount_percent": null,
+            "re_registration_delay": null,
+            "exam_category": null,
+            "exam_level": null,
+            "subject": null,
+            "topic": null,
+            "sub_topic": null
+        }
+    }
+}
