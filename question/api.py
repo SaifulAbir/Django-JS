@@ -17,20 +17,20 @@ from rest_framework.status import (
 
 
 def topics_populate(reques,subject):
-    topic = Topics.objects.get(subject_id = subject)
+    topics = Topics.objects.filter(subject_id = subject)
     data = [{
         'id': str(topic.id) ,
         'name':str(topic.name)
-    }]
+    }for topic in topics]
     print(data)
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 def sub_topics_populate(reques,topic):
-    sub_topic = SubTopics.objects.get(topics = topic)
+    sub_topic = SubTopics.objects.filter(topics = topic)
     data = [{
         'id': str(sub_topic.id) ,
         'name':str(sub_topic.name)
-    }]
+    }for sub_topic in sub_topic ]
     print(data)
     return HttpResponse(json.dumps(data), content_type='application/json')
 

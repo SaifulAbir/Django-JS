@@ -1,0 +1,66 @@
+{% load static %}
+<div class="tab-pane" id="tab2" role="tabpanel" aria-labelledby="base-tab2">
+    <div class="form-body">
+        <div class="row">
+            <div class="col-md-12 radio-field-wrapper">
+                <label for="{{ exam_form.question_selection_type.id_for_label }}">{{ exam_form.question_selection_type.label }}</label>
+                {{ exam_form.question_selection_type }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="questionnaire-list" class="">
+                    <div class="card">
+                        <div class="questionnaire-modal">
+                            <div class="modal fade" id="search-questionnaire-modal">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h3 class="questionnaire-title">{{ exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TEXT }}</h3>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-info pull-right questionnaire-button" id="search-questionnaire">
+                                        <i class="ft-search"></i>
+                                        {{ exam_strings.EXAM_PAGE_SEARCH_QUESTIONNAIRE_BUTTON_TEXT }}
+                                    </button>
+                                </div>
+                            </div><br />
+
+                            <div class="table-responsive">
+                                <table id="questionnaire-table" class="basic-table list-table table">
+                                    <thead>
+                                    <tr>
+                                        <th>{{ exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TABLE_HEADING_TEXT_QUESTIONNAIRE }}</th>
+                                        <th>{{ exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TABLE_HEADING_TEXT_SUBJECT }}</th>
+                                        <th>{{ exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TABLE_HEADING_TEXT_TOPIC }}</th>
+                                        <th>{{ exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TABLE_HEADING_TEXT_SUBTOPIC }}</th>
+                                        <th>{{ exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TABLE_HEADING_TEXT_ACTION }}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="template-list" class="d-none">
+                    <div class="card-body">
+                        <div class="form-group col-md-6">
+                            <label for="template"><strong>{{ exam_strings.EXAM_PAGE_TEMPLATE_LIST_TEXT }}</strong></label>
+                            <select id="template" name="template" class="form-control">
+                                <option value="">-----</option>
+                                {% for temp in template_list %}
+                                    <option value="{{ temp.id }}">{{temp.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
