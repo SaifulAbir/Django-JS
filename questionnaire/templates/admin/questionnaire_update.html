@@ -1,0 +1,334 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+    {% load static %}
+    <head>
+        <!-- BEGIN: Theme CSS-->
+        <link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-extended.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "css/colors.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "css/components.css" %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- END: Theme CSS-->
+        <script src="{% static '/assets/js/bootstrap.min.js' %}"></script>
+    </head>
+    <body>
+    <div>
+        <h1>Update Questionnaire</h1>
+    </div>
+    <section>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label>Questionirrie Name: </label>
+                <input id="questionnaire_name" type="text" name="ques_name" required value="{{ ques_name.name }}">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Subject: </label>
+                <select id="subject">
+                    <option value="{{ ques_name.subject.id }}">{{ ques_name.subject }}</option>
+                    {% for sub in sub %}
+                        <option value="{{ sub.id }}">{{sub.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Topic: </label>
+                <select id="topic">
+                    <option value="">{{ ques_name.topic }}</option>
+                    {% for topics in topics %}
+                        <option value="{{ topics.id }}">{{topics.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Subtopic: </label>
+                <select id="sub_topic">
+                    <option value="">{{ ques_name.sub_topic }}</option>
+                    {% for sub_topics in sub_topics %}
+                        <option value="{{sub_topics.id }}">{{sub_topics.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="projectinput8">Remarks</label>
+            <textarea id="remarks" rows="5" class="form-control" name="remarks" placeholder="Remarks">{{ques_name.remarks}}</textarea>
+        </div>
+    </section>
+
+    <section >
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#search-question" >
+            Search Questions
+        </button>
+        <div class="collapse" id="search-question" >
+            <form method="GET" action="." class="search-form">
+                <br>
+                <div class="row">
+                    <div class="col-xl-3">
+                        <div class="form-group">
+                            {% if ques is not None %}
+                                <input type="text" id="question_contains" class="form-control round" placeholder="Question" name="question_contains" value="{{ ques }}">
+                            {% else %}
+                                <input type="text" id="question_contains" class="form-control round" placeholder="Question" name="question_contains">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="form-group">
+                            {% if subject is not None %}
+                                <input type="text" id="subject_contains" class="form-control round" placeholder="Subject" name="subject_contains" value="{{ subject }}">
+                            {% else %}
+                                <input type="text" id="subject_contains" class="form-control round" placeholder="Subject" name="subject_contains">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="form-group">
+                            {% if topic is not None %}
+                                <input type="text" id="topic_contains" class="form-control round" placeholder="Topic" name="topic_contains" value="{{ topic }}">
+                            {% else %}
+                                <input type="text" id="topic_contains" class="form-control round" placeholder="Topic" name="topic_contains">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="form-group">
+                            {% if sub_topic is not None %}
+                                <input type="text" id="subtopic_contains" class="form-control round" placeholder="Sub Topic" name="subtopic_contains" value="{{ sub_topic }}">
+                            {% else %}
+                                <input type="text" id="subtopic_contains" class="form-control round" placeholder="Sub Topic" name="subtopic_contains">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <div class="form-group">
+                            {% if qtype is not None %}
+                                <input type="text" id="qtype_contains" class="form-control round" placeholder="Question Type" name="qtype_contains" value="{{ qtype }}">
+                            {% else %}
+                                <input type="text" id="qtype_contains" class="form-control round" placeholder="Question Type" name="qtype_contains">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <div class="form-group">
+                            {% if difficulty is not None %}
+                                <input type="text" id="difficulty_contains" class="form-control round" placeholder="Difficulty" name="difficulty_contains" value="{{ difficulty }}">
+                            {% else %}
+                                <input type="text" id="difficulty_contains" class="form-control round" placeholder="Difficulty" name="difficulty_contains">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <button type="button" id="ques_search" class="btn btn-primary" style="float: right; width:100%;">Submit</button>
+                    </div>
+                </div>
+            </form>
+            <div>
+                <table id="questable" class="table dataTable table-striped table-bordered">
+                    <thead>
+                    <input type="hidden" id="ques_id" name="ques_id" value="Question ID">
+                    </thead>
+                    <tbody>
+                    </tbody>
+
+                </table>
+                <div class="form-actions right">
+                    <div class="col-md-12">
+                        {% if ques_list.has_other_pages %}
+                            <ul id="question-list-pagination" class="pagination">
+                                {% if ques_list.has_previous %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ ques_list.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                                {% endif %}
+                                {% for i in ques_list.paginator.page_range %}
+                                    {% if ques_list.number == i %}
+                                        <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if ques_list.has_next %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ ques_list.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                    <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form method="POST" action=".">
+            {% csrf_token %}
+
+            <br>
+            <div>
+                <table id="questionirrietable" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="">Question
+                        </th>
+                        <th class="">Question Type
+                        </th>
+                        <th class="">Difficulty
+                        </th>
+                        <th class="">Subject
+                        </th>
+                        <th class="">Topic
+                        </th>
+                        <th class="">Sub Topic
+                        </th>
+                        <th class="">Action
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for questionnaire_details in questionnaire_details %}
+                        {% autoescape off %}
+
+                            <tr>
+                                <td>{{ questionnaire_details.question_id.question }}</td>
+                                <td>{{ questionnaire_details.question_id.qtype }}</td>
+                                <td>{{ questionnaire_details.question_id.difficulties }}</td>
+                                <td>{{ questionnaire_details.question_id.subject }}</td>
+                                <td>{{ questionnaire_details.question_id.topic }}</td>
+                                <td>{{ questionnaire_details.question_id.sub_topic }}</td>
+                                <td > <a type="button" class="removebutton btn btn-danger" href="#">Remove</a></td>
+                            </tr>
+                        {% endautoescape %}
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="form-actions right">
+                <button type="button" class="question-submit btn btn-primary" id="create_questionnaire">
+                    <i class="fa fa-check-square-o"></i> Save
+                </button>
+            </div>
+        </form>
+
+    </section>
+
+
+    </body>
+
+    <script>
+
+        $(document).ready(function() {
+            $("#questable ").on('click', '.selectbutton', function () {
+                $(this).text('Remove').attr('class', 'removebutton btn btn-danger').parent('td').parent('tr').clone().appendTo('#questionirrietable ');
+                $(this).parent().parent().remove();
+            });
+
+
+            $("#questionirrietable tbody td").on('click', '.removebutton', function () {
+                {#$(this).text('Select').attr('class', 'selectbutton btn btn-primary').parent('td').parent('tr').clone().appendTo('#questable');#}
+                $(this).parent().parent().remove();
+            });
+
+            $("#questionirrietable ").on('click', '.removebutton', function () {
+                {#$(this).text('Select').attr('class', 'selectbutton btn btn-primary').parent('td').parent('tr').clone().appendTo('#questable');#}
+                $(this).parent().parent().remove();
+            });
+
+
+            $('#subject').on('change', function () {
+                var subjectId = $(this).val();
+                $.ajax({
+                    url: '/admin/questionnaire/questionnaire/load_topics/',
+                    data: {
+                        'subject': subjectId
+                    },
+                    success: function (data) {
+                        $("#topic").html(data);
+                        $("#sub_topic").html('<option>--------</option>')
+                    }
+                });
+            });
+
+            $('#topic').on('change', function () {
+                var topicId = $(this).val();
+                $.ajax({
+                    url: '/admin/questionnaire/questionnaire/load_sub_topics/',
+                    data: {
+                        'topic': topicId
+                    },
+                    success: function (data) {
+                        $("#sub_topic").html(data);
+                    }
+                });
+            });
+
+            $('#ques_search').on('click', function (event) {
+                event.preventDefault()
+
+                question_contains = $('#question_contains').val();
+                console.log(question_contains)
+                qtype_contains = $('#qtype_contains').val();
+                console.log(qtype_contains)
+                difficulty_contains = $('#difficulty_contains').val();
+                subject_contains = $('#subject_contains').val();
+                topic_contains = $('#topic_contains').val();
+                subtopic_contains = $('#subtopic_contains').val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/questionnaire/questionnaire/search_question/',
+                    data: {
+                        'question_contains': question_contains,
+                        'qtype_contains': qtype_contains,
+                        'difficulty_contains': difficulty_contains,
+                        'subject_contains': subject_contains,
+                        'topic_contains': topic_contains,
+                        'subtopic_contains': subtopic_contains,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        $("#questable tbody").html(data.question_list);
+
+                    }
+                });
+            });
+
+            $(document).on('click','#create_questionnaire',function () {
+                questionnaire_name = $('#questionnaire_name').val()
+                remarks =$('#remarks').val()
+                subject = $('#subject').val()
+                topics = $('#topic').val()
+                sub_topics = $('#sub_topic').val()
+                questionnaire_id =  {{ pk }}
+                    data= []
+
+                $('#questionirrietable tbody tr').each(function (index) {
+                    id = $(this).find('#ques_id').val();
+                    data.push(id);
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/questionnaire/questionnaire/questionnaire_update/',
+                    data: {
+                        'questionnaire_name': questionnaire_name,
+                        'remarks' : remarks,
+                        'subject': subject,
+                        'topics': topics,
+                        'sub_topics': sub_topics,
+                        'questionnaire_id' : questionnaire_id,
+                        'ques_id_list' : data.toString(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success:function(data) {
+                        if(data.status == 0){
+                            alert(data.message)
+                        }
+                        else{
+                            window.location = data.url;
+                        }
+                    }
+                });
+
+
+            });
+        });
+    </script>
+{% endblock %}

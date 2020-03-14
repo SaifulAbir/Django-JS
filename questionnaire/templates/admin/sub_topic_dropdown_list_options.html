@@ -1,0 +1,7 @@
+<select id="sub_topic">
+    <option></option>
+    {% for sub_topics in sub_topics %}
+        <option value="{{ sub_topics.id }}">{{ sub_topics.name }}</option>
+    {% endfor%}
+
+</select>

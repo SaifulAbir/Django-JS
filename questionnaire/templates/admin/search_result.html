@@ -1,0 +1,14 @@
+{% for ques_list in ques_list %}
+    {% autoescape off %}
+        <tr>
+            <input type="hidden" id="ques_id" name="ques_id" value="{{ ques_list.pk }}">
+            <td >{{ ques_list.question }}</td>
+            <td>{{ ques_list.qtype }}</td>
+            <td>{{ ques_list.difficulties }}</td>
+            <td>{{ ques_list.subject }}</td>
+            <td>{{ ques_list.topic }}</td>
+            <td>{{ ques_list.sub_topic }}</td>
+            <td> <a type="button" class="selectbutton btn btn-primary" href="#">Select</a></td>
+        </tr>
+    {% endautoescape %}
+{% endfor %}a
