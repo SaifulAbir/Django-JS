@@ -26,7 +26,7 @@ class ExamForm(forms.ModelForm):
     exam_name = forms.CharField(error_messages={'required':EXAM_NAME_REQUIRED_ERROR}, widget=forms.TextInput(attrs={'class': "form-control"}))
     tags = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control", 'id': 'exam_tags'}))
     pass_mark = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
-    duration = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
+    duration = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': "form-control"}))
     exam_fee = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
     re_registration_delay = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
     discount_percent = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control"}))

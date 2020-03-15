@@ -96,10 +96,10 @@ class ExamAdmin(ModelAdmin):
                             questionnaireModel.questionnaire_id = ques
                             questionnaireModel.save()
                         messages.success(request, EXAM_SAVE_SUCCESSFULLY_MSG)
-                        return redirect(reverse('admin:exams_exam_changelist'))
+                        return HttpResponseRedirect('/admin/exam/exam/')
                     else:
                         messages.error(request, MINIUM_ONE_QUESTIONNAIRE_MUST_BE_SELECTED_MSG)
-                        return HttpResponseRedirect('/exams/exam/exam_create/')
+                        return HttpResponseRedirect('/admin/exam/exam/exam_create/')
 
                 if question_selection_type == AUTO:
                     questionnaire = request.POST.get('template')
@@ -107,10 +107,10 @@ class ExamAdmin(ModelAdmin):
                         exam.template_id = questionnaire
                         exam.save()
                         messages.success(request,EXAM_SAVE_SUCCESSFULLY_MSG)
-                        return redirect(reverse('admin:exams_exam_changelist'))
+                        return HttpResponseRedirect('/admin/exam/exam/')
                     else:
                         messages.error(request, TEMPLATE_MUST_BE_SELECTED_MSG)
-                        return HttpResponseRedirect('/exams/exam/exam_create/')
+                        return HttpResponseRedirect('/admin/exam/exam/exam_create/')
 
 
                 if exam_tags:
@@ -144,7 +144,7 @@ class ExamAdmin(ModelAdmin):
             # Include common variables for rendering the admin template.
             self.admin_site.each_context(request),
             # Anything else you want in the context...
-            detail=detail, questionnaire_details=template_details
+            detail=detail, questionnaire_details=template_details, exam_strings = exam_strings
         )
 
         return TemplateResponse(request, "admin/exam_detail_view.html", context)
