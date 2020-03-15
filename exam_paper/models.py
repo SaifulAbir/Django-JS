@@ -1,17 +1,16 @@
 from django.db import models
 from datetime import datetime
-
-from examinees.models import Examinee
-from exams.models import Exam
+from django.contrib.auth.models import User
+from exam.models import Exam
 from questionnaire.models import Questionnaire
 from registration.models import Registration
 from question.models import Question
 
 class Exampaper(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, blank=True, related_name='exam')
-    examinee = models.ForeignKey(Examinee, on_delete=models.CASCADE, blank=True, related_name='examinee')
+    professional = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     registration = models.ForeignKey(Registration, on_delete=models.CASCADE, blank=True, related_name='registration')
-    question_id = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True, default="")
+    question = models.ForeignKey(Question, on_delete=models.PROTECT, blank=True, default="")
     question_text = models.TextField()
     answers_id = models.CharField(max_length=200)
     submitted_ans_id = models.CharField(max_length=200)
@@ -25,11 +24,11 @@ class Exampaper(models.Model):
         db_table= 'exam_paper'
 
 class AssignQuestionnaire(models.Model):
-    questionnaire_id = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, related_name='questionnaire')
-    examinee_id = models.ForeignKey(Examinee, on_delete=models.CASCADE)
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.PROTECT, related_name='questionnaire')
+    professional = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.questionnaire_id.name
+        return self.questionnaire.id
 
     class Meta:
         verbose_name_plural = "Assign Questionnaire"

@@ -32,5 +32,3 @@ class Professional(models.Model):
         verbose_name = strings_pro.PROFESSIONAL_VERBOSE_NAME
         verbose_name_plural = strings_pro.PROFESSIONAL_VERBOSE_NAME_PLURAL
         db_table = 'professionals'
-
-# PROFESSIONAL MODEL
