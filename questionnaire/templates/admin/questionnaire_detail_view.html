@@ -1,0 +1,62 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}" />
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <!-- END: Custom CSS-->
+{% endblock %}
+{% block content %}
+    <section class="">
+        <div class="card card">
+            <div class="text-center">
+                <p><b>Questionnaire Name: </b>{{ detail.name }}</p>
+            </div>
+            <div class="">
+                <p> <p><b>Subject: </b>{{ detail.subject }}</p>
+                <p><b>Topic: </b>{{ detail.topic }}</p>
+                <p><b>Sub Topic: </b>{{ detail.sub_topic }}</p>
+                <p><b>Remarks: </b>{{ detail.remarks }}</p>
+                </p>
+            </div>
+
+            <table id="questionirrietable" class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th class="">Question
+                    </th>
+                    <th class="">Question Type
+                    </th>
+                    <th class="">Difficulty
+                    </th>
+                    <th class="">Subject
+                    </th>
+                    <th class="">Topic
+                    </th>
+                    <th class="">Sub Topic
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for questionnaire_details in questionnaire_details %}
+                    {% autoescape off %}
+                        <tr>
+                            <td>{{ questionnaire_details.question_id.question }}</td>
+                            <td>{{ questionnaire_details.question_id.qtype }}</td>
+                            <td>{{ questionnaire_details.question_id.difficulties }}</td>
+                            <td>{{ questionnaire_details.question_id.subject }}</td>
+                            <td>{{ questionnaire_details.question_id.topic }}</td>
+                            <td>{{ questionnaire_details.question_id.sub_topic }}</td>
+                        </tr>
+                    {% endautoescape %}
+                {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+{% endblock %}

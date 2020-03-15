@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-body">
+                <section id="column">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-content collpase show">
+                                    <div class="card-body card-dashboard">
+                                        <h3 class="center-align red lighten-3"><strong>Title:</strong> {{question.question}}</h3>
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <ul>
+                                                    <li><strong>Type:</strong> {{ question.qtype }}</li>
+                                                    <li><strong>Subject:</strong> {{ question.subject }}</li>
+                                                    <li><strong>Topics:</strong> {{ question.topic }}</li>
+                                                    <li><strong>Difficuly:</strong> {{ question.difficulties }}</li>
+                                                    <li><strong>Created:</strong> {{ question.created_date }}</li>
+                                                </ul>
+
+                                                <table class="table table-striped table-bordered column-rendering">
+                                            <thead>
+                                            <tr>
+                                                <th>Question</th>
+                                                <th>Answer</th>
+                                                <th>Correct</th>
+                                                <th>Created Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for answer in answers %}
+                                                <tr>
+                                                    <td>{{ answer.question }}</td>
+                                                    <td>{{ answer.name }}</td>
+                                                    <td>{{ answer.correct }}</td>
+                                                    <td>{{ answer.created_date }}</td>
+                                                    <td><a href="/answer/details/{{answer.id}}"><i class="ft-eye"></i></a></td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tfoot>
+                                        </table>
+                                            </div>
+
+                                        </div>
+
+                                        <a href="/posts" class="btn">Go Back</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block extrastyle %}{{ block.super }}
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" type=y"text/css" href="{% static "css/bootstrap-extended.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/colors.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/components.css" %}">
+    <!-- END: Theme CSS-->
+    <!-- BEGIN: Select2 CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- END: Select2 CSS-->
+    <style>
+        .alert-blue-grey {
+            border-color: #607D8B !important;
+            background-color: #4890b3 !important;
+            color: #ffffff !important;
+            font-size: 17px;
+        }
+    </style>
+{% endblock %}
+{% block extrahead %}{{ block.super }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-select-single, .js-select-multiple').select2();
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="row match-height">
+        <div class="col-md-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <form class="form" method="POST">
+                    {% csrf_token %}
+                        <div class="form-body">
+                            <h4 class="form-section"><i class="ft-user"></i> Assign Questionnaire</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Questionnaire</label>
+                                        <select class="js-select-single form-control" name="questionnaire_id">
+                                            <option value="0">Select Questionnaire</option>
+                                            {% for questionnaire in questionnaire_list %}
+                                                <option value="{{ questionnaire.id }}">{{ questionnaire.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Examinee</label>
+                                        <select class="js-select-multiple form-control" name="examinee_id" multiple="multiple">
+                                            {% for examinee in examinee_list %}
+                                                <option value="{{ examinee.id }}">{{ examinee.email }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" id="assign-questionnaire" class="btn btn-primary">
+                                <i class="fa fa-check-square-o"></i> Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

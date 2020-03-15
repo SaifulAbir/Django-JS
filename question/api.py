@@ -1,25 +1,19 @@
 import json
 
 from django.http import HttpResponse
-from rest_framework.decorators import api_view
-from rest_framework import generics
-from .models import Topics, SubTopics
-from rest_framework.views import APIView
-from .serializers import TopicsPopulateSerializer, SubTopicsPopulateSerializer
-from rest_framework.response import Response
 
-# class TopicstPopulate(generics.ListAPIView):
-#     serializer_class = TopicsPopulateSerializer
-#
-#     def get_queryset(self):
-#
-#         queryset = Topics.objects.all()
-#         subject = self.kwargs['subject']
-#         if subject is not None:
-#             queryset = queryset.filter(subject_id=subject)
-#             print('hi')
-#             print(queryset)
-#         return queryset
+from questionnaire.models import QuestionnaireDetail
+from resources.strings import *
+from .models import *
+from rest_framework.views import APIView
+from .serializers import *
+from rest_framework.response import Response
+from exam.models import Exam, ExamQuestionnaireDetails
+from rest_framework.status import (
+    HTTP_401_UNAUTHORIZED,
+    HTTP_200_OK,
+    HTTP_404_NOT_FOUND
+)
 
 
 def topics_populate(reques,subject):
@@ -40,17 +34,40 @@ def sub_topics_populate(reques,topic):
     print(data)
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+class QuestionListWithAns(APIView):
+    def get(self, request):
+        question = Question.objects.all()
+        serializer = QuestionSerializer(question, many=True)
+        return Response({"questionListWithAns": serializer.data})
 
+class QuestionListWithAnsFromQuestionnaire(APIView):
+    def get(self, request,exam_id):
 
+        exmobj = Exam.objects.get(id=exam_id)
+        if not exmobj:
+            data = {
+                'status': FAILED,
+                'code': HTTP_404_NOT_FOUND,
+                'msg': DATA_NOT_FOUND,
+                "data": {
+                    "questionListWithAns": [],
+                }
+            }
+            return Response(data, HTTP_404_NOT_FOUND)
 
-# class SubTopicstPopulate(generics.ListAPIView):
-#     serializer_class = SubTopicsPopulateSerializer
-#
-#     def get_queryset(self):
-#
-#         queryset = SubTopics.objects.all()
-#         topic = self.kwargs['topic']
-#         if topic is not None:
-#             queryset = queryset.filter(topics=topic)
-#             print(queryset)
-#         return queryset
+        questionnaire = ExamQuestionnaireDetails.objects.filter(exam_id=exam_id).order_by("?").first()
+        if not questionnaire:
+            data = {
+                'status': FAILED,
+                'code': HTTP_404_NOT_FOUND,
+                'msg': DATA_NOT_FOUND,
+                "data": {
+                    "questionListWithAns": [],
+                }
+            }
+            return Response(data, HTTP_404_NOT_FOUND)
+        else:
+            question_list= list(QuestionnaireDetail.objects.filter(questionnaire_id_id=questionnaire.questionnaire_id).values_list('question_id_id', flat=True))
+            question = Question.objects.all().filter(pk__in=question_list).order_by('-id')
+            serializer = QuestionSerializer(question, many=True)
+            return Response({"questionListWithAns": serializer.data})

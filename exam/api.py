@@ -206,3 +206,51 @@ def exam_instruction(request, exam_id):
         }
     return Response(data, HTTP_200_OK)
 
+
+@api_view(["GET"])
+def recent_examlist(request, user_id):
+    ## Chick examinee id exist on db or not
+    try:
+        recent_exam_list = Registration.objects.filter(professional_id=user_id, status=REGISTRATION_STATUS_ONE).order_by('-id')
+
+        query = request.GET.get('q')
+
+        if query:
+            recent_exam_list = recent_exam_list.filter(
+                Q(exam__exam_name__icontains=query)
+            ).distinct().order_by('-id')
+
+        ## Pagination Start
+        page = request.GET.get('page', 1)
+        if not page:
+            page = 1
+
+        default_number_of_row = pagination.PageNumberPagination.page_size
+        paginator = Paginator(recent_exam_list, default_number_of_row)
+
+        try:
+            recent_exam_list = paginator.page(page)
+        except PageNotAnInteger:
+            recent_exam_list = paginator.page(1)
+        except EmptyPage:
+            recent_exam_list = paginator.page(1)
+
+        number_of_row_total = paginator.count
+        number_of_pages = paginator.num_pages
+        check_next_available_or_not = paginator.page(page).has_next()
+    ## Pagination End
+
+        recent_exam_list = RegistrationSerializer(recent_exam_list, many=True)
+
+    except Registration.DoesNotExist:
+        recent_exam_list = []
+
+    data = {
+        'status': 'success',
+        'next_pages': check_next_available_or_not,
+        'code': HTTP_200_OK,
+        "data": {
+            "recent_exam_list": recent_exam_list.data,
+        }
+    }
+    return Response(data, HTTP_200_OK)
