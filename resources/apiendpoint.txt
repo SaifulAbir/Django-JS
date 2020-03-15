@@ -241,7 +241,7 @@ output: {
 3. Question list of a  exam:
 ----------------------------------
 request type: GET
-url: http://192.168.1.51:8000/api/list/3
+url: http://192.168.1.51:8000/api/question-list/3
 Note: 3 = exam id
 
 output: {
