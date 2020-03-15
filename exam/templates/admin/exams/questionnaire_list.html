@@ -1,0 +1,12 @@
+{% for questionnaire in questionnaire_list %}
+    <tr>
+        <td scope="row">
+            <input type="checkbox" name="questionaire_id_list" value="{{ questionnaire.id }}">
+        </td>
+        <td style="display: none">{{ questionnaire.id }}</td>
+        <td>{{questionnaire.name}}</td>
+        <td>{{questionnaire.subject}}</td>
+        <td>{{questionnaire.topic}}</td>
+        <td>{{questionnaire.sub_topic}}</td>
+    </tr>
+{% endfor %}

@@ -1,0 +1,101 @@
+{% load static %}
+<div class="tab-pane active" id="tab1" role="tabpanel" aria-labelledby="base-tab1">
+    <div class="form-body">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="row" >
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="{{ exam_form.exam_name.id_for_label }}">{{ exam_form.exam_name.label }}</label>
+                            {{ exam_form.exam_name }}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="{{ exam_form.exam_category.id_for_label }}">{{ exam_form.exam_category.label }}</label>
+                            {{ exam_form.exam_category }}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="{{ exam_form.exam_level.id_for_label }}">{{ exam_form.exam_level.label }}</label>
+                            {{ exam_form.exam_level }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="{{ exam_form.subject.id_for_label }}">{{ exam_form.subject.label }}</label>
+                            {{ exam_form.subject }}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="{{ exam_form.topic.id_for_label }}">{{ exam_form.topic.label }}</label>
+                            {{ exam_form.topic }}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="{{ exam_form.sub_topic.id_for_label }}">{{ exam_form.sub_topic.label }}</label>
+                            {{ exam_form.sub_topic }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="{{ exam_form.exam_code.id_for_label }}">{{ exam_form.exam_code.label }}</label>
+                            {{ exam_form.exam_code }}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="{{ exam_form.duration.id_for_label }}">{{ exam_form.duration.label }}</label>
+                            {{ exam_form.duration }}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="{{ exam_form.pass_mark.id_for_label }}">{{ exam_form.pass_mark.label }}</label>
+                            {{ exam_form.pass_mark }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="{{ exam_form.tags.id_for_label }}">{{ exam_form.tags.label }}</label>
+                            {{ exam_form.tags }}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group" style="padding-top: 25px; padding-left: 5px;">
+                            {{ exam_form.is_featured }}
+                            <label for="{{ exam_form.is_featured.id_for_label }}">{{ exam_form.is_featured.label }}</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="{{ exam_form.image.id_for_label }}">{{ exam_form.image.label }} &nbsp;</label>
+                    <img id="image-area" src="{% static 'images/default-images/default-exam-image.png' %}" class="pull-right preview-show" alt="Image">
+                    <input type="file" name="image" accept="image/*" placeholder="Image" id="image" class="img-preview">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="{{ exam_form.instruction.id_for_label }}">{{ exam_form.instruction.label }}</label>
+                    {{ exam_form.instruction | safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -87,6 +87,7 @@ class QuestionAdmin(admin.ModelAdmin):
                    ('topic',RelatedDropdownFilter),('sub_topic',RelatedDropdownFilter))
     fields = ['question',('question_id','qtype','difficulties'),('subject','topic','sub_topic', 'status')]
     inlines = [AnswerInline]
+    save_as = True
 
     def get_urls(self):
         urls = super().get_urls()
