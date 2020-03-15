@@ -1,0 +1,131 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block extrastyle %}
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" type=y"text/css" href="{% static "css/bootstrap-extended.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/colors.css" %}">
+    <!-- END: Theme CSS-->
+    <style>
+        .first-col-size{
+            vertical-align: inherit;
+            padding: 11px 10px;
+        }
+        .col-size{
+            vertical-align: inherit;
+        }
+    </style>
+{% endblock %}
+{% block content_title %}
+    <h1>{{questionnaire_submit_strings.RESULT_LIST_PAGE_TITLE}}</h1>
+{% endblock %}
+{% block bodyclass %}{{ block.super }} vertical-layout vertical-menu 2-columns fixed-navbar{% endblock %}
+{% block content %}
+    {% load mathfilters %}
+    {% load string_format_values %}
+    <div id="content-main">
+        <div class="results">
+            <table width="100%" id="result-summary-table">
+
+                <thead>
+                <tr>
+                    <th class="first-col-size">
+                        <div>
+                            <a href="#">{{questionnaire_submit_strings.ID_TABLE_HEADER_TEXT}}</a>
+                        </div>
+                    </th>
+                    <th class="col-size">
+                        <div>
+                            <a href="#">{{questionnaire_submit_strings.REGISTRATION_ID_TABLE_HEADER_TEXT}}</a>
+                        </div>
+                    </th>
+                    <th class="col-size">
+                        <div >
+                            <a href="#">{{questionnaire_submit_strings.CANDIDATE_NAME_TABLE_HEADER_TEXT}}</a>
+                        </div>
+                    </th>
+                    <th class="col-size">
+                        <div >
+                            <a href="#">{{questionnaire_submit_strings.EXAM_NAME_TABLE_HEADER_TEXT}}</a>
+                        </div>
+                    </th>
+                    <th class="col-size">
+                        <div>
+                            <a href="#">{{questionnaire_submit_strings.DURATION_NAME_TABLE_HEADER_TEXT}}</a>
+                        </div>
+                    </th >
+                    <th class="col-size">
+                        <div>
+                            <a href="#">
+                                <strong>{{questionnaire_submit_strings.DATE_NAME_TABLE_HEADER_TEXT}}</strong>
+                            </a>
+                        </div>
+                    </th>
+                    <th class="col-size">
+                        <div>
+                            <a href="#">
+                                <strong>{{questionnaire_submit_strings.PERCENT_OF_RESULT_TABLE_HEADER_TEXT}}</strong>
+                            </a>
+                        </div>
+                    </th>
+                    <th class="col-size">
+                        <div>
+                            <a href="#">
+                                <strong>{{questionnaire_submit_strings.RESULT_STATUS_TABLE_HEADER_TEXT}}</strong>
+                            </a>
+                        </div>
+                    </th>
+                    <th class="col-size">
+                        <div>
+                            <a href="#">{{questionnaire_submit_strings.ACTION_TABLE_HEADER_TEXT}}</a>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in result %}
+                    <tr class="{% cycle 'row1' 'row2' %}">
+                        <td>{{ forloop.counter }}</td>
+                        <td> {{ row.registration_id }} </td>
+                        <td> {{ row.registration_obj.candidate.name }} </td>
+                        <td> {{ row.registration_obj.exam.exam_name }} </td>
+                        <td> {{ row.registration_obj.exam.duration }} </td>
+                        <td> {{ row.exampaper_obj.created_date }} </td>
+                        <td> {% autoescape off %}
+                            {% format_values questionnaire_submit_strings.TOTAL_RESULT_INFO row.number_of_correct row.number_of_question_id row.registration_obj.percentage_of_correct %}
+                            {% endautoescape %}
+
+                        </td>
+                        <td>{{ row.registration_obj.get_result_status_display }}</td>
+                        <td> <a href="{% url 'admin:result_details' row.registration_id %}" class="btn btn-success mr-0 mb-0" id="result-summary">Details</a> </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row"><div class="col-md-12">
+        {% if result.has_other_pages %}
+            <ul id="result-summary-pagination" class="pagination">
+                {% if result.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ result.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+                {% for i in result.paginator.page_range %}
+                    {% if result.number == i %}
+                        <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if result.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ result.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}
