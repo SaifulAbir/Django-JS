@@ -6,3 +6,5 @@ FAILED = 'failed'
 PASSED = 'passed'
 PENDING= 'pending',
 DATA_NOT_FOUND='Data Not Found'
+YES_TEXT= 'Yes'
+NO_TEXT= 'No'
