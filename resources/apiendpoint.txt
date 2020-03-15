@@ -236,3 +236,50 @@ output: {
         "recent_exam_list": []
     }
 }
+
+----------------------------------
+3. Question list of a  exam:
+----------------------------------
+request type: GET
+url: http://192.168.1.51:8000/api/list/3
+Note: 3 = exam id
+
+output: {
+    "questionListWithAns": [
+        {
+            "id": 2,
+            "question": "<p>In an Agile environment, what is the main responsibility of a tester?</p>",
+            "qtype": null,
+            "answers": [
+                {
+                    "id": 3,
+                    "name": "tesrt",
+                    "correct": true
+                },
+                {
+                    "id": 4,
+                    "name": "sdf",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "question": "<p>Which of the following is delivered at the end of the Sprint?</p>",
+            "qtype": null,
+            "answers": [
+                {
+                    "id": 1,
+                    "name": "test",
+                    "correct": true
+                },
+                {
+                    "id": 2,
+                    "name": "test",
+                    "correct": false
+                }
+            ]
+        }
+    ]
+}
+
