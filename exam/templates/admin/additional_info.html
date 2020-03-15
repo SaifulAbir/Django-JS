@@ -1,0 +1,54 @@
+{% load static %}
+<div class="tab-pane" id="tab3" role="tabpanel" aria-labelledby="base-tab3">
+    <div class="form-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group radio-field-wrapper">
+                    <label for="{{ exam_form.exam_type.id_for_label }}">{{ exam_form.exam_type.label }}</label>
+                    {{ exam_form.exam_type }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ exam_form.exam_fee.id_for_label }}">{{ exam_form.exam_fee.label }}</label>
+                    {{ exam_form.exam_fee }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ exam_form.re_registration_delay.id_for_label }}">{{ exam_form.re_registration_delay.label }}</label>
+                    {{ exam_form.re_registration_delay }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="{{ exam_form.promo_code.id_for_label }}">{{ exam_form.promo_code.label }}</label>
+                    {{ exam_form.promo_code }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="{{ exam_form.discount_price.id_for_label }}">{{ exam_form.discount_price.label }}</label>
+                    {{ exam_form.discount_price }}
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="{{ exam_form.discount_percent.id_for_label }}">{{ exam_form.discount_percent.label }}</label>
+                    {{ exam_form.discount_percent }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <button type="submit" class="btn btn-primary pull-right">
+            <i class="fa fa-check-square-o"></i> {{ exam_strings.EXAM_PAGE_SAVE_BUTTON_TEXT }}
+        </button>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+{% load static %}
+<div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel17">{{ exam_strings.QUESTIONNAIRE_SELECTION_TITLE }}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" id="questionnaire-name" class="form-control" placeholder="Questionnaire" name="questionnaire-name">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" id="questionnaire-subject" class="form-control" placeholder="Subject" name="questionnaire-subject" value="">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" id="questionnaire-topic" class="form-control" placeholder="Topic" name="questionnaire-topic">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" id="questionnaire-sub-topic" class="form-control" placeholder="Sub Topic" name="questionnaire-sub-topic">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" id="search-multiple-questionnaire" class="btn btn-outline-primary pull-right">{{ exam_strings.EXAM_SEARCH_TEXT_BUTTON }} </button>
+            </div>
+        </div>
+    </form>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="search-table table-responsive">
+                <table class=" table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th style="display: none">{{ exam_strings.EXAM_PAGE_TABLE_ID_COLUMN_TEXT }}</th>
+                        <th>{{ exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TABLE_HEADING_TEXT_QUESTIONNAIRE }}</th>
+                        <th>{{ exam_strings.EXAM_PAGE_QUESTIONNAIRE_SELECTION_LIST_TABLE_HEADING_TEXT_SUBJECT }}</th>
+                        <th>{{ exam_strings.EXAM_PAGE_QUESTIONNAIRE_SELECTION_LIST_TABLE_HEADING_TEXT_TOPIC }}</th>
+                        <th>{{ exam_strings.EXAM_PAGE_QUESTIONNAIRE_SELECTION_LIST_TABLE_HEADING_TEXT_SUBTOPIC }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% include 'admin/exams/questionnaire_list.html' %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">{{ exam_strings.EXAM_CLOSE_TEXT_BUTTON }}</button>
+    <button type="button" id="add-questionnaire-list" class="btn btn-outline-primary">{{ exam_strings.EXAM_ADD_TEXT_BUTTON }}</button>
+</div>
+<script type="text/javascript">
+    $('.search-table').hide();
+    $('#search-multiple-questionnaire').on('click', function () {
+        $.ajax({
+            url: '/exams/exam/search_questionnaire/',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'questionnaire-name': $('#questionnaire-name').val(),
+                'questionnaire-subject': $('#questionnaire-subject').val(),
+                'questionnaire-topic':  $('#questionnaire-topic').val(),
+                'questionnaire-sub-topic':  $('#questionnaire-sub-topic').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+
+            },
+            success: function (data) {
+                $('#search-questionnaire-modal tbody').html(data.questionnaire_list);
+                $('.search-table').show();
+            }
+        });
+    });
+
+    var data=[]
+    var keys=['ques_id','ques','sub','top','subtop']
+    $('#add-questionnaire-list').on('click', function () {
+        $('.search-table').find('tr').each(function(){
+            var row=$(this);
+            if (row.find('input[type="checkbox"]').is(':checked')) {
+                dict={}
+                values = (row.children().map(function() { return $(this).text(); }).get().join()).split(',');
+                console.log(values)
+
+                for(var i=0; i<values.length-1; i++){
+                    dict[keys[i]] = values[i+1]
+                }
+                data.push(dict)
+                console.log(dict)
+
+            }
+            $("#search-questionnaire-modal").modal('hide');
+        });
+        searchQuestionnaireCallback(data);
+        console.log(data)
+    });
+
+    var sub
+    var topic
+    var sub_topic
+    $('#subject').on('change',function () {
+        sub = $('#subject').children("option:selected").text()
+        topic=null
+        sub_topic=null
+
+    });
+    if (sub != null){$('#questionnaire-subject').val(sub).prop("disabled", true)}
+
+    $(document).on('change','#topic',function () {
+        topic = $('#topic').children("option:selected").text()
+        sub_topic = null
+    });
+    if (topic != null){$('#questionnaire-topic').val(topic).prop("disabled", true)}
+
+
+    $('#sub_topic').on('change',function () {
+        sub_topic = $('#sub_topic').children("option:selected").text()
+    });
+    if (sub_topic != null){$('#questionnaire-sub-topic').val(sub_topic).prop("disabled", true)}
+
+    function searchQuestionnaireCallback(data){
+        data.forEach(function (e) {
+            var row='<tr><input name="questionaire_id_list[]" type="hidden" value="'+ e.ques_id +'"><td>'+e.ques+'</td><td>'+e.sub+'</td><td>'+e.top+'</td><td>'+e.subtop+'</td><td><input type="button" class="removebutton btn btn-primary" value="Remove"></td></tr>'
+            $('#questionnaire-table tbody').append(row)
+        })
+    }
+
+</script>
