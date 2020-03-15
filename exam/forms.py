@@ -36,10 +36,11 @@ class ExamForm(forms.ModelForm):
     subject = forms.ModelChoiceField(required=False, queryset=Subject.objects.all(),
                                     empty_label=DROPDOWN_DEFAULT_EMPTY_STRING, widget=forms.Select(attrs={'class' : "form-control subject-dropdown"}))
     topic = forms.ModelChoiceField(required=False, queryset=Topics.objects.all(),
-                                    empty_label=DROPDOWN_DEFAULT_EMPTY_STRING, widget=forms.Select(attrs={'class' : "form-control topic-dropdown"
-            ,'data-text':'name',"data-value":"id","data-placeholder":"--------","data-src":"/api/topic_populate","data-parent":"#id_subject"}))
+                                    empty_label=DROPDOWN_DEFAULT_EMPTY_STRING, widget=forms.Select(attrs={'class' : "form-control topic-dropdown",
+            'data-text':'name',"data-value":"id","data-placeholder":"--------","data-src":"/api/topic_populate","data-parent":"#id_subject"}))
     sub_topic = forms.ModelChoiceField(required=False, queryset=SubTopics.objects.all(),
-                                    empty_label=DROPDOWN_DEFAULT_EMPTY_STRING, widget=forms.Select(attrs={'class' : "form-control subtopic-dropdown"}))
+                                    empty_label=DROPDOWN_DEFAULT_EMPTY_STRING, widget=forms.Select(attrs={'class' : "form-control subtopic-dropdown",
+            'data-text':'name',"data-value":"id","data-placeholder":"--------","data-src":"/api/sub_topic_populate","data-parent":"#id_topic"}))
     exam_category = forms.ModelChoiceField(required=False, queryset=ExamCategory.objects.all(),
                                     empty_label=DROPDOWN_DEFAULT_EMPTY_STRING, widget=forms.Select(attrs={'class' : "form-control"}))
     exam_level = forms.ModelChoiceField(required=False, queryset=ExamLevel.objects.all(),
