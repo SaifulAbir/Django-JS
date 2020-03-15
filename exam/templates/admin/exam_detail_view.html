@@ -1,32 +1,275 @@
 {% extends "admin/base_site.html" %}
+{% load static %}
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}" />
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <!-- END: Custom CSS-->
+    <!-- BEGIN: Bootstrap-tagsinput CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-tagsinput.css' %}">
+    <!-- END: Bootstrap-tagsinput CSS-->
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+    <script src="{% static '/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static '/assets/js/popper.min.js' %}"></script>
+    <script src="{% static '/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/common.js' %}"></script>
+
+    <script src="{% static 'js/exam.js' %}"></script>
+{% endblock %}
 {% block content %}
-    <div class="col-md-12 col-sm-12">
-        <div class="card border-top-success box-shadow-0 border-bottom-danger">
-            <div class="card-header">
-                <h4 class="card-title">Exam Details</h4>
-                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                <div class="heading-elements">
-                    <ul class="list-inline mb-0">
-                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                        <li><a data-action="close"><i class="ft-x"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card-content collapse show">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6 border box-shadow-0">
-                            <p class=" ">
-                                <strong>Exam Code:</strong> {{ detail.exam_code }}
-                            </p>
+    <div class="card">
+        <div class="card-content">
+            <div class="card-body">
+
+                <div class="content-body"><!-- Basic tabs start -->
+                    <section id="basic-tabs-components">
+                        <div class="row match-height">
+                            <div class="col-xl-12 col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">{{exam_strings.EXAM_DETAIL_PAGE_TITLE}}</h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-body tab-wrapper">
+                                            <ul class="nav nav-tabs" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="tab1" href="#tab1" role="tab" aria-selected="true">{{exam_strings.EXAM_PAGE_FIRST_TAB_HEADING_TEXT}}</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" role="tab" aria-selected="false">{{exam_strings.EXAM_PAGE_SECOND_TAB_HEADING_TEXT}}</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" role="tab" aria-selected="false">{{exam_strings.EXAM_PAGE_THIRD_TAB_HEADING_TEXT}}</a>
+                                                </li>
+                                            </ul>
+                                            <form method="post" enctype="multipart/form-data" novalidate="">
+                                                <input type="hidden" name="csrfmiddlewaretoken" value="3VzupJmcivnKNc46RJOCM4iVdXk0R4QfYHJuaACXujriBje6JNRyl03iwOXMkHV9">
+                                                <span id="alert_placeholder">
+
+                                    </span>
+                                                <div class="tab-content px-1 pt-1">
+
+                                                    <div class="tab-pane active" id="tab1" role="tabpanel" aria-labelledby="base-tab1">
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-9">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group">
+                                                                                <label for="id_exam_name">{{exam_strings.EXAM_NAME_LABEL_TEXT}}</label>
+                                                                                <input type="text" value="{{ detail.exam_name }}" class="form-control" disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group">
+                                                                                <label for="id_exam_category">{{exam_strings.EXAM_CATEGORY_LABEL_TEXT}}</label>
+                                                                                <input type="text" value="{{ detail.exam_category.name }}" class="form-control" id="id_exam_name" disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="id_subject">{{exam_strings.EXAM_SUBJECT_LABEL_TEXT}}</label>
+                                                                                <input type="text" value="{{ detail.subject.name }}" class="form-control" disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="id_topic">{{exam_strings.EXAM_TOPIC_LABEL_TEXT}}</label>
+                                                                                <input type="text" value="{{ detail.topic.name }}" class="form-control" disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="id_sub_topic">{{ exam_strings.EXAM_SUBTOPIC_LABEL_TEXT }}</label>
+                                                                                <input type="text" value="{{ detail.sub_topic.name }}" class="form-control" disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="id_exam_code">{{exam_strings.EXAM_EXAM_CODE_LABEL_TEXT}}</label>
+                                                                                <input type="text" value="{{ detail.exam_code }}" class="form-control" disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="id_duration">{{exam_strings.EXAM_DURATION_LABEL_TEXT}}</label>
+                                                                                <input type="text" value="{{ detail.duration }}" class="form-control" disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="id_pass_mark">{{exam_strings.EXAM_PASSMARK_LABEL_TEXT}}</label>
+                                                                                <input type="text" value="{{ detail.pass_mark }}" class="form-control" disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div class="col-sm-8">
+                                                                            <label for="id_pass_mark">{{exam_strings.EXAM_EXAM_LEVEL_LABEL_TEXT}}</label>
+                                                                            <input type="text" value="{{ detail.exam_level.name }}" class="form-control" disabled>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group" >
+                                                                                <label for="id_is_featured">{{exam_strings.EXAM_FEATURED_LABEL_TEXT}}</label>
+                                                                                {% if detail.is_featured %}
+                                                                                    <input type="text" value="{{exam_strings.FEATURED_VALUE_YES_TEXT}}" class="form-control" disabled>
+                                                                                {% else %}
+                                                                                    <input type="text" value="{{exam_strings.FEATURED_VALUE_NO_TEXT}}" class="form-control" disabled>
+                                                                                {% endif %}
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <div class="form-group">
+                                                                        <label for="image">{{exam_strings.EXAM_THUMBNAIL}} &nbsp;</label>
+                                                                        {% if detail.image %}
+                                                                            <img id="image-area" src="{{ detail.image.url }}" class="pull-right" alt="Image">
+                                                                        {% else %}
+                                                                            <img id="image-area" src="/static/images/default-images/default-exam-image.png" class="pull-right" alt="Image">
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-9">
+                                                                    <div class="form-group">
+                                                                        <label for="id_instruction">{{exam_strings.EXAM_INSTRUCTION_LABEL_TEXT}}</label>
+                                                                        <textarea class="form-control" id="" cols="40"
+                                                                                  rows="5" readonly >{{ detail.instruction }}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="tab-pane" id="tab2" role="tabpanel" aria-labelledby="base-tab2">
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12 radio-field-wrapper">
+                                                                    <label for="id_question_selection_type_0">{{exam_strings.LABEL_QUESTIONNAIRE_TYPE}}</label>
+                                                                    {% if detail.question_selection_type == exam_strings.MANUAL %}
+                                                                        <input type="text" value="{{exam_strings.MANUAL_TITLE_CASE}}" class="form-control" readonly>
+                                                                    {% elif detail.question_selection_type == exam_strings.AUTO %}
+                                                                        <input type="text" value="{{exam_strings.AUTO_TITLE_CASE}}" class="form-control" readonly>
+                                                                    {% else %}
+                                                                        <input type="text" class="form-control" readonly>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            {% if questionnaire_details %}
+                                                                <div class="card">
+                                                                    <div class="questionnaire-modal">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-6">
+                                                                                <h3 class="questionnaire-title">{{exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TEXT}}</h3>
+                                                                            </div>
+                                                                            <div class="col-sm-6">
+                                                                            </div>
+                                                                        </div><br>
+
+                                                                        <div class="table-responsive">
+                                                                            <table id="questionnaire-table" class="basic-table list-table table">
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    <th>{{exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TABLE_HEADING_TEXT_QUESTIONNAIRE}}</th>
+                                                                                    <th>{{exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TABLE_HEADING_TEXT_SUBJECT}}</th>
+                                                                                    <th>{{exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TABLE_HEADING_TEXT_TOPIC}}</th>
+                                                                                    <th>{{exam_strings.EXAM_PAGE_QUESTIONNAIRE_LIST_TABLE_HEADING_TEXT_SUBTOPIC}}</th>
+                                                                                </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                {% for questionnaire in questionnaire_details %}
+                                                                                    <tr>
+                                                                                        <td>{{questionnaire.questionnaire.name}}</td>
+                                                                                        <td>{{questionnaire.questionnaire.subject}}</td>
+                                                                                        <td>{{questionnaire.questionnaire.topic}}</td>
+                                                                                        <td>{{questionnaire.questionnaire.sub_topic}}</td>
+                                                                                    </tr>
+                                                                                {% endfor %}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="tab-pane" id="tab3" role="tabpanel" aria-labelledby="base-tab3">
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group ">
+                                                                        <label for="id_exam_type_0">{{exam_strings.EXAM_TYPE_LABEL_TEXT}}</label>
+                                                                        {% if detail.exam_type == exam_strings.PUBLIC %}
+                                                                            <input type="text" value="{{exam_strings.PUBLIC_TITLE_CASE}}" class="form-control" readonly>
+                                                                        {% elif detail.exam_type == exam_strings.PRIVATE %}
+                                                                            <input type="text" value="{{exam_strings.PRIVATE_TITLE_CASE}}" class="form-control" readonly>
+                                                                        {% else %}
+                                                                            <input type="text" class="form-control" readonly>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="id_exam_fee">{{exam_strings.EXAM_FEE_LABEL_TEXT}}</label>
+                                                                        <input type="text" value="{{ detail.exam_fee }}" class="form-control" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="id_re_registration_delay">{{exam_strings.EXAM_RE_REGISTRATION_DELAY_LABEL_TEXT}}</label>
+                                                                        <input type="text" value="{{ detail.re_registration_delay }}" class="form-control" readonly>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="id_promo_code">{{exam_strings.EXAM_PROMO_CODE_LABEL_TEXT}}</label>
+                                                                        <input type="text" value="{{ detail.promo_code }}" class="form-control" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="id_discount_price">{{exam_strings.EXAM_DISCOUNT_LABEL_TEXT}}</label>
+                                                                        <input type="text" value="{{ detail.discount_price }}" class="form-control" readonly>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="id_discount_percent">{{exam_strings.EXAM_DISCOUNT_PERCENT_LABEL_TEXT}}</label>
+                                                                        <input type="text" value="{{ detail.discount_percent }}" class="form-control" readonly>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 border box-shadow-0">
-                            <p class=" ">
-                                <strong>Exam Name:</strong> {{ detail.exam_name }}
-                            </p>
-                        </div>
-                    </div>
+                    </section>
                 </div>
+
+                <br class="clear">
             </div>
         </div>
     </div>
