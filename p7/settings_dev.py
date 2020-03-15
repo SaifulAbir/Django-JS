@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'questionnaire',
     'exam',
-    'exam_paper'
+    'exam_paper',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
