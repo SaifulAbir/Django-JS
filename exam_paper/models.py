@@ -8,7 +8,7 @@ from question.models import Question
 
 class Exampaper(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, blank=True, related_name='exam')
-    professional = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='professional')
+    professional = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     registration = models.ForeignKey(Registration, on_delete=models.CASCADE, blank=True, related_name='registration')
     question = models.ForeignKey(Question, on_delete=models.PROTECT, blank=True, default="")
     question_text = models.TextField()
