@@ -51,8 +51,7 @@ def exam_submit(request):
    # number_of_question = len(question_ans_list)
     for single_question_ans in question_ans_list:
         quesion_ans_model = Exampaper()
-        quesion_ans_model.examinee_id = professional_id
-        quesion_ans_model.exam_id = exam_id
+        quesion_ans_model.professional_id = professional_id
         quesion_ans_model.exam_id = exam_id
         quesion_ans_model.registration_id = reg_obj.id
         quesion_ans_model.question_text = single_question_ans['question_text']
@@ -61,7 +60,7 @@ def exam_submit(request):
         answers_list = ','.join(map(str, answers_list))
 
         quesion_ans_model.answers_id = answers_list
-        quesion_ans_model.question_id_id = single_question_ans['question_id_id']
+        quesion_ans_model.question_id = single_question_ans['question_id_id']
         quesion_ans_model.submitted_ans_id = single_question_ans['submitted_ans_id']
         quesion_ans_model.correct = checkSubmittedAnsRightOrWrong(quesion_ans_model.answers_id,quesion_ans_model.submitted_ans_id)
         quesion_ans_model.created_date = timezone.now()
@@ -73,6 +72,12 @@ def exam_submit(request):
 
     reg_obj.status = REGISTRATION_STATUS_ONE
     reg_obj.percentage_of_correct = percentageOfRightAns
+
+    if not exam_obj.pass_mark:
+        exam_obj.pass_mark=0
+
+    if not percentageOfRightAns:
+        percentageOfRightAns=0
 
     if int(exam_obj.pass_mark) <= int(percentageOfRightAns):
         reg_obj.result_status = RESULT_STATUS_PASSED
