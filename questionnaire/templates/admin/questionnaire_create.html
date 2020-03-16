@@ -198,7 +198,7 @@
 
         $(document).ready(function() {
             $("#questable ").on('click', '.selectbutton', function () {
-                $(this).text('Remove').attr('class', 'removebutton btn btn-danger').parent('td').parent('tr').clone().appendTo('#questionirrietable');
+                $(this).text('Remove').attr('class', 'removebutton text-white btn btn-danger').parent('td').parent('tr').clone().appendTo('#questionirrietable');
                 $(this).parent().parent().remove();
                 {#localStorage.setItem( "tabledata", $("#questionirrietable").html() );#}
             });
@@ -208,7 +208,7 @@
             {#$("#questionirrietable").html( tabledata );#}
 
             $("#questionirrietable ").on('click', '.removebutton', function () {
-                $(this).text('Select').attr('class', 'selectbutton btn btn-primary').parent('td').parent('tr').clone().appendTo('#questable');
+                $(this).text('Select').attr('class', 'selectbutton text-white btn btn-primary').parent('td').parent('tr').clone().appendTo('#questable');
                 $(this).parent().parent().remove();
                 {#localStorage.setItem( "tabledata", $("#questionirrietable").html() );#}
             });
