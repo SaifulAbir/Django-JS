@@ -1,110 +1,107 @@
 {% extends "admin/base_site.html" %}
 {% load i18n static %}
 {% block extrastyle %}{{ block.super }}
-    <!-- BEGIN: Theme CSS-->
-     <link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" type=y"text/css" href="{% static "css/bootstrap-extended.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/colors.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/components.css" %}">
-    <!-- END: Theme CSS-->
-    <!-- External Css -->
-    <link rel="stylesheet" href="{% static '/assets/css/fontawesome-all.min.css'%}" />
-    <style>
-        html body.fixed-navbar {
-            padding-top: 0rem !important;
-        }
-        .alert-blue-grey {
-            border-color: #607D8B !important;
-            background-color: #4890b3 !important;
-            color: #ffffff !important;
-            font-size: 17px;
-        }
-        .card-header{
-            padding-bottom: 0px;
-        }
-    </style>
+<!-- BEGIN: Theme CSS-->
+<link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}" />
+<!-- END: Theme CSS-->
+<!-- External Css -->
+<link rel="stylesheet" href="{% static '/assets/css/fontawesome-all.min.css'%}" />
+<style>
+    html body.fixed-navbar {
+        padding-top: 0rem !important;
+    }
+    .alert-blue-grey {
+        border-color: #607D8B !important;
+        background-color: #4890b3 !important;
+        color: #ffffff !important;
+        font-size: 17px;
+    }
+    .card-header{
+        padding-bottom: 0px;
+    }
+</style>
 
-    <!-- BEGIN: Vendor CSS-->
-    <link href="{% static "vendors/css/vendors.min.css" %}"  rel="stylesheet">
-    <!-- END: Vendor CSS-->
-    <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
-    <!-- END: Custom CSS-->
+<!-- BEGIN: Vendor CSS-->
+<link href="{% static "vendors/css/vendors.min.css" %}"  rel="stylesheet">
+<!-- END: Vendor CSS-->
+<!-- BEGIN: Custom CSS-->
+<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+<!-- END: Custom CSS-->
 {% endblock %}
 {% block content_title %}
 
 {% endblock %}
 {% block bodyclass %}{{ block.super }} vertical-layout vertical-menu 2-columns fixed-navbar{% endblock %}
 {% block content %}
-    {% load mathfilters %}
-    <div id="content-main">
-        <div class="">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card bg-info align-items-center">
-                        <div class="card-body">
-                            <div class="card-block bg-white p-2">
-                                <h4 class="card-title text-center">Result details</h4>
-                                <p class="card-text">Candidate Email: {{ qs.registration.professional.email }}</p>
-                                <p class="card-text">Registration ID: {{ qs.registration.id }}</p>
-                                <p class="card-text">Exam Name: {{ qs.registration.exam.exam_name }}</p>
-                                <p class="card-text">Duration: {{ qs.registration.exam.duration }}</p>
-                                {% for result in total_result %}
-                                <p class="card-text">Result: {{ result.number_of_correct }} out of {{ result.number_of_question_id }} <strong>({{ result.number_of_correct | div:result.number_of_question_id | mul:100 | floatformat:0 }}%)</strong></p>
+{% load mathfilters %}
+<div id="content-main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card bg-info align-items-center">
+                    <div class="card-body">
+                        <div class="card-block bg-white p-2">
+                            <h4 class="card-title text-center">Result details</h4>
+                            <p class="card-text">Candidate Email: {{ qs.registration.professional.email }}</p>
+                            <p class="card-text">Registration ID: {{ qs.registration.id }}</p>
+                            <p class="card-text">Exam Name: {{ qs.registration.exam.exam_name }}</p>
+                            <p class="card-text">Duration: {{ qs.registration.exam.duration }}</p>
+                            {% for result in total_result %}
+                            <p class="card-text">Result: {{ result.number_of_correct }} out of {{ result.number_of_question_id }} <strong>({{ result.number_of_correct | div:result.number_of_question_id | mul:100 | floatformat:0 }}%)</strong></p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        {% for row in result %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border-blue-grey">
+                    <div class="card-header bg-blue-grey">
+                        <h4 class="card-title text-black-50">{{ row.question_obj|safe }}</h4>
+                    </div>
+                    <div class="card-body ">
+                        <div class="form-body">
+                            <div class="row ">
+                                {% for answer in row.answer_obj %}
+                                {% if answer.id|stringformat:"i" in row.submitted_ans_list %}
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="projectinput1" class="sr-only">First Name</label>
+                                        {% if answer.correct %}
+                                        <div class="alert alert-blue-grey"><b >{{ answer.name }}</b> <i style="font-weight: 900;font-size: 30px;" class="fa fa-check-circle float-right"></i></div>
+                                        {% else %}
+                                        <div class="alert alert-blue-grey"><b>{{ answer.name }}</b></div>
+                                        {% endif %}
+                                        {#                                                <input type="text" class="alert" value="{{ answer.name }}" id="projectinput1" class="form-control" readonly>#}
+                                    </div>
+                                </div>
+
+                                {% else %}
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="projectinput1" class="sr-only">First Name</label>
+                                        {% if answer.correct %}
+                                        <div class="alert alert-blue-grey">{{ answer.name }} <i class="ft-check-circle pull-right"></i></div>
+                                        {% else %}
+                                        <div class="alert alert-blue-grey">{{ answer.name }}</div>
+                                        {% endif %}
+                                        {#                                                <input type="text" class="alert" value="{{ answer.name }}" id="projectinput1" class="form-control" readonly>#}
+                                    </div>
+                                </div>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <br />
-            {% for row in result %}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-blue-grey">
-                        <div class="card-header bg-blue-grey">
-                            <h4 class="card-title text-black-50">{{ row.question_obj|safe }}</h4>
-                        </div>
-                        <div class="card-body ">
-                                <div class="form-body">
-                                <div class="row ">
-                                    {% for answer in row.answer_obj %}
-                                        {% if answer.id|stringformat:"i" in row.submitted_ans_list %}
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="projectinput1" class="sr-only">First Name</label>
-                                                {% if answer.correct %}
-                                                <div class="alert alert-blue-grey"><b >{{ answer.name }}</b> <i style="font-weight: 900;font-size: 30px;" class="fa fa-check-circle float-right"></i></div>
-                                                {% else %}
-                                                 <div class="alert alert-blue-grey"><b>{{ answer.name }}</b></div>
-                                                {% endif %}
-{#                                                <input type="text" class="alert" value="{{ answer.name }}" id="projectinput1" class="form-control" readonly>#}
-                                            </div>
-                                        </div>
-
-                                        {% else %}
-                                            <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="projectinput1" class="sr-only">First Name</label>
-                                                {% if answer.correct %}
-                                                <div class="alert alert-blue-grey">{{ answer.name }} <i class="ft-check-circle pull-right"></i></div>
-                                                {% else %}
-                                                 <div class="alert alert-blue-grey">{{ answer.name }}</div>
-                                                {% endif %}
-{#                                                <input type="text" class="alert" value="{{ answer.name }}" id="projectinput1" class="form-control" readonly>#}
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div><br>
-            {% endfor %}
-        </div>
+        </div><br>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}
 {% block pagination %}{% endblock %}
