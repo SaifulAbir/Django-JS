@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/colors.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/components.css" %}">
     <!-- END: Theme CSS-->
+    <!-- External Css -->
+    <link rel="stylesheet" href="{% static '/assets/css/fontawesome-all.min.css'%}" />
     <style>
         html body.fixed-navbar {
             padding-top: 0rem !important;
@@ -36,17 +38,17 @@
 {% block content %}
     {% load mathfilters %}
     <div id="content-main">
-        <div class="results">
+        <div class="">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card bg-info align-items-center">
                         <div class="card-body">
                             <div class="card-block bg-white p-2">
                                 <h4 class="card-title text-center">Result details</h4>
-                                <p class="card-text">Candidate Name: {{ qs.registration_id.candidate_name }}</p>
-                                <p class="card-text">Registration ID: {{ qs.registration_id.id }}</p>
-                                <p class="card-text">Exam Name: {{ qs.registration_id.exam_name }}</p>
-                                <p class="card-text">Duration: {{ qs.registration_id.duration_in_minutes }}</p>
+                                <p class="card-text">Candidate Email: {{ qs.registration.professional.email }}</p>
+                                <p class="card-text">Registration ID: {{ qs.registration.id }}</p>
+                                <p class="card-text">Exam Name: {{ qs.registration.exam.exam_name }}</p>
+                                <p class="card-text">Duration: {{ qs.registration.exam.duration }}</p>
                                 {% for result in total_result %}
                                 <p class="card-text">Result: {{ result.number_of_correct }} out of {{ result.number_of_question_id }} <strong>({{ result.number_of_correct | div:result.number_of_question_id | mul:100 | floatformat:0 }}%)</strong></p>
                                 {% endfor %}
@@ -61,7 +63,7 @@
                 <div class="col-md-12">
                     <div class="card border-blue-grey">
                         <div class="card-header bg-blue-grey">
-                            <h4 class="card-title text-white">{{ row.question_obj|safe }}</h4>
+                            <h4 class="card-title text-black-50">{{ row.question_obj|safe }}</h4>
                         </div>
                         <div class="card-body ">
                                 <div class="form-body">
@@ -73,7 +75,7 @@
                                             <div class="form-group">
                                                 <label for="projectinput1" class="sr-only">First Name</label>
                                                 {% if answer.correct %}
-                                                <div class="alert alert-blue-grey"><b >{{ answer.name }}</b> <i style="font-weight: 900;font-size: 30px;" class="ft-check-circle pull-right"></i></div>
+                                                <div class="alert alert-blue-grey"><b >{{ answer.name }}</b> <i style="font-weight: 900;font-size: 30px;" class="fa fa-check-circle float-right"></i></div>
                                                 {% else %}
                                                  <div class="alert alert-blue-grey"><b>{{ answer.name }}</b></div>
                                                 {% endif %}

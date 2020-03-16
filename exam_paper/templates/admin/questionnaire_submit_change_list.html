@@ -2,7 +2,7 @@
 {% load static %}
 {% block extrastyle %}
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}" />
     <link rel="stylesheet" type=y"text/css" href="{% static "css/bootstrap-extended.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/colors.css" %}">
     <!-- END: Theme CSS-->
@@ -97,7 +97,7 @@
 
                         </td>
                         <td>{{ row.registration_obj.get_result_status_display }}</td>
-                        <td> <a href="{% url 'admin:result_details' row.registration_id %}" class="btn btn-success mr-0 mb-0" id="result-summary">Details</a> </td>
+                        <td> <a href="{% url 'admin:result_details' row.registration_id %}" class="btn btn-success btn-sm text-white" id="result-summary">Details</a> </td>
                     </tr>
                 {% endfor %}
                 </tbody>
