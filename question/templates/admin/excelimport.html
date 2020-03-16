@@ -1,6 +1,8 @@
 {% extends 'admin/base_site.html' %}
 {% load static %}
-
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static '/assets/css/bootstrap.min.css' %}" />
+{% endblock %}
 {% block content %}
     <div class="app-content content">
         <div class="content-wrapper">
@@ -24,7 +26,7 @@
                                                     <h3 class="center-align lighten-3"><strong>Excel file import:</strong> {{question.question}}</h3>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <a class="btn btn-primary pull-right" href="{% static "excel-demo/question_template_demo.xlsx" %}">Download Template</a>
+                                                    <a class="btn btn-info pull-right text-white" href="{% static "excel-demo/question_template_demo.xlsx" %}">Download Template</a>
                                                 </div>
                                             </div>
 

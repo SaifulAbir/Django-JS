@@ -21,11 +21,11 @@ EXAM_TYPE = [(PRIVATE, PRIVATE_TITLE_CASE),(PUBLIC,PUBLIC_TITLE_CASE)]
 
 class ExamForm(forms.ModelForm):
 
-    instruction = forms.CharField(required=False, widget=CKEditorWidget(attrs={'class':"form-control"}))
-    exam_code = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':"form-control"}))
+    instruction = forms.CharField(required=True, widget=CKEditorWidget(attrs={'class':"form-control"}))
+    exam_code = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':"form-control"}))
     exam_name = forms.CharField(error_messages={'required':EXAM_NAME_REQUIRED_ERROR}, widget=forms.TextInput(attrs={'class': "form-control"}))
     tags = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control", 'id': 'exam_tags'}))
-    pass_mark = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
+    pass_mark = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': "form-control"}))
     duration = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': "form-control"}))
     exam_fee = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
     re_registration_delay = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control"}))

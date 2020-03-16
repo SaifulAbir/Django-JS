@@ -13,3 +13,4 @@ django-admin-list-filter-dropdown==1.0.3
 django-ckeditor==5.7.1
 pandas==1.0.1
 django-mathfilters==0.4.0
+xlrd==1.2.0

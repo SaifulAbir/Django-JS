@@ -26,7 +26,8 @@ from resources.strings_exam import *
 
 class ExamAdmin(ModelAdmin):
 
-    list_display = ['exam_code','exam_name','pass_mark','duration','exam_category','exam_level','subject','topic','sub_topic','button']
+    list_display = ['exam_name','exam_code','pass_mark','duration','exam_category','exam_level','subject','topic','sub_topic','button']
+    list_display_links = ('exam_name',)
     class Media:
         js = (
             'js/exam.js',
@@ -173,21 +174,21 @@ class ExamAdmin(ModelAdmin):
                 questionnaire_list = questionnaire_list.filter(topic__name__icontains=questionnaire_topic)
             if questionnaire_sub_topic != '' and questionnaire_sub_topic is not None:
                 questionnaire_list = questionnaire_list.filter(sub_topic__name__icontains=questionnaire_sub_topic)
-            data['questionnaire_list'] = render_to_string('admin/exams/questionnaire_list.html', {'questionnaire_list': questionnaire_list}, request=request)
+            data['questionnaire_list'] = render_to_string('admin/exam/questionnaire_list.html', {'questionnaire_list': questionnaire_list}, request=request)
             return JsonResponse(data)
-        data['form'] = render_to_string('admin/exams/search_questionnaire_form.html', {'questionnaire_list': questionnaire_list, 'exam_strings': exam_strings},
+        data['form'] = render_to_string('admin/exam/search_questionnaire_form.html', {'questionnaire_list': questionnaire_list, 'exam_strings': exam_strings},
                                         request=request)
         return JsonResponse(data)
 
     def load_topics(self, request):
         subject_id = request.GET.get('subject')
         topics = Topics.objects.filter(subject_id=subject_id).order_by('name')
-        return render(request, 'admin/exams/topic_dropdown_list_options.html', {'topic_list': topics})
+        return render(request, 'admin/exam/topic_dropdown_list_options.html', {'topic_list': topics})
 
     def load_sub_topics(self, request):
         topic_id = request.GET.get('topic')
         sub_topics = SubTopics.objects.filter(topics=topic_id).order_by('name')
-        return render(request, 'admin/exams/sub_topic_dropdown_list_options.html', {'sub_topic_list': sub_topics})
+        return render(request, 'admin/exam/sub_topic_dropdown_list_options.html', {'sub_topic_list': sub_topics})
 
     def load_previous_tags(self, request):
         previous_tags = list(Tag.objects.values_list('tag_name', flat=True))

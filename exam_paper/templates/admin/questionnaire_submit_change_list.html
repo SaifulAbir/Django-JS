@@ -41,7 +41,7 @@
                     </th>
                     <th class="col-size">
                         <div >
-                            <a href="#">{{questionnaire_submit_strings.CANDIDATE_NAME_TABLE_HEADER_TEXT}}</a>
+                            <a href="#">{{questionnaire_submit_strings.CANDIDATE_EMAIL_TABLE_HEADER_TEXT}}</a>
                         </div>
                     </th>
                     <th class="col-size">
@@ -87,7 +87,7 @@
                     <tr class="{% cycle 'row1' 'row2' %}">
                         <td>{{ forloop.counter }}</td>
                         <td> {{ row.registration_id }} </td>
-                        <td> {{ row.registration_obj.candidate.name }} </td>
+                        <td> {{ row.registration_obj.professional.username }} </td>
                         <td> {{ row.registration_obj.exam.exam_name }} </td>
                         <td> {{ row.registration_obj.exam.duration }} </td>
                         <td> {{ row.exampaper_obj.created_date }} </td>

@@ -109,7 +109,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
         return TemplateResponse(request, "admin/detail_view.html", context)
 
-    def generate_result_csv(df: pd.DataFrame, row_results, row_msgs):
+    def generate_result_csv(self, df:pd.DataFrame, row_results, row_msgs):
         df['result'] = row_results
         df['msg'] = row_msgs
         return df.to_csv()
@@ -147,6 +147,7 @@ class QuestionAdmin(admin.ModelAdmin):
                 })
 
             for i in exceldata.index:
+
                 ## Get the subject ID
                 try:
                     subject_name = exceldata[EXCEL_COLUMN_SUBJECT][i]
@@ -252,6 +253,11 @@ class QuestionAdmin(admin.ModelAdmin):
                 row_msgs.append("")
 
             output_file = self.generate_result_csv(exceldata, row_results, row_msgs)
+            # df: pd.DataFrame
+            # df['result'] = row_results
+            # df['msg'] = row_msgs
+            # return df.to_csv()
+
             response = HttpResponse(output_file, content_type='application/vnd.ms-excel')
             response['Content-Disposition'] = 'attachment; filename="result.xls"'
             return response
