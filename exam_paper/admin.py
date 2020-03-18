@@ -17,6 +17,7 @@ class QuestionnaireSubmitAdmin(ModelAdmin):
     list_display = ['question_text','answers_id','correct']
     #list_filter = [('registration_id',RelatedDropdownFilter),('question_text',DropdownFilter),('answers_id',DropdownFilter),('correct',DropdownFilter)]
     search_fields = ['question_text__icontains', 'answers_id__iexact', 'correct__iexact']
+    save_as = True
 
     def get_urls(self):
         urls = super().get_urls()

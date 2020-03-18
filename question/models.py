@@ -91,11 +91,11 @@ CHOICES=(
 class Question(models.Model):
     question = RichTextField()
     question_id = models.CharField(max_length=200, default='null', null=True, blank=True)
-    qtype = models.ForeignKey(QuestionType, on_delete=models.PROTECT, null=True, blank=True)
+    qtype = models.ForeignKey(QuestionType, on_delete=models.PROTECT, null=True, blank=True, verbose_name='question type')
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
     topic = models.ForeignKey(Topics, on_delete=models.PROTECT, null=True, blank=True)
     sub_topic = models.ForeignKey(SubTopics, on_delete=models.PROTECT, null=True, blank=True)
-    difficulties = models.ForeignKey(Difficulty, on_delete=models.PROTECT, null=True, blank=True)
+    difficulties = models.ForeignKey(Difficulty, on_delete=models.PROTECT, null=True, blank=True, verbose_name='difficulty level')
     created_date = models.DateTimeField(auto_now_add=True, blank=True)
     status = models.CharField(max_length=100, choices=CHOICES, default='2')
 
