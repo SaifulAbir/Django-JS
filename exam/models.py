@@ -41,11 +41,11 @@ class Exam(models.Model):
     pass_mark = models.CharField(max_length=200)
     duration = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
-    exam_category = models.ForeignKey(ExamCategory, on_delete=models.CASCADE, blank=True, null=True)
-    exam_level = models.ForeignKey(ExamLevel, on_delete=models.CASCADE, blank=True, null=True)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
-    topic = models.ForeignKey(Topics, on_delete=models.CASCADE, null=True, blank=True)
-    sub_topic = models.ForeignKey(SubTopics, on_delete=models.CASCADE, null=True, blank=True)
+    exam_category = models.ForeignKey(ExamCategory, on_delete=models.PROTECT, blank=True, null=True)
+    exam_level = models.ForeignKey(ExamLevel, on_delete=models.PROTECT, blank=True, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.PROTECT, null=True, blank=True)
+    topic = models.ForeignKey(Topics, on_delete=models.PROTECT, null=True, blank=True)
+    sub_topic = models.ForeignKey(SubTopics, on_delete=models.PROTECT, null=True, blank=True)
     is_featured = models.BooleanField(default=False, blank=True, null=True)
     instruction = RichTextField()
     question_selection_type = models.CharField(max_length=30, null=True, blank=True)
@@ -82,8 +82,8 @@ class Tag(models.Model):
         db_table='tags'
 
 class ExamQuestionnaireDetails(models.Model):
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.PROTECT)
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.PROTECT)
 
     class Meta:
         db_table= 'exam_questionnaire_details'

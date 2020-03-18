@@ -10,8 +10,8 @@ CHOICES = (
     )
 # Create your models here.
 class Registration(models.Model):
-    professional = models.ForeignKey(User, on_delete=models.CASCADE, related_name='professional_exam_registration', blank=True)
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='exam_registration', blank=True)
+    professional = models.ForeignKey(User, on_delete=models.PROTECT, related_name='professional_exam_registration', blank=True)
+    exam = models.ForeignKey(Exam, on_delete=models.PROTECT, related_name='exam_registration', blank=True)
     result_status = models.CharField(max_length=100, choices=CHOICES, default=2)
     percentage_of_correct = models.IntegerField(default=0)
     status = models.CharField(max_length=250)

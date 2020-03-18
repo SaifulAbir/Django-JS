@@ -23,7 +23,7 @@ class Subject(models.Model):
 #Topics Model Starts
 
 class Topics(models.Model):
-    subject_id = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subject')
+    subject_id = models.ForeignKey(Subject, on_delete=models.PROTECT, related_name='subject')
     name = models.CharField(max_length=250)
     created_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
@@ -38,8 +38,8 @@ class Topics(models.Model):
 #SubTopic Model Starts
 
 class SubTopics(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    topics = models.ForeignKey(Topics, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
+    topics = models.ForeignKey(Topics, on_delete=models.PROTECT)
     name = models.CharField(max_length=250)
     created_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
@@ -91,11 +91,11 @@ CHOICES=(
 class Question(models.Model):
     question = RichTextField()
     question_id = models.CharField(max_length=200, default='null', null=True, blank=True)
-    qtype = models.ForeignKey(QuestionType, on_delete=models.CASCADE, null=True, blank=True)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    topic = models.ForeignKey(Topics, on_delete=models.CASCADE, null=True, blank=True)
-    sub_topic = models.ForeignKey(SubTopics, on_delete=models.CASCADE, null=True, blank=True)
-    difficulties = models.ForeignKey(Difficulty, on_delete=models.CASCADE, null=True, blank=True)
+    qtype = models.ForeignKey(QuestionType, on_delete=models.PROTECT, null=True, blank=True)
+    subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
+    topic = models.ForeignKey(Topics, on_delete=models.PROTECT, null=True, blank=True)
+    sub_topic = models.ForeignKey(SubTopics, on_delete=models.PROTECT, null=True, blank=True)
+    difficulties = models.ForeignKey(Difficulty, on_delete=models.PROTECT, null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True, blank=True)
     status = models.CharField(max_length=100, choices=CHOICES, default='2')
 
@@ -118,7 +118,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     name = models.TextField()
-    question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, related_name='answers', on_delete=models.PROTECT)
     correct = models.BooleanField()
     created_date = models.DateTimeField(auto_now_add=True, blank=True)
     def __str__(self):
