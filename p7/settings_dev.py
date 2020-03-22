@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'exam',
     'exam_paper',
     'mathfilters',
+    'testimonial',
 ]
 
 MIDDLEWARE = [
