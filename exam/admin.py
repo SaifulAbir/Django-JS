@@ -28,6 +28,7 @@ class ExamAdmin(ModelAdmin):
 
     list_display = ['exam_name','exam_code','pass_mark','duration','exam_category','exam_level','subject','topic','sub_topic','button']
     list_display_links = ('exam_name',)
+    save_as = True
     class Media:
         js = (
             'js/exam.js',

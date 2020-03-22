@@ -24,7 +24,7 @@ class Professional(models.Model):
     image = models.CharField(blank=True, null=True, max_length=500)
     terms_and_condition_status = models.BooleanField(default=False)
     password = models.CharField(max_length=255, validators=[check_valid_password, MinLengthValidator(8)])
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.PROTECT, null=True, blank=True)
     signup_verification_code = models.CharField(max_length=10, blank=True, null=True)
 
     def __str__(self):

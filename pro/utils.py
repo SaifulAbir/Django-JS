@@ -6,6 +6,8 @@
 #     status = check_password(password, user_obj.password)
 #     return status
 import random
+import socket
+from urllib.parse import urlparse
 from django.http import Http404, HttpResponse
 from rest_framework.status import (
     HTTP_401_UNAUTHORIZED,
@@ -31,11 +33,12 @@ def sendSignupEmail(email,id, date):
     date = str(date)
     activation_link = hash(id+date)
     updateProfessionalVerficationLink(email, activation_link)
+
     data = ''
     html_message = loader.render_to_string(
         'account_activation_email.html',
         {
-            'activation_url': "{}/api/professional/signup-email-verification/email={}&token={}".format(site_url, email, activation_link),
+            'activation_url': "{}/api/professional/signup-email-verification/email={}&token={}".format(SITE_URL, email, activation_link),
             'activation_email': email,
             'subject': 'Thank you from' + data,
         }

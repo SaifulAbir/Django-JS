@@ -182,3 +182,4 @@ EMAIL_HOST_USER = 'ishraak.office@gmail.com'
 EMAIL_HOST_PASSWORD = 'rashed016'
 EMAIL_USE_TLS = True
 SESSION_COOKIE_AGE = 6000
+SITE_URL = 'http://127.0.0.1:8000'

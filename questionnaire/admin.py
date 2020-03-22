@@ -20,6 +20,7 @@ from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDrop
 class QuestionnaireDetailAdmin(admin.ModelAdmin):
     list_display = ['questionnaire_id','question_id']
 
+
 class QuestionnaireDetailInlineFormset(BaseInlineFormSet):
     def clean(self):
         count = 0
@@ -44,6 +45,7 @@ class QuestionnaireAdmin(admin.ModelAdmin):
     list_filter = (('name',DropdownFilter),('subject',RelatedDropdownFilter),('topic',RelatedDropdownFilter),
                    ('sub_topic',RelatedDropdownFilter))
     inlines = [QuestionnaireDetailInline]
+    save_as = True
 
     def get_urls(self):
         urls = super().get_urls()

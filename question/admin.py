@@ -70,7 +70,7 @@ class AnswerInlineFormset(BaseInlineFormSet):
 class AnswerInline(admin.StackedInline):
     model = Answer
     formset = AnswerInlineFormset
-    extra = 2
+    extra = 4
 
 
 class QuestionAdmin(admin.ModelAdmin):

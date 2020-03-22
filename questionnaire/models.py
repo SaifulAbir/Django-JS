@@ -8,9 +8,9 @@ from resources import strings_questionnaire
 class Questionnaire(models.Model):
     name = models.CharField(max_length=255, unique=True)
     remarks = models.CharField(max_length=256, null=True, blank=True)
-    subject = models.ForeignKey(Subject,null=True, blank=True,on_delete=models.CASCADE)
-    topic = models.ForeignKey(Topics,null=True, blank=True,on_delete=models.CASCADE)
-    sub_topic = models.ForeignKey(SubTopics,null=True, blank=True, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject,null=True, blank=True,on_delete=models.PROTECT)
+    topic = models.ForeignKey(Topics,null=True, blank=True,on_delete=models.PROTECT)
+    sub_topic = models.ForeignKey(SubTopics,null=True, blank=True, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name
@@ -33,8 +33,8 @@ class Questionnaire(models.Model):
 
 
 class QuestionnaireDetail(models.Model):
-    questionnaire_id = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
-    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
+    questionnaire_id = models.ForeignKey(Questionnaire, on_delete=models.PROTECT)
+    question_id = models.ForeignKey(Question, on_delete=models.PROTECT)
 
 
 
