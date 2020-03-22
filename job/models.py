@@ -168,6 +168,7 @@ class Job(models.Model):
     company_profile = models.CharField(max_length=255, blank=True, null = True)
     latitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
+    raw_content = models.TextField(blank=True, null=True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
     created_date = models.DateField(default=datetime.date.today)
 
