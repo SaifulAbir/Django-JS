@@ -182,7 +182,8 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
-    #job Model
+
+#job Model ends here
 
 
 
@@ -195,3 +196,19 @@ class Skill(models.Model):
         db_table = 'skills'
     def __str__(self):
         return self.name
+
+
+#Trending Keywords Model Starts here
+class TrendingKeywords(models.Model):
+    keyword = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    count = models.PositiveIntegerField(default=1)
+    created_date = models.DateField(default=datetime.date.today)
+
+    class Meta:
+        verbose_name = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME
+        verbose_name_plural = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME_PLURAL
+        db_table = 'trending_keywords'
+
+
+#Trending Keywords Model ends here
