@@ -189,10 +189,11 @@ class Job(models.Model):
 class Skill(models.Model):
     name = models.CharField(max_length=255,unique=True)
     created_date = models.DateTimeField(default=timezone.now)
+
     class Meta:
         verbose_name = strings_job.SKILLS_VERBOSE_NAME
         verbose_name_plural = strings_job.SKILLS_VERBOSE_NAME_PLURAL
-
         db_table = 'skills'
+
     def __str__(self):
         return self.name
