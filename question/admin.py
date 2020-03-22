@@ -77,6 +77,9 @@ class QuestionAdmin(admin.ModelAdmin):
     class Media:
         js = ('//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
               "js/question_script.js","js/common.js",)
+        css = {
+            'all': ('css/question.css',)
+        }
 
     list_display =['question_id','question_text','qtype','difficulties','subject','topic','sub_topic','status']
     list_per_page = 15
