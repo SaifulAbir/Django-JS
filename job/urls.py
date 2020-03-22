@@ -2,10 +2,10 @@ from django.urls import path
 from django.views.generic import TemplateView
 from job.api import *
 urlpatterns = [
-    path('post-job/', TemplateView.as_view(template_name='post-job.html')),
+    path('post-job/', TemplateView.as_view(template_name='post-job.html'), name='post_job'),
     path('validation-test', TemplateView.as_view(template_name='company-create.html')),
     path('detail/<str:pk>/', TemplateView.as_view(template_name='job-details.html')),
-    path('', TemplateView.as_view(template_name='job-list.html')),
+    path('jobs/', TemplateView.as_view(template_name='job-list.html'), name='jobs'),
     path('update/<str:pk>/', TemplateView.as_view(template_name='update-job.html')),
     path('company/', CompanyList.as_view()),
     path('job_list/', JobList.as_view()),

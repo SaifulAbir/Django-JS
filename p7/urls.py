@@ -18,6 +18,7 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import TemplateView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -43,6 +44,7 @@ urlpatterns = [
     path('api/sign_in/', TokenObtainPairCustomView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,
