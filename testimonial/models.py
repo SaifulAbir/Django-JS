@@ -4,7 +4,7 @@ from resources import strings_testimonial
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=255,unique=True)
-    comment = models.TextField()
+    coment = models.TextField()
     profile_picture = models.ImageField(upload_to='testimonials/',verbose_name='Profile Picture',blank=True)
 
     class Meta:

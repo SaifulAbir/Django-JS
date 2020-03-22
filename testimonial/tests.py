@@ -25,7 +25,7 @@ class TestimonailTest(TestCase):
         with self.assertRaises(ValidationError):
             testimonial.full_clean()
 
-    def test__when_skills_name_duplicate__should_raise_error(self):
+    def test__when_testimonial_name_duplicate__should_raise_error(self):
         t1 = Testimonial(name="Xyz")
         t2 = Testimonial(name="Xyz")
         with self.assertRaises(IntegrityError):
