@@ -27,6 +27,9 @@ class Professional(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     signup_verification_code = models.CharField(max_length=10, blank=True, null=True)
 
+    def __str__(self):
+        return self.full_name
+
 
     class Meta:
         verbose_name = strings_pro.PROFESSIONAL_VERBOSE_NAME
