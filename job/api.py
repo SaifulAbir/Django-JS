@@ -8,7 +8,7 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
@@ -98,3 +98,23 @@ class JobUpdateView(GenericAPIView, UpdateModelMixin):
 class CompanyPopulate(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanyPopulateSerializer
+
+
+@api_view(["POST"])
+def trending_keyword_save(request):
+    search_data = json.loads(request.body)
+    print(search_data)
+    try:
+        keyword_obj = TrendingKeywords.objects.get(keyword=search_data['keyword'])
+    except TrendingKeywords.DoesNotExist:
+        keyword_obj = None
+
+    if keyword_obj is not None:
+        count = keyword_obj.count +1
+        keyword_obj.count = count
+        keyword_obj.save()
+    else:
+        key_obj = TrendingKeywords(**search_data)
+        key_obj.save()
+
+

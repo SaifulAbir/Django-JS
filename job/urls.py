@@ -19,5 +19,7 @@ urlpatterns = [
     path('load_job/<str:pk>/', JobObject.as_view()),
     path('load_company/<str:pk>/', CompanyPopulate.as_view()),
     path('job_create/', job_create),
+    path('trending_keyword_save/', trending_keyword_save),
+
 
 ]

@@ -246,14 +246,14 @@ function showQuestion(title, msg, yesCallback, noCallback) {
     })
 }
 
-$.validator.addMethod(
-    "regex",
-    function(value, element, regexp) {
-        var re = new RegExp(regexp);
-        return this.optional(element) || re.test(value);
-    },
-    "Please check your input."
-);
+// $.validator.addMethod(
+//     "regex",
+//     function(value, element, regexp) {
+//         var re = new RegExp(regexp);
+//         return this.optional(element) || re.test(value);
+//     },
+//     "Please check your input."
+// );
 
 function makePagination(totalRecord, pageSize, url, startingIndex){
     var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><button disabled class="prev page-numbers cursor-pointer cursor-pointer" data-value="prev"><i class="fas fa-angle-left"></i></button>';

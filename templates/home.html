@@ -12,19 +12,9 @@
               <p> Find Jobs, Employment & Career Opportunities</p>
 
               <div class="banner-search">
-                <form action="#" class="search-form">
-                  <input type="text" placeholder="Enter Keywords">
-                  <select class="selectpicker" id="search-location">
-                    <option value="" selected>Location</option>
-                    <option value="california">California</option>
-                    <option value="las-vegas">Las Vegas</option>
-                    <option value="new-work">New Work</option>
-                    <option value="carolina">Carolina</option>
-                    <option value="chicago">Chicago</option>
-                    <option value="silicon-vally">Silicon Vally</option>
-                    <option value="washington">Washington DC</option>
-                    <option value="neveda">Neveda</option>
-                  </select>
+                <form action="/api/trending_keyword_save/" id="search-form" class="search-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
+                  <input type="text" name="keyword" id="keyword" placeholder="Enter Keywords">
+                  <input type="text" name="location" id="location" placeholder="Location">
                   <button class="button primary-bg"><i class="fas fa-search"></i>Search Job</button>
                 </form>
                 <div class="trending-key">
@@ -557,6 +547,11 @@
   <script>
       $(document).ready(function() {
         TokenAuthenticate();
+        initAjaxForms();
       });
+      function redirectPage() {
+            window.location.href = "/";
+        }
+
     </script>
 {% endblock %}
