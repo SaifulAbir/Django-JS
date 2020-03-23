@@ -542,10 +542,17 @@
         $(document).ready(function() {
             TokenAuthenticate();
             initAjaxForms();
-            url='/api/trending_keyword_show/';
-            get(url,loadKey);
+            key_url='/api/trending_keyword_show/';
+            cat_url='/api/popular_categories/';
+            get(key_url,loadKey);
+            get(cat_url,loadCategory);
 
         });
+
+        function loadCategory(data) {
+            console.log(data)
+        }
+
         function loadKey(data) {
             len= data.length;
             for(x=0;x<len;x++){

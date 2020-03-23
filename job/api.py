@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.http import Http404
 from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView
@@ -123,5 +124,9 @@ def trending_keyword_save(request):
 class TrendingKeywordPopulate(generics.ListCreateAPIView):
     queryset = TrendingKeywords.objects.all().order_by('-count')[:6]
     serializer_class = TrendingKeywordPopulateSerializer
+
+class PopularCategories(generics.ListCreateAPIView):
+    queryset = Job.objects.values('title').annotate(category_count=Count('industry')).order_by('-industry')[:5]
+    serializer_class = PopularCategoriesSerializer
 
 

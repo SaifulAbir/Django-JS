@@ -65,3 +65,8 @@ class TrendingKeywordPopulateSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrendingKeywords
         fields = ['keyword']
+
+class PopularCategoriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Job
+        fields= ['industry']

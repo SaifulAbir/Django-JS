@@ -21,6 +21,7 @@ urlpatterns = [
     path('job_create/', job_create),
     path('trending_keyword_save/', trending_keyword_save),
     path('trending_keyword_show/', TrendingKeywordPopulate.as_view()),
+    path('popular_categories/', PopularCategories.as_view()),
 
 
 ]
