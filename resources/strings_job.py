@@ -37,3 +37,8 @@ COMPANY_VERBOSE_NAME_PLURAL = 'Companies'
 CURRENCY_VERBOSE_NAME = 'Currency'
 CURRENCY_VERBOSE_NAME_PLURAL = 'Currencies'
 #Currency Strings#
+
+#Trending_keywords Strings#
+TRENDING_KEYWORDS_VERBOSE_NAME = 'TrendingKeyword'
+TRENDING_KEYWORDS_VERBOSE_NAME_PLURAL = 'TrendingKeywords'
+#Trending_keywords Strings#
