@@ -210,5 +210,6 @@ class TrendingKeywords(models.Model):
         verbose_name_plural = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME_PLURAL
         db_table = 'trending_keywords'
 
-
+    def __str__(self):
+        return self.keyword
 #Trending Keywords Model ends here
