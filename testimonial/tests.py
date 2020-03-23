@@ -48,17 +48,17 @@ class TestimonailTest(TestCase):
             testimonial.full_clean()
 
     def test_when_name_is_blank_should_raise_error(self):
-        testimonial = Testimonial(client_name='',comment='This is comment')
+        testimonial = Testimonial(client_name='', comment='This is comment')
         with self.assertRaises(ValidationError):
             testimonial.full_clean()
 
     def test_when_comment_is_blank_should_raise_error(self):
-        testimonial = Testimonial(client_name='xyz',comment='')
+        testimonial = Testimonial(client_name='xyz', comment='')
         with self.assertRaises(ValidationError):
             testimonial.full_clean()
 
     def test_when_name_and_comment_both_is_blank_should_raise_error(self):
-        testimonial = Testimonial(client_name='',comment='')
+        testimonial = Testimonial(client_name='', comment='')
         with self.assertRaises(ValidationError):
             testimonial.full_clean()
 
