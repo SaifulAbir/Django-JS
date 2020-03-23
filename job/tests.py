@@ -359,4 +359,6 @@ class JobTest(TestCase):
     #         s.full_clean()
 
 
-#JOB TESTS
+#JOB TESTS#
+
+#SKILL_TEST#
