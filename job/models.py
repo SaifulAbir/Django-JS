@@ -187,6 +187,7 @@ class Job(models.Model):
 
 
 class Skill(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
     name = models.CharField(max_length=255,unique=True)
     created_date = models.DateTimeField(default=timezone.now)
     class Meta:

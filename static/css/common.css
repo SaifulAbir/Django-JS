@@ -37,3 +37,24 @@
     top: 20px;
     right: 2px;
 }
+
+/*job skills*/
+.bootstrap-tagsinput{
+    border: 0;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-left: 0;
+    line-height: 28px;
+    border-radius: 0;
+    width: 100%;
+}
+.bootstrap-tagsinput .tag {
+    margin-right: 2px;
+    color: white;
+    background-color: #246df8;
+}
+.bootstrap-tagsinput .label{
+    padding: .2em .6em .3em;
+    border-radius: .25em;
+}
+
