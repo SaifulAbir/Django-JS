@@ -188,10 +188,10 @@ class Job(models.Model):
 
 #Career_Advice Model#
 class Career_Advice(models.Model):
-    date = models.DateTimeField(default=timezone.now)
     title = models.CharField(max_length=255)
     description = models.TextField()
     author = models.CharField(max_length=255)
+    created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name = strings_job.CAREER_VERBOSE_NAME
