@@ -34,6 +34,7 @@ urlpatterns = [
     path('api/app-dashboard/<int:user_id>', dashboard),
     path('api/profile-info/<int:user_id>', professional_info),
     path('', include('job.urls')),
+    path('api/', include('job.urls')),
     path('api/', include('registration.urls')),
     path('api/', include('exam.urls')),
     path('api/', include('location.urls')),

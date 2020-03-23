@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency
+from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords
 
 
 class JobAdmin(admin.ModelAdmin):
@@ -26,3 +26,4 @@ admin.site.register(Gender)
 admin.site.register(Industry)
 admin.site.register(Currency)
 admin.site.register(Job, JobAdmin)
+admin.site.register(TrendingKeywords)
