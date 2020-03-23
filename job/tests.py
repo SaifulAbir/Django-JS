@@ -359,4 +359,10 @@ class JobTest(TestCase):
     #         s.full_clean()
 
 
-#JOB TESTS
+#JOB TESTS#
+
+#CAREER_ADVICE_TEST#
+
+
+
+#CAREER_ADVICE_TEST#
