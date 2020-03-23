@@ -117,4 +117,6 @@ def trending_keyword_save(request):
         key_obj = TrendingKeywords(**search_data)
         key_obj.save()
 
+    return Response(HTTP_200_OK)
+
 
