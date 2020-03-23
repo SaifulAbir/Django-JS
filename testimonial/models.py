@@ -13,4 +13,4 @@ class Testimonial(models.Model):
         db_table = 'testimonials'
 
     def __str__(self):
-        return self.name
+        return self.client_name
