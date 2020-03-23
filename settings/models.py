@@ -6,7 +6,7 @@ class Settings(models.Model):
     facebook_url = models.URLField(verbose_name='Facebook URL')
     linkedin_url = models.URLField(verbose_name='Linkedin URL',blank=True,null=True)
     twitter_url = models.URLField(verbose_name='Twitter URL',blank=True,null=True)
-    logo_url = models.ImageField(upload_to='logo/')
+    logo_url = models.ImageField(upload_to='logo/',blank=True)
 
     class Meta:
         verbose_name = strings_settings.TESTIMONIAL_VERBOSE_NAME
