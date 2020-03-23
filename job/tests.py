@@ -364,8 +364,13 @@ class JobTest(TestCase):
 
 #SKILLS TEST
 class SkillTest(TestCase):
+    def setUp(self):
+        job = Job(job_id='a8424fba-650a-4953-9ab6-3ed41692c5af')
+        job.save()
+        self.job = job
+
     def test_when_everything_required_is_given_should_pass(self):
-        skill = Skill(name='Programming')
+        skill = Skill(job=self.job,name='Programming')
         try:
             skill.full_clean()
         except:
