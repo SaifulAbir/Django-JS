@@ -8,7 +8,7 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, Skill
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
@@ -68,8 +68,15 @@ class GenderList(generics.ListCreateAPIView):
 @api_view(["POST"])
 def job_create(request):
     job_data = json.loads(request.body)
+    skills = job_data['skills']
+    del job_data['skills']
     job_obj = Job(**job_data)
     job_obj.save()
+    if skills:
+        skill_list = skills.split(',')
+        for skill in skill_list:
+            skill = Skill(job=job_obj,name=skill)
+            skill.save()
     return Response(HTTP_200_OK)
 
 class JobUpdateView(GenericAPIView, UpdateModelMixin):
