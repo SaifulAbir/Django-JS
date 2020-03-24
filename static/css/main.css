@@ -433,12 +433,12 @@ a:focus {
 
 .banner-4-bg {
   background: url(../images/bg/banner_home.png) , url(../images/bg/banner-4-bg.jpg) no-repeat center;
-
   background-size: cover;
+
 }
 
 .banner-4 .banner-content {
-  padding: 290px 0 21\0px;
+  padding: 290px 0 210px;
   text-align: center;
   color: #ffffff;
 }
