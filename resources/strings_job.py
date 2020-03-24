@@ -42,3 +42,8 @@ CURRENCY_VERBOSE_NAME_PLURAL = 'Currencies'
 SKILLS_VERBOSE_NAME = 'Skill'
 SKILLS_VERBOSE_NAME_PLURAL = 'Skills'
 #Skills Strings #
+
+#Job Skill Detail Strings #
+JOB_SKILL_DETAIL_VERBOSE_NAME = 'Job Skill'
+JOB_SKILL_DETAIL_VERBOSE_NAME_PLURAL = 'Job Skills'
+#Job Skill Detail Strings #

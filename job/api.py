@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
@@ -8,7 +8,8 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, Skill
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, Skill, \
+    Job_skill_detail
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
@@ -75,8 +76,18 @@ def job_create(request):
     if skills:
         skill_list = skills.split(',')
         for skill in skill_list:
-            skill = Skill(job=job_obj,name=skill)
-            skill.save()
+            try:
+                skill_obj = Skill.objects.get(name=skill)
+            except Skill.DoesNotExist:
+                skill_obj = None
+            if skill_obj:
+                job_skills = Job_skill_detail(job=job_obj, skill=skill_obj)
+                job_skills.save()
+            else:
+                skill = Skill(name=skill)
+                skill.save()
+                job_skills = Job_skill_detail(job=job_obj, skill=skill)
+                job_skills.save()
     return Response(HTTP_200_OK)
 
 class JobUpdateView(GenericAPIView, UpdateModelMixin):
@@ -105,3 +116,7 @@ class JobUpdateView(GenericAPIView, UpdateModelMixin):
 class CompanyPopulate(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanyPopulateSerializer
+
+def load_previous_skills(request):
+    previous_skills = list(Skill.objects.values_list('name', flat=True))
+    return JsonResponse(previous_skills, safe=False)

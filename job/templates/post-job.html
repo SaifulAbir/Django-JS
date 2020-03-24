@@ -42,7 +42,7 @@
                                 <div id="job-title" class="form-group row">
                                     <label class="col-md-3 col-form-label">Job Title</label>
                                     <div class="col-md-9">
-                                        <input name="title" id="title" required type="text" regex='[A-Z]' class="form-control" minlength="5" maxlength="20" placeholder="Your job title here" data-msg-required="Title is required">
+                                        <input name="title" id="title" required type="text" regex='[A-Z]' class="form-control" minlength="5" maxlength="30" placeholder="Your job title here" data-msg-required="Title is required">
                                     </div>
                                 </div>
                                 <div id="job-summery" class="row">
@@ -289,6 +289,7 @@
         initAjaxSelects();
         initAjaxForms();
         salaryType();
+        tagAutoSuggesion('/api/previous_skills/', "input[name='skills']");
 
     });
     function redirectPage() {
@@ -306,35 +307,31 @@
         });
     }
 </script>
-<script src="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 <script>
-    $(function () {
-        var previousTags = new Bloodhound({
+    function tagAutoSuggesion(url, id) {
+        var previousSkills = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             prefetch: {
-                url: '/exams/exam/load_previous_tags/',
+                url: url,
                 filter: function(list) {
-                    return $.map(list, function(tagname) {
-                        return { name: tagname }; });
+                    return $.map(list, function(name) {
+                        return { name: name }; });
                 }
             }
         });
-        previousTags.initialize();
 
-        $("input[name='tags']").tagsinput({
+        previousSkills.initialize();
+
+        $(id).tagsinput({
             typeaheadjs: {
-                name: 'previousTags',
+                name: 'previousSkills',
                 displayKey: 'name',
                 valueKey: 'name',
-                source: previousTags.ttAdapter()
+                source: previousSkills.ttAdapter()
             }
         });
-        var tag = $("input[name='skills']").tagsinput('items');
-        var questionnaireName = $('#questionnaire-name').val();
 
-
-
-    });
+    }
 </script>
 {% endblock %}
