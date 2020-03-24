@@ -364,6 +364,7 @@ class JobTest(TestCase):
 
 #SKILLS TEST
 class SkillTest(TestCase):
+
     def test_when_everything_required_is_given_should_pass(self):
         skill = Skill(name='Programming')
         try:
