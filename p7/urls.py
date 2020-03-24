@@ -45,6 +45,9 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('career_advise/', TemplateView.as_view(template_name='career_advise.html'), name='career_advise'),
+    path('skill_check', TemplateView.as_view(template_name='skill_check.html'), name='skill_check'),
+    path('about_us', TemplateView.as_view(template_name='about_us.html'), name='about_us'),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,
