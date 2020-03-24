@@ -470,46 +470,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 col-lg-4">
-                    <article class="blog-grid">
-                        <div class="body">
-                            <span class="date">22 <span>Dec</span></span>
-                            <h3><a href="blog-details.html">Who chooses to enjoy a pleasure</a></h3>
-                            <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which</p>
-                        </div>
-                        <div class="info">
-                            <span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>
-                            <span class="comments"><a href="#"><i data-feather="message-circle"></i>42</a></span>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="blog-grid">
-                        <div class="body">
-                            <span class="date">22 <span>Dec</span></span>
-                            <h3><a href="blog-details.html">Who chooses to enjoy a pleasure</a></h3>
-                            <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which</p>
-                        </div>
-                        <div class="info">
-                            <span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>
-                            <span class="comments"><a href="#"><i data-feather="message-circle"></i>42</a></span>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="blog-grid">
-                        <div class="body">
-                            <span class="date">22 <span>Dec</span></span>
-                            <h3><a href="blog-details.html">Who chooses to enjoy a pleasure</a></h3>
-                            <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which</p>
-                        </div>
-                        <div class="info">
-                            <span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>
-                            <span class="comments"><a href="#"><i data-feather="message-circle"></i>42</a></span>
-                        </div>
-                    </article>
-                </div>
+            <div class="row" id="career-advice">
+
             </div>
         </div>
     </div>
@@ -543,9 +505,38 @@
             TokenAuthenticate();
             initAjaxForms();
             url='/api/trending_keyword_show/';
+            careerUrl = '/api/career_advise_show/'
             get(url,loadKey);
+            get(careerUrl,loadAdvice)
 
         });
+
+        var advice_html= '<div class="col-md-6 col-lg-4">' +
+            ' <article class="blog-grid">' +
+            ' <div class="body">' +
+             '<span class="date">22 <span>Dec</span></span>' +
+            '<h3><a href="blog-details.html" id="ad-title"></a></h3>' +
+            '<p id="ad-description"></p>' +
+            '</div>' +
+            '<div class="info">' +
+            '<span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>'+
+            '<span class="comments"><a href="#"><i data-feather="message-circle"></i>42</a></span>' +
+            '</div>'+
+            '</article>'+
+            '</div>';
+
+
+        function loadAdvice(data) {
+            console.log(data)
+            len= data.length;
+            for(x=0;x<len;x++){
+                $('#career-advice').append(advice_html)
+                $('#ad-title').text(data[x].title)
+                $('#ad-description').text(data[x].description)
+            }
+
+
+        }
         function loadKey(data) {
             len= data.length;
             for(x=0;x<len;x++){
