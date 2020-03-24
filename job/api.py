@@ -1,4 +1,5 @@
 from django.http import Http404, JsonResponse
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
@@ -29,16 +30,21 @@ class JobList(generics.ListAPIView):
     serializer_class = JobSerializerAllField
     pagination_class = StandardResultsSetPagination
 
-class JobObject(generics.ListAPIView):
-    serializer_class = JobSerializer
+class JobObject(APIView):
 
-    def get_queryset(self):
-
-        queryset = Job.objects.all()
-        job = self.kwargs['pk']
-        if job is not None:
-            queryset = queryset.filter(job_id=job)
-        return queryset
+    def get(self, request, pk):
+        job = get_object_or_404(Job, pk=pk)
+        data = JobSerializer(job).data
+        data['skill']=''
+        skills = Job_skill_detail.objects.filter(job=job)
+        # skills_len = len(skills) - 1
+        # for skill in list(skills):
+        #     if skills.index(skill) == skills_len:
+        #         data['skill'] = data['skill']+(skill.skill.name)
+        #     else:
+        #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
+        # print(data['skill'])
+        return Response(data)
 
 class IndustryList(generics.ListCreateAPIView):
 

@@ -211,7 +211,7 @@ class Job_skill_detail(models.Model):
         db_table = 'job_skill_details'
 
     def __str__(self):
-        return self.job.title
+        return self.skill.name
 
 
 
