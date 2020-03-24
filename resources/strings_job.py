@@ -26,6 +26,8 @@ GENDER_VERBOSE_NAME_PLURAL = 'Genders'
 #Job Strings#
 JOB_VERBOSE_NAME = 'Job'
 JOB_VERBOSE_NAME_PLURAL = 'Jobs'
+ON_TXT = 'on'
+OFF_TXT = 'off'
 #Job Strings#
 
 #COMPANY Strings#
@@ -37,3 +39,13 @@ COMPANY_VERBOSE_NAME_PLURAL = 'Companies'
 CURRENCY_VERBOSE_NAME = 'Currency'
 CURRENCY_VERBOSE_NAME_PLURAL = 'Currencies'
 #Currency Strings#
+
+#Skills Strings #
+SKILLS_VERBOSE_NAME = 'Skill'
+SKILLS_VERBOSE_NAME_PLURAL = 'Skills'
+#Skills Strings #
+
+#Job Skill Detail Strings #
+JOB_SKILL_DETAIL_VERBOSE_NAME = 'Job Skill'
+JOB_SKILL_DETAIL_VERBOSE_NAME_PLURAL = 'Job Skills'
+#Job Skill Detail Strings #

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'exam',
     'exam_paper',
     'mathfilters',
+    'testimonial',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +85,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'p7.wsgi.application'
 
-
+#
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -132,8 +133,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 2,
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # 'PAGE_SIZE': 2,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],

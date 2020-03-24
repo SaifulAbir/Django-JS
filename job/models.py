@@ -169,6 +169,7 @@ class Job(models.Model):
     latitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
+    terms_and_condition = models.BooleanField(default=False)
     created_date = models.DateField(default=datetime.date.today)
 
 
@@ -189,9 +190,23 @@ class Job(models.Model):
 class Skill(models.Model):
     name = models.CharField(max_length=255,unique=True)
     created_date = models.DateTimeField(default=timezone.now)
+
     class Meta:
-        # verbose_name = strings_job.SKILLS_VERBOSE_NAME
-        # verbose_name_plural = strings_job.SKILLS_VERBOSE_NAME_PLURAL
+        verbose_name = strings_job.SKILLS_VERBOSE_NAME
+        verbose_name_plural = strings_job.SKILLS_VERBOSE_NAME_PLURAL
         db_table = 'skills'
+
     def __str__(self):
         return self.name
+
+class Job_skill_detail(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
+    skill = models.ForeignKey(Skill, on_delete=models.PROTECT, db_column='skill')
+
+    class Meta:
+        verbose_name = strings_job.JOB_SKILL_DETAIL_VERBOSE_NAME
+        verbose_name_plural = strings_job.JOB_SKILL_DETAIL_VERBOSE_NAME_PLURAL
+        db_table = 'job_skill_details'
+
+    def __str__(self):
+        return self.job.title
