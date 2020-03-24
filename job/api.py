@@ -112,7 +112,9 @@ def trending_keyword_save(request):
     if keyword_obj is not None:
         count = keyword_obj.count +1
         keyword_obj.count = count
-        keyword_obj.location = search_data['location']
+
+        if 'location' in search_data :
+            keyword_obj.location = search_data['location']
         keyword_obj.save()
     else:
         key_obj = TrendingKeywords(**search_data)
