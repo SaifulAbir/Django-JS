@@ -45,6 +45,11 @@ TRENDING_KEYWORDS_VERBOSE_NAME = 'TrendingKeyword'
 TRENDING_KEYWORDS_VERBOSE_NAME_PLURAL = 'TrendingKeywords'
 #Trending_keywords Strings#
 
+#Career Strings#
+CAREER_VERBOSE_NAME = 'Career Advice'
+CAREER_VERBOSE_NAME_PLURAL = 'Career Advices'
+#Career Strings#
+
 #Skills Strings #
 SKILLS_VERBOSE_NAME = 'Skill'
 SKILLS_VERBOSE_NAME_PLURAL = 'Skills'
