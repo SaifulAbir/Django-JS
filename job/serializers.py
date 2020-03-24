@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords
 from rest_framework.validators import *
 
 
@@ -60,3 +60,8 @@ class CompanyPopulateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = ['name', 'web_address', 'company_profile']
+
+class TrendingKeywordPopulateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrendingKeywords
+        fields = ['keyword']

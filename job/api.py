@@ -10,6 +10,8 @@ from rest_framework.views import APIView
 from resources.strings_job import *
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, Skill, \
     Job_skill_detail
+
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
@@ -130,3 +132,32 @@ class CompanyPopulate(generics.RetrieveUpdateDestroyAPIView):
 def load_previous_skills(request):
     previous_skills = list(Skill.objects.values_list('name', flat=True))
     return JsonResponse(previous_skills, safe=False)
+
+
+@api_view(["POST"])
+def trending_keyword_save(request):
+    search_data = json.loads(request.body)
+    print(search_data)
+    try:
+        keyword_obj = TrendingKeywords.objects.get(keyword=search_data['keyword'])
+    except TrendingKeywords.DoesNotExist:
+        keyword_obj = None
+
+    if keyword_obj is not None:
+        count = keyword_obj.count +1
+        keyword_obj.count = count
+
+        if 'location' in search_data :
+            keyword_obj.location = search_data['location']
+        keyword_obj.save()
+    else:
+        key_obj = TrendingKeywords(**search_data)
+        key_obj.save()
+
+    return Response(HTTP_200_OK)
+
+class TrendingKeywordPopulate(generics.ListCreateAPIView):
+    queryset = TrendingKeywords.objects.all().order_by('-count')[:6]
+    serializer_class = TrendingKeywordPopulateSerializer
+
+
