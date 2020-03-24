@@ -25,7 +25,7 @@ from rest_framework_simplejwt.views import (
 )
 from p7.api import *
 
-
+from testimonial.urls import *
 from pro.api import TokenObtainPairCustomView
 
 urlpatterns = [
@@ -35,6 +35,7 @@ urlpatterns = [
     path('', include('job.urls')),
     path('api/', include('registration.urls')),
     path('api/', include('exam.urls')),
+    path('testimonial/', include('testimonial.urls')),
     path('api/', include('location.urls')),
     path('api/', include('question.urls')),
     path('api/', include('exam_paper.urls')),
