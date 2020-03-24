@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
-
+from resources.strings_job import *
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, Skill, \
     Job_skill_detail
 from .serializers import *
@@ -69,8 +69,18 @@ class GenderList(generics.ListCreateAPIView):
 @api_view(["POST"])
 def job_create(request):
     job_data = json.loads(request.body)
-    skills = job_data['skills']
-    del job_data['skills']
+    try:
+        skills = job_data['skills']
+        del job_data['skills']
+    except KeyError:
+        skills = None
+    try:
+        if job_data['terms_and_condition'] == ON_TXT:
+            job_data['terms_and_condition'] = 1
+        elif job_data['terms_and_condition'] == OFF_TXT:
+            job_data['terms_and_condition'] = 0
+    except KeyError:
+        pass
     job_obj = Job(**job_data)
     job_obj.save()
     if skills:

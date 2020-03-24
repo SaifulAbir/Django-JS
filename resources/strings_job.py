@@ -26,6 +26,8 @@ GENDER_VERBOSE_NAME_PLURAL = 'Genders'
 #Job Strings#
 JOB_VERBOSE_NAME = 'Job'
 JOB_VERBOSE_NAME_PLURAL = 'Jobs'
+ON_TXT = 'on'
+OFF_TXT = 'off'
 #Job Strings#
 
 #COMPANY Strings#
