@@ -40,6 +40,7 @@ urlpatterns = [
     path('api/', include('location.urls')),
     path('api/', include('question.urls')),
     path('api/', include('exam_paper.urls')),
+    path('api/', include('career_advice.urls')),
     path('api/professional/', include('pro.urls')),
     path('professional/', include('pro.urls')),
     path('api/sign_in/', TokenObtainPairCustomView.as_view(), name='token_obtain_pair'),

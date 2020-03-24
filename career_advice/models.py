@@ -8,7 +8,7 @@ from django.utils import timezone
 
 
 #Career_Advice Model#
-class Career_Advice(models.Model):
+class CareerAdvice(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     author = models.CharField(max_length=255)
