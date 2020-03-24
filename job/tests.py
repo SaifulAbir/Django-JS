@@ -1,8 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.test import TestCase
-from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, Skill
-from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, TrendingKeywords
+from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, TrendingKeywords, Skill
 from location.models import Division, District
 
 

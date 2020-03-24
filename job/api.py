@@ -8,10 +8,7 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
 from resources.strings_job import *
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, Skill, \
-    Job_skill_detail
-
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords,Skill,Job_skill_detail
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
