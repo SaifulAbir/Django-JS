@@ -7,7 +7,7 @@ urlpatterns = [
     path('create/', profile_create),
     path('create_with_user/', profile_create_with_user_create),
     path('login/', login),
-    path('register/', TemplateView.as_view(template_name='register.html')),
+    path('register/', TemplateView.as_view(template_name='register.html'), name='register'),
     path('reset-password-successful/', TemplateView.as_view(template_name='reset-password-successful.html')),
     path('sign-in/', TemplateView.as_view(template_name='sign-in.html')),
     path('sign-out/', logout),

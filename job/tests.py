@@ -1,7 +1,11 @@
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.test import TestCase
+<<<<<<< HEAD
 from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, Skill
+=======
+from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, TrendingKeywords
+>>>>>>> dev
 from location.models import Division, District
 
 
@@ -362,6 +366,7 @@ class JobTest(TestCase):
 
 #JOB TESTS
 
+<<<<<<< HEAD
 #SKILLS TEST
 class SkillTest(TestCase):
     def test_when_everything_required_is_given_should_pass(self):
@@ -401,3 +406,77 @@ class SkillTest(TestCase):
             s1.save()
 
 #SKILLS TEST
+=======
+#TRENDING_KEYWORDS_TEST#
+class TrendingKeywordsTest(TestCase):
+    def test_when_everything_required_is_given_should_pass(self):
+        trending_keywords = TrendingKeywords(keyword='XYZ',location='This is a comment')
+        try:
+            trending_keywords.full_clean()
+        except:
+            self.fail()
+
+    def test_when_keyword_is_null_should_raise_error(self):
+        trendingkeywords = TrendingKeywords(location = "Niketan")
+        with self.assertRaises(ValidationError):
+            trendingkeywords.full_clean()
+
+    def test_when_location_is_null_should_raise_error(self):
+        trendingkeywords = TrendingKeywords(keyword = "Python3")
+        with self.assertRaises(ValidationError):
+            trendingkeywords.full_clean()
+
+    def test_when_keyword_and_location_both_is_null_should_raise_error(self):
+        trendingkeywords = TrendingKeywords()
+        with self.assertRaises(ValidationError):
+            trendingkeywords.full_clean()
+
+    def test_when_keyword_is_blank_should_raise_error(self):
+        trendingkeywords = TrendingKeywords(keyword='',location='Niketan')
+        with self.assertRaises(ValidationError):
+            trendingkeywords.full_clean()
+
+    def test_when_location_is_blank_should_raise_error(self):
+        trendingkeywords = TrendingKeywords(keyword='python3', location='')
+        with self.assertRaises(ValidationError):
+            trendingkeywords.full_clean()
+
+    def test_when_keyword_and_location_both_is_blank_should_raise_error(self):
+        trendingkeywords = TrendingKeywords(keyword='', location='')
+        with self.assertRaises(ValidationError):
+            trendingkeywords.full_clean()
+
+
+    def test_when_keyword_is_more_than_max_length_should_raise_error(self):
+        trendingkeywords = TrendingKeywords(keyword='Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                           'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, '
+                           'when an unknown printer took a galley of type and scrambled it to make a type '
+                           'specimen book. It has survived not only five centuries, but also the leap into '
+                           'electronic typesetting, remaining essentially unchanged. It was popularised in '
+                           'the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, '
+                           'and more recently with desktop publishing software like Aldus PageMaker '
+                           'including versions of Lorem Ipsum.', location='Niketan')
+        with self.assertRaises(ValidationError):
+            trendingkeywords.full_clean()
+
+    def test_when_location_is_more_than_max_length_should_raise_error(self):
+        trendingkeywords = TrendingKeywords(keyword='Python3',location='Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                           'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, '
+                           'when an unknown printer took a galley of type and scrambled it to make a type '
+                           'specimen book. It has survived not only five centuries, but also the leap into '
+                           'electronic typesetting, remaining essentially unchanged. It was popularised in '
+                           'the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, '
+                           'and more recently with desktop publishing software like Aldus PageMaker '
+                           'including versions of Lorem Ipsum.')
+        with self.assertRaises(ValidationError):
+            trendingkeywords.full_clean()
+
+    def test_when_count_value_is_minus_should_raise_an_error(self):
+        trendingkeywords = TrendingKeywords(keyword ='Python3',location='Niketan',count='-1')
+        with self.assertRaises(IntegrityError):
+            trendingkeywords.save()
+
+
+
+#TRENDING_KEYWORDS_TEST#
+>>>>>>> dev

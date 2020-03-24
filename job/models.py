@@ -168,6 +168,7 @@ class Job(models.Model):
     company_profile = models.CharField(max_length=255, blank=True, null = True)
     latitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
+    raw_content = models.TextField(blank=True, null=True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
     created_date = models.DateField(default=datetime.date.today)
 
@@ -182,7 +183,8 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
-    #job Model
+
+#job Model ends here
 
 
 
@@ -197,3 +199,23 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+<<<<<<< HEAD
+=======
+
+
+#Trending Keywords Model Starts here
+class TrendingKeywords(models.Model):
+    keyword = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    count = models.PositiveIntegerField(default=1)
+    created_date = models.DateField(default=datetime.date.today)
+
+    class Meta:
+        verbose_name = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME
+        verbose_name_plural = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME_PLURAL
+        db_table = 'trending_keywords'
+
+    def __str__(self):
+        return self.keyword
+#Trending Keywords Model ends here
+>>>>>>> dev

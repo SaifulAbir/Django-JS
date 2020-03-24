@@ -38,7 +38,14 @@ CURRENCY_VERBOSE_NAME = 'Currency'
 CURRENCY_VERBOSE_NAME_PLURAL = 'Currencies'
 #Currency Strings#
 
+<<<<<<< HEAD
 #Skills Strings #
 SKILLS_VERBOSE_NAME = 'Skill'
 SKILLS_VERBOSE_NAME_PLURAL = 'Skills'
 #Skills Strings #
+=======
+#Trending_keywords Strings#
+TRENDING_KEYWORDS_VERBOSE_NAME = 'TrendingKeyword'
+TRENDING_KEYWORDS_VERBOSE_NAME_PLURAL = 'TrendingKeywords'
+#Trending_keywords Strings#
+>>>>>>> dev
