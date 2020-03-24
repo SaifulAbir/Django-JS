@@ -2,6 +2,7 @@ import uuid
 import datetime
 from django.db import models
 from django.utils import timezone
+from rest_framework.utils import json
 
 from location.models import Division, District
 from resources import strings_job
@@ -183,8 +184,7 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
-
-#job Model ends here
+    #job Model
 
 
 
