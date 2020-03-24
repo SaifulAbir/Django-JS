@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.test import TestCase
+from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, Skill
 from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, TrendingKeywords
 from location.models import Division, District
 
@@ -361,6 +362,47 @@ class JobTest(TestCase):
 
 
 #JOB TESTS
+
+#SKILLS TEST
+class SkillTest(TestCase):
+
+    def test_when_everything_required_is_given_should_pass(self):
+        skill = Skill(name='Programming')
+        try:
+            skill.full_clean()
+        except:
+            self.fail()
+
+    def test_when_name_is_null_should_raise_error(self):
+        skill = Skill()
+        with self.assertRaises(ValidationError):
+            skill.full_clean()
+
+    def test_when_name_is_blank_should_raise_error(self):
+        skill = Skill(name='')
+        with self.assertRaises(ValidationError):
+            skill.full_clean()
+
+    def test_when_title_is_more_than_max_length_should_raise_error(self):
+        skill = Skill(name='Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                        'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, '
+                        'when an unknown printer took a galley of type and scrambled it to make a type '
+                        'specimen book. It has survived not only five centuries, but also the leap into '
+                        'electronic typesetting, remaining essentially unchanged. It was popularised in '
+                        'the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, '
+                        'and more recently with desktop publishing software like Aldus PageMaker '
+                        'including versions of Lorem Ipsum.')
+        with self.assertRaises(ValidationError):
+            skill.full_clean()
+
+    def test__when_skills_name_duplicate__should_raise_error(self):
+        s = Skill(name="Programming")
+        s1 = Skill(name="Programming")
+        with self.assertRaises(IntegrityError):
+            s.save()
+            s1.save()
+
+#SKILLS TEST
 
 #TRENDING_KEYWORDS_TEST#
 class TrendingKeywordsTest(TestCase):

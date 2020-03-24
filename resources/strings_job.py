@@ -26,6 +26,8 @@ GENDER_VERBOSE_NAME_PLURAL = 'Genders'
 #Job Strings#
 JOB_VERBOSE_NAME = 'Job'
 JOB_VERBOSE_NAME_PLURAL = 'Jobs'
+ON_TXT = 'on'
+OFF_TXT = 'off'
 #Job Strings#
 
 #COMPANY Strings#
@@ -47,3 +49,13 @@ TRENDING_KEYWORDS_VERBOSE_NAME_PLURAL = 'TrendingKeywords'
 CAREER_VERBOSE_NAME = 'Career Advice'
 CAREER_VERBOSE_NAME_PLURAL = 'Career Advices'
 #Career Strings#
+
+#Skills Strings #
+SKILLS_VERBOSE_NAME = 'Skill'
+SKILLS_VERBOSE_NAME_PLURAL = 'Skills'
+#Skills Strings #
+
+#Job Skill Detail Strings #
+JOB_SKILL_DETAIL_VERBOSE_NAME = 'Job Skill'
+JOB_SKILL_DETAIL_VERBOSE_NAME_PLURAL = 'Job Skills'
+#Job Skill Detail Strings #
