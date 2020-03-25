@@ -36,6 +36,7 @@ class Company(models.Model):
     contact_person_mobile_no = models.CharField(max_length=20, blank=True, null=True)
     contact_person_email = models.CharField(max_length=100, blank=True, null=True)
     company_profile = models.CharField(max_length=255, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='images/', blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
