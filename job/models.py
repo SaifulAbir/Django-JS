@@ -2,6 +2,7 @@ import uuid
 import datetime
 from django.db import models
 from django.utils import timezone
+from rest_framework.utils import json
 
 from location.models import Division, District
 from resources import strings_job
@@ -170,6 +171,7 @@ class Job(models.Model):
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     raw_content = models.TextField(blank=True, null=True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
+    terms_and_condition = models.BooleanField(default=False)
     created_date = models.DateField(default=datetime.date.today)
 
 
@@ -190,9 +192,41 @@ class Job(models.Model):
 class Skill(models.Model):
     name = models.CharField(max_length=255,unique=True)
     created_date = models.DateTimeField(default=timezone.now)
+
     class Meta:
-        # verbose_name = strings_job.SKILLS_VERBOSE_NAME
-        # verbose_name_plural = strings_job.SKILLS_VERBOSE_NAME_PLURAL
+        verbose_name = strings_job.SKILLS_VERBOSE_NAME
+        verbose_name_plural = strings_job.SKILLS_VERBOSE_NAME_PLURAL
         db_table = 'skills'
+
     def __str__(self):
         return self.name
+
+class Job_skill_detail(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
+    skill = models.ForeignKey(Skill, on_delete=models.PROTECT, db_column='skill')
+
+    class Meta:
+        verbose_name = strings_job.JOB_SKILL_DETAIL_VERBOSE_NAME
+        verbose_name_plural = strings_job.JOB_SKILL_DETAIL_VERBOSE_NAME_PLURAL
+        db_table = 'job_skill_details'
+
+    def __str__(self):
+        return self.skill.name
+
+
+
+#Trending Keywords Model Starts here
+class TrendingKeywords(models.Model):
+    keyword = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    count = models.PositiveIntegerField(default=1)
+    created_date = models.DateField(default=datetime.date.today)
+
+    class Meta:
+        verbose_name = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME
+        verbose_name_plural = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME_PLURAL
+        db_table = 'trending_keywords'
+
+    def __str__(self):
+        return self.keyword
+#Trending Keywords Model ends here
