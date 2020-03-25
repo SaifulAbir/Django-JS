@@ -219,7 +219,6 @@ class Job_skill_detail(models.Model):
 class TrendingKeywords(models.Model):
     keyword = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    count = models.PositiveIntegerField(default=1)
     created_date = models.DateField(default=datetime.date.today)
 
     class Meta:
