@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
@@ -140,27 +141,27 @@ def load_previous_skills(request):
 @api_view(["POST"])
 def trending_keyword_save(request):
     search_data = json.loads(request.body)
-    print(search_data)
-    try:
-        keyword_obj = TrendingKeywords.objects.get(keyword=search_data['keyword'])
-    except TrendingKeywords.DoesNotExist:
-        keyword_obj = None
-
-    if keyword_obj is not None:
-        count = keyword_obj.count +1
-        keyword_obj.count = count
-
-        if 'location' in search_data :
-            keyword_obj.location = search_data['location']
-        keyword_obj.save()
-    else:
-        key_obj = TrendingKeywords(**search_data)
-        key_obj.save()
+    # print(search_data)
+    # try:
+    #     keyword_obj = TrendingKeywords.objects.get(keyword=search_data['keyword'])
+    # except TrendingKeywords.DoesNotExist:
+    #     keyword_obj = None
+    #
+    # if keyword_obj is not None:
+    #     count = keyword_obj.count + 1
+    #     keyword_obj.count = count
+    #
+    #     if 'location' in search_data:
+    #         keyword_obj.location = search_data['location']
+    #     keyword_obj.save()
+    # else:
+    key_obj = TrendingKeywords(**search_data)
+    key_obj.save()
 
     return Response(HTTP_200_OK)
 
 class TrendingKeywordPopulate(generics.ListCreateAPIView):
-    queryset = TrendingKeywords.objects.all().order_by('-count')[:6]
+    queryset = TrendingKeywords.objects.values('keyword').annotate(key_count = Count('keyword')).order_by('-key_count')[:6]
     serializer_class = TrendingKeywordPopulateSerializer
 
 
