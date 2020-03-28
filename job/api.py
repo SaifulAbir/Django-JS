@@ -36,15 +36,15 @@ class JobObject(APIView):
     def get(self, request, pk):
         job = get_object_or_404(Job, pk=pk)
         data = JobSerializer(job).data
-        data['skill']=''
+        data['skill']=[]
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
-        # for skill in list(skills):
+        for skill in job.job_skills.all():
         #     if skills.index(skill) == skills_len:
-        #         data['skill'] = data['skill']+(skill.skill.name)
+            data['skill'].append(skill.name)
         #     else:
         #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
-        # print(data['skill'])
+        print(data)
         return Response(data)
 
 class IndustryList(generics.ListCreateAPIView):
