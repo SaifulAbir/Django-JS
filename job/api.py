@@ -1,3 +1,4 @@
+from django.db import models
 from django.db.models import Count, QuerySet
 from django.http import Http404
 from rest_framework.decorators import api_view
@@ -9,7 +10,8 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
+    Skill
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
@@ -128,5 +130,10 @@ class TrendingKeywordPopulate(generics.ListCreateAPIView):
 class PopularCategories(generics.ListCreateAPIView):
     queryset = Industry.objects.all().annotate(num_posts=Count('industries')).order_by('-num_posts')[:16]
     serializer_class = PopularCategoriesSerializer
+
+class TopSkills(generics.ListCreateAPIView):
+    queryset = Skill.objects.annotate(skills_count=Count('jobs_set')
+    ).order_by('-skills_count')[:10]
+    serializer_class = TopSkillSerializer
 
 
