@@ -142,6 +142,22 @@ class Currency(models.Model):
 #Currency Model
 
 
+
+class Skill(models.Model):
+    name = models.CharField(max_length=255,unique=True)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = strings_job.SKILLS_VERBOSE_NAME
+        verbose_name_plural = strings_job.SKILLS_VERBOSE_NAME_PLURAL
+        db_table = 'skills'
+
+    def __str__(self):
+        return self.name
+
+
+
+
 #Job Model
 class Job(models.Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False,db_column='id')
@@ -172,9 +188,10 @@ class Job(models.Model):
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     raw_content = models.TextField(blank=True, null=True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
+    job_skills = models.ManyToManyField('Skill', blank=True)
     terms_and_condition = models.BooleanField(default=False)
     created_date = models.DateField(default=datetime.date.today)
-    job_skills = models.ManyToManyField('Skill', blank=True)
+
 
 
     class Meta:
@@ -191,17 +208,6 @@ class Job(models.Model):
 
 
 
-class Skill(models.Model):
-    name = models.CharField(max_length=255,unique=True)
-    created_date = models.DateTimeField(default=timezone.now)
-
-    class Meta:
-        verbose_name = strings_job.SKILLS_VERBOSE_NAME
-        verbose_name_plural = strings_job.SKILLS_VERBOSE_NAME_PLURAL
-        db_table = 'skills'
-
-    def __str__(self):
-        return self.name
 
 # class JobsJobSkills(models.Model):
 #     job = models.ForeignKey('Jobs', models.DO_NOTHING)
