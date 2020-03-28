@@ -48,7 +48,7 @@
     <header>
       <nav class="navbar navbar-expand-xl absolute-nav transparent-nav cp-nav navbar-light bg-light fluid-nav">
         <a class="navbar-brand" href="{% url 'home' %}">
-          <img src="{% static 'images/logo.png'%}" class="img-fluid" alt="">
+          <img src="{% static 'images/logo-2.png'%}"  alt="">
         </a>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -58,9 +58,9 @@
           <ul class="navbar-nav ml-auto main-nav">
             <li class="menu-item active"><a title="Home" href="{% url 'home' %}">Home</a></li>
             <li class="menu-item"><a  href="{% url 'jobs' %}">Jobs</a></li>
-            <li class="menu-item"><a  href="javascript:void(0)">Career Advice</a></li>
-            <li class="menu-item"><a  href="javascript:void(0)">Skill Check</a></li>
-            <li class="menu-item"><a  href="javascript:void(0)">About Us</a></li>
+            <li class="menu-item"><a  href="{% url 'career_advice' %}">Career Advice</a></li>
+            <li class="menu-item"><a  href="{% url 'skill_check' %}">Skill Check</a></li>
+            <li class="menu-item"><a  href="{% url 'about_us' %}">About Us</a></li>
             <li class="menu-item login-popup" id="sign-in"><a href="{% url 'sign-in' %}">Login</a></li>
             <li class="menu-item login-popup" id="register"><a href="{% url 'register' %}">Registration</a></li>
             <li class="menu-item" id="sign-out"><a href="professional/sign-out/">Logout</a></li>
@@ -108,10 +108,10 @@
                 <h4>Information</h4>
                 <div class="widget-inner">
                   <ul>
-                    <li><a href="javascript:void(0)">About Us</a></li>
-                    <li><a href="javascript:void(0)">Contact Us</a></li>
-                    <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                    <li><a href="javascript:void(0)">Terms &amp; Conditions</a></li>
+                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'terms_&_conditions' %}">Terms &amp; Conditions</a></li>
                   </ul>
                 </div>
               </div>
@@ -121,8 +121,8 @@
                 <h4>Job Seekers</h4>
                 <div class="widget-inner">
                   <ul>
-                    <li><a href="javascript:void(0)">Create Account</a></li>
-                    <li><a href="javascript:void(0)">Career Counseling</a></li>
+                    <li><a href="{% url 'register' %}">Create Account</a></li>
+                    <li><a href="{% url 'career_advice' %}">Career Counseling</a></li>
                     <li><a href="javascript:void(0)">My Oficiona</a></li>
                     <li><a href="javascript:void(0)">FAQ</a></li>
                     <li><a href="javascript:void(0)">Video Guides</a></li>
@@ -135,7 +135,7 @@
                 <h4>Employers</h4>
                 <div class="widget-inner">
                   <ul>
-                    <li><a href="javascript:void(0)">Create Account</a></li>
+                    <li><a href="{% url 'register' %}">Create Account</a></li>
                     <li><a href="javascript:void(0)">Products/Service</a></li>
                     <li><a href="{% url 'post_job' %}">Post a Job</a></li>
                     <li><a href="javascript:void(0)">FAQ</a></li>
