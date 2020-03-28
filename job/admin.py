@@ -6,6 +6,7 @@ from job.models import Company, JobType, Experience, Qualification, Gender, Indu
 
 
 class JobAdmin(admin.ModelAdmin):
+    filter_horizontal = ('job_skills',)
     list_display = ['title', 'industry', 'employment_status', 'job_location', 'experience', 'qualification', 'application_deadline', 'gender', 'company_name',
                     'division', 'district']
     search_fields = ['title__icontains', 'industry__name__icontains', 'employment_status__name__icontains', 'job_location__icontains',
