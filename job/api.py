@@ -97,13 +97,15 @@ def job_create(request):
             except Skill.DoesNotExist:
                 skill_obj = None
             if skill_obj:
-                job_skills = Job_skill_detail(job=job_obj, skill=skill_obj)
-                job_skills.save()
+                job_obj.job_skills.add(skill_obj)
+                # job_skills = Job_skill_detail(job=job_obj, skill=skill_obj)
+                # job_skills.save()
             else:
                 skill = Skill(name=skill)
                 skill.save()
-                job_skills = Job_skill_detail(job=job_obj, skill=skill)
-                job_skills.save()
+                job_obj.job_skills.add(skill)
+                # job_skills = Job_skill_detail(job=job_obj, skill=skill)
+                # job_skills.save()
     return Response(HTTP_200_OK)
 
 class JobUpdateView(GenericAPIView, UpdateModelMixin):
