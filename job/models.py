@@ -36,6 +36,7 @@ class Company(models.Model):
     contact_person_mobile_no = models.CharField(max_length=20, blank=True, null=True)
     contact_person_email = models.CharField(max_length=100, blank=True, null=True)
     company_profile = models.CharField(max_length=255, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='images/', blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -173,6 +174,7 @@ class Job(models.Model):
     web_address = models.CharField(max_length=255, blank=True, null = True)
     terms_and_condition = models.BooleanField(default=False)
     created_date = models.DateField(default=datetime.date.today)
+    job_skills = models.ManyToManyField('Skill', blank=True)
 
 
     class Meta:
@@ -201,17 +203,14 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
-class Job_skill_detail(models.Model):
-    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
-    skill = models.ForeignKey(Skill, on_delete=models.PROTECT, db_column='skill')
-
-    class Meta:
-        verbose_name = strings_job.JOB_SKILL_DETAIL_VERBOSE_NAME
-        verbose_name_plural = strings_job.JOB_SKILL_DETAIL_VERBOSE_NAME_PLURAL
-        db_table = 'job_skill_details'
-
-    def __str__(self):
-        return self.job.title
+# class JobsJobSkills(models.Model):
+#     job = models.ForeignKey('Jobs', models.DO_NOTHING)
+#     skill = models.ForeignKey('Skills', models.DO_NOTHING)
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'jobs_job_skills'
+#         unique_together = (('job', 'skill'),)
 
 
 
@@ -219,7 +218,6 @@ class Job_skill_detail(models.Model):
 class TrendingKeywords(models.Model):
     keyword = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    count = models.PositiveIntegerField(default=1)
     created_date = models.DateField(default=datetime.date.today)
 
     class Meta:

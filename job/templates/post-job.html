@@ -42,7 +42,7 @@
                                 <div id="job-title" class="form-group row">
                                     <label class="col-md-3 col-form-label">Job Title</label>
                                     <div class="col-md-9">
-                                        <input name="title" id="title" required type="text" regex='[A-Z]' class="form-control" minlength="5" maxlength="30" placeholder="Your job title here" data-msg-required="Title is required">
+                                        <input name="title" id="title" required type="text" regex='[A-Z]' class="form-control" maxlength="50" placeholder="Your job title here" data-msg-required="Title is required">
                                     </div>
                                 </div>
                                 <div id="job-summery" class="row">
@@ -293,7 +293,7 @@
 
     });
     function redirectPage() {
-        window.location.href = "/";
+        window.location.href = "/jobs/";
     }
     function salaryType() {
         $('#salary-max, #salary-min, #currency-div').hide();
