@@ -337,13 +337,13 @@
         });
         function  loadJob(data){
             container = $('.job-detail');
-            if(data.length==1){
-                var deadline= data[0].application_deadline
-                var created_date = data[0].created_date
-                data[0].created_date = created_date.split("-").reverse().join("-")
-                data[0].application_deadline = deadline.split("-").reverse().join("-")
+            if(data){
+                var deadline= data.application_deadline
+                var created_date = data.created_date
+                data.created_date = created_date.split("-").reverse().join("-")
+                data.application_deadline = deadline.split("-").reverse().join("-")
 
-                json2Div(data[0], container);
+                json2Div(data, container);
             }
 
         }
