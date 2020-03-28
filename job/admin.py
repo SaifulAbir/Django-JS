@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords
-from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill
+from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill, BookmarkJob
 
 
 class JobAdmin(admin.ModelAdmin):
@@ -19,6 +19,13 @@ class CompanyAdmin(admin.ModelAdmin):
                      'organization_head__icontains', 'organization_head_number__icontains']
 
 
+class BookmarkJobAdmin(admin.ModelAdmin):
+     list_display = ['job', 'user', 'created_date']
+
+     search_fields = [ 'job', 'user', 'created_date']
+
+
+
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(JobType)
 admin.site.register(Experience)
@@ -29,3 +36,4 @@ admin.site.register(Currency)
 admin.site.register(Job, JobAdmin)
 admin.site.register(Skill)
 admin.site.register(TrendingKeywords)
+admin.site.register(BookmarkJob, BookmarkJobAdmin)

@@ -23,5 +23,7 @@ urlpatterns = [
     path('trending_keyword_save/', trending_keyword_save),
     path('trending_keyword_show/', TrendingKeywordPopulate.as_view()),
 
+    path('bookmark_job_show/', BookmarkJobShow.as_view()),
+
 
 ]

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, BookmarkJob
 from rest_framework.validators import *
 
 
@@ -65,3 +65,9 @@ class TrendingKeywordPopulateSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrendingKeywords
         fields = ['keyword']
+
+
+class BookmarkJobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookmarkJob
+        fields = '__all__'

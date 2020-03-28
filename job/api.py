@@ -165,3 +165,6 @@ class TrendingKeywordPopulate(generics.ListCreateAPIView):
     serializer_class = TrendingKeywordPopulateSerializer
 
 
+class BookmarkJobShow(generics.ListCreateAPIView):
+    queryset = BookmarkJob.objects.all().filter().order_by('-created_date')
+    serializer_class = BookmarkJobSerializer
