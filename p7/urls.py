@@ -38,6 +38,7 @@ urlpatterns = [
     path('api/', include('registration.urls')),
     path('api/', include('exam.urls')),
     path('api/', include('location.urls')),
+    path('api/', include('settings.urls')),
     path('api/', include('question.urls')),
     path('api/', include('exam_paper.urls')),
     path('api/professional/', include('pro.urls')),
