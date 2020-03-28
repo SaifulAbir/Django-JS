@@ -126,7 +126,6 @@ class TrendingKeywordPopulate(generics.ListCreateAPIView):
     serializer_class = TrendingKeywordPopulateSerializer
 
 class PopularCategories(generics.ListCreateAPIView):
-    queryset = Industry.objects.all().annotate(num_posts=Count('industries')).order_by('-num_posts')[:16]
-    serializer_class = PopularCategoriesSerializer
-
+    queryset = Industry.objects.all().annotate(num_posts=Count('industries')).order_by('-num_posts')[:5]
+    serializer_class = CategoriesPopularSerilizers
 

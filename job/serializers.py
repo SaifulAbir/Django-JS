@@ -19,25 +19,30 @@ class IndustrySerializer(serializers.ModelSerializer):
         model = Industry
         fields = ['name']
 
+
 class CurrencySerializer(serializers.ModelSerializer):
     class Meta:
         model = Currency
         fields = ['name']
+
 
 class JobTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobType
         fields = ['name']
 
+
 class ExperienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Experience
         fields = ['name']
 
+
 class QualificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Qualification
         fields = ['name']
+
 
 class GenderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,30 +50,33 @@ class GenderSerializer(serializers.ModelSerializer):
         fields = ['name']
 
 
-
 class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = fields = '__all__'
+
 
 class JobSerializerAllField(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = '__all__'
 
+
 class CompanyPopulateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = ['name', 'web_address', 'company_profile']
+
 
 class TrendingKeywordPopulateSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrendingKeywords
         fields = ['keyword']
 
-class PopularCategoriesSerializer(serializers.ModelSerializer):
-    num_posts = serializers.IntegerField(read_only=True)
 
+class CategoriesPopularSerilizers(serializers.ModelSerializer):
+    num_post = serializers.IntegerField(read_only=True)
     class Meta:
         model = Industry
-        fields= ['name', 'num_posts']
+        # fields = '__all__'
+        fields = ['name' , 'num_post']
