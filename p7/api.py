@@ -24,7 +24,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
-
+from rest_framework import generics
 from resources.strings_registration import *
 
 
@@ -168,3 +168,7 @@ def professional_info(request, user_id):
 
 
     return Response(data, HTTP_200_OK)
+
+# class RecentJobs(generics.ListCreateAPIView):
+#     queryset = Industry.objects.all().annotate(num_posts=Count('industries')).order_by('-num_posts')[:16]
+#     serializer_class = PopularCategoriesSerializer

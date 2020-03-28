@@ -10,7 +10,7 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
 from resources.strings_job import *
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords,Skill,Job_skill_detail
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords,Skill
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
@@ -37,7 +37,7 @@ class JobObject(APIView):
         job = get_object_or_404(Job, pk=pk)
         data = JobSerializer(job).data
         data['skill']=''
-        skills = Job_skill_detail.objects.filter(job=job)
+        # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
         # for skill in list(skills):
         #     if skills.index(skill) == skills_len:
