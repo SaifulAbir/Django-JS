@@ -395,7 +395,7 @@
         function loadJobs(data) {
 
             for(index=0;index<data.length;index++){
-
+                console.log(data[index])
                 var job_html= '<div class="job-list">'+
                         '<div class="thumb">'+
                             '<a href="#">'+
@@ -404,11 +404,11 @@
                         '</div>'+
                         '<div class="body">'+
                             '<div class="content">'+
-                                '<h4><a href="job-details.html">'+'hgghg'+'</a></h4>'+
+                                '<h4><a href="job-details.html">'+data[index].title+'</a></h4>'+
                                 '<div class="info">'+
-                                    '<span class="company"><a href="#"><i data-feather="briefcase"></i>Theoreo</a></span>'+
-                                    '<span class="office-location"><a href="#"><i data-feather="map-pin"></i>New York City</a></span>'+
-                                    '<span class="job-type full-time"><a href="#"><i data-feather="clock"></i>Full Time</a></span>'+
+                                    '<span class="company"><a href="#"><i data-feather="briefcase"></i>'+data[index].company_name+'</a></span>'+
+                                    '<span class="office-location"><a href="#"><i data-feather="map-pin"></i>'+data[index].job_location+'</a></span>'+
+                                    '<span class="job-type full-time"><a href="#"><i data-feather="clock"></i>'+data[index].employment_status+'</a></span>'+
                                 '</div>'+
                             '</div>'+
                             '<div class="more">'+
