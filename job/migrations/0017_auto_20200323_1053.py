@@ -11,10 +11,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='skill',
-            name='job',
-        ),
+        # migrations.RemoveField(
+        #     model_name='skill',
+        #     name='job',
+        # ),
         migrations.CreateModel(
             name='Job_skill_detail',
             fields=[

@@ -59,3 +59,8 @@ SKILLS_VERBOSE_NAME_PLURAL = 'Skills'
 JOB_SKILL_DETAIL_VERBOSE_NAME = 'Job Skill'
 JOB_SKILL_DETAIL_VERBOSE_NAME_PLURAL = 'Job Skills'
 #Job Skill Detail Strings #
+
+#Bookmark Job Strings #
+BOOKMARK_JOB_VERBOSE_NAME = 'Bookmark Job'
+BOOKMARK_JOB_VERBOSE_NAME_PLURAL = 'Bookmark Jobs'
+#Bookmark Job Strings #

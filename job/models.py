@@ -1,5 +1,7 @@
 import uuid
 import datetime
+
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from rest_framework.utils import json
@@ -146,7 +148,7 @@ class Currency(models.Model):
 class Job(models.Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False,db_column='id')
     title = models.CharField(max_length=255)
-    industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,db_column='industry')
+    industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,db_column='industry', related_name='industries')
     employment_status = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,db_column='employment_status')
     job_location = models.CharField(max_length=255, blank=True,null=True)
     experience =  models.ForeignKey(Experience, on_delete=models.PROTECT,blank=True, null= True,db_column='experience')
@@ -174,7 +176,7 @@ class Job(models.Model):
     web_address = models.CharField(max_length=255, blank=True, null = True)
     terms_and_condition = models.BooleanField(default=False)
     created_date = models.DateField(default=datetime.date.today)
-    job_skills = models.ManyToManyField('Skill', blank=True)
+    job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
 
 
     class Meta:
@@ -228,3 +230,19 @@ class TrendingKeywords(models.Model):
     def __str__(self):
         return self.keyword
 #Trending Keywords Model ends here
+
+
+#Bookmark job Model Starts here
+class BookmarkJob(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, db_column='user')
+    created_date = models.DateField(default=datetime.date.today)
+
+    class Meta:
+        verbose_name = strings_job.BOOKMARK_JOB_VERBOSE_NAME
+        verbose_name_plural = strings_job.BOOKMARK_JOB_VERBOSE_NAME_PLURAL
+        db_table = 'bookmark_jobs'
+
+    def __str__(self):
+        return self.job.title
+#Bookmark job Model ends here
