@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from career_advice.models import Career_Advice
+from career_advice.models import CareerAdvice
 from django.test import TestCase
 
 # Create your tests here.
