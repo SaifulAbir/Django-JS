@@ -182,7 +182,7 @@ class TopSkills(generics.ListCreateAPIView):
     serializer_class = TopSkillSerializer
 
 class RecentJobs(generics.ListCreateAPIView):
-    queryset = Job.objects.all().order_by('-created_date')[:16]
+    queryset = Job.objects.all().order_by('-created_date')[:6]
     serializer_class = JobSerializer
 
 
