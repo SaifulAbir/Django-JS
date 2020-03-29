@@ -100,7 +100,7 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'p7',
+#         'NAME': 'p7_live',
 #         'USER': 'root',
 #         'PASSWORD': '123',
 #         'HOST': 'localhost',

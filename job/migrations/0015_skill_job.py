@@ -11,10 +11,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='skill',
-            name='job',
-            field=models.ForeignKey(db_column='job', default='', on_delete=django.db.models.deletion.PROTECT, to='job.Job'),
-            preserve_default=False,
-        ),
+        # migrations.AddField(
+        #     model_name='skill',
+        #     name='job',
+        #     field=models.ForeignKey(db_column='job', default='', on_delete=django.db.models.deletion.PROTECT, to='job.Job'),
+        #     preserve_default=False,
+        # ),
     ]
