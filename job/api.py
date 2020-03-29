@@ -1,8 +1,10 @@
 from django.db import models
 from django.db.models import Count, QuerySet
 from django.http import Http404
+from datetime import date
+
 from django.db.models import Count
-from django.http import Http404, JsonResponse
+from django.http import Http404, JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView
@@ -12,6 +14,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
+
+from pro.models import Professional
 from resources.strings_job import *
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords,Skill
 
@@ -181,4 +185,17 @@ class TopSkills(generics.ListCreateAPIView):
     ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
 
+
+
+def vital_stats(self):
+    companies = Company.objects.all().count()
+    professional = Professional.objects.all().count()
+    open_job = Job.objects.filter(application_deadline__gte= date.today()).count()
+    data ={
+        'professional_count': str(professional),
+        'open_job' : str(open_job),
+        'resume': str(0),
+        'company_count': str(companies),
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')
 

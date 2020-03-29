@@ -90,17 +90,10 @@ WSGI_APPLICATION = 'p7.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'p7-29-03-20',
+        'NAME': 'p7-live',
         'USER': 'root',
         'PASSWORD': '123',
         'HOST': 'localhost',

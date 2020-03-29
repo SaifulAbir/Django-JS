@@ -306,7 +306,7 @@
                         <div class="fact-icon">
                             <i data-feather="briefcase"></i>
                         </div>
-                        <p class="fact-number"><span class="count" data-form="0" data-to="12376"></span></p>
+                        <p class="fact-number" id="job_counts"><span class="count" data-form="0" data-to=""></span></p>
                         <p class="fact-name">Live Jobs</p>
                     </div>
                 </div>
@@ -315,7 +315,7 @@
                         <div class="fact-icon">
                             <i data-feather="users"></i>
                         </div>
-                        <p class="fact-number"><span class="count" data-form="0" data-to="89562"></span></p>
+                        <p class="fact-number" id="candidate_count"><span class="count" data-form="0" data-to=""></span></p>
                         <p class="fact-name">Candidate</p>
                     </div>
                 </div>
@@ -324,7 +324,7 @@
                         <div class="fact-icon">
                             <i data-feather="file-text"></i>
                         </div>
-                        <p class="fact-number"><span class="count" data-form="0" data-to="28166"></span></p>
+                        <p class="fact-number" id="resume_count"><span class="count" data-form="0" data-to="28166"></span></p>
                         <p class="fact-name">Resume</p>
                     </div>
                 </div>
@@ -333,7 +333,7 @@
                         <div class="fact-icon">
                             <i data-feather="award"></i>
                         </div>
-                        <p class="fact-number"><span class="count" data-form="0" data-to="1366"></span></p>
+                        <p class="fact-number" id="companies_count"><span class="count" data-form="0" data-to="1366"></span></p>
                         <p class="fact-name">Companies</p>
                     </div>
                 </div>
@@ -463,16 +463,28 @@
         $(document).ready(function() {
             TokenAuthenticate();
             initAjaxForms();
+            statUrl = '/api/vital_stats/'
             key_url='/api/trending_keyword_show/';
             cat_url='/api/popular_categories/';
             skills_url='/api/top_skills/';
-            get(cat_url,loadCategory);
             careerUrl = '/api/career_advise_show/';
+            get(cat_url,loadCategory);
+            get(statUrl,loadStats)
             get(key_url,loadKey);
             get(careerUrl,loadAdvice);
             get(skills_url,loadSkills);
 
         });
+
+
+
+        function loadStats(data) {
+            $('#candidate_count').text(data.professional_count)
+            $('#job_counts').text(data.open_job)
+            $('#companies_count').text(data.company_count)
+            $('#resume_count').text(data.resume)
+
+        }
 
         function loadCategory(data) {
             for(index=0;index<data.length;index++){
