@@ -43,7 +43,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="explore-job">
                         <div class="explore-job-header">
-                            <h5 class="title">TOP Category</h5>
+                            <h5 class="title">TOP Categories</h5>
                             <i data-feather="bookmark"></i>
                         </div>
                         <div class="key-info">
@@ -55,37 +55,11 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="explore-job">
                         <div class="explore-job-header">
-                            <h5 class="title">TOP Cities</h5>
+                            <h5 class="title">TOP Skills</h5>
                             <i data-feather="map-pin"></i>
                         </div>
                         <div class="key-info">
-                            <ul>
-                                <li><a href="job-listing.html">New York<span>(233)</span></a></li>
-                                <li><a href="job-listing.html">Los Angeles<span>(46)</span></a></li>
-                                <li><a href="job-listing.html">California<span>(156)</span></a></li>
-                                <li><a href="job-listing.html">Chicago<span>(98)</span></a></li>
-                                <li><a href="job-listing.html">Illinois<span>(584)</span></a></li>
-                                <li><a href="job-listing.html">Houston<span>(188)</span></a></li>
-                                <li><a href="job-listing.html">Phoenix<span>(124)</span></a></li>
-                                <li><a href="job-listing.html">Texas<span>(15)</span></a></li>
-                                <li><a href="job-listing.html">Arizona<span>(233)</span></a></li>
-                                <li><a href="job-listing.html">Philadelphia<span>(46)</span></a></li>
-                                <li><a href="job-listing.html">Pennsylvania<span>(156)</span></a></li>
-                                <li><a href="job-listing.html">San Antonio<span>(98)</span></a></li>
-                                <li><a href="job-listing.html">San Diego<span>(584)</span></a></li>
-                                <li><a href="job-listing.html">Dallas<span>(188)</span></a></li>
-                                <li><a href="job-listing.html">San Jose<span>(124)</span></a></li>
-                                <li><a href="job-listing.html">Austin<span>(15)</span></a></li>
-                                <li><a href="job-listing.html">Jacksonville<span>(25)</span></a></li>
-                                <li><a href="job-listing.html">Florida<span>(53)</span></a></li>
-                                <li><a href="job-listing.html">San Francisco<span>(74)</span></a></li>
-                                <li><a href="job-listing.html">Columbus<span>(26)</span></a></li>
-                                <li><a href="job-listing.html">Ohio<span>(58)</span></a></li>
-                                <li><a href="job-listing.html">Indianapolis<span>(96)</span></a></li>
-                                <li><a href="job-listing.html">Indiana<span>(123)</span></a></li>
-                                <li><a href="job-listing.html">Fort Worth<span>(42)</span></a></li>
-                                <li><a href="job-listing.html">Charlotte<span>(71)</span></a></li>
-                                <li><a href="job-listing.html">North Carolina<span>(19)</span></a></li>
+                            <ul id="skill-list">
                             </ul>
                         </div>
                     </div>
@@ -490,18 +464,24 @@
             initAjaxForms();
             key_url='/api/trending_keyword_show/';
             cat_url='/api/popular_categories/';
-            get(key_url,loadKey);
+            skills_url='/api/top_skills/';
             get(cat_url,loadCategory);
-            url='/api/trending_keyword_show/';
-            careerUrl = '/api/career_advise_show/'
-            get(url,loadKey);
-            get(careerUrl,loadAdvice)
+            careerUrl = '/api/career_advise_show/';
+            get(key_url,loadKey);
+            get(careerUrl,loadAdvice);
+            get(skills_url,loadSkills);
 
         });
 
         function loadCategory(data) {
             for(index=0;index<data.length;index++){
-                $('#category-list').append('<li><a href="job-listing.html">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
+                $('#category-list').append('<li><a href="#">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
+            }
+        }
+
+        function loadSkills(data) {
+            for(index=0;index<data.length;index++){
+                $('#skill-list').append('<li><a href="#">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
             }
         }
 

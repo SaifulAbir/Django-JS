@@ -176,7 +176,7 @@ class Job(models.Model):
     web_address = models.CharField(max_length=255, blank=True, null = True)
     terms_and_condition = models.BooleanField(default=False)
     created_date = models.DateField(default=datetime.date.today)
-    job_skills = models.ManyToManyField('Skill', blank=True)
+    job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
 
 
     class Meta:

@@ -79,4 +79,4 @@ class TopSkillSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Industry
-        fields= ['skills_count']
+        fields= ['name', 'skills_count']

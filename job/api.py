@@ -177,8 +177,8 @@ class PopularCategories(generics.ListCreateAPIView):
     serializer_class = PopularCategoriesSerializer
 
 class TopSkills(generics.ListCreateAPIView):
-    queryset = Skill.objects.annotate(skills_count=Count('jobs_set')
-    ).order_by('-skills_count')[:10]
+    queryset = Skill.objects.all().annotate(skills_count=Count('skill_set')
+    ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
 
 
