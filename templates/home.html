@@ -364,32 +364,22 @@
 {% block extra_js %}
 <script>
 
+
     $(document).ready(function() {
         TokenAuthenticate();
         initAjaxForms();
+        statUrl = '/api/vital_stats/'
         key_url='/api/trending_keyword_show/';
         cat_url='/api/popular_categories/';
         skills_url='/api/top_skills/';
-        get(cat_url,loadCategory);
         careerUrl = '/api/career_advise_show/';
         recentJobsUrl = '/api/recent_jobs/';
+        get(cat_url,loadCategory);
+        get(statUrl,loadStats)
         get(key_url,loadKey);
         get(careerUrl,loadAdvice);
         get(skills_url,loadSkills);
         get(recentJobsUrl,loadJobs);
-        $(document).ready(function() {
-            TokenAuthenticate();
-            initAjaxForms();
-            statUrl = '/api/vital_stats/'
-            key_url='/api/trending_keyword_show/';
-            cat_url='/api/popular_categories/';
-            skills_url='/api/top_skills/';
-            careerUrl = '/api/career_advise_show/';
-            get(cat_url,loadCategory);
-            get(statUrl,loadStats)
-            get(key_url,loadKey);
-            get(careerUrl,loadAdvice);
-            get(skills_url,loadSkills);
 
     });
 
