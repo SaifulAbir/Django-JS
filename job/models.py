@@ -2,6 +2,7 @@ import uuid
 import datetime
 from django.db import models
 from django.utils import timezone
+from rest_framework.utils import json
 
 from location.models import Division, District
 from resources import strings_job
@@ -35,6 +36,7 @@ class Company(models.Model):
     contact_person_mobile_no = models.CharField(max_length=20, blank=True, null=True)
     contact_person_email = models.CharField(max_length=100, blank=True, null=True)
     company_profile = models.CharField(max_length=255, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='images/', blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -168,8 +170,11 @@ class Job(models.Model):
     company_profile = models.CharField(max_length=255, blank=True, null = True)
     latitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
+    raw_content = models.TextField(blank=True, null=True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
+    terms_and_condition = models.BooleanField(default=False)
     created_date = models.DateField(default=datetime.date.today)
+    job_skills = models.ManyToManyField('Skill', blank=True)
 
 
     class Meta:
@@ -187,7 +192,6 @@ class Job(models.Model):
 
 
 class Skill(models.Model):
-    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
     name = models.CharField(max_length=255,unique=True)
     created_date = models.DateTimeField(default=timezone.now)
 
@@ -198,3 +202,29 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+
+# class JobsJobSkills(models.Model):
+#     job = models.ForeignKey('Jobs', models.DO_NOTHING)
+#     skill = models.ForeignKey('Skills', models.DO_NOTHING)
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'jobs_job_skills'
+#         unique_together = (('job', 'skill'),)
+
+
+
+#Trending Keywords Model Starts here
+class TrendingKeywords(models.Model):
+    keyword = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    created_date = models.DateField(default=datetime.date.today)
+
+    class Meta:
+        verbose_name = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME
+        verbose_name_plural = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME_PLURAL
+        db_table = 'trending_keywords'
+
+    def __str__(self):
+        return self.keyword
+#Trending Keywords Model ends here

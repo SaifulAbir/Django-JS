@@ -1,10 +1,12 @@
 from django.contrib import admin
 
 # Register your models here.
+from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords
 from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill
 
 
 class JobAdmin(admin.ModelAdmin):
+    filter_horizontal = ('job_skills',)
     list_display = ['title', 'industry', 'employment_status', 'job_location', 'experience', 'qualification', 'application_deadline', 'gender', 'company_name',
                     'division', 'district']
     search_fields = ['title__icontains', 'industry__name__icontains', 'employment_status__name__icontains', 'job_location__icontains',
@@ -28,3 +30,4 @@ admin.site.register(Industry)
 admin.site.register(Currency)
 admin.site.register(Job, JobAdmin)
 admin.site.register(Skill)
+admin.site.register(TrendingKeywords)
