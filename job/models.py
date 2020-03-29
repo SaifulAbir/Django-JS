@@ -1,5 +1,7 @@
 import uuid
 import datetime
+
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from rest_framework.utils import json
@@ -228,3 +230,19 @@ class TrendingKeywords(models.Model):
     def __str__(self):
         return self.keyword
 #Trending Keywords Model ends here
+
+
+#Bookmark job Model Starts here
+class BookmarkJob(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, db_column='user')
+    created_date = models.DateField(default=datetime.date.today)
+
+    class Meta:
+        verbose_name = strings_job.BOOKMARK_JOB_VERBOSE_NAME
+        verbose_name_plural = strings_job.BOOKMARK_JOB_VERBOSE_NAME_PLURAL
+        db_table = 'bookmark_jobs'
+
+    def __str__(self):
+        return self.job.title
+#Bookmark job Model ends here
