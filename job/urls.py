@@ -22,6 +22,7 @@ urlpatterns = [
     path('previous_skills/', load_previous_skills),
     path('trending_keyword_save/', trending_keyword_save),
     path('trending_keyword_show/', TrendingKeywordPopulate.as_view()),
+    path('vital_stats/', vital_stats),
 
 
 ]
