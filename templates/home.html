@@ -463,17 +463,13 @@
         $(document).ready(function() {
             TokenAuthenticate();
             initAjaxForms();
-            url='/api/trending_keyword_show/';
-            careerUrl = '/api/career_advise_show/'
             statUrl = '/api/vital_stats/'
-            get(url,loadKey);
-            get(careerUrl,loadAdvice)
-            get(statUrl,loadStats)
             key_url='/api/trending_keyword_show/';
             cat_url='/api/popular_categories/';
             skills_url='/api/top_skills/';
-            get(cat_url,loadCategory);
             careerUrl = '/api/career_advise_show/';
+            get(cat_url,loadCategory);
+            get(statUrl,loadStats)
             get(key_url,loadKey);
             get(careerUrl,loadAdvice);
             get(skills_url,loadSkills);
