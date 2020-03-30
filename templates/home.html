@@ -106,54 +106,6 @@
         </div>
         <div class="row">
             <div class="col" id="job-list">
-                <div class="job-list">
-                    <div class="thumb">
-                        <a href="#">
-                            <img src="images/job/company-logo-1.png" class="img-fluid" alt="">
-                        </a>
-                    </div>
-                    <div class="body">
-                        <div class="content">
-                            <h4><a href="job-details.html">Designer Required</a></h4>
-                            <div class="info">
-                                <span class="company"><a href="#"><i data-feather="briefcase"></i>Theoreo</a></span>
-                                <span class="office-location"><a href="#"><i data-feather="map-pin"></i>New York City</a></span>
-                                <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>Full Time</a></span>
-                            </div>
-                        </div>
-                        <div class="more">
-                            <div class="buttons">
-                                <a href="#" class="button" data-toggle="modal" data-target="#apply-popup-id">Apply Now</a>
-                                <a href="#" class="favourite"><i data-feather="heart"></i></a>
-                            </div>
-                            <p class="deadline">Deadline: Oct 31,  2019</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="job-list">
-                    <div class="thumb">
-                        <a href="#">
-                            <img src="images/job/company-logo-1.png" class="img-fluid" alt="">
-                        </a>
-                    </div>
-                    <div class="body">
-                        <div class="content">
-                            <h4><a href="job-details.html">Designer Required</a></h4>
-                            <div class="info">
-                                <span class="company"><a href="#"><i data-feather="briefcase"></i>Theoreo</a></span>
-                                <span class="office-location"><a href="#"><i data-feather="map-pin"></i>New York City</a></span>
-                                <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>Full Time</a></span>
-                            </div>
-                        </div>
-                        <div class="more">
-                            <div class="buttons">
-                                <a href="#" class="button" data-toggle="modal" data-target="#apply-popup-id">Apply Now</a>
-                                <a href="#" class="favourite"><i data-feather="heart"></i></a>
-                            </div>
-                            <p class="deadline">Deadline: Oct 31,  2019</p>
-                        </div>
-                    </div>
-                </div>
                 <div class="apply-popup">
                     <div class="modal fade" id="apply-popup-id" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -375,11 +327,21 @@
         careerUrl = '/api/career_advise_show/';
         recentJobsUrl = '/api/recent_jobs/';
         get(cat_url,loadCategory);
-        get(statUrl,loadStats)
+        get(statUrl,loadStats);
         get(key_url,loadKey);
         get(careerUrl,loadAdvice);
         get(skills_url,loadSkills);
         get(recentJobsUrl,loadJobs);
+        $('#job-list').on('click', '.favourite', function (event) {
+            event.preventDefault();
+            var access_token = $.cookie("access");
+            var user = $.cookie("user");
+            if(user && access_token){
+
+            }else {
+                window.location.href = "/professional/sign-in/";
+            }
+        });
 
     });
 
@@ -415,8 +377,7 @@
         for(index=0;index<data.length;index++){
             var dateString = data[index].created_date;
             var momentObj = moment(dateString, 'YYYY-MM-DD');
-            var momentString = momentObj.format('DD-MM-YYYY');
-            alert(momentString)
+            var dateMomentString = momentObj.format('MMM DD, YYYY');
             var job_html= '<div class="job-list">'+
                 '<div class="thumb">'+
                 '<a href="#">'+
@@ -435,9 +396,9 @@
                 '<div class="more">'+
                 '<div class="buttons">'+
                 '<a href="#" class="button" data-toggle="modal" data-target="#apply-popup-id">Apply Now</a>'+
-                '<a href="#" class="favourite"><i data-feather="heart"></i></a>'+
+                '<a href="" class="favourite"><i data-feather="heart"></i></a>'+
                 '</div>'+
-                '<p class="deadline">Deadline: Oct 31,  2019</p>'+
+                '<p class="deadline">'+'Deadline: '+dateMomentString+'</p>'+
                 '</div>'+
                 '</div>'+
                 '</div>';
@@ -481,11 +442,11 @@
         }
     }
 
-        function redirectPage() {
-            key = $('#keyword').val()
-            loc = $('#location').val()
-            window.location.href = "/jobs/?keyword="+ key +"&location="+ loc;
-        }
+    function redirectPage() {
+        key = $('#keyword').val()
+        loc = $('#location').val()
+        window.location.href = "/jobs/?keyword="+ key +"&location="+ loc;
+    }
 
 </script>
 {% endblock %}
