@@ -12,7 +12,7 @@
                         <p> Find Jobs, Employment & Career Opportunities</p>
 
                         <div class="banner-search">
-                            <form action="/api/trending_keyword_save/" id="search-form" class="search-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
+                            <form action="/show_trending_save/" id="search-form" class="search-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
                                 <input type="text" name="keyword" id="keyword" placeholder="Enter Keywords">
                                 <input type="text" name="location" id="location" placeholder="Location">
                                 <button class="button primary-bg"><i class="fas fa-search"></i>Search Job</button>
@@ -501,7 +501,7 @@
 
 {% block extra_js %}
     <script>
-        $(document).ready(function() {
+              $(document).ready(function() {
             TokenAuthenticate();
             initAjaxForms();
             url='/api/trending_keyword_show/';
@@ -556,6 +556,7 @@
             loc = $('#location').val()
             window.location.href = "/jobs/?keyword="+ key +"&location="+ loc;
         }
+
 
     </script>
 {% endblock %}

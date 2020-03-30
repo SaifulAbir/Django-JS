@@ -1,6 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from job.api import *
+from .test_api import TrendingKeywordsPopulator,save_trending_keys
 urlpatterns = [
     path('post-job/', TemplateView.as_view(template_name='post-job.html'), name='post_job'),
     path('validation-test', TemplateView.as_view(template_name='company-create.html')),
@@ -22,6 +23,9 @@ urlpatterns = [
     path('previous_skills/', load_previous_skills),
     path('trending_keyword_save/', trending_keyword_save),
     path('trending_keyword_show/', TrendingKeywordPopulate.as_view()),
-
+    # url_for_test_api
+    path('show_trending_key/',TrendingKeywordsPopulator.as_view()),
+    path('home/', TemplateView.as_view(template_name='home_test.html')),
+    path('show_trending_save/',save_trending_keys),
 
 ]

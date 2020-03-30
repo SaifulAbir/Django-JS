@@ -1,7 +1,9 @@
+from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Company
 from rest_framework.response import Response
 from rest_framework import generics
+
 
 #
 # class CompanyList(APIView):
@@ -14,3 +16,7 @@ from rest_framework import generics
 # class CompanyList(generics.ListCreateAPIView):
 #     queryset = Company.objects.all()
 #     serializer_class = CompanySerializer
+
+
+def homeview(request):
+    return render(request, 'home_test.html')
