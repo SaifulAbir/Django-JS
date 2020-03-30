@@ -409,10 +409,6 @@ class SkillTest(TestCase):
             s.save()
             s1.save()
 
-<<<<<<< HEAD
-# SKILLS TEST#
-=======
-
 #SKILLS TEST
 
 #TRENDING_KEYWORDS_TEST#
@@ -484,7 +480,3 @@ class TrendingKeywordsTest(TestCase):
         with self.assertRaises(IntegrityError):
             trendingkeywords.save()
 
-
-
-#TRENDING_KEYWORDS_TEST#
->>>>>>> f162ec0ee73d8fcf4dbba0e99ec540e7800779ef
