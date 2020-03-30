@@ -426,25 +426,37 @@ a:focus {
   text-transform: uppercase;
 }
 
+
 .banner-3 .banner-content .button:hover {
   color: #ffffff;
   background: #246df8;
 }
 
-.banner-4-bg {
-  background: url(../images/bg/banner_home.png) , url(../images/bg/banner-4-bg.jpg) no-repeat center;
-  background-size: cover;
+.banner-4-bg{
+ background:url(../images/bg/banner_home.png) no-repeat center;
+ background-size: cover ;
+
+
 }
+
+.banner-4-bg-1 {
+  background:url(../images/bg/banner-4-bg.jpg);
+  background-size: cover;
+  opacity:.69;
+}
+
 
 .banner-4 .banner-content {
   padding: 290px 0 210px;
   text-align: center;
   color: #ffffff;
+
 }
 
 .banner-4 .banner-content h1 {
   font-size: 4.2rem;
   margin-bottom: 20px;
+
 }
 
 .banner-4 .banner-content p {
