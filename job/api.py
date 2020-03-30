@@ -17,7 +17,8 @@ from rest_framework.views import APIView
 
 from pro.models import Professional
 from resources.strings_job import *
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords,Skill
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
+    Skill, FavouriteJob
 
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
     Skill
@@ -120,9 +121,20 @@ def job_create(request):
 
 @api_view(["POST"])
 def favourite_job_add(request):
+    data = {}
     job_data = json.loads(request.body)
-    print(job_data)
-    return Response(HTTP_200_OK)
+    if job_data:
+        favourite_job = FavouriteJob(**job_data)
+        favourite_job.save()
+        data = {
+            'code': HTTP_200_OK,
+            "result": {
+                "user": {
+                    "job": job_data['job_id']
+                }
+            }
+        }
+    return Response(data)
 
 class JobUpdateView(GenericAPIView, UpdateModelMixin):
     queryset = Job.objects.all()

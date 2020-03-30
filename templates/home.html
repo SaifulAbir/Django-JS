@@ -332,21 +332,33 @@
         get(careerUrl,loadAdvice);
         get(skills_url,loadSkills);
         get(recentJobsUrl,loadJobs);
-        $('#job-list').on('click', '.favourite', function (event) {
+        $('#job-list').on('click', '.favourite:not(.active)', function (event) {
             event.preventDefault();
             var access_token = $.cookie("access");
             var user = $.cookie("user");
             var job = $(this).attr('href');
             if(user && access_token){
-                var data = [{user:user},{job:job}];
+                var data = {'user_id':user, 'job_id':job};
                 favouriteUrl = '/api/favourite_job_add/';
-                post(favouriteUrl, data)
+                post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
             }else {
                 window.location.href = "/professional/sign-in/";
             }
         });
 
     });
+    
+    function loadFavouriteJob(data) {
+        if(data.responseJSON.code == 200){
+            console.log(data.responseJSON.result.user.job);
+            var el = $("#job-list").find("[href='"+ data.responseJSON.result.user.job +"']");
+            if(el.hasClass("favourite")){
+                el.addClass('active');
+                el.attr("href", "javascript:void(0);");
+                showSuccess('Congratulations!', 'Job saved as a favourite.')
+            }
+        }
+    }
 
     function loadCategory(data) {
         for(index=0;index<data.length;index++){
