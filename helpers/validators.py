@@ -11,7 +11,10 @@ def check_valid_chars(value):
     if not regex.search(value) == None:
         raise ValidationError(DEFAULT_INVALID_CHARACTER_ERROR)
 
+
 class MinLengthValidator(BaseValidator):
     def compare(self, a, b):
-        if len(str(a)) < b :
+        if len(str(a)) < b:
             raise ValidationError(DEFAULT_MIN_LENGTH_ERROR.format(b))
+
+

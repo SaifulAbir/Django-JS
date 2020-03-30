@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'exam_paper',
     'mathfilters',
     'testimonial',
+    'settings',
+    'career_advice',
 ]
 
 MIDDLEWARE = [
@@ -85,34 +87,34 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'p7.wsgi.application'
 
-#
+
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'p7',
-#         'USER': 'root',
-#         'PASSWORD': '123',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#         'OPTIONS': {
-#             'sql_mode': 'traditional',
-#             'isolation_level': "repeatable read",
-#         },
-#         'CHARSET':'utf8',
-#         'COLLATION':'utf8_general_ci',
-#         'COLLATION_CONNECTION':'utf8_general_ci'
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'p7-live',
+        'USER': 'root',
+        'PASSWORD': '123',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+            'isolation_level': "repeatable read",
+        },
+        'CHARSET':'utf8',
+        'COLLATION':'utf8_general_ci',
+        'COLLATION_CONNECTION':'utf8_general_ci'
+    }
+}
 
 
 CORS_ORIGIN_ALLOW_ALL = True

@@ -1,14 +1,12 @@
 from django.contrib import admin
 
 # Register your models here.
-<<<<<<< HEAD
-from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill
-=======
 from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords
->>>>>>> dev
+from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill
 
 
 class JobAdmin(admin.ModelAdmin):
+    filter_horizontal = ('job_skills',)
     list_display = ['title', 'industry', 'employment_status', 'job_location', 'experience', 'qualification', 'application_deadline', 'gender', 'company_name',
                     'division', 'district']
     search_fields = ['title__icontains', 'industry__name__icontains', 'employment_status__name__icontains', 'job_location__icontains',
@@ -22,6 +20,7 @@ class CompanyAdmin(admin.ModelAdmin):
                      'organization_head__icontains', 'organization_head_number__icontains']
 
 
+
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(JobType)
 admin.site.register(Experience)
@@ -30,8 +29,5 @@ admin.site.register(Gender)
 admin.site.register(Industry)
 admin.site.register(Currency)
 admin.site.register(Job, JobAdmin)
-<<<<<<< HEAD
 admin.site.register(Skill)
-=======
 admin.site.register(TrendingKeywords)
->>>>>>> dev

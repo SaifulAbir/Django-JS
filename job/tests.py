@@ -1,61 +1,57 @@
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.test import TestCase
-<<<<<<< HEAD
-from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, Skill
-=======
-from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, TrendingKeywords
->>>>>>> dev
+from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, TrendingKeywords, Skill
 from location.models import Division, District
 
 
-#COMPANY TESTS
+# COMPANY TESTS
 
 class CompanyTest(TestCase):
-    def setUp(self) :
-        division = Division(name ='Dhaka' )
+    def setUp(self):
+        division = Division(name='Dhaka')
         division.save()
         self.div = division
 
-        district = District(name ='Savar', division=self.div )
+        district = District(name='Savar', division=self.div)
         district.save()
         self.dis = district
 
-
     def test_when_everything_required_is_given_should_pass(self):
-        company = Company(name='Ishraak Solutions', web_address='www.ishraak.com', division = self.div, district=self.dis)
+        company = Company(name='Ishraak Solutions', web_address='www.ishraak.com', division=self.div, district=self.dis)
         try:
             company.full_clean()
         except:
             self.fail()
 
     def test_when_name_is_null_should_raise_error(self):
-        company = Company(web_address='www.ishraak.com', division = self.div, district=self.dis)
+        company = Company(web_address='www.ishraak.com', division=self.div, district=self.dis)
         with self.assertRaises(ValidationError):
             company.full_clean()
 
     def test_when_name_is_blank_should_raise_error(self):
-        company = Company(name='', web_address='www.ishraak.com', division = self.div, district=self.dis)
+        company = Company(name='', web_address='www.ishraak.com', division=self.div, district=self.dis)
         with self.assertRaises(ValidationError):
             company.full_clean()
 
     def test_when_district_is_null_should_pass(self):
-        company = Company(name='Ishraak Solutions', web_address='www.ishraak.com',division=self.div)
+        company = Company(name='Ishraak Solutions', web_address='www.ishraak.com', division=self.div)
         try:
             company.full_clean()
         except:
             self.fail()
 
     def test_when_division_is_null_should_pass(self):
-        company = Company(name='Ishraak Solutions', web_address='www.ishraak.com',district=self.dis)
+        company = Company(name='Ishraak Solutions', web_address='www.ishraak.com', district=self.dis)
         try:
             company.full_clean()
         except:
             self.fail()
 
-#COMPANY TESTS
 
-#INDUSTRY TESTS
+# COMPANY TESTS
+
+# INDUSTRY TESTS
 
 class IndustryTest(TestCase):
 
@@ -88,9 +84,10 @@ class IndustryTest(TestCase):
         with self.assertRaises(ValidationError):
             industry.full_clean()
 
-#INDUSTRY TESTS
 
-#Currency TESTS
+# INDUSTRY TESTS
+
+# Currency TESTS
 
 class CurrencyTest(TestCase):
 
@@ -123,9 +120,10 @@ class CurrencyTest(TestCase):
         with self.assertRaises(ValidationError):
             currency.full_clean()
 
-#Currency TESTS
 
-#QUALIFICATION TESTS
+# Currency TESTS
+
+# QUALIFICATION TESTS
 
 class QualificationTest(TestCase):
 
@@ -158,9 +156,10 @@ class QualificationTest(TestCase):
         with self.assertRaises(ValidationError):
             qualification.full_clean()
 
-#QUALIFICATION TESTS
 
-#GENDER TESTS
+# QUALIFICATION TESTS
+
+# GENDER TESTS
 
 class GenderTest(TestCase):
 
@@ -193,9 +192,10 @@ class GenderTest(TestCase):
         with self.assertRaises(ValidationError):
             gender.full_clean()
 
-#GENDER TESTS
 
-#JOBTYPE TESTS
+# GENDER TESTS
+
+# JOBTYPE TESTS
 
 class JobTypeTest(TestCase):
     def test_when_everything_required_is_given_should_pass(self):
@@ -215,9 +215,10 @@ class JobTypeTest(TestCase):
         with self.assertRaises(ValidationError):
             job_type.full_clean()
 
-#JOBTYPE TESTS
 
-#Experience TESTS
+# JOBTYPE TESTS
+
+# Experience TESTS
 
 class ExperienceTest(TestCase):
     def test_when_everything_required_is_given_should_pass(self):
@@ -238,14 +239,14 @@ class ExperienceTest(TestCase):
             experience.full_clean()
 
 
-#Experience TESTS
+# Experience TESTS
 
 
-#JOB TESTS
+# JOB TESTS
 class JobTest(TestCase):
 
-    def setUp(self) :
-        division = Division(name ='Dhaka' )
+    def setUp(self):
+        division = Division(name='Dhaka')
         division.save()
         self.division = division
 
@@ -257,7 +258,8 @@ class JobTest(TestCase):
         industry.save()
         self.industry = industry
 
-        company = Company(name='Ishraak Solutions', web_address='www.ishraak.com', division=self.division, district=self.district)
+        company = Company(name='Ishraak Solutions', web_address='www.ishraak.com', division=self.division,
+                          district=self.district)
         company.save()
         self.company = company
 
@@ -278,11 +280,12 @@ class JobTest(TestCase):
         self.employment_status = employment_status
 
     def test_when_everything_is_given_should_pass(self):
-        job = Job(title='Software Engineer', industry=self.industry,employment_status=self.employment_status,
-                  job_location='mirpur',experience=self.experience, salary_min=5000.00, salary_max=10000.00,
+        job = Job(title='Software Engineer', industry=self.industry, employment_status=self.employment_status,
+                  job_location='mirpur', experience=self.experience, salary_min=5000.00, salary_max=10000.00,
                   qualification=self.qualification, gender=self.gender, application_deadline='',
                   descriptions='Test job', responsibilities='Web developer', education='Computer Science',
-                  other_benefits='Apple Watch', company_name=self.company, division=self.division, district=self.district,
+                  other_benefits='Apple Watch', company_name=self.company, division=self.division,
+                  district=self.district,
                   zipcode='Dhaka-1212', company_location='House 74, Road 4', latitude=3.00, longitude=4.00,
                   web_address="www.ishraak.com")
         try:
@@ -322,7 +325,8 @@ class JobTest(TestCase):
                         'electronic typesetting, remaining essentially unchanged. It was popularised in '
                         'the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, '
                         'and more recently with desktop publishing software like Aldus PageMaker '
-                        'including versions of Lorem Ipsum.', industry=self.industry, employment_status=self.employment_status,
+                        'including versions of Lorem Ipsum.', industry=self.industry,
+                  employment_status=self.employment_status,
                   job_location='mirpur', experience=self.experience, salary_min=5000.00, salary_max=10000.00,
                   qualification=self.qualification, gender=self.gender, application_deadline='',
                   descriptions='Test job', responsibilities='Web developer', education='Computer Science',
@@ -364,11 +368,11 @@ class JobTest(TestCase):
     #         s.full_clean()
 
 
-#JOB TESTS
+# JOB TESTS
 
-<<<<<<< HEAD
-#SKILLS TEST
+# SKILLS TEST
 class SkillTest(TestCase):
+
     def test_when_everything_required_is_given_should_pass(self):
         skill = Skill(name='Programming')
         try:
@@ -388,13 +392,13 @@ class SkillTest(TestCase):
 
     def test_when_title_is_more_than_max_length_should_raise_error(self):
         skill = Skill(name='Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-                        'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, '
-                        'when an unknown printer took a galley of type and scrambled it to make a type '
-                        'specimen book. It has survived not only five centuries, but also the leap into '
-                        'electronic typesetting, remaining essentially unchanged. It was popularised in '
-                        'the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, '
-                        'and more recently with desktop publishing software like Aldus PageMaker '
-                        'including versions of Lorem Ipsum.')
+                           'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, '
+                           'when an unknown printer took a galley of type and scrambled it to make a type '
+                           'specimen book. It has survived not only five centuries, but also the leap into '
+                           'electronic typesetting, remaining essentially unchanged. It was popularised in '
+                           'the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, '
+                           'and more recently with desktop publishing software like Aldus PageMaker '
+                           'including versions of Lorem Ipsum.')
         with self.assertRaises(ValidationError):
             skill.full_clean()
 
@@ -406,7 +410,7 @@ class SkillTest(TestCase):
             s1.save()
 
 #SKILLS TEST
-=======
+
 #TRENDING_KEYWORDS_TEST#
 class TrendingKeywordsTest(TestCase):
     def test_when_everything_required_is_given_should_pass(self):
@@ -476,7 +480,3 @@ class TrendingKeywordsTest(TestCase):
         with self.assertRaises(IntegrityError):
             trendingkeywords.save()
 
-
-
-#TRENDING_KEYWORDS_TEST#
->>>>>>> dev

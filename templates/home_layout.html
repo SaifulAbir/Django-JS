@@ -44,27 +44,36 @@
   </head>
   <body>
 
+
+
+
     <!-- Header -->
     <header>
       <nav class="navbar navbar-expand-xl absolute-nav transparent-nav cp-nav navbar-light bg-light fluid-nav">
         <a class="navbar-brand" href="{% url 'home' %}">
-          <img src="{% static 'images/logo.png'%}" class="img-fluid" alt="">
+          <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">
         </a>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto main-nav">
+          <div class="navbar-nav ml-auto main-nav">
             <li class="menu-item active"><a title="Home" href="{% url 'home' %}">Home</a></li>
             <li class="menu-item"><a  href="{% url 'jobs' %}">Jobs</a></li>
             <li class="menu-item"><a  href="javascript:void(0)">Career Advice</a></li>
             <li class="menu-item"><a  href="javascript:void(0)">Skill Check</a></li>
             <li class="menu-item"><a  href="javascript:void(0)">About Us</a></li>
+            <li>
+              <a href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i>  </a>
+             <a href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>
+             <a href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>
+            </li>
             <li class="menu-item login-popup" id="sign-in"><a href="{% url 'sign-in' %}">Login</a></li>
             <li class="menu-item login-popup" id="register"><a href="{% url 'register' %}">Registration</a></li>
             <li class="menu-item" id="sign-out"><a href="professional/sign-out/">Logout</a></li>
           </ul>
+        </div>
         </div>
       </nav>
     </header>
@@ -82,18 +91,16 @@
             <div class="col-md-6">
               <div class="footer-logo">
                 <a href="{% url 'home' %}">
-                  <img src="{% static 'images/footer-logo.png'%}" class="img-fluid" alt="">
+                  <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">
                 </a>
               </div>
             </div>
             <div class="col-md-6">
               <div class="footer-social">
                 <ul class="social-icons">
-                  <li><a href="#"><i data-feather="facebook"></i></a></li>
-                  <li><a href="#"><i data-feather="twitter"></i></a></li>
-                  <li><a href="#"><i data-feather="linkedin"></i></a></li>
-                  <li><a href="#"><i data-feather="instagram"></i></a></li>
-                  <li><a href="#"><i data-feather="youtube"></i></a></li>
+                <li class="menu-item"><a href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}" style="height:27px;" class="img-fluid" alt=""></i>  </a></li>
+                <li class="menu-item"><a href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;" class="img-fluid" alt=""></i>  </a></li>
+                <li class="menu-item"><a href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}" style="height:27px;" class="img-fluid" alt=""></i>  </a></li>
                 </ul>
               </div>
             </div>
@@ -108,10 +115,10 @@
                 <h4>Information</h4>
                 <div class="widget-inner">
                   <ul>
-                    <li><a href="javascript:void(0)">About Us</a></li>
-                    <li><a href="javascript:void(0)">Contact Us</a></li>
-                    <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                    <li><a href="javascript:void(0)">Terms &amp; Conditions</a></li>
+                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'terms_&_conditions' %}">Terms &amp; Conditions</a></li>
                   </ul>
                 </div>
               </div>
@@ -121,8 +128,8 @@
                 <h4>Job Seekers</h4>
                 <div class="widget-inner">
                   <ul>
-                    <li><a href="javascript:void(0)">Create Account</a></li>
-                    <li><a href="javascript:void(0)">Career Counseling</a></li>
+                    <li><a href="{% url 'register' %}">Create Account</a></li>
+                    <li><a href="{% url 'career_advice' %}">Career Counseling</a></li>
                     <li><a href="javascript:void(0)">My Oficiona</a></li>
                     <li><a href="javascript:void(0)">FAQ</a></li>
                     <li><a href="javascript:void(0)">Video Guides</a></li>
@@ -135,7 +142,7 @@
                 <h4>Employers</h4>
                 <div class="widget-inner">
                   <ul>
-                    <li><a href="javascript:void(0)">Create Account</a></li>
+                    <li><a href="{% url 'register' %}">Create Account</a></li>
                     <li><a href="javascript:void(0)">Products/Service</a></li>
                     <li><a href="{% url 'post_job' %}">Post a Job</a></li>
                     <li><a href="javascript:void(0)">FAQ</a></li>
@@ -189,6 +196,7 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{% static 'assets/js/jquery.min.js'%}"></script>
     <script src="{% static 'assets/js/popper.min.js'%}"></script>
+    <script src="{% static 'js/moment.min.js'%}"></script>
     <script src="{% static 'assets/js/bootstrap.min.js'%}"></script>
     <script src="{% static 'assets/js/feather.min.js'%}"></script>
     <script src="{% static 'assets/js/bootstrap-select.min.js'%}"></script>
@@ -206,7 +214,6 @@
     <script src="{% static '/assets/js/form2js.js' %}"></script>
     <script src="{% static 'js/common.js' %}"></script>
     <script src="{% static 'js/jquery.validate.min.js' %}"></script>
-
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC87gjXWLqrHuLKR0CTV5jNLdP4pEHMhmg"></script>
     <script src="{% static 'js/map.js'%}"></script>
     {% block extra_js %}
