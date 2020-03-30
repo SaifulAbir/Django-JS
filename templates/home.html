@@ -459,8 +459,27 @@
 
 {% block extra_js %}
     <script>
+        $(document).ready(function() {
+            initAjaxForms();
+            socialUrl = '/api/settings/';
+            get(socialUrl,loadSocialIcon);
+
+        });
+
+        function loadSocialIcon(data) {
+            data = data[0];
+            $('.facebook-url').attr('href', data.facebook_url);
+            $('.linkedin-url').attr('href', data.linkedin_url);
+            $('.twitter-url').attr('href', data.twitter_url);
+        }
+
+    </script>
+
+    <script>
 
         $(document).ready(function() {
+
+
             TokenAuthenticate();
             initAjaxForms();
             statUrl = '/api/vital_stats/'
@@ -468,15 +487,15 @@
             cat_url='/api/popular_categories/';
             skills_url='/api/top_skills/';
             careerUrl = '/api/career_advise_show/';
+            socialUrl = '/api/settings/';
             get(cat_url,loadCategory);
             get(statUrl,loadStats)
             get(key_url,loadKey);
             get(careerUrl,loadAdvice);
             get(skills_url,loadSkills);
+            get(socialUrl,loadSocialIcon);
 
         });
-
-
 
         function loadStats(data) {
             $('#candidate_count').text(data.professional_count)
