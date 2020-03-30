@@ -153,20 +153,7 @@ def load_previous_skills(request):
 @api_view(["POST"])
 def trending_keyword_save(request):
     search_data = json.loads(request.body)
-    # print(search_data)
-    # try:
-    #     keyword_obj = TrendingKeywords.objects.get(keyword=search_data['keyword'])
-    # except TrendingKeywords.DoesNotExist:
-    #     keyword_obj = None
-    #
-    # if keyword_obj is not None:
-    #     count = keyword_obj.count + 1
-    #     keyword_obj.count = count
-    #
-    #     if 'location' in search_data:
-    #         keyword_obj.location = search_data['location']
-    #     keyword_obj.save()
-    # else:
+
     key_obj = TrendingKeywords(**search_data)
     key_obj.save()
 

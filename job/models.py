@@ -233,7 +233,7 @@ class TrendingKeywords(models.Model):
 
 
 #Bookmark job Model Starts here
-class BookmarkJob(models.Model):
+class FavouriteJob(models.Model):
     job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
     user = models.ForeignKey(User, on_delete=models.PROTECT, db_column='user')
     created_date = models.DateField(default=datetime.date.today)

@@ -19,6 +19,7 @@
                         </form>
                         <div class="trending-key">
                             <span id="trend-keywords">Trending Keywords:</span>
+
                         </div>
                     </div>
                 </div>
@@ -479,7 +480,10 @@
         for(x=0;x<len;x++){
             $('#trend-keywords').append('<a href="#"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
         }
+
     }
+
+
 
         function redirectPage() {
             key = $('#keyword').val()

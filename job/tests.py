@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.test import TestCase
 from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, TrendingKeywords, \
-    Skill, BookmarkJob
+    Skill, FavouriteJob
 from location.models import Division, District
 from django.contrib.auth.models import User
 
@@ -479,7 +479,7 @@ class TrendingKeywordsTest(TestCase):
 #BOOKMARK_JOB_TEST#
 
 
-class BookmarkJobTest(TestCase):
+class FavouriteJobTest(TestCase):
     def setUp(self) :
         division = Division(name='Dhaka')
         division.save()
@@ -530,29 +530,29 @@ class BookmarkJobTest(TestCase):
         self.usr = user
 
     def test__when_everything_required_is_given__should_pass(self):
-        bookmarkjob = BookmarkJob(job=self.jb, user=self.usr)
+        favouritejob = FavouriteJob(job=self.jb, user=self.usr)
         try:
-            bookmarkjob.full_clean()
+            favouritejob.full_clean()
         except:
             self.fail()
 
     def test__when_job_is_blank__should__raise_error(self):
         with self.assertRaises(ValueError):
-            bookmarkjob = BookmarkJob(job='', user=self.usr)
+            favouritejob = FavouriteJob(job='', user=self.usr)
 
     def test__when_job_is_null_should__raise_error(self):
-        bookmarkjob = BookmarkJob(user=self.usr)
+        favouritejob = FavouriteJob(user=self.usr)
         with self.assertRaises(ValidationError):
-            bookmarkjob.full_clean()
+            favouritejob.full_clean()
 
     def test__when_user_is_blank_should__raise_error(self):
         with self.assertRaises(ValueError):
-            bookmarkjob = BookmarkJob(job=self.jb, user='')
+            favouritejob = FavouriteJob(job=self.jb, user='')
 
     def test__when_user_is_null_should__raise_error(self):
-        bookmarkjob = BookmarkJob(job=self.jb)
+        favouritejob = FavouriteJob(job=self.jb)
         with self.assertRaises(ValidationError):
-            bookmarkjob.full_clean()
+            favouritejob.full_clean()
 
 
 
