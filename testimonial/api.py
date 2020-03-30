@@ -6,5 +6,5 @@ from rest_framework import generics
 
 
 class TestimonialList(generics.ListAPIView):
-    queryset = Testimonial.objects.all()
+    queryset = Testimonial.objects.all()[:5]
     serializer_class = TestimonialSerializer

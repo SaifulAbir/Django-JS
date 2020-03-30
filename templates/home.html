@@ -468,6 +468,8 @@
             cat_url='/api/popular_categories/';
             skills_url='/api/top_skills/';
             careerUrl = '/api/career_advise_show/';
+            testimonialrUrl = '/api/testimonial_show/';
+            get(testimonialrUrl,loadTestimonial);
             get(cat_url,loadCategory);
             get(statUrl,loadStats)
             get(key_url,loadKey);
@@ -475,6 +477,11 @@
             get(skills_url,loadSkills);
 
         });
+
+
+        function loadTestimonial(data) {
+            console.log(data)
+        }
 
 
 
