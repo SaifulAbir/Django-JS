@@ -50,6 +50,7 @@ urlpatterns = [
     path('career_advise/', TemplateView.as_view(template_name='career_advise.html'), name='career_advise'),
     path('skill_check', TemplateView.as_view(template_name='skill_check.html'), name='skill_check'),
     path('about_us', TemplateView.as_view(template_name='about_us.html'), name='about_us'),
+    path('test/', TemplateView.as_view(template_name='home_test.html'), name='home_test'),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,
