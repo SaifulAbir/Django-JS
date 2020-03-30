@@ -118,6 +118,12 @@ def job_create(request):
                 # job_skills.save()
     return Response(HTTP_200_OK)
 
+@api_view(["POST"])
+def favourite_job_add(request):
+    job_data = json.loads(request.body)
+    print(job_data)
+    return Response(HTTP_200_OK)
+
 class JobUpdateView(GenericAPIView, UpdateModelMixin):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
