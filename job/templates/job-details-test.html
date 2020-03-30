@@ -75,11 +75,18 @@
                                             <li><span>Application Deadline:</span> <span id="application_deadline" class="detail-color"></span></li>
                                         </ul>
                                     </div>
+
+
+
                                     <div class="job-skills">
-                                        <h4 class="skill-label">Skills:</h4>
+                                     <h4 class="skill-label">Required Skills:</h4>
                                         <div id="skills">
                                         </div>
                                     </div>
+
+
+
+
                                     <div class="share-job-post">
                                         <span class="share"><i class="fas fa-share-alt"></i>Share:</span>
                                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -331,16 +338,18 @@
 {% endblock %}
 {% block extra_js %}
 <script>
-    $(document).ready(function() {
-        var path = window.location.pathname.split('/')
-        var id = path[path.length-2]
-        var getUrl = '/api/load_job/'+ id + '/'
-        get(getUrl, loadJob);
 
 
+ $(document).ready(function() {
+             var path = window.location.pathname.split('/')
+             var id = path[path.length-2]
+             var getUrl = '/api/load_job/'+ id + '/'
+             get(getUrl, loadJob);
 
-    });
-    function  loadJob(data){
+          });
+
+
+ function  loadJob(data){
         container = $('.job-detail');
         if(data){
             var deadline= data.application_deadline
@@ -360,9 +369,17 @@
 
 
 
-    function redirectPage() {
-        window.location.href = "/job-list";
 
-    }
+
+
+
+
+
+
+
+
+
+
+
 </script>
 {% endblock %}

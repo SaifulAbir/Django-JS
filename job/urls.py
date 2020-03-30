@@ -22,6 +22,6 @@ urlpatterns = [
     path('previous_skills/', load_previous_skills),
     path('trending_keyword_save/', trending_keyword_save),
     path('trending_keyword_show/', TrendingKeywordPopulate.as_view()),
-
+    path('detail-test/<str:pk>/', TemplateView.as_view(template_name='job-details-test.html')),
 
 ]
