@@ -432,7 +432,7 @@ a:focus {
 }
 
 .banner-4-bg {
-  background: url(../images/bg/banner-4-bg.jpg) no-repeat center;
+  background: url(../images/bg/banner_home.png) , url(../images/bg/banner-4-bg.jpg) no-repeat center;
   background-size: cover;
 }
 
@@ -5418,6 +5418,7 @@ header .absolute-nav {
 .cp-nav-2 .navbar-collapse .navbar-nav .menu-item.post-job a i {
   font-size: 1.2rem;
   margin-right: 10px;
+
 }
 
 .account-entry .modal-header {
@@ -7196,7 +7197,7 @@ header .absolute-nav {
 
 .footer-social .social-icons li {
   display: inline-block;
-  padding-left: 25px;
+  padding-left: 4.5px;
 }
 
 .footer-social .social-icons li a {
