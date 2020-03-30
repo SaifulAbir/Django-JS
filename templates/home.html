@@ -336,8 +336,11 @@
             event.preventDefault();
             var access_token = $.cookie("access");
             var user = $.cookie("user");
+            var job = $(this).attr('href');
             if(user && access_token){
-
+                var data = [{user:user},{job:job}];
+                favouriteUrl = '/api/favourite_job_add/';
+                post(favouriteUrl, data)
             }else {
                 window.location.href = "/professional/sign-in/";
             }
@@ -386,7 +389,7 @@
                 '</div>'+
                 '<div class="body">'+
                 '<div class="content">'+
-                '<h4><a href="job-details.html">'+data[index].title+'</a></h4>'+
+                '<h4><a href="'+'detail/'+data[index].job_id+'">'+data[index].title+'</a></h4>'+
                 '<div class="info">'+
                 '<span class="company"><a href="#"><i data-feather="briefcase"></i>'+data[index].company_name+'</a></span>'+
                 '<span class="office-location"><a href="#"><i data-feather="map-pin"></i>'+data[index].job_location+'</a></span>'+
@@ -396,7 +399,7 @@
                 '<div class="more">'+
                 '<div class="buttons">'+
                 '<a href="#" class="button" data-toggle="modal" data-target="#apply-popup-id">Apply Now</a>'+
-                '<a href="" class="favourite"><i data-feather="heart"></i></a>'+
+                '<a href="'+data[index].job_id+'" class="favourite"><i data-feather="heart"></i></a>'+
                 '</div>'+
                 '<p class="deadline">'+'Deadline: '+dateMomentString+'</p>'+
                 '</div>'+
