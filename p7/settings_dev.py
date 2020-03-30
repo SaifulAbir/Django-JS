@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'exam_paper',
     'mathfilters',
     'testimonial',
+    'settings',
     'career_advice',
 ]
 
