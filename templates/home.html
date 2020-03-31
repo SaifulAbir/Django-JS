@@ -45,7 +45,7 @@
                     <div class="explore-job">
                         <div class="explore-job-header">
                             <h5 class="title">TOP Categories</h5>
-                            <i data-feather="bookmark"></i>
+                            <i class="fas fa-city"></i>
                         </div>
                         <div class="key-info">
                             <ul id="category-list">
@@ -57,7 +57,7 @@
                     <div class="explore-job">
                         <div class="explore-job-header">
                             <h5 class="title">TOP Skills</h5>
-                            <i data-feather="map-pin"></i>
+                            <i class="fas fa-tasks"></i>
                         </div>
                         <div class="key-info">
                             <ul id="skill-list">
@@ -353,64 +353,8 @@
                             <img src="images/testimonial/quote.png" class="img-fluid" alt="">
                         </div>
                         <div class="testimonial-for">
-                            <div class="testimonial-item">
-                                <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob One”</p>
-                                <h5>Maria Marlin @ Google</h5>
-                            </div>
-                            <div class="testimonial-item">
-                                <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Two”</p>
-                                <h5>Laura Harper @ Amazon</h5>
-                            </div>
-                            <div class="testimonial-item">
-                                <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Three”</p>
-                                <h5>John Doe @ Envato</h5>
-                            </div>
-                            <div class="testimonial-item">
-                                <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Four”</p>
-                                <h5>Jenny Doe @ Dribbble</h5>
-                            </div>
-                            <div class="testimonial-item">
-                                <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Five”</p>
-                                <h5>Michle Clark @ Apple</h5>
-                            </div>
-                            <div class="testimonial-item">
-                                <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Two”</p>
-                                <h5>Laura Harper @ Amazon</h5>
-                            </div>
-                            <div class="testimonial-item">
-                                <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Three”</p>
-                                <h5>John Doe @ Envato</h5>
-                            </div>
                         </div>
                         <div class="testimonial-nav">
-                            <div class="commenter-thumb">
-                                <img src="images/testimonial/thumb-1.jpg" class="img-fluid commenter" alt="">
-                                <img src="images/testimonial/1.png" class="comapnyLogo" alt="">
-                            </div>
-                            <div class="commenter-thumb">
-                                <img src="images/testimonial/thumb-2.jpg" class="img-fluid commenter" alt="">
-                                <img src="images/testimonial/2.png" class="comapnyLogo" alt="">
-                            </div>
-                            <div class="commenter-thumb">
-                                <img src="images/testimonial/thumb-3.jpg" class="img-fluid commenter" alt="">
-                                <img src="images/testimonial/3.png" class="comapnyLogo" alt="">
-                            </div>
-                            <div class="commenter-thumb">
-                                <img src="images/testimonial/thumb-4.jpg" class="img-fluid commenter" alt="">
-                                <img src="images/testimonial/4.png" class="comapnyLogo" alt="">
-                            </div>
-                            <div class="commenter-thumb">
-                                <img src="images/testimonial/thumb-5.jpg" class="img-fluid commenter" alt="">
-                                <img src="images/testimonial/5.png" class="comapnyLogo" alt="">
-                            </div>
-                            <div class="commenter-thumb">
-                                <img src="images/testimonial/thumb-2.jpg" class="img-fluid commenter" alt="">
-                                <img src="images/testimonial/2.png" class="comapnyLogo" alt="">
-                            </div>
-                            <div class="commenter-thumb">
-                                <img src="images/testimonial/thumb-3.jpg" class="img-fluid commenter" alt="">
-                                <img src="images/testimonial/3.png" class="comapnyLogo" alt="">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -469,6 +413,8 @@
             skills_url='/api/top_skills/';
             careerUrl = '/api/career_advise_show/';
             socialUrl = '/api/settings/';
+            testimonialrUrl = '/api/testimonial_show/';
+            get(testimonialrUrl,loadTestimonial);
             get(cat_url,loadCategory);
             get(statUrl,loadStats)
             get(key_url,loadKey);
@@ -476,6 +422,25 @@
             get(skills_url,loadSkills);
             get(socialUrl,loadSocialUrl);
         });
+
+
+        function loadTestimonial(data) {
+            console.log(data)
+            for(index=0;index<data.length;index++){
+                $('.testimonial-for').slick('slickAdd','<div class="testimonial-item">\n' +
+                    '                                <p>“'+ data[index].comment +'”</p>\n' +
+                    '                                <h5>'+data[index].client_name+'</h5>\n' +
+                    '                            </div>')
+
+                $('.testimonial-nav').slick('slickAdd','<div class="commenter-thumb">\n' +
+                '                                <img src="'+ data[index].profile_picture +'" class="img-fluid commenter" alt="">\n' +
+                '                            </div>')
+
+            }
+
+
+        }
+
 
         function loadSocialUrl(data) {
             data = data[0];
