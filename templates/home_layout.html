@@ -61,6 +61,13 @@
             <li class="menu-item"><a  href="{% url 'career_advice' %}">Career Advice</a></li>
             <li class="menu-item"><a  href="{% url 'skill_check' %}">Skill Check</a></li>
             <li class="menu-item"><a  href="{% url 'about_us' %}">About Us</a></li>
+            <li>
+              <a class="facebook" href="#"><img src="{% static 'images/sicon/facebook.png'%}"  alt=""> <a>
+                <a class="twitter" href="#"> <img src="{% static 'images/sicon/twitter.png'%}"  alt=""> </a>
+                <a class="linkedin" href="#"> <img src="{% static 'images/sicon/linkedin.png'%}"  alt=""> </a>
+              </a></a>
+
+            </li>
             <li class="menu-item login-popup" id="sign-in"><a href="{% url 'sign-in' %}">Login</a></li>
             <li class="menu-item login-popup" id="register"><a href="{% url 'register' %}">Registration</a></li>
             <li class="menu-item" id="sign-out"><a href="professional/sign-out/">Logout</a></li>

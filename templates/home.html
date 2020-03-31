@@ -506,8 +506,10 @@
             initAjaxForms();
             url='/api/trending_keyword_show/';
             careerUrl = '/api/career_advise_show/'
+            loadSurl = '/api/settings/';
             get(url,loadKey);
             get(careerUrl,loadAdvice)
+            get(loadSurl,loadurl);
 
         });
 
@@ -545,6 +547,15 @@
                 $('#trend-keywords').append('<a href="#"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
             }
         }
+
+          function loadurl(data) {
+            data = data[0];
+            $('.facebook').attr('href', data.facebook_url);
+            $('.linkedin').attr('href', data.linkedin_url);
+            $('.twitter').attr('href', data.twitter_url);
+
+            }
+
 
         function redirectPage() {
             key = $('#keyword').val()
