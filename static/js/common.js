@@ -301,17 +301,17 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
     $('.pagination-list').html(paginationString);
 }
 
-//function TokenAuthenticate() {
-//    var access_token = $.cookie("access");
-//    if(access_token){
-//        $('#sign-in').hide();
-//        $('#register').hide();
-//        $('#sign-out').show();
-//    }
-//    else {
-//        $('#sign-out').hide();
-//        $('#register').show();
-//        $('#sign-in').show();
-//    }
-//
-//}
+function TokenAuthenticate() {
+   var access_token = $.cookie("access");
+   if(access_token){
+       $('#sign-in').hide();
+       $('#register').hide();
+       $('#sign-out').show();
+   }
+   else {
+       $('#sign-out').hide();
+       $('#register').show();
+       $('#sign-in').show();
+   }
+
+}
