@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'mathfilters',
     'testimonial',
     'settings',
+    'mapwidgets',
     'career_advice',
 ]
 
