@@ -1,6 +1,6 @@
 from p7.settings_dev import *
 
-DEBUG=False
+DEBUG=True
 ALLOWED_HOSTS = ['*']
 STATIC_ROOT = '/var/p7_static'
 
