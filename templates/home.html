@@ -308,7 +308,7 @@
                             <i data-feather="briefcase"></i>
                         </div>
                         <p class="fact-number" id="job_counts"><span class="count" data-form="0" data-to=""></span></p>
-                        <p class="fact-name">Live Jobs</p>
+                        <p class="fact-name">Open Jobs</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
@@ -317,7 +317,7 @@
                             <i data-feather="users"></i>
                         </div>
                         <p class="fact-number" id="candidate_count"><span class="count" data-form="0" data-to=""></span></p>
-                        <p class="fact-name">Candidate</p>
+                        <p class="fact-name">Candidates</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
@@ -460,7 +460,6 @@
 
 {% block extra_js %}
     <script>
-
         $(document).ready(function() {
             TokenAuthenticate();
             initAjaxForms();
@@ -469,15 +468,21 @@
             cat_url='/api/popular_categories/';
             skills_url='/api/top_skills/';
             careerUrl = '/api/career_advise_show/';
+            socialUrl = '/api/settings/';
             get(cat_url,loadCategory);
             get(statUrl,loadStats)
             get(key_url,loadKey);
             get(careerUrl,loadAdvice);
             get(skills_url,loadSkills);
-
+            get(socialUrl,loadSocialUrl);
         });
 
-
+        function loadSocialUrl(data) {
+            data = data[0];
+            $('.facebook-url').attr('href', data.facebook_url);
+            $('.linkedin-url').attr('href', data.linkedin_url);
+            $('.twitter-url').attr('href', data.twitter_url);
+        }
 
         function loadStats(data) {
             $('#candidate_count').text(data.professional_count)
@@ -500,30 +505,26 @@
         }
 
 
-        var advice_html= '<div class="col-md-6 col-lg-4">' +
-            ' <article class="blog-grid">' +
-            ' <div class="body">' +
-             '<span class="date">22 <span>Dec</span></span>' +
-            '<h3><a href="blog-details.html" id="ad-title"></a></h3>' +
-            '<p id="ad-description"></p>' +
-            '</div>' +
-            '<div class="info">' +
-            '<span class="author" id="ad-author"><a href="#"><i data-feather="user"></i></a></span>'+
-            '</div>'+
-            '</article>'+
-            '</div>';
-
-
         function loadAdvice(data) {
-            {#console.log(data)#}
-            {#date = data.created_date.split('-')#}
-            {#alert(date[0])#}
             len= data.length;
             for(x=0;x<len;x++){
-                $('#career-advice').append(advice_html)
-                $('#ad-title').text(data[x].title)
-                $('#ad-description').text(data[x].description)
-                $('#ad-author').text(data[x].author)
+                var dateString = data[x].created_date
+                var momentObj = moment(dateString, 'YYYY-MM-DD');
+                var monthString = momentObj.format('MMM');
+                var dayString = momentObj.format('DD');
+
+                $('#career-advice').append('<div class="col-md-6 col-lg-4">' +
+            ' <article class="blog-grid">' +
+            ' <div class="body">' +
+             '<span class="date">'+dayString+'<span>'+monthString+'</span></span>' +
+            '<h3><a href="blog-details.html" id="ad-title"></a>'+data[x].title+'</h3>' +
+            '<p id="ad-description">'+data[x].description+'</p>' +
+            '</div>' +
+            '<div class="info">' +
+            '<span class="author" id="ad-author"><a href="#"><i data-feather="user"></i></a>'+data[x].author+'</span>'+
+            '</div>'+
+            '</article>'+
+            '</div>')
             }
 
 

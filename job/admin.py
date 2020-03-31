@@ -20,6 +20,7 @@ class CompanyAdmin(admin.ModelAdmin):
                      'organization_head__icontains', 'organization_head_number__icontains']
 
 
+
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(JobType)
 admin.site.register(Experience)
