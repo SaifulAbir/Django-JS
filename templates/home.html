@@ -473,10 +473,10 @@
             get(key_url,loadKey);
             get(careerUrl,loadAdvice);
             get(skills_url,loadSkills);
-            get(socialUrl,loadSocialIcon);
+            get(socialUrl,loadSocialUrl);
         });
 
-        function loadSocialIcon(data) {
+        function loadSocialUrl(data) {
             data = data[0];
             $('.facebook-url').attr('href', data.facebook_url);
             $('.linkedin-url').attr('href', data.linkedin_url);
