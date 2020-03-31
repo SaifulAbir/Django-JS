@@ -3,6 +3,8 @@ from django.contrib import admin
 # Register your models here.
 from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords
 from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill
+from django.contrib.gis.db import models
+from mapwidgets.widgets import GooglePointFieldWidget
 
 
 class JobAdmin(admin.ModelAdmin):
