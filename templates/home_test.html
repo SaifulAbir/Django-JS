@@ -60,7 +60,7 @@
                         </div>
                         <div class="key-info">
                             <ul id="skill-list">
-
+                                
                             </ul>
                         </div>
                     </div>
@@ -463,14 +463,12 @@
         $(document).ready(function() {
             TokenAuthenticate();
             initAjaxForms();
-            key_url='/api/trending_keyword_show/';
+
             cat_url='/api/popular_categories/';
-            skills_url='/api/top_skills/';
             get(cat_url,loadCategory);
-            careerUrl = '/api/career_advise_show/';
-            get(key_url,loadKey);
-            get(careerUrl,loadAdvice);
-            get(skills_url,loadSkills);
+            topskills_url ='/api/top_skills/';
+            get(topskills_url, loadTopskills);
+
 
         });
 
@@ -480,47 +478,14 @@
             }
         }
 
-        function loadSkills(data) {
+
+        function loadTopskills(data) {
             for(index=0;index<data.length;index++){
-                $('#skill-list').append('<li><a href="#">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
-            }
-        }
-
-
-        var advice_html= '<div class="col-md-6 col-lg-4">' +
-            ' <article class="blog-grid">' +
-            ' <div class="body">' +
-             '<span class="date">22 <span>Dec</span></span>' +
-            '<h3><a href="blog-details.html" id="ad-title"></a></h3>' +
-            '<p id="ad-description"></p>' +
-            '</div>' +
-            '<div class="info">' +
-            '<span class="author" id="ad-author"><a href="#"><i data-feather="user"></i></a></span>'+
-            '</div>'+
-            '</article>'+
-            '</div>';
-
-
-        function loadAdvice(data) {
-            {#console.log(data)#}
-            {#date = data.created_date.split('-')#}
-            {#alert(date[0])#}
-            len= data.length;
-            for(x=0;x<len;x++){
-                $('#career-advice').append(advice_html)
-                $('#ad-title').text(data[x].title)
-                $('#ad-description').text(data[x].description)
-                $('#ad-author').text(data[x].author)
+            $('#skill-list').append('<li><a href="#">' + data[index].name + '<span>('+ data[index].skills_count +')</span></a></li>')
             }
 
+        }
 
-        }
-        function loadKey(data) {
-            len= data.length;
-            for(x=0;x<len;x++){
-                $('#trend-keywords').append('<a href="#"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
-            }
-        }
 
         function redirectPage() {
             key = $('#keyword').val()

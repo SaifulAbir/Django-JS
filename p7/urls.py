@@ -53,7 +53,7 @@ urlpatterns = [
     path('contact_us/', TemplateView.as_view(template_name='contact_us.html'), name='contact_us'),
     path('privacy_policy/', TemplateView.as_view(template_name='privacy_policy.html'), name='privacy_policy'),
     path('terms_&_conditions/', TemplateView.as_view(template_name='terms_&_conditions.html'), name='terms_&_conditions'),
-
+    path('test/', TemplateView.as_view(template_name='home_test.html'), name='home_test'),
 
 ]
 if settings.DEBUG:
