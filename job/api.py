@@ -13,7 +13,8 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
 from resources.strings_job import *
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords,Skill
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
+    Skill
 
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
     Skill
@@ -21,9 +22,11 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
 
+
 class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
+
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 2
@@ -32,51 +35,57 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 
 class JobList(generics.ListAPIView):
-
     queryset = Job.objects.all()
     serializer_class = JobSerializerAllField
     pagination_class = StandardResultsSetPagination
+
 
 class JobObject(APIView):
 
     def get(self, request, pk):
         job = get_object_or_404(Job, pk=pk)
         data = JobSerializer(job).data
-        data['skill']=[]
+        data['skill'] = []
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
         for skill in job.job_skills.all():
-        #     if skills.index(skill) == skills_len:
+            #     if skills.index(skill) == skills_len:
             data['skill'].append(skill.name)
         #     else:
         #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
         print(data)
         return Response(data)
 
-class IndustryList(generics.ListCreateAPIView):
 
+class IndustryList(generics.ListCreateAPIView):
     queryset = Industry.objects.all()
     serializer_class = IndustrySerializer
+
 
 class JobTypeList(generics.ListCreateAPIView):
     queryset = JobType.objects.all()
     serializer_class = JobTypeSerializer
 
+
 class CurrencyList(generics.ListCreateAPIView):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
+
 
 class ExperienceList(generics.ListCreateAPIView):
     queryset = Experience.objects.all()
     serializer_class = ExperienceSerializer
 
+
 class QualificationList(generics.ListCreateAPIView):
     queryset = Qualification.objects.all()
     serializer_class = QualificationSerializer
 
+
 class GenderList(generics.ListCreateAPIView):
     queryset = Gender.objects.all()
     serializer_class = GenderSerializer
+
 
 @api_view(["POST"])
 def job_create(request):
@@ -114,12 +123,14 @@ def job_create(request):
                 # job_skills.save()
     return Response(HTTP_200_OK)
 
+
 class JobUpdateView(GenericAPIView, UpdateModelMixin):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+
 
 # class CompanyPopulate(generics.ListAPIView):
 #     serializer_class = CompanyPopulateSerializer
@@ -140,6 +151,7 @@ class JobUpdateView(GenericAPIView, UpdateModelMixin):
 class CompanyPopulate(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanyPopulateSerializer
+
 
 def load_previous_skills(request):
     previous_skills = list(Skill.objects.values_list('name', flat=True))
@@ -168,17 +180,26 @@ def trending_keyword_save(request):
 
     return Response(HTTP_200_OK)
 
+
 class TrendingKeywordPopulate(generics.ListCreateAPIView):
-    queryset = TrendingKeywords.objects.values('keyword').annotate(key_count = Count('keyword')).order_by('-key_count')[:6]
+    queryset = TrendingKeywords.objects.values('keyword').annotate(key_count=Count('keyword')).order_by('-key_count')[
+               :6]
     serializer_class = TrendingKeywordPopulateSerializer
+
 
 class PopularCategories(generics.ListCreateAPIView):
     queryset = Industry.objects.all().annotate(num_posts=Count('industries')).order_by('-num_posts')[:16]
     serializer_class = PopularCategoriesSerializer
 
+
 class TopSkills(generics.ListCreateAPIView):
     queryset = Skill.objects.all().annotate(skills_count=Count('skill_set')
-    ).order_by('-skills_count')[:16]
+                                            ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
+
+
+class RecentJobs(generics.ListCreateAPIView):
+    queryset = Job.objects.all().order_by('-created_date')[:6]
+    serializer_class = JobSerializer
 
 
