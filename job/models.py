@@ -1,7 +1,10 @@
 import uuid
 import datetime
+
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from rest_framework.utils import json
 
 from location.models import Division, District
 from resources import strings_job
@@ -35,6 +38,7 @@ class Company(models.Model):
     contact_person_mobile_no = models.CharField(max_length=20, blank=True, null=True)
     contact_person_email = models.CharField(max_length=100, blank=True, null=True)
     company_profile = models.CharField(max_length=255, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='images/', blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -144,7 +148,7 @@ class Currency(models.Model):
 class Job(models.Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False,db_column='id')
     title = models.CharField(max_length=255)
-    industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,db_column='industry')
+    industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,db_column='industry', related_name='industries')
     employment_status = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,db_column='employment_status')
     job_location = models.CharField(max_length=255, blank=True,null=True)
     experience =  models.ForeignKey(Experience, on_delete=models.PROTECT,blank=True, null= True,db_column='experience')
@@ -170,7 +174,9 @@ class Job(models.Model):
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     raw_content = models.TextField(blank=True, null=True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
+    terms_and_condition = models.BooleanField(default=False)
     created_date = models.DateField(default=datetime.date.today)
+    job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
 
 
     class Meta:
@@ -183,27 +189,37 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
-
-#job Model ends here
+    #job Model
 
 
 
 class Skill(models.Model):
     name = models.CharField(max_length=255,unique=True)
     created_date = models.DateTimeField(default=timezone.now)
+
     class Meta:
-        # verbose_name = strings_job.SKILLS_VERBOSE_NAME
-        # verbose_name_plural = strings_job.SKILLS_VERBOSE_NAME_PLURAL
+        verbose_name = strings_job.SKILLS_VERBOSE_NAME
+        verbose_name_plural = strings_job.SKILLS_VERBOSE_NAME_PLURAL
         db_table = 'skills'
+
     def __str__(self):
         return self.name
+
+# class JobsJobSkills(models.Model):
+#     job = models.ForeignKey('Jobs', models.DO_NOTHING)
+#     skill = models.ForeignKey('Skills', models.DO_NOTHING)
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'jobs_job_skills'
+#         unique_together = (('job', 'skill'),)
+
 
 
 #Trending Keywords Model Starts here
 class TrendingKeywords(models.Model):
     keyword = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    count = models.PositiveIntegerField(default=1)
     created_date = models.DateField(default=datetime.date.today)
 
     class Meta:
@@ -214,3 +230,19 @@ class TrendingKeywords(models.Model):
     def __str__(self):
         return self.keyword
 #Trending Keywords Model ends here
+
+
+#Bookmark job Model Starts here
+class BookmarkJob(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, db_column='user')
+    created_date = models.DateField(default=datetime.date.today)
+
+    class Meta:
+        verbose_name = strings_job.BOOKMARK_JOB_VERBOSE_NAME
+        verbose_name_plural = strings_job.BOOKMARK_JOB_VERBOSE_NAME_PLURAL
+        db_table = 'bookmark_jobs'
+
+    def __str__(self):
+        return self.job.title
+#Bookmark job Model ends here
