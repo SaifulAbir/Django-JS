@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Count, QuerySet
+from django.db.models import Count, QuerySet, Value, CharField
 from django.http import Http404
 from datetime import date
 
@@ -191,9 +191,18 @@ class TopSkills(generics.ListCreateAPIView):
     serializer_class = TopSkillSerializer
 
 class RecentJobs(generics.ListCreateAPIView):
-    # recent_jobs = Job.objects.all().order_by('-created_date')[:6]
-    queryset = Job.objects.all().order_by('-created_date')[:6]
-    serializer_class = JobSerializer
+    recent_jobs = Job.objects.all().order_by('-created_date')[:6]
+    for job in recent_jobs:
+        try:
+            favourite_job = FavouriteJob.objects.get(job=job)
+        except FavouriteJob.DoesNotExist:
+            favourite_job = None
+        if favourite_job is not None:
+            job.status = 'Yes'
+        else:
+            job.status = 'No'
+    queryset = list(recent_jobs)
+    serializer_class = RecentJobSerializer
 
 
 

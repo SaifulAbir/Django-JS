@@ -51,6 +51,14 @@ class JobSerializer(serializers.ModelSerializer):
         model = Job
         fields = fields = '__all__'
 
+class RecentJobSerializer(serializers.ModelSerializer):
+
+    status = serializers.CharField()
+
+    class Meta:
+        model = Job
+        fields = ['job_location', 'job_id', 'company_name', 'employment_status', 'title', 'created_date', 'status',]
+
 class JobSerializerAllField(serializers.ModelSerializer):
     class Meta:
         model = Job
