@@ -186,9 +186,8 @@
                             </div>
                             <div data-id="gender" class="job-filter same-pad gender">
                                 <h4 class="option-title">Gender</h4>
-                                <ul>
-                                    <li><a href="#" data-attr="Male">Male</a></li>
-                                    <li><a href="#" data-attr="Female">Female</a></li>
+                                <ul class="genderlist">
+
                                 </ul>
                             </div>
                             <div data-id="qualification" class="job-filter qualification same-pad">
@@ -270,6 +269,9 @@
             experi_url = '/experience';
             get(experi_url,loadExperience);
 
+            gender_url = '/gender';
+            get(gender_url,loadGender);
+
 
             function fetchDatacallback(data){
                 var totalNumberOfData = data.count;
@@ -324,6 +326,17 @@
                          $('.experiencelist').append('<li><a href="#"</a>'+data[x].name+'</li>');
                                      }
                                               }
+
+
+
+           function loadGender(data){
+                          len = data.length;
+                           {#console.log(data)#}
+                           for(x=0;x<len;x++){
+                         $('.genderlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
+                                     }
+                                              }
+
 
 
             function fetchPaginationDatacallback(data){
