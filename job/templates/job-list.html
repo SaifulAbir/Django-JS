@@ -148,11 +148,8 @@
                             </div>
                             <div data-id="job-type" class="job-filter job-type same-pad">
                                 <h4 class="option-title">Job Type</h4>
-                                <ul>
-                                    <li class="full-time"><i data-feather="clock"></i><a href="#" data-attr="Full Time">Full Time</a></li>
-                                    <li class="part-time"><i data-feather="clock"></i><a href="#" data-attr="Part Time">Part Time</a></li>
-                                    <li class="freelance"><i data-feather="clock"></i><a href="#" data-attr="Freelance">Freelance</a></li>
-                                    <li class="temporary"><i data-feather="clock"></i><a href="#" data-attr="Temporary">Temporary</a></li>
+                                <ul class="typelist">
+
                                 </ul>
                             </div>
                             <div data-id="experience" class="job-filter experience same-pad">
@@ -272,6 +269,9 @@
             get('/api/job_list/?page=1&page_size='+pageSize,fetchDatacallback);
             var template = $('.template').html();
 
+            jobtype_url = '/job_type';
+            get(jobtype_url, loadJobtype);
+
             function fetchDatacallback(data){
                 var totalNumberOfData = data.count;
                 if (data.previous == null && totalNumberOfData > 0){
@@ -302,6 +302,29 @@
 
 
             });
+
+
+        function loadJobtype(data) {
+                            len = data.length;
+                            console.log(data)
+                            for(i=0;i<len;i++){
+                                var jobtype_html = '<li class="full-time">'+
+                                '<i data-feather="clock">'+
+                                '</i>'+
+                                '<a href="#">'+data[i].name+'</a>'+
+                                '</li>';
+                            $('.typelist').append(jobtype_html);
+                            feather.replace();
+                            }}
+
+
+
+
+
+
+
+
+
 
             function fetchPaginationDatacallback(data){
                 var currentIndex=$('.page-numbers.current').data('value');
