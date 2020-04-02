@@ -192,10 +192,8 @@
                             </div>
                             <div data-id="qualification" class="job-filter qualification same-pad">
                                 <h4 class="option-title">Qualification</h4>
-                                <ul>
-                                    <li><a href="#" data-attr="Matriculation">Matriculation</a></li>
-                                    <li><a href="#" data-attr="Intermidiate">Intermidiate</a></li>
-                                    <li><a href="#" data-attr="Gradute">Gradute</a></li>
+                                <ul class="qualificationlist">
+
                                 </ul>
                             </div>
                         </div>
@@ -272,6 +270,9 @@
             gender_url = '/gender';
             get(gender_url,loadGender);
 
+            quali_url = '/qualification';
+            get(quali_url, loadQualification);
+
 
             function fetchDatacallback(data){
                 var totalNumberOfData = data.count;
@@ -320,22 +321,30 @@
 
 
         function loadExperience(data){
-                          len = data.length;
-                           {#console.log(data)#}
-                           for(x=0;x<len;x++){
+                         len = data.length;
+                          {#console.log(data)#}
+                          for(x=0;x<len;x++){
                          $('.experiencelist').append('<li><a href="#"</a>'+data[x].name+'</li>');
                                      }
                                               }
 
 
+        function loadGender(data){
+                       len = data.length;
+                       {#console.log(data)#}
+                       for(x=0;x<len;x++){
+                       $('.genderlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
+                                 }
+                                          }
 
-           function loadGender(data){
-                          len = data.length;
-                           {#console.log(data)#}
-                           for(x=0;x<len;x++){
-                         $('.genderlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
-                                     }
-                                              }
+
+         function loadQualification(data){
+                       len = data.length;
+                       {#console.log(data)#}
+                       for(x=0;x<len;x++){
+                       $('.qualificationlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
+                                 }
+                                          }
 
 
 
