@@ -154,14 +154,9 @@
                             </div>
                             <div data-id="experience" class="job-filter experience same-pad">
                                 <h4 class="option-title">Experience</h4>
-                                <ul>
-                                    <li><a href="#" data-attr="Fresh">Fresh</a></li>
-                                    <li><a href="#" data-attr="Less than 1 year">Less than 1 year</a></li>
-                                    <li><a href="#" data-attr="2 Year">2 Year</a></li>
-                                    <li><a href="#" data-attr="3 Year">3 Year</a></li>
-                                    <li><a href="#" data-attr="4 Year">4 Year</a></li>
-                                    <li><a href="#" data-attr="5 Year">5 Year</a></li>
-                                    <li><a href="#" data-attr="Avobe 5 Years">Avobe 5 Years</a></li>
+                                <ul class="experiencelist">
+
+
                                 </ul>
                             </div>
                             <div class="job-filter same-pad">
@@ -272,6 +267,10 @@
             jobtype_url = '/job_type';
             get(jobtype_url, loadJobtype);
 
+            experi_url = '/experience';
+            get(experi_url,loadExperience);
+
+
             function fetchDatacallback(data){
                 var totalNumberOfData = data.count;
                 if (data.previous == null && totalNumberOfData > 0){
@@ -306,7 +305,7 @@
 
         function loadJobtype(data) {
                             len = data.length;
-                            console.log(data)
+                            {#console.log(data)#}
                             for(i=0;i<len;i++){
                                 var jobtype_html = '<li class="full-time">'+
                                 '<i data-feather="clock">'+
@@ -318,12 +317,13 @@
                             }}
 
 
-
-
-
-
-
-
+        function loadExperience(data){
+                          len = data.length;
+                           {#console.log(data)#}
+                           for(x=0;x<len;x++){
+                         $('.experiencelist').append('<li><a href="#"</a>'+data[x].name+'</li>');
+                                     }
+                                              }
 
 
             function fetchPaginationDatacallback(data){
