@@ -199,3 +199,6 @@ def vital_stats(self):
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+class SalaryRangeList(generics.ListCreateAPIView):
+    queryset = Job.objects.all()
+    serializer_class = SalaryRangeSerializer

@@ -162,16 +162,7 @@
                             <div class="job-filter same-pad">
                                 <h4 class="option-title">Salary Range</h4>
                                 <div class="price-range-slider">
-                                    <div class="nstSlider" data-range_min="0" data-range_max="10000"
-                                         data-cur_min="0"    data-cur_max="6130">
-                                        <div class="bar"></div>
-                                        <div class="leftGrip"></div>
-                                        <div class="rightGrip"></div>
-                                        <div class="grip-label">
-                                            <span class="leftLabel"></span>
-                                            <span class="rightLabel"></span>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                             <div data-id="post" class="job-filter post same-pad">
@@ -273,6 +264,10 @@
             quali_url = '/qualification';
             get(quali_url, loadQualification);
 
+            salary_url = '/salary_range';
+            get(salary_url, loadSalaryRange);
+
+
 
             function fetchDatacallback(data){
                 var totalNumberOfData = data.count;
@@ -338,7 +333,7 @@
                                           }
 
 
-         function loadQualification(data){
+        function loadQualification(data){
                        len = data.length;
                        {#console.log(data)#}
                        for(x=0;x<len;x++){
@@ -346,22 +341,63 @@
                                  }
                                           }
 
+        function loadSalaryRange(data){
+                        len = data.length;
+                        console.log(data)
+
+                        var min_range = data[0].salary_min;
+                        var max_range = data[0].salary_max;
+<!--                        console.log(min_range)-->
+<!--                        console.log(max_range)-->
+
+                        for(x=0;x<len;x++){
+                            if(max_range < data[x].salary_max)
+                            {
+                               max_range = data[x].salary_max;
+                            }
+                            if(min_range < data[x].salary_min)
+                            {
+                               min_range = data[x].salary_min;
+                            }
+                                }
+                        console.log(min_range)
+                        console.log(max_range)
+
+                        var salary_html = '<div class="nstSlider"'+
+                                  'data-range_min="'+min_range+'" '+
+                                  'data-range_max="'+max_range+'" '+
+                                  'data-cur_min="6000"' +
+                                  'data-cur_max="75000">'+
+                                  '<div class="bar"></div>'+
+                                  '<div class="leftGrip"></div>'+
+                                  '<div class="rightGrip"></div>'+
+                                  '<div class="grip-label">'+
+                                  '<span class="leftLabel"></span>'+
+                                  '<span class="rightLabel"></span>'+
+                                  '</div>'+
+                                  '</div>';
+
+                        $('.price-range-slider').append(salary_html);
 
 
-            function fetchPaginationDatacallback(data){
-                var currentIndex=$('.page-numbers.current').data('value');
-                var totalNumberOfData = data.count;
-                if (data.previous == null && totalNumberOfData > 0){
-                    var numberOfDataInSinglePage = data.results.length;
-                    var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
-                    $('.pagination-summary').show().html(paginationSummary);
-                }
-                var list = makeListHtml(data.results, template);
-                $('.job-result').html(list);
-                var url = '/job_list';
-                makePagination(totalNumberOfData, pageSize, url, currentIndex);
+                                          }
 
-                $('.page-numbers[data-value=' + currentIndex + ']').addClass("current");
+
+
+        function fetchPaginationDatacallback(data){
+            var currentIndex=$('.page-numbers.current').data('value');
+            var totalNumberOfData = data.count;
+            if (data.previous == null && totalNumberOfData > 0){
+                var numberOfDataInSinglePage = data.results.length;
+                var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
+                $('.pagination-summary').show().html(paginationSummary);
+            }
+            var list = makeListHtml(data.results, template);
+            $('.job-result').html(list);
+            var url = '/job_list';
+            makePagination(totalNumberOfData, pageSize, url, currentIndex);
+
+            $('.page-numbers[data-value=' + currentIndex + ']').addClass("current");
 
             }
 
