@@ -17,7 +17,6 @@ class DivisionListCreate(generics.ListCreateAPIView):
     queryset = Division.objects.all()
     serializer_class = DivisionSerializer
 
-
 # class DivisionUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = Division.objects.all()
 #     serializer_class = DivisionSerializer
@@ -47,24 +46,19 @@ class DivisionListCreate(generics.ListCreateAPIView):
 #     def put(self, request, *args, **kwargs):
 #         return self.update(request, *args, **kwargs)
 
-#
-# class DistrictPopulate(generics.ListAPIView):
-#     serializer_class = DistrictPopulateSerializer
-#
-#     def get_queryset(self):
-#         """
-#         Optionally restricts the returned purchases to a given user,
-#         by filtering against a `username` query parameter in the URL.
-#         """
-#         queryset = District.objects.all()
-#         division = self.kwargs['division']
-#         print(division)
-#         if division is not None:
-#             queryset = queryset.filter(division=division)
-#             print(queryset)
-#         return queryset
 
-
-class DistrictSow(generics.ListAPIView):
-    queryset = District.objects.all()
+class DistrictPopulate(generics.ListAPIView):
     serializer_class = DistrictPopulateSerializer
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        queryset = District.objects.all()
+        division = self.kwargs['division']
+        print(division)
+        if division is not None:
+            queryset = queryset.filter(division=division)
+            print(queryset)
+        return queryset

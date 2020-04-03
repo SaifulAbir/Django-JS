@@ -133,11 +133,17 @@
                                 </select>
                             </div>
                             <div class="job-filter-dropdown same-pad location">
-                                <select class="selectpicker" id="location">
-
+                                <select class="selectpicker">
                                     <option value="" selected>Location</option>
-
-
+                                    <option value="california">Chicago</option>
+                                    <option value="california">New York City</option>
+                                    <option value="california">San Francisco</option>
+                                    <option value="california">Washington</option>
+                                    <option value="california">Boston</option>
+                                    <option value="california">Los Angeles</option>
+                                    <option value="california">Seattle</option>
+                                    <option value="california">Las Vegas</option>
+                                    <option value="california">San Diego</option>
                                 </select>
                             </div>
                             <div data-id="job-type" class="job-filter job-type same-pad">
@@ -263,11 +269,6 @@
 
 
 
-            location_url = '/api/location_show/';
-            get(location_url,LoadLocation);
-
-
-
             function fetchDatacallback(data){
                 var totalNumberOfData = data.count;
                 if (data.previous == null && totalNumberOfData > 0){
@@ -378,16 +379,6 @@
                                   '</div>';
 
                         $('.price-range-slider').append(salary_html);
-
-         function LoadLocation(data){
-                       len = data.length;
-                       for(x=0;x<len;x++){
-                         $('#location').append('<option value="'+data[x].name+'">'+data[x].name+'</option>');
-                                 }
-                         $('.selectpicker').selectpicker('refresh');
-                       }
-
-
 
 
                                           }

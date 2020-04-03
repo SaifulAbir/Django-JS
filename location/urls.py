@@ -6,8 +6,6 @@ urlpatterns = [
     # path('division/<str:pk>/', DivisionUpdateDestroy.as_view()),
     # path('company_create/', company_create),
     # path('company_update/<int:pk>/', CompanyUpdateView.as_view()),
-   # path('district_populate/<str:division>/', DistrictPopulate.as_view()),
+    path('district_populate/<str:division>/', DistrictPopulate.as_view()),
     # path('district', DistrictList.as_view()),
-    path('location_show/', DistrictSow.as_view()),
-
 ]
