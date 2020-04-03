@@ -120,30 +120,13 @@
                             <div class="job-filter-dropdown same-pad category">
                                 <select class="selectpicker">
                                     <option value="" selected>Category</option>
-                                    <option value="california">Accounting / Finance</option>
-                                    <option value="california">Education</option>
-                                    <option value="california">Design &amp; Creative</option>
-                                    <option value="california">Health Care</option>
-                                    <option value="california">Engineer &amp; Architects</option>
-                                    <option value="california">Marketing &amp; Sales</option>
-                                    <option value="california">Garments / Textile</option>
-                                    <option value="california">Customer Support</option>
-                                    <option value="california">Digital Media</option>
-                                    <option value="california">Telecommunication</option>
+
                                 </select>
                             </div>
                             <div class="job-filter-dropdown same-pad location">
-                                <select class="selectpicker">
+                                <select class="selectpicker"  id="location">
                                     <option value="" selected>Location</option>
-                                    <option value="california">Chicago</option>
-                                    <option value="california">New York City</option>
-                                    <option value="california">San Francisco</option>
-                                    <option value="california">Washington</option>
-                                    <option value="california">Boston</option>
-                                    <option value="california">Los Angeles</option>
-                                    <option value="california">Seattle</option>
-                                    <option value="california">Las Vegas</option>
-                                    <option value="california">San Diego</option>
+
                                 </select>
                             </div>
                             <div data-id="job-type" class="job-filter job-type same-pad">
@@ -267,6 +250,9 @@
             salary_url = '/salary_range';
             get(salary_url, loadSalaryRange);
 
+            location_url = '/api/location/';
+            get(location_url,loadLoc);
+
 
 
             function fetchDatacallback(data){
@@ -299,6 +285,18 @@
 
 
             });
+
+
+
+
+        function loadLoc(data){
+                       console.log(data);
+                       len = data.length;
+                       for(x=0;x<len;x++){
+                        $('#location').append('<option value="'+data[x].name+'">'+data[x].name+'</option>');
+                        }
+                        $('.selectpicker').selectpicker('refresh');
+                            }
 
 
         function loadJobtype(data) {
