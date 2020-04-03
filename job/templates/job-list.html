@@ -145,7 +145,15 @@
                             <div class="job-filter same-pad">
                                 <h4 class="option-title">Salary Range</h4>
                                 <div class="price-range-slider">
-
+                <div class="nstSlider" data-range_min="0"  data-range_max="100000" data-cur_min="0.0" data-cur_max="10.0">
+                                  <div class="bar"></div>
+                                  <div class="leftGrip"></div>
+                                  <div class="rightGrip"></div>
+                                  <div class="grip-label">
+                                  <span class="leftLabel"></span>
+                                  <span class="rightLabel"></span>
+                                  </div>
+                                  </div>
                                 </div>
                             </div>
                             <div data-id="post" class="job-filter post same-pad">
@@ -256,6 +264,10 @@
             get(cat_url,loadCat);
 
 
+            salary_url = '/salary_range';
+            get(salary_url, loadSalaryRange);
+
+
 
             function fetchDatacallback(data){
                 var totalNumberOfData = data.count;
@@ -349,6 +361,31 @@
                                  }
                                           }
 
+
+        function loadSalaryRange(data){
+                       len = data.length;
+                        console.log(data)
+
+                      var min_range = data[0].salary_min;
+                      var max_range = data[0].salary_max;
+
+                        for(x=0;x<len;x++){
+                         if(min_range > data[x].salary_min)
+                            {
+                               min_range = data[x].salary_min;
+                            }
+                         if(max_range < data[x].salary_max)
+                            {
+                               max_range = data[x].salary_max;
+                            }
+
+                                }
+                      console.log(min_range)
+                      console.log(max_range)
+
+                      $('.nstSlider').attr('data-cur_min', min_range);
+                      $('.nstSlider').attr('data-cur_max', max_range);
+                              }
 
 
 
