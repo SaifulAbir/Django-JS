@@ -347,15 +347,16 @@
 
                         var min_range = data[0].salary_min;
                         var max_range = data[0].salary_max;
-<!--                        console.log(min_range)-->
-<!--                        console.log(max_range)-->
 
-                        for(x=0;x<len;x++){
+<!--console.log(min_range)-->
+<!--console.log(max_range)-->
+
+                        for(x=1;x<len;x++){
                             if(max_range < data[x].salary_max)
                             {
                                max_range = data[x].salary_max;
                             }
-                            if(min_range < data[x].salary_min)
+                            if(min_range > data[x].salary_min)
                             {
                                min_range = data[x].salary_min;
                             }
