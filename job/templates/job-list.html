@@ -118,7 +118,7 @@
                                 </ul>
                             </div>
                             <div class="job-filter-dropdown same-pad category">
-                                <select class="selectpicker">
+                                <select class="selectpicker" id="category">
                                     <option value="" selected>Category</option>
 
                                 </select>
@@ -247,11 +247,13 @@
             quali_url = '/qualification';
             get(quali_url, loadQualification);
 
-            salary_url = '/salary_range';
-            get(salary_url, loadSalaryRange);
 
             location_url = '/api/location/';
             get(location_url,loadLoc);
+
+
+            cat_url='/api/popular_categories/';
+            get(cat_url,loadCat);
 
 
 
@@ -287,15 +289,23 @@
             });
 
 
-
-
         function loadLoc(data){
-                       console.log(data);
+
                        len = data.length;
                        for(x=0;x<len;x++){
                         $('#location').append('<option value="'+data[x].name+'">'+data[x].name+'</option>');
                         }
                         $('.selectpicker').selectpicker('refresh');
+                            }
+
+         function loadCat(data){
+
+                        len = data.length;
+                        for(x=0;x<len;x++){
+                        $('#category').append('<option value="'+data[x].name+'">'+data[x].name+'</option>');
+                        }
+                        $('.selectpicker').selectpicker('refresh');
+
                             }
 
 
@@ -339,47 +349,6 @@
                                  }
                                           }
 
-        function loadSalaryRange(data){
-                        len = data.length;
-                        console.log(data)
-
-                        var min_range = data[0].salary_min;
-                        var max_range = data[0].salary_max;
-
-<!--console.log(min_range)-->
-<!--console.log(max_range)-->
-
-                        for(x=1;x<len;x++){
-                            if(max_range < data[x].salary_max)
-                            {
-                               max_range = data[x].salary_max;
-                            }
-                            if(min_range > data[x].salary_min)
-                            {
-                               min_range = data[x].salary_min;
-                            }
-                                }
-                        console.log(min_range)
-                        console.log(max_range)
-
-                        var salary_html = '<div class="nstSlider"'+
-                                  'data-range_min="'+min_range+'" '+
-                                  'data-range_max="'+max_range+'" '+
-                                  'data-cur_min="6000"' +
-                                  'data-cur_max="75000">'+
-                                  '<div class="bar"></div>'+
-                                  '<div class="leftGrip"></div>'+
-                                  '<div class="rightGrip"></div>'+
-                                  '<div class="grip-label">'+
-                                  '<span class="leftLabel"></span>'+
-                                  '<span class="rightLabel"></span>'+
-                                  '</div>'+
-                                  '</div>';
-
-                        $('.price-range-slider').append(salary_html);
-
-
-                                          }
 
 
 
