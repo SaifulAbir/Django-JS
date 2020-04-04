@@ -222,7 +222,11 @@
                                 </ul>
                             </li>
                             <li class="menu-item"><a href="contact.html">Contact Us</a></li>
-                            <li class="menu-item post-job"><a href="/post-job"><i class="fas fa-plus"></i>Post a Job</a></li>
+                            <li class="menu-item">
+              <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px; margin-left: 175px" class="img-fluid" alt=""></i>  </a>
+             <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>
+             <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>
+            </li>
                         </ul>
                     </div>
                 </nav>
@@ -388,6 +392,8 @@
     });
 </script>
 {% block extra_js %}
+
+
 {% endblock %}
 </body>
 </html>
