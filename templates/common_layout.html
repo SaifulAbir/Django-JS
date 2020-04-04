@@ -234,120 +234,114 @@
 {% block body_block %}
 
 {% endblock %}
-
-<!-- Footer -->
-<footer class="footer-bg">
-    <div class="footer-top border-bottom section-padding-top padding-bottom-40">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="footer-logo">
-                        <a href="#">
-                            <img src="{% static 'images/footer-logo.png' %}" class="img-fluid" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="footer-social">
-                        <ul class="social-icons">
-                            <li><a href="#"><i data-feather="facebook"></i></a></li>
-                            <li><a href="#"><i data-feather="twitter"></i></a></li>
-                            <li><a href="#"><i data-feather="linkedin"></i></a></li>
-                            <li><a href="#"><i data-feather="instagram"></i></a></li>
-                            <li><a href="#"><i data-feather="youtube"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-widget-wrapper padding-bottom-60 padding-top-80">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-sm-6">
-                    <div class="footer-widget footer-shortcut-link">
-                        <h4>Information</h4>
-                        <div class="widget-inner">
-                            <ul>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms &amp; Conditions</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-sm-6">
-                    <div class="footer-widget footer-shortcut-link">
-                        <h4>Job Seekers</h4>
-                        <div class="widget-inner">
-                            <ul>
-                                <li><a href="#">Create Account</a></li>
-                                <li><a href="#">Career Counseling</a></li>
-                                <li><a href="#">My Oficiona</a></li>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="#">Video Guides</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-sm-6">
-                    <div class="footer-widget footer-shortcut-link">
-                        <h4>Employers</h4>
-                        <div class="widget-inner">
-                            <ul>
-                                <li><a href="#">Create Account</a></li>
-                                <li><a href="#">Products/Service</a></li>
-                                <li><a href="#">Post a Job</a></li>
-                                <li><a href="#">FAQ</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 offset-lg-1 col-sm-6">
-                    <div class="footer-widget footer-newsletter">
-                        <h4>Newsletter</h4>
-                        <p>Get e-mail updates about our latest news and Special offers.</p>
-                        <form action="#" class="newsletter-form form-inline">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Email address...">
-                            </div>
-                            <button class="btn button primary-bg">Submit<i class="fas fa-caret-right"></i></button>
-                            <p class="newsletter-error">0 - Please enter a value</p>
-                            <p class="newsletter-success">Thank you for subscribing!</p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom-area">
+<!-- App Banner -->
+<div class="padding-top-90 padding-bottom-90 app-download-bg">
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="footer-bottom border-top">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-5 order-lg-2">
-                                <div class="footer-app-download">
-                                    <a href="#" class="apple-app">Apple Store</a>
-                                    <a href="#" class="android-app">Google Play</a>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 order-lg-1">
-                                <p class="copyright-text">Copyright <a href="#">P7</a> 2019, All right reserved</p>
-                            </div>
-                            <div class="col-xl-4 col-lg-3 order-lg-3">
-                                <div class="back-to-top">
-                                    <a href="#">Back to top<i class="fas fa-angle-up"></i></a>
-                                </div>
-                            </div>
+                    <div class="app-download">
+                        <h2>Get JobSearch App</h2>
+                        <p>Searching for jobs never been that easy. Now you can find job matched your career expectation</p>
+                        <div class="app-download-button">
+                            <a href="javascript:void(0)" class="apple-app">Apple Store</a>
+                            <a href="javascript:void(0)" class="android-app">Google Play</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</footer>
+<!-- App Banner End -->
+<!-- Footer -->
+    <!-- Footer -->
+    <footer class="footer-bg">
+      <div class="footer-top border-bottom section-padding-top padding-bottom-40">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="footer-logo">
+                <a href="{% url 'home' %}">
+                  <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">
+                </a>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="footer-social">
+                  <ul class="social-icons">
+              <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i></a>
+              <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i></a>
+              <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i></a>
+                  </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-widget-wrapper padding-bottom-60 padding-top-80">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-2 col-sm-6">
+              <div class="footer-widget footer-shortcut-link">
+                <h4>Information</h4>
+                <div class="widget-inner">
+                  <ul>
+                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'terms_&_conditions' %}">Terms &amp; Conditions</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-sm-6">
+              <div class="footer-widget footer-shortcut-link">
+                <h4>Job Seekers</h4>
+                <div class="widget-inner">
+                  <ul>
+                    <li><a href="{% url 'register' %}">Create Account</a></li>
+                    <li><a href="{% url 'career_advice' %}">Career Advice</a></li>
+                    <li><a href="javascript:void(0)">My Job Search</a></li>
+                    <li><a href="javascript:void(0)">FAQ</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-sm-6">
+              <div class="footer-widget footer-shortcut-link">
+                <div class="widget-inner">
+
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1 col-sm-6">
+              <div class="footer-widget footer-newsletter">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom-area">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="footer-bottom border-top">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <p class="copyright-text">Copyright <a href="{% url 'home' %}">Job Search</a> 2020, All right reserved</p>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="back-to-top">
+                      <a href="#">Back to top<i class="fas fa-angle-up"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
 <!-- Footer End -->
 
 
