@@ -145,13 +145,12 @@
                             <div class="job-filter same-pad">
                                 <h4 class="option-title">Salary Range</h4>
                                 <div class="price-range-slider">
-                <div class="nstSlider" data-range_min="0"  data-range_max="100000" data-cur_min="0.0" data-cur_max="10.0">
+                <div class="nstSlider" id="loadval" data-range_min="0"  data-range_max="100000" data-cur_min="" data-cur_max="">
                                   <div class="bar"></div>
                                   <div class="leftGrip"></div>
                                   <div class="rightGrip"></div>
                                   <div class="grip-label">
-                                  <span class="leftLabel"></span>
-                                  <span class="rightLabel"></span>
+
                                   </div>
                                   </div>
                                 </div>
@@ -264,7 +263,8 @@
             get(cat_url,loadCat);
 
 
-
+            salary_url = '/salary_range';
+            get(salary_url, loadSalaryRange);
 
 
 
@@ -359,6 +359,22 @@
                                           }
 
 
+        function loadSalaryRange(data){
+                       len = data.length;
+                       console.log(data)
+                       var v_min =  data.sr_min;
+                       var v_max =  data.sr_max;
+                       console.log(v_min);
+                       console.log(v_max);
+                       $('.nstSlider').attr('data-cur_min', v_min);
+                       $('.nstSlider').attr('data-cur_max', v_max);
+
+
+                       $('.grip-label').append('<span class="leftLabel">'+v_min+'</span>'+
+                                  '<span class="rightLabel">'+v_max+'</span>');
+
+
+                              }
 
 
 

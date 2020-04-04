@@ -209,8 +209,16 @@ def vital_stats(self):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-
-
+def salary_range(self):
+    range_min = Job.objects.all().aggregate(Min('salary_min'))
+    range_max = Job.objects.all().aggregate(Max('salary_max'))
+    min_v = range_min['salary_min__min']
+    max_v = range_max['salary_max__max']
+    data ={
+        'sr_min': str(min_v),
+        'sr_max': str(max_v),
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 
