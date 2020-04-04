@@ -264,8 +264,7 @@
             get(cat_url,loadCat);
 
 
-            salary_url = '/salary_range';
-            get(salary_url, loadSalaryRange);
+
 
 
 
@@ -336,12 +335,10 @@
 
 
         function loadExperience(data){
-                         len = data.length;
-                          {#console.log(data)#}
-                          for(x=0;x<len;x++){
-                         $('.experiencelist').append('<li><a href="#"</a>'+data[x].name+'</li>');
-                                     }
-                                              }
+                          for(x=1;x<=6;x++){
+                          $('.experiencelist').append('<li><a href="#"</a>'+data[x]+'</li>');
+                             }
+                                           }
 
 
         function loadGender(data){
@@ -362,30 +359,6 @@
                                           }
 
 
-        function loadSalaryRange(data){
-                       len = data.length;
-                        console.log(data)
-
-                      var min_range = data[0].salary_min;
-                      var max_range = data[0].salary_max;
-
-                        for(x=0;x<len;x++){
-                         if(min_range > data[x].salary_min)
-                            {
-                               min_range = data[x].salary_min;
-                            }
-                         if(max_range < data[x].salary_max)
-                            {
-                               max_range = data[x].salary_max;
-                            }
-
-                                }
-                      console.log(min_range)
-                      console.log(max_range)
-
-                      $('.nstSlider').attr('data-cur_min', min_range);
-                      $('.nstSlider').attr('data-cur_max', max_range);
-                              }
 
 
 

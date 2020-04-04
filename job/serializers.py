@@ -82,7 +82,3 @@ class TopSkillSerializer(serializers.ModelSerializer):
         fields= ['name', 'skills_count']
 
 
-class SalaryRangeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Job
-        fields= ['salary_min', 'salary_max']

@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Count, QuerySet
+from django.db.models import Count, QuerySet, Min, Max
 from django.http import Http404
 from datetime import date
 
@@ -70,9 +70,18 @@ class CurrencyList(generics.ListCreateAPIView):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
 
-class ExperienceList(generics.ListCreateAPIView):
-    queryset = Experience.objects.all()
-    serializer_class = ExperienceSerializer
+
+def Experience(self):
+    data = {
+        '1': "Fresh",
+        '2': "Less than 1 year",
+        '3': "2 Year",
+        '4': "3 Year",
+        '5':  "4 Year",
+        '6': "Above 5 Years",
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 class QualificationList(generics.ListCreateAPIView):
     queryset = Qualification.objects.all()
@@ -199,6 +208,9 @@ def vital_stats(self):
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
-class SalaryRangeList(generics.ListCreateAPIView):
-    queryset = Job.objects.all()
-    serializer_class = SalaryRangeSerializer
+
+
+
+
+
+
