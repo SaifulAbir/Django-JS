@@ -54,10 +54,11 @@ class JobSerializer(serializers.ModelSerializer):
 class RecentJobSerializer(serializers.ModelSerializer):
 
     status = serializers.CharField()
+    # profile_picture = serializers.CharField()
 
     class Meta:
         model = Job
-        fields = ['job_location', 'job_id', 'company_name', 'employment_status', 'title', 'created_date', 'status',]
+        fields = ['job_location', 'job_id', 'company_name', 'employment_status', 'title', 'created_date', 'status']
 
 class JobSerializerAllField(serializers.ModelSerializer):
     class Meta:

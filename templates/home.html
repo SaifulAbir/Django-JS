@@ -320,8 +320,6 @@
     $(document).ready(function() {
         TokenAuthenticate();
         initAjaxForms();
-        var access_token = $.cookie("access");
-        var user = $.cookie("user");
         statUrl = '/api/vital_stats/'
         key_url='/api/trending_keyword_show/';
         cat_url='/api/popular_categories/';
@@ -334,27 +332,50 @@
         get(careerUrl,loadAdvice);
         get(skills_url,loadSkills);
         get(recentJobsUrl,loadJobs);
-        $('#job-list').on('click', '.favourite:not(.active)', function (event) {
+        favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
+    });
+
+    function favouriteJobAddRemove(id, url) {
+
+        $("#"+id).on('click', '.favourite', function (event) {
             event.preventDefault();
+            var user = $.cookie("user");
             var job = $(this).attr('href');
-            if(user && access_token){
+            if(isLoggedIn() && $(this).hasClass('active')){
                 var data = {'user_id':user, 'job_id':job};
-                favouriteUrl = '/api/favourite_job_add/';
+                favouriteUrl = '';
+                post(favouriteUrl, JSON.stringify(data), loadFavouriteJob);
+            }else if(isLoggedIn()){
+
+                var data = {'user_id':user, 'job_id':job};
+                favouriteUrl = '';
                 post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
-            }else {
+            }
+            else {
                 window.location.href = "/professional/sign-in/";
             }
         });
 
-    });
+    }
+
+    function isLoggedIn() {
+        var access_token = $.cookie("access");
+        if(access_token){
+            return true;
+        }
+        return false;
+    }
 
     function loadFavouriteJob(data) {
         if(data.responseJSON.code == 200){
-            console.log(data.responseJSON.result.user.job);
+            console.log(data.responseJSON)
             var el = $("#job-list").find("[href='"+ data.responseJSON.result.user.job +"']");
-            if(el.hasClass("favourite")){
+            if(el.hasClass('active') && data.responseJSON.result.user.status == 'Removed'){
+                el.removeClass('active');
+                showError('Oopss!', 'Job removed.')
+            }
+            else if(el.hasClass("favourite")){
                 el.addClass('active');
-                el.attr("href", "javascript:void(0);");
                 showSuccess('Congratulations!', 'Job saved as a favourite.')
             }
         }
@@ -396,7 +417,7 @@
             var job_html= '<div class="job-list">'+
                 '<div class="thumb">'+
                 '<a href="#">'+
-                '<img src="images/job/company-logo-1.png" class="img-fluid" alt="">'+
+                '<img src="'+'/media/'+data[index].profile_picture+'" class="img-fluid" alt="">'+
                 '</a>'+
                 '</div>'+
                 '<div class="body">'+
@@ -410,7 +431,7 @@
                 '</div>'+
                 '<div class="more">'+
                 '<div class="buttons">'+
-                '<a href="#" class="button" data-toggle="modal" data-target="#apply-popup-id">Apply Now</a>'+
+                '<a href="javascript:void(0);" class="button" data-toggle="modal">Apply Now</a>'+
                 '<a href="'+data[index].job_id+'" class="favourite"><i data-feather="heart"></i></a>'+
                 '</div>'+
                 '<p class="deadline">'+'Deadline: '+dateMomentString+'</p>'+
@@ -418,6 +439,10 @@
                 '</div>'+
                 '</div>';
             $('#job-list').append(job_html);
+            var el = $("#job-list").find("[href='"+ data[index].job_id +"']");
+            if(data[index].status == 'Yes'){
+                el.addClass('active');
+            }
             feather.replace();
         }
     }

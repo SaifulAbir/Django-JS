@@ -6,7 +6,7 @@ from datetime import date
 from django.db.models import Count
 from django.http import Http404, JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.pagination import *
@@ -124,16 +124,33 @@ def favourite_job_add(request):
     data = {}
     job_data = json.loads(request.body)
     if job_data:
-        favourite_job = FavouriteJob(**job_data)
-        favourite_job.save()
-        data = {
-            'code': HTTP_200_OK,
-            "result": {
-                "user": {
-                    "job": job_data['job_id']
+        try:
+            favourite_jobs = FavouriteJob.objects.filter(user = job_data['user_id'],job = job_data['job_id'])
+        except FavouriteJob.DoesNotExist:
+            favourite_jobs = None
+        if not favourite_jobs:
+            favourite_job = FavouriteJob(**job_data)
+            favourite_job.save()
+            data = {
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "job": job_data['job_id'],
+                        "status": 'Saved'
+                    }
                 }
             }
-        }
+        elif favourite_jobs:
+            favourite_jobs.delete()
+            data = {
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "job": job_data['job_id'],
+                        "status": 'Removed'
+                    }
+                }
+            }
     return Response(data)
 
 class JobUpdateView(GenericAPIView, UpdateModelMixin):
@@ -190,9 +207,11 @@ class TopSkills(generics.ListCreateAPIView):
     ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
 
-class RecentJobs(generics.ListCreateAPIView):
-    recent_jobs = Job.objects.all().order_by('-created_date')[:6]
-    for job in recent_jobs:
+@api_view(["GET"])
+def recent_jobs(request):
+    queryset = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')[:6]
+    data = []
+    for job in queryset:
         try:
             favourite_job = FavouriteJob.objects.get(job=job)
         except FavouriteJob.DoesNotExist:
@@ -201,11 +220,15 @@ class RecentJobs(generics.ListCreateAPIView):
             job.status = 'Yes'
         else:
             job.status = 'No'
-    queryset = list(recent_jobs)
-    serializer_class = RecentJobSerializer
+        if job.company_name:
+            job.profile_picture = str(job.company_name.profile_picture)
+        else:
+            job.profile_picture = None
+        data.append({'job_id':job.job_id, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(job.company_name)})
+    return JsonResponse(list(data), safe=False)
 
-
-
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def vital_stats(self):
     companies = Company.objects.all().count()
     professional = Professional.objects.all().count()
