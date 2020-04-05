@@ -6,6 +6,8 @@ class Settings(models.Model):
     facebook_url = models.URLField(verbose_name='Facebook URL')
     linkedin_url = models.URLField(verbose_name='Linkedin URL', blank=True, null=True)
     twitter_url = models.URLField(verbose_name='Twitter URL', blank=True, null=True)
+    appstore_url = models.URLField(verbose_name='App Store URL')
+    playstore_url = models.URLField(verbose_name='Play Store URL')
     logo_url = models.ImageField(upload_to='logo/', blank=True)
 
     class Meta:
