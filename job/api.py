@@ -1,12 +1,12 @@
 from django.db import models
-from django.db.models import Count, QuerySet
+from django.db.models import Count, QuerySet, Value, CharField
 from django.http import Http404
 from datetime import date
 
 from django.db.models import Count
 from django.http import Http404, JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.pagination import *
@@ -17,7 +17,8 @@ from rest_framework.views import APIView
 
 from pro.models import Professional
 from resources.strings_job import *
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords,Skill
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
+    Skill, FavouriteJob
 
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
     Skill
@@ -117,6 +118,40 @@ def job_create(request):
                 # job_skills.save()
     return Response(HTTP_200_OK)
 
+@api_view(["POST"])
+def favourite_job_add(request):
+    data = {}
+    job_data = json.loads(request.body)
+    if job_data:
+        try:
+            favourite_jobs = FavouriteJob.objects.filter(user = job_data['user_id'],job = job_data['job_id'])
+        except FavouriteJob.DoesNotExist:
+            favourite_jobs = None
+        if not favourite_jobs:
+            favourite_job = FavouriteJob(**job_data)
+            favourite_job.save()
+            data = {
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "job": job_data['job_id'],
+                        "status": 'Saved'
+                    }
+                }
+            }
+        elif favourite_jobs:
+            favourite_jobs.delete()
+            data = {
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "job": job_data['job_id'],
+                        "status": 'Removed'
+                    }
+                }
+            }
+    return Response(data)
+
 class JobUpdateView(GenericAPIView, UpdateModelMixin):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
@@ -152,20 +187,7 @@ def load_previous_skills(request):
 @api_view(["POST"])
 def trending_keyword_save(request):
     search_data = json.loads(request.body)
-    # print(search_data)
-    # try:
-    #     keyword_obj = TrendingKeywords.objects.get(keyword=search_data['keyword'])
-    # except TrendingKeywords.DoesNotExist:
-    #     keyword_obj = None
-    #
-    # if keyword_obj is not None:
-    #     count = keyword_obj.count + 1
-    #     keyword_obj.count = count
-    #
-    #     if 'location' in search_data:
-    #         keyword_obj.location = search_data['location']
-    #     keyword_obj.save()
-    # else:
+
     key_obj = TrendingKeywords(**search_data)
     key_obj.save()
 
@@ -184,8 +206,33 @@ class TopSkills(generics.ListCreateAPIView):
     ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
 
+class PopularJobs(generics.ListCreateAPIView):
+    queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
+    ).order_by('-favourite_count')[:16]
+    serializer_class = PopularJobSerializer
 
+@api_view(["GET"])
+def recent_jobs(request):
+    queryset = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')[:6]
+    data = []
+    for job in queryset:
+        try:
+            favourite_job = FavouriteJob.objects.get(job=job)
+        except FavouriteJob.DoesNotExist:
+            favourite_job = None
+        if favourite_job is not None:
+            job.status = 'Yes'
+        else:
+            job.status = 'No'
+        if job.company_name:
+            job.profile_picture = str(job.company_name.profile_picture)
+        else:
+            job.profile_picture = None
+        data.append({'job_id':job.job_id, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(job.company_name)})
+    return JsonResponse(list(data), safe=False)
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def vital_stats(self):
     companies = Company.objects.all().count()
     professional = Professional.objects.all().count()

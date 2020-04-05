@@ -233,15 +233,15 @@ class TrendingKeywords(models.Model):
 
 
 #Bookmark job Model Starts here
-class BookmarkJob(models.Model):
-    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
+class FavouriteJob(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job', related_name='fav_jobs')
     user = models.ForeignKey(User, on_delete=models.PROTECT, db_column='user')
     created_date = models.DateField(default=datetime.date.today)
 
     class Meta:
         verbose_name = strings_job.BOOKMARK_JOB_VERBOSE_NAME
         verbose_name_plural = strings_job.BOOKMARK_JOB_VERBOSE_NAME_PLURAL
-        db_table = 'bookmark_jobs'
+        db_table = 'favourite_jobs'
 
     def __str__(self):
         return self.job.title

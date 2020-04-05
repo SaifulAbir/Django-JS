@@ -45,9 +45,6 @@
   </head>
   <body>
 
-
-
-
     <!-- Header -->
     <header>
       <nav class="navbar navbar-expand-xl absolute-nav transparent-nav cp-nav navbar-light bg-light fluid-nav">
@@ -71,7 +68,7 @@
              <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>
             </li>
             <li class="menu-item login-popup" id="sign-in"><a href="{% url 'sign-in' %}">Login</a></li>
-            <li class="menu-item login-popup" id="register"><a href="{% url 'register' %}">Register</a></li>
+            <li class="menu-item login-popup" id="register"><a href="{% url 'register' %}">Registration</a></li>
             <li class="menu-item" id="sign-out" style="display: none; "><a href="professional/sign-out/">Logout</a></li>
           </ul>
         </div>
@@ -84,27 +81,7 @@
 
     {% endblock %}
 
-        <!-- App Download -->
-    <div class="padding-top-90 padding-bottom-90 app-download-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="app-download">
-                        <h2>Get JobSearch App</h2>
-                        <p>Searching for jobs never been that easy. Now you can find job matched your career expectation</p>
-                        <div class="app-download-button">
-                            <a href="" class="apple-app">Apple Store</a>
-                            <a href="" class="android-app">Google Play</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- App Download End -->
-
     <!-- Footer -->
-        <!-- Footer -->
     <footer class="footer-bg">
       <div class="footer-top border-bottom section-padding-top padding-bottom-40">
         <div class="container">
@@ -118,11 +95,9 @@
             </div>
             <div class="col-md-6">
               <div class="footer-social">
-                <ul class="social-icons">
-              <a class="facebook-url" href=""><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i></a>
-              <a class="linkedin-url" href=""><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i></a>
-              <a class="twitter-url" href=""><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i></a>
-              </ul>
+              <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i></a>
+              <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i></a>
+              <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i></a>
               </div>
             </div>
           </div>
@@ -160,17 +135,6 @@
             <div class="col-lg-2 col-sm-6">
               <div class="footer-widget footer-shortcut-link">
                 <div class="widget-inner">
-                   <h4>Address</h4>
-
-
-
-                  <ul>
-                      <li>House 76 (Level 4) Road 4, Block B</li>
-                      <li>Niketan Gulshan 1</li>
-                      <li>Dhaka 1212, Bangladesh</li>
-
-
-                  </ul>
 
                 </div>
               </div>
@@ -230,36 +194,9 @@
     <script src="{% static '/assets/js/form2js.js' %}"></script>
     <script src="{% static 'js/common.js' %}"></script>
     <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC87gjXWLqrHuLKR0CTV5jNLdP4pEHMhmg"></script>
     <script src="{% static 'js/map.js'%}"></script>
-
-       <script>
-      $(document).ready(function() {
-            TokenAuthenticate();
-            socialUrl = '/api/settings/';
-            get(socialUrl,loadSocialUrl);
-        });
-
-
-
-      function loadSocialUrl(data) {
-            console.log(data);
-            data = data[0];
-            $('.facebook-url').attr('href', data.facebook_url);
-            $('.linkedin-url').attr('href', data.linkedin_url);
-            $('.twitter-url').attr('href', data.twitter_url);
-            $('.apple-app').attr('href', data.appstore_url);
-            $('.android-app').attr('href', data.playstore_url);
-
-        }
-
-</script>
-
-
-
-
-
-
 
 {% block extra_js %}
 

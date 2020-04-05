@@ -57,6 +57,7 @@ urlpatterns = [
     path('terms_&_conditions/', TemplateView.as_view(template_name='terms_&_conditions.html'), name='terms_&_conditions'),
 
 
+
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,
