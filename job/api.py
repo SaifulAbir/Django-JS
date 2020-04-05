@@ -222,9 +222,9 @@ def recent_jobs(request):
         except FavouriteJob.DoesNotExist:
             favourite_job = None
         if favourite_job is not None:
-            job.status = 'Yes'
+            job.status = YES_TXT
         else:
-            job.status = 'No'
+            job.status = NO_TXT
         if job.company_name:
             job.profile_picture = str(job.company_name.profile_picture)
         else:
