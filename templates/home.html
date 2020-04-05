@@ -374,6 +374,12 @@
             }
         }
 
+        function loadPopularJobs(data) {
+            for(index=0;index<data.length;index++){
+                $('#popular-job-list').append('<li><a href="#">'+ data[index].title +'<span>('+ data[index].favourite_count +')</span></a></li>')
+            }
+        }
+
     function loadJobs(data) {
 
         for(index=0;index<data.length;index++){
