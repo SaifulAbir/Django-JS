@@ -106,7 +106,9 @@ def job_list(request):
 
     data = {
         'status': 'success',
-        'next_pages': 'check_next_available_or_not',
+        'number_of_row_total': number_of_row_total,
+        'number_of_pages': number_of_pages,
+        'next_pages': check_next_available_or_not,
         'code': HTTP_200_OK,
         "data": {
             "job_list": job_list.data,
