@@ -242,8 +242,8 @@
             get('/api/job_list/?page=1&page_size='+pageSize,fetchDatacallback);
             var template = $('.template').html();
 
-            socialUrl = '/api/settings/';
-            get(socialUrl,loadSocialIcon);
+<!--            socialUrl = '/api/settings/';-->
+<!--            get(socialUrl,loadSocialIcon);-->
 
             jobtype_url = '/job_type';
             get(jobtype_url, loadJobtype);
@@ -303,13 +303,13 @@
             });
 
 
-        function loadSocialIcon(data) {
-            data = data[0]
-            console.log(data)
-            $('.facebook-url').attr('href', data.facebook_url);
-            $('.linkedin-url').attr('href', data.linkedin_url);
-            $('.twitter-url').attr('href', data.twitter_url);
-                                  }
+<!--        function loadSocialIcon(data) {-->
+<!--            data = data[0]-->
+<!--            console.log(data)-->
+<!--            $('.facebook-url').attr('href', data.facebook_url);-->
+<!--            $('.linkedin-url').attr('href', data.linkedin_url);-->
+<!--            $('.twitter-url').attr('href', data.twitter_url);-->
+<!--                                  }-->
 
 
 
