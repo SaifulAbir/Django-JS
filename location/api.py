@@ -57,7 +57,6 @@ class DistrictPopulate(generics.ListAPIView):
         """
         queryset = District.objects.all()
         division = self.kwargs['division']
-        print(division)
         if division is not None:
             queryset = queryset.filter(division=division)
             print(queryset)
