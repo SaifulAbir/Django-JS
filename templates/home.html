@@ -35,7 +35,7 @@
             <div class="col">
                 <div class="section-header">
                     <h2>Explore The Right Job</h2>
-                    <p>Some key info for find job easily</p>
+                    <p>Go for the top ones</p>
                 </div>
             </div>
         </div>
@@ -257,6 +257,8 @@
         cat_url='/api/popular_categories/';
         skills_url='/api/top_skills/';
         careerUrl = '/api/career_advise_show/';
+        socialUrl = '/api/settings/';
+        testimonialrUrl = '/api/testimonial_show/';
         recentJobsUrl = '/api/recent_jobs/';
         popularJobsUrl = '/api/popular_jobs/';
         get(cat_url,loadCategory);
@@ -265,6 +267,8 @@
         get(careerUrl,loadAdvice);
         get(skills_url,loadSkills);
         get(recentJobsUrl,loadJobs);
+        get(socialUrl,loadSocialUrl);
+        get(testimonialrUrl,loadTestimonial);
         get(popularJobsUrl,loadPopularJobs);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
     });
@@ -288,24 +292,7 @@
             else {
                 window.location.href = "/professional/sign-in/";
             }
-    <script>
-        $(document).ready(function() {
-            TokenAuthenticate();
-            initAjaxForms();
-            statUrl = '/api/vital_stats/'
-            key_url='/api/trending_keyword_show/';
-            cat_url='/api/popular_categories/';
-            skills_url='/api/top_skills/';
-            careerUrl = '/api/career_advise_show/';
-            socialUrl = '/api/settings/';
-            testimonialrUrl = '/api/testimonial_show/';
-            get(testimonialrUrl,loadTestimonial);
-            get(cat_url,loadCategory);
-            get(statUrl,loadStats)
-            get(key_url,loadKey);
-            get(careerUrl,loadAdvice);
-            get(skills_url,loadSkills);
-            get(socialUrl,loadSocialUrl);
+
         });
 
     }
