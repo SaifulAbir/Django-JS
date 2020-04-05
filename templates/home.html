@@ -67,23 +67,11 @@
             <div class="col-lg-4 col-md-6">
                 <div class="explore-job">
                     <div class="explore-job-header">
-                        <h5 class="title">TOP Companies</h5>
+                        <h5 class="title">Popular Jobs</h5>
                         <i data-feather="briefcase"></i>
                     </div>
                     <div class="key-info">
-                        <ul>
-                            <li><a href="job-listing.html">Digoin<span>(233)</span></a></li>
-                            <li><a href="job-listing.html">Orion Ltd.<span>(46)</span></a></li>
-                            <li><a href="job-listing.html">RealHouse<span>(156)</span></a></li>
-                            <li><a href="job-listing.html">BioPro Phrma<span>(98)</span></a></li>
-                            <li><a href="job-listing.html">Homeland<span>(584)</span></a></li>
-                            <li><a href="job-listing.html">Realouse<span>(188)</span></a></li>
-                            <li><a href="job-listing.html">Healthyete<span>(124)</span></a></li>
-                            <li><a href="job-listing.html">Theoreo<span>(15)</span></a></li>
-                            <li><a href="job-listing.html">Homeland<span>(584)</span></a></li>
-                            <li><a href="job-listing.html">Realouse<span>(188)</span></a></li>
-                            <li><a href="job-listing.html">Healthyete<span>(124)</span></a></li>
-                            <li><a href="job-listing.html">Theoreo<span>(15)</span></a></li>
+                        <ul id="popular-job-list">
                         </ul>
                     </div>
                 </div>
@@ -326,12 +314,14 @@
         skills_url='/api/top_skills/';
         careerUrl = '/api/career_advise_show/';
         recentJobsUrl = '/api/recent_jobs/';
+        popularJobsUrl = '/api/popular_jobs/';
         get(cat_url,loadCategory);
         get(statUrl,loadStats);
         get(key_url,loadKey);
         get(careerUrl,loadAdvice);
         get(skills_url,loadSkills);
         get(recentJobsUrl,loadJobs);
+        get(popularJobsUrl,loadPopularJobs);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
     });
 
@@ -343,12 +333,12 @@
             var job = $(this).attr('href');
             if(isLoggedIn() && $(this).hasClass('active')){
                 var data = {'user_id':user, 'job_id':job};
-                favouriteUrl = '';
+                favouriteUrl = url;
                 post(favouriteUrl, JSON.stringify(data), loadFavouriteJob);
             }else if(isLoggedIn()){
 
                 var data = {'user_id':user, 'job_id':job};
-                favouriteUrl = '';
+                favouriteUrl = url;
                 post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
             }
             else {
@@ -399,6 +389,12 @@
     function loadCategory(data) {
         for(index=0;index<data.length;index++){
             $('#category-list').append('<li><a href="#">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
+        }
+    }
+
+    function loadPopularJobs(data) {
+        for(index=0;index<data.length;index++){
+            $('#popular-job-list').append('<li><a href="#">'+ data[index].title +'<span>('+ data[index].favourite_count +')</span></a></li>')
         }
     }
 

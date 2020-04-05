@@ -89,3 +89,10 @@ class TopSkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Industry
         fields= ['name', 'skills_count']
+
+class PopularJobSerializer(serializers.ModelSerializer):
+    favourite_count = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Job
+        fields= ['title','favourite_count']

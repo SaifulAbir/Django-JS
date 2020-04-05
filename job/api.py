@@ -207,6 +207,11 @@ class TopSkills(generics.ListCreateAPIView):
     ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
 
+class PopularJobs(generics.ListCreateAPIView):
+    queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
+    ).order_by('-favourite_count')[:16]
+    serializer_class = PopularJobSerializer
+
 @api_view(["GET"])
 def recent_jobs(request):
     queryset = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')[:6]
