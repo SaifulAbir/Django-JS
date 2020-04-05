@@ -246,12 +246,25 @@ def vital_stats(self):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-class SimilarJobs(generics.ListAPIView):
-    serializer_class = JobSerializer
+def similar_jobs(request,industry):
 
-    def get_queryset(self):
-        queryset = Job.objects.all()
-        industry = self.kwargs['industry']
-        print(industry)
-        queryset = queryset.filter(industry=industry)
-        return queryset
+    queryset = Job.objects.filter(industry=industry).order_by('-created_date')[:5]
+    data = []
+    for job in queryset:
+        try:
+            favourite_job = FavouriteJob.objects.get(job=job)
+        except FavouriteJob.DoesNotExist:
+            favourite_job = None
+        if favourite_job is not None:
+            job.status = 'Yes'
+        else:
+            job.status = 'No'
+        if job.company_name:
+            job.profile_picture = str(job.company_name.profile_picture)
+        else:
+            job.profile_picture = None
+        data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
+                     'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
+                     'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
+    return JsonResponse(list(data), safe=False)
+

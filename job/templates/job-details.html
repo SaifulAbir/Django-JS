@@ -331,7 +331,10 @@
             var deadline= data.application_deadline
             var created_date = data.created_date
             data.created_date = created_date.split("-").reverse().join("-")
-            data.application_deadline = deadline.split("-").reverse().join("-")
+            if(data.application_deadline){
+                data.application_deadline = deadline.split("-").reverse().join("-")
+            }
+
 
             len= data.skill.length;
             for(x=0;x<len;x++){
