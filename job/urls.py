@@ -9,6 +9,7 @@ urlpatterns = [
     path('update/<str:pk>/', TemplateView.as_view(template_name='update-job.html')),
     path('company/', CompanyList.as_view()),
     path('job_list/', job_list),
+    path('job_list/', JobList.as_view()),
     path('industry/', IndustryList.as_view()),
     path('job_type/', JobTypeList.as_view()),
     path('experience/', ExperienceList.as_view()),

@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import models
 from django.db.models import Count, QuerySet
 from django.db.models.query_utils import Q
@@ -17,7 +18,6 @@ from rest_framework.utils import json
 from rest_framework.views import APIView
 
 from rest_framework.pagination import PageNumberPagination
-from api.pagination import PaginationHandlerMixin
 
 from pro.models import Professional
 from resources.strings_job import *
@@ -27,7 +27,8 @@ from .models import Company, Job, Industry, JobType, Experience, Qualification, 
     Skill
 from .serializers import *
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics, pagination
+
 
 class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
@@ -37,7 +38,6 @@ class StandardResultsSetPagination(PageNumberPagination):
     page_size = 2
     page_size_query_param = 'page_size'
     max_page_size = 1000
-
 
 class JobList(generics.ListAPIView):
 
@@ -54,7 +54,7 @@ class JobObject(APIView):
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
         for skill in job.job_skills.all():
-        #     if skills.index(skill) == skills_len:
+            #     if skills.index(skill) == skills_len:
             data['skill'].append(skill.name)
         #     else:
         #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
@@ -71,49 +71,45 @@ class JobTypeList(generics.ListCreateAPIView):
     serializer_class = JobTypeSerializer
 
 @api_view(["GET"])
-def job_list(request, user_id):
-
+def job_list(request):
     try:
+        job_list = Job.objects.all()
+
+        query = request.GET.get('q')
+
+        if query:
+             job_list = job_list.filter(
+                 Q(title__icontains=query)
+             ).distinct().order_by('-created_date')
+
+        page = request.GET.get('page', 1)
+        page_size = request.GET.get('page_size', 2)
+
+        default_number_of_row = 2
+        paginator = Paginator(job_list, page_size)
+
         try:
-            job_list = Job.objects.all().order_by('-id')
+            job_list = paginator.page(page)
+        except PageNotAnInteger:
+            job_list = paginator.page(1)
+        except EmptyPage:
+            job_list = paginator.page(1)
 
-            query = request.GET.get('q')
+        number_of_row_total = paginator.count
+        number_of_pages = paginator.num_pages
+        check_next_available_or_not = paginator.page(page).has_next()
+        job_list = JobSerializer(job_list, many=True)
 
-            if query:
-                job_list = job_list.filter(
-                    Q(title__icontains=query)
-                ).distinct().order_by('-id')
+    except Job.DoesNotExist:
+         job_list = []
 
-            page = request.GET.get('page', 1)
-            if not page:
-                page = 1
-
-            default_number_of_row = pagination.PageNumberPagination.page_size
-            paginator = Paginator(enrolled_exam_list, default_number_of_row)
-
-            try:
-                enrolled_exam_list = paginator.page(page)
-            except PageNotAnInteger:
-                enrolled_exam_list = paginator.page(1)
-            except EmptyPage:
-                enrolled_exam_list = paginator.page(1)
-
-            number_of_row_total = paginator.count
-            number_of_pages = paginator.num_pages
-            check_next_available_or_not = paginator.page(page).has_next()
-
-            enrolled_exam_list = EnrolleedExamSerializer(enrolled_exam_list, many=True)
-        except Exam.DoesNotExist:
-            enrolled_exam_list = []
-    except Registration.DoesNotExist:
-        enrolled_exam_list = []
 
     data = {
         'status': 'success',
-        'next_pages': check_next_available_or_not,
+        'next_pages': 'check_next_available_or_not',
         'code': HTTP_200_OK,
         "data": {
-            "enrolled_exam": enrolled_exam_list.data,
+            "job_list": job_list.data,
         }
     }
     return Response(data, HTTP_200_OK)
@@ -219,7 +215,7 @@ class PopularCategories(generics.ListCreateAPIView):
 
 class TopSkills(generics.ListCreateAPIView):
     queryset = Skill.objects.all().annotate(skills_count=Count('skill_set')
-    ).order_by('-skills_count')[:16]
+                                            ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
 
 
