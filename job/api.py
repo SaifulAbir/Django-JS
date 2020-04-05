@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Count, QuerySet
+from django.db.models.query_utils import Q
 from django.http import Http404
 from datetime import date
 
@@ -14,6 +15,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
+
+from rest_framework.pagination import PageNumberPagination
+from api.pagination import PaginationHandlerMixin
 
 from pro.models import Professional
 from resources.strings_job import *
@@ -65,6 +69,54 @@ class IndustryList(generics.ListCreateAPIView):
 class JobTypeList(generics.ListCreateAPIView):
     queryset = JobType.objects.all()
     serializer_class = JobTypeSerializer
+
+@api_view(["GET"])
+def job_list(request, user_id):
+
+    try:
+        try:
+            job_list = Job.objects.all().order_by('-id')
+
+            query = request.GET.get('q')
+
+            if query:
+                job_list = job_list.filter(
+                    Q(title__icontains=query)
+                ).distinct().order_by('-id')
+
+            page = request.GET.get('page', 1)
+            if not page:
+                page = 1
+
+            default_number_of_row = pagination.PageNumberPagination.page_size
+            paginator = Paginator(enrolled_exam_list, default_number_of_row)
+
+            try:
+                enrolled_exam_list = paginator.page(page)
+            except PageNotAnInteger:
+                enrolled_exam_list = paginator.page(1)
+            except EmptyPage:
+                enrolled_exam_list = paginator.page(1)
+
+            number_of_row_total = paginator.count
+            number_of_pages = paginator.num_pages
+            check_next_available_or_not = paginator.page(page).has_next()
+
+            enrolled_exam_list = EnrolleedExamSerializer(enrolled_exam_list, many=True)
+        except Exam.DoesNotExist:
+            enrolled_exam_list = []
+    except Registration.DoesNotExist:
+        enrolled_exam_list = []
+
+    data = {
+        'status': 'success',
+        'next_pages': check_next_available_or_not,
+        'code': HTTP_200_OK,
+        "data": {
+            "enrolled_exam": enrolled_exam_list.data,
+        }
+    }
+    return Response(data, HTTP_200_OK)
 
 class CurrencyList(generics.ListCreateAPIView):
     queryset = Currency.objects.all()
@@ -125,21 +177,6 @@ class JobUpdateView(GenericAPIView, UpdateModelMixin):
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
-# class CompanyPopulate(generics.ListAPIView):
-#     serializer_class = CompanyPopulateSerializer
-#
-#     def get_queryset(self):
-#         """
-#         Optionally restricts the returned purchases to a given user,
-#         by filtering against a `username` query parameter in the URL.
-#         """
-#         queryset = Company.objects.all()
-#         company = self.kwargs['company']
-#         print(company)
-#         if company is not None:
-#             queryset = queryset.filter(name=company)
-#             print(queryset)
-#         return queryset
 
 class CompanyPopulate(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
