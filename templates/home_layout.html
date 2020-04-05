@@ -71,7 +71,7 @@
              <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>
             </li>
             <li class="menu-item login-popup" id="sign-in"><a href="{% url 'sign-in' %}">Login</a></li>
-            <li class="menu-item login-popup" id="register"><a href="{% url 'register' %}">Registration</a></li>
+            <li class="menu-item login-popup" id="register"><a href="{% url 'register' %}">Register</a></li>
             <li class="menu-item" id="sign-out" style="display: none; "><a href="professional/sign-out/">Logout</a></li>
           </ul>
         </div>
@@ -84,7 +84,27 @@
 
     {% endblock %}
 
+        <!-- App Download -->
+    <div class="padding-top-90 padding-bottom-90 app-download-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="app-download">
+                        <h2>Get JobSearch App</h2>
+                        <p>Searching for jobs never been that easy. Now you can find job matched your career expectation</p>
+                        <div class="app-download-button">
+                            <a href="" class="apple-app">Apple Store</a>
+                            <a href="" class="android-app">Google Play</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- App Download End -->
+
     <!-- Footer -->
+        <!-- Footer -->
     <footer class="footer-bg">
       <div class="footer-top border-bottom section-padding-top padding-bottom-40">
         <div class="container">
@@ -99,10 +119,10 @@
             <div class="col-md-6">
               <div class="footer-social">
                 <ul class="social-icons">
-                <li class="menu-item facebook-url"><a href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}" style="height:27px;" class="img-fluid" alt=""></i>  </a></li>
-                <li class="menu-item linkedin-url"><a href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;" class="img-fluid" alt=""></i>  </a></li>
-                <li class="menu-item twitter-url"><a href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}" style="height:27px;" class="img-fluid" alt=""></i>  </a></li>
-                </ul>
+              <a class="facebook-url" href=""><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i></a>
+              <a class="linkedin-url" href=""><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i></a>
+              <a class="twitter-url" href=""><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i></a>
+              </ul>
               </div>
             </div>
           </div>
@@ -130,39 +150,34 @@
                 <div class="widget-inner">
                   <ul>
                     <li><a href="{% url 'register' %}">Create Account</a></li>
-                    <li><a href="{% url 'career_advice' %}">Career Counseling</a></li>
-                    <li><a href="javascript:void(0)">My Oficiona</a></li>
+                    <li><a href="{% url 'career_advice' %}">Career Advice</a></li>
+                    <li><a href="javascript:void(0)">My Job Search</a></li>
                     <li><a href="javascript:void(0)">FAQ</a></li>
-                    <li><a href="javascript:void(0)">Video Guides</a></li>
                   </ul>
                 </div>
               </div>
             </div>
             <div class="col-lg-2 col-sm-6">
               <div class="footer-widget footer-shortcut-link">
-                <h4>Employers</h4>
                 <div class="widget-inner">
+                   <h4>Address</h4>
+
+
+
                   <ul>
-                    <li><a href="{% url 'register' %}">Create Account</a></li>
-                    <li><a href="javascript:void(0)">Products/Service</a></li>
-                    <li><a href="{% url 'post_job' %}">Post a Job</a></li>
-                    <li><a href="javascript:void(0)">FAQ</a></li>
+                      <li>House 76 (Level 4) Road 4, Block B</li>
+                      <li>Niketan Gulshan 1</li>
+                      <li>Dhaka 1212, Bangladesh</li>
+
+
                   </ul>
+
                 </div>
               </div>
             </div>
             <div class="col-lg-5 offset-lg-1 col-sm-6">
               <div class="footer-widget footer-newsletter">
-                <h4>Newsletter</h4>
-                <p>Get e-mail updates about our latest news and Special offers.</p>
-                <form action="#" class="newsletter-form form-inline">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Email address...">
-                  </div>
-                  <button class="btn button primary-bg">Submit<i class="fas fa-caret-right"></i></button>
-                  <p class="newsletter-error">0 - Please enter a value</p>
-                  <p class="newsletter-success">Thank you for subscribing!</p>
-                </form>
+
               </div>
             </div>
           </div>
@@ -175,7 +190,7 @@
               <div class="footer-bottom border-top">
                 <div class="row">
                   <div class="col-lg-6">
-                    <p class="copyright-text">Copyright <a href="{% url 'home' %}">P7</a> 2019, All right reserved</p>
+                    <p class="copyright-text">Copyright <a href="{% url 'home' %}">Job Search</a> 2020, All right reserved</p>
                   </div>
                   <div class="col-lg-6">
                     <div class="back-to-top">
@@ -217,7 +232,35 @@
     <script src="{% static 'js/jquery.validate.min.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC87gjXWLqrHuLKR0CTV5jNLdP4pEHMhmg"></script>
     <script src="{% static 'js/map.js'%}"></script>
-    
+
+       <script>
+      $(document).ready(function() {
+            TokenAuthenticate();
+            socialUrl = '/api/settings/';
+            get(socialUrl,loadSocialUrl);
+        });
+
+
+
+      function loadSocialUrl(data) {
+            console.log(data);
+            data = data[0];
+            $('.facebook-url').attr('href', data.facebook_url);
+            $('.linkedin-url').attr('href', data.linkedin_url);
+            $('.twitter-url').attr('href', data.twitter_url);
+            $('.apple-app').attr('href', data.appstore_url);
+            $('.android-app').attr('href', data.playstore_url);
+
+        }
+
+</script>
+
+
+
+
+
+
+
 {% block extra_js %}
 
 {% endblock %}
