@@ -28,6 +28,8 @@ JOB_VERBOSE_NAME = 'Job'
 JOB_VERBOSE_NAME_PLURAL = 'Jobs'
 ON_TXT = 'on'
 OFF_TXT = 'off'
+YES_TXT = 'Yes'
+NO_TXT = 'No'
 #Job Strings#
 
 #COMPANY Strings#
