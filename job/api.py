@@ -54,7 +54,6 @@ class JobObject(APIView):
             data['skill'].append(skill.name)
         #     else:
         #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
-        print(data)
         return Response(data)
 
 class IndustryList(generics.ListCreateAPIView):
@@ -199,3 +198,13 @@ def vital_stats(self):
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+class SimilarJobs(generics.ListAPIView):
+    serializer_class = JobSerializer
+
+    def get_queryset(self):
+        queryset = Job.objects.all()
+        industry = self.kwargs['industry']
+        print(industry)
+        queryset = queryset.filter(industry=industry)
+        return queryset

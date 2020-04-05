@@ -113,6 +113,7 @@
                                     <li><span>Address:</span> <span id="company_location" class="detail-color"></span></li>
                                     <li><span>Website:</span> <a id="web_address" href="#"></a></li>
                                     <li><span>Company Profile:</span></li>
+                                    <li style="display:none;"><span id="industry" name="industry"></span></li>
                                     <li id="company_profile">It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum looked up one of the more obscure Latin words, consectetur.</li>
                                 </ul>
                             </div>
@@ -322,6 +323,7 @@
 
 
 
+
     });
     function  loadJob(data){
         container = $('.job-detail');
@@ -337,11 +339,19 @@
             }
 
             json2Div(data, container);
+
+            category= $('#industry').text()
+            catUrl = '/api/similar_jobs/'+ category;
+            get(catUrl,loadSimilarJob)
         }
 
     }
     function redirectPage() {
         window.location.href = "/job-list";
+
+    }
+    function loadSimilarJob(data) {
+        console.log(data)
 
     }
 </script>
