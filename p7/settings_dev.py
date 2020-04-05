@@ -101,9 +101,9 @@ WSGI_APPLICATION = 'p7.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'p7-live',
+        'NAME': 'p7',
         'USER': 'root',
-        'PASSWORD': '123',
+        'PASSWORD': 'anik1234',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
