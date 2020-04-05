@@ -129,6 +129,14 @@
 
                                 </select>
                             </div>
+
+                            <div class="job-filter-dropdown same-pad location">
+                                <select class="selectpicker"  id="skill">
+                                    <option value="" selected>Skill</option>
+                                </select>
+                            </div>
+
+
                             <div data-id="job-type" class="job-filter job-type same-pad">
                                 <h4 class="option-title">Job Type</h4>
                                 <ul class="typelist">
@@ -266,9 +274,12 @@
             get(cat_url,loadCat);
 
 
-            salary_url = '/salary_range';
-            get(salary_url, loadSalaryRange);
+<!--            salary_url = '/salary_range';-->
+<!--            get(salary_url, loadSalaryRange);-->
 
+
+            skill_url = '/skill_list';
+            get(skill_url,loadSkill);
 
 
             function fetchDatacallback(data){
@@ -371,6 +382,20 @@
                        $('.qualificationlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
                                  }
                                           }
+
+
+
+        function loadSkill(data){
+                       len = data.length;
+                       console.log(data)
+                       for(x=0;x<len;x++){
+                        $('#skill').append('<option value="'+data[x].name+'">'+data[x].name+'</option>');
+                        }
+                        $('.selectpicker').selectpicker('refresh');
+                            }
+
+
+
 
 
 <!--        function loadSalaryRange(data){-->

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
+    Skill
 from rest_framework.validators import *
 
 
@@ -82,3 +83,7 @@ class TopSkillSerializer(serializers.ModelSerializer):
         fields= ['name', 'skills_count']
 
 
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skill
+        fields = '__all__'

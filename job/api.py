@@ -257,4 +257,6 @@ def salary_range(self):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-
+class SkillList(generics.ListCreateAPIView):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
