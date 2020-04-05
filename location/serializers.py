@@ -16,8 +16,8 @@ class DivisionSerializer(serializers.ModelSerializer):
         model = Division
         fields = ['name']
 
-# class DistrictSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = District
-#         fields = ['name']
+class DistrictSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = District
+        fields = ['name']
 

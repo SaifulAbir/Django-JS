@@ -12,7 +12,7 @@ urlpatterns = [
     path('job_list/', JobList.as_view()),
     path('industry/', IndustryList.as_view()),
     path('job_type/', JobTypeList.as_view()),
-    path('experience/', ExperienceList.as_view()),
+    path('experience/', Experience),
     path('currency/', CurrencyList.as_view()),
     path('qualification/', QualificationList.as_view()),
     path('gender/', GenderList.as_view()),
@@ -26,6 +26,7 @@ urlpatterns = [
     path('popular_categories/', PopularCategories.as_view()),
     path('top_skills/', TopSkills.as_view()),
     path('vital_stats/', vital_stats),
-
+    path('top_skills/', TopSkills.as_view()),
+    path('salary_range/', salary_range),
 
 ]

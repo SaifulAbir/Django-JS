@@ -80,3 +80,5 @@ class TopSkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Industry
         fields= ['name', 'skills_count']
+
+
