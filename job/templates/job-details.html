@@ -200,9 +200,18 @@
         var id = path[path.length-2]
         var getUrl = '/api/load_job/'+ id + '/'
         get(getUrl, loadJob);
+        socialUrl = '/api/settings/';
+        get(socialUrl,loadSocialIcon);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
 
 
+        function loadSocialIcon(data) {
+            data = data[0]
+            console.log(data)
+            $('.facebook-url').attr('href', data.facebook_url);
+            $('.linkedin-url').attr('href', data.linkedin_url);
+            $('.twitter-url').attr('href', data.twitter_url);
+        }
 
 
     });

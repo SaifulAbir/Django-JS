@@ -8,10 +8,11 @@ urlpatterns = [
     path('jobs/', TemplateView.as_view(template_name='job-list.html'), name='jobs'),
     path('update/<str:pk>/', TemplateView.as_view(template_name='update-job.html')),
     path('company/', CompanyList.as_view()),
+    path('job_list/', job_list),
     path('job_list/', JobList.as_view()),
     path('industry/', IndustryList.as_view()),
     path('job_type/', JobTypeList.as_view()),
-    path('experience/', ExperienceList.as_view()),
+    path('experience/', Experience),
     path('currency/', CurrencyList.as_view()),
     path('qualification/', QualificationList.as_view()),
     path('gender/', GenderList.as_view()),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('vital_stats/', vital_stats),
     path('similar_jobs/<str:industry>/', similar_jobs),
     path('popular_jobs/', PopularJobs.as_view()),
-
+    path('top_skills/', TopSkills.as_view()),
+    path('salary_range/', salary_range),
 
 ]

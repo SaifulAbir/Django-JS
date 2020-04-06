@@ -16,3 +16,5 @@ django-mathfilters==0.4.0
 xlrd==1.2.0
 mysqlclient==1.4.6
 django-map-widgets
+
+

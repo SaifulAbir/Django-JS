@@ -118,68 +118,41 @@
                                 </ul>
                             </div>
                             <div class="job-filter-dropdown same-pad category">
-                                <select class="selectpicker">
+                                <select class="selectpicker" id="category">
                                     <option value="" selected>Category</option>
-                                    <option value="california">Accounting / Finance</option>
-                                    <option value="california">Education</option>
-                                    <option value="california">Design &amp; Creative</option>
-                                    <option value="california">Health Care</option>
-                                    <option value="california">Engineer &amp; Architects</option>
-                                    <option value="california">Marketing &amp; Sales</option>
-                                    <option value="california">Garments / Textile</option>
-                                    <option value="california">Customer Support</option>
-                                    <option value="california">Digital Media</option>
-                                    <option value="california">Telecommunication</option>
+
                                 </select>
                             </div>
                             <div class="job-filter-dropdown same-pad location">
-                                <select class="selectpicker">
+                                <select class="selectpicker"  id="location">
                                     <option value="" selected>Location</option>
-                                    <option value="california">Chicago</option>
-                                    <option value="california">New York City</option>
-                                    <option value="california">San Francisco</option>
-                                    <option value="california">Washington</option>
-                                    <option value="california">Boston</option>
-                                    <option value="california">Los Angeles</option>
-                                    <option value="california">Seattle</option>
-                                    <option value="california">Las Vegas</option>
-                                    <option value="california">San Diego</option>
+
                                 </select>
                             </div>
                             <div data-id="job-type" class="job-filter job-type same-pad">
                                 <h4 class="option-title">Job Type</h4>
-                                <ul>
-                                    <li class="full-time"><i data-feather="clock"></i><a href="#" data-attr="Full Time">Full Time</a></li>
-                                    <li class="part-time"><i data-feather="clock"></i><a href="#" data-attr="Part Time">Part Time</a></li>
-                                    <li class="freelance"><i data-feather="clock"></i><a href="#" data-attr="Freelance">Freelance</a></li>
-                                    <li class="temporary"><i data-feather="clock"></i><a href="#" data-attr="Temporary">Temporary</a></li>
+                                <ul class="typelist">
+
                                 </ul>
                             </div>
                             <div data-id="experience" class="job-filter experience same-pad">
                                 <h4 class="option-title">Experience</h4>
-                                <ul>
-                                    <li><a href="#" data-attr="Fresh">Fresh</a></li>
-                                    <li><a href="#" data-attr="Less than 1 year">Less than 1 year</a></li>
-                                    <li><a href="#" data-attr="2 Year">2 Year</a></li>
-                                    <li><a href="#" data-attr="3 Year">3 Year</a></li>
-                                    <li><a href="#" data-attr="4 Year">4 Year</a></li>
-                                    <li><a href="#" data-attr="5 Year">5 Year</a></li>
-                                    <li><a href="#" data-attr="Avobe 5 Years">Avobe 5 Years</a></li>
+                                <ul class="experiencelist">
+
+
                                 </ul>
                             </div>
                             <div class="job-filter same-pad">
                                 <h4 class="option-title">Salary Range</h4>
                                 <div class="price-range-slider">
-                                    <div class="nstSlider" data-range_min="0" data-range_max="10000"
-                                         data-cur_min="0"    data-cur_max="6130">
-                                        <div class="bar"></div>
-                                        <div class="leftGrip"></div>
-                                        <div class="rightGrip"></div>
-                                        <div class="grip-label">
-                                            <span class="leftLabel"></span>
-                                            <span class="rightLabel"></span>
-                                        </div>
-                                    </div>
+                <div class="nstSlider" id="loadval" data-range_min="0"  data-range_max="100000" data-cur_min="" data-cur_max="">
+                                  <div class="bar"></div>
+                                  <div class="leftGrip"></div>
+                                  <div class="rightGrip"></div>
+                                  <div class="grip-label">
+
+                                  </div>
+                                  </div>
                                 </div>
                             </div>
                             <div data-id="post" class="job-filter post same-pad">
@@ -194,17 +167,14 @@
                             </div>
                             <div data-id="gender" class="job-filter same-pad gender">
                                 <h4 class="option-title">Gender</h4>
-                                <ul>
-                                    <li><a href="#" data-attr="Male">Male</a></li>
-                                    <li><a href="#" data-attr="Female">Female</a></li>
+                                <ul class="genderlist">
+
                                 </ul>
                             </div>
                             <div data-id="qualification" class="job-filter qualification same-pad">
                                 <h4 class="option-title">Qualification</h4>
-                                <ul>
-                                    <li><a href="#" data-attr="Matriculation">Matriculation</a></li>
-                                    <li><a href="#" data-attr="Intermidiate">Intermidiate</a></li>
-                                    <li><a href="#" data-attr="Gradute">Gradute</a></li>
+                                <ul class="qualificationlist">
+
                                 </ul>
                             </div>
                         </div>
@@ -254,7 +224,7 @@
                 </div>
                 <div class="more">
                     <div class="buttons">
-                        <a href="/update/" class="button __job_id dynamic-link">Edit</a>
+                        <a href="/update/" class="button __job_id dynamic-link">Apply</a>
                         <a href="#" class="favourite"><i data-feather="heart"></i></a>
                     </div>
                     <p class="deadline">Deadline: <span class="__application_deadline"></span></p>
@@ -271,6 +241,35 @@
             var pageSize = 2;
             get('/api/job_list/?page=1&page_size='+pageSize,fetchDatacallback);
             var template = $('.template').html();
+
+            socialUrl = '/api/settings/';
+            get(socialUrl,loadSocialIcon);
+
+            jobtype_url = '/job_type';
+            get(jobtype_url, loadJobtype);
+
+            experi_url = '/experience';
+            get(experi_url,loadExperience);
+
+            gender_url = '/gender';
+            get(gender_url,loadGender);
+
+            quali_url = '/qualification';
+            get(quali_url, loadQualification);
+
+
+            location_url = '/api/location/';
+            get(location_url,loadLoc);
+
+
+            cat_url='/api/popular_categories/';
+            get(cat_url,loadCat);
+
+
+            salary_url = '/salary_range';
+            get(salary_url, loadSalaryRange);
+
+
 
             function fetchDatacallback(data){
                 var totalNumberOfData = data.count;
@@ -303,20 +302,110 @@
 
             });
 
-            function fetchPaginationDatacallback(data){
-                var currentIndex=$('.page-numbers.current').data('value');
-                var totalNumberOfData = data.count;
-                if (data.previous == null && totalNumberOfData > 0){
-                    var numberOfDataInSinglePage = data.results.length;
-                    var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
-                    $('.pagination-summary').show().html(paginationSummary);
-                }
-                var list = makeListHtml(data.results, template);
-                $('.job-result').html(list);
-                var url = '/job_list';
-                makePagination(totalNumberOfData, pageSize, url, currentIndex);
 
-                $('.page-numbers[data-value=' + currentIndex + ']').addClass("current");
+        function loadSocialIcon(data) {
+            data = data[0]
+            console.log(data)
+            $('.facebook-url').attr('href', data.facebook_url);
+            $('.linkedin-url').attr('href', data.linkedin_url);
+            $('.twitter-url').attr('href', data.twitter_url);
+                                  }
+
+
+
+
+        function loadLoc(data){
+
+                       len = data.length;
+                       for(x=0;x<len;x++){
+                        $('#location').append('<option value="'+data[x].name+'">'+data[x].name+'</option>');
+                        }
+                        $('.selectpicker').selectpicker('refresh');
+                            }
+
+         function loadCat(data){
+
+                        len = data.length;
+                        for(x=0;x<len;x++){
+                        $('#category').append('<option value="'+data[x].name+'">'+data[x].name+'</option>');
+                        }
+                        $('.selectpicker').selectpicker('refresh');
+
+                            }
+
+
+        function loadJobtype(data) {
+                            len = data.length;
+                            {#console.log(data)#}
+                            for(i=0;i<len;i++){
+                                var jobtype_html = '<li class="full-time">'+
+                                '<i data-feather="clock">'+
+                                '</i>'+
+                                '<a href="#">'+data[i].name+'</a>'+
+                                '</li>';
+                            $('.typelist').append(jobtype_html);
+                            feather.replace();
+                            }}
+
+
+        function loadExperience(data){
+                          for(x=1;x<=6;x++){
+                          $('.experiencelist').append('<li><a href="#"</a>'+data[x]+'</li>');
+                             }
+                                           }
+
+
+        function loadGender(data){
+                       len = data.length;
+                       {#console.log(data)#}
+                       for(x=0;x<len;x++){
+                       $('.genderlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
+                                 }
+                                          }
+
+
+        function loadQualification(data){
+                       len = data.length;
+                       {#console.log(data)#}
+                       for(x=0;x<len;x++){
+                       $('.qualificationlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
+                                 }
+                                          }
+
+
+        function loadSalaryRange(data){
+                       len = data.length;
+                       console.log(data)
+                       var v_min =  data.sr_min;
+                       var v_max =  data.sr_max;
+                       {#console.log(v_min)#}
+                       {#console.log(v_max)#}
+                       $('.nstSlider').attr('data-cur_min', v_min);
+                       $('.nstSlider').attr('data-cur_max', v_max);
+
+
+                       $('.grip-label').append('<span class="leftLabel">'+v_min+'</span>'+
+                                  '<span class="rightLabel">'+v_max+'</span>');
+
+
+                              }
+
+
+
+        function fetchPaginationDatacallback(data){
+            var currentIndex=$('.page-numbers.current').data('value');
+            var totalNumberOfData = data.count;
+            if (data.previous == null && totalNumberOfData > 0){
+                var numberOfDataInSinglePage = data.results.length;
+                var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
+                $('.pagination-summary').show().html(paginationSummary);
+            }
+            var list = makeListHtml(data.results, template);
+            $('.job-result').html(list);
+            var url = '/job_list';
+            makePagination(totalNumberOfData, pageSize, url, currentIndex);
+
+            $('.page-numbers[data-value=' + currentIndex + ']').addClass("current");
 
             }
 
