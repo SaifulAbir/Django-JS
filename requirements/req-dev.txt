@@ -17,3 +17,4 @@ xlrd==1.2.0
 mysqlclient==1.4.6
 django-map-widgets
 
+
