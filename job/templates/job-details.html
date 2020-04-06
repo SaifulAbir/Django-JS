@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <a class="save" href="#"><i data-feather="heart"></i>Save Job</a>
+                            <a class="save favourite" href="#"><i data-feather="heart"></i>Save Job</a>
                             <a class="apply" href="#" data-toggle="#" data-target="#apply-popup-id">Apply Online</a>
                         </div>
                     </div>
@@ -202,15 +202,15 @@
         get(getUrl, loadJob);
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialIcon);
+    });
 
-
-        function loadSocialIcon(data) {
-            data = data[0]
-            console.log(data)
-            $('.facebook-url').attr('href', data.facebook_url);
-            $('.linkedin-url').attr('href', data.linkedin_url);
-            $('.twitter-url').attr('href', data.twitter_url);
-        }
+    function loadSocialIcon(data) {
+        data = data[0]
+        console.log(data)
+        $('.facebook-url').attr('href', data.facebook_url);
+        $('.linkedin-url').attr('href', data.linkedin_url);
+        $('.twitter-url').attr('href', data.twitter_url);
+    }
 
 
     function  loadJob(data){
@@ -279,6 +279,5 @@
             feather.replace();
         }
     }
-      });
 </script>
 {% endblock %}
