@@ -1,5 +1,9 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import models
 from django.db.models import Count, QuerySet, Value, CharField
+from django.db.models import Count, QuerySet
+from django.db.models.query_utils import Q
+from django.db.models import Count, QuerySet, Min, Max
 from django.http import Http404
 from datetime import date
 
@@ -15,6 +19,8 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
+from rest_framework.pagination import PageNumberPagination
+
 from pro.models import Professional
 from resources.strings_job import *
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
@@ -24,7 +30,8 @@ from .models import Company, Job, Industry, JobType, Experience, Qualification, 
     Skill
 from .serializers import *
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics, pagination
+
 
 class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
@@ -34,7 +41,6 @@ class StandardResultsSetPagination(PageNumberPagination):
     page_size = 2
     page_size_query_param = 'page_size'
     max_page_size = 1000
-
 
 class JobList(generics.ListAPIView):
 
@@ -51,7 +57,7 @@ class JobObject(APIView):
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
         for skill in job.job_skills.all():
-        #     if skills.index(skill) == skills_len:
+            #     if skills.index(skill) == skills_len:
             data['skill'].append(skill.name)
         #     else:
         #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
@@ -66,13 +72,68 @@ class JobTypeList(generics.ListCreateAPIView):
     queryset = JobType.objects.all()
     serializer_class = JobTypeSerializer
 
+@api_view(["GET"])
+def job_list(request):
+    try:
+        job_list = Job.objects.all()
+
+        query = request.GET.get('q')
+
+        if query:
+             job_list = job_list.filter(
+                 Q(title__icontains=query)
+             ).distinct().order_by('-created_date')
+
+        page = request.GET.get('page', 1)
+        page_size = request.GET.get('page_size', 2)
+
+        default_number_of_row = 2
+        paginator = Paginator(job_list, page_size)
+
+        try:
+            job_list = paginator.page(page)
+        except PageNotAnInteger:
+            job_list = paginator.page(1)
+        except EmptyPage:
+            job_list = paginator.page(1)
+
+        number_of_row_total = paginator.count
+        number_of_pages = paginator.num_pages
+        check_next_available_or_not = paginator.page(page).has_next()
+        job_list = JobSerializer(job_list, many=True)
+
+    except Job.DoesNotExist:
+         job_list = []
+
+
+    data = {
+        'status': 'success',
+        'number_of_row_total': number_of_row_total,
+        'number_of_pages': number_of_pages,
+        'next_pages': check_next_available_or_not,
+        'code': HTTP_200_OK,
+        "data": {
+            "job_list": job_list.data,
+        }
+    }
+    return Response(data, HTTP_200_OK)
+
 class CurrencyList(generics.ListCreateAPIView):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
 
-class ExperienceList(generics.ListCreateAPIView):
-    queryset = Experience.objects.all()
-    serializer_class = ExperienceSerializer
+
+def Experience(self):
+    data = {
+        '1': "Fresh",
+        '2': "Less than 1 year",
+        '3': "2 Year",
+        '4': "3 Year",
+        '5':  "4 Year",
+        '6': "Above 5 Years",
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 class QualificationList(generics.ListCreateAPIView):
     queryset = Qualification.objects.all()
@@ -159,21 +220,6 @@ class JobUpdateView(GenericAPIView, UpdateModelMixin):
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
-# class CompanyPopulate(generics.ListAPIView):
-#     serializer_class = CompanyPopulateSerializer
-#
-#     def get_queryset(self):
-#         """
-#         Optionally restricts the returned purchases to a given user,
-#         by filtering against a `username` query parameter in the URL.
-#         """
-#         queryset = Company.objects.all()
-#         company = self.kwargs['company']
-#         print(company)
-#         if company is not None:
-#             queryset = queryset.filter(name=company)
-#             print(queryset)
-#         return queryset
 
 class CompanyPopulate(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
@@ -203,7 +249,7 @@ class PopularCategories(generics.ListCreateAPIView):
 
 class TopSkills(generics.ListCreateAPIView):
     queryset = Skill.objects.all().annotate(skills_count=Count('skill_set')
-    ).order_by('-skills_count')[:16]
+                                            ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
 
 class PopularJobs(generics.ListCreateAPIView):
@@ -267,4 +313,15 @@ def similar_jobs(request,industry):
                      'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
                      'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
     return JsonResponse(list(data), safe=False)
+
+def salary_range(self):
+    range_min = Job.objects.all().aggregate(Min('salary_min'))
+    range_max = Job.objects.all().aggregate(Max('salary_max'))
+    min_v = range_min['salary_min__min']
+    max_v = range_max['salary_max__max']
+    data ={
+        'sr_min': str(min_v),
+        'sr_max': str(max_v),
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')
 

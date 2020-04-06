@@ -8,4 +8,5 @@ urlpatterns = [
     # path('company_update/<int:pk>/', CompanyUpdateView.as_view()),
     path('district_populate/<str:division>/', DistrictPopulate.as_view()),
     # path('district', DistrictList.as_view()),
+    path('location/', DistrictShow.as_view()),
 ]

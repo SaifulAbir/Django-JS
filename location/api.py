@@ -7,7 +7,7 @@ from rest_framework.utils import json
 from job.models import Company
 from .models import Division
 from .models import District
-from .serializers import DivisionSerializer, DistrictPopulateSerializer
+from .serializers import DivisionSerializer, DistrictPopulateSerializer, DistrictSerializer
 # from .serializers import DistrictSerializer
 from rest_framework.response import Response
 from rest_framework import generics
@@ -61,3 +61,7 @@ class DistrictPopulate(generics.ListAPIView):
             queryset = queryset.filter(division=division)
             print(queryset)
         return queryset
+
+class DistrictShow(generics.ListAPIView):
+    queryset = District.objects.all()
+    serializer_class = DistrictSerializer
