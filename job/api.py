@@ -289,7 +289,6 @@ def recent_jobs(request):
     return JsonResponse(list(data), safe=False)
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
 def vital_stats(self):
     companies = Company.objects.all().count()
     professional = Professional.objects.all().count()
