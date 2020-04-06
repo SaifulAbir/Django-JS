@@ -10,8 +10,8 @@
                 <div class="job-listing-details">
                     <div class="job-title-and-info">
                         <div class="title">
-                            <div class="thumb">
-                                <img src="{% static 'images/job/company-logo-1.png' %}" class="img-fluid" alt="">
+                            <div class="thumb" id="img">
+<!--                                <img src="{% static 'images/job/company-logo-1.png' %}" class="img-fluid" alt="">-->
                             </div>
                             <div class="title-body">
                                 <h4 id="title"></h4>
@@ -341,13 +341,14 @@
 
     });
     function  loadJob(data){
+        console.log(data);
         container = $('.job-detail');
         if(data){
             var deadline= data.application_deadline
             var created_date = data.created_date
             data.created_date = created_date.split("-").reverse().join("-")
             data.application_deadline = deadline.split("-").reverse().join("-")
-
+            $('#img').append('<img src=" '+data.profile_picture+'" class="img-fluid" alt="">')
             len= data.skill.length;
             for(x=0;x<len;x++){
                 $('#skills').append('<p>'+ data.skill[x] +'</p>')
