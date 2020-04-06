@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="jobs">
             <div class="col" id="job-list">
                 <div class="apply-popup">
                     <div class="modal fade" id="apply-popup-id" tabindex="-1" role="dialog" aria-hidden="true">
@@ -254,8 +254,14 @@
         get(testimonialrUrl,loadTestimonial);
         get(popularJobsUrl,loadPopularJobs);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
+        get('/log/', loadUser);
     });
 
+    function loadUser(data) {
+        // if(data == 401){
+        //     window.location.href = "/professional/sign-in/";
+        // }
+    }
 
 
 
@@ -328,7 +334,7 @@
             var job_html= '<div class="job-list">'+
                 '<div class="thumb">'+
                 '<a href="#">'+
-                '<img src="'+'/media/'+data[index].profile_picture+'" class="img-fluid" alt="">'+
+                '<img src="'+data[index].profile_picture+'" class="img-fluid" alt="">'+
                 '</a>'+
                 '</div>'+
                 '<div class="body">'+
@@ -351,7 +357,7 @@
                 '</div>';
             $('#job-list').append(job_html);
             var el = $("#job-list").find("[href='"+ data[index].job_id +"']");
-            if(data[index].status == 'Yes'){
+            if(data[index].status == 'Yes' && isLoggedIn()){
                 el.addClass('active');
             }
             feather.replace();

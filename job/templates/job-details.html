@@ -2,7 +2,9 @@
 {% load static %}
 {% block body_block %}
 {% autoescape off %}
-<!-- Candidates Details -->
+<div id="jobs">
+
+    <!-- Candidates Details -->
 <div class="alice-bg padding-top-60 section-padding-bottom job-detail">
     <div class="container">
         <div class="row">
@@ -23,7 +25,7 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <a class="save" href="#"><i data-feather="heart"></i>Save Job</a>
+                            <a class="save favourite" href="#"><i data-feather="heart"></i>Favourite</a>
                             <a class="apply" href="#" data-toggle="#" data-target="#apply-popup-id">Apply Online</a>
                         </div>
                     </div>
@@ -186,6 +188,7 @@
     </div>
 </div>
 <!-- Jobs End -->
+</div>
 
 <!-- Call to Action -->
 
@@ -202,9 +205,11 @@
         get(getUrl, loadJob);
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialIcon);
+        favouriteJobAddRemove('jobs', '/api/favourite_job_add/');
 
+    });
 
-        function loadSocialIcon(data) {
+    function loadSocialIcon(data) {
             data = data[0]
             console.log(data)
             $('.facebook-url').attr('href', data.facebook_url);
@@ -212,10 +217,10 @@
             $('.twitter-url').attr('href', data.twitter_url);
         }
 
-
     function  loadJob(data){
         container = $('.job-detail');
         if(data){
+            $('.save').attr("href", data.job_id);
             var deadline= data.application_deadline
             var created_date = data.created_date
             data.created_date = created_date.split("-").reverse().join("-")
@@ -234,7 +239,7 @@
             category= $('#industry').text()
             catUrl = '/api/similar_jobs/'+ category;
             get(catUrl,loadSimilarJob)
-            favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
+
         }
 
     }
@@ -250,7 +255,7 @@
             var job_html= '<div class="job-list">'+
                 '<div class="thumb">'+
                 '<a href="#">'+
-                '<img src="'+'/media/'+data[index].profile_picture+'" class="img-fluid" alt="">'+
+                '<img src="'+data[index].profile_picture+'" class="img-fluid" alt="">'+
                 '</a>'+
                 '</div>'+
                 '<div class="body">'+
@@ -272,13 +277,12 @@
                 '</div>'+
                 '</div>';
             $('#job-list').append(job_html);
-            var el = $("#job-list").find("[href='"+ data[index].job_id +"']");
-            if(data[index].status == 'Yes'){
+            var el = $("#jobs").find("[href='"+ data[index].job_id +"']");
+            if(data[index].status == 'Yes' && isLoggedIn()){
                 el.addClass('active');
             }
             feather.replace();
         }
     }
-      });
 </script>
 {% endblock %}

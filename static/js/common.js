@@ -353,7 +353,7 @@ function isLoggedIn() {
 function loadFavouriteJob(data) {
         if(data.responseJSON.code == 200){
             console.log(data.responseJSON)
-            var el = $("#job-list").find("[href='"+ data.responseJSON.result.user.job +"']");
+            var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
             if(el.hasClass('active') && data.responseJSON.result.user.status == 'Removed'){
                 el.removeClass('active');
                 showError('Oopss!', 'Job removed.')

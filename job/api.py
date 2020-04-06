@@ -49,9 +49,17 @@ class JobList(generics.ListAPIView):
     pagination_class = StandardResultsSetPagination
 
 class JobObject(APIView):
-
+    permission_classes = ([IsAuthenticated])
     def get(self, request, pk):
         job = get_object_or_404(Job, pk=pk)
+        try:
+            favourite_job = FavouriteJob.objects.get(job=job, user=self.request.user)
+        except FavouriteJob.DoesNotExist:
+            favourite_job = None
+        if favourite_job is not None:
+            job.status = YES_TXT
+        else:
+            job.status = NO_TXT
         data = JobSerializer(job).data
         data['skill']=[]
         # skills = Job_skill_detail.objects.filter(job=job)
@@ -267,7 +275,7 @@ def recent_jobs(request):
     data = []
     for job in queryset:
         try:
-            favourite_job = FavouriteJob.objects.get(job=job)
+            favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
         except FavouriteJob.DoesNotExist:
             favourite_job = None
         if favourite_job is not None:
@@ -275,14 +283,16 @@ def recent_jobs(request):
         else:
             job.status = NO_TXT
         if job.company_name:
-            job.profile_picture = str(job.company_name.profile_picture)
+            if job.company_name.profile_picture:
+                job.profile_picture = '/media/' + str(job.company_name.profile_picture)
+            else:
+                job.profile_picture = '/static/images/job/company-logo-2.png'
         else:
-            job.profile_picture = None
+            job.profile_picture = '/static/images/job/company-logo-2.png'
         data.append({'job_id':job.job_id, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(job.company_name)})
     return JsonResponse(list(data), safe=False)
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
 def vital_stats(self):
     companies = Company.objects.all().count()
     professional = Professional.objects.all().count()
@@ -295,14 +305,14 @@ def vital_stats(self):
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
-
+@api_view(["GET"])
 def similar_jobs(request,industry):
 
     queryset = Job.objects.filter(industry=industry).order_by('-created_date')[:5]
     data = []
     for job in queryset:
         try:
-            favourite_job = FavouriteJob.objects.get(job=job)
+            favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
         except FavouriteJob.DoesNotExist:
             favourite_job = None
         if favourite_job is not None:
@@ -310,9 +320,12 @@ def similar_jobs(request,industry):
         else:
             job.status = 'No'
         if job.company_name:
-            job.profile_picture = str(job.company_name.profile_picture)
+            if job.company_name.profile_picture:
+                job.profile_picture = '/media/' + str(job.company_name.profile_picture)
+            else:
+                job.profile_picture = '/static/images/job/company-logo-2.png'
         else:
-            job.profile_picture = None
+            job.profile_picture = '/static/images/job/company-logo-2.png'
         data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
                      'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
                      'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})

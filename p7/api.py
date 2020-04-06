@@ -1,4 +1,5 @@
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.utils import json
 from rest_framework.views import APIView
 from django.core.paginator import Paginator
@@ -172,3 +173,10 @@ def professional_info(request, user_id):
 # class RecentJobs(generics.ListCreateAPIView):
 #     queryset = Industry.objects.all().annotate(num_posts=Count('industries')).order_by('-num_posts')[:16]
 #     serializer_class = PopularCategoriesSerializer
+
+
+@api_view(["GET"])
+def isLoggedIn(request):
+    if not request.user.is_authenticated:
+        return Response(HTTP_401_UNAUTHORIZED)
+    return Response(HTTP_200_OK)
