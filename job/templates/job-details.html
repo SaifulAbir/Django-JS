@@ -200,6 +200,7 @@
         var id = path[path.length-2]
         var getUrl = '/api/load_job/'+ id + '/'
         get(getUrl, loadJob);
+        favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
 
 
 
@@ -226,7 +227,7 @@
             category= $('#industry').text()
             catUrl = '/api/similar_jobs/'+ category;
             get(catUrl,loadSimilarJob)
-            favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
+
         }
 
     }
@@ -242,7 +243,7 @@
             var job_html= '<div class="job-list">'+
                 '<div class="thumb">'+
                 '<a href="#">'+
-                '<img src="'+'/media/'+data[index].profile_picture+'" class="img-fluid" alt="">'+
+                '<img src="'+data[index].profile_picture+'" class="img-fluid" alt="">'+
                 '</a>'+
                 '</div>'+
                 '<div class="body">'+
