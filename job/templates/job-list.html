@@ -209,7 +209,7 @@
     <!--    </div>-->
     <!-- Call to Action End -->
     <div class="template display-none">
-        <div class="job-list">
+        <div class="job-list" id="job-list">
             <div class="thumb">
                 <a href="#">
                     <img src="{% static 'images/job/company-logo-1.png' %}" class="img-fluid" alt="images">
@@ -266,6 +266,8 @@
 
             cat_url='/api/popular_categories/';
             get(cat_url,loadCat);
+
+            favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
 
 
 

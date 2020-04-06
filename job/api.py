@@ -314,6 +314,7 @@ def similar_jobs(request,industry):
                      'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
     return JsonResponse(list(data), safe=False)
 
+
 def salary_range(self):
     range_min = Job.objects.all().aggregate(Min('salary_min'))
     range_max = Job.objects.all().aggregate(Max('salary_max'))
