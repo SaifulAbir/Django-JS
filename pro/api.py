@@ -351,6 +351,7 @@ class TokenViewBase(generics.GenericAPIView):
         response = Response(serializer.validated_data, status=status.HTTP_200_OK)
         response.set_cookie('access', serializer.validated_data["access"])
         response.set_cookie('refresh', serializer.validated_data["refresh"])
+        response.set_cookie('user', serializer.validated_data["user_id"])
         return response
 
 class TokenObtainPairCustomView(TokenViewBase):
@@ -364,6 +365,7 @@ def logout(request):
     response = HttpResponseRedirect('/professional/sign-in')
     response.delete_cookie('access')
     response.delete_cookie('refresh')
+    response.delete_cookie('user')
     return response
 
 

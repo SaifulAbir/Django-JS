@@ -315,3 +315,52 @@ function TokenAuthenticate() {
    }
 
 }
+
+// Favourite job common Api
+
+function favouriteJobAddRemove(id, url) {
+
+        $("#"+id).on('click', '.favourite', function (event) {
+            event.preventDefault();
+            var user = $.cookie("user");
+            var job = $(this).attr('href');
+            if(isLoggedIn() && $(this).hasClass('active')){
+                var data = {'user_id':user, 'job_id':job};
+                favouriteUrl = url;
+                post(favouriteUrl, JSON.stringify(data), loadFavouriteJob);
+            }else if(isLoggedIn()){
+
+                var data = {'user_id':user, 'job_id':job};
+                favouriteUrl = url;
+                post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
+            }
+            else {
+                window.location.href = "/professional/sign-in/";
+            }
+
+        });
+
+    }
+
+function isLoggedIn() {
+        var access_token = $.cookie("access");
+        if(access_token){
+            return true;
+        }
+        return false;
+    }
+
+function loadFavouriteJob(data) {
+        if(data.responseJSON.code == 200){
+            console.log(data.responseJSON)
+            var el = $("#job-list").find("[href='"+ data.responseJSON.result.user.job +"']");
+            if(el.hasClass('active') && data.responseJSON.result.user.status == 'Removed'){
+                el.removeClass('active');
+                showError('Oopss!', 'Job removed.')
+            }
+            else if(el.hasClass("favourite")){
+                el.addClass('active');
+                showSuccess('Congratulations!', 'Job saved as a favourite.')
+            }
+        }
+    }

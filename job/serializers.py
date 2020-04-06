@@ -52,6 +52,15 @@ class JobSerializer(serializers.ModelSerializer):
         model = Job
         fields = fields = '__all__'
 
+class RecentJobSerializer(serializers.ModelSerializer):
+
+    status = serializers.CharField()
+    # profile_picture = serializers.CharField()
+
+    class Meta:
+        model = Job
+        fields = ['job_location', 'job_id', 'company_name', 'employment_status', 'title', 'created_date', 'status']
+
 class JobSerializerAllField(serializers.ModelSerializer):
     class Meta:
         model = Job
@@ -81,7 +90,6 @@ class TopSkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Industry
         fields= ['name', 'skills_count']
-
 
 class PopularJobSerializer(serializers.ModelSerializer):
     favourite_count = serializers.IntegerField(read_only=True)
