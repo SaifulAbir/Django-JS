@@ -204,8 +204,9 @@
         get(socialUrl,loadSocialIcon);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
 
+    });
 
-        function loadSocialIcon(data) {
+    function loadSocialIcon(data) {
             data = data[0]
             console.log(data)
             $('.facebook-url').attr('href', data.facebook_url);
@@ -213,8 +214,6 @@
             $('.twitter-url').attr('href', data.twitter_url);
         }
 
-
-    });
     function  loadJob(data){
         container = $('.job-detail');
         if(data){
