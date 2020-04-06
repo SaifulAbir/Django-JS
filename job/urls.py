@@ -28,5 +28,6 @@ urlpatterns = [
     path('vital_stats/', vital_stats),
     path('top_skills/', TopSkills.as_view()),
     path('salary_range/', salary_range),
+    path('skill_list/', SkillList.as_view()),
 
 ]
