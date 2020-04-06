@@ -17,7 +17,6 @@ from rest_framework.utils import json
 from rest_framework.views import APIView
 
 from rest_framework.pagination import PageNumberPagination
-from api.pagination import PaginationHandlerMixin
 
 from pro.models import Professional
 from resources.strings_job import *
