@@ -271,9 +271,12 @@ def recent_jobs(request):
         else:
             job.status = NO_TXT
         if job.company_name:
-            job.profile_picture = str(job.company_name.profile_picture)
+            if job.company_name.profile_picture:
+                job.profile_picture = '/media/' + str(job.company_name.profile_picture)
+            else:
+                job.profile_picture = '/static/images/job/company-logo-2.png'
         else:
-            job.profile_picture = None
+            job.profile_picture = '/static/images/job/company-logo-2.png'
         data.append({'job_id':job.job_id, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(job.company_name)})
     return JsonResponse(list(data), safe=False)
 
@@ -306,9 +309,12 @@ def similar_jobs(request,industry):
         else:
             job.status = 'No'
         if job.company_name:
-            job.profile_picture = str(job.company_name.profile_picture)
+            if job.company_name.profile_picture:
+                job.profile_picture = '/media/' + str(job.company_name.profile_picture)
+            else:
+                job.profile_picture = '/static/images/job/company-logo-2.png'
         else:
-            job.profile_picture = None
+            job.profile_picture = '/static/images/job/company-logo-2.png'
         data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
                      'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
                      'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})

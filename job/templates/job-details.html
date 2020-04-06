@@ -202,16 +202,17 @@
         get(getUrl, loadJob);
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialIcon);
+        favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
+
     });
 
     function loadSocialIcon(data) {
-        data = data[0]
-        console.log(data)
-        $('.facebook-url').attr('href', data.facebook_url);
-        $('.linkedin-url').attr('href', data.linkedin_url);
-        $('.twitter-url').attr('href', data.twitter_url);
-    }
-
+            data = data[0]
+            console.log(data)
+            $('.facebook-url').attr('href', data.facebook_url);
+            $('.linkedin-url').attr('href', data.linkedin_url);
+            $('.twitter-url').attr('href', data.twitter_url);
+        }
 
     function  loadJob(data){
         container = $('.job-detail');
@@ -234,7 +235,7 @@
             category= $('#industry').text()
             catUrl = '/api/similar_jobs/'+ category;
             get(catUrl,loadSimilarJob)
-            favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
+
         }
 
     }
@@ -250,7 +251,7 @@
             var job_html= '<div class="job-list">'+
                 '<div class="thumb">'+
                 '<a href="#">'+
-                '<img src="'+'/media/'+data[index].profile_picture+'" class="img-fluid" alt="">'+
+                '<img src="'+data[index].profile_picture+'" class="img-fluid" alt="">'+
                 '</a>'+
                 '</div>'+
                 '<div class="body">'+
