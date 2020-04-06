@@ -75,14 +75,20 @@ class JobTypeList(generics.ListCreateAPIView):
 @api_view(["GET"])
 def job_list(request):
     try:
-        job_list = Job.objects.all()
-
         query = request.GET.get('q')
+        sorting = request.GET.get('sort')
+
+        if sorting == 'descending':
+            job_list = Job.objects.all().order_by('-created_date')
+            print(job_list)
+        else:
+            job_list = Job.objects.all()
+
 
         if query:
              job_list = job_list.filter(
                  Q(title__icontains=query)
-             ).distinct().order_by('-created_date')
+             ).distinct()
 
         page = request.GET.get('page', 1)
         page_size = request.GET.get('page_size', 2)

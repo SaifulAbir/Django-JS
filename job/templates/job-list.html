@@ -18,9 +18,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="breadcrumb-form">
-                        <form action="#">
-                            <input type="text" placeholder="Enter Keywords">
-                            <button><i data-feather="search"></i></button>
+                        <form action="" id="search-job-form">
+                            <input type="text" placeholder="Enter Keywords" id="search-keyword">
+                            <button class="search-job-button"><i data-feather="search"></i></button>
                         </form>
                     </div>
                 </div>
@@ -46,11 +46,12 @@
                                     <div class="controller grid">
                                         <i data-feather="grid"></i>
                                     </div>
-                                    <div class="job-view-filter">
+                                    <div class="job-view-filter sorting-job">
                                         <select class="selectpicker">
-                                            <option value="" selected>Most Recent</option>
-                                            <option value="california">Top Rated</option>
-                                            <option value="las-vegas">Most Popular</option>
+                                            <option></option>
+                                            <option value="descending">Most Recent</option>
+                                            <option value="">Top Rated</option>
+                                            <option value="">Mostly applied</option>
                                         </select>
                                     </div>
                                 </div>
@@ -247,8 +248,25 @@
 {% block extra_js %}
     <script>
         $(document).ready(function () {
+            var search_keyword = $("#search-keyword").val();
             var pageSize = 2;
-            get('/api/job_list/?page=1&page_size='+pageSize,fetchDatacallback);
+
+             {#calling search api#}
+            $("#search-job-form").submit(function(e){
+                var search_keyword = $("#search-keyword").val();
+                get("/api/job_list/?page=1&q="+search_keyword+"&page_size="+pageSize,fetchDatacallback);
+                return false;
+            });
+
+            $(".sorting-job .selectpicker").change(function(e){
+                var sorting_val = $(this).val();
+                get("/api/job_list/?page=1&q="+search_keyword+"&sort="+ sorting_val +"&page_size="+pageSize,fetchDatacallback);
+             });
+
+
+            get("/api/job_list/?page=1&q="+search_keyword+"&page_size="+pageSize,fetchDatacallback);
+
+
             var template = $('.template').html();
 
             socialUrl = '/api/settings/';
@@ -278,6 +296,7 @@
 
             skill_url = '/api/skill_list/';
             get(skill_url,loadskill);
+
 
 
 
@@ -314,8 +333,7 @@
 
 
             function loadSocialIcon(data) {
-                data = data[0]
-                console.log(data)
+                data = data[0];
                 $('.facebook-url').attr('href', data.facebook_url);
                 $('.linkedin-url').attr('href', data.linkedin_url);
                 $('.twitter-url').attr('href', data.twitter_url);
@@ -344,7 +362,6 @@
             }
 
              function loadskill(data){
-                console.log(data);
                 len = data.length;
                 for(x=0;x<len;x++){
                     $('#skill').append('<option value="'+data[x].name+'">'+data[x].name+'</option>');
@@ -356,7 +373,6 @@
 
             function loadJobtype(data) {
                 len = data.length;
-                {#console.log(data)#}
                 for(i=0;i<len;i++){
                     var jobtype_html = '<li class="full-time">'+
                         '<i data-feather="clock">'+
@@ -377,7 +393,6 @@
 
             function loadGender(data){
                 len = data.length;
-                {#console.log(data)#}
                 for(x=0;x<len;x++){
                     $('.genderlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
                 }
@@ -386,7 +401,6 @@
 
             function loadQualification(data){
                 len = data.length;
-                {#console.log(data)#}
                 for(x=0;x<len;x++){
                     $('.qualificationlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
                 }
