@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="jobs">
             <div class="col" id="job-list">
                 <div class="apply-popup">
                     <div class="modal fade" id="apply-popup-id" tabindex="-1" role="dialog" aria-hidden="true">
@@ -351,7 +351,7 @@
                 '</div>';
             $('#job-list').append(job_html);
             var el = $("#job-list").find("[href='"+ data[index].job_id +"']");
-            if(data[index].status == 'Yes'){
+            if(data[index].status == 'Yes' && isLoggedIn()){
                 el.addClass('active');
             }
             feather.replace();

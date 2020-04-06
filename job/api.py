@@ -52,6 +52,14 @@ class JobObject(APIView):
 
     def get(self, request, pk):
         job = get_object_or_404(Job, pk=pk)
+        try:
+            favourite_job = FavouriteJob.objects.get(job=job)
+        except FavouriteJob.DoesNotExist:
+            favourite_job = None
+        if favourite_job is not None:
+            job.status = YES_TXT
+        else:
+            job.status = NO_TXT
         data = JobSerializer(job).data
         data['skill']=[]
         # skills = Job_skill_detail.objects.filter(job=job)
