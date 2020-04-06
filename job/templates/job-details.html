@@ -10,8 +10,8 @@
                 <div class="job-listing-details">
                     <div class="job-title-and-info">
                         <div class="title">
-                            <div class="thumb">
-                                <img src="{% static 'images/job/company-logo-1.png' %}" class="img-fluid" alt="">
+                            <div class="thumb" id="img">
+
                             </div>
                             <div class="title-body">
                                 <h4 id="title"></h4>
@@ -215,7 +215,7 @@
             if(data.application_deadline){
                 data.application_deadline = deadline.split("-").reverse().join("-")
             }
-
+            $('#img').append('<img src=" '+data.profile_picture+'" class="img-fluid" alt="">')
 
             len= data.skill.length;
             for(x=0;x<len;x++){
