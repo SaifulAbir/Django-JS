@@ -254,8 +254,14 @@
         get(testimonialrUrl,loadTestimonial);
         get(popularJobsUrl,loadPopularJobs);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
+        get('/log/', loadUser);
     });
 
+    function loadUser(data) {
+        // if(data == 401){
+        //     window.location.href = "/professional/sign-in/";
+        // }
+    }
 
 
 

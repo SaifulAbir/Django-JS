@@ -177,4 +177,6 @@ def professional_info(request, user_id):
 
 @api_view(["GET"])
 def isLoggedIn(request):
+    if not request.user.is_authenticated:
+        return Response(HTTP_401_UNAUTHORIZED)
     return Response(HTTP_200_OK)
