@@ -108,11 +108,11 @@ def job_list(request):
 
     data = {
         'status': 'success',
-        'number_of_row_total': number_of_row_total,
+        'count': number_of_row_total,
         'number_of_pages': number_of_pages,
         'next_pages': check_next_available_or_not,
         'code': HTTP_200_OK,
-        "result":  job_list.data,
+        "results":  job_list.data,
     }
     return Response(data, HTTP_200_OK)
 
