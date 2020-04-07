@@ -86,12 +86,12 @@ def job_list(request):
         query = request.GET.get('q')
         sorting = request.GET.get('sort')
 
-        if sorting == 'descending':
-            job_list = Job.objects.all().order_by('-created_date')
-            print(job_list)
-        else:
-            job_list = Job.objects.all()
 
+
+        if sorting == 'descending':
+            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
+        else:
+            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
 
         if query:
              job_list = job_list.filter(
@@ -110,6 +110,20 @@ def job_list(request):
             job_list = paginator.page(1)
         except EmptyPage:
             job_list = paginator.page(1)
+
+
+        if request.user != "AnonymousUser":
+            for job in job_list:
+                try:
+                    favourite_job = FavouriteJob.objects.get(job=job)
+                except FavouriteJob.DoesNotExist:
+                    favourite_job = None
+                if favourite_job is not None:
+                    job.status = YES_TXT
+                else:
+                    job.status = NO_TXT
+
+
 
         number_of_row_total = paginator.count
         number_of_pages = paginator.num_pages
