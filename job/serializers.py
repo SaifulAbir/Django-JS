@@ -47,9 +47,14 @@ class GenderSerializer(serializers.ModelSerializer):
 
 
 class JobSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(read_only=True)
     class Meta:
         model = Job
-        fields = fields = '__all__'
+        fields = ('status','job_id','title','industry','employment_status','job_location','experience'
+            ,'salary_min' ,'salary_max','qualification','gender' ,'currency' ,'vacancy' ,'application_deadline'
+            ,'descriptions' ,'responsibilities','education','salary' ,'other_benefits','company_name','division'
+            ,'district','zipcode' ,'company_location' ,'company_profile','latitude','longitude','raw_content','web_address','terms_and_condition'
+            ,'created_date','job_skills')
 
 class RecentJobSerializer(serializers.ModelSerializer):
 
@@ -90,13 +95,9 @@ class TopSkillSerializer(serializers.ModelSerializer):
         model = Industry
         fields= ['name', 'skills_count']
 
-<<<<<<< HEAD
 class PopularJobSerializer(serializers.ModelSerializer):
     favourite_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Job
         fields= ['title','favourite_count']
-=======
-
->>>>>>> features/professional_job_listing_filter_search
