@@ -249,6 +249,9 @@
     <script>
         $(document).ready(function () {
             var search_keyword = $("#search-keyword").val();
+            var category = $("#category").val();
+            var location = $("#location").val();
+            var skill = $("#skill").val();
             var pageSize = 2;
 
              {#calling search api#}
@@ -264,7 +267,8 @@
              });
 
 
-            get("/api/job_list/?page=1&q="+search_keyword+"&page_size="+pageSize,fetchDatacallback);
+            get("/api/job_list/?page=1&q="+search_keyword+"&category="+category+"&location="+location+
+                "&skill="+skill+"&page_size="+pageSize,fetchDatacallback);
 
 
             var template = $('.template').html();

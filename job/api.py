@@ -85,6 +85,9 @@ def job_list(request):
     try:
         query = request.GET.get('q')
         sorting = request.GET.get('sort')
+        category = request.GET.get('category')
+        location = request.GET.get('location')
+        skill = request.GET.get('skill')
 
 
 
@@ -97,6 +100,17 @@ def job_list(request):
              job_list = job_list.filter(
                  Q(title__icontains=query)
              ).distinct()
+
+        if category:
+             job_list = job_list.filter(
+                 Q(title__icontains=query)
+             ).distinct()
+
+        if query:
+             job_list = job_list.filter(
+                 Q(title__icontains=query)
+             ).distinct()
+
 
         page = request.GET.get('page', 1)
         page_size = request.GET.get('page_size', 2)
