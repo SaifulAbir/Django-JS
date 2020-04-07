@@ -303,7 +303,7 @@ $(document).ready(function() {
       })
     });
 
-    $('.job-filter a, .candidate-filter a, .employer-filter a').on('click', function(e) {
+    $('.job-filter , .candidate-filter , .employer-filter ').on('click', 'a', function(e) {
       e.preventDefault();
       var cls = $(this).parents(".job-filter, .candidate-filter, .employer-filter").data("id");
       var innerContent = '<a href="#">' + $(this).data("attr") + '</a><span class="ti-close"></span>';
