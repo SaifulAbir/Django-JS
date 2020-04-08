@@ -226,12 +226,14 @@
         get(socialUrl,loadSocialUrl);
     });
      function loadSocialUrl(data) {
+            if (data.length>0){
             data = data[0];
             $('.facebook-url').attr('href', data.facebook_url);
             $('.linkedin-url').attr('href', data.linkedin_url);
             $('.twitter-url').attr('href', data.twitter_url);
             $('.apple-app').attr('href', data.appstore_url);
             $('.android-app').attr('href', data.playstore_url);
+}
 
         }
 
