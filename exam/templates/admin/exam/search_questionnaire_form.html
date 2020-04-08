@@ -95,19 +95,19 @@
             if (row.find('input[type="checkbox"]').is(':checked')) {
                 dict={}
                 values = (row.children().map(function() { return $(this).text(); }).get().join()).split(',');
-                console.log(values)
+
 
                 for(var i=0; i<values.length-1; i++){
                     dict[keys[i]] = values[i+1]
                 }
                 data.push(dict)
-                console.log(dict)
+
 
             }
             $("#search-questionnaire-modal").modal('hide');
         });
         searchQuestionnaireCallback(data);
-        console.log(data)
+
     });
 
     var sub

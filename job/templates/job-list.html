@@ -325,7 +325,7 @@
 
             function loadSocialIcon(data) {
                 data = data[0]
-                console.log(data)
+
                 $('.facebook-url').attr('href', data.facebook_url);
                 $('.linkedin-url').attr('href', data.linkedin_url);
                 $('.twitter-url').attr('href', data.twitter_url);
@@ -354,7 +354,7 @@
             }
 
              function loadskill(data){
-                console.log(data);
+
                 len = data.length;
                 for(x=0;x<len;x++){
                     $('#skill').append('<option value="'+data[x].name+'">'+data[x].name+'</option>');
@@ -366,7 +366,7 @@
 
             function loadJobtype(data) {
                 len = data.length;
-                {#console.log(data)#}
+
                 for(i=0;i<len;i++){
                     var jobtype_html = '<li class="full-time">'+
                         '<i data-feather="clock">'+
@@ -387,7 +387,7 @@
 
             function loadGender(data){
                 len = data.length;
-                {#console.log(data)#}
+
                 for(x=0;x<len;x++){
                     $('.genderlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
                 }
@@ -396,7 +396,7 @@
 
             function loadQualification(data){
                 len = data.length;
-                {#console.log(data)#}
+
                 for(x=0;x<len;x++){
                     $('.qualificationlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
                 }
