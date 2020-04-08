@@ -96,14 +96,34 @@ class JobTypeList(generics.ListCreateAPIView):
 @api_view(["GET"])
 def job_list(request):
     try:
-        job_list = Job.objects.all()
-
         query = request.GET.get('q')
+        sorting = request.GET.get('sort')
+        category = request.GET.get('category')
+        location = request.GET.get('location')
+        skill = request.GET.get('skill')
+
+
+
+        if sorting == 'descending':
+            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
+        else:
+            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
 
         if query:
              job_list = job_list.filter(
                  Q(title__icontains=query)
-             ).distinct().order_by('-created_date')
+             ).distinct()
+
+        if category:
+             job_list = job_list.filter(
+                 Q(title__icontains=query)
+             ).distinct()
+
+        if query:
+             job_list = job_list.filter(
+                 Q(title__icontains=query)
+             ).distinct()
+
 
         page = request.GET.get('page', 1)
         page_size = request.GET.get('page_size', 2)
@@ -118,6 +138,20 @@ def job_list(request):
         except EmptyPage:
             job_list = paginator.page(1)
 
+
+        if request.user != "AnonymousUser":
+            for job in job_list:
+                try:
+                    favourite_job = FavouriteJob.objects.get(job=job)
+                except FavouriteJob.DoesNotExist:
+                    favourite_job = None
+                if favourite_job is not None:
+                    job.status = YES_TXT
+                else:
+                    job.status = NO_TXT
+
+
+
         number_of_row_total = paginator.count
         number_of_pages = paginator.num_pages
         check_next_available_or_not = paginator.page(page).has_next()
@@ -129,13 +163,11 @@ def job_list(request):
 
     data = {
         'status': 'success',
-        'number_of_row_total': number_of_row_total,
+        'count': number_of_row_total,
         'number_of_pages': number_of_pages,
         'next_pages': check_next_available_or_not,
         'code': HTTP_200_OK,
-        "data": {
-            "job_list": job_list.data,
-        }
+        "results":  job_list.data,
     }
     return Response(data, HTTP_200_OK)
 
@@ -349,6 +381,7 @@ def similar_jobs(request,industry):
                      'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
     return JsonResponse(list(data), safe=False)
 
+
 def salary_range(self):
     range_min = Job.objects.all().aggregate(Min('salary_min'))
     range_max = Job.objects.all().aggregate(Max('salary_max'))
@@ -360,3 +393,7 @@ def salary_range(self):
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+class SkillList(generics.ListCreateAPIView):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer

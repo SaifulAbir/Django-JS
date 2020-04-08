@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords
+from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
+    Skill
 from rest_framework.validators import *
 
 
@@ -101,3 +102,8 @@ class PopularJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields= ['title','favourite_count']
+
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skill
+        fields = '__all__'
