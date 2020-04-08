@@ -49,11 +49,14 @@ class JobList(generics.ListAPIView):
     pagination_class = StandardResultsSetPagination
 
 class JobObject(APIView):
-    permission_classes = ([IsAuthenticated])
     def get(self, request, pk):
         job = get_object_or_404(Job, pk=pk)
         try:
-            favourite_job = FavouriteJob.objects.get(job=job, user=self.request.user)
+            if request.user.is_authenticated:
+                print(request.user)
+                favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
+            else:
+                favourite_job = FavouriteJob.objects.get(job=job)
         except FavouriteJob.DoesNotExist:
             favourite_job = None
         if favourite_job is not None:
@@ -62,6 +65,16 @@ class JobObject(APIView):
             job.status = NO_TXT
         data = JobSerializer(job).data
         data['skill']=[]
+        if data['company_name'] is not None:
+            ob = Company.objects.get(name=data['company_name'])
+            if ob.profile_picture:
+                image = ob.profile_picture
+                data['profile_picture'] = '/media/' + str(image.name)
+            else:
+                data['profile_picture'] = '/static/images/job/company-logo-2.png'
+        else:
+            data['profile_picture'] = '/static/images/job/company-logo-2.png'
+
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
         for skill in job.job_skills.all():
@@ -303,7 +316,12 @@ def recent_jobs(request):
     data = []
     for job in queryset:
         try:
-            favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
+            if request.user.is_authenticated:
+                print(request.user)
+                favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
+            else:
+                favourite_job = FavouriteJob.objects.get(job=job)
+
         except FavouriteJob.DoesNotExist:
             favourite_job = None
         if favourite_job is not None:
@@ -340,7 +358,11 @@ def similar_jobs(request,industry):
     data = []
     for job in queryset:
         try:
-            favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
+            if request.user.is_authenticated:
+                print(request.user)
+                favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
+            else:
+                favourite_job = FavouriteJob.objects.get(job=job)
         except FavouriteJob.DoesNotExist:
             favourite_job = None
         if favourite_job is not None:
