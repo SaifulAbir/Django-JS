@@ -133,9 +133,7 @@ def job_list(request):
         'number_of_pages': number_of_pages,
         'next_pages': check_next_available_or_not,
         'code': HTTP_200_OK,
-        "data": {
-            "job_list": job_list.data,
-        }
+        "result":  job_list.data,
     }
     return Response(data, HTTP_200_OK)
 
@@ -349,6 +347,7 @@ def similar_jobs(request,industry):
                      'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
     return JsonResponse(list(data), safe=False)
 
+
 def salary_range(self):
     range_min = Job.objects.all().aggregate(Min('salary_min'))
     range_max = Job.objects.all().aggregate(Max('salary_max'))
@@ -360,3 +359,7 @@ def salary_range(self):
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+class SkillList(generics.ListCreateAPIView):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer

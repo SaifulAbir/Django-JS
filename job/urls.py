@@ -32,5 +32,6 @@ urlpatterns = [
     path('popular_jobs/', PopularJobs.as_view()),
     path('top_skills/', TopSkills.as_view()),
     path('salary_range/', salary_range),
+    path('skill_list/', SkillList.as_view()),
 
 ]
