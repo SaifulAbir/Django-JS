@@ -1289,18 +1289,22 @@ a:focus {
   padding-top: 20px;
 }
 
-.job-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:before, .candidate-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:before, .employer-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:before, .job-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:before, .candidate-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:before, .employer-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:before, .job-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:before, .candidate-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:before, .employer-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:before,
-.job-filter-wrapper .job-filter .nstSlider .grip-label .rightLabel:before,
-.candidate-filter-wrapper .job-filter .nstSlider .grip-label .rightLabel:before,
-.employer-filter-wrapper .job-filter .nstSlider .grip-label .rightLabel:before,
-.job-filter-wrapper .candidate-filter .nstSlider .grip-label .rightLabel:before,
-.candidate-filter-wrapper .candidate-filter .nstSlider .grip-label .rightLabel:before,
-.employer-filter-wrapper .candidate-filter .nstSlider .grip-label .rightLabel:before,
-.job-filter-wrapper .employer-filter .nstSlider .grip-label .rightLabel:before,
-.candidate-filter-wrapper .employer-filter .nstSlider .grip-label .rightLabel:before,
-.employer-filter-wrapper .employer-filter .nstSlider .grip-label .rightLabel:before {
-  content: "$";
+.job-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .job-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .job-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after,
+.job-filter-wrapper .job-filter .nstSlider .grip-label .rightLabel:after,
+.candidate-filter-wrapper .job-filter .nstSlider .grip-label .rightLabel:after,
+.employer-filter-wrapper .job-filter .nstSlider .grip-label .rightLabel:after,
+.job-filter-wrapper .candidate-filter .nstSlider .grip-label .rightLabel:after,
+.candidate-filter-wrapper .candidate-filter .nstSlider .grip-label .rightLabel:after,
+.employer-filter-wrapper .candidate-filter .nstSlider .grip-label .rightLabel:after,
+.job-filter-wrapper .employer-filter .nstSlider .grip-label .rightLabel:after,
+.candidate-filter-wrapper .employer-filter .nstSlider .grip-label .rightLabel:after,
+.employer-filter-wrapper .employer-filter .nstSlider .grip-label .rightLabel:after {
+  content: " BDT";
 }
+
+ #experience-filter .nstSlider .grip-label .rightLabel:after {
+    content: " Year";
+ }
 
 .job-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .job-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .job-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after {
   content: '-';
