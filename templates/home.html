@@ -241,7 +241,6 @@
         cat_url='/api/popular_categories/';
         skills_url='/api/top_skills/';
         careerUrl = '/api/career_advise_show/';
-        socialUrl = '/api/settings/';
         testimonialrUrl = '/api/testimonial_show/';
         recentJobsUrl = '/api/recent_jobs/';
         popularJobsUrl = '/api/popular_jobs/';
@@ -251,7 +250,6 @@
         get(careerUrl,loadAdvice);
         get(skills_url,loadSkills);
         get(recentJobsUrl,loadJobs);
-        get(socialUrl,loadSocialUrl);
         get(testimonialrUrl,loadTestimonial);
         get(popularJobsUrl,loadPopularJobs);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
@@ -290,15 +288,6 @@
         }
 
 
-        function loadSocialUrl(data) {
-            data = data[0];
-            $('.facebook-url').attr('href', data.facebook_url);
-            $('.linkedin-url').attr('href', data.linkedin_url);
-            $('.twitter-url').attr('href', data.twitter_url);
-            $('.apple-app').attr('href', data.appstore_url);
-            $('.android-app').attr('href', data.playstore_url);
-
-        }
 
         function loadStats(data) {
             $('#candidate_count').text(data.professional_count)
