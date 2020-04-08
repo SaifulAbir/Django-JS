@@ -21,4 +21,5 @@ urlpatterns = [
     path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     path('profile/<str:pk>/', ProfessionalDetail.as_view()),
     path('profile_update/<str:pk>/', ProfessionalUpdateView.as_view()),
+    path('job_alert/', job_alert),
 ]

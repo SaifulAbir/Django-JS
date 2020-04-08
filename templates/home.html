@@ -255,6 +255,7 @@
         get(testimonialrUrl,loadTestimonial);
         get(popularJobsUrl,loadPopularJobs);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
+        // jobAlertRedirectPage();
     });
 
     function loadUser(data) {
@@ -401,6 +402,28 @@
             key = $('#keyword').val()
             loc = $('#location').val()
             window.location.href = "/jobs/?keyword="+ key +"&location="+ loc;
+        }
+        function jobAlertRedirectPage(data) {
+            console.log(data.responseJSON)
+            if(data.responseJSON.status == 'subscribed'){
+                window.location.href = "/professional/sign-in/";
+            }
+            else if(data.responseJSON.status == 'not subscribed'){
+                email = $('#email').val();
+                window.location.href = "/professional/sign-in/?email="+ email;
+            }else{
+                email = $('#email').val();
+                window.location.href = "/professional/register/?email="+ email;
+            }
+            // $("#job-alert").on("submit", function(e){
+            //     e.preventDefault();
+            //     email = $('#email').val();
+            //     if(!email){
+            //         $('.newsletter-error').html("Please enter an email.").fadeIn().delay(3000).fadeOut();
+            //     }else {
+            //         window.location.href = "/professional/register/?email="+ email;
+            //     }
+            // });
         }
 
 </script>

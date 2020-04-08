@@ -46,7 +46,7 @@ from rest_framework.status import (
     HTTP_404_NOT_FOUND,
     HTTP_200_OK
 )
-from pro.utils import sendSignupEmail
+from pro.utils import sendSignupEmail, job_alert_save
 from resources.strings_pro import *
 
 
@@ -144,10 +144,18 @@ def profile_create_with_user_create(request):
             elif profile_data['terms_and_condition_status'] == OFF_TXT:
                 profile_data['terms_and_condition_status'] = 0
             del profile_data['confirm_password']
+            try:
+                if profile_data['alert']:
+                    alert = profile_data['alert']
+                    del profile_data['alert']
+            except KeyError:
+                alert = None
             profile_obj = Professional(**profile_data)
             profile_obj.password = hash_password
             profile_obj.user_id=user.id
             profile_obj.save()
+            if alert == 'on':
+                job_alert_save(profile_data['email'])
             sendSignupEmail(profile_data['email'],profile_obj.id, datetime.date.today)
             data = {
                 'status': 'success',
@@ -180,6 +188,8 @@ def login(request):
     if not user:
         return Response({'error': LOGIN_CREDENTIAL_ERROR_MSG},
                         status=HTTP_404_NOT_FOUND)
+    if login_data['alert'] == 'on':
+        job_alert_save(login_data['email'])
     token, _ = Token.objects.get_or_create(user=user)
     return Response({'token': token.key}, status=HTTP_200_OK)
 
@@ -367,5 +377,52 @@ def logout(request):
     response.delete_cookie('refresh')
     response.delete_cookie('user')
     return response
+
+@api_view(["POST"])
+def job_alert(request):
+    user_email = json.loads(request.body)
+    data = {}
+    if user_email['email'] and not request.user.is_authenticated:
+        try:
+            sub_user = Professional.objects.get(email = user_email['email'], job_alert_status = True)
+        except Professional.DoesNotExist:
+            sub_user = None
+        try:
+            not_sub_user = Professional.objects.get(email = user_email['email'])
+        except Professional.DoesNotExist:
+            not_sub_user = None
+        if sub_user:
+            data = {
+                'status': 'subscribed',
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "email": user_email['email'],
+                        "job_alert": sub_user.job_alert_status
+                    }
+                }
+            }
+        elif not_sub_user:
+            data = {
+                'status': 'not subscribed',
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "email": user_email['email'],
+                    }
+                }
+            }
+        else:
+            data = {
+                'status': 'not user',
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "email": user_email['email'],
+                    }
+                }
+            }
+    return Response(data)
+
 
 
