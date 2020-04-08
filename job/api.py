@@ -310,7 +310,9 @@ def recent_jobs(request):
 def vital_stats(self):
     companies = Company.objects.all().count()
     professional = Professional.objects.all().count()
-    open_job = Job.objects.filter(application_deadline__gte= date.today()).count()
+    with_deadline = Job.objects.filter(application_deadline__gte=date.today()).count()
+    without_deadline = Job.objects.filter(application_deadline__isnull=True).count()
+    open_job = with_deadline + without_deadline
     data ={
         'professional_count': str(professional),
         'open_job' : str(open_job),
