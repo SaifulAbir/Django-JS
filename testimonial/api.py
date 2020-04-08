@@ -11,7 +11,7 @@ from rest_framework import generics
 
 @api_view(["GET"])
 def testimonial_list(request):
-    queryset = Testimonial.objects.all()[:5]
+    queryset = Testimonial.objects.all()[:6]
     for testimonials in queryset:
         if not testimonials.profile_picture:
             testimonials.profile_picture = "testimonials/alternate.png"
