@@ -127,7 +127,7 @@
                         <h2>Get JobSearch App</h2>
                         <p>Searching for jobs never been that easy. Now you can find job matched your career expectation</p>
                         <div class="app-download-button">
-                            <a href="" class="apple-app">Apple Store</a>
+                            <a href="" class="apple-app">App Store</a>
                             <a href="" class="android-app">Google Play</a>
                         </div>
                     </div>
@@ -184,8 +184,8 @@
                   <ul>
                     <li><a href="{% url 'register' %}">Create Account</a></li>
                     <li><a href="{% url 'career_advice' %}">Career Advice</a></li>
-                    <li><a href="javascript:void(0)">My Job Search</a></li>
-                    <li><a href="javascript:void(0)">FAQ</a></li>
+                    <li><a href="{% url 'my_job_search' %}">My Job Search</a></li>
+                    <li><a href="{% url 'faq' %}">FAQ</a></li>
                   </ul>
                 </div>
               </div>
@@ -197,8 +197,9 @@
 
 
                   <ul>
-                      <li>House 76 (Level 4) Road 4, Block B</li>
-                      <li>Niketan Gulshan 1</li>
+                      <li>House 76 (Level 4)</li>
+                      <li>Road 4, Block B</li>
+                      <li>Niketan, Gulshan 1</li>
                       <li>Dhaka 1212, Bangladesh</li>
 
 
