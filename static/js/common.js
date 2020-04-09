@@ -360,7 +360,7 @@ function loadFavouriteJob(data) {
             }
             else if(el.hasClass("favourite")){
                 el.addClass('active');
-                showSuccess('Congratulations!', 'Job saved as a favourite.')
+                showSuccess('Successful!','Job saved as favourite.')
             }
         }
     }
