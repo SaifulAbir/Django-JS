@@ -164,7 +164,7 @@ class Job(models.Model):
     education = models.TextField(blank=True, null=True)
     salary = models.CharField(max_length=255, blank=True, null=True)
     other_benefits = models.TextField(max_length=255, blank=True, null=True)
-    company_name = models.ForeignKey(Company,on_delete=models.PROTECT, blank=True, null = True, db_column='company')
+    company_name = models.ForeignKey(Company,on_delete=models.PROTECT, db_column='company')
     division = models.ForeignKey(Division,on_delete=models.PROTECT, blank=True, null = True,db_column='division')
     district = models.ForeignKey(District,on_delete=models.PROTECT, blank=True, null = True, db_column='district')
     zipcode = models.CharField(max_length=255, blank=True, null = True)
