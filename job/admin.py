@@ -20,6 +20,10 @@ class CompanyAdmin(admin.ModelAdmin):
                      'organization_head__icontains', 'organization_head_number__icontains']
 
 
+class TrendingKeywordsAdmin(admin.ModelAdmin):
+    list_display = ['keyword', 'location', 'ip_address', 'browser_name', 'operating_system', 'created_date']
+    search_fields = ['keyword', 'location', 'ip_address', 'browser_name', 'operating_system', 'created_date']
+
 
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(JobType)
@@ -30,4 +34,4 @@ admin.site.register(Industry)
 admin.site.register(Currency)
 admin.site.register(Job, JobAdmin)
 admin.site.register(Skill)
-admin.site.register(TrendingKeywords)
+admin.site.register(TrendingKeywords, TrendingKeywordsAdmin)
