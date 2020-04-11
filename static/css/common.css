@@ -131,6 +131,9 @@ a.save.favourite.active {
 /*job detail*/
 
 /*fontawesome icons*/
+.newsletter-form .fas {
+    color: #FFFFFF;
+}
 .fa, .fas {
     color: #246df8;
 }

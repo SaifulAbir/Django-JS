@@ -358,6 +358,14 @@ class TokenViewBase(generics.GenericAPIView):
             serializer.is_valid(raise_exception=True)
         except TokenError as e:
             raise InvalidToken(e.args[0])
+        try:
+            if request.data['alert']:
+                alert = request.data['alert']
+        except KeyError:
+            alert = None
+
+        if alert == 'on':
+            job_alert_save(request.data['email'])
         response = Response(serializer.validated_data, status=status.HTTP_200_OK)
         response.set_cookie('access', serializer.validated_data["access"])
         response.set_cookie('refresh', serializer.validated_data["refresh"])
@@ -393,7 +401,7 @@ def job_alert(request):
             not_sub_user = None
         if sub_user:
             data = {
-                'status': 'subscribed',
+                'status': SUBSCRIBED_TXT,
                 'code': HTTP_200_OK,
                 "result": {
                     "user": {
@@ -404,7 +412,7 @@ def job_alert(request):
             }
         elif not_sub_user:
             data = {
-                'status': 'not subscribed',
+                'status': NOT_SUBSCRIBED_TXT,
                 'code': HTTP_200_OK,
                 "result": {
                     "user": {
@@ -414,7 +422,7 @@ def job_alert(request):
             }
         else:
             data = {
-                'status': 'not user',
+                'status': NOT_USER_TXT,
                 'code': HTTP_200_OK,
                 "result": {
                     "user": {
@@ -422,7 +430,62 @@ def job_alert(request):
                     }
                 }
             }
+    if request.user.is_authenticated:
+        job_alert_save(user_email['email'])
+        try:
+            sub_user = Professional.objects.get(email = user_email['email'], job_alert_status = True)
+        except Professional.DoesNotExist:
+            sub_user = None
+
+        if sub_user:
+            data = {
+                'status': NOT_SUBSCRIBED_USER_TXT,
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "email": user_email['email'],
+                        "job_alert": sub_user.job_alert_status
+                    }
+                }
+            }
     return Response(data)
 
+@api_view(["GET"])
+def job_alert_notification(request):
+    data = {}
+    if request.user.is_authenticated:
+        try:
+            user = Professional.objects.get(user = request.user)
+        except Professional.DoesNotExist:
+            user = None
 
+        if user.job_alert_status == True:
+            data = {
+                'status': SUBSCRIBED_TXT,
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "email": user.email,
+                    }
+                }
+            }
+        else:
+            data = {
+                'status': NOT_SUBSCRIBED_TXT,
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "email": user.email,
+                    }
+                }
+            }
+
+    else:
+        data = {
+                'status': NOT_USER_TXT,
+                'code': HTTP_401_UNAUTHORIZED,
+                "result": {
+                }
+            }
+    return Response(data)
 

@@ -22,4 +22,5 @@ urlpatterns = [
     path('profile/<str:pk>/', ProfessionalDetail.as_view()),
     path('profile_update/<str:pk>/', ProfessionalUpdateView.as_view()),
     path('job_alert/', job_alert),
+    path('job_alert_notification/', job_alert_notification),
 ]
