@@ -1,0 +1,6 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_email,_password,_name,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+login_1,,Correct User & Password,,,1,tanvir4hmed@gmail.com,12345678a,admin,,,,,,
+login_2,,Correct User & Wrong Password,,,0,tanvir4hmed@gmail.com,test,admin,,,,,,
+login_3,,Wrong User & Correct Password,,,0,test,12345678a,admin,,,,,,
+login_4,,Correct User & Password but Wrong User type,,,0,tanvir4hmed@gmail.com,12345678a,Test,,,,,,
+login_5,,Wrong User & Password & Type,,,0,test,test,test,,,,,,

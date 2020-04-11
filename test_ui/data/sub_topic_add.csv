@@ -1,0 +1,44 @@
+test_case_id,test_description,expected_result,_subject_id,_topic_name,_name
+1,Valid,1,Machine Learning,Regression,Measures of Performance
+2,Valid,1,Machine Learning,Basic ML,Preprocessing
+3,Valid,1,Machine Learning,Basic ML,Fundamental
+4,Valid,1,Machine Learning,Library,scikit-learn
+5,Valid,1,Machine Learning,Matplotlib,Function
+6,Valid,1,Machine Learning,Numpy,Function
+7,Valid,1,Machine Learning,Pandas,Dataframe
+8,Valid,1,Machine Learning,Numpy,Matrix
+9,Valid,1,Machine Learning,Numpy,Array
+10,Valid,1,Machine Learning,Basic ML,Library
+11,Valid,1,Machine Learning,Basic ML,Example
+12,Valid,1,Machine Learning,Supervised learning,Regression
+13,Valid,1,Machine Learning,Supervised learning,Classification
+14,Valid,1,Machine Learning,Classification,K Nearest Neighbors
+15,Valid,1,Machine Learning,Classification,Logistic Regression
+16,Valid,1,Machine Learning,Classification,Support Vector Machine
+17,Valid,1,Machine Learning,Regression,Polynomial regression
+18,Valid,1,Machine Learning,Regression,Linear regression
+19,Valid,1,Django,Django,Django
+20,Valid,1,Python,Loops,While Loop
+21,Valid,1,Python,Basic Python,Variable
+22,Valid,1,Python,Basic Python,Set
+23,Valid,1,Python,Basic Python,Tuple
+24,Valid,1,Python,Basic Python,List
+25,Valid,1,Python,Basic Python,Dictionary
+26,Valid,1,Python,Basic Python,Conditional Statement
+27,Valid,1,Python,Basic Python,String
+28,Valid,1,Python,Basic Python,OOP
+29,Valid,1,Python,Basic Python,File
+30,Valid,1,Python,Basic Python,Exceptions
+31,Valid,1,Python,Basic Python,Dictionary
+32,Valid,1,Python,Basic Python,Tuple
+33,Valid,1,Python,Basic Python,List
+34,Valid,1,Python,Basic Python,Loop
+35,Valid,1,Python,Basic Python,Function
+36,Valid,1,Python,Basic Python,Keyword
+37,Valid,1,Python,Basic Python,Operator
+38,Valid,1,Python,Basic Python,Data type
+39,Valid,1,Python,Basic Python,Symbol
+40,Valid,1,Python,Basic Python,Function
+41,Valid,1,Python,Basic Python,Introduction to Python
+42,Valid,1,Python,String,String-1
+43,Valid,1,Python,Loops,For Loop

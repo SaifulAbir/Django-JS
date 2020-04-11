@@ -1,0 +1,8 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_division,_district,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+district_1,,Valid District Name,,,1,DivisionA,District,,,,,,
+district_2,,Existing District,,,0,DivisionA,District,,,,,,
+district_3,,Different Division but Same District,,,0,DivisionB,District,,,,,,
+district_4,,No Division & Empty District,,,0,--,,,,,,,
+district_5,,No Division but Valid District name,,,0,--,DistrictNew,,,,,,
+district_6,,District With Digit,,,0,DivisionA,District123,,,,,,
+district_7,,District With Special Character,,,0,DivisionA,~+District1,,,,,,

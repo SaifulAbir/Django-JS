@@ -1,0 +1,7 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_name,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+subject_add_1,,Valid Name,,,1,Subject Test,,,,,,
+subject_add_2,,Existing Name,,,0,Subject Test One,,,,,,
+subject_add_3,,Name with Digit,,,0,Subject Test Two,,,,,,
+subject_add_4,,Name With Special Character,,,0,~!~@Subject@!!~,,,,,,
+subject_add_5,,Empty Name Field,,,0,,,,,,,
+subject_add_6,,Name With Negative Operator,,,0,--+Subject!,,,,,,

@@ -1,0 +1,11 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_name,_date,_time,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+difficulty_add_1,,All Valid Data,,,1,Difficulty Test,10-03-2020,06:59:11,,,,,,
+difficulty_add_2,,Duplicate Entry,,,0,Difficulty Test,10-03-2020,06:59:11,,,,,,
+difficulty_add_3,,All Field is empty,,,0,,,,,,,,,
+difficulty_add_4,,Valid Difficulty Name But Empty Date & Time,,,0,Difficulty Test One,,,,,,,,
+difficulty_add_5,,Valid Difficulty Name & Date But Empty Time,,,0,Difficulty Test Two,10-03-2020,,,,,,,
+difficulty_add_6,,Valid Difficulty Name & Time But Empty Date,,,0,Difficulty Test Three,,06:59:11,,,,,,
+difficulty_add_7,,Empty Difficulty Name But Valid Date & Time,,,0,,10-03-2020,06:59:11,,,,,,
+difficulty_add_8,,Invalid Difficulty Name But Valid Date & Time,,,0,~!12Test@,10-03-2020,06:59:11,,,,,,
+difficulty_add_9,,Valid Difficulty Name and Time But Past Date,,,0,Difficulty Test Four,10-03-1020,06:59:11,,,,,,
+difficulty_add_10,,Valid Difficulty Name and Time But Future Date,,,0,Difficulty Test Five,10-03-3020,06:59:11,,,,,,

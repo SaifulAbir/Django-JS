@@ -1,0 +1,4 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_name,_date,_time,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+difficulty_add_1,,Valid Data,,,1,Difficulty A,10-03-2020,12:58:23,,,,,,
+difficulty_add_2,,Valid Data,,,1,Difficulty B,10-03-2020,12:58:23,,,,,,
+difficulty_add_3,,Valid Data,,,1,Difficulty C,10-03-2020,13:58:23,,,,,,

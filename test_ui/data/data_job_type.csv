@@ -1,0 +1,4 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_name,_date,_time,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+job_type_add_1,,Job Type Entry,,,1,Job Type A,24-02-2020,11:39:29,,,,,,
+job_type_add_2,,Job Type Entry,,,1,Job Type B,24-02-2020,11:39:29,,,,,,
+job_type_add_3,,Job Type Entry,,,1,Job Type C,24-02-2020,11:39:29,,,,,,
