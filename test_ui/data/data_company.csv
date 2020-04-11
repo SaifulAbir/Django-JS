@@ -1,0 +1,4 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_com_name,_com_address,_com_phone_1,_com_phone_2,_com_phone_3,_official_email,_cont_per_name,_cont_per_designation,_cont_per_mobile,_cont_per_email,_total_hr,_it_hr,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+company_add_1,,Company Entry,,,1,Company A,Address A,019101010,017101010,018101010,company1@gmail.com,Contact Person A,Designation A,015101010,ctperson1@gmail.com,5,2,,,,,,
+company_add_2,,Company Entry,,,1,Company B,Address B,019101011,017101011,018101011,company2@gmail.com,Contact Person B,Designation B,015101011,ctperson2@gmail.com,5,4,,,,,,
+company_add_3,,Company Entry,,,1,Company C,Address C,019101013,017101013,018101013,company3@gmail.com,Contact Person C,Designation C,015101013,ctperson3@gmail.com,8,3,,,,,,

@@ -1,0 +1,8 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_subject_id,_name,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+topic_add_1,,Valid Subject Id & Topic Name,,,1,Subject A,Topic test,,,,,,
+topic_add_2,,Existing Topic Name,,,0,Subject A,Topic test,,,,,,
+topic_add_3,,Invalid Subject Id & Topic Name,,,0,,,,,,,,
+topic_add_4,,Invalid Subject Id & Valid Topic Name,,,0,,Topic One,,,,,,
+topic_add_5,,Valid Subject Id & Empty Topic Name,,,0,Subject A,,,,,,,
+topic_add_6,,Valid Subject Id & Special Character in Topic Name,,,0,Subject A,~!!@!@~!#&*^*,,,,,,
+topic_add_7,,Valid Subject Id & Negative Digit in Topic Name,,,0,Subject A,-5-656NegSubject,,,,,,

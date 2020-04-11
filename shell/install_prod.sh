@@ -17,6 +17,6 @@ pip3 install virtualenv
 cd /var/
 sudo mkdir p7_static
 sudo chown ubuntu p7_static
-git checkout master
+git checkout dev
 cd p7
 virtualenv -p python3 venv

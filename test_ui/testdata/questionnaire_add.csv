@@ -1,0 +1,13 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_questionnaire_name,_remarks,_subject_id,_topic,_sub_topic,_question,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+questionnaire_add_1,,All Valid Data,,,1,Questionnaire Test,Remark One,Subject A,Topic A,Sub Topic A,"Question 1,Question 2,Question 3,Question 4,Question 5,Question 6",,,,,,
+questionnaire_add_2,,All Empty Field,,,0,,,,,,,,,,,,
+questionnaire_add_3,,Existing Questionnaire Name,,,0,Questionnaire Test,Remark Two,Subject A,Topic A,Sub Topic A,"Question 1,",,,,,,
+questionnaire_add_4,,Existing Remark,,,1,Questionnaire Test One,Remark Two,Subject A,Topic A,Sub Topic A,"Question 1,Question 2,",,,,,,
+questionnaire_add_5,,Valid Subject Id & Sub Topic Name But Invalid Topic Name,,,0,Questionnaire Test Two,Remark Three,Subject A,Invalid,Sub Topic A,Question 1,,,,,,
+questionnaire_add_6,,Invalid Subject Id But Valid Topic and Sub topic,,,0,Questionnaire Test Three,Remark Four,Invalid,Topic A,Sub Topic A,Question 1,,,,,,
+questionnaire_add_7,,Invalid Subject Id & Topic but Valid Sub Topic,,,0, Questionnaire Test Four,Remark Five,Invalid,Invalid,Sub Topic A,Question 1,,,,,,
+questionnaire_add_8,,Valid Subject Id & Topic & Subtopic But special Character in Questionnaire,,,0,#%^$54545JHgjhgb,Remark Six,Subject A,Topic A,Sub Topic A,Question 1,,,,,,
+questionnaire_add_9,,Valid Subject Id & Topic & Subtopic & Remarks But special Character in Remarks,,,1,Questionnaire Test Five,~2112245jkhjk,Subject A,Topic A,Sub Topic A,Question 1,,,,,,
+questionnaire_add_10,,Empty Questionnaire & all other valid,,,0,,Remark One,Subject A,Topic A,Sub Topic A,Question 1,,,,,,
+questionnaire_add_11,,Empty Remarks & all other valid,,,1,Questionnaire Test Six,,Subject A,Topic A,Sub Topic A,Question 1,,,,,,
+questionnaire_add_12,,Empty Question & all other valid,,,0,Questionnaire Test Six,,Subject A,Topic A,Sub Topic A,,,,,,,

@@ -1,0 +1,16 @@
+test_case_id,test_description,expected_result,_subject_id,_name
+1,Valid,1,Machine Learning,Library
+2,Valid,1,Machine Learning,Matplotlib
+3,Valid,1,Machine Learning,Pandas
+4,Valid,1,Machine Learning,Numpy
+5,Valid,1,Machine Learning,Basic ML
+6,Valid,1,Machine Learning,Supervised learning
+7,Valid,1,Machine Learning,Unsupervised learning
+8,Valid,1,Machine Learning,Classification
+9,Valid,1,Machine Learning,Regression
+10,Valid,1,Python,OOP
+11,Valid,1,Python,Data structure
+12,Valid,1,Python,Basic Python
+13,Valid,1,Python,String
+14,Valid,1,Python,Loops
+15,Valid,1,Django,Django
