@@ -274,9 +274,9 @@
         function loadTestimonial(data) {
             for(index=0;index<data.length;index++){
                 $('.testimonial-for').slick('slickAdd','<div class="testimonial-item">\n' +
-                    '                                <p style="display: -webkit-box; -webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden; margin: 0 auto;">“'+ data[index].comment +'”</p>\n' +
-                    '                                <h5>'+data[index].client_name+'</h5>\n' +
-                    '                            </div>')
+                    '<p data-toggle="tooltip" title="'+ data[index].comment +'" style="display: -webkit-box; -webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden; margin: 0 auto;">“'+ data[index].comment +'”</p>\n' +
+                    '<h5>'+data[index].client_name+'</h5>\n' +
+                    '</div>')
 
                 $('.testimonial-nav').slick('slickAdd','<div class="commenter-thumb">\n' +
                 '                                <img src="'+ data[index].profile_picture +'" class="img-fluid commenter" alt="">\n' +
