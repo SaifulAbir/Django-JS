@@ -244,6 +244,7 @@
         testimonialrUrl = '/api/testimonial_show/';
         recentJobsUrl = '/api/recent_jobs/';
         popularJobsUrl = '/api/popular_jobs/';
+        jobAlertUrl = '/api/professional/job_alert_notification/';
         get(cat_url,loadCategory);
         get(statUrl,loadStats);
         get(key_url,loadKey);
@@ -252,6 +253,7 @@
         get(recentJobsUrl,loadJobs);
         get(testimonialrUrl,loadTestimonial);
         get(popularJobsUrl,loadPopularJobs);
+        get(jobAlertUrl, loadJobAlert);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
         // jobAlertRedirectPage();
     });
@@ -391,14 +393,33 @@
             loc = $('#location').val()
             window.location.href = "/jobs/?keyword="+ key +"&location="+ loc;
         }
+
+        function loadJobAlert(data) {
+            if(data.code == 200 && data.status == 'subscribed'){
+                $('#job-alert').addClass('display-none');
+                $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
+            }
+            else if(data.code == 200 && data.status == 'not subscribed'){
+                $('#job-alert').removeClass('display-none');
+                $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
+            }
+            else {
+                $('#job-alert').removeClass('display-none');
+                $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
+            }
+        }
+
         function jobAlertRedirectPage(data) {
-            console.log(data.responseJSON)
             if(data.responseJSON.status == 'subscribed'){
                 window.location.href = "/professional/sign-in/";
             }
             else if(data.responseJSON.status == 'not subscribed'){
                 email = $('#email').val();
                 window.location.href = "/professional/sign-in/?email="+ email;
+            }
+            else if(data.responseJSON.status == 'subscribed_user'){
+                $('#job-alert').addClass('display-none');
+                $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
             }else{
                 email = $('#email').val();
                 window.location.href = "/professional/register/?email="+ email;

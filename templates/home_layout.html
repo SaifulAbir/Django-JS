@@ -164,8 +164,8 @@
             <div class="col-lg-5 offset-lg-1 col-sm-6">
               <div class="footer-widget footer-newsletter">
                 <h4>Job Alert</h4>
-                <p>Get e-mail updates about our latest news and Special offers.</p>
-                <form action="/api/professional/job_alert/" id="job-alert" class="newsletter-form form-inline ajax" method="POST" data-callback="jobAlertRedirectPage">
+                <p class="display-none" id="alert-msg">Get e-mail updates about our latest news and Special offers.</p>
+                <form action="/api/professional/job_alert/" id="job-alert" class="newsletter-form display-none form-inline ajax" method="POST" data-callback="jobAlertRedirectPage">
                   <div class="form-group">
                     <input type="text" name="email" id="email" class="form-control" placeholder="Email address...">
                   </div>
