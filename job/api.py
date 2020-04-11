@@ -254,21 +254,21 @@ def load_previous_skills(request):
 @api_view(["POST"])
 def trending_keyword_save(request):
     search_data = json.loads(request.body)
+
+    if request.user_agent.is_mobile is True:
+        device_name = 'Mobile'
+    elif request.user_agent.is_tablet is True:
+        device_name = 'Tablet'
+    elif request.user_agent.is_pc is True:
+        device_name = 'Computer'
+    browser_name = request.user_agent.browser.family
+    os_name = request.user_agent.os.family
+
+    search_data.update([('device', device_name), ('browser', browser_name), ('operating_system', os_name)])
     print(search_data)
     key_obj = TrendingKeywords(**search_data)
     print(key_obj)
     key_obj.save()
-    print(request.user_agent.is_mobile)
-    print(request.user_agent.is_tablet)
-    print(request.user_agent.is_touch_capable)
-    print(request.user_agent.is_pc)
-    print(request.user_agent.is_bot)
-    # key1_obj = TrendingKeywords('browser_name',request.user_agent.browser.family)
-    # key1_obj.save()
-    # key2_obj = TrendingKeywords('operating_system', request.user_agent.os.family)
-    # key2_obj.save()
-    print(request.user_agent.browser.family)
-    print(request.user_agent.os.family)
     return Response(HTTP_200_OK)
 
 class TrendingKeywordPopulate(generics.ListCreateAPIView):
