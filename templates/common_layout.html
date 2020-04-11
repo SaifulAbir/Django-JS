@@ -61,21 +61,21 @@
                     </div>
                     <div class="top-nav">
                         <div class="dropdown header-top-account">
-                            <a href="#" class="account-button">My Account</a>
+                            <a href="#" class="account-button"></a>
                             <div class="account-card">
                                 <div class="header-top-account-info">
-                                    <a href="#" class="account-thumb">
+                                    <a href="javascript:void(0)" class="account-thumb">
                                         <img src="{% static 'images/account/thumb-1.jpg' %}" class="img-fluid" alt="">
                                     </a>
                                     <div class="account-body">
-                                        <h5><a href="#">Robert Chavez</a></h5>
+                                        <h5><a href="javascript:void(0)">Robert Chavez</a></h5>
                                         <span class="mail">chavez@domain.com</span>
                                     </div>
                                 </div>
                                 <ul class="account-item-list">
-                                    <li><a href="#"><span class="ti-user"></span>Account</a></li>
-                                    <li><a href="#"><span class="ti-settings"></span>Settings</a></li>
-                                    <li><a href="#"><span class="ti-power-off"></span>Log Out</a></li>
+                                    <li><a href="javascript:void(0)"><span class="ti-user"></span>Account</a></li>
+                                    <li><a href="javascript:void(0)"><span class="ti-settings"></span>Settings</a></li>
+                                    <li><a href="/professional/sign-out"><span class="ti-power-off"></span>Log Out</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -282,6 +282,7 @@
        TokenAuthenticate();
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialUrl);
+        get('/log/', loadUser);
     });
      function loadSocialUrl(data) {
              if (data.length>0){
@@ -293,7 +294,15 @@
             $('.android-app').attr('href', data.playstore_url);
             }
 
+     }
+
+     function loadUser(data) {
+        if(data[0].user){
+            $('.account-button').text(data[0].user.name);
+            $('.account-body a').text(data[0].user.name);
+            $('.account-body .mail').text(data[0].user.email);
         }
+    }
 
 
 

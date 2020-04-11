@@ -236,10 +236,9 @@
         $('#job-alert').validate({
                 errorClass: "my-error-class"
             });
-        get('/log/', loadUser);
         TokenAuthenticate();
         initAjaxForms();
-        statUrl = '/api/vital_stats/'
+        statUrl = '/api/vital_stats/';
         key_url='/api/trending_keyword_show/';
         cat_url='/api/popular_categories/';
         skills_url='/api/top_skills/';
@@ -261,12 +260,7 @@
         // jobAlertRedirectPage();
     });
 
-    function loadUser(data) {
-        // if(data == 401){
-        //     // window.location.href = "";
-        //     window.location.replace("/professional/sign-in/");
-        // }
-    }
+
 
 
 
