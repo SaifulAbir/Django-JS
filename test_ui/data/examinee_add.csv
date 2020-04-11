@@ -1,0 +1,2 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_username,_name,_email,_password,_examinee_type,_batch_number,_mobile_number,_father_name,_mother_name,_national_id_number,_address,_signup_v_code,_date,_time,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+examinee_add_1,,All Valid Data,,,1,tanvir4hmed,Tanvir Ahmed,tanvir@ishraak.com,123,Student,1,1921069797,Father,Mother,2019121212121122221212,Sample Address,1001,2019-11-26,16:28:49,,,,,,

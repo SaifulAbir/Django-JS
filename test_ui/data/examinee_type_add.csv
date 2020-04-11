@@ -1,0 +1,6 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_examinee_type,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+examinee_type_add_1,,Valid Examinee Type,,,1,Student,,,,,,
+examinee_type_add_2,,Existing Examinee Type,,,0,Student,,,,,,
+examinee_type_add_3,,Empty Field,,,0,,,,,,,
+examinee_type_add_4,,Gurbage Value special char,,,0,!@@545jhghi,,,,,,
+examinee_type_add_5,,Examinee with Number,,,0,454hg,,,,,,

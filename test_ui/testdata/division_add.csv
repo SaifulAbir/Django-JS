@@ -1,0 +1,6 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_division,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+division_1,,Valid Division name,,,1,Division,,,,,,
+division_2,,Existing Division,,,0,Division,,,,,,
+division_3,,Division With Digit,,,0,Division123,,,,,,
+division_4,,Empty Division,,,0,,,,,,,
+division_5,,Division With Special character,,,0,~+Division1,,,,,,

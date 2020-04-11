@@ -1,0 +1,4 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_name,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+exam_category_add_1,,Valid Name,,,1,Exam Category A,,,,,,
+exam_category_add_1,,Valid Name,,,1,Exam Category B,,,,,,
+exam_category_add_1,,Valid Name,,,1,Exam Category C,,,,,,

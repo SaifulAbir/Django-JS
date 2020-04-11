@@ -1,0 +1,13 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_name,_date,_time,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+gender_add_1,,All Valid Data (Alphabet),,,1,Gender,24-02-2020,11:39:29,,,,,,
+gender_add_2,,All Valid Data (With Numeric),,,1,Gender123,24-02-2020,11:39:29,,,,,,
+gender_add_3,,All Valid Data (With Float Value),,,1,7.5Gender,24-02-2020,11:39:29,,,,,,
+gender_add_4,,Duplicate Entry,,,0,Gender,24-02-2020,11:39:29,,,,,,
+gender_add_5,,All Field is empty,,,0,"""""","""""","""""",,,,,,
+gender_add_6,,Valid gender But Empty Date & Time,,,0,GenderOne,,,,,,,,
+gender_add_7,,Valid gender & Date But Empty Time,,,0,GenderTwo,24-02-2020,,,,,,,
+gender_add_8,,Valid gender & Time But Empty Date,,,0,GenderThree,,11:39:29,,,,,,
+gender_add_9,,Empty gender But Valid Date & Time,,,0,,24-02-2020,11:39:29,,,,,,
+gender_add_10,,Invalid gender But Valid Date & Time,,,0,~!@#(*&^%$^,24-02-2020,11:39:29,,,,,,
+gender_add_11,,Valid gender and Time But Past Date,,,0,GenderFour,24-02-1020,11:39:29,,,,,,
+gender_add_12,,Valid gender and Time But Future Date,,,0,GenderFive,24-02-3020,11:39:29,,,,,,

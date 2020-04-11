@@ -1,0 +1,7 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_name,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+exam_level_add_1,,Valid Name,,,1,Exam Level Test,,,,,,
+exam_level_add_2,,Existing Name,,,0,Exam Level Test,,,,,,
+exam_level_add_3,,Name with Digit,,,0,123ExLevel,,,,,,
+exam_level_add_4,,Name With Special Character,,,0,~!~@ExLevel@!!~,,,,,,
+exam_level_add_5,,Empty Name Field,,,0,,,,,,,
+exam_level_add_6,,Name With Negative Operator,,,0,--+ExLevel!,,,,,,

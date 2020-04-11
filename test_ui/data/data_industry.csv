@@ -1,0 +1,4 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_name,_date,_time,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+industry_add_1,,Industry Entry,,,1,Industry A,24-02-2020,11:39:29,,,,,,
+industry_add_2,,Industry Entry,,,1,Industry B,24-02-2020,11:39:29,,,,,,
+industry_add_3,,Industry Entry,,,1,Industry C,24-02-2020,11:39:29,,,,,,

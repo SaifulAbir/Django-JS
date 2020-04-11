@@ -1,0 +1,184 @@
+_question_id,test_case_id,test_description,expected_result,_qtype,_difficulty,_subject,_topic,_sub_topic,_answer,_question
+,1,Valid,1,Checkbox,Easy,Machine Learning,Regression,Linear regression,,How many independent variable is there in Simple Linear Regression
+,2,Valid,1,Checkbox,Easy,Machine Learning,Regression,Linear regression,,How many independent variable is there in Linear Regression
+,3,Valid,1,Checkbox,Easy,Machine Learning,Supervised learning,Regression,,Which of the following statement(s) is/are true?
+,4,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Preprocessing,,Which of the following is correct syntax to see how many data is missing in each column?
+,5,Valid,1,Checkbox,Easy,Machine Learning,Regression,Linear regression,,Which of the following statement is true?
+,6,Valid,1,Checkbox,Easy,Machine Learning,Regression,Measures of Performance,,Why is RMSE (Root Mean Square Error) used?
+,7,Valid,1,Checkbox,Easy,Machine Learning,Regression,Linear regression,,Which is an equation of simple linear regression?
+,8,Valid,1,Checkbox,Medium,Machine Learning,Basic ML,Preprocessing,,Which of the following state is correct for one hot encoding?
+,9,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Preprocessing,,Which of the following is correct statement for scaling?
+,10,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Preprocessing,,Which of the following statement is correct?
+,11,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Preprocessing,,Why we split data into train and test?
+,12,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Preprocessing,,Which of the following class use for categorical to numerical value?
+,13,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Preprocessing,,Which class use for missing values handling?
+,14,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Preprocessing,,Which technique include in data reduction?
+,15,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Preprocessing,,When we can Ignore a tuple?
+,16,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Fundamental,,Which Step include in Machine learning?
+,17,Valid,1,Checkbox,Easy,Machine Learning,Library,scikit-learn,,Which of the following statement is correct about sci-kit learn?
+,18,Valid,1,Checkbox,Easy,Machine Learning,Matplotlib,Function,,What is done by the statement: plt.legend()
+,19,Valid,1,Checkbox,Easy,Machine Learning,Matplotlib,Function,,Which of the following is/are valid (alias/variables denote usual meanings)
+,20,Valid,1,Checkbox,Easy,Machine Learning,Numpy,Function,,How to get the average ?
+,21,Valid,1,Checkbox,Easy,Machine Learning,Pandas,Dataframe,,How to read top 10 rows of a dataframe?
+,22,Valid,1,Checkbox,Easy,Machine Learning,Numpy,Matrix,,How to create the following matrix using numpy?
+,23,Valid,1,Checkbox,Easy,Machine Learning,Numpy,Matrix,,How to create the following matrix using numpy?
+,24,Valid,1,Checkbox,Easy,Machine Learning,Numpy,Array,,How to define constant array using numpy
+,25,Valid,1,Checkbox,Easy,Machine Learning,Numpy,Array,,Which of the following statement is/are correct?
+,26,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Library,,Which Python library is used for specially data visualization?
+,27,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Library,,Which Python library is used for matrix manipulation?
+,28,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Example,,I want to predict the age of a participant using a computer where I know that age is normally 25 years more than the number of years of experience. Which one of the following is true for this scenario.
+,29,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Example,,I want to predict the age of a participant using a computer. Which one of the following is true for this scenario.
+,30,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Example,,"I have 2 groups of the participant, namely Novice and Experienced, I want to predict the group of a new participant. Which one of the following is true for this scenario."
+,31,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Example,,"I want to divide the training participants into some groups for better learning. I don’t know what group that will be, I want to make the group using previous training data. Which one of the following is true for this scenario.?"
+,32,Valid,1,Checkbox,Easy,Machine Learning,Basic ML,Example,,Which is not an ML example?
+,33,Valid,1,Checkbox,Hard,Machine Learning,Supervised learning,Classification,,Which of the following is/are true?
+,34,Valid,1,Radio Button,Medium,Machine Learning,Classification,K Nearest Neighbors,,K-NN is a linear classifier
+,35,Valid,1,Checkbox,Hard,Machine Learning,Classification,Logistic Regression,,Which of the following is/are true?
+,36,Valid,1,Checkbox,Medium,Machine Learning,Classification,Support Vector Machine,,Which of the following is/are true for Support Vector Machine?
+,37,Valid,1,Checkbox,Medium,Machine Learning,Classification,K Nearest Neighbors,,Which of the following is/are true?
+,38,Valid,1,Checkbox,Easy,Machine Learning,Regression,Polynomial regression,,Which is example of polynomial equation?
+,39,Valid,1,Checkbox,Easy,Machine Learning,Classification,K Nearest Neighbors,,K Nearest Neighbour used for:
+,40,Valid,1,Checkbox,Medium,Machine Learning,Classification,Logistic Regression,,Decision Boundary differentiate probabilities into ________
+,41,Valid,1,Checkbox,Easy,Machine Learning,Supervised learning,Regression,,Which of the following is/are used for regression?
+,42,Valid,1,Checkbox,Easy,Machine Learning,Supervised learning,Regression,,Which of the following is/are true?
+,43,Valid,1,Checkbox,Medium,Python,Basic Python,Loop,,Consider the loop control structure in programming. Which term describes a loop that continues repeating without a terminating (ending) condition?
+,44,Valid,1,Checkbox,Medium,Python,Basic Python,Loop,,Loop executed a fixed number of times with a built-in-counter (creating a counter variable is unnecessary).
+,45,Valid,1,Checkbox,Medium,Python,Basic Python,Loop,,A loop repeated if the condition is true / false
+,46,Valid,1,Checkbox,Medium,Python,Basic Python,Loop,,Which type of loop iterates until instructed otherwise?
+,47,Valid,1,Checkbox,Medium,Python,Basic Python,Loop,,Why is iteration important?
+,48,Valid,1,Checkbox,Medium,Python,Basic Python,Loop,,What is iteration?
+,49,Valid,1,Checkbox,Medium,Python,Loops,While Loop,,A while loop in Python is used for what type of iteration?
+,50,Valid,1,Checkbox,Medium,Python,Basic Python,String,,Which of the following mathematical operators can be used to concatenate strings:
+,51,Valid,1,Checkbox,Medium,Python,Basic Python,String,,"If you want to transform a list of strings input_list into a single string with a comma between each item, which of the following would you give as the input to join()?"
+,52,Valid,1,Checkbox,Medium,Python,Basic Python,String,,Python strings have a property called “immutability.” What does this mean?
+,53,Valid,1,Checkbox,Medium,Python,Basic Python,String,,Which of the following would separate a string input_string on the first 2 occurences of the letter “e”?
+,54,Valid,1,Radio Button,Medium,Python,Basic Python,String,,The minsplit parameter to split() specifies the minimum number of splits to make to the input string
+,55,Valid,1,Checkbox,Medium,Python,Basic Python,String,,Strings are __
+,56,Valid,1,Checkbox,Medium,Python,Basic Python,Variable,,Which of the following are Python reserved words?
+,57,Valid,1,Checkbox,Medium,Python,Basic Python,Variable,,Which of the following styles does PEP8 recommend for multi-word variable names?
+,58,Valid,1,Checkbox,Medium,Python,Basic Python,Variable,,Which of the following are valid Python variable names?
+,59,Valid,1,Checkbox,Medium,Python,Basic Python,Variable,,"Variable may be assigned a value of one type, and then later assigned a value of a different type?"
+,60,Valid,1,Checkbox,Medium,Python,Basic Python,Variable,,A variable must be declared before it is assigned a value?
+,61,Valid,1,Checkbox,Medium,Python,Basic Python,Set,,What is the result of the following statement? list((b'abcde' + 'fghi')[3:6])
+,62,Valid,1,Checkbox,Medium,Python,Basic Python,Set,,You want to create a bytes object consisting of five null (0x00) bytes. All of the following will work except:
+,63,Valid,1,Checkbox,Medium,Python,Basic Python,Set,,Which of the following are true?
+,64,Valid,1,Checkbox,Medium,Python,Basic Python,Set,,What is the result of this statement? print(ord('abc'))
+,65,Valid,1,Checkbox,Medium,Python,Basic Python,Set,,s = 'foo' t = 'bar' print('barf' in 2 * (s + t)) What is the output of the print() function call?
+,66,Valid,1,Checkbox,Medium,Python,Basic Python,Set,,Which of the following are true about frozen sets?
+,67,Valid,1,Checkbox,Medium,Python,Basic Python,Set,,"s = {'a', 'b', 'c', 'd'} Which of the following remove element ‘a’ from the set?"
+,68,Valid,1,Checkbox,Easy,Python,Basic Python,Set,,"x = {1, 2, 3} y = {1, 2} y.ispropersubset(x)"
+,69,Valid,1,Radio Button,Easy,Python,Basic Python,Set,,"(x & y <= x) and (x & y <= y), It is ____"
+,70,Valid,1,Checkbox,Medium,Python,Basic Python,Set,,"{1, 2, 3, 4, 5} - {3, 4} ^ {5, 6, 7} What is the result of this statement?"
+,71,Valid,1,Checkbox,Hard,Python,Basic Python,Set,,"{'b', 'a', 'r'} & set('qux') What is the result of this statement?"
+,72,Valid,1,Checkbox,Easy,Python,Basic Python,Set,,Which of the following are true ?
+,73,Valid,1,Checkbox,Easy,Python,Basic Python,Operator,,What is the value of the expression 1 + 2 ** 3 * 4?
+,74,Valid,1,Checkbox,Easy,Python,Basic Python,Operator,,Which of the following operators has the lowest precedence?
+,75,Valid,1,Checkbox,Easy,Python,Basic Python,Operator,,"x = 10.0 y = (x < 100.0) and isinstance(x, float) what should be the value of y ?"
+,76,Valid,1,Checkbox,Medium,Python,Basic Python,Operator,,x = a + 5 - b a and b are ________ a + 5 - b is ________
+,77,Valid,1,Checkbox,Medium,Python,Basic Python,Tuple,,"x, y = (5, -5) a, b = (y, x)[::-1] Which of the following is correct?"
+,78,Valid,1,Checkbox,Medium,Python,Basic Python,Tuple,,"t = ('foo', 'bar', 'baz') is a tuple, Which of the following statements replaces the second element ('bar') with the string 'qux' ?"
+,79,Valid,1,Checkbox,Medium,Python,Basic Python,List,,"a = ['a', 'b', 'c'] is a list, Now, Which of the following statements adds 'd' and 'e' to the end of ‘a’ ?"
+,80,Valid,1,Checkbox,Medium,Python,Basic Python,List,,"a = [1, 2, 3, 4, 5] is a list, Now, Which of the following statements removes the 3rd element ?"
+,81,Valid,1,Checkbox,Easy,Python,Basic Python,List,,Which of the following are true of Python lists?
+,82,Valid,1,Checkbox,Medium,Python,Basic Python,Dictionary,,Suppose you have a dictionary d1. Which of the following effectively creates a variable d2 which contains a copy of d1?
+,83,Valid,1,Checkbox,Medium,Python,Basic Python,Dictionary,,Which of the following are true of Python dictionaries?
+,84,Valid,1,Checkbox,Medium,Python,Basic Python,Conditional Statement,,What signifies the end of a statement block or suite in Python?
+,85,Valid,1,Checkbox,Medium,Python,Basic Python,Conditional Statement,,A control structure __________
+,86,Valid,1,Checkbox,Medium,Python,Basic Python,Function,,Which of the following is not a Python built-in function ?
+,87,Valid,1,Checkbox,Medium,Python,Basic Python,String,,Consider this statement print(r'foo\\bar\nbaz'). Which of the following is the correct REPL output?
+,88,Valid,1,Checkbox,Medium,Python,Basic Python,String,,Consider this statement print(r'foo\\bar\nbaz'). Which of the following is the correct REPL output?
+,89,Valid,1,Checkbox,Medium,Python,Basic Python,String,,The expression '\t\n\xa0' results the following
+,90,Valid,1,Checkbox,Easy,Python,Basic Python,String,,How can create string literal foo'bar?
+,91,Valid,1,Checkbox,Medium,Python,Basic Python,Data type,,How can the constant floating-point value of 3.2 × 10-12?
+,92,Valid,1,Checkbox,Medium,Python,Basic Python,Data type,,How can express the hexadecimal value a5 as a base-16 integer constant in Python?
+,93,Valid,1,Radio Button,Easy,Python,Basic Python,Data type,,"In Python 3, Is 263 - 1 the maximum value for an integer?"
+,94,Valid,1,Checkbox,Easy,Python,Basic Python,Introduction to Python,,Python was released publicly in ___
+,95,Valid,1,Checkbox,Medium,Python,Basic Python,OOP,,Differentiate between a class and an object?
+,96,Valid,1,Checkbox,Medium,Python,Basic Python,File,,"f = open(“test.txt”,”w”), what would happen to the file as soon as that statement is executed?"
+,97,Valid,1,Checkbox,Medium,Python,Basic Python,File,,Which of the following statement used intend to read?
+,98,Valid,1,Checkbox,Medium,Python,Basic Python,Exceptions,,Which keyword used after the “try” statement to handle exceptions?
+,99,Valid,1,Checkbox,Medium,Python,Basic Python,Function,,Which of the following output is a correct “print(‘%.2f’ % 123.444)”?
+,100,Valid,1,Checkbox,Medium,Python,Data structure,List,,How would you print the second item in the list variable “li”?
+,101,Valid,1,Checkbox,Medium,Python,Data structure,Dictionary,,Which of the following is a valid dictionary?
+,102,Valid,1,Checkbox,Medium,Python,Data structure,Tuple,,Which of the following is a valid tuple?
+,103,Valid,1,Checkbox,Medium,Python,Data structure,List,,Which of the following is a valid list?
+,104,Valid,1,Checkbox,Medium,Python,Basic Python,Data type,,How do you check to see what type of variable is it?
+,105,Valid,1,Checkbox,Medium,Python,Basic Python,Loop,,Which of the following is a valid way to start a while loop?
+,106,Valid,1,Checkbox,Medium,Python,Basic Python,Function,,Which of the following is a valid way to start a function?
+,107,Valid,1,Checkbox,Medium,Python,Basic Python,Keyword,,Which keyword would you use to add an alternative condition to an if statement?
+,108,Valid,1,Checkbox,Medium,Python,Basic Python,Symbol,,Which one of the following is a valid?
+,109,Valid,1,Checkbox,Medium,Python,Basic Python,Data type,,How would you cast the int variable “a” into the string?
+,110,Valid,1,Checkbox,Medium,Python,Basic Python,Data type,,"If you want to cast, Which of the following statements is correct?"
+,111,Valid,1,Checkbox,Medium,Python,Basic Python,Data type,,Which of the following statements is correct?
+,112,Valid,1,Checkbox,Medium,Python,Basic Python,Symbol,,Which of the following do you use to comment out a section?
+,113,Valid,1,Checkbox,Medium,Python,Basic Python,Symbol,,Which of the following do you use to comment out a single line of code?
+,114,Valid,1,Checkbox,Medium,Python,Basic Python,Introduction to Python,,Which of the following statements is not correct?
+,115,Valid,1,Checkbox,Medium,Python,Basic Python,Function,,Which function used for output?
+,116,Valid,1,Radio Button,Medium,python-django interview,Django,Django,,Can django admin template be modified?
+,117,Valid,1,Radio Button,Medium,python-django interview,Django,Django,,Is django a content management system?
+,118,Valid,1,Checkbox,Medium,python-django interview,Basic Python,Variable,,What Python built-in function returns the unique number assigned to an object?
+,119,Valid,1,Checkbox,Easy,python-django interview,Basic Python,Function,,"print ""Hello User"" . Which of the python version support this code?"
+,120,Valid,1,Checkbox,Medium,python-django interview,Basic Python,Set,,"s = {100, 200, 300}, Which one of the following statements does not correctly produce the union?"
+,121,Valid,1,Checkbox,Medium,python-django interview,Basic Python,Tuple,,"a, b, c = (1, 2, 3, 4, 5, 6, 7, 8, 9)[1 : : 3], what is the value of b?"
+,122,Valid,1,Checkbox,Medium,python-django interview,Basic Python,OOP,,What is Instantiation in terms of OOP terminology?
+,123,Valid,1,Checkbox,Hard,python-django interview,Basic Python,Operator,,"I am using the == operator to determine whether objects of type list are equal, It is __"
+,124,Valid,1,Checkbox,Medium,python-django interview,Django,Django,,What are the officially supported database backend in django?
+,125,Valid,1,Checkbox,Medium,python-django interview,Basic Python,File,,Which of the following statement is used to write a file?
+,126,Valid,1,Checkbox,Medium,python-django interview,Django,Django,,How to remove a session key?
+,127,Valid,1,Checkbox,Medium,python-django interview,Django,Django,,What task do migrations automate?
+,128,Valid,1,Checkbox,Medium,python-django interview,Django,Django,,What is the Django shortcut method to more easily render an html response?
+,129,Valid,1,Checkbox,Medium,python-django interview,Django,Django,,What happens if MyObject.objects.get() is called with parameters that do not match an existing item in the database?
+,130,Valid,1,Checkbox,Medium,python-django interview,Django,Django,,"What is the most easiest, fastest, and most stable deployment choice in most cases with Django?"
+,131,Valid,1,Checkbox,Medium,python-django interview,Django,Django,,In Django how would you retrieve all the 'User' records from a given database?
+,132,Valid,1,Checkbox,Medium,python-django interview,Django,Django,,What is the Django command to start a new app named 'users' in an existing project?
+,133,Valid,1,Checkbox,Medium,python-django interview,Basic Python,Operator,,Which of the following is not a valid assignment operator?
+,134,Valid,1,Checkbox,Medium,python-django interview,Basic Python,Loop,,Which of the following is a valid for loop in Python?
+,135,Valid,1,Checkbox,Medium,python-django interview,Basic Python,Function,,How can you replace all of the letter 'a' in a string variable x with the letter 'b'?
+,136,Valid,1,Radio Button,Easy,Python,Loops,For Loop,,"What is the output of the following? x = ['ab', 'cd'] for i in x: i.upper() print(x)"
+,137,Valid,1,Checkbox,Easy,Python,String,String-1,,"What is the output when following statement is executed ? >>>""a""+""bc"""
+,138,Valid,1,Radio Button,-,Flutter,-,-,,StatefulWidget
+,139,Valid,1,Radio Button,-,Flutter,-,-,,Flutter is created by
+,140,Valid,1,Checkbox,-,Flutter,-,-,,Flutter uses a graphics engine called _
+,141,Valid,1,Radio Button,-,Flutter,-,-,,const and final keywords are _
+,142,Valid,1,Radio Button,-,Flutter,-,-,,"In Dart 2, new keyword is _"
+,143,Valid,1,Radio Button,-,Flutter,-,-,,Dart is an object-oriented language !
+,144,Valid,1,Checkbox,-,Flutter,-,-,,Which Widget builds itself based on the latest snapshot of interaction with a Future?
+,145,Valid,1,Checkbox,-,Flutter,-,-,,Which widgets are scrollable ?
+,146,Valid,1,Radio Button,-,Flutter,-,-,,Wrap Widget _
+,147,Valid,1,Radio Button,-,Flutter,-,-,,Column Widget _
+,148,Valid,1,Radio Button,-,Flutter,-,-,,JIT compilation types use in _
+,149,Valid,1,Checkbox,-,Flutter,-,-,,What Are The Types Of List In Dirt?
+,150,Valid,1,Checkbox,-,Flutter,-,-,,What Are The Data Types In Dart Language?
+,151,Valid,1,Checkbox,-,Flutter,-,-,,Who Is The Developer Of Dart?
+,152,Valid,1,Radio Button,-,Flutter,-,-,,What are internationalization and localization? Do these terms mean the same thing?
+,153,Valid,1,Checkbox,-,Flutter,-,-,,"Which are correct ?
+class Person {
+String name;
+int age;
+Person({@required this.name, this.age });
+}"
+,154,Valid,1,Radio Button,-,Flutter,-,-,,"What is the output of the following code ?
+Future<void> getUserOrder() {
+return Future.delayed(Duration(seconds: 3), () => print('Large Latte'));
+}
+main() {
+getUserOrder();
+print('Fetching user order...');
+}"
+,155,Valid,1,Checkbox,-,Flutter,-,-,,Cupertino widgets are _
+,156,Valid,1,Checkbox,-,Flutter,-,-,,What is Dart?
+,157,Valid,1,Radio Button,-,Flutter,-,-,,Does Flutter use System’s OEM widgets?
+,158,Valid,1,Radio Button,-,Flutter,-,-,,Does Flutter come with a testing framework?
+,159,Valid,1,Radio Button,-,Flutter,-,-,,Does Flutter come with widgets?
+,160,Valid,1,Radio Button,-,Flutter,-,-,,Does Flutter come with a framework?
+,161,Valid,1,-,-,Python,-,-,,"if x>y:
+  print(""+ve"")
+else:
+  print(""-ve"")"
+,162,Valid,1,Checkbox,-,Flutter,-,-,,Flutter's Hot Reload features _
+,163,Valid,1,Checkbox,-,Flutter,-,-,,What Is The File Extension Of Dart?
+,164,Valid,1,Radio Button,-,Flutter,-,-,,Does Dart Has A Syntax For Declaring Interfaces?
+,165,Valid,1,Checkbox,-,Flutter,-,-,,Which are true ?
+,166,Valid,1,Checkbox,-,Flutter,-,-,,Flutter use __
+,167,Valid,1,Checkbox,-,Flutter,-,-,,What is a Pub file in Dart?
+,168,Valid,1,Checkbox,-,Flutter,-,-,,What is Skia?

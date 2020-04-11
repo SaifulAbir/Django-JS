@@ -1,0 +1,8 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_answer,_question,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+answer_add_1,,All Valid  Data,,,1,Answer T_One,What is Module,,,,,,
+answer_add_2,,Existing Answer,,,0,Answer T_One,What is Module,,,,,,
+answer_add_3,,Empty Answer Valid Question,,,0,,What is Module,,,,,,
+answer_add_4,,Valid Answer Empty Question,,,0,Answer T_Two,,,,,,,
+answer_add_5,,Both Field are empty,,,0,,,,,,,,
+answer_add_6,,Special Character in Answer & Valid Question,,,1,~@1241Jhjkhk,What is Module,,,,,,
+answer_add_7,,Valid Answer & invalid Question,,,0,Answer T_Three,Invalid,,,,,,

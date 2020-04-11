@@ -1,0 +1,9 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_subject_id,_topic_name,_name,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+sub_topic_add_1,,All Valid Data,,,1,Subject A,Topic A,Sub Topic Test,,,,,,
+sub_topic_add_2,,Existing Sub Topic Name,,,0,Subject A,Topic A,Sub Topic Test,,,,,,
+sub_topic_add_3,,All Empty Field,,,0,Subject A,,,,,,,,
+sub_topic_add_4,,Valid Subject Id & Sub Topic Name But Invalid Topic Name,,,0,Subject A,,Sub Topic Test One,,,,,,
+sub_topic_add_5,,Invalid Subject Id But Valid Topic and Sub topic,,,0,Invalid,Topic B,Sub Topic Test Two,,,,,,
+sub_topic_add_6,,Invalid Subject Id & Topic but Valid Sub Topic,,,0,Invalid,Invalid,Sub Topic Test Three,,,,,,
+sub_topic_add_7,,Valid Subject Id & Topic But special Character in Sub Topic,,,0,Subject B,Topic A,~@jihjk54,,,,,,
+sub_topic_add_8,,Valid Subject Id & Topic But Negatie and digit in Sub Topic,,,1,Subject B,Topic A,--++-SubTOpicTesting54,,,,,,
