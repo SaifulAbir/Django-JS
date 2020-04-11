@@ -21,8 +21,8 @@ class CompanyAdmin(admin.ModelAdmin):
 
 
 class TrendingKeywordsAdmin(admin.ModelAdmin):
-    list_display = ['keyword', 'location', 'ip_address', 'browser_name', 'operating_system', 'created_date']
-    search_fields = ['keyword', 'location', 'ip_address', 'browser_name', 'operating_system', 'created_date']
+    list_display = ['keyword', 'location', 'device', 'browser', 'operating_system', 'created_date']
+    search_fields = ['keyword', 'location', 'device', 'browser', 'operating_system', 'created_date']
 
 
 admin.site.register(Company, CompanyAdmin)

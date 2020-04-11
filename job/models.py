@@ -220,8 +220,8 @@ class Skill(models.Model):
 class TrendingKeywords(models.Model):
     keyword = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    ip_address = models.CharField(max_length=255, default='0.0.0.0')
-    browser_name = models.CharField(max_length=255,default='Unknown')
+    device = models.CharField(max_length=255, default='Unknown')
+    browser = models.CharField(max_length=255,default='Unknown')
     operating_system = models.CharField(max_length=255,default='Unknown')
     created_date = models.DateTimeField(default=timezone.now)
 
