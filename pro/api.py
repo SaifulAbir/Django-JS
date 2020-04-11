@@ -401,7 +401,7 @@ def job_alert(request):
             not_sub_user = None
         if sub_user:
             data = {
-                'status': 'subscribed',
+                'status': SUBSCRIBED_TXT,
                 'code': HTTP_200_OK,
                 "result": {
                     "user": {
@@ -412,7 +412,7 @@ def job_alert(request):
             }
         elif not_sub_user:
             data = {
-                'status': 'not subscribed',
+                'status': NOT_SUBSCRIBED_TXT,
                 'code': HTTP_200_OK,
                 "result": {
                     "user": {
@@ -422,7 +422,7 @@ def job_alert(request):
             }
         else:
             data = {
-                'status': 'not user',
+                'status': NOT_USER_TXT,
                 'code': HTTP_200_OK,
                 "result": {
                     "user": {
@@ -439,7 +439,7 @@ def job_alert(request):
 
         if sub_user:
             data = {
-                'status': 'subscribed_user',
+                'status': NOT_SUBSCRIBED_USER_TXT,
                 'code': HTTP_200_OK,
                 "result": {
                     "user": {
@@ -461,7 +461,7 @@ def job_alert_notification(request):
 
         if user.job_alert_status == True:
             data = {
-                'status': 'subscribed',
+                'status': SUBSCRIBED_TXT,
                 'code': HTTP_200_OK,
                 "result": {
                     "user": {
@@ -471,7 +471,7 @@ def job_alert_notification(request):
             }
         else:
             data = {
-                'status': 'not subscribed',
+                'status': NOT_SUBSCRIBED_TXT,
                 'code': HTTP_200_OK,
                 "result": {
                     "user": {
@@ -482,7 +482,7 @@ def job_alert_notification(request):
 
     else:
         data = {
-                'status': 'not user',
+                'status': NOT_USER_TXT,
                 'code': HTTP_401_UNAUTHORIZED,
                 "result": {
                 }

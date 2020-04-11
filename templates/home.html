@@ -233,6 +233,9 @@
 
 
     $(document).ready(function() {
+        $('#job-alert').validate({
+                errorClass: "my-error-class"
+            });
         get('/log/', loadUser);
         TokenAuthenticate();
         initAjaxForms();
