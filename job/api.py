@@ -53,7 +53,6 @@ class JobObject(APIView):
         job = get_object_or_404(Job, pk=pk)
         try:
             if request.user.is_authenticated:
-                print(request.user)
                 favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
             else:
                 favourite_job = FavouriteJob.objects.get(job=job)
@@ -99,9 +98,10 @@ def job_list(request):
         query = request.GET.get('q')
         sorting = request.GET.get('sort')
         category = request.GET.get('category')
-        location = request.GET.get('location')
+        district = request.GET.get('location')
         skill = request.GET.get('skill')
-
+        location_from_homepage = request.GET.get('location_from_homepage')
+        keyword_from_homepage = request.GET.get('keyword_from_homepage')
 
 
         if sorting == 'descending':
@@ -116,13 +116,30 @@ def job_list(request):
 
         if category:
              job_list = job_list.filter(
-                 Q(title__icontains=query)
-             ).distinct()
+                industry=category)
 
-        if query:
-             job_list = job_list.filter(
-                 Q(title__icontains=query)
-             ).distinct()
+        if district:
+            job_list = job_list.filter(
+                district=district)
+
+        # if skill:
+        #     job_list.job_skills.filter(
+        #         skill_id= skill
+        # )
+        # if skill:
+        #
+        #     job_list.job_skills.(
+        #         entry__headline__contains='Lennon',
+        #         entry__pub_date__year=2008,
+        #     )
+
+        # if location_from_homepage:
+        #     job_list = job_list.filter(
+        #         district=district)
+        #
+        # if keyword_from_homepage:
+        #     job_list = job_list.filter(
+        #         district=district)
 
 
         page = request.GET.get('page', 1)

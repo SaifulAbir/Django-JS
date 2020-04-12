@@ -336,6 +336,7 @@ $(document).ready(function() {
     ----------------------------------------*/
 
     function priceRange() {
+
       $('.nstSlider').nstSlider({
         "left_grip_selector": ".leftGrip",
         "right_grip_selector": ".rightGrip",
