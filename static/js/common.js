@@ -318,6 +318,13 @@ function TokenAuthenticate() {
 
 // Favourite job common Api
 
+function goSignIn() {
+
+      window.location.href = "/professional/sign-in/";
+
+}
+
+
 function favouriteJobAddRemove(id, url) {
 
         $("#"+id).on('click', '.favourite', function (event) {
@@ -335,7 +342,8 @@ function favouriteJobAddRemove(id, url) {
                 post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
             }
             else {
-                window.location.href = "/professional/sign-in/";
+                showQuestion("Sign In required!", "You are going to sign in now?", goSignIn , 'no')
+
             }
 
         });
