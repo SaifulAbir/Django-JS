@@ -50,7 +50,7 @@ class TrendingKeywordsAdmin(admin.ModelAdmin):
     search_fields = ['keyword', 'location', 'device', 'browser', 'operating_system', 'created_date']
 
 
-admin.site.register(Company, CompanyAdmin)
+# admin.site.register(Company, CompanyAdmin)
 admin.site.register(JobType)
 admin.site.register(Experience)
 admin.site.register(Qualification)
