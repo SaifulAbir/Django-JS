@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='job',
             name='company_name',
-            field=models.ForeignKey(db_column='company', on_delete=django.db.models.deletion.PROTECT, to='job.Company'),
+            field=models.ForeignKey(db_column='company', null=True, on_delete=django.db.models.deletion.PROTECT, to='job.Company'),
         ),
     ]
