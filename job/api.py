@@ -122,10 +122,10 @@ def job_list(request):
             job_list = job_list.filter(
                 district=district)
 
-        # if skill:
-        #     job_list.job_skills.filter(
-        #         skill_id= skill
-        # )
+        if skill:
+            job_list = job_list.filter(job_skills__in = [skill])
+            print(job_list.filter(salary_min__gte = 50000.00) | job_list.filter(salary_max__lte = 60000.00))
+            print(job_list.filter(experience__gte=7, experience__lte=8))
         # if skill:
         #
         #     job_list.job_skills.(
