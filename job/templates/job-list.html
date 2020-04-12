@@ -273,8 +273,6 @@
 
             var template = $('.template').html();
 
-            socialUrl = '/api/settings/';
-            get(socialUrl,loadSocialIcon);
 
             jobtype_url = '/job_type';
             get(jobtype_url, loadJobtype);
@@ -410,6 +408,37 @@
                 }
             }
 
+
+        function loadSalaryRange(data){
+                       len = data.length;
+                       var v_min =  data.sr_min;
+                       var v_max =  data.sr_max;
+                       {#console.log(v_min)#}
+                       {#console.log(v_max)#}
+                       $('.nstSlider').attr('data-cur_min', v_min);
+                       $('.nstSlider').attr('data-cur_max', v_max);
+
+
+                       $('.grip-label').append('<span class="leftLabel">'+v_min+'</span>'+
+                                  '<span class="rightLabel">'+v_max+'</span>');
+
+
+                              }
+
+
+
+        function fetchPaginationDatacallback(data){
+            var currentIndex=$('.page-numbers.current').data('value');
+            var totalNumberOfData = data.count;
+            if (data.previous == null && totalNumberOfData > 0){
+                var numberOfDataInSinglePage = data.results.length;
+                var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
+                $('.pagination-summary').show().html(paginationSummary);
+            }
+            var list = makeListHtml(data.results, template);
+            $('.job-result').html(list);
+            var url = '/job_list';
+            makePagination(totalNumberOfData, pageSize, url, currentIndex);
             function fetchPaginationDatacallback(data){
                 var currentIndex=$('.page-numbers.current').data('value');
                 var totalNumberOfData = data.count;

@@ -18,3 +18,10 @@ ACTIVE_ACCOUNT_ERROR = 'No active account found with the given credentials'
 LOGIN_CREDENTIAL_BLANK_ERROR = 'Please provide both username and password'
 LOGIN_CREDENTIAL_ERROR_MSG = 'Invalid Credentials'
 # LOGIN_STRINGS
+
+# JOB_ALERT_STRINGS
+SUBSCRIBED_TXT = 'subscribed'
+NOT_SUBSCRIBED_TXT = 'not subscribed'
+NOT_USER_TXT = 'not user'
+NOT_SUBSCRIBED_USER_TXT = 'subscribed_user'
+# JOB_ALERT_STRINGS

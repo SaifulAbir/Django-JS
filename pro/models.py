@@ -26,6 +26,7 @@ class Professional(models.Model):
     password = models.CharField(max_length=255, validators=[check_valid_password, MinLengthValidator(8)])
     user = models.OneToOneField(User, on_delete=models.PROTECT, null=True, blank=True)
     signup_verification_code = models.CharField(max_length=200, blank=True, null=True)
+    job_alert_status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.full_name

@@ -34,12 +34,14 @@ function del(url, callback) {
 
 function send(url, method, data, callback) {
     var csrf = getCsrfToken();
+    var access_token = $.cookie("access");
     if(!callback) callback = () => {};
     if(typeof(callback) !== "function") callback = window[callback];
     $.ajax({
         beforeSend : function(xhr) {
             xhr.setRequestHeader('api-key',apiKey);
             if(csrf) xhr.setRequestHeader(csrf.header, csrf.token);
+            if(access_token) xhr.setRequestHeader("Authorization", 'Bearer '+access_token);
         },
         type : method,
         contentType : 'application/json',

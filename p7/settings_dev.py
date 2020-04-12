@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'testimonial',
     'settings',
     'career_advice',
+    'django_user_agents',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +66,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
+
+
+USER_AGENTS_CACHE = 'default'
+
 
 ROOT_URLCONF = 'p7.urls'
 

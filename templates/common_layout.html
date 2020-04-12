@@ -33,7 +33,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600%7CRoboto:300i,400,500" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    <link rel="icon" href="{% static 'images/faviconl.png' %}">
     <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
     <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/icon-72x72.png' %}">
     <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/icon-114x114.png' %}">
@@ -61,21 +61,21 @@
                     </div>
                     <div class="top-nav">
                         <div class="dropdown header-top-account">
-                            <a href="#" class="account-button">My Account</a>
+                            <a href="#" class="account-button"></a>
                             <div class="account-card">
                                 <div class="header-top-account-info">
-                                    <a href="#" class="account-thumb">
+                                    <a href="javascript:void(0)" class="account-thumb">
                                         <img src="{% static 'images/account/thumb-1.jpg' %}" class="img-fluid" alt="">
                                     </a>
                                     <div class="account-body">
-                                        <h5><a href="#">Robert Chavez</a></h5>
+                                        <h5><a href="javascript:void(0)">Robert Chavez</a></h5>
                                         <span class="mail">chavez@domain.com</span>
                                     </div>
                                 </div>
                                 <ul class="account-item-list">
-                                    <li><a href="#"><span class="ti-user"></span>Account</a></li>
-                                    <li><a href="#"><span class="ti-settings"></span>Settings</a></li>
-                                    <li><a href="#"><span class="ti-power-off"></span>Log Out</a></li>
+                                    <li><a href="javascript:void(0)"><span class="ti-user"></span>Account</a></li>
+                                    <li><a href="javascript:void(0)"><span class="ti-settings"></span>Settings</a></li>
+                                    <li><a href="/professional/sign-out"><span class="ti-power-off"></span>Log Out</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                         <h2>Get JobSearch App</h2>
                         <p>Searching for jobs never been that easy. Now you can find job matched your career expectation</p>
                         <div class="app-download-button">
-                            <a href="" class="apple-app">Apple Store</a>
+                            <a href="" class="apple-app">App Store</a>
                             <a href="" class="android-app">Google Play</a>
                         </div>
                     </div>
@@ -184,8 +184,8 @@
                   <ul>
                     <li><a href="{% url 'register' %}">Create Account</a></li>
                     <li><a href="{% url 'career_advice' %}">Career Advice</a></li>
-                    <li><a href="javascript:void(0)">My Job Search</a></li>
-                    <li><a href="javascript:void(0)">FAQ</a></li>
+                    <li><a href="{% url 'my_job_search' %}">My Job Search</a></li>
+                    <li><a href="{% url 'FAQ' %}">FAQ</a></li>
                   </ul>
                 </div>
               </div>
@@ -197,8 +197,9 @@
 
 
                   <ul>
-                      <li>House 76 (Level 4) Road 4, Block B</li>
-                      <li>Niketan Gulshan 1</li>
+                      <li>House 76 (Level 4)</li>
+                      <li>Road 4, Block B</li>
+                      <li>Niketan, Gulshan 1</li>
                       <li>Dhaka 1212, Bangladesh</li>
 
 
@@ -281,17 +282,27 @@
        TokenAuthenticate();
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialUrl);
+        get('/log/', loadUser);
     });
      function loadSocialUrl(data) {
-            console.log(data);
+             if (data.length>0){
             data = data[0];
             $('.facebook-url').attr('href', data.facebook_url);
             $('.linkedin-url').attr('href', data.linkedin_url);
             $('.twitter-url').attr('href', data.twitter_url);
             $('.apple-app').attr('href', data.appstore_url);
             $('.android-app').attr('href', data.playstore_url);
+            }
 
+     }
+
+     function loadUser(data) {
+        if(data[0].user){
+            $('.account-button').text(data[0].user.name);
+            $('.account-body a').text(data[0].user.name);
+            $('.account-body .mail').text(data[0].user.email);
         }
+    }
 
 
 
