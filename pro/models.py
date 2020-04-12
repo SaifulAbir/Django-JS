@@ -6,10 +6,49 @@ import uuid
 # Create your models here.
 from django.utils import timezone
 
-from job.models import Industry
+from job.models import Industry, Gender, JobType, Experience, Qualification, Company
 from p7.validators import check_valid_password, MinLengthValidator, \
     check_valid_phone_number
 from resources import strings_pro
+
+
+class Nationality(models.Model):
+    name = models.CharField(max_length=255, )
+    created_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'nationalities'
+
+
+class Institute(models.Model):
+    name = models.CharField(max_length=255, )
+    created_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'institutes'
+
+
+class Organization(models.Model):
+    name = models.CharField(max_length=255, )
+    created_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'organizations'
+
+
+
+class Major(models.Model):
+    name = models.CharField(max_length=255, )
+    created_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'majors'
+
+
+
+
+
+
 
 # PROFESSIONAL MODEL
 class Professional(models.Model):
@@ -27,6 +66,24 @@ class Professional(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT, null=True, blank=True)
     signup_verification_code = models.CharField(max_length=200, blank=True, null=True)
 
+    father_name= models.CharField(max_length=255, blank=True, null=True)
+    mother_name= models.CharField(max_length=255, blank=True, null=True)
+    facebbok_id= models.CharField(max_length=255, blank=True, null=True)
+    twitter_id= models.CharField(max_length=255, blank=True, null=True)
+    linkedin_id= models.CharField(max_length=255, blank=True, null=True)
+    date_of_birth = models.DateField(default=datetime.date.today)
+    gender = models.ForeignKey(Gender,on_delete=models.PROTECT, null=True, blank=True)
+    status = models.ForeignKey(JobType,on_delete=models.PROTECT, null=True, blank=True)
+    experience = models.ForeignKey(Experience,on_delete=models.PROTECT, null=True, blank=True)
+    qualification = models.ForeignKey(Qualification,on_delete=models.PROTECT, null=True, blank=True)
+    expected_salary_min = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    expected_salary_max = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    nationality = models.ForeignKey(Nationality,on_delete=models.PROTECT, null=True, blank=True)
+
+
+
+
+
     def __str__(self):
         return self.full_name
 
@@ -35,3 +92,85 @@ class Professional(models.Model):
         verbose_name = strings_pro.PROFESSIONAL_VERBOSE_NAME
         verbose_name_plural = strings_pro.PROFESSIONAL_VERBOSE_NAME_PLURAL
         db_table = 'professionals'
+
+
+
+
+class ProfessionalEducation(models.Model):
+    professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
+    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT, null=True, blank=True)
+    institution = models.ForeignKey(Institute, on_delete=models.PROTECT, null=True, blank=True)
+    major = models.ForeignKey(Major, on_delete=models.PROTECT, null=True, blank=True)
+    enrolled_date = models.DateField(null=True, blank=True)
+    graduation_date = models.DateField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'professional_educations'
+
+
+class ProfessionalSkill(models.Model):
+    professional = models.ForeignKey(Professional, on_delete=models.PROTECT)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    rating = models.DecimalField(max_digits=2, decimal_places=2, blank=True, null=True)
+    verified_by_skillcheck = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'professional_skills'
+
+
+class WorkExperience(models.Model):
+    professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
+    company = models.ForeignKey(Company, on_delete=models.PROTECT)
+    designation = models.CharField(max_length=255, blank=True, null=True)
+    Started_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'work_experiences'
+
+class Portfolio(models.Model):
+    professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
+    name = models.CharField(max_length=255)
+    image = models.CharField(blank=True, null=True, max_length=500)
+    description = models.TextField(blank=True, null=True)
+
+
+    class Meta:
+        db_table = 'portfolios'
+
+class Membership(models.Model):
+    professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
+    org_name = models.ForeignKey(Organization,on_delete=models.PROTECT)
+    position_held = models.CharField(max_length=255, blank=True, null=True)
+    membership_ongoing = has_expiry_period = models.BooleanField(default=False)
+    Start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    desceription = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'memberships'
+
+
+
+
+class Certification(models.Model):
+    professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
+    certification_name = models.CharField(max_length=255)
+    organization_name = models.CharField(max_length=255)
+    has_expiry_period = models.BooleanField(default=True)
+    issue_date = models.DateField(null=True, blank=True)
+    expiry_date = models.DateField(null=True, blank=True)
+    credential_id = models.CharField(max_length=255,null=True, blank=True)
+    credential_url = models.CharField(max_length=255,null=True, blank=True)
+
+    class Meta:
+        db_table = 'certifications'
+
+
+
+
+
+
+
+
+

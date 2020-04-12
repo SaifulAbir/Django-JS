@@ -13,7 +13,7 @@ from resources.strings_pro import *
 class ProfessionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professional
-        fields = ['professional_id', 'full_name', 'email', 'phone', 'address', 'industry_expertise', 'about_me', 'image']
+        fields = '__all__'
 class CustomTokenSerializer(serializers.Serializer):
     token = serializers.CharField()
 
@@ -72,4 +72,7 @@ class TokenObtainCustomPairSerializer(TokenObtainCustomSerializer):
         data['email'] = self.user.email
         data['user_id'] = self.user.id
         data['full_name'] = professional.full_name
+        data['professional_id'] = professional.id
+        data['professional_image'] = professional.image
+
         return data

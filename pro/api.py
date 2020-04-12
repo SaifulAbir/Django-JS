@@ -9,6 +9,8 @@ from django.contrib.auth.hashers import make_password
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt import serializers
 from django_rest_passwordreset.models import ResetPasswordToken
@@ -369,3 +371,9 @@ def logout(request):
     return response
 
 
+class ProfessionalUpdatePartial(GenericAPIView, UpdateModelMixin):
+    queryset = Professional.objects.all()
+    serializer_class = ProfessionalSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
