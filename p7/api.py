@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.utils import json
@@ -177,6 +178,11 @@ def professional_info(request, user_id):
 
 @api_view(["GET"])
 def isLoggedIn(request):
+    data = []
     if not request.user.is_authenticated:
         return Response(HTTP_401_UNAUTHORIZED)
+    elif request.user.is_authenticated:
+        professional = Professional.objects.get(user = request.user)
+        data.append({'user':{'name':professional.full_name,'email':professional.email}})
+        return JsonResponse(list(data), safe=False)
     return Response(HTTP_200_OK)

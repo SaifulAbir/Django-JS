@@ -60,3 +60,8 @@ def updateProfessionalVerficationLink(email, unique_link):
     professional = Professional.objects.get(email=email)
     professional.signup_verification_code = unique_link
     professional.save()
+
+def job_alert_save(email):
+    user = Professional.objects.get(email = email)
+    user.job_alert_status = True
+    user.save()

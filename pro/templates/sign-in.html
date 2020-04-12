@@ -75,6 +75,7 @@
                     <form action="/api/sign_in/" id="sign-in" class="ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
                         <div class="form-group">
                             <input type="email" placeholder="Email Address" name="email" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
+                            <input type="text" name="alert" id="alert" class="display-none">
                         </div>
                         <div class="form-group">
                             <input type="password" placeholder="Password" name="password" class="form-control" required data-msg-required="Password is required">
@@ -122,6 +123,7 @@
 <script src="{% static '/assets/js/jquery.ajaxchimp.min.js' %}"></script>
 <script src="{% static 'js/jquery.validate.min.js' %}"></script>
 <script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
+<script src="{% static '/assets/js/jquery.cookie.min.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
 <script src="{% static '/assets/js/form2js.js' %}"></script>
 <script src="{% static 'js/common.js' %}"></script>
@@ -133,6 +135,11 @@
         $('#sign-in').validate({
             errorClass: "my-error-class",
         });
+        var urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.has('email')){
+            $('#email').val(urlParams.get('email'));
+            $('#alert').val('on');
+        }
         initAjaxForms();
         var path = window.location.href
         var message = path.split('/?').pop()

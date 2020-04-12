@@ -220,7 +220,11 @@ class Skill(models.Model):
 class TrendingKeywords(models.Model):
     keyword = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    created_date = models.DateField(default=datetime.date.today)
+    device = models.CharField(max_length=255, default='Unknown')
+    browser = models.CharField(max_length=255,default='Unknown')
+    operating_system = models.CharField(max_length=255,default='Unknown')
+    created_date = models.DateTimeField(default=timezone.now)
+
 
     class Meta:
         verbose_name = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME
