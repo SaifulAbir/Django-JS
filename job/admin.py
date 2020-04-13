@@ -13,7 +13,7 @@ class JobAdmin(admin.ModelAdmin):
                      'experience__name__icontains', 'qualification__name__icontains', 'gender__name__icontains',
                      'company_name__name__icontains', 'division__name__icontains', 'district__name__icontains', 'zipcode__iexact','entry_date']
     date_hierarchy = 'entry_date'
-    list_per_page = 1
+    list_per_page = 15
 # class CompanyAdmin(admin.ModelAdmin):
 #     list_display = ['name', 'address', 'basis_membership_no', 'email', 'web_address', 'organization_head','year_of_eastablishment',
 #                     'division', 'district']
