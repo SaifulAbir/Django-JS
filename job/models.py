@@ -252,3 +252,18 @@ class FavouriteJob(models.Model):
     def __str__(self):
         return self.job.title
 #Bookmark job Model ends here
+
+#Apply Online Model Starts here
+class ApplyOnline(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, db_column='user')
+    created_date = models.DateField(default=datetime.date.today)
+
+    class Meta:
+        verbose_name = strings_job.APPLY_ONLINE_JOB_VERBOSE_NAME
+        verbose_name_plural = strings_job.APPLY_ONLINE_JOB_VERBOSE_NAME_PLURAL
+        db_table = 'apply_onlines'
+
+    def __str__(self):
+        return self.job.title
+#Apply Online Model ends here
