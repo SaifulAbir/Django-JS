@@ -229,7 +229,7 @@
 
             json2Div(data, container);
 
-            category= $('#industry').text()
+            category= $('#title').text()
             catUrl = '/api/similar_jobs/'+ category;
             get(catUrl,loadSimilarJob)
 
@@ -241,7 +241,7 @@
 
     }
     function loadSimilarJob(data) {
-        for(index=0;index<data.length;index++){
+        for(index=0;index<6;index++){
             var dateString = data[index].created_date;
             var momentObj = moment(dateString, 'YYYY-MM-DD');
             var dateMomentString = momentObj.format('MMM DD, YYYY');

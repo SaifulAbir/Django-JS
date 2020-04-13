@@ -24,6 +24,7 @@ from p7.settings_dev import *
 
 from pro.models import Professional
 from resources.strings_pro import *
+from difflib import SequenceMatcher
 
 
 def sendSignupEmail(email,id, date):
@@ -65,3 +66,6 @@ def job_alert_save(email):
     user = Professional.objects.get(email = email)
     user.job_alert_status = True
     user.save()
+
+def similar(a, b):
+    return SequenceMatcher(None, a, b).ratio()

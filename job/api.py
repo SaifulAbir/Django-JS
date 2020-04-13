@@ -31,7 +31,7 @@ from .models import Company, Job, Industry, JobType, Experience, Qualification, 
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics, pagination
-
+from pro.utils import similar
 
 class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
@@ -115,19 +115,19 @@ def job_list(request):
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
 
         if query:
-             job_list = job_list.filter(
-                 Q(title__icontains=query)
-             ).distinct()
+            job_list = job_list.filter(
+                Q(title__icontains=query)
+            ).distinct()
 
         if category:
-             job_list = job_list.filter(
-                 Q(title__icontains=query)
-             ).distinct()
+            job_list = job_list.filter(
+                Q(title__icontains=query)
+            ).distinct()
 
         if query:
-             job_list = job_list.filter(
-                 Q(title__icontains=query)
-             ).distinct()
+            job_list = job_list.filter(
+                Q(title__icontains=query)
+            ).distinct()
 
 
         page = request.GET.get('page', 1)
@@ -163,7 +163,7 @@ def job_list(request):
         job_list = JobSerializer(job_list, many=True)
 
     except Job.DoesNotExist:
-         job_list = []
+        job_list = []
 
 
     data = {
@@ -323,7 +323,7 @@ class TopSkills(generics.ListCreateAPIView):
 
 class PopularJobs(generics.ListCreateAPIView):
     queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
-    ).order_by('-favourite_count')[:16]
+                                          ).order_by('-favourite_count')[:16]
     serializer_class = PopularJobSerializer
 
 @api_view(["GET"])
@@ -369,10 +369,12 @@ def vital_stats(self):
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
-@api_view(["GET"])
-def similar_jobs(request,industry):
 
-    queryset = Job.objects.filter(industry=industry).order_by('-created_date')[:5]
+
+@api_view(["GET"])
+def similar_jobs(request,title):
+
+    queryset = Job.objects.all()
     data = []
     for job in queryset:
         try:
@@ -394,9 +396,11 @@ def similar_jobs(request,industry):
                 job.profile_picture = '/static/images/job/company-logo-2.png'
         else:
             job.profile_picture = '/static/images/job/company-logo-2.png'
-        data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
-                     'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
-                     'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
+        if similar(title, job.title)>.70:
+            data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
+                         'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
+                         'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
+
     return JsonResponse(list(data), safe=False)
 
 
