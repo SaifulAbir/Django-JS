@@ -30,6 +30,7 @@ from rest_framework_simplejwt.authentication import AUTH_HEADER_TYPES
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
 from p7.permissions import IsAppAuthenticated
+from p7.settings_dev import SITE_URL
 from pro.models import Professional
 from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
@@ -242,9 +243,9 @@ class CustomPasswordResetView:
             'current_user': reset_password_token.user,
             'username': reset_password_token.user.username,
             'email': reset_password_token.user.email,
-            'reset_password_url': "{}/professional/password-reset/{}".format(strings.site_url, reset_password_token.key),
+            'reset_password_url': "{}/professional/password-reset/{}".format(SITE_URL, reset_password_token.key),
             'site_name': site_shortcut_name,
-            'site_domain': site_url
+            'site_domain': SITE_URL
         }
 
         # render email text
