@@ -135,11 +135,11 @@ def job_list(request):
             job_list = job_list.filter(job_skills__in = [skill])
             #print(job_list.filter(salary_min__gte = salaryMin) | job_list.filter(salary_max__lte = salaryMax))
 
-        if salaryMin and salaryMax :
-            job_list.filter(salary_min__gte=salaryMin)
+        if salaryMin and salaryMax:
+            job_list = (job_list.filter(salary_min__gte=salaryMin) & job_list.filter(salary_max__lte = salaryMax))
 
-        if salaryMin and salaryMax :
-            job_list.filter(experience__gte=7, experience__lte=8)
+        # if salaryMin and salaryMax :
+        #     job_list.filter(experience__gte=7, experience__lte=8)
 
         if location_from_homepage:
             job_list = job_list.filter(
