@@ -101,7 +101,15 @@ def job_list(request):
         district = request.GET.get('location')
         skill = request.GET.get('skill')
         location_from_homepage = request.GET.get('location_from_homepage')
+
         keyword_from_homepage = request.GET.get('keyword_from_homepage')
+
+        if location_from_homepage == 'undefined':
+            location_from_homepage=''
+
+        if keyword_from_homepage == 'undefined':
+            keyword_from_homepage=''
+
 
 
         if sorting == 'descending':
@@ -110,12 +118,12 @@ def job_list(request):
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
 
         if query:
-             job_list = job_list.filter(
-                 Q(title__icontains=query)
-             ).distinct()
+            job_list = job_list.filter(
+                Q(title__icontains=query)
+            )
 
         if category:
-             job_list = job_list.filter(
+            job_list = job_list.filter(
                 industry=category)
 
         if district:
@@ -126,20 +134,16 @@ def job_list(request):
             job_list = job_list.filter(job_skills__in = [skill])
             print(job_list.filter(salary_min__gte = 50000.00) | job_list.filter(salary_max__lte = 60000.00))
             print(job_list.filter(experience__gte=7, experience__lte=8))
-        # if skill:
-        #
-        #     job_list.job_skills.(
-        #         entry__headline__contains='Lennon',
-        #         entry__pub_date__year=2008,
-        #     )
 
-        # if location_from_homepage:
-        #     job_list = job_list.filter(
-        #         district=district)
-        #
-        # if keyword_from_homepage:
-        #     job_list = job_list.filter(
-        #         district=district)
+        if location_from_homepage:
+            job_list = job_list.filter(
+                Q(district__name__icontains=location_from_homepage)
+            )
+
+        if keyword_from_homepage:
+            job_list = job_list.filter(
+                Q(title__icontains=keyword_from_homepage)
+            )
 
 
         page = request.GET.get('page', 1)

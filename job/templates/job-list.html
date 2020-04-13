@@ -235,64 +235,34 @@
 {% endblock %}
 {% block extra_js %}
 <script>
-    $(document).ready(function () {
 
-        var getUrlParameter = function getUrlParameter(sParam) {
-            var sPageURL = window.location.search.substring(1),
-                sURLVariables = sPageURL.split('&'),
-                sParameterName,
-                i;
+    // Return url parameter value
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
 
-            for (i = 0; i < sURLVariables.length; i++) {
-                sParameterName = sURLVariables[i].split('=');
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
 
-                if (sParameterName[0] === sParam) {
-                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-                }
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
             }
-        };
+        }
+    };
 
+    $(document).ready(function () {
+        var template = $('.template').html();
+        var pageSize = 10;
         var location_from_homepage = encodeURIComponent(getUrlParameter('location'));
         var keyword_from_homepage = encodeURIComponent(getUrlParameter('keyword'));
-
-        var search_keyword = $("#search-keyword").val();
-        var category = $("#category").val();
-        var location = $("#location").val();
-        var skill = $("#skill").val();
-        var pageSize = 10;
-
-
-
-        $("#search-job-form").submit(function(e){
-            var search_keyword = $("#search-keyword").val();
-            get("/api/job_list/?page=1&q="+search_keyword+"&page_size="+pageSize,fetchDatacallback);
-            return false;
-        });
-
-        $(".sorting-job .selectpicker, .job-filter-dropdown").change(function(e){
-            var category = encodeURIComponent($("#category").val());
-            var location = encodeURIComponent($("#location").val());
-            var skill = encodeURIComponent($("#skill").val());
-
-            var sorting_val = $(this).val();
-            get("/api/job_list/?page=1&q="+search_keyword+"&category="+category+"&location="+location+"&skill="+skill+"&sort="+ sorting_val +"&page_size="+pageSize,fetchDatacallback);
-        });
-
-
-        get("/api/job_list/?page=1&q="+search_keyword+"&category="+category+"&location="+location+"&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+
-            "&skill="+skill+"&page_size="+pageSize,fetchDatacallback);
-
-
-        var template = $('.template').html();
 
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialIcon);
 
         jobtype_url = '/job_type';
         get(jobtype_url, loadJobtype);
-
-        experi_url = '/experience';
-        //get(experi_url,loadExperience);
 
         gender_url = '/gender';
         get(gender_url,loadGender);
@@ -313,7 +283,8 @@
         skill_url = '/api/skill_list/';
         get(skill_url,loadskill);
 
-
+        job_list_url = "/api/job_list/?page=1&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+"&page_size="+pageSize;
+        get(job_list_url,fetchDatacallback);
 
 
         function fetchDatacallback(data){
@@ -389,20 +360,14 @@
 
         function loadJobtype(data) {
             len = data.length;
-            for(x=0;x<len;x++){
+            for(i=0;i<len;i++){
                 var jobtype_html = '<li class="full-time">'+
                     '<i data-feather="clock">'+
                     '</i>'+
-                    '<a href="#" data-attr="'+data[x].name+'">'+data[x].name+'</a>'+
+                    '<a href="#">'+data[i].name+'</a>'+
                     '</li>';
                 $('.typelist').append(jobtype_html);
                 feather.replace();
-            }}
-
-
-        function loadExperience(data){
-            for(x=1;x<=6;x++){
-                $('.experiencelist').append('<li><a href="#" data-attr="'+data[x]+'"</a>'+data[x]+'</li>');
             }
         }
 
@@ -410,7 +375,7 @@
         function loadGender(data){
             len = data.length;
             for(x=0;x<len;x++){
-                $('.genderlist').append('<li><a href="#" data-attr="'+data[x].name+'"</a>'+data[x].name+'</li>');
+                $('.genderlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
             }
         }
 
@@ -418,7 +383,7 @@
         function loadQualification(data){
             len = data.length;
             for(x=0;x<len;x++){
-                $('.qualificationlist').append('<li><a href="#" data-attr="'+data[x].name+'"</a>'+data[x].name+'</li>');
+                $('.qualificationlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
             }
         }
 
@@ -436,8 +401,32 @@
             makePagination(totalNumberOfData, pageSize, url, currentIndex);
 
             $('.page-numbers[data-value=' + currentIndex + ']').addClass("current");
-
         }
+
+        //filtering code start
+
+        function filterJobList(){
+            var search_keyword = encodeURIComponent($("#search-keyword").val());
+            var category = encodeURIComponent($("#category").val());
+            var location = encodeURIComponent($("#location").val());
+            var skill = encodeURIComponent($("#skill").val());
+            var sorting_val = $(".sorting-job .selectpicker").val();
+            get("/api/job_list/?page=1&q="+search_keyword+"&location="+location+"&category="+category+"&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+
+                "&skill="+skill+"&sort="+ sorting_val +"&page_size="+pageSize,fetchDatacallback);
+        }
+
+        $("#search-job-form").submit(function(e){
+            filterJobList();
+            return false;
+        });
+
+        $(".sorting-job .selectpicker, .job-filter-dropdown").change(function(e){
+            filterJobList();
+        });
+
+        //filterJobList(search_keyword, category, location, location_from_homepage, keyword_from_homepage, skill);
+
+        //filtering code end
 
     })
 </script>
