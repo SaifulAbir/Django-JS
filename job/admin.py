@@ -4,7 +4,7 @@ from django.contrib import admin
 # Register your models here.
 from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords
 from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill
-
+from django_admin_listfilter_dropdown.filters import DropdownFilter
 
 class JobAdmin(admin.ModelAdmin):
     filter_horizontal = ('job_skills',)
@@ -14,6 +14,8 @@ class JobAdmin(admin.ModelAdmin):
                      'company_name__name__icontains', 'division__name__icontains', 'district__name__icontains', 'zipcode__iexact','entry_date']
     date_hierarchy = 'entry_date'
     list_per_page = 15
+    list_filter = (('entry_date', DropdownFilter),)
+
 # class CompanyAdmin(admin.ModelAdmin):
 #     list_display = ['name', 'address', 'basis_membership_no', 'email', 'web_address', 'organization_head','year_of_eastablishment',
 #                     'division', 'district']
