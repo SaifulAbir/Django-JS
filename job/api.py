@@ -87,6 +87,7 @@ class JobObject(APIView):
             data['skill'].append(skill.name)
         #     else:
         #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
+        print(data)
         return Response(data)
 
 class IndustryList(generics.ListCreateAPIView):
