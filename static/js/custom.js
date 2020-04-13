@@ -344,7 +344,9 @@ $(document).ready(function() {
         "value_changed_callback": function (cause, leftValue, rightValue) {
           $(this).parent().find('.leftLabel').text(leftValue);
           $(this).parent().find('.rightLabel').text(rightValue);
-
+          var salaryMin = leftValue;
+          var salaryMax = rightValue;
+            filterJobList(salaryMin, salaryMax);
         }
       });
     }

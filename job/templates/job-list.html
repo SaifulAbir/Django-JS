@@ -147,7 +147,7 @@
                         <div id="experience-filter"  class="job-filter same-pad">
                             <h4 class="option-title">Experience</h4>
                             <div class="price-range-slider">
-                                <div class="nstSlider" data-range_min="0" data-range_max="10"
+                                <div class="nstSlider1" data-range_min="0" data-range_max="10"
                                      data-cur_min=""    data-cur_max="">
                                     <div class="bar"></div>
                                     <div class="leftGrip"></div>
@@ -235,7 +235,7 @@
 {% endblock %}
 {% block extra_js %}
 <script>
-
+    var pageSize = 10;
     // Return url parameter value
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = window.location.search.substring(1),
@@ -252,9 +252,38 @@
         }
     };
 
+    function filterJobList(salaryMin=null, salaryMax=null){
+            var pageSize = 10;
+            var location_from_homepage = encodeURIComponent(getUrlParameter('location'));
+            var keyword_from_homepage = encodeURIComponent(getUrlParameter('keyword'));
+            var search_keyword = encodeURIComponent($("#search-keyword").val());
+            var category = encodeURIComponent($("#category").val());
+            var location = encodeURIComponent($("#location").val());
+            var skill = encodeURIComponent($("#skill").val());
+            var sorting_val = $(".sorting-job .selectpicker").val();
+            get("/api/job_list/?page=1&q="+search_keyword+"&location="+location+"&category="+category+"&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+
+                "&skill="+skill+"&salaryMin="+ salaryMin +"&salaryMax="+ salaryMax +"&sort="+ sorting_val +"&page_size="+pageSize,fetchDatacallback);
+        }
+    var template = $('.template').html();
+    function fetchDatacallback(data){
+            var totalNumberOfData = data.count;
+            if (data.previous == null && totalNumberOfData > 0){
+                var numberOfDataInSinglePage = data.results.length;
+                var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
+                $('.pagination-summary').show().html(paginationSummary);
+            }
+            var list = makeListHtml(data.results, template);
+            $('.job-result').html(list);
+            var url = '/job_list';
+            var startingIndex=1;
+            makePagination(totalNumberOfData, pageSize, url, startingIndex);
+            $(".page-numbers:nth-child(2)").addClass('current');
+
+
+        }
     $(document).ready(function () {
-        var template = $('.template').html();
-        var pageSize = 10;
+
+
         var location_from_homepage = encodeURIComponent(getUrlParameter('location'));
         var keyword_from_homepage = encodeURIComponent(getUrlParameter('keyword'));
 
@@ -287,22 +316,7 @@
         get(job_list_url,fetchDatacallback);
 
 
-        function fetchDatacallback(data){
-            var totalNumberOfData = data.count;
-            if (data.previous == null && totalNumberOfData > 0){
-                var numberOfDataInSinglePage = data.results.length;
-                var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
-                $('.pagination-summary').show().html(paginationSummary);
-            }
-            var list = makeListHtml(data.results, template);
-            $('.job-result').html(list);
-            var url = '/job_list';
-            var startingIndex=1;
-            makePagination(totalNumberOfData, pageSize, url, startingIndex);
-            $(".page-numbers:nth-child(2)").addClass('current');
 
-
-        }
 
         $("body").delegate(".page-numbers", "click", function(){
             $('.page-numbers').removeClass('current');
@@ -405,15 +419,7 @@
 
         //filtering code start
 
-        function filterJobList(){
-            var search_keyword = encodeURIComponent($("#search-keyword").val());
-            var category = encodeURIComponent($("#category").val());
-            var location = encodeURIComponent($("#location").val());
-            var skill = encodeURIComponent($("#skill").val());
-            var sorting_val = $(".sorting-job .selectpicker").val();
-            get("/api/job_list/?page=1&q="+search_keyword+"&location="+location+"&category="+category+"&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+
-                "&skill="+skill+"&sort="+ sorting_val +"&page_size="+pageSize,fetchDatacallback);
-        }
+
 
         $("#search-job-form").submit(function(e){
             filterJobList();

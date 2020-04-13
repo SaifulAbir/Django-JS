@@ -101,8 +101,9 @@ def job_list(request):
         district = request.GET.get('location')
         skill = request.GET.get('skill')
         location_from_homepage = request.GET.get('location_from_homepage')
-
         keyword_from_homepage = request.GET.get('keyword_from_homepage')
+        salaryMin = request.GET.get('salaryMin')
+        salaryMax = request.GET.get('salaryMax')
 
         if location_from_homepage == 'undefined':
             location_from_homepage=''
@@ -132,8 +133,13 @@ def job_list(request):
 
         if skill:
             job_list = job_list.filter(job_skills__in = [skill])
-            print(job_list.filter(salary_min__gte = 50000.00) | job_list.filter(salary_max__lte = 60000.00))
-            print(job_list.filter(experience__gte=7, experience__lte=8))
+            #print(job_list.filter(salary_min__gte = salaryMin) | job_list.filter(salary_max__lte = salaryMax))
+
+        if salaryMin and salaryMax :
+            job_list.filter(salary_min__gte=salaryMin)
+
+        if salaryMin and salaryMax :
+            job_list.filter(experience__gte=7, experience__lte=8)
 
         if location_from_homepage:
             job_list = job_list.filter(
@@ -179,7 +185,7 @@ def job_list(request):
         job_list = JobSerializer(job_list, many=True)
 
     except Job.DoesNotExist:
-         job_list = []
+        job_list = []
 
 
     data = {
@@ -328,7 +334,7 @@ class TopSkills(generics.ListCreateAPIView):
 
 class PopularJobs(generics.ListCreateAPIView):
     queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
-    ).order_by('-favourite_count')[:16]
+                                          ).order_by('-favourite_count')[:16]
     serializer_class = PopularJobSerializer
 
 @api_view(["GET"])
