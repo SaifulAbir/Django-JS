@@ -389,11 +389,11 @@
 
         function loadJobtype(data) {
             len = data.length;
-            for(i=0;i<len;i++){
+            for(x=0;x<len;x++){
                 var jobtype_html = '<li class="full-time">'+
                     '<i data-feather="clock">'+
                     '</i>'+
-                    '<a href="#">'+data[i].name+'</a>'+
+                    '<a href="#" data-attr="'+data[x].name+'">'+data[x].name+'</a>'+
                     '</li>';
                 $('.typelist').append(jobtype_html);
                 feather.replace();
@@ -402,7 +402,7 @@
 
         function loadExperience(data){
             for(x=1;x<=6;x++){
-                $('.experiencelist').append('<li><a href="#"</a>'+data[x]+'</li>');
+                $('.experiencelist').append('<li><a href="#" data-attr="'+data[x]+'"</a>'+data[x]+'</li>');
             }
         }
 
@@ -410,7 +410,7 @@
         function loadGender(data){
             len = data.length;
             for(x=0;x<len;x++){
-                $('.genderlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
+                $('.genderlist').append('<li><a href="#" data-attr="'+data[x].name+'"</a>'+data[x].name+'</li>');
             }
         }
 
@@ -418,7 +418,7 @@
         function loadQualification(data){
             len = data.length;
             for(x=0;x<len;x++){
-                $('.qualificationlist').append('<li><a href="#"</a>'+data[x].name+'</li>');
+                $('.qualificationlist').append('<li><a href="#" data-attr="'+data[x].name+'"</a>'+data[x].name+'</li>');
             }
         }
 
