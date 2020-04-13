@@ -2,7 +2,8 @@ from django.conf import settings
 from django.contrib import admin
 
 # Register your models here.
-from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords
+from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords, \
+    ApplyOnline
 from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill
 
 
@@ -50,6 +51,11 @@ class TrendingKeywordsAdmin(admin.ModelAdmin):
     search_fields = ['keyword', 'location', 'device', 'browser', 'operating_system', 'created_date']
 
 
+class ApplyOnlineAdmin(admin.ModelAdmin):
+    list_display = ['job', 'user', 'created_date']
+    search_fields = ['job', 'user', 'created_date']
+
+
 # admin.site.register(Company, CompanyAdmin)
 admin.site.register(JobType)
 admin.site.register(Experience)
@@ -60,3 +66,4 @@ admin.site.register(Currency)
 admin.site.register(Job, JobAdmin)
 admin.site.register(Skill)
 admin.site.register(TrendingKeywords, TrendingKeywordsAdmin)
+admin.site.register(ApplyOnline, ApplyOnlineAdmin)
