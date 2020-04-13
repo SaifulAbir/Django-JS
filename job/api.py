@@ -49,8 +49,8 @@ class JobList(generics.ListAPIView):
     pagination_class = StandardResultsSetPagination
 
 class JobObject(APIView):
-    def get(self, request, pk):
-        job = get_object_or_404(Job, pk=pk)
+    def get(self, request, slug):
+        job = get_object_or_404(Job, slug=slug)
         try:
             if request.user.is_authenticated:
                 print(request.user)
@@ -344,14 +344,24 @@ def recent_jobs(request):
             job.status = YES_TXT
         else:
             job.status = NO_TXT
-        if job.company_name:
-            if job.company_name.profile_picture:
-                job.profile_picture = '/media/' + str(job.company_name.profile_picture)
+        try:
+            company = job.company_name
+        except Company.DoesNotExist:
+            company = None
+        try:
+            if job.company_name:
+
+                if job.company_name.profile_picture:
+                    job.profile_picture = '/media/' + str(job.company_name.profile_picture)
+                else:
+                    job.profile_picture = '/static/images/job/company-logo-2.png'
+
             else:
                 job.profile_picture = '/static/images/job/company-logo-2.png'
-        else:
+        except Company.DoesNotExist:
             job.profile_picture = '/static/images/job/company-logo-2.png'
-        data.append({'job_id':job.job_id, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(job.company_name)})
+        data.append({'job_id':job.job_id, 'slug':job.slug, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(company)})
+
     return JsonResponse(list(data), safe=False)
 
 @api_view(["GET"])

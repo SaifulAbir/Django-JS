@@ -297,7 +297,7 @@
      }
 
      function loadUser(data) {
-        if(data[0].user){
+        if(data.length>=1){
             $('.account-button').text(data[0].user.name);
             $('.account-body a').text(data[0].user.name);
             $('.account-body .mail').text(data[0].user.email);
