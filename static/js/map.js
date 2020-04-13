@@ -9,6 +9,7 @@ $(document).ready(function () {
         var mapLng = parseFloat($(this).data('lng'));
         var mapZoom = parseInt($(this).data('zoom'));
         var mapType = $(this).data('maptype');
+        alert(mapLat);
 
         //Processing wrapper data attribute to coordinate
         var mapOptions = {
