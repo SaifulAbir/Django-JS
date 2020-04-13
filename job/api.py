@@ -72,6 +72,11 @@ class JobObject(APIView):
                 data['profile_picture'] = '/media/' + str(image.name)
             else:
                 data['profile_picture'] = '/static/images/job/company-logo-2.png'
+            if ob.latitude:
+                data['latitude'] = str(ob.latitude)
+            if ob.longitude:
+                data['longitude'] = str(ob.longitude)
+
         else:
             data['profile_picture'] = '/static/images/job/company-logo-2.png'
 
