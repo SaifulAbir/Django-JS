@@ -4,7 +4,7 @@ from job.api import *
 urlpatterns = [
     path('post-job/', TemplateView.as_view(template_name='post-job.html'), name='post_job'),
     path('validation-test', TemplateView.as_view(template_name='company-create.html')),
-    path('detail/<str:pk>/', TemplateView.as_view(template_name='job-details.html')),
+    path('job-detail/<slug:slug>/', TemplateView.as_view(template_name='job-details.html')),
     path('jobs/', TemplateView.as_view(template_name='job-list.html'), name='jobs'),
     path('update/<str:pk>/', TemplateView.as_view(template_name='update-job.html')),
     path('company/', CompanyList.as_view()),
@@ -17,7 +17,7 @@ urlpatterns = [
     path('qualification/', QualificationList.as_view()),
     path('gender/', GenderList.as_view()),
     path('job_update/<str:pk>/', JobUpdateView.as_view()),
-    path('load_job/<str:pk>/', JobObject.as_view()),
+    path('load_job/<slug:slug>/', JobObject.as_view()),
     path('load_company/<str:pk>/', CompanyPopulate.as_view()),
     path('job_create/', job_create),
     path('favourite_job_add/', favourite_job_add),
