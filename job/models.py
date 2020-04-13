@@ -179,6 +179,7 @@ class Job(models.Model):
     terms_and_condition = models.BooleanField(default=False)
     created_date = models.DateField(default=datetime.date.today)
     job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
+    entry_date = models.DateTimeField(auto_now_add=True)
 
 
     class Meta:
