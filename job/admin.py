@@ -49,14 +49,18 @@ class CompanyAdmin(admin.ModelAdmin):
 class TrendingKeywordsAdmin(admin.ModelAdmin):
     list_display = ['keyword', 'location', 'device', 'browser', 'operating_system', 'created_date']
     search_fields = ['keyword', 'location', 'device', 'browser', 'operating_system', 'created_date']
-
-
-class ApplyOnlineAdmin(admin.ModelAdmin):
-    list_display = ['job', 'user', 'created_date']
-    search_fields = ['job', 'user', 'created_date']
-
-
 # admin.site.register(Company, CompanyAdmin)
+
+
+
+# admin.site.register(ApplyOnline, ApplyOnlineAdmin)
+class ApplyOnlineAdmin(admin.ModelAdmin):
+    list_display = ['job', 'created_by', 'created_at', 'created_from', 'modified_by', 'modified_at', 'modified_from']
+    search_fields = ['job', 'created_by', 'created_at', 'created_from', 'modified_by', 'modified_at', 'modified_from']
+
+
+# admin.site.register(ApplyOnline, ApplyOnlineAdmin)
+
 admin.site.register(JobType)
 admin.site.register(Experience)
 admin.site.register(Qualification)
@@ -66,4 +70,4 @@ admin.site.register(Currency)
 admin.site.register(Job, JobAdmin)
 admin.site.register(Skill)
 admin.site.register(TrendingKeywords, TrendingKeywordsAdmin)
-admin.site.register(ApplyOnline, ApplyOnlineAdmin)
+admin.site.register(ApplyOnline,ApplyOnlineAdmin)

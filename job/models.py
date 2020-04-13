@@ -256,8 +256,12 @@ class FavouriteJob(models.Model):
 #Apply Online Model Starts here
 class ApplyOnline(models.Model):
     job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
-    user = models.ForeignKey(User, on_delete=models.PROTECT, db_column='user')
-    created_date = models.DateField(default=datetime.date.today)
+    created_by = models.ForeignKey(User, related_name='Apply_created_by', on_delete=models.PROTECT, db_column='created_by')
+    created_at = models.DateTimeField(default=timezone.now)
+    created_from = models.CharField(max_length=255)
+    modified_by = models.ForeignKey(User, related_name='Apply_modified_by', on_delete=models.PROTECT, db_column='modified_by')
+    modified_at = models.DateTimeField(default=timezone.now)
+    modified_from = models.CharField(max_length=255)
 
     class Meta:
         verbose_name = strings_job.APPLY_ONLINE_JOB_VERBOSE_NAME
