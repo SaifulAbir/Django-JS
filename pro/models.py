@@ -6,7 +6,7 @@ import uuid
 # Create your models here.
 from django.utils import timezone
 
-from job.models import Industry, Gender, JobType, Experience, Qualification, Company
+from job.models import Industry, Gender, JobType, Experience, Qualification, Company, Skill
 from p7.validators import check_valid_password, MinLengthValidator, \
     check_valid_phone_number
 from resources import strings_pro
@@ -79,6 +79,7 @@ class Professional(models.Model):
     expected_salary_min = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     expected_salary_max = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     nationality = models.ForeignKey(Nationality,on_delete=models.PROTECT, null=True, blank=True)
+    created_date = models.DateTimeField(default=timezone.now)
 
 
 
@@ -100,9 +101,11 @@ class ProfessionalEducation(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
     qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT, null=True, blank=True)
     institution = models.ForeignKey(Institute, on_delete=models.PROTECT, null=True, blank=True)
+    cgpa = models.CharField(max_length=255, blank=True, null=True)
     major = models.ForeignKey(Major, on_delete=models.PROTECT, null=True, blank=True)
     enrolled_date = models.DateField(null=True, blank=True)
     graduation_date = models.DateField(null=True, blank=True)
+    created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         db_table = 'professional_educations'
@@ -110,9 +113,10 @@ class ProfessionalEducation(models.Model):
 
 class ProfessionalSkill(models.Model):
     professional = models.ForeignKey(Professional, on_delete=models.PROTECT)
-    name = models.CharField(max_length=255, blank=True, null=True)
+    name = models.ForeignKey(Skill, on_delete=models.PROTECT)
     rating = models.DecimalField(max_digits=2, decimal_places=2, blank=True, null=True)
     verified_by_skillcheck = models.BooleanField(default=False)
+    created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         db_table = 'professional_skills'
@@ -124,6 +128,7 @@ class WorkExperience(models.Model):
     designation = models.CharField(max_length=255, blank=True, null=True)
     Started_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
+    created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         db_table = 'work_experiences'
@@ -133,6 +138,7 @@ class Portfolio(models.Model):
     name = models.CharField(max_length=255)
     image = models.CharField(blank=True, null=True, max_length=500)
     description = models.TextField(blank=True, null=True)
+    created_date = models.DateTimeField(default=timezone.now)
 
 
     class Meta:
@@ -142,21 +148,28 @@ class Membership(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
     org_name = models.ForeignKey(Organization,on_delete=models.PROTECT)
     position_held = models.CharField(max_length=255, blank=True, null=True)
-    membership_ongoing = has_expiry_period = models.BooleanField(default=False)
+    membership_ongoing = models.BooleanField(default=False)
     Start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     desceription = models.TextField(blank=True, null=True)
+    created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         db_table = 'memberships'
 
 
+class CertificateName(models.Model):
+    name = models.CharField(max_length=255)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'certificate_names'
 
 
 class Certification(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    certification_name = models.CharField(max_length=255)
-    organization_name = models.CharField(max_length=255)
+    certification_name = models.ForeignKey(CertificateName,on_delete=models.PROTECT)
+    organization_name = models.ForeignKey(Organization,on_delete=models.PROTECT)
     has_expiry_period = models.BooleanField(default=True)
     issue_date = models.DateField(null=True, blank=True)
     expiry_date = models.DateField(null=True, blank=True)
@@ -168,6 +181,15 @@ class Certification(models.Model):
 
 
 
+class Reference(models.Model):
+    professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
+    name = models.CharField(max_length=255)
+    current_position = models.CharField(max_length=255,null=True, blank=True)
+    email = models.CharField(max_length=255,null=True, blank=True)
+    mobile = models.CharField(max_length=255,null=True, blank=True, validators=[check_valid_phone_number])
+
+    class Meta:
+        db_table= 'references'
 
 
 

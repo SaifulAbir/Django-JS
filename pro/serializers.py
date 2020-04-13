@@ -4,7 +4,7 @@ from rest_framework_simplejwt.state import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from pro.models import Professional
+from pro.models import Professional, ProfessionalEducation
 from rest_framework import exceptions
 from django.utils.translation import ugettext_lazy as _
 from resources.strings_pro import *
@@ -14,6 +14,12 @@ class ProfessionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professional
         fields = '__all__'
+
+class ProfessionalEducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfessionalEducation
+        fields = '__all__'
+
 class CustomTokenSerializer(serializers.Serializer):
     token = serializers.CharField()
 
