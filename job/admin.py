@@ -8,12 +8,12 @@ from job.models import Company, JobType, Experience, Qualification, Gender, Indu
 
 class JobAdmin(admin.ModelAdmin):
     filter_horizontal = ('job_skills',)
-    list_display = ['title', 'industry', 'employment_status', 'job_location', 'experience', 'qualification', 'application_deadline', 'gender', 'company_name',
-                    'division', 'district']
+    list_display = ['title', 'industry', 'employment_status', 'job_location', 'experience', 'qualification', 'application_deadline',  'company_name', 'entry_date' ]
     search_fields = ['title__icontains', 'industry__name__icontains', 'employment_status__name__icontains', 'job_location__icontains',
                      'experience__name__icontains', 'qualification__name__icontains', 'gender__name__icontains',
-                     'company_name__name__icontains', 'division__name__icontains', 'district__name__icontains', 'zipcode__iexact']
-
+                     'company_name__name__icontains', 'division__name__icontains', 'district__name__icontains', 'zipcode__iexact','entry_date']
+    date_hierarchy = 'entry_date'
+    list_per_page = 15
 # class CompanyAdmin(admin.ModelAdmin):
 #     list_display = ['name', 'address', 'basis_membership_no', 'email', 'web_address', 'organization_head','year_of_eastablishment',
 #                     'division', 'district']
