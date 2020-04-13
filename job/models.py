@@ -7,6 +7,7 @@ from django.db.models.signals import pre_save
 from django.utils import timezone
 from rest_framework.utils import json
 
+from job.utils import unique_slug_generator
 from location.models import Division, District
 from resources import strings_job
 # Create your models here.
