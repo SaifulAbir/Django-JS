@@ -232,7 +232,7 @@ class CustomPasswordResetView:
             'current_user': reset_password_token.user,
             'username': reset_password_token.user.username,
             'email': reset_password_token.user.email,
-            'reset_password_url': "{}/professional/password-reset/{}".format(strings.site_url, reset_password_token.key),
+            'reset_password_url': "{}/professional/password-reset/{}".format(site_url, reset_password_token.key),
             'site_name': site_shortcut_name,
             'site_domain': site_url
         }

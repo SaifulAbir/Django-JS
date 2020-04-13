@@ -111,8 +111,6 @@ def job_list(request):
         if keyword_from_homepage == 'undefined':
             keyword_from_homepage=''
 
-
-
         if sorting == 'descending':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         else:
@@ -129,14 +127,15 @@ def job_list(request):
 
         if district:
             job_list = job_list.filter(
-                district=district)
+                district=district
+            )
 
         if skill:
             job_list = job_list.filter(job_skills__in = [skill])
             #print(job_list.filter(salary_min__gte = salaryMin) | job_list.filter(salary_max__lte = salaryMax))
 
         if salaryMin and salaryMax:
-            job_list = (job_list.filter(salary_min__gte=salaryMin) & job_list.filter(salary_max__lte = salaryMax))
+            job_list = (job_list.filter(salary_min__gte=salaryMin) & job_list.filter(salary_min__lte = salaryMax))
 
         # if salaryMin and salaryMax :
         #     job_list.filter(experience__gte=7, experience__lte=8)
