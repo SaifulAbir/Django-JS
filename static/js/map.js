@@ -9,7 +9,7 @@ $(document).ready(function () {
         var mapLng = parseFloat($(this).data('lng'));
         var mapZoom = parseInt($(this).data('zoom'));
         var mapType = $(this).data('maptype');
-        alert(mapLat);
+
 
         //Processing wrapper data attribute to coordinate
         var mapOptions = {
@@ -204,8 +204,8 @@ $(document).ready(function () {
         //Map Marker
         var marker = new google.maps.Marker({
           position: {
-            lat: 40.713355,
-            lng: -74.005535
+            lat: mapLat,
+            lng: mapLng
           },
           map: map,
           icon: 'images/map-marker.png'
