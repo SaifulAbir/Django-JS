@@ -139,13 +139,3 @@ a.save.favourite.active {
 }
 /*fontawesome icons*/
 
-/*share-job-post*/
-.share-job-post {
- background-image: linear-gradient(to left, rgba(247, 249, 252, 0), #f7f9fc);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 3px;
-    margin-top: 25px;
-    padding: 6px 18px;
-}
-
-/*share-job-post*/
