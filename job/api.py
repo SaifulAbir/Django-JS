@@ -371,9 +371,13 @@ def vital_stats(self):
 
 
 
-@api_view(["GET"])
-def similar_jobs(request,title):
 
+@api_view(["GET"])
+def similar_jobs(request,identifier):
+    ob = Job.objects.filter(job_id=identifier)
+    title = ""
+    for i in ob:
+        title = i.title
     queryset = Job.objects.all()
     data = []
     for job in queryset:
@@ -401,7 +405,7 @@ def similar_jobs(request,title):
                          'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
                          'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
     for i in range(len(data)):
-        if data[i]['title'] == title:
+        if str(data[i]['job_id']) == identifier:
             del data[i]
             break
     return JsonResponse(list(data), safe=False)

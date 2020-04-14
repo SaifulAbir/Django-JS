@@ -228,9 +228,8 @@
             }
 
             json2Div(data, container);
-
-            category= $('#title').text()
-            catUrl = '/api/similar_jobs/'+ category;
+            identifier = data['job_id'];
+            catUrl = '/api/similar_jobs/'+ identifier;
             get(catUrl,loadSimilarJob)
 
         }
