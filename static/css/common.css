@@ -158,10 +158,10 @@ a.save.favourite.active {
 
 
 
-  .job-filter-wrapper #experience-filter .nstSlider .grip-label .leftLabel:after {
+  .job-filter-wrapper #experience-filter .nstSlider .grip-label .ex-leftLabel:after {
     content: " Year - ";
  }
-#experience-filter .nstSlider .grip-label .rightLabel:after {
+#experience-filter .nstSlider .grip-label .ex-rightLabel:after {
     content: " Year";
  }
  .job-filter-wrapper #experience-filter .nstSlider .grip-label .leftLabel:before {

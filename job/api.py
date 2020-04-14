@@ -104,12 +104,11 @@ def job_list(request):
         keyword_from_homepage = request.GET.get('keyword_from_homepage')
         salaryMin = request.GET.get('salaryMin')
         salaryMax = request.GET.get('salaryMax')
-
-        if location_from_homepage == 'undefined':
-            location_from_homepage=''
-
-        if keyword_from_homepage == 'undefined':
-            keyword_from_homepage=''
+        experienceMin = request.GET.get('experienceMin')
+        experienceMax = request.GET.get('experienceMax')
+        datePosted = request.GET.get('datePosted')
+        gender = request.GET.get('gender')
+        qualification = request.GET.get('qualification')
 
         if sorting == 'descending':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
@@ -130,15 +129,30 @@ def job_list(request):
                 district=district
             )
 
+        if datePosted:
+            job_list = job_list.filter(
+                district=datePosted
+            )
+
+        if gender:
+            job_list = job_list.filter(
+                district=gender
+            )
+
+        if qualification:
+            job_list = job_list.filter(
+                district=qualification
+            )
+
         if skill:
             job_list = job_list.filter(job_skills__in = [skill])
-            #print(job_list.filter(salary_min__gte = salaryMin) | job_list.filter(salary_max__lte = salaryMax))
 
         if salaryMin and salaryMax:
             job_list = (job_list.filter(salary_min__gte=salaryMin) & job_list.filter(salary_min__lte = salaryMax))
 
-        # if salaryMin and salaryMax :
-        #     job_list.filter(experience__gte=7, experience__lte=8)
+
+        if experienceMin and  experienceMax:
+            job_list = (job_list.filter(experience__gte=experienceMin) & job_list.filter(experience__lte = experienceMax))
 
         if location_from_homepage:
             job_list = job_list.filter(
@@ -343,7 +357,6 @@ def recent_jobs(request):
     for job in queryset:
         try:
             if request.user.is_authenticated:
-                print(request.user)
                 favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
             else:
                 favourite_job = FavouriteJob.objects.get(job=job)
