@@ -396,11 +396,14 @@ def similar_jobs(request,title):
                 job.profile_picture = '/static/images/job/company-logo-2.png'
         else:
             job.profile_picture = '/static/images/job/company-logo-2.png'
-        if similar(title, job.title)>.70:
+        if similar(title, job.title)>.80:
             data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
                          'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
                          'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
-
+    for i in range(len(data)):
+        if data[i]['title'] == title:
+            del data[i]
+            break
     return JsonResponse(list(data), safe=False)
 
 
