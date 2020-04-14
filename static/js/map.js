@@ -208,7 +208,7 @@ $(document).ready(function () {
             lng: mapLng
           },
           map: map,
-          icon: 'images/map-marker.png'
+          icon: '/static/images/map-marker.png'
         });
       });
     }
