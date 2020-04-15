@@ -353,19 +353,17 @@ $(document).ready(function() {
     function salaryRange() {
 
         $('.nstSlider').nstSlider({
+
             "left_grip_selector": ".leftGrip",
             "right_grip_selector": ".rightGrip",
             "value_bar_selector": ".bar",
-            "value_changed_callback": function (cause, leftValue, rightValue) {
-                $(this).parent().find('.leftLabel').text(leftValue);
-                $(this).parent().find('.rightLabel').text(rightValue);
-                var salaryMin = leftValue;
-                var salaryMax = rightValue;
-
-                if (rightValue>0){
-                    setTimeout(function(){
+            "user_mouseup_callback": function (vmin, vmax, left_grip_moved) {
+                $(this).parent().find('.leftLabel').text(vmin);
+                $(this).parent().find('.rightLabel').text(vmax);
+                var salaryMin = vmin;
+                var salaryMax = vmax;
+                if (salaryMax>0){
                     filterJobList(salaryMin, salaryMax, '', '');
-                    }, 3000);
                 }else {
                     filterJobList('', '', '', '');
                 }
@@ -385,16 +383,13 @@ $(document).ready(function() {
             "left_grip_selector": ".leftGrip",
             "right_grip_selector": ".rightGrip",
             "value_bar_selector": ".bar",
-            "value_changed_callback": function (cause, leftValue, rightValue) {
-                $(this).parent().find('.ex-leftLabel').text(leftValue);
-                $(this).parent().find('.ex-rightLabel').text(rightValue);
-                var experienceMin = leftValue;
-                var experienceMax = rightValue;
-
+            "user_mouseup_callback": function (vmin, vmax, left_grip_moved) {
+                $(this).parent().find('.ex-leftLabel').text(vmin);
+                $(this).parent().find('.ex-rightLabel').text(vmax);
+                var experienceMin = vmin;
+                var experienceMax = vmax;
                 if (experienceMax>0){
-                    setTimeout(function () {
                         filterJobList('', '', experienceMin, experienceMax);
-                    }, 3000);
                 }else{
                     filterJobList('', '', '', '');
                 }
@@ -670,7 +665,7 @@ $(document).ready(function() {
 
     $(window).on('resize orientationchange', function () {
         // listingSidebarSwitch();
-        priceRange();
+
         topToggler();
     });
 
