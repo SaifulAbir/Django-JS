@@ -131,14 +131,20 @@ def job_list(request):
             )
 
         if datePosted:
-            print(datePosted)
             if datePosted == 'Last hour':
-                time_threshold = datetime.now() - timedelta(hours=1)
-                job_list = job_list.filter(created_date__gt=time_threshold)
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(hours=1))
 
             if datePosted == 'Last 24 hour':
-                time_threshold = datetime.now() - timedelta(hours=24)
-                job_list = job_list.filter(created_date__gt=time_threshold)
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(hours=24))
+
+            if datePosted == 'Last 7 days':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=7))
+
+            if datePosted == 'Last 14 days':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=14))
+
+            if datePosted == 'Last 30 days':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=30))
 
         if gender and gender != 'Any':
             job_list = job_list.filter(
