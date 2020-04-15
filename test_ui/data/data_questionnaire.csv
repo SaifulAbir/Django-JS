@@ -1,4 +1,4 @@
-test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_questionnaire_name,_remarks,_subject_id,_topic,_sub_topic,_question,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_questionnaire_name,_remarks,_subject,_topic,_sub_topic,_question,actual_result,status,notes,attachments,test_executed_by,test_execution_date
 questionnaire_add_1,,All Valid Data,,,1,Questionnaire A,Remark One,Subject A,Topic A,Sub Topic A,"Question 1,Question 2,Question 3,Question 4,Question 5,Question 6",,,,,,
 questionnaire_add_2,,All Valid Data,,,1,Questionnaire B,Remark Two,Subject B,Topic B,Sub Topic B,"Question 1,Question 2,Question 3,Question 4,Question 5,Question 6",,,,,,
 questionnaire_add_3,,All Valid Data,,,1,Questionnaire C,Remark Three,Subject C,Topic C,Sub Topic C,"Question 1,Question 2,Question 3,Question 4,Question 5,Question 6",,,,,,

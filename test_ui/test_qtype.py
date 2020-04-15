@@ -4,7 +4,6 @@ import pandas as pd
 from selenium import webdriver
 from .config import *
 
-
 def addQtype(driver: webdriver.Chrome, data):
     add_qtype = driver.find_element_by_class_name('addlink')
     add_qtype.click()
@@ -63,7 +62,7 @@ def updateQtype(driver: webdriver.Chrome, data):
         qtype_save = driver.find_element_by_name('_save')
         qtype_save.submit()
         time.sleep(1)
-        driver.find_element_by_class_name('addlink')
+        driver.find_element_by_class_name('success')
         return 1
     except NoSuchElementException:
         return 0
