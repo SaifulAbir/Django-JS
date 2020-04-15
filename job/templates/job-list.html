@@ -50,7 +50,7 @@
                                     <select class="selectpicker">
                                         <option></option>
                                         <option value="descending">Most Recent</option>
-                                        <option value="">Top Rated</option>
+                                        <option value="top-rated">Top Rated</option>
                                         <option value="">Mostly applied</option>
                                     </select>
                                 </div>
@@ -268,9 +268,9 @@
         var skill = encodeURIComponent($("#skill").val());
         var sorting_val = $(".sorting-job .selectpicker").val();
 
-        var datePosted = $('.filtered-options .post a').html();
+        var datePosted = encodeURIComponent($('.filtered-options .post a').html());
 
-        if (datePosted==undefined){
+        if (datePosted==undefined || datePosted=='undefined'){
             datePosted='';
         }
 
@@ -282,12 +282,12 @@
         if (qualification==undefined){
             qualification='';
         }
-
-
         get("/api/job_list/?page=1&q="+search_keyword+"&location="+location+"&category="+category+"&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+
             "&skill="+skill+"&salaryMin="+ salaryMin +"&salaryMax="+ salaryMax +"&experienceMin="+ experienceMin +"&experienceMax="+ experienceMax  +"&datePosted="+ datePosted
             +"&gender="+ gender  +"&qualification="+ qualification +"&sort="+ sorting_val +"&page_size="+pageSize,fetchDatacallback);
     }
+
+
     var template = $('.template').html();
     function fetchDatacallback(data){
         var totalNumberOfData = data.count;
@@ -336,8 +336,10 @@
         skill_url = '/api/skill_list/';
         get(skill_url,loadskill);
 
-        job_list_url = "/api/job_list/?page=1&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+"&page_size="+pageSize;
-        get(job_list_url,fetchDatacallback);
+        filterJobList('', '', '', '');
+
+        // job_list_url = "/api/job_list/?page=1&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+"&page_size="+pageSize;
+        // get(job_list_url,fetchDatacallback);
 
 
 

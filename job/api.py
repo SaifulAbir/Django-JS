@@ -113,6 +113,8 @@ def job_list(request):
 
         if sorting == 'descending':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
+        elif sorting == 'top-rated':
+            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         else:
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
 
