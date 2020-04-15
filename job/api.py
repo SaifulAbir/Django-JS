@@ -5,7 +5,7 @@ from django.db.models import Count, QuerySet
 from django.db.models.query_utils import Q
 from django.db.models import Count, QuerySet, Min, Max
 from django.http import Http404
-from datetime import date
+from datetime import date, datetime, timedelta
 
 from django.db.models import Count
 from django.http import Http404, JsonResponse, HttpResponse
@@ -131,9 +131,9 @@ def job_list(request):
             )
 
         if datePosted:
-            job_list = job_list.filter(
-                district=datePosted
-            )
+            if datePosted == 'Last hour':
+                time_threshold = datetime.now() - timedelta(hours=150)
+                job_list = job_list.filter(created_date__gt=time_threshold)
 
         if gender and gender != 'Any':
             job_list = job_list.filter(
