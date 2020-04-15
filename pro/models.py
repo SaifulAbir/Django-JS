@@ -79,7 +79,6 @@ class Professional(models.Model):
     expected_salary_min = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     expected_salary_max = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     nationality = models.ForeignKey(Nationality,on_delete=models.PROTECT, null=True, blank=True)
-    created_date = models.DateTimeField(default=timezone.now)
 
 
 
