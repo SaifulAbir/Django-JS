@@ -153,8 +153,8 @@
                                     <div class="leftGrip"></div>
                                     <div class="rightGrip"></div>
                                     <div class="grip-label">
-                                        <span class="ex-leftLabel"></span>
-                                        <span class="ex-rightLabel"></span>
+                                        <span class="ex-leftLabel">0</span>
+                                        <span class="ex-rightLabel">0</span>
                                     </div>
                                 </div>
                             </div>
@@ -169,8 +169,8 @@
                                     <div class="leftGrip"></div>
                                     <div class="rightGrip"></div>
                                     <div class="grip-label">
-                                        <span class="leftLabel"></span>
-                                        <span class="rightLabel"></span>
+                                        <span class="leftLabel">0</span>
+                                        <span class="rightLabel">0</span>
                                     </div>
                                 </div>
                             </div>
@@ -251,6 +251,20 @@
             }
         }
     };
+
+    function getSalaryandExperienceValue() {
+        var experienceMin = $(".ex-leftLabel").html();
+        var experienceMax = parseInt($(".ex-rightLabel").html());
+        if (experienceMax == 0){
+            experienceMax='';
+        }
+
+        var salaryMin = parseInt($(".leftLabel").html());
+        var salaryMax = parseInt($(".rightLabel").html());
+        if (salaryMax == 0){
+            salaryMax='';
+        }
+    }
 
     function filterJobList(salaryMin='', salaryMax='', experienceMin='', experienceMax=null){
         var pageSize = 10;
@@ -448,13 +462,21 @@
         });
 
         $(".sorting-job .selectpicker, .job-filter-dropdown").change(function(e){
-            var experienceMin = $(".ex-leftLabel").html();
+
+
+            var experienceMin = parseInt($(".ex-leftLabel").html());
+            if (experienceMin == 0){
+                experienceMin='';
+            }
             var experienceMax = parseInt($(".ex-rightLabel").html());
             if (experienceMax == 0){
                 experienceMax='';
             }
 
             var salaryMin = parseInt($(".leftLabel").html());
+            if (salaryMin == 0){
+                salaryMin='';
+            }
             var salaryMax = parseInt($(".rightLabel").html());
             if (salaryMax == 0){
                 salaryMax='';
