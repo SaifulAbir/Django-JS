@@ -55,7 +55,7 @@ class JobSerializer(serializers.ModelSerializer):
             ,'salary_min' ,'salary_max','qualification','gender' ,'currency' ,'vacancy' ,'application_deadline'
             ,'descriptions' ,'responsibilities','education','salary' ,'other_benefits','company_name','division'
             ,'district','zipcode' ,'company_location' ,'company_profile','latitude','longitude','raw_content','web_address','terms_and_condition'
-            ,'created_date','job_skills')
+            ,'created_date','job_skills', 'slug')
 
 class RecentJobSerializer(serializers.ModelSerializer):
 
