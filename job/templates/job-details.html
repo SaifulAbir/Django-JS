@@ -26,7 +26,7 @@
                         </div>
                         <div class="buttons">
                             <a class="save favourite" href="#"><i data-feather="heart"></i>Favourite</a>
-                            <a class="apply" href="#" data-toggle="#" data-target="#apply-popup-id">Apply Online</a>
+                            <a class="save apply" href="#" data-toggle="#" data-target="#apply-popup-id">Apply Online</a>
                         </div>
                     </div>
                     <div class="details-information section-padding-60">
@@ -204,6 +204,7 @@
         var getUrl = '/api/load_job/'+ id + '/'
         get(getUrl, loadJob);
         favouriteJobAddRemove('jobs', '/api/favourite_job_add/');
+        applyOnlineJobAddRemove('jobs', '/api/apply_online_job_add/');
 
     });
 

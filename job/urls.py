@@ -33,5 +33,6 @@ urlpatterns = [
     path('top_skills/', TopSkills.as_view()),
     path('salary_range/', salary_range),
     path('skill_list/', SkillList.as_view()),
+    path('apply_online_job_add/', apply_online_job_add),
 
 ]

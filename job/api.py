@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import models
 from django.db.models import Count, QuerySet, Value, CharField
@@ -24,7 +25,7 @@ from rest_framework.pagination import PageNumberPagination
 from pro.models import Professional
 from resources.strings_job import *
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
-    Skill, FavouriteJob
+    Skill, FavouriteJob, ApplyOnline
 
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
     Skill
@@ -236,6 +237,7 @@ def job_create(request):
 def favourite_job_add(request):
     data = {}
     job_data = json.loads(request.body)
+    print(job_data)
     if job_data:
         try:
             favourite_jobs = FavouriteJob.objects.filter(user = job_data['user_id'],job = job_data['job_id'])
@@ -410,3 +412,31 @@ def salary_range(self):
 class SkillList(generics.ListCreateAPIView):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
+
+
+
+@api_view(["POST"])
+def apply_online_job_add(request):
+    data = {}
+    job_data = json.loads(request.body)
+    print('job_data', job_data)
+
+    user = User.objects.get(id = job_data['user_id'])
+    j_id = job_data['job_id']
+    print('created_by', user)
+    job = Job.objects.get(job_id=j_id)
+    print('job', job.title)
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    print('ip', ip)
+    data.update({'job': job, 'created_by': user,
+                 'created_from': str(ip), 'modified_by': user,
+                 'modified_from': str(ip)})
+    apply_online_job = ApplyOnline(**data)
+    print('apply_online_job', apply_online_job)
+    apply_online_job.save()
+
+    return Response(HTTP_200_OK)

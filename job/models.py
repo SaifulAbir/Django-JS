@@ -257,10 +257,10 @@ class FavouriteJob(models.Model):
 class ApplyOnline(models.Model):
     job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
     created_by = models.ForeignKey(User, related_name='Apply_created_by', on_delete=models.PROTECT, db_column='created_by')
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
     created_from = models.CharField(max_length=255)
     modified_by = models.ForeignKey(User, related_name='Apply_modified_by', on_delete=models.PROTECT, db_column='modified_by')
-    modified_at = models.DateTimeField(default=timezone.now)
+    modified_at = models.DateTimeField(auto_now=True)
     modified_from = models.CharField(max_length=255)
 
     class Meta:
