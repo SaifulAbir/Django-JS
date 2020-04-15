@@ -1302,6 +1302,10 @@ a:focus {
   content: "$";
 }
 
+ #experience-filter .nstSlider .grip-label .rightLabel:after {
+    content: " Year";
+ }
+
 .job-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .job-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .job-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after {
   content: '-';
   padding-left: 8px;

@@ -180,7 +180,7 @@ class Job(models.Model):
     raw_content = models.TextField(blank=True, null=True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
     terms_and_condition = models.BooleanField(default=False)
-    created_date = models.DateField(default=datetime.date.today)
+    created_date = models.DateTimeField(default=timezone.now())
     job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
     entry_date = models.DateTimeField(auto_now_add=True)
 

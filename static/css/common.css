@@ -139,3 +139,43 @@ a.save.favourite.active {
 }
 /*fontawesome icons*/
 
+
+
+
+ .job-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after {
+    content: " BDT - ";
+ }
+.job-filter .nstSlider .grip-label .rightLabel:after {
+    content: " BDT";
+ }
+ .job-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:before {
+     content: '';
+ }
+
+ .job-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after {
+     padding-left: 0;
+ }
+
+ .job-filter-wrapper .job-filter .nstSlider .grip-label .rightLabel:before {
+     content: '';
+ }
+
+
+
+  .job-filter-wrapper #experience-filter .nstSlider .grip-label .ex-leftLabel:after {
+    content: " Year - ";
+ }
+#experience-filter .nstSlider .grip-label .ex-rightLabel:after {
+    content: " Year";
+ }
+ .job-filter-wrapper #experience-filter .nstSlider .grip-label .leftLabel:before {
+     content: '';
+ }
+
+ .job-filter-wrapper #experience-filter .nstSlider .grip-label .leftLabel:after {
+     padding-left: 0;
+ }
+
+ .job-filter-wrapper #experience-filter .nstSlider .grip-label .rightLabel:before {
+     content: '';
+ }

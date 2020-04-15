@@ -5,7 +5,7 @@ from django.db.models import Count, QuerySet
 from django.db.models.query_utils import Q
 from django.db.models import Count, QuerySet, Min, Max
 from django.http import Http404
-from datetime import date
+from datetime import date, datetime, timedelta
 
 from django.db.models import Count
 from django.http import Http404, JsonResponse, HttpResponse
@@ -87,7 +87,6 @@ class JobObject(APIView):
             data['skill'].append(skill.name)
         #     else:
         #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
-        print(data)
         return Response(data)
 
 class IndustryList(generics.ListCreateAPIView):
@@ -105,12 +104,22 @@ def job_list(request):
         query = request.GET.get('q')
         sorting = request.GET.get('sort')
         category = request.GET.get('category')
-        location = request.GET.get('location')
+        district = request.GET.get('location')
         skill = request.GET.get('skill')
-
-
+        location_from_homepage = request.GET.get('location_from_homepage')
+        keyword_from_homepage = request.GET.get('keyword_from_homepage')
+        salaryMin = request.GET.get('salaryMin')
+        salaryMax = request.GET.get('salaryMax')
+        experienceMin = request.GET.get('experienceMin')
+        experienceMax = request.GET.get('experienceMax')
+        datePosted = request.GET.get('datePosted')
+        print(datePosted)
+        gender = request.GET.get('gender')
+        qualification = request.GET.get('qualification')
 
         if sorting == 'descending':
+            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
+        elif sorting == 'top-rated':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         else:
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
@@ -118,17 +127,62 @@ def job_list(request):
         if query:
             job_list = job_list.filter(
                 Q(title__icontains=query)
-            ).distinct()
+            )
 
         if category:
             job_list = job_list.filter(
-                Q(title__icontains=query)
-            ).distinct()
+                industry=category)
 
-        if query:
+        if district:
             job_list = job_list.filter(
-                Q(title__icontains=query)
-            ).distinct()
+                district=district
+            )
+
+        if datePosted:
+            if datePosted == 'Last hour':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(hours=1))
+
+            if datePosted == 'Last 24 hour':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(hours=24))
+
+            if datePosted == 'Last 7 days':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=7))
+
+            if datePosted == 'Last 14 days':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=14))
+
+            if datePosted == 'Last 30 days':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=30))
+
+        if gender and gender != 'Any':
+            job_list = job_list.filter(
+                gender_id=gender
+            )
+
+        if qualification:
+            job_list = job_list.filter(
+                qualification_id=qualification
+            )
+
+        if skill:
+            job_list = job_list.filter(job_skills__in = [skill])
+
+        if salaryMin and salaryMax:
+            job_list = (job_list.filter(salary_min__gte=salaryMin) & job_list.filter(salary_min__lte = salaryMax))
+
+
+        if experienceMin and  experienceMax:
+            job_list = (job_list.filter(experience__gte=experienceMin) & job_list.filter(experience__lte = experienceMax))
+
+        if location_from_homepage:
+            job_list = job_list.filter(
+                Q(district__name__icontains=location_from_homepage)
+            )
+
+        if keyword_from_homepage:
+            job_list = job_list.filter(
+                Q(title__icontains=keyword_from_homepage)
+            )
 
 
         page = request.GET.get('page', 1)
@@ -176,7 +230,6 @@ def job_list(request):
         "results":  job_list.data,
     }
     return Response(data, HTTP_200_OK)
-
 class CurrencyList(generics.ListCreateAPIView):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
@@ -305,7 +358,6 @@ def trending_keyword_save(request):
     search_data.update([('device', device_name), ('browser', browser_name), ('operating_system', os_name)])
     print(search_data)
     key_obj = TrendingKeywords(**search_data)
-    print(key_obj)
     key_obj.save()
     return Response(HTTP_200_OK)
 
