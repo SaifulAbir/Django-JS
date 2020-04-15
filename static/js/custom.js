@@ -311,6 +311,21 @@ $(document).ready(function() {
 
         $('.selected-options .filtered-options li.' + cls).remove();
         $('.selected-options .filtered-options').append(filteredList);
+
+        //call filter function
+        var experienceMin = $(".ex-leftLabel").html();
+            var experienceMax = parseInt($(".ex-rightLabel").html());
+            if (experienceMax == 0){
+                experienceMax='';
+            }
+
+            var salaryMin = parseInt($(".leftLabel").html());
+            var salaryMax = parseInt($(".rightLabel").html());
+            if (salaryMax == 0){
+                salaryMax='';
+            }
+
+            filterJobList(salaryMin, salaryMax, experienceMin, experienceMax);
     });
 
     $(document).on('click', ".selected-options .filtered-options li span", function() {

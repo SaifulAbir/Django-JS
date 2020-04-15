@@ -107,6 +107,7 @@ def job_list(request):
         experienceMin = request.GET.get('experienceMin')
         experienceMax = request.GET.get('experienceMax')
         datePosted = request.GET.get('datePosted')
+        print(datePosted)
         gender = request.GET.get('gender')
         qualification = request.GET.get('qualification')
 
@@ -134,14 +135,14 @@ def job_list(request):
                 district=datePosted
             )
 
-        if gender:
+        if gender and gender != 'Any':
             job_list = job_list.filter(
-                district=gender
+                gender_id=gender
             )
 
         if qualification:
             job_list = job_list.filter(
-                district=qualification
+                qualification_id=qualification
             )
 
         if skill:
