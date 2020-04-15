@@ -131,8 +131,13 @@ def job_list(request):
             )
 
         if datePosted:
+            print(datePosted)
             if datePosted == 'Last hour':
-                time_threshold = datetime.now() - timedelta(hours=150)
+                time_threshold = datetime.now() - timedelta(hours=1)
+                job_list = job_list.filter(created_date__gt=time_threshold)
+
+            if datePosted == 'Last 24 hour':
+                time_threshold = datetime.now() - timedelta(hours=24)
                 job_list = job_list.filter(created_date__gt=time_threshold)
 
         if gender and gender != 'Any':
