@@ -489,3 +489,4 @@ def salary_range(self):
 class SkillList(generics.ListCreateAPIView):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
+
