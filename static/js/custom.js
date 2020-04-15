@@ -314,18 +314,18 @@ $(document).ready(function() {
 
         //call filter function
         var experienceMin = $(".ex-leftLabel").html();
-            var experienceMax = parseInt($(".ex-rightLabel").html());
-            if (experienceMax == 0){
-                experienceMax='';
-            }
+        var experienceMax = parseInt($(".ex-rightLabel").html());
+        if (experienceMax == 0){
+            experienceMax='';
+        }
 
-            var salaryMin = parseInt($(".leftLabel").html());
-            var salaryMax = parseInt($(".rightLabel").html());
-            if (salaryMax == 0){
-                salaryMax='';
-            }
+        var salaryMin = parseInt($(".leftLabel").html());
+        var salaryMax = parseInt($(".rightLabel").html());
+        if (salaryMax == 0){
+            salaryMax='';
+        }
 
-            filterJobList(salaryMin, salaryMax, experienceMin, experienceMax);
+        filterJobList(salaryMin, salaryMax, experienceMin, experienceMax);
     });
 
     $(document).on('click', ".selected-options .filtered-options li span", function() {
@@ -389,7 +389,7 @@ $(document).ready(function() {
                 var experienceMin = vmin;
                 var experienceMax = vmax;
                 if (experienceMax>0){
-                        filterJobList('', '', experienceMin, experienceMax);
+                    filterJobList('', '', experienceMin, experienceMax);
                 }else{
                     filterJobList('', '', '', '');
                 }

@@ -275,11 +275,11 @@
         }
 
         var gender = $('.filtered-options .gender a').html();
-        if (gender==undefined){
+        if (gender==undefined | gender=='undefined'){
             gender='';
         }
         var qualification = $('.filtered-options .qualification a').html();
-        if (qualification==undefined){
+        if (qualification==undefined | qualification=='undefined'){
             qualification='';
         }
         get("/api/job_list/?page=1&q="+search_keyword+"&location="+location+"&category="+category+"&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+
@@ -337,11 +337,6 @@
         get(skill_url,loadskill);
 
         filterJobList('', '', '', '');
-
-        // job_list_url = "/api/job_list/?page=1&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+"&page_size="+pageSize;
-        // get(job_list_url,fetchDatacallback);
-
-
 
 
         $("body").delegate(".page-numbers", "click", function(){
