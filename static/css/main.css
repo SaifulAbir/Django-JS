@@ -1302,6 +1302,10 @@ a:focus {
   content: "$";
 }
 
+ #experience-filter .nstSlider .grip-label .rightLabel:after {
+    content: " Year";
+ }
+
 .job-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .job-filter .nstSlider .grip-label .leftLabel:after, .job-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .candidate-filter .nstSlider .grip-label .leftLabel:after, .job-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after, .candidate-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after, .employer-filter-wrapper .employer-filter .nstSlider .grip-label .leftLabel:after {
   content: '-';
   padding-left: 8px;
@@ -2979,8 +2983,8 @@ a:focus {
   background-image: linear-gradient(to left, rgba(247, 249, 252, 0), #f7f9fc);
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 3px;
-  margin-top: 50px;
-  padding: 12px 30px;
+  margin-top: 25px;
+  padding: 6px 18px;
 }
 
 .share-job-post .share {

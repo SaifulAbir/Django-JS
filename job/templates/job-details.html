@@ -5,14 +5,14 @@
 <div id="jobs">
 
     <!-- Candidates Details -->
-<div class="alice-bg padding-top-60 section-padding-bottom job-detail">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="job-listing-details">
-                    <div class="job-title-and-info">
-                        <div class="title">
-                            <div class="thumb" id="img">
+    <div class="alice-bg padding-top-60 section-padding-bottom job-detail">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="job-listing-details">
+                        <div class="job-title-and-info">
+                            <div class="title">
+                                <div class="thumb" id="img">
 
                             </div>
                             <div class="title-body">
@@ -83,13 +83,10 @@
                                         </div>
                                     </div>
                                     <div class="share-job-post">
-                                        <span class="share"><i class="fas fa-share-alt"></i>Share:</span>
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                        <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                        <a href="#" class="add-more"><span class="ti-plus"></span></a>
+                                        <span class="share"><i class="fas fa-share-alt"></i>Share: <hr> </span>
+                                        <span class='st_facebook_hcount'></span>
+                                        <span class='st_linkedin_hcount'></span>
+                                        <span class='st_twitter_hcount'></span>
                                     </div>
                                     <div class="buttons">
                                         <a href="#" class="button print"><i data-feather="printer"></i>Print Job</a>
@@ -98,7 +95,7 @@
                                     <div class="job-location">
                                         <h4>Job Location</h4>
                                         <div id="map-area">
-                                            <div class="cp-map" id="location" data-lat="40.713355" data-lng="-74.005535" data-zoom="10"></div>
+                                            <div class="cp-map" id="location"  data-lat="" data-lng="" data-zoom="13"></div>
                                             <!-- <div class="cp-map" id="location" data-lat="40.713355" data-lng="-74.005535" data-zoom="10"></div> -->
                                         </div>
                                     </div>
@@ -221,16 +218,17 @@
                 data.application_deadline = deadline.split("-").reverse().join("-")
             }
             $('#img').append('<img src=" '+data.profile_picture+'" class="img-fluid" alt="">')
-
+            $('.cp-map').attr('data-lat',data.latitude);
+            $('.cp-map').attr('data-lng',data.longitude);
+            initMap();
             len= data.skill.length;
             for(x=0;x<len;x++){
                 $('#skills').append('<p>'+ data.skill[x] +'</p>')
             }
 
             json2Div(data, container);
-
-            category= $('#industry').text()
-            catUrl = '/api/similar_jobs/'+ category;
+            identifier = data['job_id'];
+            catUrl = '/api/similar_jobs/'+ identifier;
             get(catUrl,loadSimilarJob)
 
         }
@@ -241,7 +239,7 @@
 
     }
     function loadSimilarJob(data) {
-        for(index=0;index<data.length;index++){
+        for(index=0;index<6;index++){
             var dateString = data[index].created_date;
             var momentObj = moment(dateString, 'YYYY-MM-DD');
             var dateMomentString = momentObj.format('MMM DD, YYYY');
@@ -253,7 +251,7 @@
                 '</div>'+
                 '<div class="body">'+
                 '<div class="content">'+
-                '<h4><a href="/detail/'+ data[index].job_id+'">'+data[index].title+'</a></h4>'+
+                '<h4><a href="/job-detail/'+ data[index].slug+'">'+data[index].title+'</a></h4>'+
                 '<div class="info">'+
                 '<span class="company"><a href="#"><i data-feather="briefcase"></i>'+data[index].company_name+'</a></span>'+
                 '<span class="office-location"><a href="#"><i data-feather="map-pin"></i>'+data[index].job_location+'</a></span>'+

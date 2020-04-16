@@ -3,9 +3,11 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import pre_save
 from django.utils import timezone
 from rest_framework.utils import json
 
+from job.utils import unique_slug_generator
 from location.models import Division, District
 from resources import strings_job
 # Create your models here.
@@ -150,6 +152,7 @@ class Currency(models.Model):
 class Job(models.Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False,db_column='id')
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, null=True, blank=True)
     industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,db_column='industry', related_name='industries')
     employment_status = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,db_column='employment_status')
     job_location = models.CharField(max_length=255, blank=True,null=True)
@@ -177,8 +180,9 @@ class Job(models.Model):
     raw_content = models.TextField(blank=True, null=True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
     terms_and_condition = models.BooleanField(default=False)
-    created_date = models.DateField(default=datetime.date.today)
+    created_date = models.DateTimeField(default=timezone.now())
     job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
+    entry_date = models.DateTimeField(auto_now_add=True)
 
 
     class Meta:
@@ -191,7 +195,13 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
-    #job Model
+
+def slug_generator(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+pre_save.connect(slug_generator, sender=Job)
+#job Model
 
 
 

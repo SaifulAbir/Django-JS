@@ -204,6 +204,7 @@ function makeListHtml(data, template){
 
         }
         wrapper.append(templateEl)
+        feather.replace();
     }
     return wrapper.html();
 }

@@ -44,6 +44,8 @@
     <script src="{% static '/assets/js/html5shiv.min.js' %}"></script>
     <script src="{% static '/assets/js/respond.min.js' %}"></script>
     <![endif]-->
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "074821ed-063e-4ae5-bad9-3e26ecf249f3"}); </script>
 
 </head>
 <body>
@@ -273,10 +275,9 @@
 <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
 <script src="{% static 'dashboard/js/datePicker.js' %}"></script>
 <script src="{% static 'dashboard/js/upload-input.js' %}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC87gjXWLqrHuLKR0CTV5jNLdP4pEHMhmg"></script>
-<script src="{% static 'js/map.js' %}"></script>
 <script src="{% static 'js/moment.min.js'%}"></script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE"></script>
+<script src="{% static 'js/map.js' %}"></script>
 <script type="text/javascript">
     $(function () {
        TokenAuthenticate();
@@ -297,7 +298,7 @@
      }
 
      function loadUser(data) {
-        if(data[0].user){
+        if(data.length>=1){
             $('.account-button').text(data[0].user.name);
             $('.account-body a').text(data[0].user.name);
             $('.account-body .mail').text(data[0].user.email);
@@ -311,5 +312,6 @@
 
 
 {% endblock %}
+
 </body>
 </html>

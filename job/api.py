@@ -6,7 +6,7 @@ from django.db.models import Count, QuerySet
 from django.db.models.query_utils import Q
 from django.db.models import Count, QuerySet, Min, Max
 from django.http import Http404
-from datetime import date
+from datetime import date, datetime, timedelta
 
 from django.db.models import Count
 from django.http import Http404, JsonResponse, HttpResponse
@@ -32,7 +32,7 @@ from .models import Company, Job, Industry, JobType, Experience, Qualification, 
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics, pagination
-
+from pro.utils import similar
 
 class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
@@ -50,8 +50,8 @@ class JobList(generics.ListAPIView):
     pagination_class = StandardResultsSetPagination
 
 class JobObject(APIView):
-    def get(self, request, pk):
-        job = get_object_or_404(Job, pk=pk)
+    def get(self, request, slug):
+        job = get_object_or_404(Job, slug=slug)
         try:
             if request.user.is_authenticated:
                 print(request.user)
@@ -73,6 +73,11 @@ class JobObject(APIView):
                 data['profile_picture'] = '/media/' + str(image.name)
             else:
                 data['profile_picture'] = '/static/images/job/company-logo-2.png'
+            if ob.latitude:
+                data['latitude'] = str(ob.latitude)
+            if ob.longitude:
+                data['longitude'] = str(ob.longitude)
+
         else:
             data['profile_picture'] = '/static/images/job/company-logo-2.png'
 
@@ -100,30 +105,85 @@ def job_list(request):
         query = request.GET.get('q')
         sorting = request.GET.get('sort')
         category = request.GET.get('category')
-        location = request.GET.get('location')
+        district = request.GET.get('location')
         skill = request.GET.get('skill')
-
-
+        location_from_homepage = request.GET.get('location_from_homepage')
+        keyword_from_homepage = request.GET.get('keyword_from_homepage')
+        salaryMin = request.GET.get('salaryMin')
+        salaryMax = request.GET.get('salaryMax')
+        experienceMin = request.GET.get('experienceMin')
+        experienceMax = request.GET.get('experienceMax')
+        datePosted = request.GET.get('datePosted')
+        print(datePosted)
+        gender = request.GET.get('gender')
+        qualification = request.GET.get('qualification')
 
         if sorting == 'descending':
+            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
+        elif sorting == 'top-rated':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         else:
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
 
         if query:
-             job_list = job_list.filter(
-                 Q(title__icontains=query)
-             ).distinct()
+            job_list = job_list.filter(
+                Q(title__icontains=query)
+            )
 
         if category:
-             job_list = job_list.filter(
-                 Q(title__icontains=query)
-             ).distinct()
+            job_list = job_list.filter(
+                industry=category)
 
-        if query:
-             job_list = job_list.filter(
-                 Q(title__icontains=query)
-             ).distinct()
+        if district:
+            job_list = job_list.filter(
+                district=district
+            )
+
+        if datePosted:
+            if datePosted == 'Last hour':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(hours=1))
+
+            if datePosted == 'Last 24 hour':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(hours=24))
+
+            if datePosted == 'Last 7 days':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=7))
+
+            if datePosted == 'Last 14 days':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=14))
+
+            if datePosted == 'Last 30 days':
+                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=30))
+
+        if gender and gender != 'Any':
+            job_list = job_list.filter(
+                gender_id=gender
+            )
+
+        if qualification:
+            job_list = job_list.filter(
+                qualification_id=qualification
+            )
+
+        if skill:
+            job_list = job_list.filter(job_skills__in = [skill])
+
+        if salaryMin and salaryMax:
+            job_list = (job_list.filter(salary_min__gte=salaryMin) & job_list.filter(salary_min__lte = salaryMax))
+
+
+        if experienceMin and  experienceMax:
+            job_list = (job_list.filter(experience__gte=experienceMin) & job_list.filter(experience__lte = experienceMax))
+
+        if location_from_homepage:
+            job_list = job_list.filter(
+                Q(district__name__icontains=location_from_homepage)
+            )
+
+        if keyword_from_homepage:
+            job_list = job_list.filter(
+                Q(title__icontains=keyword_from_homepage)
+            )
 
 
         page = request.GET.get('page', 1)
@@ -159,7 +219,7 @@ def job_list(request):
         job_list = JobSerializer(job_list, many=True)
 
     except Job.DoesNotExist:
-         job_list = []
+        job_list = []
 
 
     data = {
@@ -171,7 +231,6 @@ def job_list(request):
         "results":  job_list.data,
     }
     return Response(data, HTTP_200_OK)
-
 class CurrencyList(generics.ListCreateAPIView):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
@@ -301,7 +360,6 @@ def trending_keyword_save(request):
     search_data.update([('device', device_name), ('browser', browser_name), ('operating_system', os_name)])
     print(search_data)
     key_obj = TrendingKeywords(**search_data)
-    print(key_obj)
     key_obj.save()
     return Response(HTTP_200_OK)
 
@@ -320,7 +378,7 @@ class TopSkills(generics.ListCreateAPIView):
 
 class PopularJobs(generics.ListCreateAPIView):
     queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
-    ).order_by('-favourite_count')[:16]
+                                          ).order_by('-favourite_count')[:16]
     serializer_class = PopularJobSerializer
 
 @api_view(["GET"])
@@ -341,14 +399,24 @@ def recent_jobs(request):
             job.status = YES_TXT
         else:
             job.status = NO_TXT
-        if job.company_name:
-            if job.company_name.profile_picture:
-                job.profile_picture = '/media/' + str(job.company_name.profile_picture)
+        try:
+            company = job.company_name
+        except Company.DoesNotExist:
+            company = None
+        try:
+            if job.company_name:
+
+                if job.company_name.profile_picture:
+                    job.profile_picture = '/media/' + str(job.company_name.profile_picture)
+                else:
+                    job.profile_picture = '/static/images/job/company-logo-2.png'
+
             else:
                 job.profile_picture = '/static/images/job/company-logo-2.png'
-        else:
+        except Company.DoesNotExist:
             job.profile_picture = '/static/images/job/company-logo-2.png'
-        data.append({'job_id':job.job_id, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(job.company_name)})
+        data.append({'job_id':job.job_id, 'slug':job.slug, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(company)})
+
     return JsonResponse(list(data), safe=False)
 
 @api_view(["GET"])
@@ -366,10 +434,16 @@ def vital_stats(self):
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
-@api_view(["GET"])
-def similar_jobs(request,industry):
 
-    queryset = Job.objects.filter(industry=industry).order_by('-created_date')[:5]
+
+
+@api_view(["GET"])
+def similar_jobs(request,identifier):
+    ob = Job.objects.filter(job_id=identifier)
+    title = ""
+    for i in ob:
+        title = i.title
+    queryset = Job.objects.all()
     data = []
     for job in queryset:
         try:
@@ -391,9 +465,14 @@ def similar_jobs(request,industry):
                 job.profile_picture = '/static/images/job/company-logo-2.png'
         else:
             job.profile_picture = '/static/images/job/company-logo-2.png'
-        data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
-                     'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
-                     'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
+        if similar(title, job.title)>.80:
+            data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
+                         'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
+                         'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
+    for i in range(len(data)):
+        if str(data[i]['job_id']) == identifier:
+            del data[i]
+            break
     return JsonResponse(list(data), safe=False)
 
 
