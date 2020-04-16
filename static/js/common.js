@@ -396,13 +396,6 @@ function applyOnlineJobAddRemove(id, url) {
 
     }
 
-function isLoggedIn() {
-        var access_token = $.cookie("access");
-        if(access_token){
-            return true;
-        }
-        return false;
-    }
 
 function loadApplyonlineJob(data) {
         if(data.responseJSON.code == 200){
