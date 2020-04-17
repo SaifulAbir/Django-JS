@@ -2785,7 +2785,7 @@ a:focus {
 .job-title-and-info .buttons .apply {
   padding: 15px 30px;
   border-radius: 3px;
-  background: white;
+  background: blue;
   color: #ffffff;
   font-size: 1.4rem;
   border: 1px solid rgba(36, 109, 248, 0.15);
