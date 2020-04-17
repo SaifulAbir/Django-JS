@@ -397,6 +397,7 @@ function applyOnlineJobAddRemove(id, url) {
     }
 
 
+
 function loadApplyonlineJob(data) {
         if(data.responseJSON.code == 200){
             console.log(data.responseJSON)

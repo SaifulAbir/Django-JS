@@ -514,8 +514,40 @@ def apply_online_job_add(request):
     data.update({'job': job, 'created_by': user,
                  'created_from': str(ip), 'modified_by': user,
                  'modified_from': str(ip)})
-    apply_online_job = ApplyOnline(**data)
-    print('apply_online_job', apply_online_job)
-    apply_online_job.save()
+    # apply_online_job = ApplyOnline(**data)
+    # print('apply_online_job', apply_online_job)
+    # apply_online_job.save()
+    if job_data:
+        try:
+            apply_online_job = ApplyOnline.objects.filter(created_by = user, job = job)
+            print('apply_online_job try', apply_online_job)
+        except ApplyOnline.DoesNotExist:
+            apply_online_job = None
+        if not apply_online_job:
+            apply_online_job = ApplyOnline(**data)
+            print('apply_online_job', apply_online_job)
+            apply_online_job.save()
+            data = {
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "job": job_data['job_id'],
+                        "status": 'Saved'
+                    }
+                }
+            }
+        elif apply_online_job:
+            apply_online_job.delete()
+            data = {
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "job": job_data['job_id'],
+                        "status": 'Removed'
+                    }
+                }
+            }
+    print('Result', data)
+    return Response(data)
 
-    return Response(HTTP_200_OK)
+
