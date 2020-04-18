@@ -102,17 +102,19 @@
 }
 
 .job-skills p{
-    display: block;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    padding: 3px 15px;
-    margin-top: 8px;
-    border-radius: 3px;
-    width: fit-content;
+     display: block;
+     border: 1px solid rgba(0, 0, 0, 0.05);
+     padding: 3px 15px;
+     margin-top: 8px;
+     border-radius: 3px;
+     width: fit-content;
+    background-color: white;
 }
 
 .skill-label{
     font-size: 1.5rem;
     display: block;
+
 }
 /*job skills*/
 
