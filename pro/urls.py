@@ -1,5 +1,6 @@
 from django.urls import path,include
 from django.views.generic import TemplateView
+from django_rest_passwordreset import urls
 from pro.api import *
 from . import api as pro_views
 urlpatterns = [
