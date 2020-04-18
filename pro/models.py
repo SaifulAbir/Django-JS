@@ -105,6 +105,8 @@ class ProfessionalEducation(models.Model):
     enrolled_date = models.DateField(null=True, blank=True)
     graduation_date = models.DateField(null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
+    is_archived = models.BooleanField(default=False)
+
 
     class Meta:
         db_table = 'professional_educations'
@@ -113,9 +115,11 @@ class ProfessionalEducation(models.Model):
 class ProfessionalSkill(models.Model):
     professional = models.ForeignKey(Professional, on_delete=models.PROTECT)
     name = models.ForeignKey(Skill, on_delete=models.PROTECT)
-    rating = models.DecimalField(max_digits=2, decimal_places=2, blank=True, null=True)
+    rating = models.IntegerField(default=0)
     verified_by_skillcheck = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
+    is_archived = models.BooleanField(default=False)
+
 
     class Meta:
         db_table = 'professional_skills'
@@ -128,6 +132,8 @@ class WorkExperience(models.Model):
     Started_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
+    is_archived = models.BooleanField(default=False)
+
 
     class Meta:
         db_table = 'work_experiences'
@@ -138,6 +144,8 @@ class Portfolio(models.Model):
     image = models.CharField(blank=True, null=True, max_length=500)
     description = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
+    is_archived = models.BooleanField(default=False)
+
 
 
     class Meta:
@@ -152,6 +160,8 @@ class Membership(models.Model):
     end_date = models.DateField(null=True, blank=True)
     desceription = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
+    is_archived = models.BooleanField(default=False)
+
 
     class Meta:
         db_table = 'memberships'
@@ -174,6 +184,8 @@ class Certification(models.Model):
     expiry_date = models.DateField(null=True, blank=True)
     credential_id = models.CharField(max_length=255,null=True, blank=True)
     credential_url = models.CharField(max_length=255,null=True, blank=True)
+    is_archived = models.BooleanField(default=False)
+
 
     class Meta:
         db_table = 'certifications'
@@ -186,6 +198,9 @@ class Reference(models.Model):
     current_position = models.CharField(max_length=255,null=True, blank=True)
     email = models.CharField(max_length=255,null=True, blank=True)
     mobile = models.CharField(max_length=255,null=True, blank=True, validators=[check_valid_phone_number])
+    is_archived = models.BooleanField(default=False)
+
+
 
     class Meta:
         db_table= 'references'

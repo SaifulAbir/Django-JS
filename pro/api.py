@@ -190,13 +190,13 @@ class ProfessionalDetail(APIView):
     permission_classes = (IsAppAuthenticated,)
     def get(self, request, pk):
         profile = get_object_or_404(Professional, pk=pk)
-        education = ProfessionalEducation.objects.filter(professional=pk)
-        skills = ProfessionalSkill.objects.filter(professional=pk)
-        experience = WorkExperience.objects.filter(professional=pk)
-        portfolio = Portfolio.objects.filter(professional=pk)
-        membership = Membership.objects.filter(professional=pk)
-        certification = Certification.objects.filter(professional=pk)
-        reference = Reference.objects.filter(professional=pk)
+        education = ProfessionalEducation.objects.filter(professional=pk ,is_archived=False)
+        skills = ProfessionalSkill.objects.filter(professional=pk, is_archived=False)
+        experience = WorkExperience.objects.filter(professional=pk, is_archived=False)
+        portfolio = Portfolio.objects.filter(professional=pk, is_archived=False)
+        membership = Membership.objects.filter(professional=pk, is_archived=False)
+        certification = Certification.objects.filter(professional=pk, is_archived=False)
+        reference = Reference.objects.filter(professional=pk, is_archived=False)
 
         info_data = ProfessionalSerializer(profile).data
         edu_data = [{
