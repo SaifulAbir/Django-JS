@@ -19,7 +19,7 @@
                                 <h4 id="title"></h4>
                                 <div class="info">
                                     <span class="company"><a href="#"><i data-feather="briefcase"></i><span id="company_name"></span></a></span>
-                                    <span class="office-location"><a href="#"><i data-feather="map-pin"></i><span id="company_location"></span></a></span>
+                                    <span class="office-location"><a href="#"><i data-feather="map-pin"></i><span id="job_location"></span></a></span>
                                     <span class="job-type full-time"><a href="#"><i data-feather="clock"></i><span id="employment_status"></span></a></span>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@
             for(x=0;x<len;x++){
                 $('#skills').append('<p>'+ data.skill[x] +'</p>')
             }
-
+            console.log(data);
             json2Div(data, container);
             identifier = data['job_id'];
             catUrl = '/api/similar_jobs/'+ identifier;

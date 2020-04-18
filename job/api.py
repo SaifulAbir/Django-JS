@@ -76,9 +76,22 @@ class JobObject(APIView):
                 data['latitude'] = str(ob.latitude)
             if ob.longitude:
                 data['longitude'] = str(ob.longitude)
+            if ob.address:
+                data['company_location'] = ob.address
+            else:
+                data['company_location'] = "Unknown"
+
 
         else:
             data['profile_picture'] = '/static/images/job/company-logo-2.png'
+        if data['company_name'] is None:
+            data['company_name'] = 'None'
+
+        if data['job_location'] is None:
+            data['job_location'] = 'Unknown'
+
+        if data['company_location'] is None:
+            data['company_location'] = 'Unknown'
 
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
@@ -87,6 +100,7 @@ class JobObject(APIView):
             data['skill'].append(skill.name)
         #     else:
         #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
+        print(data)
         return Response(data)
 
 class IndustryList(generics.ListCreateAPIView):
