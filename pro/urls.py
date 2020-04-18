@@ -24,4 +24,13 @@ urlpatterns = [
     path('profile_update/<str:pk>/', ProfessionalUpdateView.as_view()),
     path('job_alert/', job_alert),
     path('job_alert_notification/', job_alert_notification),
+    path('profile_update_partial/<str:pk>/', ProfessionalUpdatePartial.as_view()),
+    path('professional_education_save/', ProfessionalEducationSave.as_view()),
+    path('professional_skill_save/', professional_skill_save),
+    path('professional_work_experience_save/', professional_workexperience_save),
+    path('professional_portfolio_save/', professional_portfolio_save),
+    path('professional_membership_save/', professional_membership_save),
+    path('professional_certification_save/', professional_certification_save),
+    path('professional_reference_save/', professional_reference_save),
+    # path('professional_info/<str:pk>/', professional_info),
 ]

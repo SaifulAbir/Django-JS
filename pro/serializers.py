@@ -4,7 +4,7 @@ from rest_framework_simplejwt.state import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from pro.models import Professional
+from pro.models import Professional, ProfessionalEducation
 from rest_framework import exceptions
 from django.utils.translation import ugettext_lazy as _
 from resources.strings_pro import *
@@ -13,7 +13,13 @@ from resources.strings_pro import *
 class ProfessionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professional
-        fields = ['professional_id', 'full_name', 'email', 'phone', 'address', 'industry_expertise', 'about_me', 'image']
+        exclude = ('password','terms_and_condition_status','signup_verification_code',)
+
+class ProfessionalEducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfessionalEducation
+        fields = '__all__'
+
 class CustomTokenSerializer(serializers.Serializer):
     token = serializers.CharField()
 
@@ -72,4 +78,7 @@ class TokenObtainCustomPairSerializer(TokenObtainCustomSerializer):
         data['email'] = self.user.email
         data['user_id'] = self.user.id
         data['full_name'] = professional.full_name
+        data['professional_id'] = professional.id
+        data['professional_image'] = professional.image
+
         return data
