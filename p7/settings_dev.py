@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'settings',
     'career_advice',
     'django_user_agents',
+     'rangefilter',
 ]
 
 MIDDLEWARE = [
