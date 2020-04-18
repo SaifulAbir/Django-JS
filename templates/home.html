@@ -381,7 +381,7 @@
         function loadKey(data) {
             len= data.length;
             for(x=0;x<len;x++){
-                $('#trend-keywords').append('<a href="#"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
+                $('#trend-keywords').append('<a href="http://127.0.0.1:8000/jobs/?keyword='+ data[x].keyword +'"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
             }
         }
 
