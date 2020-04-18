@@ -138,11 +138,12 @@ def job_list(request):
         else:
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
         jobtype = JobType(name='None')
+        company = Company(name='Unknown')
         for i in job_list:
             if i.job_location is None:
                 i.job_location = 'Unknown'
-            # if i.company_name is None:
-            #     i.company_name = 'None'
+            if i.company_name is None:
+                i.company_name = company
             if i.employment_status is None:
                  i.employment_status = jobtype
         if query:
