@@ -54,7 +54,7 @@ class SubTopics(models.Model):
 #Difficulty Model Starts
 
 class Difficulty(models.Model):
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, unique=True)
     created_date = models.DateTimeField(default=datetime.now, blank=True)
     def __str__(self):
         return self.name
