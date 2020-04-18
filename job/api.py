@@ -92,7 +92,8 @@ class JobObject(APIView):
 
         if data['company_location'] is None:
             data['company_location'] = 'Unknown'
-
+        if data['employment_status'] is None:
+            data['employment_status'] = "None"
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
         for skill in job.job_skills.all():
@@ -130,13 +131,19 @@ def job_list(request):
         print(datePosted)
         gender = request.GET.get('gender')
         qualification = request.GET.get('qualification')
-
         if sorting == 'descending':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         elif sorting == 'top-rated':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         else:
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
+        for i in job_list:
+            if i.job_location is None:
+                i.job_location = 'Unknown'
+            # if i.company_name is None:
+            #     i.company_name = 'None'
+            # if i.employment_status is None:
+            #     i.employment_status = 'None'
 
         if query:
             job_list = job_list.filter(
@@ -243,7 +250,12 @@ def job_list(request):
         'code': HTTP_200_OK,
         "results":  job_list.data,
     }
+
+
+
+
     return Response(data, HTTP_200_OK)
+
 class CurrencyList(generics.ListCreateAPIView):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
@@ -427,6 +439,8 @@ def recent_jobs(request):
                 job.profile_picture = '/static/images/job/company-logo-2.png'
         except Company.DoesNotExist:
             job.profile_picture = '/static/images/job/company-logo-2.png'
+        if job.job_location is None:
+            job.job_location = "Unknown"
         data.append({'job_id':job.job_id, 'slug':job.slug, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(company)})
 
     return JsonResponse(list(data), safe=False)
@@ -477,11 +491,14 @@ def similar_jobs(request,identifier):
                 job.profile_picture = '/static/images/job/company-logo-2.png'
         else:
             job.profile_picture = '/static/images/job/company-logo-2.png'
+
         if similar(title, job.title)>.80:
             data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
                          'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
                          'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
     for i in range(len(data)):
+        if data[i]['job_location'] is None:
+            data[i]['job_location'] = 'Unknown'
         if str(data[i]['job_id']) == identifier:
             del data[i]
             break
