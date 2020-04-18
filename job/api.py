@@ -536,17 +536,6 @@ def apply_online_job_add(request):
                     }
                 }
             }
-        elif apply_online_job:
-            apply_online_job.delete()
-            data = {
-                'code': HTTP_200_OK,
-                "result": {
-                    "user": {
-                        "job": job_data['job_id'],
-                        "status": 'Removed'
-                    }
-                }
-            }
     print('Result', data)
     return Response(data)
 

@@ -402,13 +402,11 @@ function loadApplyonlineJob(data) {
         if(data.responseJSON.code == 200){
             console.log(data.responseJSON)
             var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
-            if(el.hasClass('active') && data.responseJSON.result.user.status == 'Removed'){
-                el.removeClass('active');
-                showError('Oopss!', 'Job removed from applied.')
-            }
-            else if(el.hasClass("apply")){
+            if(el.hasClass("apply")){
                 el.addClass('active');
-                showSuccess('Congratulations!', 'Job saved as a applied.')
+                showSuccess('Successful!', 'Job applied successfully.')
+                $('.apply').text('Applied');
+
             }
         }
     }
