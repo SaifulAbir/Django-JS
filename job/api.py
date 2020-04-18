@@ -137,14 +137,14 @@ def job_list(request):
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         else:
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
-        ob = JobType.objects.get(name='None')
+        # ob = JobType.objects.get(name='None')
         for i in job_list:
             if i.job_location is None:
                 i.job_location = 'Unknown'
             # if i.company_name is None:
             #     i.company_name = 'None'
-            if i.employment_status is None:
-                 i.employment_status = ob
+            # if i.employment_status is None:
+            #      i.employment_status = ob
         if query:
             job_list = job_list.filter(
                 Q(title__icontains=query)
