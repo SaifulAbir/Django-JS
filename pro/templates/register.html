@@ -171,6 +171,9 @@
             if(data.responseJSON.code == 200){
                 {#var id = data.responseJSON.result.user.professional;#}
                 showSuccess("Sign Up Successful!", "A verification code was sent to your email")
+                setTimeout(function(){
+                window.location.href = "/professional/sign-in/";
+                                    }, 3500);
             }
             else {
                 showError('Failed!','Email already exists!')
