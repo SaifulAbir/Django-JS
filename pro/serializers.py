@@ -13,7 +13,7 @@ from resources.strings_pro import *
 class ProfessionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professional
-        fields = '__all__'
+        exclude = ('password','terms_and_condition_status','signup_verification_code',)
 
 class ProfessionalEducationSerializer(serializers.ModelSerializer):
     class Meta:

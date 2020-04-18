@@ -194,68 +194,75 @@ class ProfessionalDetail(APIView):
         skills = ProfessionalSkill.objects.filter(professional=pk, is_archived=False)
         experience = WorkExperience.objects.filter(professional=pk, is_archived=False)
         portfolio = Portfolio.objects.filter(professional=pk, is_archived=False)
-        membership = Membership.objects.filter(professional=pk, is_archived=False)
+        membership = Membership.objects.filter(professional_id=pk, is_archived=False)
         certification = Certification.objects.filter(professional=pk, is_archived=False)
         reference = Reference.objects.filter(professional=pk, is_archived=False)
 
         info_data = ProfessionalSerializer(profile).data
         edu_data = [{
-            'qualification': str(edu.qualification_id),
-            'institution': str(edu.institution_id),
-            'cgpa': str(edu.cgpa),
-            'major': str(edu.major_id),
-            'enrolled_date': str(edu.enrolled_date),
-            'graduation_date': str(edu.graduation_date),
+            'education_id': edu.id,
+            'qualification': edu.qualification_id,
+            'institution': edu.institution_id,
+            'cgpa': edu.cgpa,
+            'major': edu.major_id,
+            'enrolled_date': edu.enrolled_date,
+            'graduation_date': edu.graduation_date,
         } for edu in education
         ]
 
         skill_data = [{
-            'skill': str(skill.name_id),
-            'rating': str(skill.rating),
-            'verified_by_skillcheck': str(skill.verified_by_skillcheck),
+            'prof_skill_id':skill.id,
+            'skill': str(skill.name),
+            'rating': skill.rating,
+            'verified_by_skillcheck': skill.verified_by_skillcheck,
         } for skill in skills
         ]
         experience_data = [{
-            'company': str(exp.company_id),
-            'designation': str(exp.designation),
-            'Started_date': str(exp.Started_date),
-            'end_date': str(exp.end_date),
+            'experience_id': exp.id,
+            'company': exp.company_id,
+            'designation': exp.designation,
+            'Started_date': exp.Started_date,
+            'end_date': exp.end_date,
         } for exp in experience
         ]
 
         portfolio_data = [{
-            'name': str(pf.name),
-            'image': str(pf.image),
-            'description': str(pf.description),
+            'portfolio_id': pf.id,
+            'name': pf.name,
+            'image': pf.image,
+            'description': pf.description,
         } for pf in portfolio
         ]
 
         membership_data = [{
-            'org_name': str(ms.org_name_id),
-            'position_held': str(ms.position_held),
-            'membership_ongoing': str(ms.membership_ongoing),
-            'Start_date': str(ms.Start_date),
-            'end_date': str(ms.end_date),
-            'desceription': str(ms.desceription),
+            'membership_id':ms.id,
+            'org_name': ms.org_name_id,
+            'position_held': ms.position_held,
+            'membership_ongoing': ms.membership_ongoing,
+            'Start_date': ms.Start_date,
+            'end_date': ms.end_date,
+            'desceription': ms.desceription,
         } for ms in membership
         ]
 
         certification_data = [{
-            'certification_name': str(cert.certification_name_id),
-            'organization_name': str(cert.organization_name_id),
-            'has_expiry_period': str(cert.has_expiry_period),
-            'issue_date': str(cert.issue_date),
-            'expiry_date': str(cert.expiry_date),
-            'credential_id': str(cert.credential_id),
-            'credential_url': str(cert.credential_url),
+            'certification_id': cert.id,
+            'certification_name': cert.certification_name_id,
+            'organization_name': cert.organization_name_id,
+            'has_expiry_period': cert.has_expiry_period,
+            'issue_date': cert.issue_date,
+            'expiry_date': cert.expiry_date,
+            'credential_id': cert.credential_id,
+            'credential_url': cert.credential_url,
         } for cert in certification
         ]
 
         reference_data = [{
-            'name': str(ref.name),
-            'current_position': str(ref.current_position),
-            'email': str(ref.email),
-            'mobile': str(ref.mobile),
+            'reference_id':ref.id,
+            'name': ref.name,
+            'current_position': ref.current_position,
+            'email': ref.email,
+            'mobile': ref.mobile,
         } for ref in reference
         ]
 
@@ -263,7 +270,7 @@ class ProfessionalDetail(APIView):
             'personal_info': info_data,
             'edu_info': edu_data,
             'skill_info': skill_data,
-            'experiecnce_info': experience_data,
+            'experience_info': experience_data,
             'portfolio_info': portfolio_data,
             'membership_info': membership_data,
             'certification_info': certification_data,
@@ -273,14 +280,18 @@ class ProfessionalDetail(APIView):
         return Response(prof_data)
 
 
-@api_view(["POST"])
-def professional_education_save(request):
-    data = json.loads(request.body)
+# @api_view(["POST"])
+# def professional_education_save(request):
+#     data = json.loads(request.body)
+#
+#     key_obj = ProfessionalEducation(**data)
+#     key_obj.save()
+#
+#     return Response(HTTP_200_OK)
 
-    key_obj = ProfessionalEducation(**data)
-    key_obj.save()
-
-    return Response(HTTP_200_OK)
+class ProfessionalEducationSave(generics.ListCreateAPIView):
+    queryset = ProfessionalEducation.objects.all()
+    serializer_class = ProfessionalEducationSerializer
 
 @api_view(["POST"])
 def professional_skill_save(request):

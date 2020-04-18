@@ -44,7 +44,12 @@ class Major(models.Model):
     class Meta:
         db_table = 'majors'
 
+class Religion(models.Model):
+    name = models.CharField(max_length=255, )
+    created_date = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        db_table = 'religions'
 
 
 
@@ -79,6 +84,9 @@ class Professional(models.Model):
     expected_salary_min = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     expected_salary_max = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     nationality = models.ForeignKey(Nationality,on_delete=models.PROTECT, null=True, blank=True)
+    religion = models.ForeignKey(Religion,on_delete=models.PROTECT, null=True, blank=True)
+    permanent_address = models.CharField(max_length=255, null=True, blank=True)
+
 
 
 
@@ -98,7 +106,7 @@ class Professional(models.Model):
 
 class ProfessionalEducation(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT, null=True, blank=True)
+    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT)
     institution = models.ForeignKey(Institute, on_delete=models.PROTECT, null=True, blank=True)
     cgpa = models.CharField(max_length=255, blank=True, null=True)
     major = models.ForeignKey(Major, on_delete=models.PROTECT, null=True, blank=True)

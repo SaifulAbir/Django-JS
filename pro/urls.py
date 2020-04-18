@@ -22,7 +22,7 @@ urlpatterns = [
     path('profile/<str:pk>/', ProfessionalDetail.as_view()),
     path('profile_update/<str:pk>/', ProfessionalUpdateView.as_view()),
     path('profile_update_partial/<str:pk>/', ProfessionalUpdatePartial.as_view()),
-    path('professional_education_save/', professional_education_save),
+    path('professional_education_save/', ProfessionalEducationSave.as_view()),
     path('professional_skill_save/', professional_skill_save),
     path('professional_work_experience_save/', professional_workexperience_save),
     path('professional_portfolio_save/', professional_portfolio_save),
