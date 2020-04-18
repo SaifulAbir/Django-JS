@@ -498,11 +498,13 @@ def similar_jobs(request,identifier):
                          'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
                          'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
     for i in range(len(data)):
-        if data[i]['job_location'] is None:
-            data[i]['job_location'] = 'Unknown'
         if str(data[i]['job_id']) == identifier:
             del data[i]
             break
+    for i in range(len(data)):
+        if data[i]['job_location'] is None:
+            data[i]['job_location'] = 'Unknown'
+    print(data)
     return JsonResponse(list(data), safe=False)
 
 
