@@ -142,6 +142,7 @@ class WorkExperience(models.Model):
     end_date = models.DateField(null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
     is_archived = models.BooleanField(default=False)
+    currently_working_here = models.BooleanField(default=False)
 
 
     class Meta:

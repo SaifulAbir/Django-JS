@@ -30,6 +30,8 @@ ON_TXT = 'on'
 OFF_TXT = 'off'
 YES_TXT = 'Yes'
 NO_TXT = 'No'
+NO_LOCATION = 'Unknown'
+NO_NAME = 'None'
 #Job Strings#
 
 #COMPANY Strings#

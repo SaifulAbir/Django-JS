@@ -137,6 +137,9 @@ a.save.apply.active {
     background-color: blue;
 }
 
+.information-and-share .job-location {
+    padding: 15px;
+}
 /*job detail*/
 
 /*fontawesome icons*/
