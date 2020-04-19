@@ -60,10 +60,21 @@ class JobObject(APIView):
                 favourite_job = FavouriteJob.objects.get(job=job)
         except FavouriteJob.DoesNotExist:
             favourite_job = None
+        try:
+            if request.user.is_authenticated:
+                applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
+            else:
+                applied_job = ApplyOnline.objects.get(job=job)
+        except ApplyOnline.DoesNotExist:
+            applied_job = None
         if favourite_job is not None:
             job.status = YES_TXT
         else:
             job.status = NO_TXT
+        if applied_job is not None:
+            job.is_applied = YES_TXT
+        else:
+            job.is_applied = NO_TXT
         data = JobSerializer(job).data
         data['skill']=[]
         if data['company_location'] is None:

@@ -381,7 +381,7 @@ function loadFavouriteJob(data) {
 
 function applyOnlineJobAddRemove(id, url) {
 
-        $("#"+id).on('click', '.apply', function (event) {
+        $("#"+id).on('click', '.apply:not(.applied)', function (event) {
             event.preventDefault();
             var user = $.cookie("user");
             var job = $(this).attr('href');
