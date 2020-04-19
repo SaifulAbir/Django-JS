@@ -116,11 +116,12 @@ def job_list(request):
         print(datePosted)
         gender = request.GET.get('gender')
         qualification = request.GET.get('qualification')
-
         if sorting == 'descending':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         elif sorting == 'top-rated':
-            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
+            fav_jobs = FavouriteJob.objects.all()
+            job_list = Job.objects.filter(fav_jobs__in = fav_jobs).annotate(favourite_count=Count('fav_jobs')
+                                          ).order_by('-favourite_count')
         else:
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
 
