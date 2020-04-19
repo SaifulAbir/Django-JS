@@ -165,7 +165,7 @@
                               <a href="#" class="add-more">+ Add Social</a>
                             </div>
                             <div class="content">
-                              <form action="#">
+                              <form action="" id="social-form" >
                                 <div class="form-group row">
                                   <label class="col-sm-3 col-form-label">Social Links</label>
                                   <div class="col-sm-9">
@@ -173,7 +173,7 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-facebook-f"></i></div>
                                       </div>
-                                      <input type="text" class="form-control"  placeholder="facebook.com/username">
+                                      <input type="text" id="fb" class="form-control"  placeholder="facebook.com/username">
                                     </div>
                                   </div>
                                 </div>
@@ -183,7 +183,7 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-twitter"></i></div>
                                       </div>
-                                      <input type="text" class="form-control"  placeholder="twitter.com/username">
+                                      <input type="text" id="tw" class="form-control"  placeholder="twitter.com/username">
                                     </div>
                                   </div>
                                 </div>
@@ -203,7 +203,7 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-linkedin-in"></i></div>
                                       </div>
-                                      <input type="text" class="form-control"  placeholder="linkedin.com/username">
+                                      <input type="text" id="ln" class="form-control"  placeholder="linkedin.com/username">
                                     </div>
                                   </div>
                                 </div>
@@ -1283,6 +1283,7 @@
 {% block extra_js %}
    <script>
         $(document).ready(function() {
+            TokenAuthenticate();
             initAjaxSelects();
             $('#profile-form').validate();
             var path = window.location.pathname.split('/');
@@ -1297,12 +1298,18 @@
           facebook = data.personal_info.facebbok_id;
           twitter  = data.personal_info.twitter_id;
           linkedin = data.personal_info.linkedin_id;
-          console.log(facebook);
           $('.facebook').attr('href' ,facebook);
           $('.twitter').attr('href',twitter);
           $('.linkedin').attr('href', linkedin);
         }
 
+           $("#social-form").submit(function(e){
+            facebook_id = document.getElementById('fb').value;
+            twitter_id = document.getElementById('tw').value;
+            linkedin_id = document.getElementById('ln').value;
+
+
+        });
 
 
     </script>
