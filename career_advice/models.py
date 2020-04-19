@@ -10,9 +10,9 @@ from django.utils import timezone
 #Career_Advice Model#
 class CareerAdvice(models.Model):
     title = models.CharField(max_length=50)
-    short_description = models.CharField(max_length=100)
+    short_description = models.CharField(max_length=250)
     description = models.TextField()
-    author = models.CharField(max_length=15)
+    author = models.CharField(max_length=25)
     created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
