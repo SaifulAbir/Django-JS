@@ -99,7 +99,7 @@
                                     <div class="job-location">
                                         <h4>Job Location</h4>
                                         <div id="map-area">
-                                            <div class="cp-map" id="location"  data-lat="" data-lng="" data-zoom="13"></div>
+                                            <div class="cp-map" id="location"  data-lat="" data-lng="" data-zoom="14"></div>
                                             <!-- <div class="cp-map" id="location" data-lat="40.713355" data-lng="-74.005535" data-zoom="10"></div> -->
                                         </div>
                                     </div>
@@ -220,7 +220,7 @@
             if(data.application_deadline){
                 data.application_deadline = deadline.split("-").reverse().join("-")
             }
-            $('#img').append('<img src=" '+data.profile_picture+'" class="img-fluid" alt="">')
+            $('#img').append('<img src=" '+data.profile_picture+'" class="img-fluid" style="width:70px;" alt="">')
             $('.cp-map').attr('data-lat',data.latitude);
             $('.cp-map').attr('data-lng',data.longitude);
             initMap();

@@ -65,6 +65,8 @@ class JobObject(APIView):
             job.status = NO_TXT
         data = JobSerializer(job).data
         data['skill']=[]
+        if data['company_location'] is None:
+            data['company_location'] = 'Unknown'
         if data['company_name'] is not None:
             ob = Company.objects.get(name=data['company_name'])
             if ob.profile_picture:
@@ -489,3 +491,4 @@ def salary_range(self):
 class SkillList(generics.ListCreateAPIView):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
+
