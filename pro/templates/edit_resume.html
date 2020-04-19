@@ -148,9 +148,9 @@
                   </div>
                   <div class="social-profile">
                     <label>Social:</label>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="facebook" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="twitter" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="linkedin" href=""><i class="fab fa-linkedin-in"></i></a>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#modal-social">
                       <i data-feather="edit-2"></i>
@@ -1277,40 +1277,34 @@
     </div>
 
     <!-- Call to Action -->
-    <div class="call-to-action-bg padding-top-90 padding-bottom-90">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="call-to-action-2">
-              <div class="call-to-action-content">
-                <h2>For Find Your Dream Job or Candidate</h2>
-                <p>Add resume or post a job. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec.</p>
-              </div>
-              <div class="call-to-action-button">
-                <a href="add-resume.html" class="button">Add Resume</a>
-                <span>Or</span>
-                <a href="post-job.html" class="button">Post A Job</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
 
 {% endblock %}
 {% block extra_js %}
-    <script>
+   <script>
         $(document).ready(function() {
             initAjaxSelects();
             $('#profile-form').validate();
             var path = window.location.pathname.split('/');
             var id = path[path.length-2];
             var getUrl = '/api/professional/profile/'+ id + '/';
-            get(getUrl, loadProfile);
+            get(getUrl,loadsocial);
             var postUrl = '/api/professional/profile_update/'+ id + '/';
             $('form.ajax').attr('action',postUrl);
             initAjaxForms();
         });
+        function  loadsocial(data){
+          facebook = data.personal_info.facebbok_id;
+          twitter  = data.personal_info.twitter_id;
+          linkedin = data.personal_info.linkedin_id;
+          $('.facebook').attr('href' , '/' + facebook);
+          $('.twitter').attr('href', twitter);
+          $('.linkedin').attr('href', linkedin);
+
+
+        }
+
+
 
     </script>
 {% endblock %}
