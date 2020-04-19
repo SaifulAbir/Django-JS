@@ -31,6 +31,8 @@ urlpatterns = [
     path('professional_portfolio_save/', professional_portfolio_save),
     path('professional_membership_save/', professional_membership_save),
     path('professional_certification_save/', professional_certification_save),
-    path('professional_reference_save/', professional_reference_save),
-    path('prefessional_reference_update_delete/<str:pk>/', ReferenceUpdateDelete.as_view()),
+    path('professional_reference/', professional_reference_save),
+    path('professional_reference/<str:pk>/', ReferenceUpdateDelete.as_view()),
+    path('religion/', ReligionList.as_view()),
+    path('nationality/', NationalityList.as_view()),
 ]

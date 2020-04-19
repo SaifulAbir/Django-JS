@@ -33,7 +33,7 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
 from p7.permissions import IsAppAuthenticated
 from p7.settings_dev import SITE_URL
-from pro.models import Professional
+from pro.models import Professional, Religion, Nationality
 from pro.models import Professional, ProfessionalEducation, ProfessionalSkill, WorkExperience, Portfolio, Membership, \
     Certification, Reference
 from django.core.mail import EmailMultiAlternatives
@@ -44,7 +44,7 @@ from django.urls import reverse
 from django_rest_passwordreset.signals import reset_password_token_created
 
 from pro.serializers import CustomTokenSerializer, TokenObtainCustomPairSerializer, ProfessionalEducationSerializer, \
-    ReferenceSerializer
+    ReferenceSerializer, ReligionSerializer, NationalitySerializer
 from pro.serializers import ProfessionalSerializer
 from resources.strings_pro import *
 from rest_framework.status import (
@@ -302,6 +302,16 @@ class ProfessionalDetail(APIView):
 #
 #     return Response(HTTP_200_OK)
 
+
+class ReligionList(generics.ListCreateAPIView):
+    queryset = Religion.objects.all()
+    serializer_class = ReligionSerializer
+
+class NationalityList(generics.ListCreateAPIView):
+    queryset = Nationality.objects.all()
+    serializer_class = NationalitySerializer
+
+
 class ProfessionalEducationSave(generics.ListCreateAPIView):
     queryset = ProfessionalEducation.objects.all()
     serializer_class = ProfessionalEducationSerializer
@@ -371,18 +381,18 @@ class ProfessionalUpdateView(APIView):
             raise Http404
     def put(self, request, pk, format=None):
         profile = self.get_object(pk)
-
         # image uploading code start here
-        img_base64 = request.data['image']
-        if img_base64:
-            format, imgstr = img_base64.split(';base64,')
-            ext = format.split('/')[-1]
-            filename = str(uuid.uuid4()) + '-professional.' + ext
-            data = ContentFile(base64.b64decode(imgstr), name=filename)
-            fs = FileSystemStorage()
-            filename = fs.save(filename, data)
-            uploaded_file_url = fs.url(filename)
-            request.data['image'] = uploaded_file_url
+        if 'image' in request.data:
+            img_base64 = request.data['image']
+            if img_base64:
+                format, imgstr = img_base64.split(';base64,')
+                ext = format.split('/')[-1]
+                filename = str(uuid.uuid4()) + '-professional.' + ext
+                data = ContentFile(base64.b64decode(imgstr), name=filename)
+                fs = FileSystemStorage()
+                filename = fs.save(filename, data)
+                uploaded_file_url = fs.url(filename)
+                request.data['image'] = uploaded_file_url
         # end of image uploading code
 
         serializer = ProfessionalSerializer(profile, data=request.data)

@@ -87,6 +87,9 @@ class Professional(models.Model):
     nationality = models.ForeignKey(Nationality,on_delete=models.PROTECT, null=True, blank=True)
     religion = models.ForeignKey(Religion,on_delete=models.PROTECT, null=True, blank=True)
     permanent_address = models.CharField(max_length=255, null=True, blank=True)
+    current_location = models.CharField(max_length=255, null=True, blank=True)
+
+
 
 
 
