@@ -1297,11 +1297,10 @@
           facebook = data.personal_info.facebbok_id;
           twitter  = data.personal_info.twitter_id;
           linkedin = data.personal_info.linkedin_id;
-          $('.facebook').attr('href' , '/' + facebook);
-          $('.twitter').attr('href', twitter);
+          console.log(facebook);
+          $('.facebook').attr('href' ,facebook);
+          $('.twitter').attr('href',twitter);
           $('.linkedin').attr('href', linkedin);
-
-
         }
 
 
