@@ -385,7 +385,7 @@ function applyOnlineJobAddRemove(id, url) {
             event.preventDefault();
             var user = $.cookie("user");
             var job = $(this).attr('href');
-            if(isLoggedIn() && $(this).hasClass('active')){
+            if(isLoggedIn() && $(this).hasClass('applied')){
                 var data = {'user_id':user, 'job_id':job};
                 applyonlineUrl = url;
                 post(applyonlineUrl, JSON.stringify(data), loadApplyonlineJob);
@@ -410,7 +410,7 @@ function loadApplyonlineJob(data) {
             console.log(data.responseJSON)
             var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
             if(el.hasClass("apply")){
-                el.addClass('active');
+                el.addClass('applied');
                 showSuccess('Successful!', 'Job applied successfully.')
                 $('.apply').text('Applied');
 
