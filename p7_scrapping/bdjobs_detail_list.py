@@ -114,18 +114,33 @@ while page_no <= max_page_no:
         data_dict = {};
 
         # Fetching desired content using its tag and class
+        # done
         try:
-            job_title = dt.find('div', {'class': 'job-title-text'})
+            title = dt.find('div', {'class': 'job-title-text'})
         except Exception as ex:
-            job_title = "JOB TITLE"
-
+            title = "JOB TITLE"
+        # done
         try:
-            data_dict['job_link'] = main_site + job_title.find('a', {'href': True})['href']
+            data_dict['created_date'] = '2020-02-29 00:00:00.000000'
+        except Exception as ex:
+            data_dict['created_date'] = "2020-02-29 00:00:00.000000"
+        try:
+            data_dict['raw_content'] = '2020-02-29 00:00:00.000000'
+        except Exception as ex:
+            data_dict['raw_content'] = "2020-02-29 00:00:00.000000"
+
+        # static_data = {
+        #     "title" : "Here is the title as json",
+        #     "vacancy" : "4",
+        #     "created_date" : "2020-02-29 00:00:00.000000"
+        # }
+        try:
+            data_dict['job_link'] = main_site + title.find('a', {'href': True})['href']
         except Exception as ex:
             data_dict['job_link'] = "JOB LINK"
 
         try:
-            data_dict['job_title_text'] = job_title.text.strip()
+            data_dict['job_title_text'] = title.text.strip()
         except Exception as ex:
             data_dict['job_title_text'] = "JOB TITLE TEXT"
 
@@ -138,6 +153,7 @@ while page_no <= max_page_no:
         except Exception as ex:
             data_dict['deadline'] = "DEADLINE"
 
+# done
         try:
             data_dict['education'] = dt.find('div', {'class': 'edu-text-d'}).text.strip()
         except Exception as ex:
@@ -159,6 +175,7 @@ while page_no <= max_page_no:
             #     print(date[e].replace('  ', ''))
 
             data_detail = html_detail.find('div', {'class': 'job-preview'})
+            print(data_detail)
             data_dict_detail = {};
 
             try:
@@ -168,7 +185,7 @@ while page_no <= max_page_no:
                 data_dict['published_date'] = "Error"
 
             try:
-                data_dict['no_of_vacancy'] = data_detail.find(text="Vacancy").findNext('p').text.strip()
+                data_dict['vacancy'] = data_detail.find(text="Vacancy").findNext('p').text.strip()
             except Exception as ex:
                 data_dict['no_of_vacancy'] = "Error"
             try:
@@ -217,15 +234,24 @@ while page_no <= max_page_no:
 
         except Exception as ex:
             print("Detail Data error")
-
         # Calling the write_csv_file function
         write_csv_file(data_dict)
 
         # Increment of total_jobs
         total_jobs += 1
 
+        JOB_LIST_API = 'http://127.0.0.1/api/job_create/'
+        JOB_LIST_API_KEY = '96d56aceeb9049debeab628ac760aa11'
+        HEADER = {'api-key': JOB_LIST_API_KEY}
+
+        response = requests.post(JOB_LIST_API,json=data_dict, headers=HEADER)
+
+        print(response)
+
+        break
     # Increment page no.
     page_no += 1
+    break
 
 job_list_file_obj.close()
 
