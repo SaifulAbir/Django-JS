@@ -281,6 +281,8 @@ class JobTest(TestCase):
         employment_status.save()
         self.employment_status = employment_status
 
+
+
     def test_when_everything_is_given_should_pass(self):
         job = Job(title='Software Engineer', industry=self.industry, employment_status=self.employment_status,
                   job_location='mirpur', experience=self.experience, salary_min=5000.00, salary_max=10000.00,
@@ -338,6 +340,14 @@ class JobTest(TestCase):
                   web_address="www.ishraak.com")
         with self.assertRaises(ValidationError):
             job.full_clean()
+
+    def test__when_slug_name_duplicate__should_raise_error(self):
+        slug = Job(slug='peace-maker-c57fe949')
+        slug1 = Job(slug='peace-maker-c57fe949')
+
+        with self.assertRaises(IntegrityError):
+            slug.save()
+            slug1.save()
 
     # def test_when_job_location_is_null_should_raise_error(self):
     #     s = Job(name='Software Engineer',experience='1', gender='Male')
