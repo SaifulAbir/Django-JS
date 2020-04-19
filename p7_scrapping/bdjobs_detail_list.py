@@ -129,11 +129,6 @@ while page_no <= max_page_no:
         except Exception as ex:
             data_dict['raw_content'] = "2020-02-29 00:00:00.000000"
 
-        # static_data = {
-        #     "title" : "Here is the title as json",
-        #     "vacancy" : "4",
-        #     "created_date" : "2020-02-29 00:00:00.000000"
-        # }
         try:
             data_dict['job_link'] = main_site + title.find('a', {'href': True})['href']
         except Exception as ex:
