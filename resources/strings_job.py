@@ -66,3 +66,8 @@ JOB_SKILL_DETAIL_VERBOSE_NAME_PLURAL = 'Job Skills'
 BOOKMARK_JOB_VERBOSE_NAME = 'Bookmark Job'
 BOOKMARK_JOB_VERBOSE_NAME_PLURAL = 'Bookmark Jobs'
 #Bookmark Job Strings #
+
+#Apply Online Strings #
+APPLY_ONLINE_JOB_VERBOSE_NAME = 'Apply Online Job'
+APPLY_ONLINE_JOB_VERBOSE_NAME_PLURAL = 'Apply Online Jobs'
+#Apply Online Strings #

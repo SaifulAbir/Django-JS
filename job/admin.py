@@ -2,7 +2,8 @@ from django.conf import settings
 from django.contrib import admin
 
 # Register your models here.
-from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords
+from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords, \
+    ApplyOnline
 from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill
 from django_admin_listfilter_dropdown.filters import DropdownFilter
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
@@ -51,9 +52,18 @@ class CompanyAdmin(admin.ModelAdmin):
 class TrendingKeywordsAdmin(admin.ModelAdmin):
     list_display = ['keyword', 'location', 'device', 'browser', 'operating_system', 'created_date']
     search_fields = ['keyword', 'location', 'device', 'browser', 'operating_system', 'created_date']
-
-
 # admin.site.register(Company, CompanyAdmin)
+
+
+
+# admin.site.register(ApplyOnline, ApplyOnlineAdmin)
+class ApplyOnlineAdmin(admin.ModelAdmin):
+    list_display = ['job', 'created_by', 'created_at', 'created_from', 'modified_by', 'modified_at', 'modified_from']
+    search_fields = ['job', 'created_by', 'created_at', 'created_from', 'modified_by', 'modified_at', 'modified_from']
+
+
+# admin.site.register(ApplyOnline, ApplyOnlineAdmin)
+
 admin.site.register(JobType)
 admin.site.register(Experience)
 admin.site.register(Qualification)
@@ -63,3 +73,4 @@ admin.site.register(Currency)
 admin.site.register(Job, JobAdmin)
 admin.site.register(Skill)
 admin.site.register(TrendingKeywords, TrendingKeywordsAdmin)
+admin.site.register(ApplyOnline,ApplyOnlineAdmin)

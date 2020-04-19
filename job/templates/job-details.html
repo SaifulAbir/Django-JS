@@ -205,6 +205,7 @@
         var getUrl = '/api/load_job/'+ id + '/'
         get(getUrl, loadJob);
         favouriteJobAddRemove('jobs', '/api/favourite_job_add/');
+        applyOnlineJobAddRemove('jobs', '/api/apply_online_job_add/');
 
     });
 
@@ -214,6 +215,7 @@
         container = $('.job-detail');
         if(data){
             $('.save').attr("href", data.job_id);
+            $('.apply').attr("href", data.job_id);
             var deadline= data.application_deadline
             var created_date = data.created_date
             data.created_date = created_date.split("-").reverse().join("-")
@@ -263,7 +265,7 @@
                 '</div>'+
                 '<div class="more">'+
                 '<div class="buttons">'+
-                '<a href="javascript:void(0);" class="button" data-toggle="modal">Apply Now</a>'+
+                '<a href="'+data[index].job_id+'" class="button" data-toggle="modal">Apply Now</a>'+
                 '<a href="'+data[index].job_id+'" class="favourite"><i data-feather="heart"></i></a>'+
                 '</div>'+
                 '<p class="deadline">'+'Deadline: '+dateMomentString+'</p>'+

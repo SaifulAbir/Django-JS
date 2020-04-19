@@ -130,6 +130,13 @@ a.save.favourite.active {
     color: #ff8fa6;
     border-color: #ff8fa6;
 }
+
+a.save.apply.active {
+    color: white;
+    border-color: red;
+    background-color: blue;
+}
+
 /*job detail*/
 
 /*fontawesome icons*/
