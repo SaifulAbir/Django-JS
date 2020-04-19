@@ -16,7 +16,7 @@ class JobAdmin(admin.ModelAdmin):
     date_hierarchy = 'entry_date'
     list_per_page = 15
     list_filter = (('entry_date', DateTimeRangeFilter),)
-
+    readonly_fields = ["slug",]
 # class CompanyAdmin(admin.ModelAdmin):
 #     list_display = ['name', 'address', 'basis_membership_no', 'email', 'web_address', 'organization_head','year_of_eastablishment',
 #                     'division', 'district']
