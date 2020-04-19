@@ -231,6 +231,16 @@
                 $('#skills').append('<p>'+ data.skill[x] +'</p>')
             }
             console.log(data);
+            var fav = $(".save");
+            var apply = $(".apply");
+            if(data.status == 'Yes' && isLoggedIn()){
+                fav.addClass('active');
+            }
+            if(data.is_applied == 'Yes' && isLoggedIn()){
+                apply.addClass('applied');
+                apply.text('Applied');
+                apply.attr('href', 'javascript:void(0)')
+            }
             json2Div(data, container);
             identifier = data['job_id'];
             catUrl = '/api/similar_jobs/'+ identifier;

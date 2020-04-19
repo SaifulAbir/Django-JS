@@ -49,9 +49,10 @@ class GenderSerializer(serializers.ModelSerializer):
 
 class JobSerializer(serializers.ModelSerializer):
     status = serializers.CharField(read_only=True)
+    is_applied = serializers.CharField(read_only=True)
     class Meta:
         model = Job
-        fields = ('status','job_id','title','industry','employment_status','job_location','experience'
+        fields = ('status','is_applied', 'job_id','title','industry','employment_status','job_location','experience'
             ,'salary_min' ,'salary_max','qualification','gender' ,'currency' ,'vacancy' ,'application_deadline'
             ,'descriptions' ,'responsibilities','education','salary' ,'other_benefits','company_name','division'
             ,'district','zipcode' ,'company_location' ,'company_profile','latitude','longitude','raw_content','web_address','terms_and_condition'
