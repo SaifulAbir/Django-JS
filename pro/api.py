@@ -43,7 +43,8 @@ from django.urls import reverse
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
-from pro.serializers import CustomTokenSerializer, TokenObtainCustomPairSerializer, ProfessionalEducationSerializer
+from pro.serializers import CustomTokenSerializer, TokenObtainCustomPairSerializer, ProfessionalEducationSerializer, \
+    ReferenceSerializer
 from pro.serializers import ProfessionalSerializer
 from resources.strings_pro import *
 from rest_framework.status import (
@@ -656,6 +657,14 @@ class ProfessionalUpdatePartial(GenericAPIView, UpdateModelMixin):
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+
+class ReferenceUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = Reference.objects.all()
+    serializer_class = ReferenceSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
 
 # @api_view(["GET"])
 # def professional_info(request,pk):

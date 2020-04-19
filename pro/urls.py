@@ -32,5 +32,5 @@ urlpatterns = [
     path('professional_membership_save/', professional_membership_save),
     path('professional_certification_save/', professional_certification_save),
     path('professional_reference_save/', professional_reference_save),
-    # path('professional_info/<str:pk>/', professional_info),
+    path('prefessional_reference_update_delete/<str:pk>/', ReferenceUpdateDelete.as_view()),
 ]
