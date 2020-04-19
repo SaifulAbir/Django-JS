@@ -43,7 +43,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="explore-job">
                     <div class="explore-job-header">
-                        <h5 class="title">TOP Categories</h5>
+                        <h5 class="title">TOP Industries</h5>
                         <i class="fas fa-city"></i>
                     </div>
                     <div class="key-info">
@@ -160,7 +160,7 @@
                             <i data-feather="users"></i>
                         </div>
                         <p class="fact-number" id="candidate_count"><span class="count" data-form="0" data-to=""></span></p>
-                        <p class="fact-name">Candidates</p>
+                        <p class="fact-name">Professionals</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
@@ -337,7 +337,7 @@
                 '</div>'+
                 '<div class="more">'+
                 '<div class="buttons">'+
-                '<a href="javascript:void(0);" class="button" data-toggle="modal">Apply Now</a>'+
+                '<a href="'+data[index].job_id+'" class="button" data-toggle="modal">Apply Now</a>'+
                 '<a href="'+data[index].job_id+'" class="favourite"><i data-feather="heart"></i></a>'+
                 '</div>'+
                 '<p class="deadline">'+'Deadline: '+dateMomentString+'</p>'+

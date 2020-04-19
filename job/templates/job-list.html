@@ -215,14 +215,14 @@
             <div class="content">
                 <h4><a href="/job-detail/" class="__slug dynamic-link"><span class="__title "></span></a></h4>
                 <div class="info">
-                    <span class="company"><a href="#" ><i data-feather="briefcase"></i><span class="__company_name"></span></a></span>
+                    <span class="company"><a href="#" ><i class="fas fa-building" style="margin-right: 5px"></i><span class="__company_name"></span></a></span>
                     <span class="office-location"><a href="#"><i data-feather="map-pin"></i><span class="__job_location"></span></a></span>
                     <span class="job-type full-time"><a href="#"><i data-feather="clock"></i><span class="__employment_status"></span></a></span>
                 </div>
             </div>
             <div class="more">
                 <div class="buttons">
-                    <a href="javascript:void(0)" class="button __job_id dynamic-link">Apply</a>
+                    <a href="" class="button __job_id dynamic-link">Apply</a>
                     <a href="" class="favourite __job_id dynamic-link"><i data-feather="heart"></i></a>
                 </div>
                 <p class="deadline">Deadline: <span class="__application_deadline"></span></p>
@@ -351,7 +351,7 @@
         get(skill_url,loadskill);
 
         filterJobList('', '', '', '');
-
+         $('.button').attr("href", data.job_id);
 
         $("body").delegate(".page-numbers", "click", function(){
             $('.page-numbers').removeClass('current');

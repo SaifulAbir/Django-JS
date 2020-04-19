@@ -130,6 +130,16 @@ a.save.favourite.active {
     color: #ff8fa6;
     border-color: #ff8fa6;
 }
+
+a.save.apply.active {
+    color: white;
+    border-color: red;
+    background-color: blue;
+}
+
+.information-and-share .job-location {
+    padding: 15px;
+}
 /*job detail*/
 
 /*fontawesome icons*/
