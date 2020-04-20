@@ -174,7 +174,8 @@ while page_no <= max_page_no:
             html_detail = BeautifulSoup(resp_detail.content, 'html.parser')
             data_detail = html_detail.find('div', {'class': 'job-preview'})
             try:
-                data_dict['raw_content'] = data_detail.text
+                #data_dict['raw_content'] = data_detail.text
+                data_dict['raw_content'] = ""
             except Exception as ex:
                 data_dict['raw_content'] = ""
 
