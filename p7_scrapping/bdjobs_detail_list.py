@@ -14,7 +14,8 @@ import time, datetime
 now = datetime.datetime.now()
 current_date = now.strftime("%b %-1d, %Y")
 unknown_company = "Unknown"
-
+last_scrapping_date = '2020-04-17 00:00:00.000000'
+scrapping_status = True
 # Define a function to write into file
 # Function starts from here
 def write_csv_file(data):
@@ -47,7 +48,7 @@ def write_csv_file(data):
 # Open a csv file with 'write' mode
 job_list_file_obj = open('bdjobs_detail_list.csv', 'w', newline='')
 
-main_site = 'http://0.0.0.0:8000/'
+main_site = 'http://127.0.0.1/'
 bdjobs = 'http://jobs.bdjobs.com/'
 # Job search url
 url = 'http://jobs.bdjobs.com/jobsearch.asp?fcatId=8'
@@ -174,8 +175,8 @@ while page_no <= max_page_no:
             html_detail = BeautifulSoup(resp_detail.content, 'html.parser')
             data_detail = html_detail.find('div', {'class': 'job-preview'})
             try:
-                #data_dict['raw_content'] = data_detail.text
-                data_dict['raw_content'] = ""
+                data_dict['raw_content'] = data_detail.text
+                # data_dict['raw_content'] = ""
             except Exception as ex:
                 data_dict['raw_content'] = ""
 
@@ -211,10 +212,14 @@ while page_no <= max_page_no:
             #     data_dict['salary'] = "Error"
 
             try:
-                data_dict['responsibilities'] = [x.text for x in data_detail.find('div', {'class': 'job_des'}).find_all('li')]
+                # data_dict['responsibilities'] = [x.text for x in data_detail.find('div', {'class': 'job_des'}).find_all('li')]
+            # data_dict['responsibilities'] = data_detail.find(text="Job Responsibilities").findNext('ul').text.strip()
+            #     data_dict['responsibilities'] = data_detail.find('div', {'class': 'job_des'}), 'p'.text.strip()
+                data_dict['responsibilities'] = data_detail.find('div', {'class': 'job_des'}).text
+
             except Exception as ex:
                 data_dict['responsibilities'] = "Error"
-
+            print(data_dict['responsibilities'])
 
             # try:
             #     data_dict['educational_requirements'] = [x.text for x in data_detail.find('div', {'class': 'edu_req'}).find_all('li')]
@@ -247,15 +252,17 @@ while page_no <= max_page_no:
         JOB_LIST_API = main_site+'api/job_create/'
         JOB_LIST_API_KEY = '96d56aceeb9049debeab628ac760aa11'
         HEADER = {'api-key': JOB_LIST_API_KEY}
-
+        if data_dict['created_date'] == last_scrapping_date:
+            scrapping_status = False
+            break
         response = requests.post(JOB_LIST_API,json=data_dict, headers=HEADER)
 
         print(data_dict)
 
-        break
     # Increment page no.
     page_no += 1
-    break
+    if scrapping_status == False:
+        break
 
 job_list_file_obj.close()
 
