@@ -173,7 +173,7 @@
                 showSuccess("Sign Up Successful!", "A verification code was sent to your email")
                 setTimeout(function(){
                 window.location.href = "/professional/sign-in/";
-                                    }, 3500);
+                                    }, 3000);
             }
             else {
                 showError('Failed!','Email already exists!')
@@ -189,48 +189,4 @@
         });
     </script>
   </body>
-<script>
-    $(document).ready(function() {
-        var urlParams = new URLSearchParams(window.location.search);
-        if(urlParams.has('email')){
-            $('#email').val(urlParams.get('email'));
-            $('#alert').val('on');
-        }
-        $('#sign-up').validate({
-            errorClass: "my-error-class",
-            ignore: [],
-            errorPlacement: function(error, element) {
-                if (element.attr("name") == "terms_and_condition_status") {
-                    error.appendTo("#errorToShow");
-                } else {
-                    error.insertAfter(element);
-                }
-            }
-        });
-        $('[data-toggle="tooltip"]').tooltip({
-            animated: 'fade',
-            trigger: 'click',
-            placement: 'bottom',
-        });
-        initAjaxForms();
-    });
-    function  signUpCallback(data){
-        if(data.responseJSON.code == 200){
-            {#var id = data.responseJSON.result.user.professional;#}
-            showSuccess("Sign Up Successful!", "A verification code was sent to your email")
-        }
-        else {
-            showError('Failed!','Email already exists!')
-        }
-    };
-    $('html').on('click', function (e) {
-        $('[data-toggle=tooltip]').each(function () {
-            // hide any open popovers when the anywhere else in the body is clicked
-            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.tooltip').has(e.target).length === 0) {
-                $(this).tooltip('hide');
-            }
-        });
-    });
-</script>
-</body>
 </html>
