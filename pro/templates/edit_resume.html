@@ -419,50 +419,86 @@
                             <a href="#" class="add-more">+ Add Education</a>
                           </div>
                           <div class="content">
-                            <form action="#">
+                            <form action="/api/professional/professional_education_save/" id="education" class="ajax edu-form" method="POST"  novalidate="novalidate">
                               <div class="input-block-wrap">
                                 <div class="form-group row">
                                   <label class="col-sm-3 col-form-label">01</label>
                                   <div class="col-sm-9">
                                     <div class="input-group">
                                       <div class="input-group-prepend">
-                                        <div class="input-group-text">Title</div>
+                                        <div class="input-group-text">Qualification</div>
                                       </div>
-                                      <input type="text" class="form-control" >
+                                      <select class="form-control" required  name="qualification" id="qualification" data-text="name" data-value="name" data-placeholder="Select" data-src="/api/qualification/">
+                                                        </select>
                                     </div>
                                   </div>
                                 </div>
+
+
+
                                 <div class="form-group row">
                                   <div class="offset-sm-3 col-sm-9">
                                     <div class="input-group">
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">Institute</div>
                                       </div>
-                                      <input type="text" class="form-control" >
+                                         <select class="form-control" name="institution" id="institution" data-text="name" data-value="name" data-placeholder="Select" data-src="/api/professional/institution/">
+                                                        </select>
                                     </div>
                                   </div>
                                 </div>
-                                <div class="form-group row">
-                                  <div class="col-sm-9 offset-sm-3">
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">Period</div>
-                                      </div>
-                                      <input type="text" class="form-control" >
-                                    </div>
-                                  </div>
-                                </div>
+
                                 <div class="form-group row">
                                   <div class="offset-sm-3 col-sm-9">
                                     <div class="input-group">
                                       <div class="input-group-prepend">
-                                        <div class="input-group-text">Description</div>
+                                        <div class="input-group-text">Major</div>
                                       </div>
-                                      <textarea class="form-control"></textarea>
+                                         <select class="form-control" name="major" id="major" data-text="name" data-value="name" data-placeholder="Select" data-src="/api/professional/major/">
+                                                        </select>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+
+
+                                <div class="form-group row">
+                                  <div class="col-sm-9 offset-sm-3">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">CGPA</div>
+                                      </div>
+                                      <input type="text" class="form-control" name="cgpa" id="cgpa" data-text="cgpa" data-value="cgpa" >
+                                    </div>
+                                  </div>
+                                </div>
+
+
+
+                                <div class="form-group row">
+                                  <div class="col-sm-9 offset-sm-3">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">Enrolled Date</div>
+                                      </div>
+                                      <input type="text" class="form-control" name="enrolled_date" id="enrolled_date" data-text="enrolled_date" data-value="enrolled_date" >
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                  <div class="col-sm-9 offset-sm-3">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text">Graduation Date</div>
+                                      </div>
+                                      <input type="text" class="form-control" name="graduation_date" id="graduation_date" data-text="graduation_date" data-value="graduation_date" >
+                                    </div>
+                                  </div>
+                                </div>
+
+                                    </div>
+
                               <div class="input-block-wrap">
                                 <div class="form-group row">
                                   <label class="col-sm-3 col-form-label">02</label>
@@ -509,7 +545,7 @@
                               <div class="row">
                                 <div class="offset-sm-3 col-sm-9">
                                   <div class="buttons">
-                                    <button class="primary-bg">Save Update</button>
+                                    <button class="primary-bg">Save</button>
                                     <button class="" data-dismiss="modal">Cancel</button>
                                   </div>
                                 </div>
@@ -1296,7 +1332,11 @@
     <script>
         $(document).ready(function() {
             initAjaxSelects();
+
             $('#profile-form').validate();
+            $('.edu-form').validate({
+                errorClass: "my-error-class"
+            });
             var path = window.location.pathname.split('/');
             var id = path[path.length-2];
             var getUrl = '/api/professional/profile/'+ id + '/';
@@ -1305,29 +1345,25 @@
             var postUrl = '/api/professional/profile_update/'+ id + '/';
             $('form.ajax').attr('action',postUrl);
             initAjaxForms();
+
+
+
         });
 
         function loadProfile(data){
-             edu_data = data['edu_info']
+            edu_data = data['edu_info']
             console.log(edu_data[0])
             console.log(edu_data[0].qualification)
-              len = edu_data.length;
-             for(x=0;x<len;x++){
-             var edu_html='<div class="education-label">'+
+            len = edu_data.length;
+            for(x=0;x<len;x++){
+            var edu_html='<div class="education-label">'+
                    '<span class="study-year">'+edu_data[x].enrolled_date+' - '+edu_data[x].graduation_date+'</span>'+
                    '<h5>'+edu_data[x].qualification+'<span>@'+edu_data[x].institution+'</span></h5>'+
                    '<p>'+edu_data[x].major+' - '+edu_data[x].cgpa+'</p>'+
                    '</div><br>';
              $('#edu').append(edu_html);
             }
-
             }
-
-
-
-
-
-
 
 
     </script>

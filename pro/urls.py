@@ -25,7 +25,7 @@ urlpatterns = [
     path('job_alert/', job_alert),
     path('job_alert_notification/', job_alert_notification),
     path('profile_update_partial/<str:pk>/', ProfessionalUpdatePartial.as_view()),
-    path('professional_education_save/', ProfessionalEducationSave.as_view()),
+    path('professional_education_save/', professional_education_save),
     path('professional_skill_save/', professional_skill_save),
     path('professional_work_experience_save/', professional_workexperience_save),
     path('professional_portfolio_save/', professional_portfolio_save),
@@ -33,5 +33,7 @@ urlpatterns = [
     path('professional_certification_save/', professional_certification_save),
     path('professional_reference_save/', professional_reference_save),
     # path('professional_info/<str:pk>/', professional_info),
+    path('institution/', InstituteList.as_view()),
+    path('major/', MajorList.as_view()),
     path('edit_resume/<str:pk>/', TemplateView.as_view(template_name='edit_resume.html')),
 ]

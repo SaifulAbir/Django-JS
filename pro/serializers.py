@@ -4,7 +4,7 @@ from rest_framework_simplejwt.state import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from pro.models import Professional, ProfessionalEducation
+from pro.models import Professional, ProfessionalEducation, Institute, Major
 from rest_framework import exceptions
 from django.utils.translation import ugettext_lazy as _
 from resources.strings_pro import *
@@ -14,6 +14,20 @@ class ProfessionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professional
         exclude = ('password','terms_and_condition_status','signup_verification_code',)
+
+
+
+class InstituteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Institute
+        fields = ['name']
+
+
+class MajorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Major
+        fields = ['name']
+
 
 class ProfessionalEducationSerializer(serializers.ModelSerializer):
     class Meta:

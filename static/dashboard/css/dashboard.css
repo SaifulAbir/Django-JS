@@ -596,7 +596,7 @@
     margin-bottom: 20px; }
   .dashboard-section .modal .modal-body form .input-group-text {
     background: transparent;
-    margin-right: 1px;
+    margin-right: 35px;
     border: 0;
     font-size: 1.4rem;
     width: 32px;
@@ -609,7 +609,7 @@
       content: '';
       top: 10px;
       bottom: 10px;
-      right: 0;
+      right: 85;
       width: 1px;
       background: rgba(0, 0, 0, 0.08); }
   .dashboard-section .modal .modal-body form .form-control {

@@ -33,7 +33,7 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
 from p7.permissions import IsAppAuthenticated
 from p7.settings_dev import SITE_URL
-from pro.models import Professional
+from pro.models import Professional, Institute, Major
 from pro.models import Professional, ProfessionalEducation, ProfessionalSkill, WorkExperience, Portfolio, Membership, \
     Certification, Reference
 from django.core.mail import EmailMultiAlternatives
@@ -43,7 +43,8 @@ from django.urls import reverse
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
-from pro.serializers import CustomTokenSerializer, TokenObtainCustomPairSerializer, ProfessionalEducationSerializer
+from pro.serializers import CustomTokenSerializer, TokenObtainCustomPairSerializer, ProfessionalEducationSerializer, \
+    InstituteSerializer, MajorSerializer
 from pro.serializers import ProfessionalSerializer
 from resources.strings_pro import *
 from rest_framework.status import (
@@ -292,18 +293,19 @@ class ProfessionalDetail(APIView):
         return Response(prof_data)
 
 
-# @api_view(["POST"])
-# def professional_education_save(request):
-#     data = json.loads(request.body)
-#
-#     key_obj = ProfessionalEducation(**data)
-#     key_obj.save()
-#
-#     return Response(HTTP_200_OK)
+@api_view(["POST"])
+def professional_education_save(request):
+    data = json.loads(request.body)
 
-class ProfessionalEducationSave(generics.ListCreateAPIView):
-    queryset = ProfessionalEducation.objects.all()
-    serializer_class = ProfessionalEducationSerializer
+    key_obj = ProfessionalEducation(**data)
+    print(key_obj)
+    key_obj.save()
+
+    return Response(HTTP_200_OK)
+
+# class ProfessionalEducationSave(generics.ListCreateAPIView):
+#     queryset = ProfessionalEducation.objects.all()
+#     serializer_class = ProfessionalEducationSerializer
 
 @api_view(["POST"])
 def professional_skill_save(request):
@@ -745,3 +747,13 @@ class ProfessionalUpdatePartial(GenericAPIView, UpdateModelMixin):
 #
 #
 #     return HttpResponse(json.dumps(prof_data), content_type='application/json')
+
+
+class InstituteList(generics.ListCreateAPIView):
+    queryset = Institute.objects.all()
+    serializer_class = InstituteSerializer
+
+
+class MajorList(generics.ListCreateAPIView):
+    queryset = Major.objects.all()
+    serializer_class = MajorSerializer
