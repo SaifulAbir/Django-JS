@@ -305,17 +305,17 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
 }
 
 function TokenAuthenticate() {
-   var access_token = $.cookie("access");
-   if(access_token){
-       $('#sign-in').hide();
-       $('#register').hide();
-       $('#sign-out').show();
-   }
-   else {
-       $('#sign-out').hide();
-       $('#register').show();
-       $('#sign-in').show();
-   }
+    var access_token = $.cookie("access");
+    if(access_token){
+        $('#sign-in').hide();
+        $('#register').hide();
+        $('#sign-out').show();
+    }
+    else {
+        $('#sign-out').hide();
+        $('#register').show();
+        $('#sign-in').show();
+    }
 
 }
 
@@ -323,97 +323,96 @@ function TokenAuthenticate() {
 
 
 function goSignIn() {
-      window.location.href = "/professional/sign-in/";
+    window.location.href = "/professional/sign-in/";
 }
 
 function favouriteJobAddRemove(id, url) {
 
-        $("#"+id).on('click', '.favourite', function (event) {
-            event.preventDefault();
-            var user = $.cookie("user");
-            var job = $(this).attr('href');
-            if(isLoggedIn() && $(this).hasClass('active')){
-                var data = {'user_id':user, 'job_id':job};
-                favouriteUrl = url;
-                post(favouriteUrl, JSON.stringify(data), loadFavouriteJob);
-            }else if(isLoggedIn()){
+    $("#"+id).on('click', '.favourite', function (event) {
+        event.preventDefault();
+        var user = $.cookie("user");
+        var job = $(this).attr('href');
+        if(isLoggedIn() && $(this).hasClass('active')){
+            var data = {'user_id':user, 'job_id':job};
+            favouriteUrl = url;
+            post(favouriteUrl, JSON.stringify(data), loadFavouriteJob);
+        }else if(isLoggedIn()){
 
-                var data = {'user_id':user, 'job_id':job};
-                favouriteUrl = url;
-                post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
-            }
-            else {
-                showQuestion("Sign In required!", "You are going to sign in now?", goSignIn , 'no')
+            var data = {'user_id':user, 'job_id':job};
+            favouriteUrl = url;
+            post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
+        }
+        else {
+            showQuestion("Sign In required!", "You are going to sign in now?", goSignIn , 'no')
 
-            }
+        }
 
-        });
+    });
 
-    }
+}
 
 function isLoggedIn() {
-        var access_token = $.cookie("access");
-        if(access_token){
-            return true;
-        }
-        return false;
+    var access_token = $.cookie("access");
+    if(access_token){
+        return true;
     }
+    return false;
+}
 
 function loadFavouriteJob(data) {
-        if(data.responseJSON.code == 200){
+    if(data.responseJSON.code == 200){
 //            console.log(data.responseJSON)
-            var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
-            if(el.hasClass('active') && data.responseJSON.result.user.status == 'Removed'){
-                el.removeClass('active');
-                showError('Oopss!', 'Job removed.')
-            }
-            else if(el.hasClass("favourite")){
-                el.addClass('active');
-                showSuccess('Successful!', 'Job saved as a favourite.')
+        var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
+        if(el.hasClass('active') && data.responseJSON.result.user.status == 'Removed'){
+            el.removeClass('active');
+            showError('Oopss!', 'Job removed.')
+        }
+        else if(el.hasClass("favourite")){
+            el.addClass('active');
+            showSuccess('Successful!', 'Job saved as a favourite.')
 
-            }
         }
     }
-
+}
 
 
 // Favourite job common Api
 
 function applyOnlineJobAddRemove(id, url) {
 
-        $("#"+id).on('click', '.apply', function (event) {
-            event.preventDefault();
-            var user = $.cookie("user");
-            var job = $(this).attr('href');
-            if(isLoggedIn() && $(this).hasClass('applied')){
-                var data = {'user_id':user, 'job_id':job};
-                applyonlineUrl = url;
-                post(applyonlineUrl, JSON.stringify(data), loadApplyonlineJob);
-            }else if(isLoggedIn()){
+    $("#"+id).on('click', '.apply:not(.applied)', function (event) {
+        event.preventDefault();
+        var user = $.cookie("user");
+        var job = $(this).attr('href');
+        if(isLoggedIn() && $(this).hasClass('applied')){
+            var data = {'user_id':user, 'job_id':job};
+            applyonlineUrl = url;
+            post(applyonlineUrl, JSON.stringify(data), loadApplyonlineJob);
+        }else if(isLoggedIn()){
 
-                var data = {'user_id':user, 'job_id':job};
-                applyonlineUrl = url;
-                post(applyonlineUrl, JSON.stringify(data), loadApplyonlineJob)
-            }
-            else {
-                window.location.href = "/professional/sign-in/";
-            }
+            var data = {'user_id':user, 'job_id':job};
+            applyonlineUrl = url;
+            post(applyonlineUrl, JSON.stringify(data), loadApplyonlineJob)
+        }
+        else {
+            window.location.href = "/professional/sign-in/";
+        }
 
-        });
+    });
 
-    }
+}
 
 
 
 function loadApplyonlineJob(data) {
-        if(data.responseJSON.code == 200){
-            console.log(data.responseJSON)
-            var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
-            if(el.hasClass("apply")){
-                el.addClass('applied');
-                showSuccess('Successful!', 'Job applied successfully.')
-                $('.apply').text('Applied');
+    if(data.responseJSON.code == 200){
+        console.log(data.responseJSON)
+        var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
+        if(el.hasClass("apply")){
+            el.addClass('applied');
+            showSuccess('Successful!', 'Job applied successfully.')
+            $('.apply').text('Applied');
 
-            }
         }
     }
+}

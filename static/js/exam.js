@@ -11,6 +11,27 @@ $(function () {
         });
     });
 
+    // image preview code start here
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.preview-show').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(".img-preview").change(function () {
+        readURL(this);
+    });
+
+    $('.preview-show').on('click', function () {
+        $('.img-preview').click();
+    });
+    // image preview code start here
 
     function showQuestionnaire() {
         $("#template-list").addClass('d-none');
