@@ -165,7 +165,8 @@
                               <a href="#" class="add-more">+ Add Social</a>
                             </div>
                             <div class="content">
-                              <form action="" id="social-form" >
+                              <form action="" class="job-post-form ajax" method="PUT" id="job-update-form" >
+
                                 <div class="form-group row">
                                   <label class="col-sm-3 col-form-label">Social Links</label>
                                   <div class="col-sm-9">
@@ -173,7 +174,7 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-facebook-f"></i></div>
                                       </div>
-                                      <input type="text" id="fb" class="form-control"  placeholder="facebook.com/username">
+                                      <input type="text" id="facebbok_id" name="facebbok_id"  class="form-control"  placeholder="facebook.com/username">
                                     </div>
                                   </div>
                                 </div>
@@ -183,98 +184,98 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-twitter"></i></div>
                                       </div>
-                                      <input type="text" id="tw" class="form-control"  placeholder="twitter.com/username">
+                                      <input type="text" id="twitter_id" name="twitter_id" class="form-control"  placeholder="twitter.com/username">
                                     </div>
                                   </div>
                                 </div>
-                                <div class="form-group row">
-                                  <div class="offset-sm-3 col-sm-9">
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fab fa-google-plus"></i></div>
-                                      </div>
-                                      <input type="text" class="form-control"  placeholder="google.com/username">
-                                    </div>
-                                  </div>
-                                </div>
+<!--                                <div class="form-group row">-->
+<!--                                  <div class="offset-sm-3 col-sm-9">-->
+<!--                                    <div class="input-group">-->
+<!--                                      <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text"><i class="fab fa-google-plus"></i></div>-->
+<!--                                      </div>-->
+<!--                                      <input type="text" class="form-control"  placeholder="google.com/username">-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                                </div>-->
                                 <div class="form-group row">
                                   <div class="offset-sm-3 col-sm-9">
                                     <div class="input-group">
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-linkedin-in"></i></div>
                                       </div>
-                                      <input type="text" id="ln" class="form-control"  placeholder="linkedin.com/username">
+                                      <input type="text" id="linkedin_id" name="linkedin_id" class="form-control"  placeholder="linkedin.com/username">
                                     </div>
                                   </div>
                                 </div>
-                                <div class="form-group row">
-                                  <div class="offset-sm-3 col-sm-9">
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fab fa-pinterest-p"></i></div>
-                                      </div>
-                                      <input type="text" class="form-control"  placeholder="pinterest.com/username">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-group row">
-                                  <div class="offset-sm-3 col-sm-9">
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fab fa-instagram"></i></div>
-                                      </div>
-                                      <input type="text" class="form-control"  placeholder="instagram.com/username">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-group row">
-                                  <div class="offset-sm-3 col-sm-9">
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fab fa-behance"></i></div>
-                                      </div>
-                                      <input type="text" class="form-control"  placeholder="behance.com/username">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-group row">
-                                  <div class="offset-sm-3 col-sm-9">
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fab fa-dribbble"></i></div>
-                                      </div>
-                                      <input type="text" class="form-control"  placeholder="dribbble.com/username">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-group row">
-                                  <div class="offset-sm-3 col-sm-9">
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fab fa-github"></i></div>
-                                      </div>
-                                      <input type="text" class="form-control"  placeholder="github.com/username">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-group row">
-                                  <div class="offset-sm-3 col-sm-9">
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text dropdown-label">
-                                          <select class="form-control" id="exampleFormControlSelect1">
-                                            <option>Select</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                          </select><i class="fa fa-caret-down"></i>
-                                        </div>
-                                      </div>
-                                      <input type="text" class="form-control"  placeholder="Input Profile Link">
-                                    </div>
-                                  </div>
-                                </div>
+<!--                                <div class="form-group row">-->
+<!--                                  <div class="offset-sm-3 col-sm-9">-->
+<!--                                    <div class="input-group">-->
+<!--                                      <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text"><i class="fab fa-pinterest-p"></i></div>-->
+<!--                                      </div>-->
+<!--                                      <input type="text" class="form-control"  placeholder="pinterest.com/username">-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                                </div>-->
+<!--                                <div class="form-group row">-->
+<!--                                  <div class="offset-sm-3 col-sm-9">-->
+<!--                                    <div class="input-group">-->
+<!--                                      <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text"><i class="fab fa-instagram"></i></div>-->
+<!--                                      </div>-->
+<!--                                      <input type="text" class="form-control"  placeholder="instagram.com/username">-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                                </div>-->
+<!--                                <div class="form-group row">-->
+<!--                                  <div class="offset-sm-3 col-sm-9">-->
+<!--                                    <div class="input-group">-->
+<!--                                      <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text"><i class="fab fa-behance"></i></div>-->
+<!--                                      </div>-->
+<!--                                      <input type="text" class="form-control"  placeholder="behance.com/username">-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                                </div>-->
+<!--                                <div class="form-group row">-->
+<!--                                  <div class="offset-sm-3 col-sm-9">-->
+<!--                                    <div class="input-group">-->
+<!--                                      <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text"><i class="fab fa-dribbble"></i></div>-->
+<!--                                      </div>-->
+<!--                                      <input type="text" class="form-control"  placeholder="dribbble.com/username">-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                                </div>-->
+<!--                                <div class="form-group row">-->
+<!--                                  <div class="offset-sm-3 col-sm-9">-->
+<!--                                    <div class="input-group">-->
+<!--                                      <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text"><i class="fab fa-github"></i></div>-->
+<!--                                      </div>-->
+<!--                                      <input type="text" class="form-control"  placeholder="github.com/username">-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                                </div>-->
+<!--                                <div class="form-group row">-->
+<!--                                  <div class="offset-sm-3 col-sm-9">-->
+<!--                                    <div class="input-group">-->
+<!--                                      <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text dropdown-label">-->
+<!--                                          <select class="form-control" id="exampleFormControlSelect1">-->
+<!--                                            <option>Select</option>-->
+<!--                                            <option>2</option>-->
+<!--                                            <option>3</option>-->
+<!--                                            <option>4</option>-->
+<!--                                            <option>5</option>-->
+<!--                                          </select><i class="fa fa-caret-down"></i>-->
+<!--                                        </div>-->
+<!--                                      </div>-->
+<!--                                      <input type="text" class="form-control"  placeholder="Input Profile Link">-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                                </div>-->
                                 <div class="row">
                                   <div class="offset-sm-3 col-sm-9">
                                     <div class="buttons">
@@ -1256,7 +1257,7 @@
                               <input type="password" class="form-control" placeholder="Enter password">
                             </div>
                             <div class="buttons">
-                              <button class="delete-button">Save Update</button>
+                              <button class="delete-button" >Save Update</button>
                               <button class="" data-dismiss="modal">Cancel</button>
                             </div>
                             <div class="form-group form-check">
@@ -1288,11 +1289,14 @@
             $('#profile-form').validate();
             var path = window.location.pathname.split('/');
             var id = path[path.length-2];
+
             var getUrl = '/api/professional/profile/'+ id + '/';
             get(getUrl,loadsocial);
-            var postUrl = '/api/professional/profile_update/'+ id + '/';
+            var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
             $('form.ajax').attr('action',postUrl);
             initAjaxForms();
+
+
         });
         function  loadsocial(data){
           facebook = data.personal_info.facebbok_id;
@@ -1301,15 +1305,9 @@
           $('.facebook').attr('href' ,facebook);
           $('.twitter').attr('href',twitter);
           $('.linkedin').attr('href', linkedin);
+
         }
 
-           $("#social-form").submit(function(e){
-            facebook_id = document.getElementById('fb').value;
-            twitter_id = document.getElementById('tw').value;
-            linkedin_id = document.getElementById('ln').value;
-
-
-        });
 
 
     </script>
