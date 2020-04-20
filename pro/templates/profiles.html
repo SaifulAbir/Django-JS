@@ -160,10 +160,10 @@
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-body">
-                            <div class="title">
-                              <h4><i data-feather="git-branch"></i>Social Networks</h4>
-                              <a href="#" class="add-more">+ Add Social</a>
-                            </div>
+<!--                            <div class="title">-->
+<!--                              <h4><i data-feather="git-branch"></i>Social Networks</h4>-->
+<!--                              <a href="#" class="add-more">+ Add Social</a>-->
+<!--                            </div>-->
                             <div class="content">
                               <form action="" class="job-post-form ajax" method="PUT" id="job-update-form" >
 
@@ -174,7 +174,7 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-facebook-f"></i></div>
                                       </div>
-                                      <input type="text" id="facebbok_id" name="facebbok_id"  class="form-control"  placeholder="facebook.com/username">
+                                      <input type="url" id="facebbok_id" name="facebbok_id"  class="form-control"  placeholder="http://facebook.com/username" data-msg-url="Please enter a valid url">
                                     </div>
                                   </div>
                                 </div>
@@ -184,7 +184,7 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-twitter"></i></div>
                                       </div>
-                                      <input type="text" id="twitter_id" name="twitter_id" class="form-control"  placeholder="twitter.com/username">
+                                      <input type="url" id="twitter_id" name="twitter_id" class="form-control"  placeholder="http://twitter.com/username" data-msg-url="Please enter a valid url">
                                     </div>
                                   </div>
                                 </div>
@@ -204,7 +204,7 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-linkedin-in"></i></div>
                                       </div>
-                                      <input type="text" id="linkedin_id" name="linkedin_id" class="form-control"  placeholder="linkedin.com/username">
+                                      <input type="url" id="linkedin_id" name="linkedin_id" class="form-control"  placeholder="http://linkedin.com/username" data-msg-url="Please enter a valid url">
                                     </div>
                                   </div>
                                 </div>
@@ -1284,19 +1284,19 @@
 {% block extra_js %}
    <script>
         $(document).ready(function() {
+            $('#job-update-form').validate({
+            errorClass: "my-error-class",
+        });
             TokenAuthenticate();
             initAjaxSelects();
             $('#profile-form').validate();
             var path = window.location.pathname.split('/');
             var id = path[path.length-2];
-
             var getUrl = '/api/professional/profile/'+ id + '/';
             get(getUrl,loadsocial);
             var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
             $('form.ajax').attr('action',postUrl);
             initAjaxForms();
-
-
         });
         function  loadsocial(data){
           facebook = data.personal_info.facebbok_id;
@@ -1311,7 +1311,6 @@
           window.location.reload();
 
        });
-
 
 
     </script>
