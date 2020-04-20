@@ -33,9 +33,9 @@ from .config import *
 
 class TestUI(unittest.TestCase):
 
-    def setUpClass():
-        print("Data Entry started ..")
-        TestUI.dataEntry()
+    # def setUpClass():
+    #     print("Data Entry started ..")
+    #     TestUI.dataEntry()
 
 
     def setUp(self):
@@ -46,7 +46,7 @@ class TestUI(unittest.TestCase):
 
     def dataEntry():
         driver = webdriver.Chrome(CHROME_DRIVER_LOCATION)
-        adminLogin(driver, {'_email': 'admin', '_password': '123', 'name': 'admin'})
+        adminLogin(driver, {'_email': 'admin', '_password': '@dmin123#', 'name': 'admin'})
         IndEntry = pd.read_csv("test_ui/data/data_industry.csv", dtype=str)
         JTypEntry = pd.read_csv("test_ui/data/data_job_type.csv", dtype=str)
         ExpEntry = pd.read_csv("test_ui/data/data_experience.csv", dtype=str)
@@ -215,7 +215,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testIndustry(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/industry_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -237,7 +237,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testJobType(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/job_type_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -259,7 +259,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testExperience(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/experience_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -280,7 +280,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testCurrency(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', 'name': 'admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', 'name': 'admin'})
         data = pd.read_csv("test_ui/testdata/currency_add.csv", dtype=str)
         for idx, row in data.iterrows():
             self.driver.get(ADMIN_URL+CURRENCY_URL)
@@ -300,7 +300,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testGender(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/gender_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -319,7 +319,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testQualification(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/qualification_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -341,7 +341,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testDivision(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', 'name': 'admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', 'name': 'admin'})
         data = pd.read_csv("test_ui/testdata/division_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -361,7 +361,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testDistrict(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', 'name': 'admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', 'name': 'admin'})
         data = pd.read_csv("test_ui/testdata/district_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -381,7 +381,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     # def testCompany(self):
-    #     adminLogin(self.driver, {'_email': 'admin', '_password': '123', 'name': 'admin'})
+    #     adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', 'name': 'admin'})
     #     data = pd.read_csv("test_ui/data/basis_company.csv", dtype=str)
     #     for idx, row in data.iterrows():
     #         self.driver.get(ADMIN_URL+COMPANY_URL)
@@ -393,20 +393,20 @@ class TestUI(unittest.TestCase):
     #             print(ex)
 
 
-    def testJobHome(self):
-        login(self.driver, {'_email': 'tanvir@ishraak.com', '_password': '12345678a', 'name': 'admin'})
-        data = pd.read_csv("test_ui/testdata/job_post_add.csv", dtype=str)
-        for idx, row in data.iterrows():
-            self.driver.get(MAIN_URL)
-            actual = addJobHome(self.driver, row)
-            try:
-                self.assertEqual(row['expected_result'], str(actual))
-            except Exception as ex:
-
-                print(ex)
+    # def testJobHome(self):
+    #     login(self.driver, {'_email': 'tanvir@ishraak.com', '_password': '@dmin123#45678a', 'name': 'admin'})
+    #     data = pd.read_csv("test_ui/testdata/job_post_add.csv", dtype=str)
+    #     for idx, row in data.iterrows():
+    #         self.driver.get(MAIN_URL)
+    #         actual = addJobHome(self.driver, row)
+    #         try:
+    #             self.assertEqual(row['expected_result'], str(actual))
+    #         except Exception as ex:
+    #
+    #             print(ex)
 
     def testJobAdmin(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', 'name': 'admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', 'name': 'admin'})
         data = pd.read_csv("test_ui/data/bdjobs_detail_list.csv", dtype=str)
         for idx, row in data.iterrows():
             self.driver.get(ADMIN_URL + ADMIN_JOB_POST_URL)
@@ -418,7 +418,7 @@ class TestUI(unittest.TestCase):
                 print(ex)
 
     def testProfessional(self):
-        adminLogin(self.driver, {'_email': 'tanvir@ishraak.com', '_password': '12345678a', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'tanvir@ishraak.com', '_password': '@dmin123#45678a', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/professional_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -437,7 +437,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testQtype(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/qtype_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -458,7 +458,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testDifficulty(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin@dmin123##', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/difficulty_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -479,7 +479,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testSubject(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/subject_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -497,7 +497,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testTopic(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/topic_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -517,7 +517,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testSubTopic(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/sub_topic_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -540,7 +540,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testQuestion(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/question_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -558,7 +558,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     # def testQuestionnaire(self):
-    #     adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+    #     adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
     #     data = pd.read_csv("test_ui/testdata/questionnaire_add.csv", dtype=str)
     #     f = 0
     #     for idx, row in data.iterrows():
@@ -576,7 +576,7 @@ class TestUI(unittest.TestCase):
     #         print("All passed")
 
     def testExamCategory(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/exam_category_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -594,7 +594,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testExamLevel(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/exam_level_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -612,7 +612,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     # def testExam(self):
-    #     adminLogin(self.driver, {'_email': 'admin', '_password': '123', '_name': 'Admin'})
+    #     adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
     #     data = pd.read_csv("test_ui/testdata/exam_add.csv", dtype=str)
     #     f = 0
     #     for idx, row in data.iterrows():

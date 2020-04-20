@@ -25,3 +25,5 @@ sqlparse==0.3.0
 ua-parser==0.10.0
 user-agents==2.1
 xlrd==1.2.0
+requests==2.23.0
+beautifulsoup4==4.9.0

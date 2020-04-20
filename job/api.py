@@ -54,7 +54,6 @@ class JobObject(APIView):
         job = get_object_or_404(Job, slug=slug)
         try:
             if request.user.is_authenticated:
-                print(request.user)
                 favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
             else:
                 favourite_job = FavouriteJob.objects.get(job=job)
@@ -115,7 +114,6 @@ class JobObject(APIView):
             data['skill'].append(skill.name)
         #     else:
         #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
-        print(data)
         return Response(data)
 
 class IndustryList(generics.ListCreateAPIView):
@@ -142,7 +140,6 @@ def job_list(request):
         experienceMin = request.GET.get('experienceMin')
         experienceMax = request.GET.get('experienceMax')
         datePosted = request.GET.get('datePosted')
-        print(datePosted)
         gender = request.GET.get('gender')
         qualification = request.GET.get('qualification')
         if sorting == 'descending':
@@ -268,8 +265,6 @@ def job_list(request):
         "results":  job_list.data,
     }
 
-    print(data)
-
 
     return Response(data, HTTP_200_OK)
 
@@ -338,7 +333,7 @@ def job_create(request):
 def favourite_job_add(request):
     data = {}
     job_data = json.loads(request.body)
-    print(job_data)
+
     if job_data:
         try:
             favourite_jobs = FavouriteJob.objects.filter(user = job_data['user_id'],job = job_data['job_id'])
@@ -400,7 +395,7 @@ def trending_keyword_save(request):
     os_name = request.user_agent.os.family
 
     search_data.update([('device', device_name), ('browser', browser_name), ('operating_system', os_name)])
-    print(search_data)
+
     key_obj = TrendingKeywords(**search_data)
     key_obj.save()
     return Response(HTTP_200_OK)
@@ -430,7 +425,7 @@ def recent_jobs(request):
     for job in queryset:
         try:
             if request.user.is_authenticated:
-                print(request.user)
+
                 favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
             else:
                 favourite_job = FavouriteJob.objects.get(job=job)
@@ -492,7 +487,7 @@ def similar_jobs(request,identifier):
     for job in queryset:
         try:
             if request.user.is_authenticated:
-                print(request.user)
+
                 favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
             else:
                 favourite_job = FavouriteJob.objects.get(job=job)
@@ -521,7 +516,7 @@ def similar_jobs(request,identifier):
     for i in range(len(data)):
         if data[i]['job_location'] is None:
             data[i]['job_location'] = NO_LOCATION
-    print(data)
+
     return JsonResponse(list(data), safe=False)
 
 
@@ -548,34 +543,32 @@ class SkillList(generics.ListCreateAPIView):
 def apply_online_job_add(request):
     data = {}
     job_data = json.loads(request.body)
-    print('job_data', job_data)
+
 
     user = User.objects.get(id = job_data['user_id'])
     j_id = job_data['job_id']
-    print('created_by', user)
+
     job = Job.objects.get(job_id=j_id)
-    print('job', job.title)
+
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
     else:
         ip = request.META.get('REMOTE_ADDR')
-    print('ip', ip)
+
     data.update({'job': job, 'created_by': user,
                  'created_from': str(ip), 'modified_by': user,
                  'modified_from': str(ip)})
     # apply_online_job = ApplyOnline(**data)
-    # print('apply_online_job', apply_online_job)
     # apply_online_job.save()
     if job_data:
         try:
             apply_online_job = ApplyOnline.objects.filter(created_by = user, job = job)
-            print('apply_online_job try', apply_online_job)
         except ApplyOnline.DoesNotExist:
             apply_online_job = None
         if not apply_online_job:
             apply_online_job = ApplyOnline(**data)
-            print('apply_online_job', apply_online_job)
+
             apply_online_job.save()
             data = {
                 'code': HTTP_200_OK,
@@ -586,7 +579,7 @@ def apply_online_job_add(request):
                     }
                 }
             }
-    print('Result', data)
+
     return Response(data)
 
 
