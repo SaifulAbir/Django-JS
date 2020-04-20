@@ -247,10 +247,14 @@ while page_no <= max_page_no:
 
         # Increment of total_jobs
         total_jobs += 1
+
         JOB_LIST_API = main_site+'api/job_create/'
         JOB_LIST_API_KEY = '96d56aceeb9049debeab628ac760aa11'
         HEADER = {'api-key': JOB_LIST_API_KEY}
+
         response = requests.post(JOB_LIST_API,json=data_dict, headers=HEADER)
+
+        print(data_dict)
 
         break
     # Increment page no.
