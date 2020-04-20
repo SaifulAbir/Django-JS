@@ -174,7 +174,8 @@ while page_no <= max_page_no:
             html_detail = BeautifulSoup(resp_detail.content, 'html.parser')
             data_detail = html_detail.find('div', {'class': 'job-preview'})
             try:
-                data_dict['raw_content'] = data_detail.text
+                #data_dict['raw_content'] = data_detail.text
+                data_dict['raw_content'] = ""
             except Exception as ex:
                 data_dict['raw_content'] = ""
 
@@ -185,13 +186,8 @@ while page_no <= max_page_no:
 
                 datetimeobject = datetime.datetime.strptime(data_dict['created_date'], "%b %d, %Y")
                 data_dict['created_date'] = datetimeobject.strftime('%Y-%m-%d') + " 00:00:00.000000"
-
-
-
             except Exception as ex:
-                data_dict['published_date'] = "Error"
-
-            print(data_dict['published_date'])
+                data_dict['created_date'] = "Error"
 
 
             try:
@@ -247,10 +243,14 @@ while page_no <= max_page_no:
 
         # Increment of total_jobs
         total_jobs += 1
+
         JOB_LIST_API = main_site+'api/job_create/'
         JOB_LIST_API_KEY = '96d56aceeb9049debeab628ac760aa11'
         HEADER = {'api-key': JOB_LIST_API_KEY}
+
         response = requests.post(JOB_LIST_API,json=data_dict, headers=HEADER)
+
+        print(data_dict)
 
         break
     # Increment page no.
