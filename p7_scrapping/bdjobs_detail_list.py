@@ -186,13 +186,8 @@ while page_no <= max_page_no:
 
                 datetimeobject = datetime.datetime.strptime(data_dict['created_date'], "%b %d, %Y")
                 data_dict['created_date'] = datetimeobject.strftime('%Y-%m-%d') + " 00:00:00.000000"
-
-
-
             except Exception as ex:
-                data_dict['published_date'] = "Error"
-
-            print(data_dict['published_date'])
+                data_dict['created_date'] = "Error"
 
 
             try:
