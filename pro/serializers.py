@@ -4,7 +4,7 @@ from rest_framework_simplejwt.state import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from pro.models import Professional, ProfessionalEducation, Reference, Religion, Nationality
+from pro.models import *
 from rest_framework import exceptions
 from django.utils.translation import ugettext_lazy as _
 from resources.strings_pro import *
@@ -25,6 +25,32 @@ class ReferenceSerializer(serializers.ModelSerializer):
         model = Reference
         fields = '__all__'
 
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfessionalSkill
+        fields = '__all__'
+
+class WorkExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkExperience
+        fields = '__all__'
+
+class PortfolioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Portfolio
+        fields = '__all__'
+
+class MembershipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Membership
+        fields = '__all__'
+
+class CertificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Certification
+        fields = '__all__'
+
+
 class ReligionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Religion
@@ -33,6 +59,26 @@ class ReligionSerializer(serializers.ModelSerializer):
 class NationalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Nationality
+        fields = '__all__'
+
+class CertificateNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CertificateName
+        fields = '__all__'
+
+class MajorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Major
+        fields = '__all__'
+
+class OrganizationNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = '__all__'
+
+class InstituteNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Institute
         fields = '__all__'
 
 

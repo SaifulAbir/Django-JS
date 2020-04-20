@@ -43,8 +43,7 @@ from django.urls import reverse
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
-from pro.serializers import CustomTokenSerializer, TokenObtainCustomPairSerializer, ProfessionalEducationSerializer, \
-    ReferenceSerializer, ReligionSerializer, NationalitySerializer
+from pro.serializers import *
 from pro.serializers import ProfessionalSerializer
 from resources.strings_pro import *
 from rest_framework.status import (
@@ -306,6 +305,18 @@ class ProfessionalDetail(APIView):
 class ReligionList(generics.ListCreateAPIView):
     queryset = Religion.objects.all()
     serializer_class = ReligionSerializer
+
+class NationalityList(generics.ListCreateAPIView):
+    queryset = Nationality.objects.all()
+    serializer_class = NationalitySerializer
+
+class InstituteList(generics.ListCreateAPIView):
+    queryset = Institute.objects.all()
+    serializer_class = InstituteNameSerializer
+
+class OrganizationList(generics.ListCreateAPIView):
+    queryset = Organization.objects.all()
+    serializer_class = OrganizationNameSerializer
 
 class NationalityList(generics.ListCreateAPIView):
     queryset = Nationality.objects.all()
@@ -666,11 +677,64 @@ class ProfessionalUpdatePartial(GenericAPIView, UpdateModelMixin):
     serializer_class = ProfessionalSerializer
 
     def put(self, request, *args, **kwargs):
+        if 'image' in request.data:
+            img_base64 = request.data['image']
+            if img_base64:
+                format, imgstr = img_base64.split(';base64,')
+                ext = format.split('/')[-1]
+                filename = str(uuid.uuid4()) + '-professional.' + ext
+                data = ContentFile(base64.b64decode(imgstr), name=filename)
+                fs = FileSystemStorage()
+                filename = fs.save(filename, data)
+                uploaded_file_url = fs.url(filename)
+                request.data['image'] = uploaded_file_url
         return self.partial_update(request, *args, **kwargs)
 
 class ReferenceUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = Reference.objects.all()
     serializer_class = ReferenceSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = ProfessionalEducation.objects.all()
+    serializer_class = ProfessionalEducationSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+class SkilleUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = ProfessionalSkill.objects.all()
+    serializer_class = SkillSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+class WorkExperienceUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = WorkExperience.objects.all()
+    serializer_class = WorkExperienceSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+class PortfolioUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = Portfolio.objects.all()
+    serializer_class = PortfolioSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+class MembershipUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = Membership.objects.all()
+    serializer_class = MembershipSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = Certification.objects.all()
+    serializer_class = CertificationSerializer
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
