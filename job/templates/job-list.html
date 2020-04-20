@@ -37,7 +37,7 @@
         <div class="row no-gutters">
             <div class="col">
                 <div class="job-listing-container">
-                    <div class="filtered-job-listing-wrapper">
+                    <div class="filtered-job-listing-wrapper" id="jobs">
                         <div class="job-view-controller-wrapper">
                             <div class="job-view-controller">
                                 <div class="controller list active">
@@ -222,7 +222,7 @@
             </div>
             <div class="more">
                 <div class="buttons">
-                    <a href="" class="button __job_id dynamic-link">Apply</a>
+                    <a href="" class="apply button __job_id dynamic-link">Apply</a>
                     <a href="" class="favourite __job_id dynamic-link"><i data-feather="heart"></i></a>
                 </div>
                 <p class="deadline">Deadline: <span class="__application_deadline"></span></p>
@@ -320,8 +320,7 @@
 
     }
     $(document).ready(function () {
-
-
+        applyOnlineJobAddRemove('jobs', '/api/apply_online_job_add/');
         var location_from_homepage = encodeURIComponent(getUrlParameter('location'));
         var keyword_from_homepage = encodeURIComponent(getUrlParameter('keyword'));
 
@@ -351,7 +350,6 @@
         get(skill_url,loadskill);
 
         filterJobList('', '', '', '');
-         $('.button').attr("href", data.job_id);
 
         $("body").delegate(".page-numbers", "click", function(){
             $('.page-numbers').removeClass('current');

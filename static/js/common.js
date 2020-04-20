@@ -197,7 +197,8 @@ function makeListHtml(data, template){
                 if($(item).hasClass("dynamic-link")){
                     var href = $(item).attr("href") + data[i][k];
                     $(item).attr("href", href);
-                } else {
+                }
+                else {
                     $(item).html(data[i][k]);
                 }
             });
@@ -407,13 +408,14 @@ function applyOnlineJobAddRemove(id, url) {
 
 function loadApplyonlineJob(data) {
         if(data.responseJSON.code == 200){
-            console.log(data.responseJSON)
+            console.log(data.responseJSON.result.user.job)
             var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
-            if(el.hasClass("apply")){
-                el.addClass('applied');
-                showSuccess('Successful!', 'Job applied successfully.')
-                $('.apply').text('Applied');
-
-            }
+            el.each(function () {
+                if($(this).hasClass("apply")){
+                    $(this).addClass('applied');
+                    showSuccess('Successful!', 'Job applied successfully.')
+                    $(this).text('Applied');
+                }
+            })
         }
     }
