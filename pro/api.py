@@ -214,7 +214,8 @@ class ProfessionalDetail(APIView):
         edu_data = [{
             'education_id': edu.id,
             'qualification': edu.qualification_id,
-            'institution': edu.institution_id,
+            'institution_id': edu.institution_id,
+            'institution': edu.institution.name,
             'cgpa': edu.cgpa,
             'major': edu.major_id,
             'enrolled_date': edu.enrolled_date,
@@ -223,7 +224,6 @@ class ProfessionalDetail(APIView):
         ]
 
         skill_data = [{
-            'prof_skill_id':skill.id,
             'skill': str(skill.name),
             'rating': skill.rating,
             'verified_by_skillcheck': skill.verified_by_skillcheck,
@@ -248,7 +248,8 @@ class ProfessionalDetail(APIView):
 
         membership_data = [{
             'membership_id':ms.id,
-            'org_name': ms.org_name_id,
+            'org_name_id': ms.org_name_id,
+            'org_name': ms.org_name.name,
             'position_held': ms.position_held,
             'membership_ongoing': ms.membership_ongoing,
             'Start_date': ms.Start_date,
@@ -259,8 +260,10 @@ class ProfessionalDetail(APIView):
 
         certification_data = [{
             'certification_id': cert.id,
-            'certification_name': cert.certification_name_id,
-            'organization_name': cert.organization_name_id,
+            'certification_name_id': cert.certification_name_id,
+            'certification_name': cert.certification_name.name,
+            'organization_name_id': cert.organization_name_id,
+            'organization_name': cert.organization_name.name,
             'has_expiry_period': cert.has_expiry_period,
             'issue_date': cert.issue_date,
             'expiry_date': cert.expiry_date,
@@ -318,9 +321,13 @@ class OrganizationList(generics.ListCreateAPIView):
     queryset = Organization.objects.all()
     serializer_class = OrganizationNameSerializer
 
-class NationalityList(generics.ListCreateAPIView):
-    queryset = Nationality.objects.all()
-    serializer_class = NationalitySerializer
+class MajorList(generics.ListCreateAPIView):
+    queryset = Major.objects.all()
+    serializer_class = MajorSerializer
+
+class CertificateNameList(generics.ListCreateAPIView):
+    queryset = CertificateName.objects.all()
+    serializer_class = CertificateNameSerializer
 
 
 class ProfessionalEducationSave(generics.ListCreateAPIView):
