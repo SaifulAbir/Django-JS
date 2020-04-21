@@ -205,7 +205,7 @@ function makeListHtml(data, template){
 
         }
         wrapper.append(templateEl)
-        feather.replace();
+
     }
     return wrapper.html();
 }
@@ -329,7 +329,7 @@ function goSignIn() {
 
 function favouriteJobAddRemove(id, url) {
 
-    $("#"+id).on('click', '.favourite', function (event) {
+    $("#"+id).on('click', '.favourite:not(.apply)', function (event) {
         event.preventDefault();
         var user = $.cookie("user");
         var job = $(this).attr('href');
@@ -338,7 +338,6 @@ function favouriteJobAddRemove(id, url) {
             favouriteUrl = url;
             post(favouriteUrl, JSON.stringify(data), loadFavouriteJob);
         }else if(isLoggedIn()){
-
             var data = {'user_id':user, 'job_id':job};
             favouriteUrl = url;
             post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
@@ -362,7 +361,7 @@ function isLoggedIn() {
 
 function loadFavouriteJob(data) {
     if(data.responseJSON.code == 200){
-           console.log(data.responseJSON)
+        console.log(data.responseJSON)
         var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
         el.each(function () {
             if($(this).hasClass('active')){

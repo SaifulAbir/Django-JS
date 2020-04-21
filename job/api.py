@@ -242,13 +242,30 @@ def job_list(request):
         if request.user != "AnonymousUser":
             for job in job_list:
                 try:
-                    favourite_job = FavouriteJob.objects.get(job=job)
+                    if request.user.is_authenticated:
+                        favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
+                    else:
+                        favourite_job = FavouriteJob.objects.get(job=job)
                 except FavouriteJob.DoesNotExist:
                     favourite_job = None
+
+                try:
+                    if request.user.is_authenticated:
+                        applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
+                    else:
+                        applied_job = ApplyOnline.objects.get(job=job)
+                except ApplyOnline.DoesNotExist:
+                    applied_job = None
+
                 if favourite_job is not None:
                     job.status = YES_TXT
                 else:
                     job.status = NO_TXT
+
+                if applied_job is not None:
+                    job.is_applied = YES_TXT
+                else:
+                    job.is_applied = NO_TXT
 
 
 
@@ -270,7 +287,7 @@ def job_list(request):
         "results":  job_list.data,
     }
 
-
+    print(data)
     return Response(data, HTTP_200_OK)
 
 class CurrencyList(generics.ListCreateAPIView):

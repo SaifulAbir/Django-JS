@@ -312,6 +312,32 @@
         }
         var list = makeListHtml(data.results, template);
         $('.job-result').html(list);
+        feather.replace();
+        $.each(data.results, function(i, item) {
+            var el = $("#jobs").find("[href='"+ data.results[i].job_id +"']");
+            el.each(function () {
+                if($(this).hasClass('apply')){
+
+                    // $(this).removeClass('active');
+                    // showError('Oopss!', 'Job removed.')
+                    if(data.results[i].is_applied == 'Yes' && isLoggedIn()){
+
+                        $(this).addClass('applied');
+                        $(this).text('Applied');
+                        $(this).attr('href', 'javascript:void(0)')
+                    }
+                }
+                if($(this).hasClass("favourite")){
+                    if(data.results[i].status == 'Yes' && isLoggedIn()){
+                        $(this).addClass('active');
+                    }
+                    // $(this).addClass('active');
+                    // showSuccess('Successful!', 'Job saved as a favourite.')
+
+                }
+
+            });
+        });
         var url = '/job_list';
         var startingIndex=1;
         makePagination(totalNumberOfData, pageSize, url, startingIndex);
@@ -344,8 +370,6 @@
 
         cat_url='/api/popular_categories/';
         get(cat_url,loadCat);
-
-        favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
 
         skill_url = '/api/skill_list/';
         get(skill_url,loadskill);
