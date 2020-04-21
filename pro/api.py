@@ -210,7 +210,6 @@ class ProfessionalDetail(APIView):
         certification = Certification.objects.filter(professional=pk, is_archived=False)
         reference = Reference.objects.filter(professional=pk, is_archived=False)
 
-        print(profile.religion.name)
         info_data = ProfessionalSerializer(profile).data
         info_data['religion_obj'] = ReligionSerializer(profile.religion).data
         info_data['nationality_obj'] = NationalitySerializer(profile.nationality).data
@@ -250,8 +249,7 @@ class ProfessionalDetail(APIView):
 
         membership_data = [{
             'membership_id':ms.id,
-            'org_name_id': ms.org_name_id,
-            'org_name': ms.org_name.name,
+            'organization':OrganizationNameSerializer(ms.org_name).data,
             'position_held': ms.position_held,
             'membership_ongoing': ms.membership_ongoing,
             'Start_date': ms.Start_date,
@@ -262,10 +260,8 @@ class ProfessionalDetail(APIView):
 
         certification_data = [{
             'certification_id': cert.id,
-            'certification_name_id': cert.certification_name_id,
-            'certification_name': cert.certification_name.name,
-            'organization_name_id': cert.organization_name_id,
-            'organization_name': cert.organization_name.name,
+            'certificate_name': CertificateNameSerializer(cert.certification_name).data,
+            'organization': OrganizationNameSerializer(cert.organization_name).data,
             'has_expiry_period': cert.has_expiry_period,
             'issue_date': cert.issue_date,
             'expiry_date': cert.expiry_date,
