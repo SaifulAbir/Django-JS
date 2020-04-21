@@ -210,7 +210,10 @@ class ProfessionalDetail(APIView):
         certification = Certification.objects.filter(professional=pk, is_archived=False)
         reference = Reference.objects.filter(professional=pk, is_archived=False)
 
+        print(profile.religion.name)
         info_data = ProfessionalSerializer(profile).data
+        info_data['religion_name'] = profile.religion.name
+        info_data['nationality_name'] = profile.nationality.name
         edu_data = [{
             'education_id': edu.id,
             'qualification': edu.qualification_id,
@@ -341,7 +344,7 @@ def professional_skill_save(request):
     key_obj = ProfessionalSkill(**data)
     key_obj.save()
 
-    return Response(HTTP_200_OK)
+    return Response(data)
 
 @api_view(["POST"])
 def professional_workexperience_save(request):
@@ -350,7 +353,7 @@ def professional_workexperience_save(request):
     key_obj = WorkExperience(**data)
     key_obj.save()
 
-    return Response(HTTP_200_OK)
+    return Response(data)
 
 @api_view(["POST"])
 def professional_portfolio_save(request):
@@ -359,7 +362,7 @@ def professional_portfolio_save(request):
     key_obj = Portfolio(**data)
     key_obj.save()
 
-    return Response(HTTP_200_OK)
+    return Response(data)
 
 @api_view(["POST"])
 def professional_membership_save(request):
@@ -368,7 +371,7 @@ def professional_membership_save(request):
     key_obj = Membership(**data)
     key_obj.save()
 
-    return Response(HTTP_200_OK)
+    return Response(data)
 
 @api_view(["POST"])
 def professional_certification_save(request):
@@ -377,7 +380,7 @@ def professional_certification_save(request):
     key_obj = Certification(**data)
     key_obj.save()
 
-    return Response(HTTP_200_OK)
+    return Response(data)
 
 @api_view(["POST"])
 def professional_reference_save(request):
@@ -386,7 +389,7 @@ def professional_reference_save(request):
     key_obj = Reference(**data)
     key_obj.save()
 
-    return Response(HTTP_200_OK)
+    return Response(data)
 
 
 
@@ -683,10 +686,11 @@ class ProfessionalUpdatePartial(GenericAPIView, UpdateModelMixin):
     queryset = Professional.objects.all()
     serializer_class = ProfessionalSerializer
 
-    def put(self, request, *args, **kwargs):
+    def put(self,request, *args, **kwargs,):
         if 'image' in request.data:
             img_base64 = request.data['image']
             if img_base64:
+
                 format, imgstr = img_base64.split(';base64,')
                 ext = format.split('/')[-1]
                 filename = str(uuid.uuid4()) + '-professional.' + ext
