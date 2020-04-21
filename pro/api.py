@@ -296,7 +296,19 @@ class ProfessionalDetail(APIView):
 @api_view(["POST"])
 def professional_education_save(request):
     data = json.loads(request.body)
-
+    print(data)
+    # print('professional_education_save',data)
+    # save_data = {
+    #
+    # "qualification" : data['qualification_id'],
+    # "institution" : data['institution_id'],
+    # "major" : data['major_id'],
+    # "cgpa" : data['cgpa'],
+    # "enrolled_date" :data['enrolled_date'],
+    # "graduation_date" : data['graduation_date']
+    #
+    #
+    # }
     key_obj = ProfessionalEducation(**data)
     print(key_obj)
     key_obj.save()
