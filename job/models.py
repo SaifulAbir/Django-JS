@@ -155,7 +155,7 @@ class Job(models.Model):
     slug = models.SlugField(max_length=255,unique=True,null=True, blank=True)
     industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,db_column='industry', related_name='industries')
     employment_status = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,db_column='employment_status')
-    job_location = models.CharField(max_length=255, blank=True,null=True)
+    job_location = models.CharField(max_length=50, blank=True,null=True)
     experience =  models.ForeignKey(Experience, on_delete=models.PROTECT,blank=True, null= True,db_column='experience')
     salary_min = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True)
     salary_max = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True)
