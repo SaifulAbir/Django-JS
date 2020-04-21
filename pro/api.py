@@ -704,11 +704,13 @@ class ProfessionalUpdatePartial(GenericAPIView, UpdateModelMixin):
                 request.data['image'] = uploaded_file_url
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalSerializer(Professional.objects.get(pk=pk)).data
-        if 'religion_obj' in request.data:
-            prof_obj['religion_obj'] = ReligionSerializer(
-                Religion.objects.get(pk=request.data['religion'])).data
-        if 'nationality_obj' in request.data:
-            prof_obj['nationality_obj'] = NationalitySerializer(Nationality.objects.get(pk=request.data['nationality'])).data
+        prof_obj['religion_obj'] = ReligionSerializer(Religion.objects.get(pk = prof_obj['religion'])).data
+        prof_obj['nationality_obj'] = NationalitySerializer(Nationality.objects.get(pk = prof_obj['nationality'])).data
+        # if 'religion_obj' in request.data:
+        #     prof_obj['religion_obj'] = ReligionSerializer(
+        #         Religion.objects.get(pk=request.data['religion'])).data
+        # if 'nationality_obj' in request.data:
+        #     prof_obj['nationality_obj'] = NationalitySerializer(Nationality.objects.get(pk=request.data['nationality'])).data
         return Response(prof_obj)
 
 class ReferenceUpdateDelete(GenericAPIView, UpdateModelMixin):
