@@ -321,6 +321,7 @@
     }
     $(document).ready(function () {
         applyOnlineJobAddRemove('jobs', '/api/apply_online_job_add/');
+        favouriteJobAddRemove('jobs', '/api/favourite_job_add/');
         var location_from_homepage = encodeURIComponent(getUrlParameter('location'));
         var keyword_from_homepage = encodeURIComponent(getUrlParameter('keyword'));
 
