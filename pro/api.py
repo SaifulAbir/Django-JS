@@ -715,7 +715,7 @@ class ReferenceUpdateDelete(GenericAPIView, UpdateModelMixin):
     def put(self, request,pk, *args, **kwargs):
         self.partial_update(request, *args, **kwargs)
         prof_obj = Reference.objects.get(pk=pk)
-        request.data['prof_skill_id'] = prof_obj.id
+        request.data['reference_id'] = prof_obj.id
         return Response(request.data)
 
 class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
@@ -730,15 +730,16 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
         request.data['education_id'] = prof_obj.id
         return Response(request.data)
 
-class SkilleUpdateDelete(GenericAPIView, UpdateModelMixin):
+class SkillUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = ProfessionalSkill.objects.all()
     serializer_class = SkillSerializer
 
     def put(self, request,pk, *args, **kwargs):
         self.partial_update(request, *args, **kwargs)
-        request.data['skill_obj'] = SkillSerializer(Skill.objects.get(pk=request.data['name_id'])).data
-        prof_obj = ProfessionalSkill.objects.get(pk=pk)
-        request.data['prof_skill_id']= prof_obj.id
+        if 'name_id' in request.data:
+            request.data['skill_obj'] = SkillSerializer(Skill.objects.get(pk=request.data['name_id'])).data
+            prof_obj = ProfessionalSkill.objects.get(pk=pk)
+            request.data['prof_skill_id']= prof_obj.id
         return Response(request.data)
 
 class WorkExperienceUpdateDelete(GenericAPIView, UpdateModelMixin):
@@ -761,10 +762,11 @@ class MembershipUpdateDelete(GenericAPIView, UpdateModelMixin):
 
     def put(self, request,pk, *args, **kwargs):
         self.partial_update(request, *args, **kwargs)
-        request.data['organizaion_obj'] = OrganizationNameSerializer(
-            Organization.objects.get(pk=request.data['organization_id'])).data
-        prof_obj = Membership.objects.get(pk=pk)
-        request.data['membership_id'] = prof_obj.id
+        if 'organization_id' in request.data:
+            request.data['organizaion_obj'] = OrganizationNameSerializer(
+                Organization.objects.get(pk=request.data['organization_id'])).data
+            prof_obj = Membership.objects.get(pk=pk)
+            request.data['membership_id'] = prof_obj.id
         return Response(request.data)
 
 class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):

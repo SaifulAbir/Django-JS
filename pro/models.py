@@ -110,8 +110,9 @@ class Professional(models.Model):
 
 class ProfessionalEducation(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT)
+    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT) # name = degree
     institution = models.ForeignKey(Institute, on_delete=models.PROTECT, null=True, blank=True)
+    # new_institution = models.CharField(max_length=255,blank=True, null=False)
     cgpa = models.CharField(max_length=255, blank=True, null=True)
     major = models.ForeignKey(Major, on_delete=models.PROTECT, null=True, blank=True)
     enrolled_date = models.DateField(null=True, blank=True)
