@@ -719,9 +719,8 @@ class ReferenceUpdateDelete(GenericAPIView, UpdateModelMixin):
 
     def put(self, request,pk, *args, **kwargs):
         self.partial_update(request, *args, **kwargs)
-        prof_obj = Reference.objects.get(pk=pk)
-        request.data['reference_id'] = prof_obj.id
-        return Response(request.data)
+        prof_obj = ReferenceSerializer(Reference.objects.get(pk=pk))
+        return Response(prof_obj)
 
 class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = ProfessionalEducation.objects.all()
@@ -742,11 +741,9 @@ class SkillUpdateDelete(GenericAPIView, UpdateModelMixin):
     def put(self, request,pk, *args, **kwargs):
 
         self.partial_update(request, *args, **kwargs)
-        if 'name_id' in request.data:
-            request.data['skill_obj'] = SkillSerializer(Skill.objects.get(pk=request.data['name_id'])).data
-            prof_obj = ProfessionalSkill.objects.get(pk=pk)
-            request.data['prof_skill_id']= prof_obj.id
-        return Response(request.data)
+        prof_obj = ProfessionalSkillSerializer(ProfessionalSkill.objects.get(pk=pk)).data
+        prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=prof_obj['name'])).data
+        return Response(prof_obj)
 
 class WorkExperienceUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = WorkExperience.objects.all()
