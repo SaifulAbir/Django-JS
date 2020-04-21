@@ -217,7 +217,7 @@ class ProfessionalDetail(APIView):
         edu_data = [{
             'education_id': edu.id,
             'qualification': edu.qualification_id,
-            'institution': InstituteNameSerializer(edu.institution).data,
+            'institution_obj': InstituteNameSerializer(edu.institution).data,
             'cgpa': edu.cgpa,
             'major':MajorSerializer(edu.major).data,
             'enrolled_date': edu.enrolled_date,
@@ -227,7 +227,7 @@ class ProfessionalDetail(APIView):
 
         skill_data = [{
             'prof_skill_id':skill.id,
-            'skill': SkillSerializer(skill.name).data,
+            'skill_obj': SkillSerializer(skill.name).data,
             'rating': skill.rating,
             'verified_by_skillcheck': skill.verified_by_skillcheck,
         } for skill in skills
@@ -251,7 +251,7 @@ class ProfessionalDetail(APIView):
 
         membership_data = [{
             'membership_id':ms.id,
-            'organization':OrganizationNameSerializer(ms.org_name).data,
+            'organization_obj':OrganizationNameSerializer(ms.org_name).data,
             'position_held': ms.position_held,
             'membership_ongoing': ms.membership_ongoing,
             'Start_date': ms.Start_date,
@@ -370,9 +370,10 @@ def professional_portfolio_save(request):
 @api_view(["POST"])
 def professional_membership_save(request):
     data = json.loads(request.body)
-
     key_obj = Membership(**data)
     key_obj.save()
+    data['organizaion_obj'] = OrganizationNameSerializer(
+        Organization.objects.get(pk=data['organization_id'])).data
 
     return Response(data)
 
@@ -721,8 +722,8 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
 
     def put(self, request, *args, **kwargs):
         self.partial_update(request, *args, **kwargs)
-        request.data['institution_obj'] = InstituteNameSerializer(Institute.objects.get(pk=request.data['institution'])).data
-        request.data['major_obj'] = MajorSerializer(Major.objects.get(pk=request.data['major'])).data
+        request.data['institution_obj'] = InstituteNameSerializer(Institute.objects.get(pk=request.data['institution_id'])).data
+        request.data['major_obj'] = MajorSerializer(Major.objects.get(pk=request.data['major.id'])).data
         return Response(request.data)
 
 class SkilleUpdateDelete(GenericAPIView, UpdateModelMixin):
@@ -753,7 +754,10 @@ class MembershipUpdateDelete(GenericAPIView, UpdateModelMixin):
     serializer_class = MembershipSerializer
 
     def put(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
+        self.partial_update(request, *args, **kwargs)
+        request.data['organizaion_obj'] = OrganizationNameSerializer(
+            Organization.objects.get(pk=request.data['organization_id'])).data
+        return Response(request.data)
 
 class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = Certification.objects.all()
