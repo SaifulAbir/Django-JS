@@ -171,12 +171,12 @@
         function  signUpCallback(data){
             if(data.responseJSON.code == 200){
                 {#var id = data.responseJSON.result.user.professional;#}
+                 $("#sign-up").toggle();
                 showSuccess("Sign Up Successful!", "A verification code was sent to your email")
-                setTimeout(function(){
-                window.location.href = "/professional/sign-in/";
-                                    }, 3000);
+
             }
             else {
+                $("#sign-up").toggle();
                 showError('Failed!','Email already exists!')
             }
         };
