@@ -25,7 +25,7 @@ class ReferenceSerializer(serializers.ModelSerializer):
         model = Reference
         fields = '__all__'
 
-class SkillSerializer(serializers.ModelSerializer):
+class ProfessionalSkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfessionalSkill
         fields = '__all__'
