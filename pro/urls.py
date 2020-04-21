@@ -35,5 +35,5 @@ urlpatterns = [
     # path('professional_info/<str:pk>/', professional_info),
     path('institution/', InstituteList.as_view()),
     path('major/', MajorList.as_view()),
-    path('edit_resume/<str:pk>/', TemplateView.as_view(template_name='edit_resume.html')),
+    path('myprofile/<str:pk>/', TemplateView.as_view(template_name='profiles.html'), name='profile'),
 ]

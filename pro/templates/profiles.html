@@ -428,7 +428,7 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">Qualification</div>
                                       </div>
-                                      <select class="form-control" required  name="qualification" id="qualification" data-text="name" data-value="name" data-placeholder="Select" data-src="/api/qualification/">
+                                      <select class="form-control" required  name="qualification_id" id="qualification_id" data-text="name" data-value="name" data-placeholder="Select" data-src="/api/qualification/">
                                                         </select>
                                     </div>
                                   </div>
@@ -442,7 +442,7 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">Institute</div>
                                       </div>
-                                         <select class="form-control" name="institution" id="institution" data-text="name" data-value="name" data-placeholder="Select" data-src="/api/professional/institution/">
+                                         <select class="form-control" name="institution_id" id="institution_id" data-text="name" data-value="name" data-placeholder="Select" data-src="/api/professional/institution/">
                                                         </select>
                                     </div>
                                   </div>
@@ -454,7 +454,7 @@
                                       <div class="input-group-prepend">
                                         <div class="input-group-text">Major</div>
                                       </div>
-                                         <select class="form-control" name="major" id="major" data-text="name" data-value="name" data-placeholder="Select" data-src="/api/professional/major/">
+                                         <select class="form-control" name="major_id" id="major_id" data-text="name" data-value="name" data-placeholder="Select" data-src="/api/professional/major/">
                                                         </select>
                                     </div>
                                   </div>
@@ -1342,8 +1342,9 @@
             var getUrl = '/api/professional/profile/'+ id + '/';
             get(getUrl, loadProfile);
 
-            var postUrl = '/api/professional/profile_update/'+ id + '/';
-            $('form.ajax').attr('action',postUrl);
+<!--            var postUrl = '/api/professional/profile_update/'+ id + '/';-->
+<!--            $('form.ajax').attr('action',postUrl);-->
+
             initAjaxForms();
 
 
