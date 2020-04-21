@@ -226,6 +226,7 @@ class ProfessionalDetail(APIView):
         ]
 
         skill_data = [{
+            'prof_skill_id':skill.id,
             'skill': SkillSerializer(skill.name).data,
             'rating': skill.rating,
             'verified_by_skillcheck': skill.verified_by_skillcheck,
