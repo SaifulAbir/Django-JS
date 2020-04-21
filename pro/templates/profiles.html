@@ -294,21 +294,23 @@
                 </div>
                 <div class="about-details details-section dashboard-section">
                   <h4><i data-feather="align-left"></i>About Me</h4>
-                  <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including.</p>
-                  <p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable </p>
+                    <div class="about">
+
+<!--                  <p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable </p>-->
+                 </div>
                   <div class="information-and-contact">
                     <div class="information">
-                      <h4>Information</h4>
-                      <ul>
-                        <li><span>Category:</span> Design & Creative</li>
-                        <li><span>Location:</span> Los Angeles</li>
-                        <li><span>Status:</span> Full-time</li>
-                        <li><span>Experience:</span> 3 year(s)</li>
-                        <li><span>Salary:</span> $32k - $36k</li>
-                        <li><span>Gender:</span> Male</li>
-                        <li><span>Age:</span> 24 Year(s)</li>
-                        <li><span>Qualification:</span> Gradute</li>
-                      </ul>
+<!--                      <h4>Information</h4>-->
+<!--                      <ul>-->
+<!--                        <li><span>Category:</span> Design & Creative</li>-->
+<!--                        <li><span>Location:</span> Los Angeles</li>-->
+<!--                        <li><span>Status:</span> Full-time</li>-->
+<!--                        <li><span>Experience:</span> 3 year(s)</li>-->
+<!--                        <li><span>Salary:</span> $32k - $36k</li>-->
+<!--                        <li><span>Gender:</span> Male</li>-->
+<!--                        <li><span>Age:</span> 24 Year(s)</li>-->
+<!--                        <li><span>Qualification:</span> Gradute</li>-->
+<!--                      </ul>-->
                     </div>
                   </div>
                   <!-- Button trigger modal -->
@@ -324,60 +326,70 @@
                             <h4><i data-feather="align-left"></i>About Me</h4>
                           </div>
                           <div class="content">
-                            <form action="#">
+                            <form action="" class="job-post-form ajax" method="PUT" id="info-update-form">
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Write Yourself</label>
                                 <div class="col-sm-9">
-                                  <textarea class="form-control" placeholder="Write Yourself"></textarea>
+                                  <textarea class="form-control" id="about_me" name="about_me" placeholder="Write Yourself"></textarea>
                                 </div>
                               </div>
                               <h4><i data-feather="align-left"></i>Information</h4>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Category</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="Design &amp; Creative">
+<!--                                  <input type="text" class="form-control"  placeholder="Design &amp; Creative">-->
+                                  <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name" data-placeholder="Select Category" data-src="/api/industry">
+                                                    </select>
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Location</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="Los Angeles">
+                                  <input type="text" name="address" id="address" class="form-control"  placeholder="Los Angeles">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Status</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="Full Time">
+<!--                                  <input type="text" class="form-control"  placeholder="Full Time">-->
+                                   <select class="form-control" name="status" id="status" data-text="name" data-value="name" data-placeholder="Job Type" data-src="/api/job_type">
+                                                    </select>
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Experience</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="3 Year">
+<!--                                  <input type="text" class="form-control"  placeholder="3 Year">-->
+                                  <select class="form-control" name="experience" id="experience" data-text="name" data-value="name" data-placeholder="Experience" data-src="/api/experience">
+                                                    </select>
                                 </div>
                               </div>
-                              <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Salary Range</label>
-                                <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="30k - 40k">
-                                </div>
-                              </div>
+<!--                              <div class="form-group row">-->
+<!--                                <label class="col-sm-3 col-form-label">Salary Range</label>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                  <input type="text" class="form-control"  placeholder="30k - 40k">-->
+<!--                                </div>-->
+<!--                              </div>-->
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Gender</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="Male">
+<!--                                  <input type="text" class="form-control"  placeholder="Male">-->
+                                  <select class="form-control" name="gender" id="gender" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender">
+                                                    </select>
                                 </div>
                               </div>
-                              <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Age</label>
-                                <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="25 Years">
-                                </div>
-                              </div>
+<!--                              <div class="form-group row">-->
+<!--                                <label class="col-sm-3 col-form-label">Age</label>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                  <input type="text" class="form-control"  placeholder="25 Years">-->
+<!--                                </div>-->
+<!--                              </div>-->
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Qualification</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="Gradute">
+<!--                                  <input type="text" class="form-control"  placeholder="Gradute">-->
+                                    <select class="form-control" name="qualification" id="qualification" data-text="name" data-value="name" data-placeholder="Qualification" data-src="/api/qualification">
+                                                    </select>
                                 </div>
                               </div>
                               <div class="row">
@@ -1294,11 +1306,13 @@
             var id = path[path.length-2];
             var getUrl = '/api/professional/profile/'+ id + '/';
             get(getUrl,loadsocial);
+            get(getUrl,loadabout);
             var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
             $('form.ajax').attr('action',postUrl);
             initAjaxForms();
         });
         function  loadsocial(data){
+          console.log(data);
           facebook = data.personal_info.facebbok_id;
           twitter  = data.personal_info.twitter_id;
           linkedin = data.personal_info.linkedin_id;
@@ -1311,7 +1325,36 @@
           window.location.reload();
 
        });
+         function  loadabout(data){
+           console.log(data);
+           about_me= data.personal_info.about_me;
+           industry= data.personal_info.industry_expertise;
+           status= data.personal_info.status;
+           address= data.personal_info.address;
+           experience= data.personal_info.experience;
+           gender = data.personal_info.gender;
+           qualification= data.personal_info.qualification;
+           var about_html='<p>'+about_me+'</p>';
+           $(".about").html(about_html);
+           var info_html = '<h4>Information</h4>'+
+                      '<ul>'+
+                        '<li><span>Category:</span> '+industry+'</li>'+
+                        '<li><span>Location:</span> '+address+'</li>'+
+                        '<li><span>Status:</span>'+status+'</li>'+
+                        '<li><span>Experience:</span>'+experience+'</li>'+
+                        '<li><span>Salary:</span> $32k - $36k</li>'+
+                        '<li><span>Gender:</span>'+gender+'</li>'+
+                        '<li><span>Age:</span> 24 Year(s)</li>'+
+                        '<li><span>Qualification:</span>'+qualification+'</li>'+
+                      '</ul>';
+
+           $(".information").append(info_html);
 
 
+        }
+       $("#info-update-form").submit(function(e){
+          window.location.reload();
+
+       });
     </script>
 {% endblock %}
