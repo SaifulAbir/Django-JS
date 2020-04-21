@@ -212,15 +212,14 @@ class ProfessionalDetail(APIView):
 
         print(profile.religion.name)
         info_data = ProfessionalSerializer(profile).data
-        info_data['religion_name'] = profile.religion.name
-        info_data['nationality_name'] = profile.nationality.name
+        info_data['religion_obj'] = ReligionSerializer(profile.religion).data
+        info_data['nationality_obj'] = NationalitySerializer(profile.nationality).data
         edu_data = [{
             'education_id': edu.id,
             'qualification': edu.qualification_id,
-            'institution_id': edu.institution_id,
-            'institution': edu.institution.name,
+            'institution': InstituteNameSerializer(edu.institution).data,
             'cgpa': edu.cgpa,
-            'major': edu.major_id,
+            'major':MajorSerializer(edu.major).data,
             'enrolled_date': edu.enrolled_date,
             'graduation_date': edu.graduation_date,
         } for edu in education
