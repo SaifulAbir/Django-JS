@@ -703,9 +703,11 @@ class ProfessionalUpdatePartial(GenericAPIView, UpdateModelMixin):
                 uploaded_file_url = fs.url(filename)
                 request.data['image'] = uploaded_file_url
         self.partial_update(request, *args, **kwargs)
-        request.data['religion_obj'] = ReligionSerializer(
+        if 'religion_obj' in request.data:
+            request.data['religion_obj'] = ReligionSerializer(
             Religion.objects.get(pk=request.data['religion'])).data
-        request.data['nationality_obj'] = NationalitySerializer(Nationality.objects.get(pk=request.data['nationality'])).data
+        if 'nationality_obj' in request.data:
+            request.data['nationality_obj'] = NationalitySerializer(Nationality.objects.get(pk=request.data['nationality'])).data
         return Response(request.data)
 
 class ReferenceUpdateDelete(GenericAPIView, UpdateModelMixin):
@@ -732,9 +734,10 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
 
 class SkillUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = ProfessionalSkill.objects.all()
-    serializer_class = SkillSerializer
+    serializer_class = ProfessionalSkillSerializer
 
     def put(self, request,pk, *args, **kwargs):
+
         self.partial_update(request, *args, **kwargs)
         if 'name_id' in request.data:
             request.data['skill_obj'] = SkillSerializer(Skill.objects.get(pk=request.data['name_id'])).data
