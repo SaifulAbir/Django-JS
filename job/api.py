@@ -235,16 +235,20 @@ class CurrencyList(generics.ListCreateAPIView):
     serializer_class = CurrencySerializer
 
 
-def Experience(self):
-    data = {
-        '1': "Fresh",
-        '2': "Less than 1 year",
-        '3': "2 Year",
-        '4': "3 Year",
-        '5':  "4 Year",
-        '6': "Above 5 Years",
-    }
-    return HttpResponse(json.dumps(data), content_type='application/json')
+class Experience(generics.ListCreateAPIView):
+    queryset = Experience.objects.all()
+    serializer_class = ExperienceSerializer
+
+# def Experience(self):
+#     data = {
+#         '1': "Fresh",
+#         '2': "Less than 1 year",
+#         '3': "2 Year",
+#         '4': "3 Year",
+#         '5':  "4 Year",
+#         '6': "Above 5 Years",
+#     }
+#     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 class QualificationList(generics.ListCreateAPIView):
