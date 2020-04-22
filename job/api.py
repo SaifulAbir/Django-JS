@@ -458,10 +458,22 @@ def recent_jobs(request):
 
         except FavouriteJob.DoesNotExist:
             favourite_job = None
+        try:
+            if request.user.is_authenticated:
+                applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
+            else:
+                applied_job = ApplyOnline.objects.get(job=job)
+        except ApplyOnline.DoesNotExist:
+            applied_job = None
         if favourite_job is not None:
             job.status = YES_TXT
         else:
             job.status = NO_TXT
+
+        if applied_job is not None:
+            job.is_applied = YES_TXT
+        else:
+            job.is_applied = NO_TXT
         try:
             company = job.company_name
         except Company.DoesNotExist:
@@ -480,7 +492,7 @@ def recent_jobs(request):
             job.profile_picture = '/static/images/job/company-logo-2.png'
         if job.job_location is None:
             job.job_location = NO_LOCATION
-        data.append({'job_id':job.job_id, 'slug':job.slug, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(company)})
+        data.append({'job_id':job.job_id, 'is_applied':job.is_applied, 'slug':job.slug, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(company)})
 
     return JsonResponse(list(data), safe=False)
 
@@ -519,10 +531,23 @@ def similar_jobs(request,identifier):
                 favourite_job = FavouriteJob.objects.get(job=job)
         except FavouriteJob.DoesNotExist:
             favourite_job = None
+
+        try:
+            if request.user.is_authenticated:
+                applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
+            else:
+                applied_job = ApplyOnline.objects.get(job=job)
+        except ApplyOnline.DoesNotExist:
+            applied_job = None
         if favourite_job is not None:
             job.status = 'Yes'
         else:
             job.status = 'No'
+
+        if applied_job is not None:
+            job.is_applied = YES_TXT
+        else:
+            job.is_applied = NO_TXT
         if job.company_name:
             if job.company_name.profile_picture:
                 job.profile_picture = '/media/' + str(job.company_name.profile_picture)
@@ -532,7 +557,7 @@ def similar_jobs(request,identifier):
             job.profile_picture = '/static/images/job/company-logo-2.png'
 
         if similar(title, job.title)>.80:
-            data.append({'job_id': job.job_id, 'slug':job.slug, 'title': job.title, 'job_location': job.job_location,
+            data.append({'job_id': job.job_id, 'is_applied':job.is_applied, 'slug':job.slug, 'title': job.title, 'job_location': job.job_location,
                          'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
                          'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
     for i in range(len(data)):

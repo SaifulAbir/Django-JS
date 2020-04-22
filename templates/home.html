@@ -12,7 +12,7 @@
                         <p> Find Jobs, Employment & Career Opportunities</p>
 
                         <div class="banner-search">
-                            <form action="/api/trending_keyword_save/" id="search-form" class="search-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
+                            <form action="/api/trending_keyword_save/" id="search-form" class="search-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate" autocomplete="off">
                                 <input type="text" name="keyword" id="keyword" placeholder="Enter Keywords">
                                 <input type="text" name="location" id="location" placeholder="Location">
                                 <button class="button primary-bg"><i class="fas fa-search" style="color:#ffffff;"></i>Search Job</button>
@@ -257,6 +257,7 @@
         get(popularJobsUrl,loadPopularJobs);
         get(jobAlertUrl, loadJobAlert);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
+        applyOnlineJobAddRemove('job-list', '/api/apply_online_job_add/');
         // jobAlertRedirectPage();
     });
 
@@ -337,7 +338,7 @@
                 '</div>'+
                 '<div class="more">'+
                 '<div class="buttons">'+
-                '<a href="'+data[index].job_id+'" class="button" data-toggle="modal">Apply Now</a>'+
+                '<a href="'+data[index].job_id+'" class="button apply" data-toggle="modal">Apply Now</a>'+
                 '<a href="'+data[index].job_id+'" class="favourite"><i data-feather="heart"></i></a>'+
                 '</div>'+
                 '<p class="deadline">'+'Deadline: '+dateMomentString+'</p>'+
@@ -346,9 +347,28 @@
                 '</div>';
             $('#job-list').append(job_html);
             var el = $("#job-list").find("[href='"+ data[index].job_id +"']");
-            if(data[index].status == 'Yes' && isLoggedIn()){
-                el.addClass('active');
-            }
+            el.each(function () {
+                if($(this).hasClass('apply')){
+
+                    // $(this).removeClass('active');
+                    // showError('Oopss!', 'Job removed.')
+                    if(data[index].is_applied == 'Yes' && isLoggedIn()){
+
+                        $(this).addClass('applied');
+                        $(this).text('Applied');
+                        $(this).attr('href', 'javascript:void(0)')
+                    }
+                }
+                if($(this).hasClass("favourite")){
+                    if(data[index].status == 'Yes' && isLoggedIn()){
+                        $(this).addClass('active');
+                    }
+                    // $(this).addClass('active');
+                    // showSuccess('Successful!', 'Job saved as a favourite.')
+
+                }
+
+            });
             feather.replace();
         }
     }
