@@ -226,7 +226,7 @@ class ProfessionalDetail(APIView):
         ]
 
         skill_data = [{
-            'prof_skill_id':skill.id,
+            'id':skill.id,
             'skill_obj': SkillSerializer(skill.name).data,
             'rating': skill.rating,
             'verified_by_skillcheck': skill.verified_by_skillcheck,
@@ -273,7 +273,7 @@ class ProfessionalDetail(APIView):
         ]
 
         reference_data = [{
-            'reference_id':ref.id,
+            'id':ref.id,
             'name': ref.name,
             'current_position': ref.current_position,
             'email': ref.email,
