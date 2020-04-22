@@ -14,7 +14,7 @@ import time, datetime
 now = datetime.datetime.now()
 current_date = now.strftime("%b %-1d, %Y")
 unknown_company = "Unknown"
-last_scrapping_date = '2020-04-17 00:00:00.000000'
+last_scrapping_date = '2020-04-20 00:00:00.000000'
 scrapping_status = True
 # Define a function to write into file
 # Function starts from here
@@ -48,7 +48,7 @@ def write_csv_file(data):
 # Open a csv file with 'write' mode
 job_list_file_obj = open('bdjobs_detail_list.csv', 'w', newline='')
 
-main_site = 'http://127.0.0.1/'
+main_site = 'http://127.0.0.1:8080/'
 bdjobs = 'http://jobs.bdjobs.com/'
 # Job search url
 url = 'http://jobs.bdjobs.com/jobsearch.asp?fcatId=8'
@@ -257,7 +257,7 @@ while page_no <= max_page_no:
             break
         response = requests.post(JOB_LIST_API,json=data_dict, headers=HEADER)
 
-        print(data_dict)
+        print(response)
 
     # Increment page no.
     page_no += 1
