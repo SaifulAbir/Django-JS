@@ -275,7 +275,7 @@
                 '</div>'+
                 '<div class="more">'+
                 '<div class="buttons">'+
-                '<a href="'+data[index].job_id+'" class="button" data-toggle="modal">Apply Now</a>'+
+                '<a href="'+data[index].job_id+'" class="button apply" data-toggle="modal">Apply Now</a>'+
                 '<a href="'+data[index].job_id+'" class="favourite"><i data-feather="heart"></i></a>'+
                 '</div>'+
                 '<p class="deadline">'+'Deadline: '+dateMomentString+'</p>'+
@@ -284,9 +284,28 @@
                 '</div>';
             $('#job-list').append(job_html);
             var el = $("#jobs").find("[href='"+ data[index].job_id +"']");
-            if(data[index].status == 'Yes' && isLoggedIn()){
-                el.addClass('active');
-            }
+            el.each(function () {
+                if($(this).hasClass('apply')){
+
+                    // $(this).removeClass('active');
+                    // showError('Oopss!', 'Job removed.')
+                    if(data[index].is_applied == 'Yes' && isLoggedIn()){
+
+                        $(this).addClass('applied');
+                        $(this).text('Applied');
+                        $(this).attr('href', 'javascript:void(0)')
+                    }
+                }
+                if($(this).hasClass("favourite")){
+                    if(data[index].status == 'Yes' && isLoggedIn()){
+                        $(this).addClass('active');
+                    }
+                    // $(this).addClass('active');
+                    // showSuccess('Successful!', 'Job saved as a favourite.')
+
+                }
+
+            });
             feather.replace();
         }
     }
