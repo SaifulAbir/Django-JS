@@ -422,6 +422,7 @@ function loadApplyonlineJob(data) {
                 $(this).addClass('applied');
                 showSuccess('Successful!', 'Job applied successfully.')
                 $(this).text('Applied');
+                $(this).attr('href', 'javascript:void(0)');
             }
         })
     }
