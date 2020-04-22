@@ -167,7 +167,7 @@
                 <p class="display-none" id="alert-msg">Get e-mail updates about our latest news and Special offers.</p>
                 <form action="/api/professional/job_alert/" id="job-alert" class="newsletter-form display-none form-inline ajax" method="POST" data-callback="jobAlertRedirectPage">
                   <div class="form-group">
-                    <input type="email" name="email" id="email" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email" placeholder="Email address...">
+                    <input type="text" name="email" id="email" regex='^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$' class="form-control" required data-msg-required="Email is required" data-msg-regex="Please enter a valid email" placeholder="Email address...">
                   </div>
                   <button class="btn button primary-bg">Submit<i class="fas fa-caret-right"></i></button>
                   <p class="newsletter-error">0 - Please enter a value</p>
@@ -223,8 +223,8 @@
     <script src="{% static '/assets/js/jquery.cookie.min.js' %}"></script>
     <script src="{% static 'js/custom.js'%}"></script>
     <script src="{% static '/assets/js/form2js.js' %}"></script>
-    <script src="{% static 'js/common.js' %}"></script>
     <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/common.js' %}"></script>
     <script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE"></script>
     <script src="{% static 'js/map.js'%}"></script>
