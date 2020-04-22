@@ -92,6 +92,33 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
     save_as = True
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(QuestionAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['subject'].widget.can_add_related = False
+        form.base_fields['subject'].widget.can_change_related = False
+        form.base_fields['subject'].widget.can_delete_related = False
+
+        form.base_fields['qtype'].widget.can_add_related = False
+        form.base_fields['qtype'].widget.can_change_related = False
+        form.base_fields['qtype'].widget.can_delete_related = False
+
+        form.base_fields['topic'].widget.can_add_related = False
+        form.base_fields['topic'].widget.can_change_related = False
+        form.base_fields['topic'].widget.can_delete_related = False
+
+        form.base_fields['sub_topic'].widget.can_add_related = False
+        form.base_fields['sub_topic'].widget.can_change_related = False
+        form.base_fields['sub_topic'].widget.can_delete_related = False
+
+        form.base_fields['difficulties'].widget.can_add_related = False
+        form.base_fields['difficulties'].widget.can_change_related = False
+        form.base_fields['difficulties'].widget.can_delete_related = False
+
+
+
+
+        return form
+
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
