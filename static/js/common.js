@@ -140,11 +140,17 @@ function json2Form(data, id){
 }
 
 function json2Div(data, container){
+    console.log(data)
     for(key in data) {
         // var el = $("#" + id).find("[name='"+ key +"']");
         var el = $(container).find("[id='" + key + "']");
-        console.log(el)
-        el.html(data[key]);
+        if(data[key]){
+            el.html(data[key]);
+        }
+        else{
+            el.parent().hide();
+        }
+
     }
 }
 

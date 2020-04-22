@@ -79,7 +79,7 @@ class JobObject(APIView):
         data = JobSerializer(job).data
         data['skill']=[]
         if data['company_location'] is None:
-            data['company_location'] = 'Unknown'
+            data['company_location'] = ''
         if data['company_name'] is not None:
             ob = Company.objects.get(name=data['company_name'])
             if ob.profile_picture:
