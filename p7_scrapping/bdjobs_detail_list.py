@@ -48,7 +48,7 @@ def write_csv_file(data):
 # Open a csv file with 'write' mode
 job_list_file_obj = open('bdjobs_detail_list.csv', 'w', newline='')
 
-main_site = 'http://127.0.0.1:8080/'
+main_site = 'http://127.0.0.1:8000/'
 bdjobs = 'http://jobs.bdjobs.com/'
 # Job search url
 url = 'http://jobs.bdjobs.com/jobsearch.asp?fcatId=8'
@@ -122,10 +122,10 @@ while page_no <= max_page_no:
         except Exception as ex:
             title = "JOB TITLE"
 
-        # try:
-        #     data_dict['job_link'] = main_site + title.find('a', {'href': True})['href']
-        # except Exception as ex:
-        #     data_dict['job_link'] = "JOB LINK"
+        try:
+            data_dict['web_address'] = main_site + title.find('a', {'href': True})['href']
+        except Exception as ex:
+            data_dict['web_address'] = "JOB LINK"
 
         # Data save to DB
         try:
@@ -193,6 +193,9 @@ while page_no <= max_page_no:
 
             try:
                 data_dict['vacancy'] = data_detail.find(text="Vacancy").findNext('p').text.strip()
+
+                if data_dict['vacancy'] == 'Not specific':
+                    data_dict['vacancy'] = 0
             except Exception as ex:
                 data_dict['no_of_vacancy'] = "Error"
 
