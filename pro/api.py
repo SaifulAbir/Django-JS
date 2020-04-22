@@ -719,7 +719,7 @@ class ReferenceUpdateDelete(GenericAPIView, UpdateModelMixin):
 
     def put(self, request,pk, *args, **kwargs):
         self.partial_update(request, *args, **kwargs)
-        prof_obj = ReferenceSerializer(Reference.objects.get(pk=pk))
+        prof_obj = ReferenceSerializer(Reference.objects.get(pk=pk)).data
         return Response(prof_obj)
 
 class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
