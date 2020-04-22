@@ -33,6 +33,8 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics, pagination
 from pro.utils import similar
+from .utils import favourite_job_counter, applied_job_counter
+
 
 class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
@@ -145,11 +147,12 @@ def job_list(request):
         if sorting == 'descending':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         elif sorting == 'top-rated':
-            fav_jobs = FavouriteJob.objects.all()
-            job_list = Job.objects.filter(fav_jobs__in = fav_jobs).annotate(favourite_count=Count('fav_jobs')
-                                          ).order_by('-favourite_count')
+            # fav_jobs = FavouriteJob.objects.all()
+            # job_list = Job.objects.filter(fav_jobs__in = fav_jobs).annotate(favourite_count=Count('fav_jobs')
+            #                               ).order_by('-favourite_count')
+            job_list = Job.objects.all().order_by('-favorite_count')
         else:
-            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
+            job_list = Job.objects.all().order_by('-applied_count')
         jobtype = JobType(name=NO_NAME)
         company = Company(name=NO_NAME)
         for i in job_list:
@@ -237,13 +240,30 @@ def job_list(request):
         if request.user != "AnonymousUser":
             for job in job_list:
                 try:
-                    favourite_job = FavouriteJob.objects.get(job=job)
+                    if request.user.is_authenticated:
+                        favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
+                    else:
+                        favourite_job = FavouriteJob.objects.get(job=job)
                 except FavouriteJob.DoesNotExist:
                     favourite_job = None
+
+                try:
+                    if request.user.is_authenticated:
+                        applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
+                    else:
+                        applied_job = ApplyOnline.objects.get(job=job)
+                except ApplyOnline.DoesNotExist:
+                    applied_job = None
+
                 if favourite_job is not None:
                     job.status = YES_TXT
                 else:
                     job.status = NO_TXT
+
+                if applied_job is not None:
+                    job.is_applied = YES_TXT
+                else:
+                    job.is_applied = NO_TXT
 
 
 
@@ -336,12 +356,17 @@ def favourite_job_add(request):
 
     if job_data:
         try:
+            job = Job.objects.get(job_id = job_data['job_id'])
+        except Job.DoesNotExist:
+            job = None
+        try:
             favourite_jobs = FavouriteJob.objects.filter(user = job_data['user_id'],job = job_data['job_id'])
         except FavouriteJob.DoesNotExist:
             favourite_jobs = None
         if not favourite_jobs:
             favourite_job = FavouriteJob(**job_data)
             favourite_job.save()
+            favourite_job_counter(job)
             data = {
                 'code': HTTP_200_OK,
                 "result": {
@@ -353,6 +378,7 @@ def favourite_job_add(request):
             }
         elif favourite_jobs:
             favourite_jobs.delete()
+            favourite_job_counter(job)
             data = {
                 'code': HTTP_200_OK,
                 "result": {
@@ -560,8 +586,13 @@ def apply_online_job_add(request):
                  'created_from': str(ip), 'modified_by': user,
                  'modified_from': str(ip)})
     # apply_online_job = ApplyOnline(**data)
+    # print('apply_online_job', apply_online_job)
     # apply_online_job.save()
     if job_data:
+        try:
+            job = Job.objects.get(job_id = job_data['job_id'])
+        except Job.DoesNotExist:
+            job = None
         try:
             apply_online_job = ApplyOnline.objects.filter(created_by = user, job = job)
         except ApplyOnline.DoesNotExist:
@@ -570,6 +601,7 @@ def apply_online_job_add(request):
             apply_online_job = ApplyOnline(**data)
 
             apply_online_job.save()
+            applied_job_counter(job)
             data = {
                 'code': HTTP_200_OK,
                 "result": {
