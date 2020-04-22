@@ -739,10 +739,13 @@ class SkillUpdateDelete(GenericAPIView, UpdateModelMixin):
     serializer_class = ProfessionalSkillSerializer
 
     def put(self, request,pk, *args, **kwargs):
-
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalSkillSerializer(ProfessionalSkill.objects.get(pk=pk)).data
-        prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=prof_obj['name'])).data
+        print(prof_obj)
+        if 'name_id' in request.data:
+            prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=request.data['name_id'])).data
+        else:
+            prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=prof_obj['name'])).data
         return Response(prof_obj)
 
 class WorkExperienceUpdateDelete(GenericAPIView, UpdateModelMixin):
