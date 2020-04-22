@@ -466,7 +466,7 @@ def similar_jobs(request,identifier):
         if similar(title, job.title)>.80:
             data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
                          'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
-                         'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
+                         'employment_status': str(job.employment_status), 'company_name': str(job.company_name),'slug':job.slug})
     for i in range(len(data)):
         if str(data[i]['job_id']) == identifier:
             del data[i]
