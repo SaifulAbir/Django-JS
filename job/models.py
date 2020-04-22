@@ -152,10 +152,10 @@ class Currency(models.Model):
 class Job(models.Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False,db_column='id')
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, null=True, blank=True)
+    slug = models.SlugField(max_length=255,unique=True,null=True, blank=True)
     industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,db_column='industry', related_name='industries')
     employment_status = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,db_column='employment_status')
-    job_location = models.CharField(max_length=255, blank=True,null=True)
+    job_location = models.CharField(max_length=50, blank=True,null=True)
     experience =  models.ForeignKey(Experience, on_delete=models.PROTECT,blank=True, null= True,db_column='experience')
     salary_min = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True)
     salary_max = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True)
@@ -169,7 +169,7 @@ class Job(models.Model):
     education = models.TextField(blank=True, null=True)
     salary = models.CharField(max_length=255, blank=True, null=True)
     other_benefits = models.TextField(max_length=255, blank=True, null=True)
-    company_name = models.ForeignKey(Company,on_delete=models.PROTECT, blank=True, null = True, db_column='company')
+    company_name = models.ForeignKey(Company,on_delete=models.PROTECT, db_column='company')
     division = models.ForeignKey(Division,on_delete=models.PROTECT, blank=True, null = True,db_column='division')
     district = models.ForeignKey(District,on_delete=models.PROTECT, blank=True, null = True, db_column='district')
     zipcode = models.CharField(max_length=255, blank=True, null = True)
@@ -179,6 +179,8 @@ class Job(models.Model):
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     raw_content = models.TextField(blank=True, null=True)
     web_address = models.CharField(max_length=255, blank=True, null = True)
+    favorite_count = models.PositiveIntegerField(default=0)
+    applied_count = models.PositiveIntegerField(default=0)
     terms_and_condition = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now())
     job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
@@ -262,3 +264,22 @@ class FavouriteJob(models.Model):
     def __str__(self):
         return self.job.title
 #Bookmark job Model ends here
+
+#Apply Online Model Starts here
+class ApplyOnline(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
+    created_by = models.ForeignKey(User, related_name='Apply_created_by', on_delete=models.PROTECT, db_column='created_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_from = models.CharField(max_length=255)
+    modified_by = models.ForeignKey(User, related_name='Apply_modified_by', on_delete=models.PROTECT, db_column='modified_by')
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_from = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = strings_job.APPLY_ONLINE_JOB_VERBOSE_NAME
+        verbose_name_plural = strings_job.APPLY_ONLINE_JOB_VERBOSE_NAME_PLURAL
+        db_table = 'apply_onlines'
+
+    def __str__(self):
+        return self.job.title
+#Apply Online Model ends here

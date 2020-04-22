@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'settings',
     'career_advice',
     'django_user_agents',
+     'rangefilter',
 ]
 
 MIDDLEWARE = [
@@ -192,6 +193,7 @@ EMAIL_HOST_PASSWORD = 'rashed016'
 EMAIL_USE_TLS = True
 SESSION_COOKIE_AGE = 6000
 SITE_URL = 'http://p7.ishraak.com'
+
 
 # GOOGLE_MAPS_API_KEY = 'AIzaSyCRDW0MU2nUZMZGryae1hb8oJEG6Cr_oLQ'
 GOOGLE_MAPS_API_KEY = 'AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE'

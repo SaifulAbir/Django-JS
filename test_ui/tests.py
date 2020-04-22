@@ -37,9 +37,9 @@ from .config import *
 
 class TestUI(unittest.TestCase):
 
-    def setUpClass():
-        print("Data Entry started ..")
-        TestUI.dataEntry()
+    # def setUpClass():
+    #     print("Data Entry started ..")
+    #     TestUI.dataEntry()
 
 
     def setUp(self):
@@ -403,7 +403,6 @@ class TestUI(unittest.TestCase):
     #         except Exception as ex:
     #
     #             print(ex)
-
 
     def testJobHome(self):
         login(self.driver, {'_email': 'tanvir@ishraak.com', '_password': '@dmin123#45678a', 'name': 'admin'})

@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.test import TestCase
 from job.models import Job, Company, JobType, Qualification, Gender, Experience, Industry, Currency, TrendingKeywords, \
-    Skill, FavouriteJob
+    Skill, FavouriteJob, ApplyOnline
 from location.models import Division, District
 from django.contrib.auth.models import User
 
@@ -281,6 +281,8 @@ class JobTest(TestCase):
         employment_status.save()
         self.employment_status = employment_status
 
+
+
     def test_when_everything_is_given_should_pass(self):
         job = Job(title='Software Engineer', industry=self.industry, employment_status=self.employment_status,
                   job_location='mirpur', experience=self.experience, salary_min=5000.00, salary_max=10000.00,
@@ -338,6 +340,14 @@ class JobTest(TestCase):
                   web_address="www.ishraak.com")
         with self.assertRaises(ValidationError):
             job.full_clean()
+
+    def test__when_slug_name_duplicate__should_raise_error(self):
+        slug = Job(slug='peace-maker-c57fe949')
+        slug1 = Job(slug='peace-maker-c57fe949')
+
+        with self.assertRaises(IntegrityError):
+            slug.save()
+            slug1.save()
 
     # def test_when_job_location_is_null_should_raise_error(self):
     #     s = Job(name='Software Engineer',experience='1', gender='Male')
@@ -563,6 +573,124 @@ class FavouriteJobTest(TestCase):
         with self.assertRaises(ValidationError):
             favouritejob.full_clean()
 
-
-
 #BOOKMARK_JOB_TEST#
+
+
+
+#APPLY_ONLINE_JOB_TEST#
+
+
+class ApplyOnlineTest(TestCase):
+
+    def setUp(self) :
+        division = Division(name='Dhaka')
+        division.save()
+        self.division = division
+
+        district = District(name='Dhaka', division=self.division)
+        district.save()
+        self.district = district
+
+        industry = Industry(name='Information Technology')
+        industry.save()
+        self.industry = industry
+
+        company = Company(name='Ishraak Solutions', web_address='www.ishraak.com', division=self.division,
+                          district=self.district)
+        company.save()
+        self.company = company
+
+        gender = Gender(name='Male')
+        gender.save()
+        self.gender = gender
+
+        experience = Experience(name='Part Time')
+        experience.save()
+        self.experience = experience
+
+        qualification = Qualification(name='Graduate')
+        qualification.save()
+        self.qualification = qualification
+
+        employment_status = JobType(name='Part Time')
+        employment_status.save()
+        self.employment_status = employment_status
+
+        job = Job(title='Software Engineer', industry=self.industry, employment_status=self.employment_status,
+                  job_location='mirpur', experience=self.experience, salary_min=5000.00, salary_max=10000.00,
+                  qualification=self.qualification, gender=self.gender, application_deadline='2020-03-29',
+                  descriptions='Test job', responsibilities='Web developer', education='Computer Science',
+                  other_benefits='Apple Watch', company_name=self.company, division=self.division,
+                  district=self.district,
+                  zipcode='Dhaka-1212', company_location='House 74, Road 4', latitude=3.00, longitude=4.00,
+                  web_address="www.ishraak.com")
+        job.save()
+        self.jb = job
+
+        created_by = User(username='Admin', password='123')
+        created_by.save()
+        self.c_usr = created_by
+
+
+        modified_by = User(username='Admin2', password='1234')
+        modified_by.save()
+        self.m_usr = modified_by
+
+
+
+    def test__when_everything_required_is_given__should_pass(self):
+        applyonline = ApplyOnline(job=self.jb, created_by=self.c_usr, created_from='127.0.0.1', modified_by=self.m_usr, modified_from='127.0.0.1')
+        try:
+            applyonline.full_clean()
+        except:
+            self.fail()
+
+    def test__when_job_is_blank__should__raise_error(self):
+        with self.assertRaises(ValueError):
+            applyonline = ApplyOnline(job='',created_by=self.c_usr, created_from='127.0.0.1', modified_by=self.m_usr, modified_from='127.0.0.1')
+
+    def test__when_job_is_null_should__raise_error(self):
+        applyonline = ApplyOnline(created_by=self.c_usr, created_from='127.0.0.1', modified_by=self.m_usr, modified_from='127.0.0.1')
+        with self.assertRaises(ValidationError):
+            applyonline.full_clean()
+
+    def test__when_created_by_is_blank_should__raise_error(self):
+        with self.assertRaises(ValueError):
+            applyonline = ApplyOnline(job=self.jb, created_by='', created_from='127.0.0.1', modified_by=self.m_usr, modified_from='127.0.0.1')
+
+    def test__when_created_by_is_null_should__raise_error(self):
+        applyonline = ApplyOnline(job=self.jb, created_from='127.0.0.1', modified_by=self.m_usr, modified_from='127.0.0.1')
+        with self.assertRaises(ValidationError):
+            applyonline.full_clean()
+
+    def test__when_created_from_is_blank_should__raise_error(self):
+        applyonline = ApplyOnline(job=self.jb, created_by=self.c_usr, created_from='', modified_by=self.m_usr, modified_from='127.0.0.1')
+        with self.assertRaises(ValidationError):
+            applyonline.full_clean()
+
+    def test__when_created_from_is_null_should__raise_error(self):
+        applyonline = ApplyOnline(job=self.jb, created_by=self.c_usr, modified_by=self.m_usr, modified_from='127.0.0.1')
+        with self.assertRaises(ValidationError):
+            applyonline.full_clean()
+
+    def test__when_modified_by_is_blank_should__raise_error(self):
+        with self.assertRaises(ValueError):
+            applyonline = ApplyOnline(job=self.jb, created_by=self.c_usr, created_from='127.0.0.1', modified_by='', modified_from='127.0.0.1')
+
+    def test__when_modified_by_is_null_should__raise_error(self):
+        applyonline = ApplyOnline(job=self.jb, created_by=self.c_usr, created_from='127.0.0.1', modified_from='127.0.0.1')
+        with self.assertRaises(ValidationError):
+            applyonline.full_clean()
+
+    def test__when_modified_from_is_blank_should__raise_error(self):
+        applyonline = ApplyOnline(job=self.jb, created_by=self.c_usr, created_from='127.0.0.1', modified_by=self.m_usr, modified_from='')
+        with self.assertRaises(ValidationError):
+            applyonline.full_clean()
+
+    def test__when_modified_from_is_null_should__raise_error(self):
+        applyonline = ApplyOnline(job=self.jb, created_by=self.c_usr, created_from='127.0.0.1', modified_by=self.m_usr)
+        with self.assertRaises(ValidationError):
+            applyonline.full_clean()
+
+
+#APPLY_ONLINE_JOB_TEST#
