@@ -78,22 +78,10 @@ class JobObject(APIView):
                 data['longitude'] = str(ob.longitude)
             if ob.address:
                 data['company_location'] = ob.address
-            else:
-                data['company_location'] = NO_LOCATION
 
 
         else:
             data['profile_picture'] = '/static/images/job/company-logo-2.png'
-        if data['company_name'] is None:
-            data['company_name'] = NO_NAME
-
-        if data['job_location'] is None:
-            data['job_location'] = NO_LOCATION
-
-        if data['company_location'] is None:
-            data['company_location'] = NO_LOCATION
-        if data['employment_status'] is None:
-            data['employment_status'] = NO_NAME
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
         for skill in job.job_skills.all():
@@ -137,15 +125,7 @@ def job_list(request):
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         else:
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
-        jobtype = JobType(name=NO_NAME)
-        company = Company(name=NO_NAME)
-        for i in job_list:
-            if i.job_location is None:
-                i.job_location = NO_LOCATION
-            if i.company_name is None:
-                i.company_name = company
-            if i.employment_status is None:
-                 i.employment_status = jobtype
+
         if query:
             job_list = job_list.filter(
                 Q(title__icontains=query)
@@ -251,9 +231,6 @@ def job_list(request):
         'code': HTTP_200_OK,
         "results":  job_list.data,
     }
-
-    print(data)
-
 
     return Response(data, HTTP_200_OK)
 
@@ -440,8 +417,6 @@ def recent_jobs(request):
                 job.profile_picture = '/static/images/job/company-logo-2.png'
         except Company.DoesNotExist:
             job.profile_picture = '/static/images/job/company-logo-2.png'
-        if job.job_location is None:
-            job.job_location = NO_LOCATION
         data.append({'job_id':job.job_id, 'slug':job.slug, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(company)})
 
     return JsonResponse(list(data), safe=False)
@@ -501,10 +476,6 @@ def similar_jobs(request,identifier):
         if str(data[i]['job_id']) == identifier:
             del data[i]
             break
-    for i in range(len(data)):
-        if data[i]['job_location'] is None:
-            data[i]['job_location'] = NO_LOCATION
-    print(data)
     return JsonResponse(list(data), safe=False)
 
 
