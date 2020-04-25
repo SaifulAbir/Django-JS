@@ -31,9 +31,10 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import AUTH_HEADER_TYPES
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
+from job.serializers import SkillSerializer
 from p7.permissions import IsAppAuthenticated
 from p7.settings_dev import SITE_URL
-from pro.models import Professional
+from pro.models import Professional, Religion, Nationality
 from pro.models import Professional, ProfessionalEducation, ProfessionalSkill, WorkExperience, Portfolio, Membership, \
     Certification, Reference
 from django.core.mail import EmailMultiAlternatives
@@ -43,7 +44,7 @@ from django.urls import reverse
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
-from pro.serializers import CustomTokenSerializer, TokenObtainCustomPairSerializer, ProfessionalEducationSerializer
+from pro.serializers import *
 from pro.serializers import ProfessionalSerializer
 from resources.strings_pro import *
 from rest_framework.status import (
@@ -211,20 +212,22 @@ class ProfessionalDetail(APIView):
         reference = Reference.objects.filter(professional=pk, is_archived=False)
 
         info_data = ProfessionalSerializer(profile).data
+        info_data['religion_obj'] = ReligionSerializer(profile.religion).data
+        info_data['nationality_obj'] = NationalitySerializer(profile.nationality).data
         edu_data = [{
             'education_id': edu.id,
             'qualification': edu.qualification_id,
-            'institution': edu.institution_id,
+            'institution_obj': InstituteNameSerializer(edu.institution).data,
             'cgpa': edu.cgpa,
-            'major': edu.major_id,
+            'major':MajorSerializer(edu.major).data,
             'enrolled_date': edu.enrolled_date,
             'graduation_date': edu.graduation_date,
         } for edu in education
         ]
 
         skill_data = [{
-            'prof_skill_id':skill.id,
-            'skill': str(skill.name),
+            'id':skill.id,
+            'skill_obj': SkillSerializer(skill.name).data,
             'rating': skill.rating,
             'verified_by_skillcheck': skill.verified_by_skillcheck,
         } for skill in skills
@@ -248,7 +251,7 @@ class ProfessionalDetail(APIView):
 
         membership_data = [{
             'membership_id':ms.id,
-            'org_name': ms.org_name_id,
+            'organization_obj':OrganizationNameSerializer(ms.org_name).data,
             'position_held': ms.position_held,
             'membership_ongoing': ms.membership_ongoing,
             'Start_date': ms.Start_date,
@@ -259,8 +262,8 @@ class ProfessionalDetail(APIView):
 
         certification_data = [{
             'certification_id': cert.id,
-            'certification_name': cert.certification_name_id,
-            'organization_name': cert.organization_name_id,
+            'certificate_name': CertificateNameSerializer(cert.certification_name).data,
+            'organization': OrganizationNameSerializer(cert.organization_name).data,
             'has_expiry_period': cert.has_expiry_period,
             'issue_date': cert.issue_date,
             'expiry_date': cert.expiry_date,
@@ -270,7 +273,7 @@ class ProfessionalDetail(APIView):
         ]
 
         reference_data = [{
-            'reference_id':ref.id,
+            'id':ref.id,
             'name': ref.name,
             'current_position': ref.current_position,
             'email': ref.email,
@@ -301,27 +304,58 @@ class ProfessionalDetail(APIView):
 #
 #     return Response(HTTP_200_OK)
 
-class ProfessionalEducationSave(generics.ListCreateAPIView):
-    queryset = ProfessionalEducation.objects.all()
-    serializer_class = ProfessionalEducationSerializer
+
+class ReligionList(generics.ListCreateAPIView):
+    queryset = Religion.objects.all()
+    serializer_class = ReligionSerializer
+
+class NationalityList(generics.ListCreateAPIView):
+    queryset = Nationality.objects.all()
+    serializer_class = NationalitySerializer
+
+class InstituteList(generics.ListCreateAPIView):
+    queryset = Institute.objects.all()
+    serializer_class = InstituteNameSerializer
+
+class OrganizationList(generics.ListCreateAPIView):
+    queryset = Organization.objects.all()
+    serializer_class = OrganizationNameSerializer
+
+class MajorList(generics.ListCreateAPIView):
+    queryset = Major.objects.all()
+    serializer_class = MajorSerializer
+
+class CertificateNameList(generics.ListCreateAPIView):
+    queryset = CertificateName.objects.all()
+    serializer_class = CertificateNameSerializer
+
+
+@api_view(["POST"])
+def professional_education_save(request):
+    data = json.loads(request.body)
+    key_obj = ProfessionalEducation(**data)
+    key_obj.save()
+    data['institution_obj'] = InstituteNameSerializer(Institute.objects.get(pk=data['institution_id'])).data
+    data['major_obj'] = MajorSerializer(Major.objects.get(pk=data['major_id'])).data
+    data['education_id'] = key_obj.id
+    return Response(data)
 
 @api_view(["POST"])
 def professional_skill_save(request):
     data = json.loads(request.body)
-
     key_obj = ProfessionalSkill(**data)
     key_obj.save()
-
-    return Response(HTTP_200_OK)
+    data['skill_obj']= SkillSerializer(Skill.objects.get(pk=data['name_id'])).data
+    data['prof_skill_id'] = key_obj.id
+    return Response(data)
 
 @api_view(["POST"])
 def professional_workexperience_save(request):
     data = json.loads(request.body)
-
     key_obj = WorkExperience(**data)
     key_obj.save()
 
-    return Response(HTTP_200_OK)
+    return Response(data)
 
 @api_view(["POST"])
 def professional_portfolio_save(request):
@@ -330,16 +364,17 @@ def professional_portfolio_save(request):
     key_obj = Portfolio(**data)
     key_obj.save()
 
-    return Response(HTTP_200_OK)
+    return Response(data)
 
 @api_view(["POST"])
 def professional_membership_save(request):
     data = json.loads(request.body)
-
     key_obj = Membership(**data)
     key_obj.save()
-
-    return Response(HTTP_200_OK)
+    data['organizaion_obj'] = OrganizationNameSerializer(
+        Organization.objects.get(pk=data['organization_id'])).data
+    data['membership_id'] = key_obj.id
+    return Response(data)
 
 @api_view(["POST"])
 def professional_certification_save(request):
@@ -348,7 +383,7 @@ def professional_certification_save(request):
     key_obj = Certification(**data)
     key_obj.save()
 
-    return Response(HTTP_200_OK)
+    return Response(data)
 
 @api_view(["POST"])
 def professional_reference_save(request):
@@ -356,8 +391,8 @@ def professional_reference_save(request):
 
     key_obj = Reference(**data)
     key_obj.save()
-
-    return Response(HTTP_200_OK)
+    data['reference_id'] = key_obj.id
+    return Response(data)
 
 
 
@@ -370,18 +405,18 @@ class ProfessionalUpdateView(APIView):
             raise Http404
     def put(self, request, pk, format=None):
         profile = self.get_object(pk)
-
         # image uploading code start here
-        img_base64 = request.data['image']
-        if img_base64:
-            format, imgstr = img_base64.split(';base64,')
-            ext = format.split('/')[-1]
-            filename = str(uuid.uuid4()) + '-professional.' + ext
-            data = ContentFile(base64.b64decode(imgstr), name=filename)
-            fs = FileSystemStorage()
-            filename = fs.save(filename, data)
-            uploaded_file_url = fs.url(filename)
-            request.data['image'] = uploaded_file_url
+        if 'image' in request.data:
+            img_base64 = request.data['image']
+            if img_base64:
+                format, imgstr = img_base64.split(';base64,')
+                ext = format.split('/')[-1]
+                filename = str(uuid.uuid4()) + '-professional.' + ext
+                data = ContentFile(base64.b64decode(imgstr), name=filename)
+                fs = FileSystemStorage()
+                filename = fs.save(filename, data)
+                uploaded_file_url = fs.url(filename)
+                request.data['image'] = uploaded_file_url
         # end of image uploading code
 
         serializer = ProfessionalSerializer(profile, data=request.data)
@@ -654,8 +689,99 @@ class ProfessionalUpdatePartial(GenericAPIView, UpdateModelMixin):
     queryset = Professional.objects.all()
     serializer_class = ProfessionalSerializer
 
+    def put(self,request,pk, *args, **kwargs,):
+        if 'image' in request.data:
+            img_base64 = request.data['image']
+            if img_base64:
+
+                format, imgstr = img_base64.split(';base64,')
+                ext = format.split('/')[-1]
+                filename = str(uuid.uuid4()) + '-professional.' + ext
+                data = ContentFile(base64.b64decode(imgstr), name=filename)
+                fs = FileSystemStorage()
+                filename = fs.save(filename, data)
+                uploaded_file_url = fs.url(filename)
+                request.data['image'] = uploaded_file_url
+        self.partial_update(request, *args, **kwargs)
+        prof_obj = ProfessionalSerializer(Professional.objects.get(pk=pk)).data
+        prof_obj['religion_obj'] = ReligionSerializer(Religion.objects.get(pk = prof_obj['religion'])).data
+        prof_obj['nationality_obj'] = NationalitySerializer(Nationality.objects.get(pk = prof_obj['nationality'])).data
+        # if 'religion_obj' in request.data:
+        #     prof_obj['religion_obj'] = ReligionSerializer(
+        #         Religion.objects.get(pk=request.data['religion'])).data
+        # if 'nationality_obj' in request.data:
+        #     prof_obj['nationality_obj'] = NationalitySerializer(Nationality.objects.get(pk=request.data['nationality'])).data
+        return Response(prof_obj)
+
+class ReferenceUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = Reference.objects.all()
+    serializer_class = ReferenceSerializer
+
+    def put(self, request,pk, *args, **kwargs):
+        self.partial_update(request, *args, **kwargs)
+        prof_obj = ReferenceSerializer(Reference.objects.get(pk=pk)).data
+        return Response(prof_obj)
+
+class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = ProfessionalEducation.objects.all()
+    serializer_class = ProfessionalEducationSerializer
+
+    def put(self, request,pk, *args, **kwargs):
+        self.partial_update(request, *args, **kwargs)
+        request.data['institution_obj'] = InstituteNameSerializer(Institute.objects.get(pk=request.data['institution_id'])).data
+        request.data['major_obj'] = MajorSerializer(Major.objects.get(pk=request.data['major.id'])).data
+        prof_obj = ProfessionalEducation.objects.get(pk=pk)
+        request.data['education_id'] = prof_obj.id
+        return Response(request.data)
+
+class SkillUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = ProfessionalSkill.objects.all()
+    serializer_class = ProfessionalSkillSerializer
+
+    def put(self, request,pk, *args, **kwargs):
+        self.partial_update(request, *args, **kwargs)
+        prof_obj = ProfessionalSkillSerializer(ProfessionalSkill.objects.get(pk=pk)).data
+        print(prof_obj)
+        if 'name_id' in request.data:
+            prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=request.data['name_id'])).data
+        else:
+            prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=prof_obj['name'])).data
+        return Response(prof_obj)
+
+class WorkExperienceUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = WorkExperience.objects.all()
+    serializer_class = WorkExperienceSerializer
+
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+
+class PortfolioUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = Portfolio.objects.all()
+    serializer_class = PortfolioSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+class MembershipUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = Membership.objects.all()
+    serializer_class = MembershipSerializer
+
+    def put(self, request,pk, *args, **kwargs):
+        self.partial_update(request, *args, **kwargs)
+        if 'organization_id' in request.data:
+            request.data['organizaion_obj'] = OrganizationNameSerializer(
+                Organization.objects.get(pk=request.data['organization_id'])).data
+            prof_obj = Membership.objects.get(pk=pk)
+            request.data['membership_id'] = prof_obj.id
+        return Response(request.data)
+
+class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
+    queryset = Certification.objects.all()
+    serializer_class = CertificationSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
 
 # @api_view(["GET"])
 # def professional_info(request,pk):

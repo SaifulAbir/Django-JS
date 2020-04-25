@@ -87,6 +87,9 @@ class Professional(models.Model):
     nationality = models.ForeignKey(Nationality,on_delete=models.PROTECT, null=True, blank=True)
     religion = models.ForeignKey(Religion,on_delete=models.PROTECT, null=True, blank=True)
     permanent_address = models.CharField(max_length=255, null=True, blank=True)
+    current_location = models.CharField(max_length=255, null=True, blank=True)
+
+
 
 
 
@@ -107,10 +110,12 @@ class Professional(models.Model):
 
 class ProfessionalEducation(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT)
+    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT) # name = degree
     institution = models.ForeignKey(Institute, on_delete=models.PROTECT, null=True, blank=True)
+    # new_institution = models.CharField(max_length=255,blank=True, null=True)
     cgpa = models.CharField(max_length=255, blank=True, null=True)
     major = models.ForeignKey(Major, on_delete=models.PROTECT, null=True, blank=True)
+    # new_major = models.CharField(max_length=255,blank=True, null=True)
     enrolled_date = models.DateField(null=True, blank=True)
     graduation_date = models.DateField(null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
@@ -136,7 +141,8 @@ class ProfessionalSkill(models.Model):
 
 class WorkExperience(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    company = models.ForeignKey(Company, on_delete=models.PROTECT)
+    company = models.ForeignKey(Company, on_delete=models.PROTECT )
+    # new_company = models.CharField(max_length=255)
     designation = models.CharField(max_length=255, blank=True, null=True)
     Started_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
@@ -164,6 +170,7 @@ class Portfolio(models.Model):
 class Membership(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
     org_name = models.ForeignKey(Organization,on_delete=models.PROTECT)
+    # new_organization = models.CharField(max_length=255,blank=True, null=True)
     position_held = models.CharField(max_length=255, blank=True, null=True)
     membership_ongoing = models.BooleanField(default=False)
     Start_date = models.DateField(null=True, blank=True)
@@ -188,7 +195,9 @@ class CertificateName(models.Model):
 class Certification(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
     certification_name = models.ForeignKey(CertificateName,on_delete=models.PROTECT)
+    # new_certificate_name = models.CharField(max_length=255)
     organization_name = models.ForeignKey(Organization,on_delete=models.PROTECT)
+    # new_organization = models.CharField(max_length=255,blank=True, null=True)
     has_expiry_period = models.BooleanField(default=True)
     issue_date = models.DateField(null=True, blank=True)
     expiry_date = models.DateField(null=True, blank=True)
