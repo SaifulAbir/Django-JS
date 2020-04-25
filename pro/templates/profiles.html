@@ -368,12 +368,18 @@
                                                     </select>
                                 </div>
                               </div>
-<!--                              <div class="form-group row">-->
-<!--                                <label class="col-sm-3 col-form-label">Salary Range</label>-->
-<!--                                <div class="col-sm-9">-->
-<!--                                  <input type="text" class="form-control"  placeholder="30k - 40k">-->
-<!--                                </div>-->
-<!--                              </div>-->
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Salary Range</label>
+                                <div class="col-sm-9">
+                                  <input type="text" name="expected_salary_min" id="expected_salary_min" class="form-control"  placeholder="30">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Salary Range</label>
+                                <div class="col-sm-9">
+                                  <input type="text" class="form-control" name="expected_salary_max" id="expected_salary_max" placeholder="40">
+                                </div>
+                              </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Gender</label>
                                 <div class="col-sm-9">
@@ -1135,17 +1141,17 @@
                   </div>
                 </div>
                 <div class="personal-information dashboard-section last-child details-section">
-                  <h4><i data-feather="user-plus"></i>Personal Deatils</h4>
-                  <ul>
-                    <li><span>Full Name:</span> Micheal N. Taylor</li>
-                    <li><span>Father's Name:</span> Howard Armour</li>
-                    <li><span>Mother's Name:</span> Megan Higbee</li>
-                    <li><span>Date of Birth:</span> 22/08/1992</li>
-                    <li><span>Nationality:</span> American </li>
-                    <li><span>Sex:</span> Male</li>
-                    <li><span>Address:</span> 2018 Nelm Street, Beltsville, VA 20705</li>
-                  </ul>
-                  <!-- Button trigger modal -->
+<!--                  <h4><i data-feather="user-plus"></i>Personal Deatils</h4>-->
+<!--                  <ul>-->
+<!--                    <li><span>Full Name:</span> Micheal N. Taylor</li>-->
+<!--                    <li><span>Father's Name:</span> Howard Armour</li>-->
+<!--                    <li><span>Mother's Name:</span> Megan Higbee</li>-->
+<!--                    <li><span>Date of Birth:</span> 22/08/1992</li>-->
+<!--                    <li><span>Nationality:</span> American </li>-->
+<!--                    <li><span>Sex:</span> Male</li>-->
+<!--                    <li><span>Address:</span> 2018 Nelm Street, Beltsville, VA 20705</li>-->
+<!--                  </ul>-->
+                   Button trigger modal
                   <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-personal-details">
                     <i data-feather="edit-2"></i>
                   </button>
@@ -1158,53 +1164,55 @@
                             <h4><i data-feather="user-plus"></i>Personal Details</h4>
                           </div>
                           <div class="content">
-                            <form action="#">
+                            <form action="" class="job-post-form ajax" method="PUT" id="details-update-form">
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Full Name</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="Micheal N. Taylor">
+                                  <input type="text" name="full_name" id="full_name" class="form-control"  placeholder="Micheal N. Taylor">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Father’s Name</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="Howard Armour">
+                                  <input type="text" name="father_name" id="father_name" class="form-control"  placeholder="Howard Armour">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Mother’s Name</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="Megan Higbee">
+                                  <input type="text" name="mother_name" id="mother_name" class="form-control"  placeholder="Megan Higbee">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Date Of Birth</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="22/08/1992">
+                                  <input type="text" name="date_of_birth" id="date_of_birth" class="form-control"  placeholder="22/08/1992">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Nationality</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="American">
+                                  <input type="text" id="nationality" name="nationality" class="form-control"  placeholder="American">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Gender</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="Male">
+<!--                                  <input type="text" id="gender_id" name="gender" class="form-control"  placeholder="Male">-->
+                                    <select class="form-control" name="gender" id="gender_id" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender">
+                                                    </select>
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Age</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="25 Years">
+                                  <input type="text"  class="form-control"  placeholder="25 Years">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Address</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control"  placeholder="2018 Nelm Street, Beltsville, VA 20705">
+                                  <input type="text" class="form-control" name="permanent_address" id="permanent_address"  placeholder="2018 Nelm Street, Beltsville, VA 20705">
                                 </div>
                               </div>
                               <div class="row">
@@ -1311,6 +1319,7 @@
             var getUrl = '/api/professional/profile/'+ id + '/';
             get(getUrl,loadsocial);
             get(getUrl,loadabout);
+            get(getUrl,loadPersonalDetails);
             var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
             $('form.ajax').attr('action',postUrl);
             initAjaxForms();
@@ -1330,7 +1339,6 @@
 
        });
          function  loadabout(data){
-           console.log(data);
            about_me= data.personal_info.about_me;
            industry= data.personal_info.industry_expertise;
            status= data.personal_info.status;
@@ -1353,12 +1361,13 @@
                       '</ul>';
 
            $(".information").append(info_html);
-
-
         }
        $("#info-update-form").submit(function(e){
           window.location.reload();
-
        });
+          function  loadPersonalDetails(data){
+          console.log(data);
+        }
+
     </script>
 {% endblock %}
