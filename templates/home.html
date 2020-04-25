@@ -305,7 +305,7 @@
 
         function loadSkills(data) {
             for(index=0;index<data.length;index++){
-                $('#skill-list').append('<li><a href="#">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
+                $('#skill-list').append('<li><a href="jobs/?top-skill='+ data[index].id +'">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
             }
         }
 
