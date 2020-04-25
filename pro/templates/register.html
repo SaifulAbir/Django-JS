@@ -180,6 +180,9 @@
         if(data.responseJSON.code == 200){
             {#var id = data.responseJSON.result.user.professional;#}
             $("#sign-up").toggle();
+            $(".form-header").html('<h5><i data-feather="edit"></i>Email is sent with confirmation link.</h5>');
+            $(".shortcut-login").toggle();
+            $(".access-page-bg").removeClass("padding-bottom-90 padding-top-90").addClass("padding-top-180 padding-bottom-180");
             showSuccess("Sign Up Successful!", "A verification code was sent to your email")
 
         }
