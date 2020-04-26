@@ -87,7 +87,6 @@ function initAjaxForms() {
             var url = $(this).prop('action');
             var formId = $(this).attr("id");
             var data = form2Json(formId);
-            console.log(data);
             // Image uploading code start here
             var imagesrc = $(".image").attr('src');
             if (imagesrc){
@@ -143,7 +142,6 @@ function json2Div(data, container){
     for(key in data) {
         // var el = $("#" + id).find("[name='"+ key +"']");
         var el = $(container).find("[id='" + key + "']");
-        console.log(el)
         el.html(data[key]);
     }
 }

@@ -288,7 +288,7 @@
                             <div class="row">
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="buttons">
-                                  <button class="primary-bg">Save Update</button>
+                                  <button class="primary-bg social-network-update">Save Update</button>
                                   <button class="" data-dismiss="modal">Cancel</button>
                                 </div>
                               </div>
@@ -1332,12 +1332,24 @@
     get(staticUrl,loadstatic);
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
-    var facebook_url = $("#facebbok_id").val();
-    var twitter_url = $("#twitter_id").val();
-    var lindedit_url = $("#linkedin_id").val();
 
 
 
+    // If social URL is emtpy then add space in value for skipping database data saving problem
+    $(".social-network-update").click(function(){
+      var facebook_url = $("#facebbok_id").val();
+      var twitter_url = $("#twitter_id").val();
+      var linkedin_url = $("#linkedin_id").val();
+      if (!facebook_url){
+        $("#facebbok_id").val(' ');
+      }
+      if (!twitter_url){
+        $("#twitter_id").val(' ');
+      }
+      if (!linkedin_url){
+        $("#linkedin_id").val(' ');
+      }
+    });
 
 
 
