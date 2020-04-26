@@ -144,7 +144,7 @@ class ProfessionalEducation(models.Model):
 class ProfessionalSkill(models.Model):
     professional = models.ForeignKey(Professional, on_delete=models.PROTECT)
     skill_name = models.ForeignKey(Skill, on_delete=models.PROTECT)
-    rating = models.IntegerField(default=0)
+    rating = models.DecimalField(default=0, decimal_places=2,max_digits=4)
     verified_by_skillcheck = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(default=timezone.now)

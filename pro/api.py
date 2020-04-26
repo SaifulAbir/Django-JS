@@ -216,8 +216,9 @@ class ProfessionalDetail(APIView):
         info_data['nationality_obj'] = NationalitySerializer(profile.nationality).data
         edu_data = [{
             'education_id': edu.id,
-            'qualification': edu.qualification_id,
+            'degree': edu.degree_id,
             'institution_obj': InstituteNameSerializer(edu.institution).data,
+            'institution_text': edu.institution_text,
             'cgpa': edu.cgpa,
             'major':MajorSerializer(edu.major).data,
             'enrolled_date': edu.enrolled_date,
@@ -227,13 +228,14 @@ class ProfessionalDetail(APIView):
 
         skill_data = [{
             'id':skill.id,
-            'skill_obj': SkillSerializer(skill.name).data,
+            'skill_obj': SkillSerializer(skill.skill_name).data,
             'rating': skill.rating,
             'verified_by_skillcheck': skill.verified_by_skillcheck,
         } for skill in skills
         ]
         experience_data = [{
             'experience_id': exp.id,
+            'company_text':exp.company_text,
             'company': exp.company_id,
             'designation': exp.designation,
             'Started_date': exp.Started_date,
@@ -251,7 +253,7 @@ class ProfessionalDetail(APIView):
 
         membership_data = [{
             'membership_id':ms.id,
-            'organization_obj':OrganizationNameSerializer(ms.org_name).data,
+            'organization': ms.organization,
             'position_held': ms.position_held,
             'membership_ongoing': ms.membership_ongoing,
             'Start_date': ms.Start_date,
@@ -262,8 +264,8 @@ class ProfessionalDetail(APIView):
 
         certification_data = [{
             'certification_id': cert.id,
-            'certificate_name': CertificateNameSerializer(cert.certification_name).data,
-            'organization': OrganizationNameSerializer(cert.organization_name).data,
+            'certificate_name': cert.certificate_name,
+            'organization': cert.organization,
             'has_expiry_period': cert.has_expiry_period,
             'issue_date': cert.issue_date,
             'expiry_date': cert.expiry_date,
@@ -274,10 +276,7 @@ class ProfessionalDetail(APIView):
 
         reference_data = [{
             'id':ref.id,
-            'name': ref.name,
-            'current_position': ref.current_position,
-            'email': ref.email,
-            'mobile': ref.mobile,
+            'description':ref.decription
         } for ref in reference
         ]
 
