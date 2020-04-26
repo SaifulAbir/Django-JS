@@ -169,7 +169,7 @@
 <!--                              <a href="#" class="add-more">+ Add Social</a>-->
                             </div>
                             <div class="content">
-                              <form action="" class="job-post-form ajax" method="PUT" id="job-update-form" >
+                              <form action="" class="job-post-form ajax" method="PUT" id="social-update-form" >
 
                                 <div class="form-group row">
                                   <label class="col-sm-3 col-form-label">Social Links</label>
@@ -1176,25 +1176,25 @@
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Full Name</label>
                                 <div class="col-sm-9">
-                                  <input type="text" name="full_name" id="full_name" class="form-control"  placeholder="Micheal N. Taylor">
+                                  <input type="text" name="full_name" id="full_name" class="form-control"  placeholder="Micheal N. Taylor" value="">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Father’s Name</label>
                                 <div class="col-sm-9">
-                                  <input type="text" name="father_name" id="father_name" class="form-control"  placeholder="Howard Armour">
+                                  <input type="text" name="father_name" id="father_name" class="form-control"  placeholder="Howard Armour" value="">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Mother’s Name</label>
                                 <div class="col-sm-9">
-                                  <input type="text" name="mother_name" id="mother_name" class="form-control"  placeholder="Megan Higbee">
+                                  <input type="text" name="mother_name" id="mother_name" class="form-control"  placeholder="Megan Higbee" value="">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Date Of Birth</label>
                                 <div class="col-sm-9">
-                                  <input type="text" name="date_of_birth" id="date_of_birth" class="form-control"  placeholder="YYYY/MM/DD">
+                                  <input type="text" name="date_of_birth" id="date_of_birth" class="form-control"  placeholder="YYYY/MM/DD" value="">
                                 </div>
                               </div>
 <!--                              <div class="form-group row">-->
@@ -1209,7 +1209,7 @@
                                 <label class="col-sm-3 col-form-label">Gender</label>
                                 <div class="col-sm-9">
 <!--                                  <input type="text" id="gender_id" name="gender" class="form-control"  placeholder="Male">-->
-                                    <select class="form-control" name="gender" id="gender_id" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender">
+                                    <select class="form-control" name="gender" id="gender_id" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender" value="">
                                                     </select>
                                 </div>
                               </div>
@@ -1222,7 +1222,7 @@
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Address</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control" name="permanent_address" id="permanent_address"  placeholder="2018 Nelm Street, Beltsville, VA 20705">
+                                  <input type="text" class="form-control" name="permanent_address" id="permanent_address"  placeholder="2018 Nelm Street, Beltsville, VA 20705" value="">
                                 </div>
                               </div>
                               <div class="row">
@@ -1347,7 +1347,7 @@
           $('#twitter_id').val(data.personal_info.linkedin_id);
         }
 
-       $("#job-update-form").submit(function(e){
+       $("#social-update-form").submit(function(e){
           window.location.reload();
 
        });
@@ -1407,6 +1407,18 @@
                       '</ul>';
 
            $(".information").append(info_html);
+           $('#about_me').val(data.personal_info.about_me);
+           $('#industry_expertise').val(data.personal_info.industry_expertise);
+           $('#address').val(data.personal_info.address);
+           $('#experience').val(data.personal_info.experience);
+           $('#experience').val(data.personal_info.experience);
+           $('#expected_salary_min').val(data.personal_info.expected_salary_min);
+           $('#expected_salary_max').val(data.personal_info.expected_salary_max);
+           $('#gender').val(data.personal_info.gender);
+           $('#gender').val(data.personal_info.gender);
+           $('#qualification').val(data.personal_info.qualification);
+
+
 
 
 
