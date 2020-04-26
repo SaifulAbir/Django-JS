@@ -34,4 +34,5 @@ urlpatterns = [
     path('professional_reference_save/', professional_reference_save),
     # path('professional_info/<str:pk>/', professional_info),
     path('myprofile/<str:pk>/', TemplateView.as_view(template_name='profiles.html'),name='profile'),
+    path('static_urls/', StaticUrl),
 ]

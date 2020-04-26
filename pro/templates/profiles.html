@@ -177,8 +177,10 @@
                                     <div class="input-group">
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-facebook-f"></i></div>
+                                        <label class="input-group" id="fb"></label>
                                       </div>
-                                      <input type="url" id="facebbok_id" name="facebbok_id"  class="form-control"  placeholder="http://facebook.com/username" data-msg-url="Please enter a valid url">
+
+                                      <input type="text" id="facebbok_id" name="facebbok_id"  class="form-control"   value="">
                                     </div>
                                   </div>
                                 </div>
@@ -187,8 +189,10 @@
                                     <div class="input-group">
                                       <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fab fa-twitter"></i></div>
+                                        <label class="input-group" id="tw">Twitter.com/</label>
                                       </div>
-                                      <input type="url" id="twitter_id" name="twitter_id" class="form-control"  placeholder="http://twitter.com/username" data-msg-url="Please enter a valid url">
+
+                                      <input type="text" id="twitter_id" name="twitter_id" class="form-control"  value="">
                                     </div>
                                   </div>
                                 </div>
@@ -206,9 +210,11 @@
                                   <div class="offset-sm-3 col-sm-9">
                                     <div class="input-group">
                                       <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fab fa-linkedin-in"></i></div>
+                                            <div class="input-group-text"><i class="fab fa-linkedin-in"></i></div>
+                                            <label class="input-group" id="ln">/</label>
                                       </div>
-                                      <input type="url" id="linkedin_id" name="linkedin_id" class="form-control"  placeholder="http://linkedin.com/username" data-msg-url="Please enter a valid url">
+
+                                      <input type="text" id="linkedin_id" name="linkedin_id" class="form-control" value="">
                                     </div>
                                   </div>
                                 </div>
@@ -334,7 +340,7 @@
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Write Yourself</label>
                                 <div class="col-sm-9">
-                                  <textarea class="form-control" id="about_me" name="about_me" placeholder="Write Yourself"></textarea>
+                                  <textarea class="form-control" id="about_me" name="about_me" placeholder="Write Yourself" value=""></textarea>
                                 </div>
                               </div>
                               <h4><i data-feather="align-left"></i>Information</h4>
@@ -342,7 +348,7 @@
                                 <label class="col-sm-3 col-form-label">Category</label>
                                 <div class="col-sm-9">
 <!--                                  <input type="text" class="form-control"  placeholder="Design &amp; Creative">-->
-                                  <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name" data-placeholder="Select Category" data-src="/api/industry">
+                                  <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name" data-placeholder="Select Category" data-src="/api/industry" value="">
                                                     </select>
                                 </div>
                               </div>
@@ -1141,7 +1147,8 @@
                   </div>
                 </div>
                 <div class="personal-information dashboard-section last-child details-section">
-<!--                  <h4><i data-feather="user-plus"></i>Personal Deatils</h4>-->
+                  <h4><i data-feather="user-plus"></i>Personal Deatils</h4>
+                  <div class="details">
 <!--                  <ul>-->
 <!--                    <li><span>Full Name:</span> Micheal N. Taylor</li>-->
 <!--                    <li><span>Father's Name:</span> Howard Armour</li>-->
@@ -1151,7 +1158,8 @@
 <!--                    <li><span>Sex:</span> Male</li>-->
 <!--                    <li><span>Address:</span> 2018 Nelm Street, Beltsville, VA 20705</li>-->
 <!--                  </ul>-->
-                   Button trigger modal
+                  </div>
+                   <!--Button trigger modal -->
                   <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-personal-details">
                     <i data-feather="edit-2"></i>
                   </button>
@@ -1186,15 +1194,17 @@
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Date Of Birth</label>
                                 <div class="col-sm-9">
-                                  <input type="text" name="date_of_birth" id="date_of_birth" class="form-control"  placeholder="22/08/1992">
+                                  <input type="text" name="date_of_birth" id="date_of_birth" class="form-control"  placeholder="YYYY/MM/DD">
                                 </div>
                               </div>
-                              <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Nationality</label>
-                                <div class="col-sm-9">
-                                  <input type="text" id="nationality" name="nationality" class="form-control"  placeholder="American">
-                                </div>
-                              </div>
+<!--                              <div class="form-group row">-->
+<!--                                <label class="col-sm-3 col-form-label">Nationality</label>-->
+<!--                                <div class="col-sm-9">-->
+<!--&lt;!&ndash;                                  <input type="text" id="nationality" name="nationality" class="form-control"  placeholder="Bangladeshi" data-src="/api/nationality">&ndash;&gt;-->
+<!--                                  <select class="form-control" name="nationality" id="nationality" data-text="name" data-value="name" data-placeholder="nationality" data-src="/api/professional/nationality">-->
+<!--                                                    </select>-->
+<!--                                </div>-->
+<!--                              </div>-->
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Gender</label>
                                 <div class="col-sm-9">
@@ -1203,12 +1213,12 @@
                                                     </select>
                                 </div>
                               </div>
-                              <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Age</label>
-                                <div class="col-sm-9">
-                                  <input type="text"  class="form-control"  placeholder="25 Years">
-                                </div>
-                              </div>
+<!--                              <div class="form-group row">-->
+<!--                                <label class="col-sm-3 col-form-label">Age</label>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                  <input type="text"  class="form-control"  placeholder="25 Years">-->
+<!--                                </div>-->
+<!--                              </div>-->
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Address</label>
                                 <div class="col-sm-9">
@@ -1317,23 +1327,26 @@
             var path = window.location.pathname.split('/');
             var id = path[path.length-2];
             var getUrl = '/api/professional/profile/'+ id + '/';
+            var staticUrl = '/api/professional/static_urls/';
             get(getUrl,loadsocial);
             get(getUrl,loadabout);
-            get(getUrl,loadPersonalDetails);
+            get(staticUrl,loadstatic);
             var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
             $('form.ajax').attr('action',postUrl);
             initAjaxForms();
         });
         function  loadsocial(data){
-          console.log(data);
-          facebook = data.personal_info.facebbok_id;
-          twitter  = data.personal_info.twitter_id;
-          linkedin = data.personal_info.linkedin_id;
+          facebook = 'http://facebook.com/'+ data.personal_info.facebbok_id;
+          twitter  = 'https://twitter.com/'+data.personal_info.twitter_id;
+          linkedin = 'https://www.linkedin.com/'+data.personal_info.linkedin_id;
           $('.facebook').attr('href' ,facebook);
           $('.twitter').attr('href',twitter);
           $('.linkedin').attr('href', linkedin);
-
+          $('#facebbok_id').val(data.personal_info.facebbok_id);
+          $('#linkedin_id').val(data.personal_info.twitter_id);
+          $('#twitter_id').val(data.personal_info.linkedin_id);
         }
+
        $("#job-update-form").submit(function(e){
           window.location.reload();
 
@@ -1341,11 +1354,44 @@
          function  loadabout(data){
            about_me= data.personal_info.about_me;
            industry= data.personal_info.industry_expertise;
-           status= data.personal_info.status;
+           status = data.personal_info.status;
            address= data.personal_info.address;
            experience= data.personal_info.experience;
            gender = data.personal_info.gender;
            qualification= data.personal_info.qualification;
+           full_name = data.personal_info.full_name;
+           father_name =data.personal_info.father_name;
+           mother_name =data.personal_info.mother_name;
+           date_of_birth =data.personal_info.date_of_birth;
+           nationality =data.personal_info.nationality;
+           gender =data.personal_info.gender;
+           permanent_address =   data.personal_info.permanent_address;
+           expected_salary_min = data.personal_info.expected_salary_min
+           expected_salary_max = data.personal_info.expected_salary_max
+<!--            if (data.personal_info.status === null){-->
+<!--           status = " ";-->
+<!--           }-->
+<!--           if (industry === null){-->
+<!--           industry = "";-->
+<!--           }-->
+<!--           if (address === null){-->
+<!--           address = "";-->
+<!--           }-->
+<!--           if (experience === null){-->
+<!--           experience = "";-->
+<!--           }-->
+<!--           if (expected_salary_min === null){-->
+<!--           expected_salary_min = "";-->
+<!--           }-->
+<!--           if (expected_salary_max === null){-->
+<!--           expected_salary_max = "";-->
+<!--           }-->
+<!--           if (gender === null){-->
+<!--           gender = "";-->
+<!--           }-->
+<!--           if (qualification === null){-->
+<!--           qualification = "";-->
+<!--           }-->
            var about_html='<p>'+about_me+'</p>';
            $(".about").html(about_html);
            var info_html = '<h4>Information</h4>'+
@@ -1354,20 +1400,47 @@
                         '<li><span>Location:</span> '+address+'</li>'+
                         '<li><span>Status:</span>'+status+'</li>'+
                         '<li><span>Experience:</span>'+experience+'</li>'+
-                        '<li><span>Salary:</span> $32k - $36k</li>'+
+                        '<li><span>Salary:</span> $'+expected_salary_min+'k - $'+expected_salary_max+'k</li>'+
                         '<li><span>Gender:</span>'+gender+'</li>'+
-                        '<li><span>Age:</span> 24 Year(s)</li>'+
+<!--                        '<li><span>Age:</span> 24 Year(s)</li>'+-->
                         '<li><span>Qualification:</span>'+qualification+'</li>'+
                       '</ul>';
 
            $(".information").append(info_html);
+
+
+
+           var detail_html = '<ul>'+
+                        '<li><span>Full Name:</span> '+ full_name+'</li>'+
+                        '<li><span>Fathers Name:</span> '+father_name+'</li>'+
+                        '<li><span>Mothers Name:</span>'+ mother_name+'</li>'+
+                        '<li><span>Date of Birth:</span>'+date_of_birth+'</li>'+
+                        '<li><span>Nationality:</span> '+nationality+'</li>'+
+                        '<li><span>Sex:</span>'+gender+'</li>'+
+                        '<li><span>Address:</span>'+permanent_address+'</li>'+
+                      '</ul>';
+
+
+            $(".details").append(detail_html);
         }
+
+
        $("#info-update-form").submit(function(e){
           window.location.reload();
        });
-          function  loadPersonalDetails(data){
-          console.log(data);
-        }
 
+          $("#details-update-form").submit(function(e){
+          window.location.reload();
+       });
+
+
+
+        function  loadstatic(data){
+        $("#fb").text(data[1]);
+        $("#tw").text(data[2]);
+        $("#ln").text(data[3]);
+
+
+        }
     </script>
 {% endblock %}

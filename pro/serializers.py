@@ -4,7 +4,7 @@ from rest_framework_simplejwt.state import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from pro.models import Professional, ProfessionalEducation
+from pro.models import Professional, ProfessionalEducation,Nationality
 from rest_framework import exceptions
 from django.utils.translation import ugettext_lazy as _
 from resources.strings_pro import *
@@ -82,3 +82,8 @@ class TokenObtainCustomPairSerializer(TokenObtainCustomSerializer):
         data['professional_image'] = professional.image
 
         return data
+
+class NationalitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Nationality
+        fields = '__all__'
