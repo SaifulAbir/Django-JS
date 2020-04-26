@@ -74,7 +74,7 @@ class Professional(models.Model):
 
     father_name= models.CharField(max_length=255, blank=True, null=True)
     mother_name= models.CharField(max_length=255, blank=True, null=True)
-    facebbok_id= models.CharField(max_length=255, blank=True, null=True)
+    facebook_id= models.CharField(max_length=255, blank=True, null=True)
     twitter_id= models.CharField(max_length=255, blank=True, null=True)
     linkedin_id= models.CharField(max_length=255, blank=True, null=True)
     date_of_birth = models.DateField(default=datetime.date.today)
@@ -251,7 +251,7 @@ class Certification(models.Model):
 
 class Reference(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    decription = models.TextField(blank=False,null=False)
+    description = models.TextField(blank=False,null=False)
     created_date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='reference_created_by')

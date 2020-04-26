@@ -342,10 +342,18 @@ def professional_education_save(request):
 
 @api_view(["POST"])
 def professional_skill_save(request):
+
     data = json.loads(request.body)
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    data.update({'created_by_id': request.user.id,'created_at': str(ip)})
+    print(request.user)
     key_obj = ProfessionalSkill(**data)
     key_obj.save()
-    data['skill_obj']= SkillSerializer(Skill.objects.get(pk=data['name_id'])).data
+    data['skill_obj']= SkillSerializer(Skill.objects.get(pk=data['skill_name_id'])).data
     data['prof_skill_id'] = key_obj.id
     return Response(data)
 
@@ -739,13 +747,18 @@ class SkillUpdateDelete(GenericAPIView, UpdateModelMixin):
     serializer_class = ProfessionalSkillSerializer
 
     def put(self, request,pk, *args, **kwargs):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        request.data.update({'modified_by_id': request.user.id, 'modified_at': str(ip),'modified_date':timezone.now()})
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalSkillSerializer(ProfessionalSkill.objects.get(pk=pk)).data
-        print(prof_obj)
-        if 'name_id' in request.data:
-            prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=request.data['name_id'])).data
+        if 'skill_name_id' in request.data:
+            prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=request.data['skill_name_id'])).data
         else:
-            prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=prof_obj['name'])).data
+            prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=prof_obj['skill_name'])).data
         return Response(prof_obj)
 
 class WorkExperienceUpdateDelete(GenericAPIView, UpdateModelMixin):
