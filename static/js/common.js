@@ -87,7 +87,7 @@ function initAjaxForms() {
             var url = $(this).prop('action');
             var formId = $(this).attr("id");
             var data = form2Json(formId);
-
+            console.log(data);
             // Image uploading code start here
             var imagesrc = $(".image").attr('src');
             if (imagesrc){
