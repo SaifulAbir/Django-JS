@@ -11,12 +11,13 @@ import time, datetime
 
 job_links = []
 now = datetime.datetime.now()
-current_date = now.strftime("%b %-1d, %Y")
+current_date = now.strftime('%Y-%m-%d %H:%M:%S')
 unknown_company = "Unknown"
 UNKNOWN_VACANCY = 9999
-last_scrapping_date = '2020-01-01 00:00:00.000000'
+last_scrapping_date = '2020-01-01 00:00:00'
 scrapping_status = True
 main_site = 'http://127.0.0.1:8000/'
+main_site = 'http://p7.ishraak.com/'
 bdjobs = 'http://jobs.bdjobs.com/'
 # Job search url
 url = f'{bdjobs}/jobsearch.asp?fcatId=8'
@@ -52,16 +53,31 @@ bdjobs_post_data = {'Country': '0',
 
 
 def main():
-    global scrapping_status
+    global scrapping_status, last_scrapping_date
     page_no = 1 # At least 1 page should be available
     max_page_no = 10
 
+    fl = None
+    try:
+        fl = open("last_scrap_time.txt","r")
+        data = fl.readline()
+        if data : 
+            last_scrapping_date = str(data)
+    except:
+        print('Reading last scrap time failed')
+    finally:
+        if fl != None and not fl.closed:
+            fl.close()
+
     total_jobs = 0  # Total jobs counting
+    saved_jobs = 0  # Saved jobs counting
     s = requests.Session() 
     while page_no <= max_page_no:
-        print('Page No : {0}'.format(page_no))
         bdjobs_post_data['pg'] = page_no # Assign new page no.
+
+        print(f"Retrieving BdJobs : Page {page_no}")
         resp = s.post(url, bdjobs_post_data)
+        print(f"done.")
 
         html = BeautifulSoup(resp.content, 'html.parser')
         data = html.find_all('div', {'class': ['sout-jobs-wrapper','norm-jobs-wrapper']})
@@ -92,7 +108,11 @@ def main():
 
             try:
                 data_dict['company_name_id'] = dt.find('div', {'class': 'comp-name-text'}).text.strip()
+
+                # TODO: Move outside loop
+                print('Retrieving company data..')
                 response = requests.get(COMPANY_LIST_API, json=data_dict, headers=API_HEADER)
+                print('done.')
                 josnResponse = response.json()
 
                 companyName = unknown_company
@@ -191,7 +211,7 @@ def main():
                 print("Detail Data error")
 
 
-            if data_dict['created_date'] == last_scrapping_date:
+            if data_dict['created_date'] < last_scrapping_date:
                 scrapping_status = False
                 break
             
@@ -201,6 +221,20 @@ def main():
             job_links.append(data_dict['web_address'])
             response = requests.post(JOB_LIST_API,json=data_dict, headers=API_HEADER)
 
+            if response.status_code == 200:
+                saved_jobs += 1
+            else:
+                print("Trying with minimum")
+                min_data = {
+                    'title': 'Error BdJobs Scraping',
+                    'company_name_id': unknown_company,
+                    'web_address': data_dict['web_address'],
+                    'raw_content': data_dict['raw_content']
+                }
+                response = requests.post(JOB_LIST_API,json=min_data, headers=API_HEADER)
+                if response.status_code == 200 : 
+                    print('Saved with minimum')
+                    saved_jobs += 1
             # Increment of total_jobs
             total_jobs += 1
 
@@ -212,11 +246,20 @@ def main():
         if scrapping_status == False:
             break
 
-
     print('Successfully completed!')
+
+    try:
+        fl = open("last_scrap_time.txt","w+")
+        fl.write(current_date)
+    except:
+        print('Writing last scrap time failed')
+    finally:
+        if fl != None and not fl.closed:
+            fl.close()
 
     # Total jobs
     print('Total Job : {0}'.format(total_jobs))
+    print('Saved Job : {0}'.format(saved_jobs))
 
 if __name__ == "__main__":
     main()
