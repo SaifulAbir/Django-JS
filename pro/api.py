@@ -354,7 +354,7 @@ def professional_skill_save(request):
     key_obj = ProfessionalSkill(**data)
     key_obj.save()
     data['skill_obj']= SkillSerializer(Skill.objects.get(pk=data['skill_name_id'])).data
-    data['prof_skill_id'] = key_obj.id
+    data['id'] = key_obj.id
     return Response(data)
 
 @api_view(["POST"])
