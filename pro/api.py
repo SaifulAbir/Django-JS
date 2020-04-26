@@ -221,6 +221,7 @@ class ProfessionalDetail(APIView):
             'institution_text': edu.institution_text,
             'cgpa': edu.cgpa,
             'major':MajorSerializer(edu.major).data,
+            'major_text':edu.major_text,
             'enrolled_date': edu.enrolled_date,
             'graduation_date': edu.graduation_date,
         } for edu in education
