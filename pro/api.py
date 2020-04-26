@@ -277,7 +277,7 @@ class ProfessionalDetail(APIView):
 
         reference_data = [{
             'id':ref.id,
-            'description':ref.decription
+            'description':ref.description
         } for ref in reference
         ]
 
