@@ -208,4 +208,15 @@ a.save.apply.active {
 .padding-top-180 {
     padding-top: 180px;
 }
+
+.green-color{
+    color: #008000!important;
+}
+
+.red-color{
+    color: #FF0000!important;
+}
+.padding-icon-10{
+    padding-right: 10px;
+}
  /*forgot password*/
