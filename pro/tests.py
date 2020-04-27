@@ -135,13 +135,25 @@ class ProfessionalSkillTest(TestCase):
         client = RequestsClient()
         id = self.professional.id
         client.headers.update({'x-test': 'true'})
-        # response = self.client.get('http://127.0.0.1:8000/api/professional/profile/'+ str(id))
-        # print(response)
         skil_id = self.skill.id
         data = {'professional_id': str(id), 'skill_name_id':str(skil_id),'rating':5}
         response = client.post(SITE_URL + url, json=data, headers={'api-key': '96d56aceeb9049debeab628ac760aa11'})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(ProfessionalSkill.objects.count(), 1)
-        # self.assertEqual(ProfessionalSkill.objects.get().name, 'DabApps')
 
+class ProfessionalReferenceTest(TestCase):
+    def setUp(self):
+        professional = Professional(email='shoab@ishraak.com',phone='01881500842',password='shoab123')
+        professional.save()
+        self.professional = professional
 
+    def test__when_proper_data_is_given__reference_is_created(self):
+        url = '/api/professional/professional_reference/'
+        client = RequestsClient()
+        id = self.professional.id
+        client.headers.update({'x-test': 'true'})
+        data = {'professional_id': str(id),'description': 'Mr.Rahim',}
+        response = client.post(SITE_URL + url, json=data, headers={'api-key': '96d56aceeb9049debeab628ac760aa11'})
+        print(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Reference.objects.count(), 1)
