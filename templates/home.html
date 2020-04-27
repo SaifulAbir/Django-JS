@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="banner-content">
-                        <h1>Job Search: All great jobs in one place!</h1>
+                        <h1>All the great jobs in one place!</h1>
                         <p> Find Jobs, Employment & Career Opportunities</p>
 
                         <div class="banner-search">
@@ -401,7 +401,7 @@
         function loadKey(data) {
             len= data.length;
             for(x=0;x<len;x++){
-                $('#trend-keywords').append('<a href="http://127.0.0.1:8000/jobs/?keyword='+ data[x].keyword +'"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
+                $('#trend-keywords').append('<a href="jobs/?keyword='+ data[x].keyword +'"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
             }
         }
 
