@@ -143,6 +143,7 @@ def job_list(request):
         experienceMax = request.GET.get('experienceMax')
         datePosted = request.GET.get('datePosted')
         gender = request.GET.get('gender')
+        job_type = request.GET.get('job_type')
         qualification = request.GET.get('qualification')
         topSkill = request.GET.get('top-skill')
         print(topSkill)
@@ -197,6 +198,11 @@ def job_list(request):
         if gender and gender != 'Any':
             job_list = job_list.filter(
                 gender_id=gender
+            )
+
+        if job_type:
+            job_list = job_list.filter(
+                employment_status=job_type
             )
 
         if qualification:

@@ -329,6 +329,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', ".selected-options .filtered-options li span", function() {
+        $(this).parent('li').remove();
         //call filter function
         var experienceMin = $(".ex-leftLabel").html();
         var experienceMax = parseInt($(".ex-rightLabel").html());
@@ -343,7 +344,7 @@ $(document).ready(function() {
         }
         filterJobList(salaryMin, salaryMax, experienceMin, experienceMax);
 
-        $(this).parent('li').remove();
+
     });
 
     $(document).on('click', ".selected-options .selection-title a", function(e) {

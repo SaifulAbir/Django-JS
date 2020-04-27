@@ -296,13 +296,17 @@
         if (gender==undefined | gender=='undefined'){
             gender='';
         }
+        var job_type = $('.filtered-options .job-type a').html();
+        if (job_type==undefined | job_type=='undefined'){
+            job_type='';
+        }
         var qualification = $('.filtered-options .qualification a').html();
         if (qualification==undefined | qualification=='undefined'){
             qualification='';
         }
         get("/api/job_list/?page=1&q="+search_keyword+"&location="+location+"&category="+category+"&top-skill="+top_skill+"&keyword_from_homepage="+keyword_from_homepage+
             "&skill="+skill+"&salaryMin="+ salaryMin +"&salaryMax="+ salaryMax +"&experienceMin="+ experienceMin +"&experienceMax="+ experienceMax  +"&datePosted="+ datePosted
-            +"&gender="+ gender  +"&qualification="+ qualification +"&sort="+ sorting_val +"&page_size="+pageSize,fetchDatacallback);
+            +"&gender="+ gender +"&job_type="+ job_type  +"&qualification="+ qualification +"&sort="+ sorting_val +"&page_size="+pageSize,fetchDatacallback);
     }
 
 
