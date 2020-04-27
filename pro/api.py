@@ -266,7 +266,7 @@ class ProfessionalDetail(APIView):
         ]
 
         certification_data = [{
-            'certification_id': cert.id,
+            'id': cert.id,
             'certificate_name': cert.certificate_name,
             'organization': cert.organization,
             'has_expiry_period': cert.has_expiry_period,
