@@ -408,7 +408,7 @@ def professional_reference_save(request):
 
     key_obj = Reference(**data)
     key_obj.save()
-    data['reference_id'] = key_obj.id
+    data['id'] = key_obj.id
     return Response(data)
 
 
