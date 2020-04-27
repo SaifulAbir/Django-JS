@@ -390,9 +390,7 @@ def professional_membership_save(request):
     data = json.loads(request.body)
     key_obj = Membership(**data)
     key_obj.save()
-    data['organizaion_obj'] = OrganizationNameSerializer(
-        Organization.objects.get(pk=data['organization_id'])).data
-    data['membership_id'] = key_obj.id
+    data['id'] = key_obj.id
     return Response(data)
 
 @api_view(["POST"])
@@ -799,7 +797,6 @@ class PortfolioUpdateDelete(GenericAPIView, UpdateModelMixin):
                 request.data['image'] = uploaded_file_url
         self.partial_update(request, *args, **kwargs)
         prof_obj = PortfolioSerializer(Portfolio.objects.get(pk=pk)).data
-
         return Response(prof_obj)
 
 class MembershipUpdateDelete(GenericAPIView, UpdateModelMixin):
@@ -808,12 +805,8 @@ class MembershipUpdateDelete(GenericAPIView, UpdateModelMixin):
 
     def put(self, request,pk, *args, **kwargs):
         self.partial_update(request, *args, **kwargs)
-        if 'organization_id' in request.data:
-            request.data['organizaion_obj'] = OrganizationNameSerializer(
-                Organization.objects.get(pk=request.data['organization_id'])).data
-            prof_obj = Membership.objects.get(pk=pk)
-            request.data['membership_id'] = prof_obj.id
-        return Response(request.data)
+        prof_obj = MembershipSerializer(Membership.objects.get(pk=pk)).data
+        return Response(prof_obj)
 
 class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = Certification.objects.all()
