@@ -49,8 +49,8 @@ urlpatterns = [
     path('api/sign_in/', TokenObtainPairCustomView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-    #path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('', views.home, name='home'),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    # path('', views.home, name='home'),
 
     path('career_advice/', TemplateView.as_view(template_name='career_advice.html'), name='career_advice'),
     path('skill_check/', TemplateView.as_view(template_name='skill_check.html'), name='skill_check'),

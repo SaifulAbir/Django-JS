@@ -169,7 +169,7 @@
                           <!--                              <a href="#" class="add-more">+ Add Social</a>-->
                         </div>
                         <div class="content">
-                          <form action="" class="job-post-form ajax" method="PUT" id="social-update-form" >
+                          <form action="" class="job-post-form ajax" method="PUT" id="social-update-form" data-callback="socialCallback">
 
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Social Links</label>
@@ -177,9 +177,9 @@
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fab fa-facebook-f"></i></div>
-                                    <label class="input-group" id="fb"></label>
+                                    <label class="input-group" style="width:160px;margin-left:8px;justify-content:space-around;" id="fb"></label>
                                   </div>
-                                  <input type="text" id="facebbok_id" name="facebbok_id"  class="form-control" value="">
+                                  <input type="text" id="facebbok_id" name="facebbok_id" placeholder="username" style="margin-top:3px;" class="form-control" value="">
                                 </div>
                               </div>
                             </div>
@@ -188,10 +188,10 @@
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fab fa-twitter"></i></div>
-                                    <label class="input-group" id="tw">Twitter.com/</label>
+                                    <label class="input-group"  style="width:160px;justify-content:space-around;" id="tw"></label>
                                   </div>
 
-                                  <input type="text" id="twitter_id" name="twitter_id" class="form-control"  value="">
+                                  <input type="text" id="twitter_id" name="twitter_id" placeholder="username" style="margin-top:3px;" class="form-control"  value="">
                                 </div>
                               </div>
                             </div>
@@ -210,10 +210,10 @@
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fab fa-linkedin-in"></i></div>
-                                    <label class="input-group" id="ln">/</label>
+                                    <label class="input-group"  style="width:160px;margin-left:5px;justify-content:space-around;" id="ln">/</label>
                                   </div>
 
-                                  <input type="text" id="linkedin_id" name="linkedin_id" class="form-control" value="">
+                                  <input type="text" id="linkedin_id" name="linkedin_id"  placeholder="username" style="margin-top:3px;" class="form-control" value="">
                                 </div>
                               </div>
                             </div>
@@ -347,7 +347,7 @@
                             <label class="col-sm-3 col-form-label">Category</label>
                             <div class="col-sm-9">
                               <!--                                  <input type="text" class="form-control"  placeholder="Design &amp; Creative">-->
-                              <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name" data-placeholder="Select Category" data-src="/api/industry" value="">
+                              <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name"  data-placeholder="Select Category" data-src="/api/industry" value="">
                               </select>
                             </div>
                           </div>
@@ -1193,7 +1193,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Date Of Birth</label>
                             <div class="col-sm-9">
-                              <input type="text" name="date_of_birth" id="date_of_birth" class="form-control"  placeholder="YYYY/MM/DD" value="">
+                              <input type="Date" name="date_of_birth" id="date_of_birth" class="form-control"  placeholder="YYYY/MM/DD" value="">
                             </div>
                           </div>
                           <!--                              <div class="form-group row">-->
@@ -1351,10 +1351,70 @@
       }
     });
 
+     //checking empty string value for about info
+    $("#info-update-form").click(function(){
+      var about_me = $("#about_me").val();
+      var industry_expertise = $("#industry_expertise").val();
+      var address = $("#address").val();
+      var status = $("#status").val();
+      var experience = $("#experience").val();
+      var expected_salary_min = $("#expected_salary_min").val();
+
+      var expected_salary_max = $("#expected_salary_max").val();
+      var gender = $("#gender").val();
+      var qualification = $("#qualification").val();
+      if (!about_me){
+        $("#about_me").val(' ');
+      }
+      if (!industry_expertise){
+        $("#industry_expertise").val(' ');
+      }
+      if (!address){
+        $("#address").val(' ');
+
+      } if (!status){
+        $("#status").val(' ');
+
+      } if (!expected_salary_min){
+        $("#expected_salary_min").val(0);
+      }if (!expected_salary_max){
+        $("#expected_salary_max").val(0);
+      }
+    });
+
+    //checking empty string value for personal details
+    $("#details-update-form").click(function(){
+      var full_name = $("#full_name").val();
+      var father_name = $("#father_name").val();
+      var mother_name = $("#mother_name").val();
+      var date_of_birth = $("#date_of_birth").val();
+      var permanent_address = $("#permanent_address").val();
 
 
+      if (!full_name){
+        $("#full_name").val(' ');
+      }if (!father_name){
+        $("#father_name").val(' ');
+      }if (!mother_name){
+        $("#mother_name").val(' ');
+      }if (!date_of_birth){
+        $("#date_of_birth").val(' ');
+      }if (!permanent_address){
+        $("#permanent_address").val(' ');
+      }
+    });
     initAjaxForms();
   });
+
+
+
+
+
+
+
+
+
+  //load social and append social value
   function  loadsocial(data){
     facebook = 'http://facebook.com/'+ data.personal_info.facebbok_id;
     twitter  = 'https://twitter.com/'+data.personal_info.twitter_id;
@@ -1367,106 +1427,85 @@
     $('#twitter_id').val(data.personal_info.linkedin_id);
   }
 
-  $("#social-update-form").submit(function(e){
-    //window.location.reload();
+   function socialCallback(data) {
+        if(data.status==200){
+            $("#modal-social").modal("hide");
+        }
+        else{
+            showError("Error Updating ")
+        }
 
-  });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// load personal_info about and personal details data and append here
   function  loadabout(data){
-    about_me= data.personal_info.about_me;
-    industry= data.personal_info.industry_expertise;
-    status = data.personal_info.status;
-    address= data.personal_info.address;
-    experience= data.personal_info.experience;
-    gender = data.personal_info.gender;
-    qualification= data.personal_info.qualification;
-    full_name = data.personal_info.full_name;
-    father_name =data.personal_info.father_name;
-    mother_name =data.personal_info.mother_name;
-    date_of_birth =data.personal_info.date_of_birth;
-    nationality =data.personal_info.nationality;
-    gender =data.personal_info.gender;
-    permanent_address =   data.personal_info.permanent_address;
-    expected_salary_min = data.personal_info.expected_salary_min
-    expected_salary_max = data.personal_info.expected_salary_max
-            <!--            if (data.personal_info.status === null){-->
-    <!--           status = " ";-->
-    <!--           }-->
-    <!--           if (industry === null){-->
-    <!--           industry = "";-->
-    <!--           }-->
-    <!--           if (address === null){-->
-    <!--           address = "";-->
-    <!--           }-->
-    <!--           if (experience === null){-->
-    <!--           experience = "";-->
-    <!--           }-->
-    <!--           if (expected_salary_min === null){-->
-    <!--           expected_salary_min = "";-->
-    <!--           }-->
-    <!--           if (expected_salary_max === null){-->
-    <!--           expected_salary_max = "";-->
-    <!--           }-->
-    <!--           if (gender === null){-->
-    <!--           gender = "";-->
-    <!--           }-->
-    <!--           if (qualification === null){-->
-    <!--           qualification = "";-->
-    <!--           }-->
-    var about_html='<p>'+about_me+'</p>';
+    var about_html='<p>'+data.personal_info.about_me+'</p>';
     $(".about").html(about_html);
     var info_html = '<h4>Information</h4>'+
             '<ul>'+
-            '<li><span>Category:</span> '+industry+'</li>'+
-            '<li><span>Location:</span> '+address+'</li>'+
-            '<li><span>Status:</span>'+status+'</li>'+
-            '<li><span>Experience:</span>'+experience+'</li>'+
-            '<li><span>Salary:</span> $'+expected_salary_min+'k - $'+expected_salary_max+'k</li>'+
-            '<li><span>Gender:</span>'+gender+'</li>'+
+            '<li><span>Category:</span> '+data.personal_info.industry_expertise+'</li>'+
+            '<li><span>Location:</span> '+data.personal_info.address+'</li>'+
+            '<li><span>Status:</span>'+data.personal_info.status+'</li>'+
+            '<li><span>Experience:</span>'+data.personal_info.experience+'</li>'+
+            '<li><span>Salary:</span> $'+data.personal_info.expected_salary_min+'k - $'+data.personal_info.expected_salary_max+'k</li>'+
+            '<li><span>Gender:</span>'+data.personal_info.gender+'</li>'+
             <!--                        '<li><span>Age:</span> 24 Year(s)</li>'+-->
-            '<li><span>Qualification:</span>'+qualification+'</li>'+
+            '<li><span>Qualification:</span>'+data.personal_info.qualification+'</li>'+
             '</ul>';
 
+
+               //Showing value to text box when edit
     $(".information").append(info_html);
     $('#about_me').val(data.personal_info.about_me);
     $('#industry_expertise').val(data.personal_info.industry_expertise);
     $('#address').val(data.personal_info.address);
     $('#experience').val(data.personal_info.experience);
-    $('#experience').val(data.personal_info.experience);
     $('#expected_salary_min').val(data.personal_info.expected_salary_min);
     $('#expected_salary_max').val(data.personal_info.expected_salary_max);
-    $('#gender').val(data.personal_info.gender);
     $('#gender').val(data.personal_info.gender);
     $('#qualification').val(data.personal_info.qualification);
 
 
 
 
-
+   //appending value to personal details
     var detail_html = '<ul>'+
-            '<li><span>Full Name:</span> '+ full_name+'</li>'+
-            '<li><span>Fathers Name:</span> '+father_name+'</li>'+
-            '<li><span>Mothers Name:</span>'+ mother_name+'</li>'+
-            '<li><span>Date of Birth:</span>'+date_of_birth+'</li>'+
-            '<li><span>Nationality:</span> '+nationality+'</li>'+
-            '<li><span>Sex:</span>'+gender+'</li>'+
-            '<li><span>Address:</span>'+permanent_address+'</li>'+
+            '<li><span>Full Name:</span> '+ data.personal_info.full_name+'</li>'+
+            '<li><span>Fathers Name:</span> '+data.personal_info.father_name+'</li>'+
+            '<li><span>Mothers Name:</span>'+ data.personal_info.mother_name+'</li>'+
+            '<li><span>Date of Birth:</span>'+data.personal_info.date_of_birth+'</li>'+
+            '<li><span>Nationality:</span> '+data.personal_info.nationality+'</li>'+
+            '<li><span>Sex:</span>'+data.personal_info.gender+'</li>'+
+            '<li><span>Address:</span>'+data.personal_info.permanent_address+'</li>'+
             '</ul>';
 
 
     $(".details").append(detail_html);
+      $("#full_name").val(data.personal_info.full_name);
+      $("#father_name").val(data.personal_info.father_name);
+      $("#mother_name").val(data.personal_info.mother_name);
+      $("#permanent_address").val(data.personal_info.permanent_address);
   }
 
 
-  $("#info-update-form").submit(function(e){
-    window.location.reload();
-  });
-
-  $("#details-update-form").submit(function(e){
-    window.location.reload();
-  });
 
 
 
+
+
+// static value of social url appending here
   function  loadstatic(data){
     $("#fb").text(data[1]);
     $("#tw").text(data[2]);
