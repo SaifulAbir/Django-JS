@@ -369,10 +369,20 @@ def professional_workexperience_save(request):
 @api_view(["POST"])
 def professional_portfolio_save(request):
     data = json.loads(request.body)
-
+    if 'image' in data:
+        img_base64 = data['image']
+        if img_base64:
+            format, imgstr = img_base64.split(';base64,')
+            ext = format.split('/')[-1]
+            filename = str(uuid.uuid4()) + '-professional.' + ext
+            image_data = ContentFile(base64.b64decode(imgstr), name=filename)
+            fs = FileSystemStorage()
+            filename = fs.save(filename, image_data)
+            uploaded_file_url = fs.url(filename)
+            data['image'] = uploaded_file_url
     key_obj = Portfolio(**data)
     key_obj.save()
-
+    data['id'] = key_obj.id
     return Response(data)
 
 @api_view(["POST"])
@@ -774,8 +784,23 @@ class PortfolioUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = Portfolio.objects.all()
     serializer_class = PortfolioSerializer
 
-    def put(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
+    def put(self, request,pk, *args, **kwargs):
+        if 'image' in request.data:
+            img_base64 = request.data['image']
+            if img_base64:
+
+                format, imgstr = img_base64.split(';base64,')
+                ext = format.split('/')[-1]
+                filename = str(uuid.uuid4()) + '-professional.' + ext
+                data = ContentFile(base64.b64decode(imgstr), name=filename)
+                fs = FileSystemStorage()
+                filename = fs.save(filename, data)
+                uploaded_file_url = fs.url(filename)
+                request.data['image'] = uploaded_file_url
+        self.partial_update(request, *args, **kwargs)
+        prof_obj = PortfolioSerializer(Portfolio.objects.get(pk=pk)).data
+
+        return Response(prof_obj)
 
 class MembershipUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = Membership.objects.all()
