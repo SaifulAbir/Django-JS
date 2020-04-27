@@ -247,7 +247,7 @@ class ProfessionalDetail(APIView):
         ]
 
         portfolio_data = [{
-            'portfolio_id': pf.id,
+            'id': pf.id,
             'name': pf.name,
             'image': pf.image,
             'description': pf.description,
