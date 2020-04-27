@@ -255,7 +255,7 @@ class ProfessionalDetail(APIView):
         ]
 
         membership_data = [{
-            'membership_id':ms.id,
+            'id':ms.id,
             'organization': ms.organization,
             'position_held': ms.position_held,
             'membership_ongoing': ms.membership_ongoing,
