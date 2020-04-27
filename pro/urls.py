@@ -27,7 +27,7 @@ urlpatterns = [
     path('profile_update_partial/<str:pk>/', ProfessionalUpdatePartial.as_view()),
     path('professional_education/', professional_education_save),
     path('professional_education/<str:pk>/', EducationUpdateDelete.as_view()),
-    path('professional_skill/', professional_skill_save),
+    path('professional_skill/', professional_skill_save, name = 'professional-skill'),
     path('professional_skill/<str:pk>/', SkillUpdateDelete.as_view()),
     path('professional_work_experience/', professional_workexperience_save),
     path('professional_work_experience/<str:pk>/', WorkExperienceUpdateDelete.as_view()),

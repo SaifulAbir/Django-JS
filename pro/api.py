@@ -352,7 +352,6 @@ def professional_skill_save(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     data.update({'created_by_id': request.user.id,'created_at': str(ip)})
-    print(request.user)
     key_obj = ProfessionalSkill(**data)
     key_obj.save()
     data['skill_obj']= SkillSerializer(Skill.objects.get(pk=data['skill_name_id'])).data
@@ -392,7 +391,7 @@ def professional_certification_save(request):
 
     key_obj = Certification(**data)
     key_obj.save()
-
+    data['id'] = key_obj.id
     return Response(data)
 
 @api_view(["POST"])
@@ -795,8 +794,10 @@ class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = Certification.objects.all()
     serializer_class = CertificationSerializer
 
-    def put(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
+    def put(self, request,pk, *args, **kwargs):
+        self.partial_update(request, *args, **kwargs)
+        prof_obj = CertificationSerializer(Certification.objects.get(pk=pk)).data
+        return Response(prof_obj)
 
 
 # @api_view(["GET"])
