@@ -1,6 +1,8 @@
 import base64
 import uuid
 import datetime
+from decimal import Decimal
+
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from datetime import timedelta
@@ -755,6 +757,7 @@ class SkillUpdateDelete(GenericAPIView, UpdateModelMixin):
         request.data.update({'modified_by_id': request.user.id, 'modified_at': str(ip),'modified_date':timezone.now()})
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalSkillSerializer(ProfessionalSkill.objects.get(pk=pk)).data
+        prof_obj['rating'] = Decimal(prof_obj['rating'])
         if 'skill_name_id' in request.data:
             prof_obj['skill_obj'] = SkillSerializer(Skill.objects.get(pk=request.data['skill_name_id'])).data
         else:
