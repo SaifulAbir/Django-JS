@@ -259,7 +259,7 @@ class ProfessionalDetail(APIView):
             'organization': ms.organization,
             'position_held': ms.position_held,
             'membership_ongoing': ms.membership_ongoing,
-            'Start_date': ms.start_date,
+            'start_date': ms.start_date,
             'end_date': ms.end_date,
             'description': ms.description,
         } for ms in membership
