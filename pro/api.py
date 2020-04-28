@@ -343,9 +343,9 @@ def professional_education_save(request):
     data.update({'created_by_id': request.user.id, 'created_at': str(ip)})
     key_obj = ProfessionalEducation(**data)
     key_obj.save()
-    if 'institution_id' in data:
+    if 'institution_id' in data and data['institution_id'] is not None:
         data['institution_obj'] = InstituteNameSerializer(Institute.objects.get(pk=data['institution_id'])).data
-    if 'major_id' in data:
+    if 'major_id' in data and data['major_id'] is not None:
         data['major_obj'] = MajorSerializer(Major.objects.get(pk=data['major_id'])).data
     data['id'] = key_obj.id
     return Response(data)
