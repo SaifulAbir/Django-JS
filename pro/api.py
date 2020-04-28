@@ -803,7 +803,7 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
             {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalEducationSerializer(ProfessionalEducation.objects.get(pk=pk)).data
-        if 'institution_id' in request.data:
+        if 'institution_id' in request.data and request.data['institution_id'] is not None:
             prof_obj['institution_obj'] = InstituteNameSerializer(
                 Institute.objects.get(pk=request.data['institution_id'])).data
         else:
