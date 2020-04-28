@@ -301,12 +301,9 @@
                 </div>
               </div>
             </div>
-            <div class="about-details details-section dashboard-section">
+            <div class="about-details details-section dashboard-section" id="about-details">
               <h4><i data-feather="align-left"></i>About Me</h4>
-              <div class="about">
-
-                <!--                  <p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable </p>-->
-              </div>
+              <div class="about"></div>
               <div class="information-and-contact">
                 <div class="information">
                   <!--                      <h4>Information</h4>-->
@@ -1351,7 +1348,7 @@
       }
     });
 
-     //checking empty string value for about info
+    //checking empty string value for about info
     $("#info-update-form").click(function(){
       var about_me = $("#about_me").val();
       var industry_expertise = $("#industry_expertise").val();
@@ -1365,27 +1362,27 @@
       if (!about_me){
         $("#about_me").val(' ');
       }
-<!--      if (!industry_expertise){-->
-<!--        $("#industry_expertise").val(' ');-->
-<!--      }-->
-<!--      if (!address){-->
-<!--        $("#address").val(' ');-->
+      <!--      if (!industry_expertise){-->
+      <!--        $("#industry_expertise").val(' ');-->
+      <!--      }-->
+      <!--      if (!address){-->
+      <!--        $("#address").val(' ');-->
 
-<!--      } if (!status){-->
-<!--        $("#status").val(' ');-->
+      <!--      } if (!status){-->
+      <!--        $("#status").val(' ');-->
 
-<!--      }if (!experience){-->
-<!--        $("#experience").val(' ');-->
+      <!--      }if (!experience){-->
+      <!--        $("#experience").val(' ');-->
 
-<!--      } if (!gender){-->
-<!--        $("#gender").val(' ');-->
+      <!--      } if (!gender){-->
+      <!--        $("#gender").val(' ');-->
 
-<!--      } if (!qualification){-->
-<!--        $("#qualification").val(' ');-->
+      <!--      } if (!qualification){-->
+      <!--        $("#qualification").val(' ');-->
 
-<!--      }-->
+      <!--      }-->
 
-       if (!expected_salary_min){
+      if (!expected_salary_min){
         $("#expected_salary_min").val(0);
 
       }if (!expected_salary_max){
@@ -1419,41 +1416,34 @@
 
 
 
-
-
-
-
-
-
   //load social and append social value
   function  loadsocial(data){
-       facebook = 'http://facebook.com/'+data.personal_info.facebbok_id;
-       twitter  = 'http://twitter.com/'+data.personal_info.twitter_id;
-       linkedin = 'http://linkedin.com/'+data.personal_info.linkedin_id;
-       $('.facebook').attr('href' ,facebook);
-       $('.twitter').attr('href',twitter);
-       $('.linkedin').attr('href', linkedin);
-       $('#facebbok_id').val(data.personal_info.facebbok_id);
-       $('#linkedin_id').val(data.personal_info.twitter_id);
-       $('#twitter_id').val(data.personal_info.linkedin_id);
+    facebook = 'http://facebook.com/'+data.personal_info.facebbok_id;
+    twitter  = 'http://twitter.com/'+data.personal_info.twitter_id;
+    linkedin = 'http://linkedin.com/'+data.personal_info.linkedin_id;
+    $('.facebook').attr('href' ,facebook);
+    $('.twitter').attr('href',twitter);
+    $('.linkedin').attr('href', linkedin);
+    $('#facebbok_id').val(data.personal_info.facebbok_id);
+    $('#linkedin_id').val(data.personal_info.twitter_id);
+    $('#twitter_id').val(data.personal_info.linkedin_id);
   }
-//appending socials value in callback
-   function socialCallback(data) {
-        if(data.status==200){
-       $("#modal-social").modal("hide");
-       facebook = 'http://facebook.com/'+data.responseJSON.facebbok_id;
-       twitter  = 'https://twitter.com/'+data.responseJSON.twitter_id;
-       linkedin = 'https://www.linkedin.com/'+data.responseJSON.linkedin_id;
-       $('.facebook').attr('href' ,facebook);
-       $('.twitter').attr('href',twitter);
-       $('.linkedin').attr('href', linkedin);
-        }
-        else{
-            showError("Error Updating ")
-        }
-
+  //appending socials value in callback
+  function socialCallback(data) {
+    if(data.status==200){
+      $("#modal-social").modal("hide");
+      facebook = 'http://facebook.com/'+data.responseJSON.facebbok_id;
+      twitter  = 'https://twitter.com/'+data.responseJSON.twitter_id;
+      linkedin = 'https://www.linkedin.com/'+data.responseJSON.linkedin_id;
+      $('.facebook').attr('href' ,facebook);
+      $('.twitter').attr('href',twitter);
+      $('.linkedin').attr('href', linkedin);
+    }
+    else{
+      showError("Error Updating ")
     }
 
+  }
 
 
 
@@ -1465,7 +1455,8 @@
 
 
 
-// load personal_info about and personal details data and append here
+
+  // load personal_info about and personal details data and append here
   function  loadabout(data){
     var about_html='<p>'+data.personal_info.about_me+'</p>';
     $(".about").html(about_html);
@@ -1509,38 +1500,25 @@
 
 
     $(".details").append(detail_html);
-      $("#full_name").val(data.personal_info.full_name);
-      $("#father_name").val(data.personal_info.father_name);
-      $("#mother_name").val(data.personal_info.mother_name);
-      $("#permanent_address").val(data.personal_info.permanent_address);
+    $("#full_name").val(data.personal_info.full_name);
+    $("#father_name").val(data.personal_info.father_name);
+    $("#mother_name").val(data.personal_info.mother_name);
+    $("#permanent_address").val(data.personal_info.permanent_address);
   }
 
 
-function aboutCallback(data) {
-       if(data.status==200){
-       $("#modal-about-me").modal("hide");
-       console.log(data.responseJSON.industry_expertise);
-       var about_html='<p>'+data.responseJSON.about_me+'</p>';
-       $(".about").html(about_html);
-<!--       var info_html = '<h4>Information</h4>'+-->
-<!--            '<ul>'+-->
-<!--            '<li><span>Category:</span> '+data.responseJSON.industry_expertise+'</li>'+-->
-<!--            '<li><span>Location:</span> '+data.responseJSON.address+'</li>'+-->
-<!--            '<li><span>Status:</span>'+data.responseJSON.status+'</li>'+-->
-<!--            '<li><span>Experience:</span>'+data.responseJSON.experience+'</li>'+-->
-<!--            '<li><span>Salary:</span> $'+data.responseJSON.expected_salary_min+'k - $'+data.responseJSON.expected_salary_max+'k</li>'+-->
-<!--            '<li><span>Gender:</span>'+data.responseJSON.gender+'</li>'+-->
-<!--            &lt;!&ndash;                        '<li><span>Age:</span> 24 Year(s)</li>'+&ndash;&gt;-->
-<!--            '<li><span>Qualification:</span>'+data.responseJSON.qualification+'</li>'+-->
-<!--            '</ul>';-->
-<!--             $(".information").append(info_html);-->
-        }
-        else{
-            showError("Error Updating ")
-        }
-
+  function aboutCallback(data) {
+    if(data.status==200){
+      $("#modal-about-me").modal("hide");
+      console.log(data);
+      var about_html='<p>'+data.responseJSON.about_me+'</p>';
+      $(".about").html(about_html);
+      json2Div(data.responseJSON, 'about-details');
+    }else{
+      showError("Error Updating ")
     }
 
+  }
 
 
 
@@ -1551,7 +1529,8 @@ function aboutCallback(data) {
 
 
 
-// static value of social url appending here
+
+  // static value of social url appending here
   function  loadstatic(data){
     $("#fb").text(data[1]);
     $("#tw").text(data[2]);
