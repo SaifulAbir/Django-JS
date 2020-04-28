@@ -842,8 +842,18 @@ class WorkExperienceUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = WorkExperience.objects.all()
     serializer_class = WorkExperienceSerializer
 
-    def put(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
+    def put(self, request,pk, *args, **kwargs):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        request.data.update(
+            {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
+        self.partial_update(request, *args, **kwargs)
+        prof_obj = WorkExperienceSerializer(WorkExperience.objects.get(pk=pk)).data
+
+        return Response(prof_obj)
 
 class PortfolioUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = Portfolio.objects.all()
