@@ -259,7 +259,7 @@ class ProfessionalDetail(APIView):
             'organization': ms.organization,
             'position_held': ms.position_held,
             'membership_ongoing': ms.membership_ongoing,
-            'Start_date': ms.Start_date,
+            'Start_date': ms.start_date,
             'end_date': ms.end_date,
             'desceription': ms.desceription,
         } for ms in membership
@@ -335,6 +335,12 @@ class CertificateNameList(generics.ListCreateAPIView):
 @api_view(["POST"])
 def professional_education_save(request):
     data = json.loads(request.body)
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    data.update({'created_by_id': request.user.id, 'created_at': str(ip)})
     key_obj = ProfessionalEducation(**data)
     key_obj.save()
     if 'institution_id' in data:
@@ -371,6 +377,12 @@ def professional_workexperience_save(request):
 @api_view(["POST"])
 def professional_portfolio_save(request):
     data = json.loads(request.body)
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    data.update({'created_by_id': request.user.id, 'created_at': str(ip)})
     if 'image' in data:
         img_base64 = data['image']
         if img_base64:
@@ -390,6 +402,12 @@ def professional_portfolio_save(request):
 @api_view(["POST"])
 def professional_membership_save(request):
     data = json.loads(request.body)
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    data.update({'created_by_id': request.user.id, 'created_at': str(ip)})
     key_obj = Membership(**data)
     key_obj.save()
     data['id'] = key_obj.id
@@ -398,7 +416,12 @@ def professional_membership_save(request):
 @api_view(["POST"])
 def professional_certification_save(request):
     data = json.loads(request.body)
-
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    data.update({'created_by_id': request.user.id, 'created_at': str(ip)})
     key_obj = Certification(**data)
     key_obj.save()
     data['id'] = key_obj.id
@@ -407,7 +430,12 @@ def professional_certification_save(request):
 @api_view(["POST"])
 def professional_reference_save(request):
     data = json.loads(request.body)
-
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    data.update({'created_by_id': request.user.id, 'created_at': str(ip)})
     key_obj = Reference(**data)
     key_obj.save()
     data['id'] = key_obj.id
@@ -721,6 +749,13 @@ class ProfessionalUpdatePartial(GenericAPIView, UpdateModelMixin):
                 filename = fs.save(filename, data)
                 uploaded_file_url = fs.url(filename)
                 request.data['image'] = uploaded_file_url
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        request.data.update(
+            {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalSerializer(Professional.objects.get(pk=pk)).data
         prof_obj['religion_obj'] = ReligionSerializer(Religion.objects.get(pk = prof_obj['religion'])).data
@@ -737,6 +772,13 @@ class ReferenceUpdateDelete(GenericAPIView, UpdateModelMixin):
     serializer_class = ReferenceSerializer
 
     def put(self, request,pk, *args, **kwargs):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        request.data.update(
+            {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
         self.partial_update(request, *args, **kwargs)
         prof_obj = ReferenceSerializer(Reference.objects.get(pk=pk)).data
         return Response(prof_obj)
@@ -746,6 +788,13 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
     serializer_class = ProfessionalEducationSerializer
 
     def put(self, request,pk, *args, **kwargs):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        request.data.update(
+            {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalEducationSerializer(ProfessionalEducation.objects.get(pk=pk)).data
         if 'institution_id' in request.data:
@@ -807,6 +856,13 @@ class PortfolioUpdateDelete(GenericAPIView, UpdateModelMixin):
                 filename = fs.save(filename, data)
                 uploaded_file_url = fs.url(filename)
                 request.data['image'] = uploaded_file_url
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        request.data.update(
+            {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
         self.partial_update(request, *args, **kwargs)
         prof_obj = PortfolioSerializer(Portfolio.objects.get(pk=pk)).data
         return Response(prof_obj)
@@ -816,6 +872,13 @@ class MembershipUpdateDelete(GenericAPIView, UpdateModelMixin):
     serializer_class = MembershipSerializer
 
     def put(self, request,pk, *args, **kwargs):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        request.data.update(
+            {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
         self.partial_update(request, *args, **kwargs)
         prof_obj = MembershipSerializer(Membership.objects.get(pk=pk)).data
         return Response(prof_obj)
@@ -825,6 +888,13 @@ class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
     serializer_class = CertificationSerializer
 
     def put(self, request,pk, *args, **kwargs):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        request.data.update(
+            {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
         self.partial_update(request, *args, **kwargs)
         prof_obj = CertificationSerializer(Certification.objects.get(pk=pk)).data
         return Response(prof_obj)

@@ -157,3 +157,21 @@ class ProfessionalReferenceTest(TestCase):
         print(response.content)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Reference.objects.count(), 1)
+
+
+class ProfessionalProtfolioTest(TestCase):
+    def setUp(self):
+        professional = Professional(email='shoab@ishraak.com',phone='01881500842',password='shoab123')
+        professional.save()
+        self.professional = professional
+
+    def test__when_proper_data_is_given__portfolio_is_created(self):
+        url = '/api/professional/professional_portfolio/'
+        client = RequestsClient()
+        id = self.professional.id
+        client.headers.update({'x-test': 'true'})
+        data = {'professional_id': str(id),'name': 'wonder machine',}
+        response = client.post(SITE_URL + url, json=data, headers={'api-key': '96d56aceeb9049debeab628ac760aa11'})
+        print(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Reference.objects.count(), 1)
