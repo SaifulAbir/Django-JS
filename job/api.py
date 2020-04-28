@@ -131,6 +131,7 @@ class JobTypeList(generics.ListCreateAPIView):
 def job_list(request):
     try:
         query = request.GET.get('q')
+        current_url = request.GET.get('current_url')
         sorting = request.GET.get('sort')
         category = request.GET.get('category')
         district = request.GET.get('location')
@@ -146,7 +147,7 @@ def job_list(request):
         job_type = request.GET.get('job_type')
         qualification = request.GET.get('qualification')
         topSkill = request.GET.get('top-skill')
-        print(topSkill)
+
         if sorting == 'descending':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         elif sorting == 'top-rated':
@@ -158,13 +159,13 @@ def job_list(request):
             job_list = Job.objects.all().order_by('-applied_count')
         jobtype = JobType(name=NO_NAME)
         company = Company(name=NO_NAME)
-        for i in job_list:
-            if i.job_location is None:
-                i.job_location = NO_LOCATION
-            if i.company_name is None:
-                i.company_name = company
-            if i.employment_status is None:
-                 i.employment_status = jobtype
+        # for i in job_list:
+        #     if i.job_location is None:
+        #         i.job_location = NO_LOCATION
+        #     if i.company_name is None:
+        #         i.company_name = company
+        #     if i.employment_status is None:
+        #          i.employment_status = jobtype
         if query:
             job_list = job_list.filter(
                 Q(title__icontains=query)
@@ -296,6 +297,7 @@ def job_list(request):
         'number_of_pages': number_of_pages,
         'next_pages': check_next_available_or_not,
         'code': HTTP_200_OK,
+        'current_url': current_url,
         "results":  job_list.data,
     }
 

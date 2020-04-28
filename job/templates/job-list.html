@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="showing-number">
-                                <span class="pagination-summary display-none"></span>
+                                <span class="pagination-summary"></span>
                             </div>
                         </div>
                         <div class="job-filter-result">
@@ -304,9 +304,15 @@
         if (qualification==undefined | qualification=='undefined'){
             qualification='';
         }
-        get("/api/job_list/?page=1&q="+search_keyword+"&location="+location+"&category="+category+"&top-skill="+top_skill+"&keyword_from_homepage="+keyword_from_homepage+
+        var url = "/api/job_list/?q="+search_keyword+"&location="+location+"&category="+category+"&top-skill="+top_skill+"&keyword_from_homepage="+keyword_from_homepage+
             "&skill="+skill+"&salaryMin="+ salaryMin +"&salaryMax="+ salaryMax +"&experienceMin="+ experienceMin +"&experienceMax="+ experienceMax  +"&datePosted="+ datePosted
-            +"&gender="+ gender +"&job_type="+ job_type  +"&qualification="+ qualification +"&sort="+ sorting_val +"&page_size="+pageSize,fetchDatacallback);
+            +"&gender="+ gender +"&job_type="+ job_type  +"&qualification="+ qualification +"&sort="+ sorting_val +"&page_size="+pageSize;
+        url = encodeURIComponent(url);
+        var url_with_current_url = "/api/job_list/?page=1&q="+search_keyword+"&location="+location+"&category="+category+"&top-skill="+top_skill+"&keyword_from_homepage="+keyword_from_homepage+
+            "&skill="+skill+"&salaryMin="+ salaryMin +"&salaryMax="+ salaryMax +"&experienceMin="+ experienceMin +"&experienceMax="+ experienceMax  +"&datePosted="+ datePosted
+            +"&gender="+ gender +"&job_type="+ job_type  +"&qualification="+ qualification +"&sort="+ sorting_val +"&page_size="+pageSize +"&current_url="+url;
+
+        get(url_with_current_url,fetchDatacallback);
     }
 
 
@@ -346,13 +352,18 @@
 
             });
         });
-        var url = '/job_list';
+
+        var url = '';
         var startingIndex=1;
+        url = data.current_url;
         makePagination(totalNumberOfData, pageSize, url, startingIndex);
         $(".page-numbers:nth-child(2)").addClass('current');
 
 
     }
+
+
+
     $(document).ready(function () {
         applyOnlineJobAddRemove('jobs', '/api/apply_online_job_add/');
         favouriteJobAddRemove('jobs', '/api/favourite_job_add/');
@@ -393,7 +404,9 @@
             }else if(paginationIndex=='next'){
 
             }
-            get('/api/job_list/?page='+ paginationIndex +'&page_size='+pageSize,fetchPaginationDatacallback);
+            var url_of_button = $(this).data('url');
+
+            get(url_of_button,fetchPaginationDatacallback);
 
 
         });

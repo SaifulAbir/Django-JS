@@ -5,8 +5,8 @@
     cursor: pointer;
 }
 :disabled {
-    color: #e0c7c7 !important;
-    cursor: default
+    cursor: default;
+    opacity: .4;
 }
 .signin-button {
     background: transparent;
