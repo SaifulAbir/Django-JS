@@ -241,7 +241,7 @@ class ProfessionalDetail(APIView):
             'company_text':exp.company_text,
             'company': exp.company_id,
             'designation': exp.designation,
-            'Started_date': exp.Started_date,
+            'start_date': exp.start_date,
             'end_date': exp.end_date,
         } for exp in experience
         ]
@@ -369,9 +369,15 @@ def professional_skill_save(request):
 @api_view(["POST"])
 def professional_workexperience_save(request):
     data = json.loads(request.body)
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    data.update({'created_by_id': request.user.id, 'created_at': str(ip)})
     key_obj = WorkExperience(**data)
     key_obj.save()
-
+    data['id'] = key_obj.id
     return Response(data)
 
 @api_view(["POST"])
