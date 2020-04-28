@@ -335,7 +335,7 @@
                         <h4><i data-feather="align-left"></i>About Me</h4>
                       </div>
                       <div class="content">
-                        <form action="" class="job-post-form ajax" method="PUT" id="info-update-form">
+                        <form action="" class="job-post-form ajax" method="PUT" id="info-update-form" data-callback="aboutCallback">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Write Yourself</label>
                             <div class="col-sm-9">
@@ -1359,24 +1359,35 @@
       var status = $("#status").val();
       var experience = $("#experience").val();
       var expected_salary_min = $("#expected_salary_min").val();
-
       var expected_salary_max = $("#expected_salary_max").val();
       var gender = $("#gender").val();
       var qualification = $("#qualification").val();
       if (!about_me){
         $("#about_me").val(' ');
       }
-      if (!industry_expertise){
-        $("#industry_expertise").val(' ');
-      }
-      if (!address){
-        $("#address").val(' ');
+<!--      if (!industry_expertise){-->
+<!--        $("#industry_expertise").val(' ');-->
+<!--      }-->
+<!--      if (!address){-->
+<!--        $("#address").val(' ');-->
 
-      } if (!status){
-        $("#status").val(' ');
+<!--      } if (!status){-->
+<!--        $("#status").val(' ');-->
 
-      } if (!expected_salary_min){
+<!--      }if (!experience){-->
+<!--        $("#experience").val(' ');-->
+
+<!--      } if (!gender){-->
+<!--        $("#gender").val(' ');-->
+
+<!--      } if (!qualification){-->
+<!--        $("#qualification").val(' ');-->
+
+<!--      }-->
+
+       if (!expected_salary_min){
         $("#expected_salary_min").val(0);
+
       }if (!expected_salary_max){
         $("#expected_salary_max").val(0);
       }
@@ -1454,7 +1465,6 @@
 
 
 
-
 // load personal_info about and personal details data and append here
   function  loadabout(data){
     var about_html='<p>'+data.personal_info.about_me+'</p>';
@@ -1504,6 +1514,36 @@
       $("#mother_name").val(data.personal_info.mother_name);
       $("#permanent_address").val(data.personal_info.permanent_address);
   }
+
+
+function aboutCallback(data) {
+       if(data.status==200){
+       $("#modal-about-me").modal("hide");
+       console.log(data.responseJSON.industry_expertise);
+       var about_html='<p>'+data.responseJSON.about_me+'</p>';
+       $(".about").html(about_html);
+<!--       var info_html = '<h4>Information</h4>'+-->
+<!--            '<ul>'+-->
+<!--            '<li><span>Category:</span> '+data.responseJSON.industry_expertise+'</li>'+-->
+<!--            '<li><span>Location:</span> '+data.responseJSON.address+'</li>'+-->
+<!--            '<li><span>Status:</span>'+data.responseJSON.status+'</li>'+-->
+<!--            '<li><span>Experience:</span>'+data.responseJSON.experience+'</li>'+-->
+<!--            '<li><span>Salary:</span> $'+data.responseJSON.expected_salary_min+'k - $'+data.responseJSON.expected_salary_max+'k</li>'+-->
+<!--            '<li><span>Gender:</span>'+data.responseJSON.gender+'</li>'+-->
+<!--            &lt;!&ndash;                        '<li><span>Age:</span> 24 Year(s)</li>'+&ndash;&gt;-->
+<!--            '<li><span>Qualification:</span>'+data.responseJSON.qualification+'</li>'+-->
+<!--            '</ul>';-->
+<!--             $(".information").append(info_html);-->
+        }
+        else{
+            showError("Error Updating ")
+        }
+
+    }
+
+
+
+
 
 
 
