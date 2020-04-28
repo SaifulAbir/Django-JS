@@ -810,7 +810,7 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
             if prof_obj['institution']:
                 prof_obj['institution_obj'] = InstituteNameSerializer(
                     Institute.objects.get(pk=prof_obj['institution'])).data
-        if 'major_id' in request.data:
+        if 'major_id' in request.data and request.data['major_id'] is not None:
             prof_obj['major_obj'] = MajorSerializer(Major.objects.get(pk=request.data['major_id'])).data
         else:
             if prof_obj['major']:
