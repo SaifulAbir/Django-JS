@@ -42,7 +42,7 @@ urlpatterns = [
     path('religion/', ReligionList.as_view()),
     path('nationality/', NationalityList.as_view()),
     path('organization/', OrganizationList.as_view()),
-    path('major/', InstituteList.as_view()),
+    path('major/', MajorList.as_view()),
     path('institute/', InstituteList.as_view()),
     path('certificate_name/', CertificateNameList.as_view()),
 ]
