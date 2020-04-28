@@ -222,7 +222,7 @@ class ProfessionalDetail(APIView):
             'institution_obj': InstituteNameSerializer(edu.institution).data,
             'institution_text': edu.institution_text,
             'cgpa': edu.cgpa,
-            'major':MajorSerializer(edu.major).data,
+            'major_obj':MajorSerializer(edu.major).data,
             'major_text':edu.major_text,
             'enrolled_date': edu.enrolled_date,
             'graduation_date': edu.graduation_date,
