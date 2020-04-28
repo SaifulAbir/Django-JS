@@ -217,7 +217,7 @@ class ProfessionalDetail(APIView):
         info_data['religion_obj'] = ReligionSerializer(profile.religion).data
         info_data['nationality_obj'] = NationalitySerializer(profile.nationality).data
         edu_data = [{
-            'education_id': edu.id,
+            'id': edu.id,
             'degree': edu.degree_id,
             'institution_obj': InstituteNameSerializer(edu.institution).data,
             'institution_text': edu.institution_text,
@@ -237,7 +237,7 @@ class ProfessionalDetail(APIView):
         } for skill in skills
         ]
         experience_data = [{
-            'experience_id': exp.id,
+            'id': exp.id,
             'company_text':exp.company_text,
             'company': exp.company_id,
             'designation': exp.designation,
@@ -337,9 +337,11 @@ def professional_education_save(request):
     data = json.loads(request.body)
     key_obj = ProfessionalEducation(**data)
     key_obj.save()
-    data['institution_obj'] = InstituteNameSerializer(Institute.objects.get(pk=data['institution_id'])).data
-    data['major_obj'] = MajorSerializer(Major.objects.get(pk=data['major_id'])).data
-    data['education_id'] = key_obj.id
+    if 'institution_id' in data:
+        data['institution_obj'] = InstituteNameSerializer(Institute.objects.get(pk=data['institution_id'])).data
+    if 'major_id' in data:
+        data['major_obj'] = MajorSerializer(Major.objects.get(pk=data['major_id'])).data
+    data['id'] = key_obj.id
     return Response(data)
 
 @api_view(["POST"])
@@ -745,11 +747,21 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
 
     def put(self, request,pk, *args, **kwargs):
         self.partial_update(request, *args, **kwargs)
-        request.data['institution_obj'] = InstituteNameSerializer(Institute.objects.get(pk=request.data['institution_id'])).data
-        request.data['major_obj'] = MajorSerializer(Major.objects.get(pk=request.data['major.id'])).data
-        prof_obj = ProfessionalEducation.objects.get(pk=pk)
-        request.data['education_id'] = prof_obj.id
-        return Response(request.data)
+        prof_obj = ProfessionalEducationSerializer(ProfessionalEducation.objects.get(pk=pk)).data
+        if 'institution_id' in request.data:
+            prof_obj['institution_obj'] = InstituteNameSerializer(
+                Institute.objects.get(pk=request.data['institution_id'])).data
+        else:
+            if prof_obj['institution']:
+                prof_obj['institution_obj'] = InstituteNameSerializer(
+                    Institute.objects.get(pk=prof_obj['institution'])).data
+        if 'major_id' in request.data:
+            prof_obj['major_obj'] = MajorSerializer(Major.objects.get(pk=request.data['major_id'])).data
+        else:
+            if prof_obj['major']:
+                prof_obj['major_obj'] = MajorSerializer(Major.objects.get(pk=prof_obj['major'])).data
+
+        return Response(prof_obj)
 
 class SkillUpdateDelete(GenericAPIView, UpdateModelMixin):
     queryset = ProfessionalSkill.objects.all()
