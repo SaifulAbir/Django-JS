@@ -64,13 +64,13 @@
     </div>
 </header>
 
-<div class="padding-top-180 padding-bottom-180 access-page-bg">
-    <div class="container">
+<div class="padding-top-100 padding-bottom-100 access-page-bg">
+    <div class="container padding-top-100">
         <div class="row">
-            <div class="col-xl-4 col-md-6">
+            <div class="col-xl-5 col-md-6">
                 <div class="access-form">
                     <div class="form-header">
-                        <h5 class="red-color"><i class="fas fa-times-circle padding-icon-10 red-color"></i>This link is expired.</h5>
+                        <h5 class="green-color"><i class="fas fa-check-square padding-icon-10 green-color"></i>Email is sent successfully with recovery link.</h5>
                     </div>
                     <div class="account-type display-none">
                         <label for="idRegisterCan">
@@ -82,17 +82,16 @@
                             <span>Employer</span>
                         </label>
                     </div>
-                    <form action="/api/professional/password_reset/confirm/" id="reset-password-form" novalidate="novalidate" class="ajax display-none" method="post" data-callback="resetPasswordCallback">
+                    <form action="/api/professional/password_reset/" id="forget-password-form" novalidate="novalidate" method="post" class="ajax" data-callback="forgetPasswordCallback">
+                        <div class="form-group">
+                            <input type="email" name="email" id="email"  placeholder="Email Address" class="form-control display-none" required data-msg-required="Please enter a valid email">
+
+                        </div>
                         <div class="form-group display-none">
-                            <input type="email" placeholder="Email Address" class="form-control" >
+                            <input type="password" placeholder="Password" class="form-control" required>
                         </div>
-                        <div class="form-group">
-                            <input type="hidden" name="token" id="token">
-                            <input type="password" required name="password" id="password"  class="form-control" minlength="8" regex="(?=.*?[0-9])(?=.*?[A-Za-z]).+" data-msg-regex="Password requires at least one digit and one letter." placeholder="Password" data-msg-required="Password is required.">
-                            <i class="fas fa-question-circle pass-hint" data-toggle="tooltip" title="Password must be at least 8 characters long with at least one digit and one letter."></i>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" required placeholder="Confirm Password" data-rule-equalto="#password" data-msg-equalto="Password and confirm password should be same!!" data-msg-required="Confirm password is required.">
+                        <div class="form-group display-none">
+                            <input type="password" placeholder="Confirm Password" class="form-control" required>
                         </div>
                         <div class="more-option terms display-none">
                             <div class="mt-0 terms">
@@ -102,9 +101,8 @@
                                 </label>
                             </div>
                         </div>
-                        <button class="button primary-bg btn-block">Reset Password</button>
+                        <a class="button primary-bg btn-block text-center" href="/professional/forget-password/">Reset Password Again</a>
                     </form>
-                    <a id="reset-password" class="button primary-bg btn-block text-center" href="/professional/forget-password/">Reset Password Again</a>
                     <div class="shortcut-login">
                         <span class="display-none">Or connect with</span>
                         <div class="buttons display-none">
@@ -144,52 +142,25 @@
 <script src="{% static 'dashboard/js/datePicker.js' %}"></script>
 <script src="{% static 'dashboard/js/upload-input.js' %}"></script>
 <script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
-
 <script>
     $(document).ready(function() {
-        $("#reset-password-form").validate({
-            errorClass: "my-error-class"
-        });
-        var path = window.location.pathname.split('/')
-        var token = path[path.length-2]
-
-        $('#token').val(token)
-        initAjaxForms();
-        var data = {'token':$('#token').val()};
-        post("/api/professional/password_reset/validate_token/", JSON.stringify(data), tokenValidate)
-
-        $('[data-toggle="tooltip"]').tooltip({
-            animated: 'fade',
-            trigger: 'click',
-            placement: 'bottom',
-        });
+        // $("#forget-password-form").validate({
+        //     errorClass : 'my-error-class'
+        // });
+        // initAjaxForms();
     });
-    function  resetPasswordCallback(data){
-        if(data.status == 200){
-            window.location.href = "/professional/reset-password-successful";
-        }
-        else {
-            showError('Pasword Reset Failed!','You have reset your password already!')
-        }
-    };
-    function tokenValidate(data){
-        if(data.status == 200){
-            $(".access-page-bg").removeClass("padding-bottom-180 padding-top-180");
-            $(".access-page-bg").addClass("padding-bottom-90 padding-top-90");
-            $(".form-header").html('<h5><i data-feather="edit"></i>Reset Password</h5>');
-            $("#reset-password-form").removeClass("display-none");
-            $("#reset-password").addClass("display-none");
-            feather.replace();
-        }
-    }
-    $('html').on('click', function (e) {
-        $('[data-toggle=tooltip]').each(function () {
-            // hide any open popovers when the anywhere else in the body is clicked
-            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.tooltip').has(e.target).length === 0) {
-                $(this).tooltip('hide');
-            }
-        });
-    });
+    // function  forgetPasswordCallback(data){
+    //     if(data.status == 200){
+    //         $("#forget-password-form").toggle();
+    //         $(".access-page-bg").removeClass("padding-top-90 padding-bottom-90");
+    //         $(".access-page-bg").addClass("padding-top-150 padding-bottom-150");
+    //         $(".form-header").html('<h5><i data-feather="edit"></i>Email is sent successfully with recovery link.</h5>');
+    //         // showSuccess("Email Sent","Email sent succesesfully")
+    //     }
+    //     else {
+    //         showError('Email Not Sent!','Enter A Valid Email')
+    //     }
+    // };
 </script>
 </body>
 
