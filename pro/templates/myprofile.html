@@ -209,17 +209,22 @@
                     </div>
                   </div>
                 </div>
-                <div class="personal-information dashboard-section last-child details-section">
+                <div class="personal-information dashboard-section last-child details-section" id="details">
                   <h4><i data-feather="user-plus"></i>Personal Deatils</h4>
-                  <ul>
-                    <li><span>Full Name:</span> Micheal N. Taylor</li>
-                    <li><span>Father's Name:</span> Howard Armour</li>
-                    <li><span>Mother's Name:</span> Megan Higbee</li>
-                    <li><span>Date of Birth:</span> 22/08/1992</li>
-                    <li><span>Nationality:</span> American </li>
-                    <li><span>Sex:</span> Male</li>
-                    <li><span>Address:</span> 2018 Nelm Street, Beltsville, VA 20705</li>
-                  </ul>
+
+<!--                  -->
+<!--                  <ul>-->
+<!--                    <li><span>Full Name:</span> Micheal N. Taylor</li>-->
+<!--                    <li><span>Father's Name:</span> Howard Armour</li>-->
+<!--                    <li><span>Mother's Name:</span> Megan Higbee</li>-->
+<!--                    <li><span>Date of Birth:</span> 22/08/1992</li>-->
+<!--                    <li><span>Nationality:</span> American </li>-->
+<!--                    <li><span>Sex:</span> Male</li>-->
+<!--                    <li><span>Address:</span> 2018 Nelm Street, Beltsville, VA 20705</li>-->
+<!--                  </ul>-->
+
+
+
                 </div>
               </div>
               <div class="dashboard-sidebar">
@@ -382,21 +387,6 @@
                           $(".information").html(info_html);
 
 
-
-            //work experience info show
-
-                    work_data = data.experience_info
-                    len = work_data.length;
-                    for(x=0;x<len;x++){
-                          var work_html='<div class="experience-section">'+
-                                    '<span class="service-year">'+work_data[x].Started_date+'-'+work_data[x].end_date+'</span>'+
-                                    '<h5>'+work_data[x].designation+'<span>@'+work_data[x].company+'</span></h5>'+
-                                    '</div><br>';
-                          $('#work').append(work_html);
-                                      }
-
-
-
             //education info show
 
                     edu_data = data['edu_info']
@@ -411,16 +401,44 @@
                     }
 
 
+            //work experience info show
+
+                    work_data = data.experience_info
+                    len = work_data.length;
+                    for(x=0;x<len;x++){
+                          var work_html='<div class="experience-section">'+
+                                    '<span class="service-year">'+work_data[x].Started_date+'-'+work_data[x].end_date+'</span>'+
+                                    '<h5>'+work_data[x].designation+'<span>@'+work_data[x].company+'</span></h5>'+
+                                    '</div><br>';
+                          $('#work').append(work_html);
+                                      }
+
+
+            //personal details show
+
+                      var detail_html = '<ul>'+
+                              '<li><span>Full Name:</span> '+ data.personal_info.full_name+'</li>'+
+                              '<li><span>Fathers Name:</span> '+data.personal_info.father_name+'</li>'+
+                              '<li><span>Mothers Name:</span>'+ data.personal_info.mother_name+'</li>'+
+                              '<li><span>Date of Birth:</span>'+data.personal_info.date_of_birth+'</li>'+
+                              '<li><span>Nationality:</span> '+data.personal_info.nationality+'</li>'+
+                              '<li><span>Sex:</span>'+data.personal_info.gender+'</li>'+
+                              '<li><span>Address:</span>'+data.personal_info.permanent_address+'</li>'+
+                              '</ul>';
+                      $("#details").append(detail_html);
+
+
+
+
+
+
+
+
+
+
 
 
             }
-
-
-
-
-
-
-
 
 
     </script>
