@@ -302,6 +302,9 @@
             $('.account-button').text(data[0].user.name);
             $('.account-body a').text(data[0].user.name);
             $('.account-body .mail').text(data[0].user.email);
+            id=data[0].user.id;
+            url = '/professional/myprofile/' + id ;
+            $('.pro').attr('href', url);
         }
     }
 
