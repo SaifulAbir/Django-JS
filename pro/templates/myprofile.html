@@ -44,9 +44,14 @@
                 <div class="skill-and-profile dashboard-section">
                   <div class="skill">
                     <label>Skills:</label>
-                    <a href="#">Design</a>
-                    <a href="#">Illustration</a>
-                    <a href="#">iOS</a>
+
+
+
+<!--                    <a href="#">Design</a>-->
+
+
+
+
                   </div>
                   <div class="social-profile">
                     <label>Social:</label>
@@ -328,41 +333,40 @@
 
            function loadProfile(data){
 
-              facebook = 'http://facebook.com/'+data.personal_info.facebbok_id;
-              twitter  = 'http://twitter.com/'+data.personal_info.twitter_id;
-              linkedin = 'http://linkedin.com/'+data.personal_info.linkedin_id;
+            //social link shows
 
-<!--               console.log(facebook)-->
-<!--               console.log(twitter)-->
-<!--               console.log(linkedin)-->
-
-              $('#facebook').attr('href',facebook);
-              $('#twitter').attr('href',twitter);
-              $('#linkedin').attr('href', linkedin);
+                    facebook = 'http://facebook.com/'+data.personal_info.facebbok_id;
+                    twitter  = 'http://twitter.com/'+data.personal_info.twitter_id;
+                    linkedin = 'http://linkedin.com/'+data.personal_info.linkedin_id;
+                    $('#facebook').attr('href',facebook);
+                    $('#twitter').attr('href',twitter);
+                    $('#linkedin').attr('href', linkedin);
 
 
+            //skills show
+
+                    skill_info = data['skill_info']
+                    len = skill_info.length;
+                    for(x=0;x<len;x++){
+                            $('.skill').append('<a href="#">'+skill_info[x].skill+'</a>');
+                    }
 
 
-<!--            console.log(data['personal_info'])-->
+                    console.log(data)
 
 
+            //education info show
 
-
-
-
-
-            edu_data = data['edu_info']
-<!--            console.log(edu_data[0])-->
-<!--            console.log(edu_data[0].qualification)-->
-            len = edu_data.length;
-            for(x=0;x<len;x++){
-            var edu_html='<div class="education-label">'+
-                   '<span class="study-year">'+edu_data[x].enrolled_date+' - '+edu_data[x].graduation_date+'</span>'+
-                   '<h5>'+edu_data[x].qualification+'<span>@'+edu_data[x].institution+'</span></h5>'+
-                   '<p>'+edu_data[x].major+' - '+edu_data[x].cgpa+'</p>'+
-                   '</div><br>';
-             $('#edu').append(edu_html);
-            }
+                    edu_data = data['edu_info']
+                    len = edu_data.length;
+                    for(x=0;x<len;x++){
+                          var edu_html='<div class="education-label">'+
+                                 '<span class="study-year">'+edu_data[x].enrolled_date+' - '+edu_data[x].graduation_date+'</span>'+
+                                 '<h5>'+edu_data[x].qualification+'<span>@'+edu_data[x].institution+'</span></h5>'+
+                                 '<p>'+edu_data[x].major+' - '+edu_data[x].cgpa+'</p>'+
+                                 '</div><br>';
+                    $('#edu').append(edu_html);
+                    }
 
 
 
