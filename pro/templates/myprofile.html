@@ -77,23 +77,21 @@
                     </div>
                   </div>
                 </div>
-                <div class="edication-background details-section dashboard-section">
+                <div class="edication-background details-section dashboard-section" id="edu">
                   <h4><i data-feather="book"></i>Education Background</h4>
+
+
                   <div class="education-label">
                     <span class="study-year">2018 - Present</span>
                     <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>
                     <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
                   </div>
-                  <div class="education-label">
-                    <span class="study-year">2014 - 2018</span>
-                    <h5>Diploma in Graphics Design<span>@ Graphic Arts Institute</span></h5>
-                    <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-                  </div>
-                  <div class="education-label">
-                    <span class="study-year">2008 - 2014</span>
-                    <h5>Secondary School Certificate<span>@  Engineering High School</span></h5>
-                    <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-                  </div>
+
+
+
+
+
+
                 </div>
                 <div class="experience dashboard-section details-section">
                   <h4><i data-feather="briefcase"></i>Work Experiance</h4>
@@ -320,12 +318,32 @@
             $('#profile-form').validate();
             var path = window.location.pathname.split('/');
             var id = path[path.length-2];
-<!--            var getUrl = '/api/professional/profile/'+ id + '/';-->
-<!--            get(getUrl, loadProfile);-->
-<!--            var postUrl = '/api/professional/profile_update/'+ id + '/';-->
-<!--            $('form.ajax').attr('action',postUrl);-->
+
+            var getUrl = '/api/professional/profile/'+ id + '/';
+            get(getUrl, loadProfile);
+
             initAjaxForms();
+
         });
+
+           function loadProfile(data){
+            edu_data = data['edu_info']
+            console.log(edu_data[0])
+            console.log(edu_data[0].qualification)
+            len = edu_data.length;
+            for(x=0;x<len;x++){
+            var edu_html='<div class="education-label">'+
+                   '<span class="study-year">'+edu_data[x].enrolled_date+' - '+edu_data[x].graduation_date+'</span>'+
+                   '<h5>'+edu_data[x].qualification+'<span>@'+edu_data[x].institution+'</span></h5>'+
+                   '<p>'+edu_data[x].major+' - '+edu_data[x].cgpa+'</p>'+
+                   '</div><br>';
+             $('#edu').append(edu_html);
+            }
+            }
+
+
+
+
 
 
 
