@@ -302,28 +302,30 @@
               </div>
             </div>
             <div class="about-details details-section dashboard-section" id="about-details">
-              <h4><i data-feather="align-left"></i>About Me</h4>
-              <div class="about"></div>
-              <div class="information-and-contact">
-                <div class="information">
-                  <!--                      <h4>Information</h4>-->
-                  <!--                      <ul>-->
-                  <!--                        <li><span>Category:</span> Design & Creative</li>-->
-                  <!--                        <li><span>Location:</span> Los Angeles</li>-->
-                  <!--                        <li><span>Status:</span> Full-time</li>-->
-                  <!--                        <li><span>Experience:</span> 3 year(s)</li>-->
-                  <!--                        <li><span>Salary:</span> $32k - $36k</li>-->
-                  <!--                        <li><span>Gender:</span> Male</li>-->
-                  <!--                        <li><span>Age:</span> 24 Year(s)</li>-->
-                  <!--                        <li><span>Qualification:</span> Gradute</li>-->
-                  <!--                      </ul>-->
+              <div id="about-details-div">
+                <h4><i data-feather="align-left"></i>About Me</h4>
+                <div class="about" id="about_me"></div>
+                <div class="information-and-contact">
+                  <div class="information">
+                    <h4>Information</h4>
+                    <ul>
+                      <li><span>Category:</span> <span id="industry_expertise"></span></li>
+                      <li><span>Location:</span> <span id="address"></span></li>
+                      <li><span>Status:</span> <span id="status"></span></li>
+                      <li><span>Experience:</span> <span id="status"></span></li>
+                      <li><span>Salary:</span> <span id="expected_salary_min"></span>k - <span id="expected_salary_max"></span>k</li>
+                      <li><span>Gender:</span> <span id="gender"></span></li>
+                      <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
+                      <li><span>Qualification:</span> <span id="qualification"></span></li>
+                    </ul>
+                  </div>
                 </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-about-me">
+                  <i data-feather="edit-2"></i>
+                </button>
+                <!-- Modal -->
               </div>
-              <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-about-me">
-                <i data-feather="edit-2"></i>
-              </button>
-              <!-- Modal -->
               <div class="modal fade" id="modal-about-me" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -419,6 +421,7 @@
                 </div>
               </div>
             </div>
+
             <div class="edication-background details-section dashboard-section">
               <h4><i data-feather="book"></i>Education Background</h4>
               <div class="education-label">
@@ -1313,6 +1316,7 @@
 {% endblock %}
 {% block extra_js %}
 <script>
+
   $(document).ready(function() {
     $('#job-update-form').validate({
       errorClass: "my-error-class",
@@ -1331,7 +1335,6 @@
     $('form.ajax').attr('action',postUrl);
 
 
-
     // If social URL is emtpy then add space in value for skipping database data saving problem
     $(".social-network-update").click(function(){
       var facebook_url = $("#facebbok_id").val();
@@ -1348,27 +1351,28 @@
       }
     });
 
-    //checking empty string value for about info
-    $("#info-update-form").click(function(){
-      var about_me = $("#about_me").val();
-      var industry_expertise = $("#industry_expertise").val();
-      var address = $("#address").val();
-      var status = $("#status").val();
-      var experience = $("#experience").val();
-      var expected_salary_min = $("#expected_salary_min").val();
-      var expected_salary_max = $("#expected_salary_max").val();
-      var gender = $("#gender").val();
-      var qualification = $("#qualification").val();
+    // checking empty string value for about info
+    $("#info-update-form").click(function(event){
+      var about_me = $("#info-update-form #about_me").val();
+      var industry_expertise = $("#info-update-form #industry_expertise").val();
+      var address = $("#info-update-form #address").val();
+      var status = $("#info-update-form #status").val();
+      var experience = $("#info-update-form #experience").val();
+      var expected_salary_min = $("#info-update-form #expected_salary_min").val();
+      var expected_salary_max = $("#info-update-form #expected_salary_max").val();
+      var gender = $("#info-update-form #gender").val();
+      var qualification = $("#info-update-form #qualification").val();
       if (!about_me){
-        $("#about_me").val(' ');
+        $("#info-update-form #about_me").val(' ');
       }
-      <!--      if (!industry_expertise){-->
-      <!--        $("#industry_expertise").val(' ');-->
-      <!--      }-->
-      <!--      if (!address){-->
-      <!--        $("#address").val(' ');-->
+      // if (!industry_expertise){
+      //   $("#info-update-form #industry_expertise").val(' ');
+      // }
+      if (!address){
+      $("#address").val(' ');
 
-      <!--      } if (!status){-->
+      }
+      <!--if (!status){-->
       <!--        $("#status").val(' ');-->
 
       <!--      }if (!experience){-->
@@ -1389,30 +1393,31 @@
         $("#expected_salary_max").val(0);
       }
     });
-
-    //checking empty string value for personal details
-    $("#details-update-form").click(function(){
-      var full_name = $("#full_name").val();
-      var father_name = $("#father_name").val();
-      var mother_name = $("#mother_name").val();
-      var date_of_birth = $("#date_of_birth").val();
-      var permanent_address = $("#permanent_address").val();
-
-
-      if (!full_name){
-        $("#full_name").val(' ');
-      }if (!father_name){
-        $("#father_name").val(' ');
-      }if (!mother_name){
-        $("#mother_name").val(' ');
-      }if (!date_of_birth){
-        $("#date_of_birth").val(' ');
-      }if (!permanent_address){
-        $("#permanent_address").val(' ');
-      }
-    });
     initAjaxForms();
+    //checking empty string value for personal details
+    // $("#details-update-form").click(function(){
+    //   var full_name = $("#full_name").val();
+    //   var father_name = $("#father_name").val();
+    //   var mother_name = $("#mother_name").val();
+    //   var date_of_birth = $("#date_of_birth").val();
+    //   var permanent_address = $("#permanent_address").val();
+    //
+    //
+    //   if (!full_name){
+    //     $("#full_name").val(' ');
+    //   }if (!father_name){
+    //     $("#father_name").val(' ');
+    //   }if (!mother_name){
+    //     $("#mother_name").val(' ');
+    //   }if (!date_of_birth){
+    //     $("#date_of_birth").val(' ');
+    //   }if (!permanent_address){
+    //     $("#permanent_address").val(' ');
+    //   }
+    // });
+    // initAjaxForms();
   });
+
 
 
 
@@ -1447,55 +1452,22 @@
 
 
 
-
-
-
-
-
-
-
-
-
   // load personal_info about and personal details data and append here
   function  loadabout(data){
-    var about_html='<p>'+data.personal_info.about_me+'</p>';
-    $(".about").html(about_html);
-    var info_html = '<h4>Information</h4>'+
-            '<ul>'+
-            '<li><span>Category:</span> '+data.personal_info.industry_expertise+'</li>'+
-            '<li><span>Location:</span> '+data.personal_info.address+'</li>'+
-            '<li><span>Status:</span>'+data.personal_info.status+'</li>'+
-            '<li><span>Experience:</span>'+data.personal_info.experience+'</li>'+
-            '<li><span>Salary:</span> $'+data.personal_info.expected_salary_min+'k - $'+data.personal_info.expected_salary_max+'k</li>'+
-            '<li><span>Gender:</span>'+data.personal_info.gender+'</li>'+
-            <!--                        '<li><span>Age:</span> 24 Year(s)</li>'+-->
-            '<li><span>Qualification:</span>'+data.personal_info.qualification+'</li>'+
-            '</ul>';
-
-
-//Showing value to text box when edit
-    $(".information").append(info_html);
-    $('#about_me').val(data.personal_info.about_me);
-    $('#industry_expertise').val(data.personal_info.industry_expertise);
-    $('#address').val(data.personal_info.address);
-    $('#experience').val(data.personal_info.experience);
-    $('#expected_salary_min').val(data.personal_info.expected_salary_min);
-    $('#expected_salary_max').val(data.personal_info.expected_salary_max);
-    $('#gender').val(data.personal_info.gender);
-    $('#qualification').val(data.personal_info.qualification);
-
-
-
+    console.log(data.personal_info);
+    container = $('#about-details-div');
+    json2Div(data.personal_info, container);
+    json2Form(data.personal_info, "info-update-form");
 
 //appending value to personal details
     var detail_html = '<ul>'+
-            '<li><span>Full Name:</span> '+ data.personal_info.full_name+'</li>'+
-            '<li><span>Fathers Name:</span> '+data.personal_info.father_name+'</li>'+
-            '<li><span>Mothers Name:</span>'+ data.personal_info.mother_name+'</li>'+
-            '<li><span>Date of Birth:</span>'+data.personal_info.date_of_birth+'</li>'+
-            '<li><span>Nationality:</span> '+data.personal_info.nationality+'</li>'+
-            '<li><span>Sex:</span>'+data.personal_info.gender+'</li>'+
-            '<li><span>Address:</span>'+data.personal_info.permanent_address+'</li>'+
+            '<li><span>Full Name:</span> '+ full_name+'</li>'+
+            '<li><span>Fathers Name:</span> '+father_name+'</li>'+
+            '<li><span>Mothers Name:</span>'+ mother_name+'</li>'+
+            '<li><span>Date of Birth:</span>'+date_of_birth+'</li>'+
+            // '<li><span>Nationality:</span> '+nationality+'</li>'+
+            '<li><span>Sex:</span>'+gender+'</li>'+
+            '<li><span>Address:</span>'+permanent_address+'</li>'+
             '</ul>';
 
 
@@ -1510,10 +1482,8 @@
   function aboutCallback(data) {
     if(data.status==200){
       $("#modal-about-me").modal("hide");
-      console.log(data);
-      var about_html='<p>'+data.responseJSON.about_me+'</p>';
-      $(".about").html(about_html);
-      json2Div(data.responseJSON, 'about-details');
+      container = $('#about-details-div');
+      json2Div(data.responseJSON, container);
     }else{
       showError("Error Updating ")
     }
@@ -1521,22 +1491,11 @@
   }
 
 
-
-
-
-
-
-
-
-
-
   // static value of social url appending here
   function  loadstatic(data){
     $("#fb").text(data[1]);
     $("#tw").text(data[2]);
     $("#ln").text(data[3]);
-
-
   }
 </script>
 {% endblock %}
