@@ -182,7 +182,7 @@ class Job(models.Model):
     favorite_count = models.PositiveIntegerField(default=0)
     applied_count = models.PositiveIntegerField(default=0)
     terms_and_condition = models.BooleanField(default=False)
-    created_date = models.DateTimeField(default=timezone.now())
+    created_date = models.DateTimeField(default=timezone.now)
     job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
     entry_date = models.DateTimeField(auto_now_add=True)
 
@@ -232,13 +232,17 @@ class Skill(models.Model):
 
 #Trending Keywords Model Starts here
 class TrendingKeywords(models.Model):
-    keyword = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
+    keyword = models.CharField(max_length=255, blank=True)
+    location = models.CharField(max_length=255, blank=True)
     device = models.CharField(max_length=255, default='Unknown')
     browser = models.CharField(max_length=255,default='Unknown')
     operating_system = models.CharField(max_length=255,default='Unknown')
     created_date = models.DateTimeField(default=timezone.now)
 
+    def clean(self):
+        cleaned_data = super().clean()
+        if not cleaned_data.get('keyword') and not cleaned_data.get('location'):  # This will check for None or Empty
+            raise ValidationError({'keyword': 'Even one of keyword or location should have a value.'})
 
     class Meta:
         verbose_name = strings_job.TRENDING_KEYWORDS_VERBOSE_NAME

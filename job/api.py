@@ -16,7 +16,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.pagination import *
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.status import HTTP_200_OK
+from rest_framework.status import *
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
@@ -437,10 +437,13 @@ def trending_keyword_save(request):
     os_name = request.user_agent.os.family
 
     search_data.update([('device', device_name), ('browser', browser_name), ('operating_system', os_name)])
-
-    key_obj = TrendingKeywords(**search_data)
-    key_obj.save()
-    return Response(HTTP_200_OK)
+    print(search_data['location'])
+    if search_data['location'] or search_data['keyword']:
+        key_obj = TrendingKeywords(**search_data)
+        key_obj.save()
+        return Response(HTTP_200_OK)
+    else:
+        return HttpResponse('both field can not be blank')
 
 class TrendingKeywordPopulate(generics.ListCreateAPIView):
     queryset = TrendingKeywords.objects.values('keyword').annotate(key_count = Count('keyword')).order_by('-key_count')[:6]
