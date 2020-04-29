@@ -94,19 +94,22 @@
 
 
                 </div>
-                <div class="experience dashboard-section details-section">
+                <div class="experience dashboard-section details-section" id="work">
                   <h4><i data-feather="briefcase"></i>Work Experiance</h4>
-                  <div class="experience-section">
-                    <span class="service-year">2016 - Present</span>
-                    <h5>Lead UI/UX Designer<span>@ Codepassengers LTD</span></h5>
-                    <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-                  </div>
-                  <div class="experience-section">
-                    <span class="service-year">2012 - 2016</span>
-                    <h5>Former Graphic Designer<span>@ Graphicreeeo CO</span></h5>
-                    <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-                  </div>
+
+
+<!--                  <div class="experience-section" >-->
+<!--                    <span class="service-year">2016 - Present</span>-->
+<!--                    <h5>Lead UI/UX Designer<span>@ Codepassengers LTD</span></h5>-->
+<!--                    <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--                  </div>-->
+
+
+
+
+
                 </div>
+
                 <div class="professonal-skill dashboard-section details-section">
                   <h4><i data-feather="feather"></i>Professional Skill</h4>
                   <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting</p>
@@ -377,6 +380,21 @@
                                   '<li><span>Qualification:</span>'+data.personal_info.qualification+'</li>'+
                                   '</ul>';
                           $(".information").html(info_html);
+
+
+
+            //work experience info show
+
+                    work_data = data.experience_info
+                    len = work_data.length;
+                    for(x=0;x<len;x++){
+                          var work_html='<div class="experience-section">'+
+                                    '<span class="service-year">'+work_data[x].Started_date+'-'+work_data[x].end_date+'</span>'+
+                                    '<h5>'+work_data[x].designation+'<span>@'+work_data[x].company+'</span></h5>'+
+                                    '</div><br>';
+                          $('#work').append(work_html);
+                                      }
+
 
 
             //education info show
