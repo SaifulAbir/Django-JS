@@ -32,6 +32,6 @@ urlpatterns = [
     path('professional_membership_save/', professional_membership_save),
     path('professional_certification_save/', professional_certification_save),
     path('professional_reference_save/', professional_reference_save),
-    # path('professional_info/<str:pk>/', professional_info),
+    path('professional_info/<str:pk>/', professional_info),
     path('myprofile_info/<str:pk>/', TemplateView.as_view(template_name='myprofile.html'),name='myprofile'),
 ]
