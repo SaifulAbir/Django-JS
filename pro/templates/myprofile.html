@@ -64,21 +64,17 @@
                 </div>
                 <div class="about-details details-section dashboard-section">
                   <h4><i data-feather="align-left"></i>About Me</h4>
-                  <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including.</p>
-                  <p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable </p>
+                  <div class="pro_about">
+
+
+
+                  </div>
                   <div class="information-and-contact">
                     <div class="information">
                       <h4>Information</h4>
-                      <ul>
-                        <li><span>Category:</span> Design & Creative</li>
-                        <li><span>Location:</span> Los Angeles</li>
-                        <li><span>Status:</span> Full-time</li>
-                        <li><span>Experience:</span> 3 year(s)</li>
-                        <li><span>Salary:</span> $32k - $36k</li>
-                        <li><span>Gender:</span> Male</li>
-                        <li><span>Age:</span> 24 Year(s)</li>
-                        <li><span>Qualification:</span> Gradute</li>
-                      </ul>
+
+
+
                     </div>
                   </div>
                 </div>
@@ -352,7 +348,35 @@
                     }
 
 
-                    console.log(data)
+            //about info show
+
+                 function getAge(dateString)
+                      {
+                          var today = new Date();
+                          var birthDate = new Date(dateString);
+                          var age = today.getFullYear() - birthDate.getFullYear();
+                          var m = today.getMonth() - birthDate.getMonth();
+                          if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
+                          {
+                              age--;
+                          }
+                          return age;
+                      }
+                          var pro_age = getAge(data.personal_info.date_of_birth)
+                          var about_html='<p>'+data.personal_info.about_me+'</p>';
+                          $(".pro_about").html(about_html);
+                          var info_html = '<h4>Information</h4>'+
+                                  '<ul>'+
+                                  '<li><span>Category:</span> '+data.personal_info.industry_expertise+'</li>'+
+                                  '<li><span>Location:</span> '+data.personal_info.address+'</li>'+
+                                  '<li><span>Status:</span>'+data.personal_info.status+'</li>'+
+                                  '<li><span>Experience:</span>'+data.personal_info.experience+'</li>'+
+                                  '<li><span>Salary:</span> $'+data.personal_info.expected_salary_min+'k - $'+data.personal_info.expected_salary_max+'k</li>'+
+                                  '<li><span>Gender:</span>'+data.personal_info.gender+'</li>'+
+                                  '<li><span>Age:</span>'+pro_age+' Year(s)</li>'+
+                                  '<li><span>Qualification:</span>'+data.personal_info.qualification+'</li>'+
+                                  '</ul>';
+                          $(".information").html(info_html);
 
 
             //education info show
