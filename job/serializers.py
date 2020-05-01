@@ -108,8 +108,3 @@ class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
         fields = '__all__'
-
-class ApplyOnlineSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ApplyOnline
-        fields = '__all__'
