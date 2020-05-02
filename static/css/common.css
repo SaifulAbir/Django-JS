@@ -191,3 +191,8 @@ a.save.apply.active {
  .job-filter-wrapper #experience-filter .nstSlider .grip-label .rightLabel:before {
      content: '';
  }
+
+ #search-form .alert-danger {
+     color: #e60015;
+     background-color: #fff;
+ }
