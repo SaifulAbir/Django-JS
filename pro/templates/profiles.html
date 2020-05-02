@@ -309,11 +309,11 @@
                   <div class="information">
                     <h4>Information</h4>
                     <ul>
-                      <li><span>Category:</span> <span id="industry_expertise"></span></li>
+                      <li><span>Category:</span> <span class="detail-color" id="industry_expertise"></span></li>
                       <li><span>Location:</span> <span id="address"></span></li>
                       <li><span>Status:</span> <span id="status"></span></li>
                       <li><span>Experience:</span> <span id="status"></span></li>
-                      <li><span>Salary:</span> <span id="expected_salary_min"></span>k - <span id="expected_salary_max"></span>k</li>
+                      <li><span>Salary:</span> <span class="about-info-salary" id="expected_salary_min"></span>k - <span class="about-info-salary" id="expected_salary_max"></span>k</li>
                       <li><span>Gender:</span> <span id="gender"></span></li>
                       <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
                       <li><span>Qualification:</span> <span id="qualification"></span></li>
@@ -1146,22 +1146,24 @@
               </div>
             </div>
             <div class="personal-information dashboard-section last-child details-section">
-              <h4><i data-feather="user-plus"></i>Personal Deatils</h4>
-              <div class="details">
-                <!--                  <ul>-->
-                <!--                    <li><span>Full Name:</span> Micheal N. Taylor</li>-->
-                <!--                    <li><span>Father's Name:</span> Howard Armour</li>-->
-                <!--                    <li><span>Mother's Name:</span> Megan Higbee</li>-->
-                <!--                    <li><span>Date of Birth:</span> 22/08/1992</li>-->
-                <!--                    <li><span>Nationality:</span> American </li>-->
-                <!--                    <li><span>Sex:</span> Male</li>-->
-                <!--                    <li><span>Address:</span> 2018 Nelm Street, Beltsville, VA 20705</li>-->
-                <!--                  </ul>-->
+              <div id="personal-information-div">
+                <h4><i data-feather="user-plus"></i>Personal Deatils</h4>
+                <div class="details">
+                  <ul>
+                    <li><span>Full Name:</span> <span id="full_name"></span></li>
+                    <li><span>Father's Name:</span> <span id="father_name"></span></li>
+                    <li><span>Mother's Name:</span> <span id="mother_name"></span></li>
+                    <li><span>Date of Birth:</span> <span id="date_of_birth"></span></li>
+<!--                    <li><span>Nationality:</span> <span id="gender"></span> </li>-->
+                    <li><span>Sex:</span> <span id="gender"></span></li>
+                    <li><span>Address:</span> <span id="permanent_address"></span></li>
+                  </ul>
+                </div>
+                <!--Button trigger modal -->
+                <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-personal-details">
+                  <i data-feather="edit-2"></i>
+                </button>
               </div>
-              <!--Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-personal-details">
-                <i data-feather="edit-2"></i>
-              </button>
               <!-- Modal -->
               <div class="modal fade" id="modal-personal-details" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -1171,7 +1173,7 @@
                         <h4><i data-feather="user-plus"></i>Personal Details</h4>
                       </div>
                       <div class="content">
-                        <form action="" class="job-post-form ajax" method="PUT" id="details-update-form">
+                        <form action="" class="job-post-form ajax" method="PUT" id="details-update-form" data-callback="personalCallback">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Full Name</label>
                             <div class="col-sm-9">
@@ -1208,7 +1210,7 @@
                             <label class="col-sm-3 col-form-label">Gender</label>
                             <div class="col-sm-9">
                               <!--                                  <input type="text" id="gender_id" name="gender" class="form-control"  placeholder="Male">-->
-                              <select class="form-control" name="gender" id="gender_id" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender" value="">
+                              <select class="form-control" name="gender" id="gender" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender" value="">
                               </select>
                             </div>
                           </div>
@@ -1457,25 +1459,28 @@
     console.log(data.personal_info);
     container = $('#about-details-div');
     json2Div(data.personal_info, container);
+    container_personal = $('#personal-information-div');
+    json2Div(data.personal_info, container_personal);
     json2Form(data.personal_info, "info-update-form");
+    json2Form(data.personal_info, "details-update-form");
 
 //appending value to personal details
-    var detail_html = '<ul>'+
-            '<li><span>Full Name:</span> '+ full_name+'</li>'+
-            '<li><span>Fathers Name:</span> '+father_name+'</li>'+
-            '<li><span>Mothers Name:</span>'+ mother_name+'</li>'+
-            '<li><span>Date of Birth:</span>'+date_of_birth+'</li>'+
-            // '<li><span>Nationality:</span> '+nationality+'</li>'+
-            '<li><span>Sex:</span>'+gender+'</li>'+
-            '<li><span>Address:</span>'+permanent_address+'</li>'+
-            '</ul>';
+//     var detail_html = '<ul>'+
+//             '<li><span>Full Name:</span> '+ full_name+'</li>'+
+//             '<li><span>Fathers Name:</span> '+father_name+'</li>'+
+//             '<li><span>Mothers Name:</span>'+ mother_name+'</li>'+
+//             '<li><span>Date of Birth:</span>'+date_of_birth+'</li>'+
+//             // '<li><span>Nationality:</span> '+nationality+'</li>'+
+//             '<li><span>Sex:</span>'+gender+'</li>'+
+//             '<li><span>Address:</span>'+permanent_address+'</li>'+
+//             '</ul>';
 
 
-    $(".details").append(detail_html);
-    $("#full_name").val(data.personal_info.full_name);
-    $("#father_name").val(data.personal_info.father_name);
-    $("#mother_name").val(data.personal_info.mother_name);
-    $("#permanent_address").val(data.personal_info.permanent_address);
+    // $(".details").append(detail_html);
+    // $("#full_name").val(data.personal_info.full_name);
+    // $("#father_name").val(data.personal_info.father_name);
+    // $("#mother_name").val(data.personal_info.mother_name);
+    // $("#permanent_address").val(data.personal_info.permanent_address);
   }
 
 
@@ -1483,6 +1488,17 @@
     if(data.status==200){
       $("#modal-about-me").modal("hide");
       container = $('#about-details-div');
+      json2Div(data.responseJSON, container);
+    }else{
+      showError("Error Updating ")
+    }
+
+  }
+
+  function personalCallback(data) {
+    if(data.status==200){
+      $("#modal-personal-details").modal("hide");
+      container = $('#personal-information-div');
       json2Div(data.responseJSON, container);
     }else{
       showError("Error Updating ")

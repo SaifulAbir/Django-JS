@@ -181,3 +181,23 @@ a.save.favourite.active {
  .job-filter-wrapper #experience-filter .nstSlider .grip-label .rightLabel:before {
      content: '';
  }
+
+ /*professional edit profile*/
+.about-info-salary{
+    color: #6f7484!important;
+    font-weight: normal!important;
+    margin-right: 0px!important;
+}
+
+.information ul li span:nth-last-child(1){
+    font-size: 1.4rem;
+    color: #6f7484;
+    font-weight: normal;
+}
+
+.personal-information ul li span:nth-last-child(1){
+    font-size: 1.4rem;
+    color: #6f7484;
+    font-weight: normal;
+}
+/*professional edit profile*/
