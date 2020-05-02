@@ -204,8 +204,11 @@
 
               <div class="dashboard-sidebar">
                 <div class="user-info">
-                  <div class="thumb">
-                    <img src="dashboard/images/user-1.jpg" class="img-fluid" alt="">
+                  <div class="thumb" id="pro_pic">
+
+<!--                    <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">-->
+
+
                   </div>
                   <div class="user-body">
                     <h5>Lula Wallace</h5>
@@ -272,27 +275,29 @@
       </div>
     </div>
 
-    <!-- Call to Action -->
-    <div class="call-to-action-bg padding-top-90 padding-bottom-90">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="call-to-action-2">
-              <div class="call-to-action-content">
-                <h2>For Find Your Dream Job or Candidate</h2>
-                <p>Add resume or post a job. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec.</p>
-              </div>
-              <div class="call-to-action-button">
-                <a href="add-resume.html" class="button">Add Resume</a>
-                <span>Or</span>
-                <a href="post-job.html" class="button">Post A Job</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Call to Action End -->
+<!--    &lt;!&ndash; Call to Action &ndash;&gt;-->
+<!--    <div class="call-to-action-bg padding-top-90 padding-bottom-90">-->
+<!--      <div class="container">-->
+<!--        <div class="row">-->
+<!--          <div class="col">-->
+<!--            <div class="call-to-action-2">-->
+<!--              <div class="call-to-action-content">-->
+<!--                <h2>For Find Your Dream Job or Candidate</h2>-->
+<!--                <p>Add resume or post a job. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec.</p>-->
+<!--              </div>-->
+<!--              <div class="call-to-action-button">-->
+<!--                <a href="add-resume.html" class="button">Add Resume</a>-->
+<!--                <span>Or</span>-->
+<!--                <a href="post-job.html" class="button">Post A Job</a>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Call to Action End &ndash;&gt;-->
+
+
 {% endblock %}
 
 {% block extra_js %}
@@ -311,6 +316,22 @@
         });
 
            function loadProfile(data){
+
+
+
+
+            //profile picture shows
+
+                    $('#pro_pic').append('<img src="'+data.personal_info.image+'" class="img-fluid" alt="">');
+
+<!--                console.log(data.personal_info.image)-->
+<!--                $('#pro_pic').append('<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">');-->
+
+
+
+
+
+
 
             //social link shows
 
