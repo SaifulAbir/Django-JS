@@ -5,8 +5,8 @@
     cursor: pointer;
 }
 :disabled {
-    color: #e0c7c7 !important;
-    cursor: default
+    cursor: default;
+    opacity: .4;
 }
 .signin-button {
     background: transparent;
@@ -192,6 +192,11 @@ a.save.apply.active {
      content: '';
  }
 
+ #search-form .alert-danger {
+     color: #e60015;
+     background-color: #fff;
+ }
+
  /*forgot password*/
 .padding-bottom-150 {
     padding-bottom: 150px;
@@ -220,3 +225,4 @@ a.save.apply.active {
     padding-right: 10px;
 }
  /*forgot password*/
+
