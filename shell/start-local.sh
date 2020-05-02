@@ -8,3 +8,4 @@ python manage.py migrate
 export DJANGO_SETTINGS_MODULE="p7.settings_dev"
 python manage.py runserver 0:8000
 
+
