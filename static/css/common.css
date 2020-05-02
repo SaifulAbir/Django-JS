@@ -5,8 +5,8 @@
     cursor: pointer;
 }
 :disabled {
-    color: #e0c7c7 !important;
-    cursor: default
+    cursor: default;
+    opacity: .4;
 }
 .signin-button {
     background: transparent;
@@ -191,3 +191,38 @@ a.save.apply.active {
  .job-filter-wrapper #experience-filter .nstSlider .grip-label .rightLabel:before {
      content: '';
  }
+
+ #search-form .alert-danger {
+     color: #e60015;
+     background-color: #fff;
+ }
+
+ /*forgot password*/
+.padding-bottom-150 {
+    padding-bottom: 150px;
+}
+
+.padding-top-150 {
+    padding-top: 150px;
+}
+
+.padding-bottom-180 {
+    padding-bottom: 180px;
+}
+
+.padding-top-180 {
+    padding-top: 180px;
+}
+
+.green-color{
+    color: #008000!important;
+}
+
+.red-color{
+    color: #FF0000!important;
+}
+.padding-icon-10{
+    padding-right: 10px;
+}
+ /*forgot password*/
+
