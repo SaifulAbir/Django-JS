@@ -46,4 +46,5 @@ urlpatterns = [
     path('major/', MajorList.as_view()),
     path('institute/', InstituteList.as_view()),
     path('certificate_name/', CertificateNameList.as_view()),
+    path('favourite-jobs/', TemplateView.as_view(template_name='favourite_jobs.html')),
 ]
