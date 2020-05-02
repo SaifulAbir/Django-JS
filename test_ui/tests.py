@@ -4,6 +4,7 @@ import pandas as pd
 
 from selenium import webdriver
 
+from test_ui.test_careeradvice import addCareeradvice
 from test_ui.test_currency import *
 from test_ui.test_difficulty import *
 from test_ui.test_exam import *
@@ -18,9 +19,12 @@ from test_ui.test_qualification import *
 from test_ui.test_question import *
 from test_ui.test_questionnaire import *
 from test_ui.test_sign_up import *
+from test_ui.test_skill import *
 from test_ui.test_sub_topic import *
 from test_ui.test_subject import *
+from test_ui.test_testimonial import addTestimonial
 from test_ui.test_topic import *
+from test_ui.test_trendingkeyword import addTrendingkeyword
 from .test_district import *
 from .test_division import *
 from .test_job_post import *
@@ -67,6 +71,8 @@ class TestUI(unittest.TestCase):
         ExamCatEntry = pd.read_csv("test_ui/data/data_exam_category.csv", dtype=str)
         ExamLevelEntry = pd.read_csv("test_ui/data/data_exam_level.csv", dtype=str)
         ExamEntry = pd.read_csv("test_ui/data/data_exam.csv", dtype=str)
+        SkillEntry = pd.read_csv("test_ui/data/data_skill.csv", dtype=str)
+        TrendingkeywordEntry = pd.read_csv("test_ui/data/data_trendingkeyword.csv", dtype=str)
 
 
         f = 1
@@ -117,27 +123,30 @@ class TestUI(unittest.TestCase):
         for idx, row in QnaireEntry.iterrows():
             driver.get(ADMIN_URL + QUESTIONNAIRE_URL)
             actual16 = addQuestionnaire(driver, row)
-
         for idx, row in ExamCatEntry.iterrows():
             driver.get(ADMIN_URL + EXAM_CATEGORY_URL)
             actual17 = addExamCategory(driver, row)
         for idx, row in ExamLevelEntry.iterrows():
             driver.get(ADMIN_URL + EXAM_LEVEL_URL)
             actual18= addExamLevel(driver, row)
-
+        for idx, row in SkillEntry.iterrows():
+             actual18 = addSkill(driver, row)
+        for idx, row in TrendingkeywordEntry.iterrows():
+            driver.get(ADMIN_URL + TRENDINGKEYWORD_URL)
+            actual18 = addTrendingkeyword(driver, row)
         # # for idx, row in ExamEntry.iterrows():
         # #     driver.get(ADMIN_URL + EXAM_URL)
         # #     actual19 = addExam(driver, row)
         #
         #
-            try:
-                if actual1==actual2==actual3==actual4==actual5==actual6==actual7==actual8==actual9==actual10==actual11==actual12==actual13==actual14==actual15==actual16==actual17==actual18:
-                    print("Data Entry succeeded")
-                else:
-                    print("Error In Data Entry")
-
-            except Exception as ex:
-                print("Error In Data Entry")
+            # try:
+            #     if actual1==actual2==actual3==actual4==actual5==actual6==actual7==actual8==actual9==actual10==actual11==actual12==actual13==actual14==actual15==actual16==actual17==actual18:
+            #         print("Data Entry succeeded")
+            #     else:
+            #         print("Error In Data Entry")
+            #
+            # except Exception as ex:
+            #     print("Error In Data Entry")
 
 
     def testSignUp(self):
@@ -187,6 +196,9 @@ class TestUI(unittest.TestCase):
             raise Exception("Total pass: " + str(idx + 1 - f) + " and Failed: " + str(f))
         else:
             print("All passed")
+    # def setUpClass():
+    #     print("Data Entry started ..")
+    #     TestUI.dataEntry()
 
     def testLoginAdmin(self):
         data = pd.read_csv("test_ui/testdata/admin_login.csv", dtype=str)
@@ -392,18 +404,17 @@ class TestUI(unittest.TestCase):
     #
     #             print(ex)
 
+    def testJobHome(self):
+        login(self.driver, {'_email': 'tanvir@ishraak.com', '_password': '@dmin123#45678a', 'name': 'admin'})
+        data = pd.read_csv("test_ui/testdata/job_post_add.csv", dtype=str)
+        for idx, row in data.iterrows():
+            self.driver.get(MAIN_URL)
+            actual = addJobHome(self.driver, row)
+            try:
+                self.assertEqual(row['expected_result'], str(actual))
+            except Exception as ex:
 
-    # def testJobHome(self):
-    #     login(self.driver, {'_email': 'tanvir@ishraak.com', '_password': '@dmin123#45678a', 'name': 'admin'})
-    #     data = pd.read_csv("test_ui/testdata/job_post_add.csv", dtype=str)
-    #     for idx, row in data.iterrows():
-    #         self.driver.get(MAIN_URL)
-    #         actual = addJobHome(self.driver, row)
-    #         try:
-    #             self.assertEqual(row['expected_result'], str(actual))
-    #         except Exception as ex:
-    #
-    #             print(ex)
+                print(ex)
 
     def testJobAdmin(self):
         adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', 'name': 'admin'})
@@ -458,7 +469,7 @@ class TestUI(unittest.TestCase):
             print("All passed")
 
     def testDifficulty(self):
-        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin@dmin123##', '_name': 'Admin'})
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
         data = pd.read_csv("test_ui/testdata/difficulty_add.csv", dtype=str)
         f = 0
         for idx, row in data.iterrows():
@@ -557,23 +568,23 @@ class TestUI(unittest.TestCase):
         else:
             print("All passed")
 
-    # def testQuestionnaire(self):
-    #     adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
-    #     data = pd.read_csv("test_ui/testdata/questionnaire_add.csv", dtype=str)
-    #     f = 0
-    #     for idx, row in data.iterrows():
-    #         self.driver.get(ADMIN_URL + QUESTIONNAIRE_URL)
-    #         actual = addQuestionnaire(self.driver, row)
-    #         try:
-    #             self.assertEqual(row['expected_result'], str(actual))
-    #             print(row['test_case_id'] + " Expected " + row['expected_result'] + " Pass : " + row['test_description'])
-    #         except Exception as ex:
-    #             print(row['test_case_id'] + " Expected " + row['expected_result'] + " Failed : " + row['test_description'])
-    #             f = f + 1
-    #     if f != 0:
-    #         raise Exception("Total pass: " + str(idx + 1 - f) + " and Failed: " + str(f))
-    #     else:
-    #         print("All passed")
+    def testQuestionnaire(self):
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
+        data = pd.read_csv("test_ui/testdata/questionnaire_add.csv", dtype=str)
+        f = 0
+        for idx, row in data.iterrows():
+            self.driver.get(ADMIN_URL + QUESTIONNAIRE_URL)
+            actual = addQuestionnaire(self.driver, row)
+            try:
+                self.assertEqual(row['expected_result'], str(actual))
+                print(row['test_case_id'] + " Expected " + row['expected_result'] + " Pass : " + row['test_description'])
+            except Exception as ex:
+                print(row['test_case_id'] + " Expected " + row['expected_result'] + " Failed : " + row['test_description'])
+                f = f + 1
+        if f != 0:
+            raise Exception("Total pass: " + str(idx + 1 - f) + " and Failed: " + str(f))
+        else:
+            print("All passed")
 
     def testExamCategory(self):
         adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
@@ -600,6 +611,107 @@ class TestUI(unittest.TestCase):
         for idx, row in data.iterrows():
             self.driver.get(ADMIN_URL + EXAM_LEVEL_URL)
             actual = addExamLevel(self.driver, row)
+            try:
+                self.assertEqual(row['expected_result'], str(actual))
+                print(row['test_case_id'] + " Expected " + row['expected_result'] + " Pass : " + row['test_description'])
+            except Exception as ex:
+                print(row['test_case_id'] + " Expected " + row['expected_result'] + " Failed : " + row['test_description'])
+                f = f + 1
+        if f != 0:
+            raise Exception("Total pass: " + str(idx + 1 - f) + " and Failed: " + str(f))
+        else:
+            print("All passed")
+
+    def testSkill(self):
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', 'name': 'admin'})
+        data = pd.read_csv("test_ui/testdata/skill_add.csv", dtype=str)
+        f = 0
+        for idx, row in data.iterrows():
+            actual = addSkill(self.driver, row)
+            try:
+                self.assertEqual(row['expected_result'], str(actual))
+                print(
+                    row['test_case_id'] + " Expected " + row['expected_result'] + " Pass : " + row['test_description'])
+            except Exception as ex:
+                print(row['test_case_id'] + " Expected " + row['expected_result'] + " Failed : " + row[
+                    'test_description'])
+                print(ex)
+                f = f + 1
+        if f != 0:
+            raise Exception("Total pass: " + str(idx + 1 - f) + " and Failed: " + str(f))
+        else:
+            print("All passed")
+
+    def testTrendingkeyword(self):
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
+        data = pd.read_csv("test_ui/testdata/trendingkeyword_add.csv", dtype=str)
+        f = 0
+        for idx, row in data.iterrows():
+            self.driver.get(ADMIN_URL + TRENDINGKEYWORD_URL)
+            actual = addTrendingkeyword(self.driver, row)
+            try:
+                self.assertEqual(row['expected_result'], str(actual))
+                print(
+                    row['test_case_id'] + " Expected " + row['expected_result'] + " Pass : " + row['test_description'])
+            except Exception as ex:
+                print(row['test_case_id'] + " Expected " + row['expected_result'] + " Failed : " + row[
+                    'test_description'])
+                print(ex)
+                f = f + 1
+        if f != 0:
+            raise Exception("Total pass: " + str(idx + 1 - f) + " and Failed: " + str(f))
+        else:
+            print("All passed")
+
+    def testTestimonial(self):
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
+        data = pd.read_csv("test_ui/testdata/testimonial_add.csv", dtype=str)
+        f = 0
+        for idx, row in data.iterrows():
+            self.driver.get(ADMIN_URL + TESTIMONIAL_URL)
+            actual = addTestimonial(self.driver, row)
+            try:
+                self.assertEqual(row['expected_result'], str(actual))
+                print(
+                    row['test_case_id'] + " Expected " + row['expected_result'] + " Pass : " + row['test_description'])
+            except Exception as ex:
+                print(row['test_case_id'] + " Expected " + row['expected_result'] + " Failed : " + row[
+                    'test_description'])
+                print(ex)
+                f = f + 1
+        if f != 0:
+            raise Exception("Total pass: " + str(idx + 1 - f) + " and Failed: " + str(f))
+        else:
+            print("All passed")
+
+    def testCareeradvice(self):
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
+        data = pd.read_csv("test_ui/testdata/careeradvice_add.csv", dtype=str)
+        f = 0
+        for idx, row in data.iterrows():
+            self.driver.get(ADMIN_URL + CAREERADVICE_URL)
+            actual = addCareeradvice(self.driver, row)
+            try:
+                self.assertEqual(row['expected_result'], str(actual))
+                print(
+                    row['test_case_id'] + " Expected " + row['expected_result'] + " Pass : " + row['test_description'])
+            except Exception as ex:
+                print(row['test_case_id'] + " Expected " + row['expected_result'] + " Failed : " + row[
+                    'test_description'])
+                print(ex)
+                f = f + 1
+        if f != 0:
+            raise Exception("Total pass: " + str(idx + 1 - f) + " and Failed: " + str(f))
+        else:
+            print("All passed")
+
+    def testExam(self):
+        adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
+        data = pd.read_csv("test_ui/testdata/exam_add.csv", dtype=str)
+        f = 0
+        for idx, row in data.iterrows():
+            self.driver.get(ADMIN_URL + EXAM_URL)
+            actual = addExam(self.driver, row)
             try:
                 self.assertEqual(row['expected_result'], str(actual))
                 print(row['test_case_id'] + " Expected " + row['expected_result'] + " Pass : " + row['test_description'])

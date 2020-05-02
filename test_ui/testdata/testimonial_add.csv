@@ -1,0 +1,9 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_client_name,_comment,_image_path,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+testimonial_add_1,,All Valid Data,,,1,Clent Name,Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Till the end Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Till the end,/home/tanvir/Pictures/thumb-4.jpg,,,,,,
+testimonial_add_2,,All Valid Data,,,1,Clent Name,Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Till the end Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Coment goes here. Till the end,/home/tanvir/Pictures/thumb-4.jpg,,,,,,
+testimonial_add_3,,All Field is empty,,,0,,,,,,,,,
+testimonial_add_4,,Valid Client Name But empty Comment and Image,,,0,Clent Name Two,,,,,,,,
+testimonial_add_5,,Valid Client Name and Comment but No Image,,,0,Clent Name Three,Comment goes here,,,,,,,
+testimonial_add_6,,Valid Client Name and Image But empty Comment,,,0,Clent Name Four,,/home/tanvir/Pictures/thumb-4.jpg,,,,,,
+testimonial_add_7,,Valid Client Name But empty Comment and Image,,,0,,Comment is in here,/home/tanvir/Pictures/thumb-4.jpg,,,,,,
+testimonial_add_8,,Gurbage(Special Char) in Client Name butvalid Comment and Image,,,0,~!!@^&f~!@,Comment should be large,/home/tanvir/Pictures/thumb-4.jpg,,,,,,

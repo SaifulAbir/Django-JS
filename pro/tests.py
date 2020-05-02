@@ -1,15 +1,17 @@
 from unittest.mock import MagicMock
-
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 # Create your tests here.
-
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import RequestsClient
 
 from job.models import Industry
+from p7.settings_dev import SITE_URL
 from pro import utils
-from pro.models import Professional
+from pro.models import *
 
 #PROFESSIONAL TESTS
 class ProfessionalTest(TestCase):
@@ -116,3 +118,77 @@ class ProfessionalTest(TestCase):
 #         utils.checkValidEmailPassword = MagicMock(return_value=(email == self.user.username and password == self.user.password))
 
 
+class ProfessionalSkillTest(TestCase):
+
+    def setUp(self):
+        skill = Skill(name='django')
+        skill.save()
+        self.skill = skill
+
+        professional = Professional(email='shoab@ishraak.com',phone='01881500842',password='shoab123')
+        professional.save()
+        self.professional = professional
+
+
+    def test__when_proper_data_is_given__professional_skill_created(self):
+        url = '/api/professional/professional_skill/'
+        client = RequestsClient()
+        id = self.professional.id
+        client.headers.update({'x-test': 'true'})
+        skil_id = self.skill.id
+        data = {'professional_id': str(id), 'skill_name_id':str(skil_id),'rating':5}
+        response = client.post(SITE_URL + url, json=data, headers={'api-key': '96d56aceeb9049debeab628ac760aa11'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(ProfessionalSkill.objects.count(), 1)
+
+class ProfessionalReferenceTest(TestCase):
+    def setUp(self):
+        professional = Professional(email='shoab@ishraak.com',phone='01881500842',password='shoab123')
+        professional.save()
+        self.professional = professional
+
+    def test__when_proper_data_is_given__reference_is_created(self):
+        url = '/api/professional/professional_reference/'
+        client = RequestsClient()
+        id = self.professional.id
+        client.headers.update({'x-test': 'true'})
+        data = {'professional_id': str(id),'description': 'Mr.Rahim',}
+        response = client.post(SITE_URL + url, json=data, headers={'api-key': '96d56aceeb9049debeab628ac760aa11'})
+        print(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Reference.objects.count(), 1)
+
+
+class ProfessionalProtfolioTest(TestCase):
+    def setUp(self):
+        professional = Professional(email='shoab@ishraak.com',phone='01881500842',password='shoab123')
+        professional.save()
+        self.professional = professional
+
+    def test__when_proper_data_is_given__portfolio_is_created(self):
+        url = '/api/professional/professional_portfolio/'
+        client = RequestsClient()
+        id = self.professional.id
+        client.headers.update({'x-test': 'true'})
+        data = {'professional_id': str(id),'name': 'wonder machine',}
+        response = client.post(SITE_URL + url, json=data, headers={'api-key': '96d56aceeb9049debeab628ac760aa11'})
+        print(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Portfolio.objects.count(), 1)
+
+class ProfessionalMembershipTest(TestCase):
+    def setUp(self):
+        professional = Professional(email='shoab@ishraak.com',phone='01881500842',password='shoab123')
+        professional.save()
+        self.professional = professional
+
+    def test__when_proper_data_is_given__membership_is_created(self):
+        url = '/api/professional/professional_membership/'
+        client = RequestsClient()
+        id = self.professional.id
+        client.headers.update({'x-test': 'true'})
+        data = {'professional_id': str(id),'organization': 'IEEE',}
+        response = client.post(SITE_URL + url, json=data, headers={'api-key': '96d56aceeb9049debeab628ac760aa11'})
+        print(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Membership.objects.count(), 1)

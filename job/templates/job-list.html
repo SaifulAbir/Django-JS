@@ -272,6 +272,10 @@
         if (location_from_homepage=='undefined'){
             location_from_homepage='';
         }
+        var top_skill = encodeURIComponent(getUrlParameter('top-skill'));
+        if (top_skill=='undefined'){
+            top_skill='';
+        }
         var keyword_from_homepage = encodeURIComponent(getUrlParameter('keyword'));
         if (keyword_from_homepage=='undefined'){
             keyword_from_homepage='';
@@ -296,7 +300,7 @@
         if (qualification==undefined | qualification=='undefined'){
             qualification='';
         }
-        get("/api/job_list/?page=1&q="+search_keyword+"&location="+location+"&category="+category+"&location_from_homepage="+location_from_homepage+"&keyword_from_homepage="+keyword_from_homepage+
+        get("/api/job_list/?page=1&q="+search_keyword+"&location="+location+"&category="+category+"&top-skill="+top_skill+"&keyword_from_homepage="+keyword_from_homepage+
             "&skill="+skill+"&salaryMin="+ salaryMin +"&salaryMax="+ salaryMax +"&experienceMin="+ experienceMin +"&experienceMax="+ experienceMax  +"&datePosted="+ datePosted
             +"&gender="+ gender  +"&qualification="+ qualification +"&sort="+ sorting_val +"&page_size="+pageSize,fetchDatacallback);
     }

@@ -1,0 +1,4 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_keyword,_location,_date,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+trendingkeyword_add_1,,Valid Data,,,1,Keyword A,Location A,21-03-2020,,,,,,
+trendingkeyword_add_2,,Valid Data,,,1,Keyword B,Location B,21-03-2020,,,,,,
+trendingkeyword_add_3,,Valid Data,,,1,Keyword C,Location C,21-03-2020,,,,,,

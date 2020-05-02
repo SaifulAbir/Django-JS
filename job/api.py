@@ -144,6 +144,8 @@ def job_list(request):
         datePosted = request.GET.get('datePosted')
         gender = request.GET.get('gender')
         qualification = request.GET.get('qualification')
+        topSkill = request.GET.get('top-skill')
+        print(topSkill)
         if sorting == 'descending':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         elif sorting == 'top-rated':
@@ -204,6 +206,12 @@ def job_list(request):
 
         if skill:
             job_list = job_list.filter(job_skills__in = [skill])
+            print(skill)
+
+
+        if topSkill:
+            job_list = job_list.filter(job_skills__in=[topSkill])
+            print(topSkill)
 
         if salaryMin and salaryMax:
             job_list = (job_list.filter(salary_min__gte=salaryMin) & job_list.filter(salary_min__lte = salaryMax))

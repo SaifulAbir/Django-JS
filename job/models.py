@@ -182,7 +182,7 @@ class Job(models.Model):
     favorite_count = models.PositiveIntegerField(default=0)
     applied_count = models.PositiveIntegerField(default=0)
     terms_and_condition = models.BooleanField(default=False)
-    created_date = models.DateTimeField(default=timezone.now())
+    created_date = models.DateTimeField(default=timezone.now)
     job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
     entry_date = models.DateTimeField(auto_now_add=True)
 
@@ -191,6 +191,7 @@ class Job(models.Model):
         verbose_name = strings_job.JOB_VERBOSE_NAME
         verbose_name_plural = strings_job.JOB_VERBOSE_NAME_PLURAL
         db_table = 'jobs'
+        ordering = ['-entry_date']
 
     def load_data(self, json_data):
         self.__dict__ = json_data

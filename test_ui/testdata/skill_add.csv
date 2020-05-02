@@ -1,0 +1,11 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_name,_date,_time,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+skill_add_1,,All Valid Data,,,1,Skill Test,21-03-2020,11:59:11,,,,,,
+skill_add_2,,Duplicate Entry,,,0,Skill Test,21-03-2020,11:59:11,,,,,,
+skill_add_3,,All Field is empty,,,0,,,,,,,,,
+skill_add_4,,Valid Skill But Empty Date & Time,,,0,Skill Test One,,,,,,,,
+skill_add_5,,Valid Skill & Date But Empty Time,,,0,Skill Test Two,21-03-2020,,,,,,,
+skill_add_6,,Valid Skill & Time But Empty Date,,,0,Skill Test Three,,11:59:11,,,,,,
+skill_add_7,,Empty Skill But Valid Date & Time,,,0,,21-03-2020,11:59:11,,,,,,
+skill_add_8,,Invalid Skill But Valid Date & Time,,,0,~!12Qtype@,21-03-2020,11:59:11,,,,,,
+skill_add_9,,Valid Skill and Time But Past Date,,,0,Skill Test Four,21-03-2020,11:59:11,,,,,,
+skill_add_10,,Valid Skill and Time But Future Date,,,0,Skill Test Five,21-03-2020,11:59:11,,,,,,
