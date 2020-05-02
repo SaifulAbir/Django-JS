@@ -148,36 +148,57 @@
 
 
 
-                <div class="portfolio dashboard-section details-section" >
+                <div class="portfolio dashboard-section details-section" id="pro_portfolio">
                   <h4><i data-feather="gift"></i>Portfolio</h4>
-                  <div class="portfolio-slider owl-carousel" id="pro_portfolio">
+<!--                  <div class="portfolio-slider owl-carousel" id="pro_portfolio">-->
 
 
 
 
-                          <div class="portfolio-item">
-                      <img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">
-                      <div class="overlay">
-                        <a href="#"><i data-feather="eye"></i></a>
-                        <a href="#"><i data-feather="link"></i></a>
-                      </div>
-                    </div>
+<!--                      <div class="portfolio-item">-->
+<!--                      <img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">-->
+<!--                      <div class="overlay">-->
+<!--                          <a href="#"><p>Project P7</p></i></a>-->
+<!--                      </div>-->
+<!--                            <p>Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!</p>-->
+<!--                      </div>-->
 
 
 
 
-                    <div class="portfolio-item">
-                      <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">
-                      <div class="overlay">
-                        <a href="#"><i data-feather="eye"></i></a>
-                        <a href="#"><i data-feather="link"></i></a>
-                      </div>
-                    </div>
+<!--                    <div class="portfolio-item">-->
+<!--                      <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">-->
+<!--                      <div class="overlay">-->
+<!--                        <a href="#"><p>Hello Project</p></i></a>-->
+<!--                      </div>-->
+<!--                        <p>Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!</p>-->
+<!--                    </div>-->
 
 
 
+<!--                      <div class="portfolio-item">-->
+<!--                      <img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">-->
+<!--                      <div class="overlay">-->
+<!--                          <a href="#"><p>Project P7</p></i></a>-->
+<!--                      </div>-->
+<!--                            <p>Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!</p>-->
+<!--                      </div>-->
 
-                  </div>
+
+<!--                      <div class="portfolio-item">-->
+<!--                      <img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">-->
+<!--                      <div class="overlay">-->
+<!--                          <a href="#"><p>Project P7</p></i></a>-->
+<!--                      </div>-->
+<!--                            <p>Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!</p>-->
+<!--                      </div>-->
+
+<!--                      -->
+
+
+<!--                  </div>-->
+
+
                 </div>
 
 
@@ -435,23 +456,31 @@
 
 
 
-<!--            //portfolio show-->
+            //portfolio show
 
 <!--                    console.log(data)-->
 
-<!--                    portfolio_data = data.portfolio_info-->
-<!--                    len = portfolio_data.length;-->
-<!--                    for(x=0;x<len;x++){-->
-<!--                          var portfolio_html='<div class="portfolio-item">'+-->
-<!--                               '<img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">'+-->
-<!--                               '<div class="overlay">'+-->
-<!--                               '<a href="#"><i data-feather="eye"></i></a>'+-->
-<!--                               '<a href="#"><i data-feather="link"></i></a>'+-->
-<!--                               '</div></div>';-->
 
-<!--                          $('#pro_portfolio').append(portfolio_html);-->
-<!--                                      }-->
 
+                    portfolio_data = data.portfolio_info
+                    len = portfolio_data.length;
+                    var content= '<div class="portfolio-slider owl-carousel" id="pro_portfolio">';
+                    for(x=0;x<5;x++){
+                          var portfolio_html= '<div class="portfolio-item">'+
+                                 '<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">'+
+                                 '<div class="overlay">'+
+                                 '<a><p>Project P7</p></i></a>'+
+                                 '</div>'+
+                                 '<p>Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!</p>'+
+                                 '</div>';
+
+                          content = content + portfolio_html;
+
+                                      }
+                          content = content + '</div>';
+                          $('#pro_portfolio').append(content);
+
+                          $('.owl-carousel').owlCarousel();
 
 
 
