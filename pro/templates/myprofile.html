@@ -352,8 +352,6 @@
 
 
 
-
-
             //social link shows
 
                     facebook = 'http://facebook.com/'+data.personal_info.facebbok_id;
@@ -458,31 +456,26 @@
 
             //portfolio show
 
-<!--                    console.log(data)-->
-
-
 
                     portfolio_data = data.portfolio_info
                     len = portfolio_data.length;
                     var content= '<div class="portfolio-slider owl-carousel" id="pro_portfolio">';
-                    for(x=0;x<5;x++){
+                    for(x=0;x<len;x++){
                           var portfolio_html= '<div class="portfolio-item">'+
-                                 '<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">'+
+
+               //  '<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">'+
+
+                                 '<img src="'+portfolio_data[x].image+'" class="img-fluid" alt="">'+
                                  '<div class="overlay">'+
-                                 '<a><p>Project P7</p></i></a>'+
+                                 '<a><p>'+portfolio_data[x].name+'</p></i></a>'+
                                  '</div>'+
-                                 '<p>Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!Project P7 is a dynamic job search platform!!</p>'+
+                                 '<div><p>'+portfolio_data[x].description+'</p></div>'+
                                  '</div>';
 
-                          content = content + portfolio_html;
-
-                                      }
+                          content = content + portfolio_html;                                     }
                           content = content + '</div>';
                           $('#pro_portfolio').append(content);
-
-                          $('.owl-carousel').owlCarousel();
-
-
+                          $('.owl-carousel').owlCarousel({loop:true,nav:true});
 
 
 
