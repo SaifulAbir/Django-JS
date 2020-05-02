@@ -920,8 +920,13 @@ class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
 @api_view(["POST"])
 def info_box_api(request):
     user = request.user
-    favourite_job = FavouriteJob.objects.filter(user = user)
-    data =[favourite_job]
+    favourite_job = FavouriteJob.objects.filter(user = user).count
+    applied_job = FavouriteJob.objects.filter(user = user).count
+    skills_count = ProfessionalSkill.objects.filter(created_by=user).count
+    data ={'favourite_job':favourite_job,
+           'applied_job':applied_job,
+           'skills_count':skills_count
+           }
 
     return Response(data)
 
