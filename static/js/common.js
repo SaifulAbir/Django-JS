@@ -140,7 +140,6 @@ function json2Form(data, id){
 }
 
 function json2Div(data, container){
-    console.log(data)
     for(key in data) {
         // var el = $("#" + id).find("[name='"+ key +"']");
         var el = $(container).find("[id='" + key + "']");
@@ -218,7 +217,6 @@ function makeListHtml(data, template){
 
 function imageUPload(selector) {
     var imageUrl = $(selector).attr('src');
-    console.log(imageUrl);
 }
 
 function showSuccess(title, msg) {
@@ -247,7 +245,6 @@ function showQuestion(title, msg, yesCallback, noCallback) {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes'
     }).then((result) => {
-        console.log(result.value)
         if (result.value && typeof (yesCallback) ==='function') {
             yesCallback();
         } else if(result.dismiss=='cancel' && typeof(noCallback) ==='function'){
@@ -364,7 +361,6 @@ function isLoggedIn() {
 
 function loadFavouriteJob(data) {
     if(data.responseJSON.code == 200){
-        console.log(data.responseJSON)
         var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
         el.each(function () {
             if($(this).hasClass('active')){
@@ -412,7 +408,6 @@ function applyOnlineJobAddRemove(id, url) {
 
 function loadApplyonlineJob(data) {
     if(data.responseJSON.code == 200){
-        console.log(data.responseJSON.result.user.job)
         var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
         el.each(function () {
             if($(this).hasClass("apply")){
