@@ -5,8 +5,8 @@
     cursor: pointer;
 }
 :disabled {
-    color: #e0c7c7 !important;
-    cursor: default
+    cursor: default;
+    opacity: .4;
 }
 .signin-button {
     background: transparent;
@@ -211,6 +211,11 @@ a.save.apply.active {
     font-weight: normal;
 }
 /*professional edit profile*/
+
+ #search-form .alert-danger {
+     color: #e60015;
+     background-color: #fff;
+ }
 
  /*forgot password*/
 .padding-bottom-150 {
