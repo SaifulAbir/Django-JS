@@ -330,12 +330,40 @@ $(document).ready(function() {
 
     $(document).on('click', ".selected-options .filtered-options li span", function() {
         $(this).parent('li').remove();
+        //call filter function
+        var experienceMin = $(".ex-leftLabel").html();
+        var experienceMax = parseInt($(".ex-rightLabel").html());
+        if (experienceMax == 0){
+            experienceMax='';
+        }
+
+        var salaryMin = parseInt($(".leftLabel").html());
+        var salaryMax = parseInt($(".rightLabel").html());
+        if (salaryMax == 0){
+            salaryMax='';
+        }
+        filterJobList(salaryMin, salaryMax, experienceMin, experienceMax);
+
+
     });
 
     $(document).on('click', ".selected-options .selection-title a", function(e) {
         e.preventDefault();
         $('.selected-options .filtered-options li').remove();
         $('.selected-options').slideUp();
+        //call filter function
+        var experienceMin = $(".ex-leftLabel").html();
+        var experienceMax = parseInt($(".ex-rightLabel").html());
+        if (experienceMax == 0){
+            experienceMax='';
+        }
+        var salaryMin = parseInt($(".leftLabel").html());
+        var salaryMax = parseInt($(".rightLabel").html());
+        if (salaryMax == 0){
+            salaryMax='';
+        }
+        filterJobList(salaryMin, salaryMax, experienceMin, experienceMax);
+
     });
 
     $(document).on('click', ".job-filter li a, .candidate-filter li a, .employer-filter li a", function() {
