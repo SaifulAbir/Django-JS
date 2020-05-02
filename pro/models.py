@@ -74,7 +74,7 @@ class Professional(models.Model):
 
     father_name= models.CharField(max_length=255, blank=True, null=True)
     mother_name= models.CharField(max_length=255, blank=True, null=True)
-    facebbok_id= models.CharField(max_length=255, blank=True, null=True)
+    facebook_id= models.CharField(max_length=255, blank=True, null=True)
     twitter_id= models.CharField(max_length=255, blank=True, null=True)
     linkedin_id= models.CharField(max_length=255, blank=True, null=True)
     date_of_birth = models.DateField(default=datetime.date.today)
@@ -87,6 +87,19 @@ class Professional(models.Model):
     nationality = models.ForeignKey(Nationality,on_delete=models.PROTECT, null=True, blank=True)
     religion = models.ForeignKey(Religion,on_delete=models.PROTECT, null=True, blank=True)
     permanent_address = models.CharField(max_length=255, null=True, blank=True)
+    current_location = models.CharField(max_length=255, null=True, blank=True)
+    current_company = models.CharField(max_length=255, null=True, blank=True)
+    current_designation = models.CharField(max_length=255, null=True, blank=True)
+    created_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True,related_name='professional_created_by')
+    modified_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True,related_name='professional_modified_by')
+    created_at = models.CharField(max_length=255, blank=True, null=True)
+    modified_at = models.CharField(max_length=255, blank=True, null=True)
+
+
+
+
 
 
 
@@ -107,13 +120,20 @@ class Professional(models.Model):
 
 class ProfessionalEducation(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT)
+    degree = models.ForeignKey(Qualification, on_delete=models.PROTECT) # name = degree
     institution = models.ForeignKey(Institute, on_delete=models.PROTECT, null=True, blank=True)
+    institution_text = models.CharField(max_length=255,blank=True, null=True)
     cgpa = models.CharField(max_length=255, blank=True, null=True)
     major = models.ForeignKey(Major, on_delete=models.PROTECT, null=True, blank=True)
+    major_text = models.CharField(max_length=255,blank=True, null=True)
     enrolled_date = models.DateField(null=True, blank=True)
     graduation_date = models.DateField(null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='education_created_by')
+    modified_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='education_modified_by')
+    created_at = models.CharField(max_length=255,blank=True, null=True)
+    modified_at = models.CharField(max_length=255,blank=True, null=True)
     is_archived = models.BooleanField(default=False)
 
 
@@ -123,10 +143,15 @@ class ProfessionalEducation(models.Model):
 
 class ProfessionalSkill(models.Model):
     professional = models.ForeignKey(Professional, on_delete=models.PROTECT)
-    name = models.ForeignKey(Skill, on_delete=models.PROTECT)
-    rating = models.IntegerField(default=0)
+    skill_name = models.ForeignKey(Skill, on_delete=models.PROTECT)
+    rating = models.DecimalField(default=0, decimal_places=2,max_digits=4)
     verified_by_skillcheck = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='skill_created_by')
+    modified_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='skill_modified_by')
+    created_at = models.CharField(max_length=255, blank=True, null=True)
+    modified_at = models.CharField(max_length=255, blank=True, null=True)
     is_archived = models.BooleanField(default=False)
 
 
@@ -136,12 +161,19 @@ class ProfessionalSkill(models.Model):
 
 class WorkExperience(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    company = models.ForeignKey(Company, on_delete=models.PROTECT)
+    company_text = models.CharField(max_length=255)
+    company = models.ForeignKey(Company, on_delete=models.PROTECT ,blank=True, null=True)
     designation = models.CharField(max_length=255, blank=True, null=True)
-    Started_date = models.DateField(null=True, blank=True)
+    start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='experience_created_by')
+    modified_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='experience_modified_by')
+    created_at = models.CharField(max_length=255, blank=True, null=True)
+    modified_at = models.CharField(max_length=255, blank=True, null=True)
     is_archived = models.BooleanField(default=False)
+    currently_working_here = models.BooleanField(default=False)
 
 
     class Meta:
@@ -153,6 +185,11 @@ class Portfolio(models.Model):
     image = models.CharField(blank=True, null=True, max_length=500)
     description = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='portfolio_created_by')
+    modified_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='portfolio_modified_by')
+    created_at = models.CharField(max_length=255, blank=True, null=True)
+    modified_at = models.CharField(max_length=255, blank=True, null=True)
     is_archived = models.BooleanField(default=False)
 
 
@@ -162,13 +199,18 @@ class Portfolio(models.Model):
 
 class Membership(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    org_name = models.ForeignKey(Organization,on_delete=models.PROTECT)
+    organization = models.CharField(max_length=255)
     position_held = models.CharField(max_length=255, blank=True, null=True)
     membership_ongoing = models.BooleanField(default=False)
-    Start_date = models.DateField(null=True, blank=True)
+    start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
-    desceription = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='membership_created_by')
+    modified_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='membership_modified_by')
+    created_at = models.CharField(max_length=255, blank=True, null=True)
+    modified_at = models.CharField(max_length=255, blank=True, null=True)
     is_archived = models.BooleanField(default=False)
 
 
@@ -186,13 +228,19 @@ class CertificateName(models.Model):
 
 class Certification(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    certification_name = models.ForeignKey(CertificateName,on_delete=models.PROTECT)
-    organization_name = models.ForeignKey(Organization,on_delete=models.PROTECT)
+    certificate_name = models.CharField(max_length=255)
+    organization = models.CharField(max_length=255,blank=True, null=True)
     has_expiry_period = models.BooleanField(default=True)
     issue_date = models.DateField(null=True, blank=True)
     expiry_date = models.DateField(null=True, blank=True)
     credential_id = models.CharField(max_length=255,null=True, blank=True)
     credential_url = models.CharField(max_length=255,null=True, blank=True)
+    created_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='certification_created_by')
+    modified_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='certification_modified_by')
+    created_at = models.CharField(max_length=255, blank=True, null=True)
+    modified_at = models.CharField(max_length=255, blank=True, null=True)
     is_archived = models.BooleanField(default=False)
 
 
@@ -203,10 +251,13 @@ class Certification(models.Model):
 
 class Reference(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
-    name = models.CharField(max_length=255)
-    current_position = models.CharField(max_length=255,null=True, blank=True)
-    email = models.CharField(max_length=255,null=True, blank=True)
-    mobile = models.CharField(max_length=255,null=True, blank=True, validators=[check_valid_phone_number])
+    description = models.TextField(blank=False,null=False)
+    created_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='reference_created_by')
+    modified_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, related_name='reference_modified_by')
+    created_at = models.CharField(max_length=255, blank=True, null=True)
+    modified_at = models.CharField(max_length=255, blank=True, null=True)
     is_archived = models.BooleanField(default=False)
 
 

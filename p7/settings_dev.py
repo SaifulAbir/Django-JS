@@ -108,7 +108,7 @@ WSGI_APPLICATION = 'p7.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'p7-live',
+        'NAME': 'p7',
         'USER': 'root',
         'PASSWORD': '123',
         'HOST': 'localhost',
@@ -192,7 +192,8 @@ EMAIL_HOST_USER = 'ishraak.office@gmail.com'
 EMAIL_HOST_PASSWORD = 'rashed016'
 EMAIL_USE_TLS = True
 SESSION_COOKIE_AGE = 6000
-SITE_URL = 'http://127.0.0.1:8080'
+SITE_URL = 'http://p7.ishraak.com'
+
 
 # GOOGLE_MAPS_API_KEY = 'AIzaSyCRDW0MU2nUZMZGryae1hb8oJEG6Cr_oLQ'
 GOOGLE_MAPS_API_KEY = 'AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE'

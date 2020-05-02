@@ -139,10 +139,17 @@ function json2Form(data, id){
 }
 
 function json2Div(data, container){
+    console.log(data)
     for(key in data) {
         // var el = $("#" + id).find("[name='"+ key +"']");
         var el = $(container).find("[id='" + key + "']");
-        el.html(data[key]);
+        if(data[key]){
+            el.html(data[key]);
+        }
+        else{
+            el.parent().hide();
+        }
+
     }
 }
 
@@ -195,14 +202,15 @@ function makeListHtml(data, template){
                 if($(item).hasClass("dynamic-link")){
                     var href = $(item).attr("href") + data[i][k];
                     $(item).attr("href", href);
-                } else {
+                }
+                else {
                     $(item).html(data[i][k]);
                 }
             });
 
         }
         wrapper.append(templateEl)
-        feather.replace();
+
     }
     return wrapper.html();
 }
@@ -321,54 +329,100 @@ function TokenAuthenticate() {
 
 
 function goSignIn() {
-      window.location.href = "/professional/sign-in/";
+    window.location.href = "/professional/sign-in/";
 }
 
 function favouriteJobAddRemove(id, url) {
 
-        $("#"+id).on('click', '.favourite', function (event) {
-            event.preventDefault();
-            var user = $.cookie("user");
-            var job = $(this).attr('href');
-            if(isLoggedIn() && $(this).hasClass('active')){
-                var data = {'user_id':user, 'job_id':job};
-                favouriteUrl = url;
-                post(favouriteUrl, JSON.stringify(data), loadFavouriteJob);
-            }else if(isLoggedIn()){
+    $("#"+id).on('click', '.favourite:not(.apply)', function (event) {
+        event.preventDefault();
+        var user = $.cookie("user");
+        var job = $(this).attr('href');
+        if(isLoggedIn() && $(this).hasClass('active')){
+            var data = {'user_id':user, 'job_id':job};
+            favouriteUrl = url;
+            post(favouriteUrl, JSON.stringify(data), loadFavouriteJob);
+        }else if(isLoggedIn()){
+            var data = {'user_id':user, 'job_id':job};
+            favouriteUrl = url;
+            post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
+        }
+        else {
+            showQuestion("Sign In required!", "Are you going to sign in now?", goSignIn , 'no')
 
-                var data = {'user_id':user, 'job_id':job};
-                favouriteUrl = url;
-                post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
-            }
-            else {
-                showQuestion("Sign In required!", "You are going to sign in now?", goSignIn , 'no')
+        }
 
-            }
+    });
 
-        });
-
-    }
+}
 
 function isLoggedIn() {
-        var access_token = $.cookie("access");
-        if(access_token){
-            return true;
-        }
-        return false;
+    var access_token = $.cookie("access");
+    if(access_token){
+        return true;
     }
+    return false;
+}
 
 function loadFavouriteJob(data) {
-        if(data.responseJSON.code == 200){
-            console.log(data.responseJSON)
-            var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
-            if(el.hasClass('active') && data.responseJSON.result.user.status == 'Removed'){
-                el.removeClass('active');
+    if(data.responseJSON.code == 200){
+        console.log(data.responseJSON)
+        var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
+        el.each(function () {
+            if($(this).hasClass('active')){
+                $(this).removeClass('active');
                 showError('Oopss!', 'Job removed.')
             }
-            else if(el.hasClass("favourite")){
-                el.addClass('active');
+            else if($(this).hasClass("favourite")){
+                $(this).addClass('active');
                 showSuccess('Successful!', 'Job saved as a favourite.')
 
             }
-        }
+
+        })
     }
+}
+
+
+// Favourite job common Api
+
+function applyOnlineJobAddRemove(id, url) {
+
+    $("#"+id).on('click', '.apply:not(.applied)', function (event) {
+        event.preventDefault();
+        var user = $.cookie("user");
+        var job = $(this).attr('href');
+        if(isLoggedIn() && $(this).hasClass('applied')){
+            var data = {'user_id':user, 'job_id':job};
+            applyonlineUrl = url;
+            post(applyonlineUrl, JSON.stringify(data), loadApplyonlineJob);
+        }else if(isLoggedIn()){
+
+            var data = {'user_id':user, 'job_id':job};
+            applyonlineUrl = url;
+            post(applyonlineUrl, JSON.stringify(data), loadApplyonlineJob)
+        }
+        else {
+            showQuestion("Sign In required!", "Are you going to sign in now?", goSignIn , 'no')
+        }
+
+    });
+
+}
+
+
+
+function loadApplyonlineJob(data) {
+    if(data.responseJSON.code == 200){
+        console.log(data.responseJSON.result.user.job)
+        var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
+        el.each(function () {
+            if($(this).hasClass("apply")){
+                $(this).addClass('applied');
+                showSuccess('Successful!', 'Job applied successfully.')
+                $(this).text('Applied');
+                $(this).attr('href', 'javascript:void(0)');
+            }
+        })
+    }
+}

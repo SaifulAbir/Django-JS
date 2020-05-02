@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import models
 from django.db.models import Count, QuerySet, Value, CharField
@@ -24,7 +25,7 @@ from rest_framework.pagination import PageNumberPagination
 from pro.models import Professional
 from resources.strings_job import *
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
-    Skill, FavouriteJob
+    Skill, FavouriteJob, ApplyOnline
 
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
     Skill
@@ -32,6 +33,8 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics, pagination
 from pro.utils import similar
+from .utils import favourite_job_counter, applied_job_counter
+
 
 class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
@@ -53,18 +56,30 @@ class JobObject(APIView):
         job = get_object_or_404(Job, slug=slug)
         try:
             if request.user.is_authenticated:
-                print(request.user)
                 favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
             else:
                 favourite_job = FavouriteJob.objects.get(job=job)
         except FavouriteJob.DoesNotExist:
             favourite_job = None
+        try:
+            if request.user.is_authenticated:
+                applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
+            else:
+                applied_job = ApplyOnline.objects.get(job=job)
+        except ApplyOnline.DoesNotExist:
+            applied_job = None
         if favourite_job is not None:
             job.status = YES_TXT
         else:
             job.status = NO_TXT
+        if applied_job is not None:
+            job.is_applied = YES_TXT
+        else:
+            job.is_applied = NO_TXT
         data = JobSerializer(job).data
         data['skill']=[]
+        if data['company_location'] is None:
+            data['company_location'] = ''
         if data['company_name'] is not None:
             ob = Company.objects.get(name=data['company_name'])
             if ob.profile_picture:
@@ -76,10 +91,24 @@ class JobObject(APIView):
                 data['latitude'] = str(ob.latitude)
             if ob.longitude:
                 data['longitude'] = str(ob.longitude)
+            if ob.address:
+                data['company_location'] = ob.address
+            else:
+                data['company_location'] = NO_LOCATION
+
 
         else:
             data['profile_picture'] = '/static/images/job/company-logo-2.png'
+        if data['company_name'] is None:
+            data['company_name'] = NO_NAME
 
+        if data['job_location'] is None:
+            data['job_location'] = NO_LOCATION
+
+        if data['company_location'] is None:
+            data['company_location'] = NO_LOCATION
+        if data['employment_status'] is None:
+            data['employment_status'] = NO_NAME
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
         for skill in job.job_skills.all():
@@ -113,17 +142,26 @@ def job_list(request):
         experienceMin = request.GET.get('experienceMin')
         experienceMax = request.GET.get('experienceMax')
         datePosted = request.GET.get('datePosted')
-        print(datePosted)
         gender = request.GET.get('gender')
         qualification = request.GET.get('qualification')
-
         if sorting == 'descending':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         elif sorting == 'top-rated':
-            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
+            # fav_jobs = FavouriteJob.objects.all()
+            # job_list = Job.objects.filter(fav_jobs__in = fav_jobs).annotate(favourite_count=Count('fav_jobs')
+            #                               ).order_by('-favourite_count')
+            job_list = Job.objects.all().order_by('-favorite_count')
         else:
-            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField()))
-
+            job_list = Job.objects.all().order_by('-applied_count')
+        jobtype = JobType(name=NO_NAME)
+        company = Company(name=NO_NAME)
+        for i in job_list:
+            if i.job_location is None:
+                i.job_location = NO_LOCATION
+            if i.company_name is None:
+                i.company_name = company
+            if i.employment_status is None:
+                 i.employment_status = jobtype
         if query:
             job_list = job_list.filter(
                 Q(title__icontains=query)
@@ -202,13 +240,30 @@ def job_list(request):
         if request.user != "AnonymousUser":
             for job in job_list:
                 try:
-                    favourite_job = FavouriteJob.objects.get(job=job)
+                    if request.user.is_authenticated:
+                        favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
+                    else:
+                        favourite_job = FavouriteJob.objects.get(job=job)
                 except FavouriteJob.DoesNotExist:
                     favourite_job = None
+
+                try:
+                    if request.user.is_authenticated:
+                        applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
+                    else:
+                        applied_job = ApplyOnline.objects.get(job=job)
+                except ApplyOnline.DoesNotExist:
+                    applied_job = None
+
                 if favourite_job is not None:
                     job.status = YES_TXT
                 else:
                     job.status = NO_TXT
+
+                if applied_job is not None:
+                    job.is_applied = YES_TXT
+                else:
+                    job.is_applied = NO_TXT
 
 
 
@@ -229,7 +284,10 @@ def job_list(request):
         'code': HTTP_200_OK,
         "results":  job_list.data,
     }
+
+
     return Response(data, HTTP_200_OK)
+
 class CurrencyList(generics.ListCreateAPIView):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
@@ -299,7 +357,12 @@ def job_create(request):
 def favourite_job_add(request):
     data = {}
     job_data = json.loads(request.body)
+
     if job_data:
+        try:
+            job = Job.objects.get(job_id = job_data['job_id'])
+        except Job.DoesNotExist:
+            job = None
         try:
             favourite_jobs = FavouriteJob.objects.filter(user = job_data['user_id'],job = job_data['job_id'])
         except FavouriteJob.DoesNotExist:
@@ -307,6 +370,7 @@ def favourite_job_add(request):
         if not favourite_jobs:
             favourite_job = FavouriteJob(**job_data)
             favourite_job.save()
+            favourite_job_counter(job)
             data = {
                 'code': HTTP_200_OK,
                 "result": {
@@ -318,6 +382,7 @@ def favourite_job_add(request):
             }
         elif favourite_jobs:
             favourite_jobs.delete()
+            favourite_job_counter(job)
             data = {
                 'code': HTTP_200_OK,
                 "result": {
@@ -360,7 +425,7 @@ def trending_keyword_save(request):
     os_name = request.user_agent.os.family
 
     search_data.update([('device', device_name), ('browser', browser_name), ('operating_system', os_name)])
-    print(search_data)
+
     key_obj = TrendingKeywords(**search_data)
     key_obj.save()
     return Response(HTTP_200_OK)
@@ -390,17 +455,29 @@ def recent_jobs(request):
     for job in queryset:
         try:
             if request.user.is_authenticated:
-                print(request.user)
+
                 favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
             else:
                 favourite_job = FavouriteJob.objects.get(job=job)
 
         except FavouriteJob.DoesNotExist:
             favourite_job = None
+        try:
+            if request.user.is_authenticated:
+                applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
+            else:
+                applied_job = ApplyOnline.objects.get(job=job)
+        except ApplyOnline.DoesNotExist:
+            applied_job = None
         if favourite_job is not None:
             job.status = YES_TXT
         else:
             job.status = NO_TXT
+
+        if applied_job is not None:
+            job.is_applied = YES_TXT
+        else:
+            job.is_applied = NO_TXT
         try:
             company = job.company_name
         except Company.DoesNotExist:
@@ -417,7 +494,9 @@ def recent_jobs(request):
                 job.profile_picture = '/static/images/job/company-logo-2.png'
         except Company.DoesNotExist:
             job.profile_picture = '/static/images/job/company-logo-2.png'
-        data.append({'job_id':job.job_id, 'slug':job.slug, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(company)})
+        if job.job_location is None:
+            job.job_location = NO_LOCATION
+        data.append({'job_id':job.job_id, 'is_applied':job.is_applied, 'slug':job.slug, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(company)})
 
     return JsonResponse(list(data), safe=False)
 
@@ -450,16 +529,29 @@ def similar_jobs(request,identifier):
     for job in queryset:
         try:
             if request.user.is_authenticated:
-                print(request.user)
+
                 favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
             else:
                 favourite_job = FavouriteJob.objects.get(job=job)
         except FavouriteJob.DoesNotExist:
             favourite_job = None
+
+        try:
+            if request.user.is_authenticated:
+                applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
+            else:
+                applied_job = ApplyOnline.objects.get(job=job)
+        except ApplyOnline.DoesNotExist:
+            applied_job = None
         if favourite_job is not None:
             job.status = 'Yes'
         else:
             job.status = 'No'
+
+        if applied_job is not None:
+            job.is_applied = YES_TXT
+        else:
+            job.is_applied = NO_TXT
         if job.company_name:
             if job.company_name.profile_picture:
                 job.profile_picture = '/media/' + str(job.company_name.profile_picture)
@@ -467,14 +559,19 @@ def similar_jobs(request,identifier):
                 job.profile_picture = '/static/images/job/company-logo-2.png'
         else:
             job.profile_picture = '/static/images/job/company-logo-2.png'
+
         if similar(title, job.title)>.80:
-            data.append({'job_id': job.job_id, 'title': job.title, 'job_location': job.job_location,
+            data.append({'job_id': job.job_id, 'is_applied':job.is_applied, 'slug':job.slug, 'title': job.title, 'job_location': job.job_location,
                          'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
                          'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
     for i in range(len(data)):
         if str(data[i]['job_id']) == identifier:
             del data[i]
             break
+    for i in range(len(data)):
+        if data[i]['job_location'] is None:
+            data[i]['job_location'] = NO_LOCATION
+
     return JsonResponse(list(data), safe=False)
 
 
@@ -493,3 +590,57 @@ def salary_range(self):
 class SkillList(generics.ListCreateAPIView):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
+
+
+
+
+@api_view(["POST"])
+def apply_online_job_add(request):
+    data = {}
+    job_data = json.loads(request.body)
+
+
+    user = User.objects.get(id = job_data['user_id'])
+    j_id = job_data['job_id']
+
+    job = Job.objects.get(job_id=j_id)
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
+    data.update({'job': job, 'created_by': user,
+                 'created_from': str(ip), 'modified_by': user,
+                 'modified_from': str(ip)})
+    # apply_online_job = ApplyOnline(**data)
+    # print('apply_online_job', apply_online_job)
+    # apply_online_job.save()
+    if job_data:
+        try:
+            job = Job.objects.get(job_id = job_data['job_id'])
+        except Job.DoesNotExist:
+            job = None
+        try:
+            apply_online_job = ApplyOnline.objects.filter(created_by = user, job = job)
+        except ApplyOnline.DoesNotExist:
+            apply_online_job = None
+        if not apply_online_job:
+            apply_online_job = ApplyOnline(**data)
+
+            apply_online_job.save()
+            applied_job_counter(job)
+            data = {
+                'code': HTTP_200_OK,
+                "result": {
+                    "user": {
+                        "job": job_data['job_id'],
+                        "status": 'Saved'
+                    }
+                }
+            }
+
+    return Response(data)
+
+

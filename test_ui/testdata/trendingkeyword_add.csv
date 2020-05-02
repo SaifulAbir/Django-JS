@@ -1,0 +1,11 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_keyword,_location,_date,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+trendingkeyword_add_1,,All Valid Data,,,1,Keyword Test,Location Test,21-03-2020,,,,,,
+trendingkeyword_add_2,,Duplicate Entry,,,0,Keyword Test,Location Test,21-03-2020,,,,,,
+trendingkeyword_add_3,,All Field is empty,,,0,,,,,,,,,
+trendingkeyword_add_4,,Valid Keyword But Empty Location & Date,,,0,Keyword One,,,,,,,,
+trendingkeyword_add_5,,Valid Keyword & Location But Empty Date,,,0,Keyword Two,Location One,,,,,,,
+trendingkeyword_add_6,,Valid Keyword & Date But Empty Location,,,0,Keyword Three,,21-03-2020,,,,,,
+trendingkeyword_add_7,,Empty Keyword But Valid Location & Date,,,0,,Location Two,21-03-2021,,,,,,
+trendingkeyword_add_8,,Invalid Keyword But Valid Location & Date,,,0,~!!@^&f~!@,Location Three,21-03-2022,,,,,,
+trendingkeyword_add_9,,Valid Keyword and Location But Past Date,,,0,Keyword Four,Location Four,21-03-1020,,,,,,
+trendingkeyword_add_10,,Valid Keyword and Location  But Future Date,,,0,Keyword Five,Location Five,21-03-3020,,,,,,

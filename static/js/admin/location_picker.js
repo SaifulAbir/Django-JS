@@ -22,7 +22,7 @@
   var initial_zoom = 9;
 
   // Initial zoom level if input fields have a location.
-  var initial_with_loc_zoom = 12;
+  var initial_with_loc_zoom = 17;
 
   // Global variables. Nice.
   var map, marker, $lat, $lon;
