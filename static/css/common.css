@@ -220,3 +220,6 @@ a.save.apply.active {
     padding-right: 10px;
 }
  /*forgot password*/
+.navbar .navbar-nav.ml-auto.main-nav li.social-url-wrapper a{
+    display: inline-block;
+}
