@@ -33,6 +33,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import AUTH_HEADER_TYPES
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
+from job.models import FavouriteJob
 from job.serializers import SkillSerializer
 from p7.permissions import IsAppAuthenticated
 from p7.settings_dev import SITE_URL
@@ -916,91 +917,11 @@ class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
         return Response(prof_obj)
 
 
-# @api_view(["GET"])
-# def professional_info(request,pk):
-#     basic_info = Professional.objects.get(pk=pk)
-#     education = ProfessionalEducation.objects.filter(professional=pk)
-#     skills = ProfessionalSkill.objects.filter(professional=pk)
-#     experience = WorkExperience.objects.filter(professional=pk)
-#     portfolio = Portfolio.objects.filter(professional=pk)
-#     membership = Membership.objects.filter(professional=pk)
-#     certification = Certification.objects.filter(professional=pk)
-#     reference = Reference.objects.filter(professional=pk)
-#
-#     info_data = [ProfessionalSerializer(basic_info).data]
-#     edu_data = [{
-#         'qualification': str(edu.qualification_id),
-#         'institution': str(edu.institution_id),
-#         'cgpa': str(edu.cgpa),
-#         'major': str(edu.major_id),
-#         'enrolled_date': str(edu.enrolled_date),
-#         'graduation_date': str(edu.graduation_date),
-#     } for edu in education
-#     ]
-#
-#     skill_data = [{
-#         'skill': str(skill.name_id),
-#         'rating': str(skill.rating),
-#         'verified_by_skillcheck': str(skill.verified_by_skillcheck),
-#     } for skill in skills
-#     ]
-#     experience_data = [{
-#         'company': str(exp.company_id),
-#         'designation': str(exp.designation),
-#         'Started_date': str(exp.Started_date),
-#         'end_date': str(exp.end_date),
-#     } for exp in experience
-#     ]
-#
-#     portfolio_data = [{
-#         'name': str(pf.name),
-#         'image': str(pf.image),
-#         'description': str(pf.description),
-#     } for pf in portfolio
-#     ]
-#
-#     membership_data = [{
-#         'org_name': str(ms.org_name_id),
-#         'position_held': str(ms.position_held),
-#         'membership_ongoing': str(ms.membership_ongoing),
-#         'Start_date': str(ms.Start_date),
-#         'end_date': str(ms.end_date),
-#         'desceription': str(ms.desceription),
-#     } for ms in membership
-#     ]
-#
-#     certification_data = [{
-#         'certification_name': str(cert.certification_name_id),
-#         'organization_name': str(cert.organization_name_id),
-#         'has_expiry_period': str(cert.has_expiry_period),
-#         'issue_date': str(cert.issue_date),
-#         'expiry_date': str(cert.expiry_date),
-#         'credential_id': str(cert.credential_id),
-#         'credential_url': str(cert.credential_url),
-#     } for cert in certification
-#     ]
-#
-#     reference_data = [{
-#         'name': str(ref.name),
-#         'current_position': str(ref.current_position),
-#         'email': str(ref.email),
-#         'mobile': str(ref.mobile),
-#     } for ref in reference
-#     ]
-#
-#
-#
-#     prof_data={
-#         'personal_info':info_data,
-#         'edu_info': edu_data,
-#         'skill_info': skill_data,
-#         'experiecnce_info': experience_data,
-#         'portfolio_info': portfolio_data,
-#         'membership_info': membership_data,
-#         'certification_info': certification_data,
-#         'reference_data': reference_data
-#
-#     }
-#
-#
-#     return HttpResponse(json.dumps(prof_data), content_type='application/json')
+@api_view(["POST"])
+def info_box_api(request):
+    user = request.user
+    favourite_job = FavouriteJob.objects.filter(user = user)
+    data =[favourite_job]
+
+    return Response(data)
+

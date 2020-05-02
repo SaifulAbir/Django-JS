@@ -46,4 +46,5 @@ urlpatterns = [
     path('major/', MajorList.as_view()),
     path('institute/', InstituteList.as_view()),
     path('certificate_name/', CertificateNameList.as_view()),
+    path('info_box/', info_box_api),
 ]
