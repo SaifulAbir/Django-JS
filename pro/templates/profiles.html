@@ -450,11 +450,11 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="book"></i>Education</h4>
-                        <a href="#" class="add-more">+ Add Education</a>
+                        <a href="#" id="add-education" class="add-more">+ Add Education</a>
                       </div>
                       <div class="content">
                         <form action="#">
-                          <div class="input-block-wrap">
+                          <div class="input-block-wrap" id="input-block-edu">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">01</label>
                               <div class="col-sm-9">
@@ -1336,6 +1336,11 @@
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
 
+    $('#add-education').on('click', function (event) {
+      event.preventDefault();
+      var count = divCounter("input-block-edu");
+      alert(count);
+    });
 
     // If social URL is emtpy then add space in value for skipping database data saving problem
     $(".social-network-update").click(function(){
@@ -1419,7 +1424,9 @@
   });
 
 
-
+  function divCounter(id){
+    return $('#'+id).length;
+  }
 
 
   //load social and append social value
