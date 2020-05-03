@@ -178,17 +178,20 @@
 
 function myFunction(elm,clicked_id) {
  $(elm ).closest('.job-list').remove();
+ $(elm ).closest('.bookmark-title').remove();
+ $('.bookmark-title').hide();
+ var value = $('.bookmark-title').text();
+ total_applied=value[0]-1;
+ $('.bookmark-title').append(total_applied," Job Bookmarked");
  identifier = elm.id;
  catUrl ='/api/favourite-jobs-delete/'+ identifier +'/';
  get(catUrl);
 
 
+
 }
 
 
-function removeCallback(){
-console.log("mmm");
-}
 
 
     </script>
