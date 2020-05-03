@@ -662,4 +662,26 @@ def apply_online_job_add(request):
 
     return Response(data)
 
+@api_view(["GET"])
+def applied_jobs(request):
+    current_user_id = request.user.id
+    queryset = ApplyOnline.objects.filter(created_by=current_user_id)
+    total_applied = ApplyOnline.objects.filter(created_by=current_user_id).count()
+    query_data = []
+    for jobs in queryset:
+        job = Job.objects.filter(job_id=jobs.job_id)
+        for i in job:
+            if i.company_name.profile_picture:
+                i.profile_picture = '/media/' + str(i.company_name.profile_picture)
+            else:
+                i.profile_picture = '/static/images/job/company-logo-2.png'
+
+            query_data.append({'job_id': i.job_id, 'slug': i.slug, 'title': i.title, 'job_location': i.job_location,
+                               'employment_status': str(i.employment_status), 'company_name': str(i.company_name),
+                               'profile_picture': i.profile_picture})
+    data = {
+        'total_applied': total_applied,
+        'applied_jobs': query_data
+    }
+    return JsonResponse(data, safe=False)
 
