@@ -338,7 +338,7 @@
 
            function loadProfile(data){
 
-                       console.log(data)
+
 
 
             //profile picture shows
@@ -409,8 +409,10 @@
                     for(x=0;x<len;x++){
                           var edu_html='<div class="education-label">'+
                                  '<span class="study-year">'+edu_data[x].enrolled_date+' - '+edu_data[x].graduation_date+'</span>'+
-                                 '<h5>'+edu_data[x].qualification+'<span>@'+edu_data[x].institution+'</span></h5>'+
-                                 '<p>'+edu_data[x].major+' - '+edu_data[x].cgpa+'</p>'+
+                                 '<h5>'+edu_data[x].degree+'<span>@'+edu_data[x].institution_obj.name+'</span></h5>'+
+                                 '<p>'+edu_data[x].institution_text+'</p>'+
+                                 '<p><b>'+edu_data[x].major_obj.name+'</b> - '+edu_data[x].cgpa+'</p>'+
+                                 '<p>'+edu_data[x].major_text+'</p>'+
                                  '</div><br>';
                     $('#edu').append(edu_html);
                     }
