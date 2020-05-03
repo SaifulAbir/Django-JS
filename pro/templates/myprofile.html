@@ -483,13 +483,12 @@
 
 
             //personal details show
-
                       var detail_html = '<ul>'+
                               '<li><span>Full Name:</span> '+ data.personal_info.full_name+'</li>'+
                               '<li><span>Fathers Name:</span> '+data.personal_info.father_name+'</li>'+
                               '<li><span>Mothers Name:</span>'+ data.personal_info.mother_name+'</li>'+
                               '<li><span>Date of Birth:</span>'+data.personal_info.date_of_birth+'</li>'+
-                              '<li><span>Nationality:</span> '+data.personal_info.nationality+'</li>'+
+                              '<li><span>Nationality:</span> '+data.personal_info.nationality_obj.name+'</li>'+
                               '<li><span>Sex:</span>'+data.personal_info.gender+'</li>'+
                               '<li><span>Address:</span>'+data.personal_info.permanent_address+'</li>'+
                               '</ul>';
