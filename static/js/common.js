@@ -152,6 +152,15 @@ function json2Div(data, container){
 
     }
 }
+function json2DivPopulate(data, container){
+    console.log(data)
+    for(key in data) {
+        // var el = $("#" + id).find("[name='"+ key +"']");
+        var el = $(container).find("[id='" + key + "']");
+        el.html(data[key]);
+
+    }
+}
 
 function initAjaxSelects(container){
     if(!container) container = "body";
