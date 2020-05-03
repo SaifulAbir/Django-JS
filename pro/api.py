@@ -1004,3 +1004,12 @@ class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
 #
 #
 #     return HttpResponse(json.dumps(prof_data), content_type='application/json')
+
+def StaticUrl(self):
+    data = {
+        '1': "http://facebook.com/",
+        '2': "http://twitter.com/",
+        '3': "http://linkedin.com/",
+
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')

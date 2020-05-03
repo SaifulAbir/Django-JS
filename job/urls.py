@@ -12,7 +12,7 @@ urlpatterns = [
     path('job_list/', JobList.as_view()),
     path('industry/', IndustryList.as_view()),
     path('job_type/', JobTypeList.as_view()),
-    path('experience/', Experience),
+    path('experience/', Experience.as_view()),
     path('currency/', CurrencyList.as_view()),
     path('qualification/', QualificationList.as_view()),
     path('gender/', GenderList.as_view()),

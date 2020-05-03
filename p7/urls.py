@@ -28,7 +28,7 @@ from p7.api import *
 
 from testimonial.urls import *
 from pro.api import TokenObtainPairCustomView
-
+from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('api/app-dashboard/<int:user_id>', dashboard),
@@ -50,6 +50,8 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    # path('', views.home, name='home'),
+
     path('career_advice/', TemplateView.as_view(template_name='career_advice.html'), name='career_advice'),
     path('skill_check/', TemplateView.as_view(template_name='skill_check.html'), name='skill_check'),
     path('about_us/', TemplateView.as_view(template_name='about_us.html'), name='about_us'),
