@@ -956,45 +956,63 @@
                 </div>
               </div>
             </div>
-            <div class="portfolio dashboard-section details-section">
+            <div class="portfolio dashboard-section details-section" id="pro_portfolio">
               <h4><i data-feather="gift"></i>Portfolio</h4>
-              <div class="portfolio-slider owl-carousel">
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-3.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-1.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-2.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-3.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-2.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-              </div>
+
+
+<!--              <div class="portfolio-slider owl-carousel">-->
+
+
+<!--                <div class="portfolio-item">-->
+<!--                  <img src="{% static 'images/logo-2.png' %}" class="img-fluid" alt="">-->
+<!--                  <div class="overlay">-->
+<!--                    <a href="#"><i data-feather="eye"></i></a>-->
+<!--                    <a href="#"><i data-feather="link"></i></a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                -->
+<!--                -->
+<!--                <div class="portfolio-item">-->
+<!--                  <img src="{% static 'images/logo-2.png' %}" class="img-fluid" alt="">-->
+<!--                  <div class="overlay">-->
+<!--                    <a href="#"><i data-feather="eye"></i></a>-->
+<!--                    <a href="#"><i data-feather="link"></i></a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                -->
+<!--                -->
+<!--                <div class="portfolio-item">-->
+<!--                  <img src="{% static 'images/logo-2.png' %}" class="img-fluid" alt="">-->
+<!--                  <div class="overlay">-->
+<!--                    <a href="#"><i data-feather="eye"></i></a>-->
+<!--                    <a href="#"><i data-feather="link"></i></a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                -->
+<!--                -->
+<!--                <div class="portfolio-item">-->
+<!--                  <img src="{% static 'images/logo-2.png' %}" class="img-fluid" alt="">-->
+<!--                  <div class="overlay">-->
+<!--                    <a href="#"><i data-feather="eye"></i></a>-->
+<!--                    <a href="#"><i data-feather="link"></i></a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                -->
+<!--                -->
+<!--                <div class="portfolio-item">-->
+<!--                  <img src="{% static 'images/logo-2.png' %}" class="img-fluid" alt="">-->
+<!--                  <div class="overlay">-->
+<!--                    <a href="#"><i data-feather="eye"></i></a>-->
+<!--                    <a href="#"><i data-feather="link"></i></a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                -->
+
+
+
+<!--              </div>-->
+
+
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-portfolio">
                 <i data-feather="edit-2"></i>
@@ -1043,7 +1061,7 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Link</div>
+                                    <div class="input-group-text">Description</div>
                                   </div>
                                   <input type="text" class="form-control" >
                                 </div>
@@ -1083,7 +1101,7 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Link</div>
+                                    <div class="input-group-text">Description</div>
                                   </div>
                                   <input type="text" class="form-control" >
                                 </div>
@@ -1123,7 +1141,7 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Link</div>
+                                    <div class="input-group-text">Description</div>
                                   </div>
                                   <input type="text" class="form-control" >
                                 </div>
@@ -1332,6 +1350,7 @@
     var staticUrl = '/api/professional/static_urls/';
     get(getUrl,loadsocial);
     get(getUrl,loadabout);
+    get(getUrl,loadportfolio);
     get(staticUrl,loadstatic);
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
@@ -1434,6 +1453,39 @@
     $('#linkedin_id').val(data.personal_info.twitter_id);
     $('#twitter_id').val(data.personal_info.linkedin_id);
   }
+
+
+   function loadportfolio(data){
+
+         portfolio_data = data.portfolio_info
+               //console.log('portfolio' , data.portfolio_info)
+                     len = portfolio_data.length;
+                     var content= '<div class="portfolio-slider owl-carousel" id="pro_portfolio">';
+                     for(x=0;x<len;x++){
+                           var portfolio_html= '<div class="portfolio-item">'+
+
+               //  '<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">'+
+
+                                 '<img src="'+portfolio_data[x].image+'" class="img-fluid" alt="">'+
+                                 '<div class="overlay">'+
+                                 '<a><p>'+portfolio_data[x].name+'</p></i></a>'+
+                                 '</div>'+
+                                 '<div><p>'+portfolio_data[x].description+'</p></div>'+
+                                 '</div>';
+                          content = content + portfolio_html;
+                                      }
+                          content = content + portfolio_html;
+                          content = content + '</div>';
+                          $('#pro_portfolio').append(content);
+                          $('.owl-carousel').owlCarousel({loop:true,nav:true});
+
+        }
+
+
+
+
+
+
   //appending socials value in callback
   function socialCallback(data) {
     if(data.status==200){
@@ -1455,7 +1507,7 @@
 
   // load personal_info about and personal details data and append here
   function  loadabout(data){
-    console.log(data.personal_info);
+    //console.log(data.personal_info);
     container = $('#about-details-div');
     json2DivPopulate(data.personal_info, container);
     json2Form(data.personal_info, "info-update-form");
