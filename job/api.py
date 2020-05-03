@@ -423,6 +423,16 @@ def load_previous_skills(request):
     return JsonResponse(previous_skills, safe=False)
 
 
+@api_view(["GET"])
+def get_company_by_name(request):
+    comp_name = request.GET.get('name')
+    if comp_name:
+        comps = Company.objects.filter(Q(name__icontains = comp_name))
+    
+    result = CompanySerializer(comps, many = True)
+    data = { 'data' : result.data}
+    return Response(data)
+
 @api_view(["POST"])
 def trending_keyword_save(request):
     search_data = json.loads(request.body)

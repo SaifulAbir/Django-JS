@@ -27,3 +27,4 @@ user-agents==2.1
 xlrd==1.2.0
 requests==2.23.0
 beautifulsoup4==4.9.0
+django-countries==6.1.2
