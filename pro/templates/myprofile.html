@@ -338,7 +338,7 @@
 
            function loadProfile(data){
 
-
+                       console.log(data)
 
 
             //profile picture shows
@@ -367,7 +367,7 @@
                     skill_info = data['skill_info']
                     len = skill_info.length;
                     for(x=0;x<len;x++){
-                            $('.skill').append('<a href="#">'+skill_info[x].skill+'</a>');
+                            $('.skill').append('<a href="#">'+skill_info[x].skill_obj.name+'</a>');
                     }
 
 
