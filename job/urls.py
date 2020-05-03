@@ -33,5 +33,7 @@ urlpatterns = [
     path('salary_range/', salary_range),
     path('skill_list/', SkillList.as_view()),
     path('apply_online_job_add/', apply_online_job_add),
+    path('favourite-jobs/',favourite_jobs),
+    path('favourite-jobs-delete/<str:identifier>/', del_fav_jobs),
 
 ]
