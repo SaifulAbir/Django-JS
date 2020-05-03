@@ -424,8 +424,9 @@
                     len = work_data.length;
                     for(x=0;x<len;x++){
                           var work_html='<div class="experience-section">'+
-                                    '<span class="service-year">'+work_data[x].Started_date+'-'+work_data[x].end_date+'</span>'+
+                                    '<span class="service-year">'+work_data[x].start_date+'-'+work_data[x].end_date+'</span>'+
                                     '<h5>'+work_data[x].designation+'<span>@'+work_data[x].company+'</span></h5>'+
+                                    '<p>'+work_data[x].company_text+'</p>'+
                                     '</div><br>';
                           $('#work').append(work_html);
                                       }
