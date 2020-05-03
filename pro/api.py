@@ -10,6 +10,8 @@ from datetime import timedelta
 from django.contrib.auth.hashers import make_password
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
+from django.db.models import Q, Count
+from django.db.models.functions import TruncMonth
 from django.utils import timezone
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
@@ -33,8 +35,8 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import AUTH_HEADER_TYPES
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
-from job.models import FavouriteJob
-from job.serializers import SkillSerializer
+from job.models import FavouriteJob, ApplyOnline, Job
+from job.serializers import SkillSerializer, JobSerializer
 from p7.permissions import IsAppAuthenticated
 from p7.settings_dev import SITE_URL
 from pro.models import Professional, Religion, Nationality
@@ -917,16 +919,30 @@ class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
         return Response(prof_obj)
 
 
-@api_view(["POST"])
+@api_view(["GET"])
 def info_box_api(request):
     user = request.user
-    favourite_job = FavouriteJob.objects.filter(user = user).count
-    applied_job = FavouriteJob.objects.filter(user = user).count
-    skills_count = ProfessionalSkill.objects.filter(created_by=user).count
-    data ={'favourite_job':favourite_job,
-           'applied_job':applied_job,
+    favourite_job = FavouriteJob.objects.filter(user = user).count()
+    applied_job = ApplyOnline.objects.filter(created_by = user).count()
+    skills_count = ProfessionalSkill.objects.filter(created_by=user).count()
+    data ={'favourite_job_count':favourite_job,
+           'applied_job_count':applied_job,
            'skills_count':skills_count
            }
 
     return Response(data)
 
+
+
+@api_view(["GET"])
+def skill_job_chart(request):
+    user = request.user
+    skills = ProfessionalSkill.objects.filter(created_by=user)
+    all_query = Job.objects.none()
+    for skill in skills:
+        jobs = Job.objects.filter(job_skills=skill.skill_name)
+        all_query = all_query|jobs
+    count = all_query.filter(created_date__year='2020').values_list('created_date__month').distinct().annotate(total=Count('title'))
+    # count = all_query.annotate(month=TruncMonth('created_date')).values('month').annotate(total=Count('title'))
+    print(count)
+    return Response(count)

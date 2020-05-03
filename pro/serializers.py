@@ -145,3 +145,9 @@ class TokenObtainCustomPairSerializer(TokenObtainCustomSerializer):
         data['professional_image'] = professional.image
 
         return data
+
+
+class SkillJobChartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfessionalSkill
+        fields = ['skill_name',]
