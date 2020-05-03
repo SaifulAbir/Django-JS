@@ -309,16 +309,20 @@ class CurrencyList(generics.ListCreateAPIView):
     serializer_class = CurrencySerializer
 
 
-def Experience(self):
-    data = {
-        '1': "Fresh",
-        '2': "Less than 1 year",
-        '3': "2 Year",
-        '4': "3 Year",
-        '5':  "4 Year",
-        '6': "Above 5 Years",
-    }
-    return HttpResponse(json.dumps(data), content_type='application/json')
+class Experience(generics.ListCreateAPIView):
+    queryset = Experience.objects.all()
+    serializer_class = ExperienceSerializer
+
+# def Experience(self):
+#     data = {
+#         '1': "Fresh",
+#         '2': "Less than 1 year",
+#         '3': "2 Year",
+#         '4': "3 Year",
+#         '5':  "4 Year",
+#         '6': "Above 5 Years",
+#     }
+#     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 class QualificationList(generics.ListCreateAPIView):
@@ -658,4 +662,26 @@ def apply_online_job_add(request):
 
     return Response(data)
 
+@api_view(["GET"])
+def applied_jobs(request):
+    current_user_id = request.user.id
+    queryset = ApplyOnline.objects.filter(created_by=current_user_id)
+    total_applied = ApplyOnline.objects.filter(created_by=current_user_id).count()
+    query_data = []
+    for jobs in queryset:
+        job = Job.objects.filter(job_id=jobs.job_id)
+        for i in job:
+            if i.company_name.profile_picture:
+                i.profile_picture = '/media/' + str(i.company_name.profile_picture)
+            else:
+                i.profile_picture = '/static/images/job/company-logo-2.png'
+
+            query_data.append({'job_id': i.job_id, 'slug': i.slug, 'title': i.title, 'job_location': i.job_location,
+                               'employment_status': str(i.employment_status), 'company_name': str(i.company_name),
+                               'profile_picture': i.profile_picture})
+    data = {
+        'total_applied': total_applied,
+        'applied_jobs': query_data
+    }
+    return JsonResponse(data, safe=False)
 
