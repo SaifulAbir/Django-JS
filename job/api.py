@@ -683,9 +683,12 @@ def favourite_jobs(request):
 @api_view(["GET"])
 def del_fav_jobs(request,identifier):
     current_user_id = request.user.id
-    obj = FavouriteJob.objects.get(job_id=identifier)
-    if obj.user.id == current_user_id:
-        obj.delete()
+    jobs = FavouriteJob.objects.filter(user=current_user_id)
+    for job in jobs:
+        if str(job.job_id)==identifier:
+            job.delete()
+            break
+
     total_bookmarked = FavouriteJob.objects.filter(user=current_user_id).count()
     data = {
         'total_bookmarked': total_bookmarked

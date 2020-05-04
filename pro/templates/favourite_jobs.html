@@ -131,9 +131,10 @@
 
 
     });
+       //appending fav jobs to html
        function  favJobs(data){
-            number_of_jobs_applied=data.total_bookmarked;
-            $('.bookmark-title').append(number_of_jobs_applied," Job Bookmarked");
+            number_of_jobs_bookmarked=data.total_bookmarked;
+            $('.bookmark-title').append(number_of_jobs_bookmarked," Job Bookmarked");
             for(index=0;index<6;index++){
             var dateString = data.bookmarked_jobs[index].application_deadline;
             var momentObj = moment(dateString, 'YYYY-MM-DD');
@@ -166,32 +167,25 @@
                         '</div>'+
                       '</div>'+
                    '</div>';
-
                  $('.bookmark-area').append(fav_jobs_html);
-
-
-
 
         }
 
 }
-
+//on click function for removing and sending id for each job in api
 function myFunction(elm,clicked_id) {
  $(elm ).closest('.job-list').remove();
- $(elm ).closest('.bookmark-title').remove();
- $('.bookmark-title').hide();
- var value = $('.bookmark-title').text();
- total_applied=value[0]-1;
- $('.bookmark-title').append(total_applied," Job Bookmarked");
  identifier = elm.id;
  catUrl ='/api/favourite-jobs-delete/'+ identifier +'/';
- get(catUrl);
-
-
-
+ get(catUrl,reWriter);
 }
 
-
+//function for rewriting for showing up to date total bookmarked jobs
+function reWriter(data){
+showSuccess("Job Removed!", "")
+number_of_jobs_bookmarked=data.total_bookmarked;
+document.getElementsByClassName("bookmark-title")[0].innerHTML = number_of_jobs_bookmarked + " Job Bookmarked";
+}
 
 
     </script>
