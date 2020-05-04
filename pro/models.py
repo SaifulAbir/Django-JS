@@ -271,15 +271,18 @@ class ProRecentActivity(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     description = description = models.TextField(blank=False,null=False)
     time =  models.DateTimeField(default=timezone.now)
-    type=   models.CharField(max_length=255,null=True,blank=True)
-    created_date = models.DateTimeField(default=timezone.now)
-    modified_date = models.DateTimeField(default=timezone.now)
-    created_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True,
-                                   related_name='activity_created_by')
-    modified_by = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True,
-                                    related_name='activity_modified_by')
-    created_at = models.CharField(max_length=255, blank=True, null=True)
-    modified_at = models.CharField(max_length=255, blank=True, null=True)
+    type =  models.CharField(max_length=255,null=True,blank=True)
+    created_by = models.CharField(max_length=255, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_from = models.CharField(max_length=255, null=True)
+    modified_by = models.CharField(max_length=255, null=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_from = models.CharField(max_length=255, null=True)
+    is_archived = models.BooleanField(default=False)
+    archived_by = models.CharField(max_length=255, null=True)
+    archived_at = models.DateTimeField(null=True)
+    archived_from = models.CharField(max_length=255, null=True)
+
 
 
 
