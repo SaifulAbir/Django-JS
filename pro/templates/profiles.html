@@ -1470,13 +1470,13 @@
    function loadportfolio(data){
 
          portfolio_data = data.portfolio_info
-               //console.log('portfolio' , data.portfolio_info)
+              // console.log('portfolio' , data.personal_info.id)
                      len = portfolio_data.length;
                      var content= '<div class="portfolio-slider owl-carousel" id="pro_portfolio">';
-                     for(x=0;x<1;x++){
+                     for(x=0;x<len;x++){
                            var portfolio_html= '<div class="portfolio-item">'+
 
-                 //'<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">'+
+              //  '<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">'+
 
                                  '<img src="'+portfolio_data[x].image+'" class="img-fluid" alt="">'+
                                  '<div class="overlay">'+
@@ -1510,7 +1510,7 @@
                                     '<div class="update-photo">'+
                                       '<img class="image"   src="'+portfolio_data[x].image+'" alt="">'+
 
-                                     // '<img class="image" src="{% static 'images/icon-114x114.png'%}" alt="">'+
+              //  '<img class="image" src="{% static 'images/icon-114x114.png'%}" alt="">'+
                                     '</div>'+
                                     '<div class="file-upload">'+
                                       '<input type="file" class="file-input">Change Image'+
@@ -1527,6 +1527,7 @@
                                   '</div>'+
                                   '<input type="text" name="description" id="description" class="form-control" data-text="description" value="'+portfolio_data[x].description+'">'+
                                 '</div>'+
+                                '<input type="hidden" id="professional_id" name="professional_id" value="'+id+'">'+
                               '</div>'+
                             '</div>'+
                           '</div>';
@@ -1540,7 +1541,71 @@
                           $('.owl-carousel').owlCarousel({loop:true,nav:true});
 
 
+
+
+
+             $(".add-more").click(function(){
+                    num = num + 1
+                    var showINform_html = '<div class="input-block-wrap">'+
+                            '<div class="form-group row">'+
+                              '<label class="col-sm-3 col-form-label">Portfolio - '+num+'</label>'+
+                              '<div class="col-sm-9">'+
+                                '<div class="input-group">'+
+                                  '<div class="input-group-prepend">'+
+                                    '<div class="input-group-text">Title</div>'+
+                                  '</div>'+
+                                  '<input type="text" name="name" id="name" class="form-control" data-text="title" value="">'+
+                                '</div>'+
+                              '</div>'+
+                            '</div>'+
+                            '<div class="form-group row">'+
+                              '<div class="offset-sm-3 col-sm-9">'+
+                                '<div class="input-group">'+
+                                  '<div class="input-group-prepend">'+
+                                    '<div class="input-group-text" name="image" id="image" >Image</div>'+
+                                  '</div>'+
+                                  '<div class="upload-profile-photo">'+
+                                    '<div class="update-photo">'+
+                                      '<img class="image"   src="" alt="">'+
+
+              //  '<img class="image" src="{% static 'images/icon-114x114.png'%}" alt="">'+
+                                    '</div>'+
+                                    '<div class="file-upload">'+
+                                      '<input type="file" class="file-input">Change Image'+
+                                    '</div>'+
+                                  '</div>'+
+                                '</div>'+
+                              '</div>'+
+                            '</div>'+
+                            '<div class="form-group row">'+
+                              '<div class="offset-sm-3 col-sm-9">'+
+                                '<div class="input-group">'+
+                                  '<div class="input-group-prepend">'+
+                                    '<div class="input-group-text">Description</div>'+
+                                  '</div>'+
+                                  '<input type="text" name="description" id="description" class="form-control" data-text="description" value="">'+
+                                '</div>'+
+                                '<input type="hidden" id="professional_id" name="professional_id" value="'+id+'">'+
+                              '</div>'+
+                            '</div>'+
+                          '</div>';
+
+                          $('#showinform').append(showINform_html);
+
+                 });
+
+
+
+
+
+
+
+
         }
+
+
+
+
 
 
 
@@ -1596,6 +1661,7 @@
 
 
   function portfolioCallback(data) {
+
     if(data.status==200){
       $("#modal-portfolio").modal("hide");
            }
@@ -1604,6 +1670,14 @@
     }
 
   }
+
+
+
+
+
+
+
+
 
 
 
