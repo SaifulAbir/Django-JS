@@ -196,7 +196,7 @@ class ProfessionalMembershipTest(TestCase):
 
 class InfoBoxTest(TestCase):
     def setUp(self):
-        user = User(email='shoab@ishraak.com',phone='01881500842',password='shoab123')
+        user = User(email='shoab@ishraak.com',password='shoab123')
         user.save()
         self.user = user
 
@@ -206,7 +206,7 @@ class InfoBoxTest(TestCase):
         login = self.client.login(username='shoab@ishraak.com', password='shoab123')
         client.headers.update({'x-test': 'true'})
         data = {'professional_id': str(id),'organization': 'IEEE',}
-        response = client.post(SITE_URL + url, json=data, headers={'api-key': '96d56aceeb9049debeab628ac760aa11'})
+        response = client.GET(SITE_URL + url, headers={'api-key': '96d56aceeb9049debeab628ac760aa11'})
         print(response.content)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Membership.objects.count(), 1)

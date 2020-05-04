@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="dashboard-section dashboard-view-chart">
-                                <canvas id="view-chart" width="400" height="200"></canvas>
+                                <canvas id="data-chart" width="400" height="200"></canvas>
                             </div>
                             <div class="dashboard-section dashboard-recent-activity">
                                 <h4 class="title">Recent Activity</h4>
@@ -205,7 +205,73 @@
 
         }
         function DataChartCallBack(data) {
-            console.log(data)
+            months = []
+            jobs = []
+            len = data.length
+            if(len>6){
+               start = len-6
+            }
+            else {
+                start = 1
+            }
+            for (i = start; i < data.length; i++){
+                var dateString = data[i]['month']
+                var momentObj = moment(dateString, 'YYYY-MM-DD');
+                var dateMomentString = momentObj.format('MMM');
+                months.push(dateMomentString)
+                jobs.push(data[i]['total'])
+
+            }
+
+            if ($("#data-chart").length > 0) {
+                var ctx = document.getElementById("data-chart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: '# of Votes',
+                            data: jobs,
+                            backgroundColor: [
+                                'rgba(36, 109, 248, .2)'
+                            ],
+                            borderColor: [
+                                'rgba(36, 109, 248, 1 )'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltips: {
+                            mode: 'index',
+                            intersect: true
+                        },
+                        responsive: true,
+                        scales: {
+                            xAxes: [{
+                                stacked: true,
+                            }],
+                            yAxes: [{
+                                stacked: true,
+                            }]
+                        }
+                    }
+                });
+            }
+
         }
+
+
+
+
     </script>
 {% endblock %}
