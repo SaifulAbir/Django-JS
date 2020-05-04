@@ -210,6 +210,11 @@ a.save.apply.active {
     color: #6f7484;
     font-weight: normal;
 }
+
+.modal-body{
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
 /*professional edit profile*/
 
  #search-form .alert-danger {
