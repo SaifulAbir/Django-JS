@@ -132,6 +132,7 @@ def job_list(request):
     try:
         query = request.GET.get('q')
         current_url = request.GET.get('current_url')
+        print(current_url)
         sorting = request.GET.get('sort')
         category = request.GET.get('category')
         district = request.GET.get('location')
