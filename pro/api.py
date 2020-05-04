@@ -383,6 +383,7 @@ def professional_workexperience_save(request):
 @api_view(["POST"])
 def professional_portfolio_save(request):
     data = json.loads(request.body)
+    print('professional_portfolio_save', data)
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
@@ -401,6 +402,7 @@ def professional_portfolio_save(request):
             uploaded_file_url = fs.url(filename)
             data['image'] = uploaded_file_url
     key_obj = Portfolio(**data)
+    print('key_obj', key_obj)
     key_obj.save()
     data['id'] = key_obj.id
     return Response(data)

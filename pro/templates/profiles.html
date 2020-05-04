@@ -1362,9 +1362,9 @@
     get(getUrl,loadabout);
     get(getUrl,loadportfolio);
     get(staticUrl,loadstatic);
-    var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
-    $('form.ajax').attr('action',postUrl);
-
+<!--    var postUrl = '/api/professional/profile_update_partial/'+ id + '/';-->
+<!--    $('form.ajax').attr('action',postUrl);-->
+    initAjaxForms();
 
     // If social URL is emtpy then add space in value for skipping database data saving problem
     $(".social-network-update").click(function(){
@@ -1473,10 +1473,10 @@
                //console.log('portfolio' , data.portfolio_info)
                      len = portfolio_data.length;
                      var content= '<div class="portfolio-slider owl-carousel" id="pro_portfolio">';
-                     for(x=0;x<len;x++){
+                     for(x=0;x<1;x++){
                            var portfolio_html= '<div class="portfolio-item">'+
 
-               //  '<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">'+
+                 //'<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">'+
 
                                  '<img src="'+portfolio_data[x].image+'" class="img-fluid" alt="">'+
                                  '<div class="overlay">'+
@@ -1496,7 +1496,7 @@
                                   '<div class="input-group-prepend">'+
                                     '<div class="input-group-text">Title</div>'+
                                   '</div>'+
-                                  '<input type="text" name="name" id="name" class="form-control" value="'+portfolio_data[x].name+'">'+
+                                  '<input type="text" name="name" id="name" class="form-control" data-text="title" value="'+portfolio_data[x].name+'">'+
                                 '</div>'+
                               '</div>'+
                             '</div>'+
@@ -1508,7 +1508,7 @@
                                   '</div>'+
                                   '<div class="upload-profile-photo">'+
                                     '<div class="update-photo">'+
-                                      '<img class="image" src="'+portfolio_data[x].image+'" alt="">'+
+                                      '<img class="image"   src="'+portfolio_data[x].image+'" alt="">'+
 
                                      // '<img class="image" src="{% static 'images/icon-114x114.png'%}" alt="">'+
                                     '</div>'+
@@ -1525,7 +1525,7 @@
                                   '<div class="input-group-prepend">'+
                                     '<div class="input-group-text">Description</div>'+
                                   '</div>'+
-                                  '<input type="text" name="description" id="description" class="form-control" value="'+portfolio_data[x].description+'">'+
+                                  '<input type="text" name="description" id="description" class="form-control" data-text="description" value="'+portfolio_data[x].description+'">'+
                                 '</div>'+
                               '</div>'+
                             '</div>'+
@@ -1538,10 +1538,6 @@
                           content = content + '</div>';
                           $('#pro_portfolio').append(content);
                           $('.owl-carousel').owlCarousel({loop:true,nav:true});
-
-
-
-
 
 
         }
