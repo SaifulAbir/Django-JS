@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.contrib import admin
+from django.db import models
+from django import forms
 
 # Register your models here.
 from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency, TrendingKeywords, \
     ApplyOnline
-from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill
+from job.models import Company, JobType, Experience, Qualification, Gender, Industry, Job, Currency , Skill, JobSource, JobCategory, JobGender
 from django_admin_listfilter_dropdown.filters import DropdownFilter
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
@@ -17,8 +19,37 @@ class JobAdmin(admin.ModelAdmin):
     date_hierarchy = 'entry_date' # Top filter
     list_per_page = 15
     list_filter = (('created_date', DateRangeFilter), ('entry_date', DateRangeFilter))
-    readonly_fields = ["slug", "applied_count", "favorite_count"]
-    exclude = ["terms_and_condition",]
+    fields = [('title','status'),'company_name',('job_location','job_category','application_deadline'),
+        ('job_gender','vacancy','experience'),
+        ('salary','salary_min','salary_max','currency'),
+        'descriptions','responsibilities','education','qualification',
+        'additional_requirements','other_benefits',
+        ('job_area','job_city','job_country'),'company_profile',
+        ('company_area','company_city','company_country'),
+        ('job_site','job_nature','job_type'),'job_skills',
+        ('job_source_1','job_url_1'),
+        ('job_source_2','job_url_2'),
+        ('job_source_3','job_url_3'),
+        ('created_by','created_at','modified_by','modified_at'),
+        ('post_date','review_date','approve_date','publish_date'),
+        'raw_content',
+        ('slug', 'applied_count', 'favorite_count')]
+    readonly_fields = ['slug', 'applied_count', 'favorite_count', 
+        'created_by', 'created_at', 'modified_by',
+        'modified_at', 'review_date', 'approve_date', 'publish_date']
+    # exclude = ["terms_and_condition",] <- use this when 'fields' is not used
+    # formfield_overrides = {
+    #     models.CharField: {'widget': forms.TextInput(attrs={'size': '40'})}
+    # }
+
+    def save_model(self, request, obj, form, change):
+        if change:
+            obj.modified_by = request.user.username
+            if 'is_archived' in form.changed_data and obj.archived_by:
+                obj.archived_by = request.user.username
+        else:
+            obj.created_by = request.user.username
+        obj.save()
 
 # class CompanyAdmin(admin.ModelAdmin):
 #     list_display = ['name', 'address', 'basis_membership_no', 'email', 'web_address', 'organization_head','year_of_eastablishment',
@@ -76,3 +107,9 @@ admin.site.register(Job, JobAdmin)
 admin.site.register(Skill)
 admin.site.register(TrendingKeywords, TrendingKeywordsAdmin)
 admin.site.register(ApplyOnline,ApplyOnlineAdmin)
+
+# Added by Munir (02-03).05.2020  >>>
+admin.site.register(JobSource)
+admin.site.register(JobCategory)
+admin.site.register(JobGender)
+# <<<

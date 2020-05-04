@@ -87,7 +87,6 @@ function initAjaxForms() {
             var url = $(this).prop('action');
             var formId = $(this).attr("id");
             var data = form2Json(formId);
-
             // Image uploading code start here
             var imagesrc = $(".image").attr('src');
             if (imagesrc){
@@ -150,6 +149,15 @@ function json2Div(data, container){
         else{
             el.parent().hide();
         }
+
+    }
+}
+function json2DivPopulate(data, container){
+    console.log(data)
+    for(key in data) {
+        // var el = $("#" + id).find("[name='"+ key +"']");
+        var el = $(container).find("[id='" + key + "']");
+        el.html(data[key]);
 
     }
 }
@@ -266,6 +274,7 @@ $.validator.addMethod(
 );
 
 function makePagination(totalRecord, pageSize, url, startingIndex){
+
     var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><button disabled class="prev page-numbers cursor-pointer cursor-pointer" data-value="prev"><i class="fas fa-angle-left"></i></button>';
     startingIndex = parseInt(startingIndex);
     var numberOfPaginationIndex = totalRecord/pageSize;
@@ -285,27 +294,23 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
         if (numberOfPaginationIndex > primaryNumberOfPaginationIndex){
             numberOfPaginationIndex = primaryNumberOfPaginationIndex;
             //startingIndex = startingIndex-paginationPadding;
-            console.log('paginationPadding '+paginationPadding);
-            console.log('startingindex '+startingIndex);
             var paddingStartingIndex =10-(primaryNumberOfPaginationIndex-startingIndex);
-            console.log(paddingStartingIndex);
             startingIndex = startingIndex-paddingStartingIndex;
         }
     }
 
     for (startingIndex; startingIndex <= numberOfPaginationIndex; startingIndex++){
+        var full_url = url+ "&current_url="+url+"&page=" + startingIndex;
+        var full_url_sanitized = encodeURIComponent(full_url);
+        var full_url_with_current = url+ "&current_url="+full_url_sanitized+"&page=" + startingIndex;
+
         if (startingIndex==1 || startingIndex==numberOfPaginationIndex){
-            var str ="<a class='page-numbers' href='javascript:void(0);' data-pazesize='"+ pageSize +"' data-value='"+ startingIndex +"' data-url='"+ url +"/?page=" + startingIndex + "&page_size="+ pageSize +"'>"+startingIndex+"</a>";
+            var str ="<a class='page-numbers' href='javascript:void(0);' data-pazesize='"+ pageSize +"' data-value='"+ startingIndex +"' data-url='"+ full_url +"'>"+startingIndex+"</a>";
         }else {
-            var str ="<a class='page-numbers' href='javascript:void(0);' data-pazesize='"+ pageSize +"' data-value='"+ startingIndex +"' data-url='"+ url +"/?page=" + startingIndex + "&page_size="+ pageSize +"'>"+startingIndex+"</a>";
+            var str ="<a class='page-numbers' href='javascript:void(0);' data-pazesize='"+ pageSize +"' data-value='"+ startingIndex +"' data-url='"+ full_url +"'>"+startingIndex+"</a>";
         }
         paginationIndexString += str;
-
     }
-
-    var a = '<a class="page-numbers" href="#">1</a><a class="page-numbers" href="#">3</a>' +
-        ' <a class="page-numbers" href="#">4</a>';
-
     var paginationStringEnd = '<a class="next page-numbers" data-value="next" href="javascript:void(0);"><i class="fas fa-angle-right"></i></a></div></nav>';
     var paginationString = paginationStringStart + paginationIndexString + paginationStringEnd;
     $('.pagination-list').html(paginationString);

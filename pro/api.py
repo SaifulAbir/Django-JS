@@ -764,8 +764,10 @@ class ProfessionalUpdatePartial(GenericAPIView, UpdateModelMixin):
             {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalSerializer(Professional.objects.get(pk=pk)).data
-        prof_obj['religion_obj'] = ReligionSerializer(Religion.objects.get(pk = prof_obj['religion'])).data
-        prof_obj['nationality_obj'] = NationalitySerializer(Nationality.objects.get(pk = prof_obj['nationality'])).data
+        if prof_obj['religion']:
+            prof_obj['religion_obj'] = ReligionSerializer(Religion.objects.get(pk = prof_obj['religion'])).data
+        if prof_obj['nationality']:
+            prof_obj['nationality_obj'] = NationalitySerializer(Nationality.objects.get(pk = prof_obj['nationality'])).data
         # if 'religion_obj' in request.data:
         #     prof_obj['religion_obj'] = ReligionSerializer(
         #         Religion.objects.get(pk=request.data['religion'])).data
@@ -1004,3 +1006,12 @@ class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
 #
 #
 #     return HttpResponse(json.dumps(prof_data), content_type='application/json')
+
+def StaticUrl(self):
+    data = {
+        '1': "http://facebook.com/",
+        '2': "http://twitter.com/",
+        '3': "http://linkedin.com/",
+
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')

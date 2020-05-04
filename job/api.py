@@ -16,7 +16,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.pagination import *
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.status import HTTP_200_OK
+from rest_framework.status import *
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
@@ -131,6 +131,7 @@ class JobTypeList(generics.ListCreateAPIView):
 def job_list(request):
     try:
         query = request.GET.get('q')
+        current_url = request.GET.get('current_url')
         sorting = request.GET.get('sort')
         category = request.GET.get('category')
         district = request.GET.get('location')
@@ -143,7 +144,10 @@ def job_list(request):
         experienceMax = request.GET.get('experienceMax')
         datePosted = request.GET.get('datePosted')
         gender = request.GET.get('gender')
+        job_type = request.GET.get('job_type')
         qualification = request.GET.get('qualification')
+        topSkill = request.GET.get('top-skill')
+
         if sorting == 'descending':
             job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         elif sorting == 'top-rated':
@@ -155,13 +159,13 @@ def job_list(request):
             job_list = Job.objects.all().order_by('-applied_count')
         jobtype = JobType(name=NO_NAME)
         company = Company(name=NO_NAME)
-        for i in job_list:
-            if i.job_location is None:
-                i.job_location = NO_LOCATION
-            if i.company_name is None:
-                i.company_name = company
-            if i.employment_status is None:
-                 i.employment_status = jobtype
+        # for i in job_list:
+        #     if i.job_location is None:
+        #         i.job_location = NO_LOCATION
+        #     if i.company_name is None:
+        #         i.company_name = company
+        #     if i.employment_status is None:
+        #          i.employment_status = jobtype
         if query:
             job_list = job_list.filter(
                 Q(title__icontains=query)
@@ -197,6 +201,11 @@ def job_list(request):
                 gender_id=gender
             )
 
+        if job_type:
+            job_list = job_list.filter(
+                employment_status=job_type
+            )
+
         if qualification:
             job_list = job_list.filter(
                 qualification_id=qualification
@@ -204,6 +213,12 @@ def job_list(request):
 
         if skill:
             job_list = job_list.filter(job_skills__in = [skill])
+            print(skill)
+
+
+        if topSkill:
+            job_list = job_list.filter(job_skills__in=[topSkill])
+            print(topSkill)
 
         if salaryMin and salaryMax:
             job_list = (job_list.filter(salary_min__gte=salaryMin) & job_list.filter(salary_min__lte = salaryMax))
@@ -282,6 +297,7 @@ def job_list(request):
         'number_of_pages': number_of_pages,
         'next_pages': check_next_available_or_not,
         'code': HTTP_200_OK,
+        'current_url': current_url,
         "results":  job_list.data,
     }
 
@@ -293,16 +309,20 @@ class CurrencyList(generics.ListCreateAPIView):
     serializer_class = CurrencySerializer
 
 
-def Experience(self):
-    data = {
-        '1': "Fresh",
-        '2': "Less than 1 year",
-        '3': "2 Year",
-        '4': "3 Year",
-        '5':  "4 Year",
-        '6': "Above 5 Years",
-    }
-    return HttpResponse(json.dumps(data), content_type='application/json')
+class Experience(generics.ListCreateAPIView):
+    queryset = Experience.objects.all()
+    serializer_class = ExperienceSerializer
+
+# def Experience(self):
+#     data = {
+#         '1': "Fresh",
+#         '2': "Less than 1 year",
+#         '3': "2 Year",
+#         '4': "3 Year",
+#         '5':  "4 Year",
+#         '6': "Above 5 Years",
+#     }
+#     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 class QualificationList(generics.ListCreateAPIView):
@@ -407,6 +427,16 @@ def load_previous_skills(request):
     return JsonResponse(previous_skills, safe=False)
 
 
+@api_view(["GET"])
+def get_company_by_name(request):
+    comp_name = request.GET.get('name')
+    if comp_name:
+        comps = Company.objects.filter(Q(name__icontains = comp_name))
+    
+    result = CompanySerializer(comps, many = True)
+    data = { 'data' : result.data}
+    return Response(data)
+
 @api_view(["POST"])
 def trending_keyword_save(request):
     search_data = json.loads(request.body)
@@ -421,10 +451,13 @@ def trending_keyword_save(request):
     os_name = request.user_agent.os.family
 
     search_data.update([('device', device_name), ('browser', browser_name), ('operating_system', os_name)])
-
-    key_obj = TrendingKeywords(**search_data)
-    key_obj.save()
-    return Response(HTTP_200_OK)
+    print(search_data['location'])
+    if search_data['location'] or search_data['keyword']:
+        key_obj = TrendingKeywords(**search_data)
+        key_obj.save()
+        return Response(HTTP_200_OK)
+    else:
+        return HttpResponse('both field can not be blank')
 
 class TrendingKeywordPopulate(generics.ListCreateAPIView):
     queryset = TrendingKeywords.objects.values('keyword').annotate(key_count = Count('keyword')).order_by('-key_count')[:6]
@@ -639,4 +672,64 @@ def apply_online_job_add(request):
 
     return Response(data)
 
+@api_view(["GET"])
+def applied_jobs(request):
+    current_user_id = request.user.id
+    queryset = ApplyOnline.objects.filter(created_by=current_user_id)
+    total_applied = ApplyOnline.objects.filter(created_by=current_user_id).count()
+    query_data = []
+    for jobs in queryset:
+        job = Job.objects.filter(job_id=jobs.job_id)
+        for i in job:
+            if i.company_name.profile_picture:
+                i.profile_picture = '/media/' + str(i.company_name.profile_picture)
+            else:
+                i.profile_picture = '/static/images/job/company-logo-2.png'
 
+            query_data.append({'job_id': i.job_id, 'slug': i.slug, 'title': i.title, 'job_location': i.job_location,
+                               'employment_status': str(i.employment_status), 'company_name': str(i.company_name),
+                               'profile_picture': i.profile_picture})
+    data = {
+        'total_applied': total_applied,
+        'applied_jobs': query_data
+    }
+    return JsonResponse(data, safe=False)
+
+@api_view(["GET"])
+def favourite_jobs(request):
+    current_user_id = request.user.id
+    queryset = FavouriteJob.objects.filter(user=current_user_id)
+    total_bookmarked = FavouriteJob.objects.filter(user=current_user_id).count()
+    query_data = []
+    for jobs in queryset:
+        job = Job.objects.filter(job_id=jobs.job_id)
+        for i in job:
+            if i.company_name.profile_picture:
+                i.profile_picture = '/media/' + str(i.company_name.profile_picture)
+            else:
+                i.profile_picture = '/static/images/job/company-logo-2.png'
+
+            query_data.append({'job_id': i.job_id, 'slug': i.slug, 'title': i.title, 'job_location': i.job_location,
+                               'employment_status': str(i.employment_status), 'company_name': str(i.company_name),
+                               'profile_picture': i.profile_picture,'application_deadline':i.application_deadline})
+    data = {
+        'total_bookmarked': total_bookmarked,
+        'bookmarked_jobs': query_data
+    }
+    return JsonResponse(data, safe=False)
+
+@api_view(["GET"])
+def del_fav_jobs(request,identifier):
+    current_user_id = request.user.id
+    jobs = FavouriteJob.objects.filter(user=current_user_id)
+    for job in jobs:
+        if str(job.job_id)==identifier:
+            job.delete()
+            break
+
+    total_bookmarked = FavouriteJob.objects.filter(user=current_user_id).count()
+    data = {
+        'total_bookmarked': total_bookmarked
+
+    }
+    return Response(data)

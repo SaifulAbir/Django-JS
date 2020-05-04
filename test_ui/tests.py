@@ -11,6 +11,7 @@ from test_ui.test_exam import *
 from test_ui.test_exam_category import *
 from test_ui.test_exam_level import *
 from test_ui.test_gender import *
+from test_ui.test_home import publicHome
 from test_ui.test_industry import *
 from test_ui.test_job_type import *
 from test_ui.test_professional import *
@@ -37,9 +38,9 @@ from .config import *
 
 class TestUI(unittest.TestCase):
 
-    # def setUpClass():
-    #     print("Data Entry started ..")
-    #     TestUI.dataEntry()
+    def setUpClass():
+        print("Data Entry started ..")
+        TestUI.dataEntry()
 
 
     def setUp(self):
@@ -722,6 +723,25 @@ class TestUI(unittest.TestCase):
             raise Exception("Total pass: " + str(idx + 1 - f) + " and Failed: " + str(f))
         else:
             print("All passed")
+
+    def testPublicHome(self):
+        # adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
+        data = pd.read_csv("test_ui/data/data_public_home.csv", dtype=str)
+        f = 0
+        for idx, row in data.iterrows():
+            self.driver.get(MAIN_URL)
+            actual = publicHome(self.driver, row)
+        #     try:
+        #         self.assertEqual(row['expected_result'], str(actual))
+        #         print(row['test_case_id'] + " Expected " + row['expected_result'] + " Pass : " + row['test_description'])
+        #     except Exception as ex:
+        #         print(row['test_case_id'] + " Expected " + row['expected_result'] + " Failed : " + row['test_description'])
+        #         f = f + 1
+        # if f != 0:
+        #     raise Exception("Total pass: " + str(idx + 1 - f) + " and Failed: " + str(f))
+        # else:
+        #     print("All passed")
+
 
     # def testExam(self):
     #     adminLogin(self.driver, {'_email': 'admin', '_password': '@dmin123#', '_name': 'Admin'})
