@@ -423,22 +423,22 @@
             </div>
 
             <div class="edication-background details-section dashboard-section">
-              <h4><i data-feather="book"></i>Education Background</h4>
+              <h4 id="edu-label"><i data-feather="book"></i>Education Background</h4>
               <div class="education-label">
                 <span class="study-year">2018 - Present</span>
                 <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>
                 <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
               </div>
-              <div class="education-label">
-                <span class="study-year">2014 - 2018</span>
-                <h5>Diploma in Graphics Design<span>@ Graphic Arts Institute</span></h5>
-                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-              </div>
-              <div class="education-label">
-                <span class="study-year">2008 - 2014</span>
-                <h5>Secondary School Certificate<span>@  Engineering High School</span></h5>
-                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-              </div>
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2014 - 2018</span>-->
+<!--                <h5>Diploma in Graphics Design<span>@ Graphic Arts Institute</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2008 - 2014</span>-->
+<!--                <h5>Secondary School Certificate<span>@  Engineering High School</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">
                 <i data-feather="edit-2"></i>
@@ -1424,6 +1424,7 @@
     var staticUrl = '/api/professional/static_urls/';
     get(getUrl,loadsocial);
     get(getUrl,loadabout);
+    get(getUrl,loadEdu);
     get(staticUrl,loadstatic);
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
@@ -1602,7 +1603,14 @@
     }
 
   }
-
+  function loadEdu(data) {
+    console.log(data.edu_info)
+    var eduHtml = $(".education-label").html();
+    for(index=0;index<data.edu_info.length;index++){
+        $('.education-label').after('<div class="education-label">'+'<span class="study-year">'+data.edu_info[index].enrolled_date+'</span>\n' +
+             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');
+      }
+  }
 
 
   // load personal_info about and personal details data and append here
