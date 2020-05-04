@@ -685,3 +685,41 @@ def applied_jobs(request):
     }
     return JsonResponse(data, safe=False)
 
+@api_view(["GET"])
+def favourite_jobs(request):
+    current_user_id = request.user.id
+    queryset = FavouriteJob.objects.filter(user=current_user_id)
+    total_bookmarked = FavouriteJob.objects.filter(user=current_user_id).count()
+    query_data = []
+    for jobs in queryset:
+        job = Job.objects.filter(job_id=jobs.job_id)
+        for i in job:
+            if i.company_name.profile_picture:
+                i.profile_picture = '/media/' + str(i.company_name.profile_picture)
+            else:
+                i.profile_picture = '/static/images/job/company-logo-2.png'
+
+            query_data.append({'job_id': i.job_id, 'slug': i.slug, 'title': i.title, 'job_location': i.job_location,
+                               'employment_status': str(i.employment_status), 'company_name': str(i.company_name),
+                               'profile_picture': i.profile_picture,'application_deadline':i.application_deadline})
+    data = {
+        'total_bookmarked': total_bookmarked,
+        'bookmarked_jobs': query_data
+    }
+    return JsonResponse(data, safe=False)
+
+@api_view(["GET"])
+def del_fav_jobs(request,identifier):
+    current_user_id = request.user.id
+    jobs = FavouriteJob.objects.filter(user=current_user_id)
+    for job in jobs:
+        if str(job.job_id)==identifier:
+            job.delete()
+            break
+
+    total_bookmarked = FavouriteJob.objects.filter(user=current_user_id).count()
+    data = {
+        'total_bookmarked': total_bookmarked
+
+    }
+    return Response(data)
