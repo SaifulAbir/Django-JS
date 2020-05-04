@@ -52,13 +52,20 @@
             <div class="skill-and-profile dashboard-section">
               <div class="skill">
                 <label>Skills:</label>
-                <a href="#">Design</a>
-                <a href="#">Illustration</a>
-                <a href="#">iOS</a>
+<!--                <a href="#">Design</a>-->
+<!--                <a href="#">Illustration</a>-->
+<!--                <a href="#">iOS</a>-->
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#modal-skill">
-                  <i data-feather="edit-2"></i>
-                </button>
+
+
+
+
+
+
+
+<!--                <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#modal-skill">-->
+<!--                  <i data-feather="edit-2"></i>-->
+<!--                </button>-->
                 <!-- Modal -->
                 <div class="modal fade" id="modal-skill" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -1333,6 +1340,7 @@
     get(getUrl,loadsocial);
     get(getUrl,loadabout);
     get(staticUrl,loadstatic);
+    get(getUrl,loadSkills);
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
 
@@ -1504,5 +1512,19 @@
     $("#tw").text(data[2]);
     $("#ln").text(data[3]);
   }
+
+   function  loadSkills(data){
+   var skills_html ='<a href="#"></a>';
+   var btn_html =     '<button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#modal-skill">'+
+                  '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg>'+
+                '</button>';
+   for(x=0;x<data.skill_info.length;x++){
+   $('.skill').append('<a href="#">'+data.skill_info[x].skill_obj.name+'</a>');
+     }
+   $('.skill').append(btn_html);
+  }
+
+
+
 </script>
 {% endblock %}
