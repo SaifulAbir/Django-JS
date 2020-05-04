@@ -73,3 +73,51 @@ BOOKMARK_JOB_VERBOSE_NAME_PLURAL = 'Bookmark Jobs'
 APPLY_ONLINE_JOB_VERBOSE_NAME = 'Apply Online Job'
 APPLY_ONLINE_JOB_VERBOSE_NAME_PLURAL = 'Apply Online Jobs'
 #Apply Online Strings #
+
+# Added by Munir (02-03).05.2020 >>>
+JOB_SITES = (
+    ('ONSITE', 'On-site'),
+    ('REMOTE', 'Remote'),
+)
+DEFAULT_JOB_SITE = 'ONSITE'
+
+JOB_NATURES = (
+    ('FULLTIME', 'Full-time'),
+    ('PARTTIME', 'Part-time'),
+)
+DEFAULT_JOB_NATURE = 'FULLTIME'
+
+JOB_TYPES = (
+    ('PERMANENT', 'Permanent'),
+    ('CONTRACTUAL', 'Contractual'),
+
+)
+DEFAULT_JOB_TYPE = 'PERMANENT'
+
+JOB_CREATOR_TYPES = (
+    ('OPERATOR', 'Operator'),
+    ('SYSTEM', 'System'),
+    ('COMPANY', 'Company'),
+)
+DEFAULT_JOB_CREATOR_TYPE = 'OPERATOR'
+
+JOB_STATUSES = (
+    ('DRAFT', 'Draft'),
+    ('REVIEWED', 'Reviewed'),
+    ('APPROVED', 'Approved'),
+    ('PUBLISHED', 'Published'),
+)
+DEFAULT_JOB_STATUS = 'DRAFT'
+
+JOBSOURCE_VERBOSE_NAME = 'Job Source'
+JOBSOURCE_VERBOSE_NAME_PLURAL = 'Job Sources'
+
+JOBCATEGORY_VERBOSE_NAME = 'Job Category'
+JOBCATEGORY_VERBOSE_NAME_PLURAL = 'Job Categories'
+
+JOBGENDER_VERBOSE_NAME = 'Gender Preference(Job)'
+JOBGENDER_VERBOSE_NAME_PLURAL = 'Gender Preferences(Job)'
+
+DEFAULT_JOB_COUNTRY = 'BD'
+# <<<
+

@@ -10,6 +10,7 @@ from rest_framework.utils import json
 from job.utils import unique_slug_generator
 from location.models import Division, District
 from resources import strings_job
+from django_countries.fields import CountryField
 # Create your models here.
 
 #Company Model
@@ -147,6 +148,77 @@ class Currency(models.Model):
         return self.name
 #Currency Model
 
+# Added by Munir (02-03).05.2020 >>>
+
+class JobSource(models.Model):
+    name = models.CharField(max_length=255, primary_key=True)
+    description = models.CharField(max_length=255, null=True)
+    url = models.CharField(max_length=255, null=True)
+    created_by = models.CharField(max_length=255, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_from = models.CharField(max_length=255, null=True)
+    modified_by = models.CharField(max_length=255, null=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_from = models.CharField(max_length=255, null=True)
+    is_archived = models.BooleanField(default=False)
+    archived_by = models.CharField(max_length=255, null=True)
+    archived_at = models.DateTimeField(null=True)
+    archived_from = models.CharField(max_length=255, null=True)
+
+    class Meta:
+        verbose_name = strings_job.JOBSOURCE_VERBOSE_NAME
+        verbose_name_plural = strings_job.JOBSOURCE_VERBOSE_NAME_PLURAL
+        db_table = 'job_sources'
+
+    def __str__(self):
+        return self.name
+
+
+
+class JobCategory(models.Model):
+    name = models.CharField(max_length=255, primary_key=True)
+    created_by = models.CharField(max_length=255, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_from = models.CharField(max_length=255, null=True)
+    modified_by = models.CharField(max_length=255, null=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_from = models.CharField(max_length=255, null=True)
+    is_archived = models.BooleanField(default=False)
+    archived_by = models.CharField(max_length=255, null=True)
+    archived_at = models.DateTimeField(null=True)
+    archived_from = models.CharField(max_length=255, null=True)
+
+    class Meta:
+        verbose_name = strings_job.JOBCATEGORY_VERBOSE_NAME
+        verbose_name_plural = strings_job.JOBCATEGORY_VERBOSE_NAME_PLURAL
+        db_table = 'job_categories'
+
+    def __str__(self):
+        return self.name
+
+
+
+class JobGender(models.Model):
+    name = models.CharField(max_length=255, primary_key=True)
+    created_by = models.CharField(max_length=255, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_from = models.CharField(max_length=255, null=True)
+    modified_by = models.CharField(max_length=255, null=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_from = models.CharField(max_length=255, null=True)
+    is_archived = models.BooleanField(default=False)
+    archived_by = models.CharField(max_length=255, null=True)
+    archived_at = models.DateTimeField(null=True)
+    archived_from = models.CharField(max_length=255, null=True)
+
+    class Meta:
+        verbose_name = strings_job.JOBGENDER_VERBOSE_NAME
+        verbose_name_plural = strings_job.JOBGENDER_VERBOSE_NAME_PLURAL
+        db_table = 'job_genders'
+
+    def __str__(self):
+        return self.name
+# <<<
 
 #Job Model
 class Job(models.Model):
@@ -186,6 +258,54 @@ class Job(models.Model):
     job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
     entry_date = models.DateTimeField(auto_now_add=True)
 
+    # Added by Munir (02-03).05.2020 >>>
+    status = models.CharField(max_length=20, blank=False, null = False, 
+        choices=strings_job.JOB_STATUSES, default=strings_job.DEFAULT_JOB_STATUS)
+    job_site = models.CharField(max_length=20, blank=False, null = False, 
+        choices=strings_job.JOB_SITES, default=strings_job.DEFAULT_JOB_SITE)
+    job_nature = models.CharField(max_length=20, blank=False, null = False, 
+        choices=strings_job.JOB_NATURES, default=strings_job.DEFAULT_JOB_NATURE)
+    job_type = models.CharField(max_length=20, blank=False, null = False, 
+        choices=strings_job.JOB_TYPES, default=strings_job.DEFAULT_JOB_TYPE)
+    creator_type = models.CharField(max_length=20, blank=False, null = False, 
+        choices=strings_job.JOB_CREATOR_TYPES, default=strings_job.DEFAULT_JOB_CREATOR_TYPE)
+    additional_requirements = models.TextField(blank=True, null=True)
+    job_source_1 = models.ForeignKey(JobSource, on_delete=models.PROTECT, 
+        related_name='jobs1', db_column='job_source_1', blank=True, null= True)
+    job_url_1 = models.CharField(max_length=255, blank=True, null= True)
+    job_source_2 = models.ForeignKey(JobSource, on_delete=models.PROTECT, 
+        related_name='jobs2', db_column='job_source_2', blank=True, null= True)
+    job_url_2 = models.CharField(max_length=255, blank=True, null= True)
+    job_source_3 = models.ForeignKey(JobSource, on_delete=models.PROTECT, 
+        related_name='jobs3', db_column='job_source_3',blank=True, null = True)
+    job_url_3 = models.CharField(max_length=255, blank=True, null= True)
+    job_category = models.ForeignKey(JobCategory, on_delete=models.PROTECT,
+        related_name='jobs', db_column='job_category',blank=True, null = True)
+    job_gender = models.ForeignKey(JobGender, on_delete=models.PROTECT,
+        related_name='jobs', db_column='job_gender',blank=True, null = True)
+    job_country = CountryField(default = strings_job.DEFAULT_JOB_COUNTRY)
+    job_city = models.CharField(max_length=255, blank=True, null = True)
+    job_area = models.CharField(max_length=255, blank=True, null = True)
+    company_country = CountryField(default = strings_job.DEFAULT_JOB_COUNTRY)
+    company_city = models.CharField(max_length=255, blank=True, null = True)
+    company_area = models.CharField(max_length=255, blank=True, null = True)
+    post_date = models.DateTimeField(blank=True, null = True)
+    review_date = models.DateTimeField(blank=True, null = True)
+    approve_date = models.DateTimeField(blank=True, null = True)
+    publish_date = models.DateTimeField(blank=True, null = True)
+    created_by = models.CharField(max_length=255, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null = True)
+    created_from = models.CharField(max_length=255, null=True)
+    modified_by = models.CharField(max_length=255, null=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_from = models.CharField(max_length=255, null=True)
+    is_archived = models.BooleanField(default=False)
+    archived_by = models.CharField(max_length=255, null=True)
+    archived_at = models.DateTimeField(null=True)
+    archived_from = models.CharField(max_length=255, null=True)
+    # <<<
+
+
 
     class Meta:
         verbose_name = strings_job.JOB_VERBOSE_NAME
@@ -198,6 +318,8 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
+
+
 
 def slug_generator(sender, instance, *args, **kwargs):
     if not instance.slug:

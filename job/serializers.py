@@ -15,6 +15,11 @@ class CompanySerializer(serializers.ModelSerializer):
         extra_kwargs = {'client': {'required': False}}
 
 
+class CompanyNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ['name']
+
 class IndustrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Industry
