@@ -424,11 +424,11 @@
 
             <div class="edication-background details-section dashboard-section">
               <h4 id="edu-label"><i data-feather="book"></i>Education Background</h4>
-              <div class="education-label">
-                <span class="study-year">2018 - Present</span>
-                <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>
-                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-              </div>
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2018 - Present</span>-->
+<!--                <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
 <!--              <div class="education-label">-->
 <!--                <span class="study-year">2014 - 2018</span>-->
 <!--                <h5>Diploma in Graphics Design<span>@ Graphic Arts Institute</span></h5>-->
@@ -485,6 +485,7 @@
                                     <div class="input-group-text">Institution</div>
                                   </div>
                                   <input type="text" name="institution_text" id="institution_text" class="form-control" >
+                                  <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -571,6 +572,7 @@
                                     <div class="input-group-text">Institution</div>
                                   </div>
                                   <input type="text" name="institution_text" id="institution_text" class="form-control" >
+                                  <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -1443,10 +1445,11 @@
       event.preventDefault();
       var totalDiv = $('#education-form').find(".input-block-edu");
       totalDiv.each(function(){
-        var path = window.location.pathname.split('/')
-        var id = path[path.length-2]
+        var path = window.location.pathname.split('/');
+        var id = path[path.length-2];
         var user = id;
         var degree=$(this).find('#degree').val();
+        var edu_id=$(this).find('#id').val();
         var institution=$(this).find('#institution').val();
         var institution_text=$(this).find('#institution_text').val();
         var cgpa=$(this).find('#cgpa').val();
@@ -1480,8 +1483,13 @@
           data.graduation_date = graduation_date;
         }
         eduCreateUrl = "/api/professional/professional_education/";
-        if(Object.keys(data).length>1){
-          post(eduCreateUrl, JSON.stringify(data));
+        eduUpdateUrl = "/api/professional/professional_education/"+edu_id+"/";
+        if(Object.keys(data).length>1 && $(this).hasClass("update-edu")){
+          put(eduUpdateUrl, JSON.stringify(data), loadEducation);
+        }
+        if(Object.keys(data).length>1 && !$(this).hasClass("update-edu")){
+          post(eduCreateUrl, JSON.stringify(data), loadEducation);
+          $(this).addClass("update-edu");
         }
 
 
@@ -1573,7 +1581,42 @@
   function divCounter(id){
     return $('.'+id).length;
   }
+  function loadEducation(data) {
+    console.log(data);
+    if(data.status==200){
 
+      var path = window.location.pathname.split('/');
+      var id = path[path.length-2];
+      var getUrl = '/api/professional/profile/'+ id + '/';
+      var dateString = data.responseJSON.enrolled_date;
+      var dateGraduationString = data.responseJSON.graduation_date;
+
+      var momentObj = moment(dateString, 'YYYY-MM-DD');
+      var momentGraduationObj = moment(dateGraduationString, 'YYYY-MM-DD');
+      var dateEnrolledString = momentObj.format('YYYY');
+      var dateGraduationString = momentGraduationObj.format('YYYY');
+      $("#modal-education").modal("hide");
+      if($('.edication-background').find(".education-label").length==0){
+        console.log(data.responseJSON)
+        $('#edu-label').after('<div class="education-label">'+'<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+             '<h5>'+data.responseJSON.degree+' in '+data.responseJSON.major_obj.name+'<span>@ '+data.responseJSON.institution_obj.name+'</span></h5>'+'</div>');
+      }
+      else {
+        var el = $(".edication-background").find("[href='"+ data.responseJSON.id +"']");
+        if(el.length>0){
+          el.parent().html('<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+             '<h5>'+data.responseJSON.degree+' in '+data.responseJSON.major_obj.name+'<span>@ '+data.responseJSON.institution_obj.name+'</span></h5>');
+        }
+        else{
+          $('.education-label:last').after('<div class="education-label">'+'<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+             '<h5>'+data.responseJSON.degree+' in '+data.responseJSON.major_obj.name+'<span>@ '+data.responseJSON.institution_obj.name+'</span></h5>'+'</div>');
+        }
+
+      }
+    }else{
+      showError("Error Updating")
+    }
+  }
 
   //load social and append social value
   function  loadsocial(data){
@@ -1605,12 +1648,63 @@
   }
   function loadEdu(data) {
     console.log(data.edu_info)
+    // var totalDiv = $('#education-form').find(".input-block-edu");
+    // alert(totalDiv[0].find(".edu-div-lavel"))
     var eduHtml = $(".education-label").html();
     for(index=0;index<data.edu_info.length;index++){
-        $('.education-label').after('<div class="education-label">'+'<span class="study-year">'+data.edu_info[index].enrolled_date+'</span>\n' +
+      var dateString = data.edu_info[index].enrolled_date;
+      var dateGraduationString = data.edu_info[index].graduation_date;
+
+      var momentObj = moment(dateString, 'YYYY-MM-DD');
+      var momentGraduationObj = moment(dateGraduationString, 'YYYY-MM-DD');
+      var dateEnrolledString = momentObj.format('YYYY');
+      var dateGraduationString = momentGraduationObj.format('YYYY');
+      var count = divCounter("input-block-edu")+1;
+      var eduDivHtml = $("#education-form .input-block-edu").html();
+      if(index==0){
+        $('#edu-label').after('<div class="education-label">'+'<a href="'+data.edu_info[index].id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
              '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');
+        $('.input-block-edu').remove();
+        count = divCounter("input-block-edu")+1;
+        $('#education-form').prepend('<div class="input-block-wrap input-block-edu update-edu edu-01" >'+eduDivHtml+'</div>');
+        $(".edu-div-lavel:last").text("0"+ count);
+        json2FormDiv(data.edu_info[index], "edu-01");
+        $('.edu-01 #institution').val(data.edu_info[index].institution_obj.id);
+        $('.edu-01 #major').val(data.edu_info[index].major_obj.id);
+
+      }
+      else if(index>=1){
+        $('.education-label:last').after('<div class="education-label">'+'<a href="'+data.edu_info[index].id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');
+        count = divCounter("input-block-edu")+1;
+        $('.input-block-edu:last').after('<div class="input-block-wrap input-block-edu update-edu edu-0'+count+'" >'+eduDivHtml+'</div>');
+        $(".edu-div-lavel:last").text("0"+ count);
+        json2FormDiv(data.edu_info[index], "edu-0"+count);
+        $(".edu-0"+count+" #institution").val(data.edu_info[index].institution_obj.id);
+        $(".edu-0"+count+" #major").val(data.edu_info[index].major_obj.id);
+      }
       }
   }
+
+  function json2FormDiv(data, id){
+    for(key in data){
+        var el = $("." + id).find("[id='"+ key +"']");
+        let elChild = el;
+        let dataValue = data[key];
+        if(el.hasClass("tinymce-editor")){
+            tinymce.get(key).insertContent(data[key]);
+        }
+        else if(el.data("parent")){
+            setTimeout(function () {
+                elChild.val(dataValue).change();
+            },1000);
+        }
+        setTimeout(function () {
+            elChild.val(dataValue).change();
+        },500);
+
+    }
+}
 
 
   // load personal_info about and personal details data and append here
