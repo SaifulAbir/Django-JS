@@ -374,9 +374,7 @@
             });
         });
         url = data.current_url;
-        console.log(data.next_pages);
         if (data.next_pages == false){
-            alert('no next page');
             $('button[data-value=' + 'next' + ']').prop( "disabled", true );
         }else {
             $('button[data-value=' + 'next' + ']').prop( "disabled", false );
