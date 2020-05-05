@@ -1024,139 +1024,143 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="grid"></i>Portfolio</h4>
-                        <a href="#" class="add-more">+ Add Another</a>
+                        <a href="#" class="add-more" id="add-portfolio">+ Add Another</a>
                       </div>
 
                       <div class="content" >
-                        <form action="/api/professional/professional_portfolio/" class="job-post-form ajax" method="POST" id="portfolio-update-form" data-callback="portfolioCallback">
-                             <div id="showinform">
-<!--                          <div class="input-block-wrap">-->
-<!--                            <div class="form-group row">-->
-<!--                              <label class="col-sm-3 col-form-label">Portfolio 01</label>-->
-<!--                              <div class="col-sm-9">-->
-<!--                                <div class="input-group">-->
-<!--                                  <div class="input-group-prepend">-->
-<!--                                    <div class="input-group-text">Title</div>-->
-<!--                                  </div>-->
-<!--                                  <input type="text" class="form-control" >-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                            <div class="form-group row">-->
-<!--                              <div class="offset-sm-3 col-sm-9">-->
-<!--                                <div class="input-group">-->
-<!--                                  <div class="input-group-prepend">-->
-<!--                                    <div class="input-group-text">Image</div>-->
-<!--                                  </div>-->
-<!--                                  <div class="upload-profile-photo">-->
-<!--                                    <div class="update-photo">-->
-<!--                                      <img class="image" src="images/portfolio/thumb-1.jpg" alt="">-->
-<!--                                    </div>-->
-<!--                                    <div class="file-upload">-->
-<!--                                      <input type="file" class="file-input">Change Image-->
-<!--                                    </div>-->
-<!--                                  </div>-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                            <div class="form-group row">-->
-<!--                              <div class="offset-sm-3 col-sm-9">-->
-<!--                                <div class="input-group">-->
-<!--                                  <div class="input-group-prepend">-->
-<!--                                    <div class="input-group-text">Description</div>-->
-<!--                                  </div>-->
-<!--                                  <input type="text" class="form-control" >-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                          </div>-->
+                        <form action="#"  id="portfolio-form" novalidate="novalidate">
 
 
-
-<!--                          <div class="input-block-wrap">-->
-<!--                            <div class="form-group row">-->
-<!--                              <label class="col-sm-3 col-form-label">Portfolio 02</label>-->
-<!--                              <div class="col-sm-9">-->
-<!--                                <div class="input-group">-->
-<!--                                  <div class="input-group-prepend">-->
-<!--                                    <div class="input-group-text">Title</div>-->
-<!--                                  </div>-->
-<!--                                  <input type="text" class="form-control" >-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                            <div class="form-group row">-->
-<!--                              <div class="offset-sm-3 col-sm-9">-->
-<!--                                <div class="input-group">-->
-<!--                                  <div class="input-group-prepend">-->
-<!--                                    <div class="input-group-text">Image</div>-->
-<!--                                  </div>-->
-<!--                                  <div class="upload-profile-photo">-->
-<!--                                    <div class="update-photo">-->
-<!--                                      <img class="image" src="images/portfolio/thumb-1.jpg" alt="">-->
-<!--                                    </div>-->
-<!--                                    <div class="file-upload">-->
-<!--                                      <input type="file" class="file-input">Change Image-->
-<!--                                    </div>-->
-<!--                                  </div>-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                            <div class="form-group row">-->
-<!--                              <div class="offset-sm-3 col-sm-9">-->
-<!--                                <div class="input-group">-->
-<!--                                  <div class="input-group-prepend">-->
-<!--                                    <div class="input-group-text">Description</div>-->
-<!--                                  </div>-->
-<!--                                  <input type="text" class="form-control" >-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                          </div>-->
-
-
-<!--                          <div class="input-block-wrap">-->
-<!--                            <div class="form-group row">-->
-<!--                              <label class="col-sm-3 col-form-label">Portfolio 03</label>-->
-<!--                              <div class="col-sm-9">-->
-<!--                                <div class="input-group">-->
-<!--                                  <div class="input-group-prepend">-->
-<!--                                    <div class="input-group-text">Title</div>-->
-<!--                                  </div>-->
-<!--                                  <input type="text" class="form-control" >-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                            <div class="form-group row">-->
-<!--                              <div class="offset-sm-3 col-sm-9">-->
-<!--                                <div class="input-group">-->
-<!--                                  <div class="input-group-prepend">-->
-<!--                                    <div class="input-group-text">Image</div>-->
-<!--                                  </div>-->
-<!--                                  <div class="upload-profile-photo">-->
-<!--                                    <div class="update-photo">-->
-<!--                                      <img class="image" src="images/portfolio/thumb-1.jpg" alt="">-->
-<!--                                    </div>-->
-<!--                                    <div class="file-upload">-->
-<!--                                      <input type="file" class="file-input">Change Image-->
-<!--                                    </div>-->
-<!--                                  </div>-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                            <div class="form-group row">-->
-<!--                              <div class="offset-sm-3 col-sm-9">-->
-<!--                                <div class="input-group">-->
-<!--                                  <div class="input-group-prepend">-->
-<!--                                    <div class="input-group-text">Description</div>-->
-<!--                                  </div>-->
-<!--                                  <input type="text" class="form-control" >-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                          </div>-->
-
+                          <div class="input-block-wrap input-block-portfolio" >
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">Portfolio - 1</label>
+                              <div class="col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Title</div>
+                                  </div>
+                                  <input type="text" name="name" id="name" class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Image</div>
+                                  </div>
+                                  <div class="upload-profile-photo">
+                                    <div class="update-photo">
+                                      <img class="image" src="" alt="">
+                                    </div>
+                                    <div class="file-upload">
+                                      <input type="file" name="image" id="image" class="file-input">Change Image
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Description</div>
+                                  </div>
+                                  <input type="text" name="description" id="description"  class="form-control" >
+                                </div>
+                              </div>
+                            </div>
                           </div>
+
+
+                          <div class="input-block-wrap input-block-portfolio" >
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">Portfolio - 2</label>
+                              <div class="col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Title</div>
+                                  </div>
+                                  <input type="text" name="name" id="name" class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Image</div>
+                                  </div>
+                                  <div class="upload-profile-photo">
+                                    <div class="update-photo">
+                                      <img class="image" src="" alt="">
+                                    </div>
+                                    <div class="file-upload">
+                                      <input type="file" name="image" id="image" class="file-input">Change Image
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Description</div>
+                                  </div>
+                                  <input type="text" name="description" id="description"  class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                           <div class="input-block-wrap input-block-portfolio" >
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">Portfolio - 3</label>
+                              <div class="col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Title</div>
+                                  </div>
+                                  <input type="text" name="name" id="name" class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Image</div>
+                                  </div>
+                                  <div class="upload-profile-photo">
+                                    <div class="update-photo">
+                                      <img class="image" src="" alt="">
+                                    </div>
+                                    <div class="file-upload">
+                                      <input type="file" name="image" id="image" class="file-input">Change Image
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Description</div>
+                                  </div>
+                                  <input type="text" name="description" id="description"  class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+
+
+
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
@@ -1351,6 +1355,12 @@
     $('#job-update-form').validate({
       errorClass: "my-error-class",
     });
+
+  $('#portfolio-form').validate({
+        errorClass: "my-error-class",
+      });
+
+
     TokenAuthenticate();
     initAjaxSelects();
     $('#profile-form').validate();
@@ -1364,7 +1374,57 @@
     get(staticUrl,loadstatic);
 <!--    var postUrl = '/api/professional/profile_update_partial/'+ id + '/';-->
 <!--    $('form.ajax').attr('action',postUrl);-->
-    initAjaxForms();
+
+    $('#add-portfolio').on('click', function (event) {
+      event.preventDefault();
+      var count = divCounter("input-block-portfolio")+1;
+      var lastDiv = $("#portfolio-form .input-block-portfolio:last");
+      var lastDivHtml = $("#portfolio-form .input-block-portfolio").html();
+      console.log(lastDivHtml);
+      lastDiv.after('<div class="input-block-wrap input-block-portfolio" >'+lastDivHtml+'</div>');
+      $(".portfolio-div-lavel:last").text(count);
+    });
+
+
+
+    $('#portfolio-form').on('submit', function (event) {
+      event.preventDefault();
+      var totalDiv = $('#portfolio-form').find(".input-block-portfolio");
+      totalDiv.each(function(){
+        var path = window.location.pathname.split('/')
+        var id = path[path.length-2]
+        var user = id;
+        var name=$(this).find('#name').val();
+        var image=$(this).find('#image').val();
+        var description=$(this).find('#description').val();
+
+        data = { "professional_id" : user}
+
+        if(name){
+          data.name = name;
+        }
+        if(image){
+          var uploadformid = image;
+          var uploadform = document.getElementById(uploadformid);
+          data.image = uploadform;
+        }
+        if(description){
+          data.description = description;
+        }
+
+        portfolioCreateUrl = "/api/professional/professional_portfolio/";
+        //console.log('portfolio' ,data);
+        if(Object.keys(data).length>1){
+          post(portfolioCreateUrl, JSON.stringify(data), portfolioCallback);
+        }
+
+
+      });
+    });
+
+
+
+
 
     // If social URL is emtpy then add space in value for skipping database data saving problem
     $(".social-network-update").click(function(){
@@ -1382,7 +1442,9 @@
       }
     });
 
-
+    function divCounter(id){
+    return $('.'+id).length;
+              }
 
     // checking empty string value for about info
     $("#info-update-form").click(function(event){
@@ -1487,52 +1549,53 @@
                           content = content + portfolio_html;
 
 
-                          var num = x + 1;
-                          var showINform_html = '<div class="input-block-wrap">'+
-                            '<div class="form-group row">'+
-                              '<label class="col-sm-3 col-form-label">Portfolio - '+num+'</label>'+
-                              '<div class="col-sm-9">'+
-                                '<div class="input-group">'+
-                                  '<div class="input-group-prepend">'+
-                                    '<div class="input-group-text">Title</div>'+
-                                  '</div>'+
-                                  '<input type="text" name="name" id="name" class="form-control" data-text="title" value="'+portfolio_data[x].name+'">'+
-                                '</div>'+
-                              '</div>'+
-                            '</div>'+
-                            '<div class="form-group row">'+
-                              '<div class="offset-sm-3 col-sm-9">'+
-                                '<div class="input-group">'+
-                                  '<div class="input-group-prepend">'+
-                                    '<div class="input-group-text" >Image</div>'+
-                                  '</div>'+
-                                  '<div class="upload-profile-photo">'+
-                                    '<div class="update-photo">'+
-                                      '<img class="image"  name="image" id="image" src="'+portfolio_data[x].image+'" alt="">'+
+<!--                          var num = x + 1;-->
+<!--                          var showINform_html = '<div class="input-block-wrap">'+-->
+<!--                            '<div class="form-group row">'+-->
+<!--                              '<label class="col-sm-3 col-form-label">Portfolio - '+num+'</label>'+-->
+<!--                              '<div class="col-sm-9">'+-->
+<!--                                '<div class="input-group">'+-->
+<!--                                  '<div class="input-group-prepend">'+-->
+<!--                                    '<div class="input-group-text">Title</div>'+-->
+<!--                                  '</div>'+-->
+<!--                                  '<input type="text" name="name" id="name" class="form-control" data-text="title" value="'+portfolio_data[x].name+'">'+-->
+<!--                                '</div>'+-->
+<!--                              '</div>'+-->
+<!--                            '</div>'+-->
+<!--                            '<div class="form-group row">'+-->
+<!--                              '<div class="offset-sm-3 col-sm-9">'+-->
+<!--                                '<div class="input-group">'+-->
+<!--                                  '<div class="input-group-prepend">'+-->
+<!--                                    '<div class="input-group-text" >Image</div>'+-->
+<!--                                  '</div>'+-->
+<!--                                  '<div class="upload-profile-photo">'+-->
+<!--                                    '<div class="update-photo">'+-->
+<!--                                      '<img class="image"  name="image" id="image" src="'+portfolio_data[x].image+'" alt="">'+-->
 
-              //  '<img class="image" src="{% static 'images/icon-114x114.png'%}" alt="">'+
-                                    '</div>'+
-                                    '<div class="file-upload">'+
-                                      '<input type="file" class="file-input">Change Image'+
-                                    '</div>'+
-                                  '</div>'+
-                                '</div>'+
-                              '</div>'+
-                            '</div>'+
-                            '<div class="form-group row">'+
-                              '<div class="offset-sm-3 col-sm-9">'+
-                                '<div class="input-group">'+
-                                  '<div class="input-group-prepend">'+
-                                    '<div class="input-group-text">Description</div>'+
-                                  '</div>'+
-                                  '<input type="text" name="description" id="description" class="form-control" data-text="description" value="'+portfolio_data[x].description+'">'+
-                                '</div>'+
-                                '<input type="hidden" id="professional_id" name="professional_id" value="'+id+'">'+
-                              '</div>'+
-                            '</div>'+
-                          '</div>';
+<!--              //  '<img class="image" src="{% static 'images/icon-114x114.png'%}" alt="">'+-->
+<!--                                    '</div>'+-->
+<!--                                    '<div class="file-upload">'+-->
+<!--                                      '<input type="file" class="file-input">Change Image'+-->
+<!--                                    '</div>'+-->
+<!--                                  '</div>'+-->
+<!--                                '</div>'+-->
+<!--                              '</div>'+-->
+<!--                            '</div>'+-->
+<!--                            '<div class="form-group row">'+-->
+<!--                              '<div class="offset-sm-3 col-sm-9">'+-->
+<!--                                '<div class="input-group">'+-->
+<!--                                  '<div class="input-group-prepend">'+-->
+<!--                                    '<div class="input-group-text">Description</div>'+-->
+<!--                                  '</div>'+-->
+<!--                                  '<input type="text" name="description" id="description" class="form-control" data-text="description" value="'+portfolio_data[x].description+'">'+-->
+<!--                                '</div>'+-->
+<!--                                '<input type="hidden" id="professional_id" name="professional_id" value="'+id+'">'+-->
+<!--                              '</div>'+-->
+<!--                            '</div>'+-->
+<!--                          '</div>';-->
 
-                          $('#showinform').append(showINform_html);
+<!--                          $('#showinform').append(showINform_html);-->
+<!--                          -->
                                       }
 
                           content = content + portfolio_html;
@@ -1544,61 +1607,55 @@
 
 
 
-             $(".add-more").click(function(){
-                    num = num + 1
-                    var showINform_html = '<div class="input-block-wrap">'+
-                            '<div class="form-group row">'+
-                              '<label class="col-sm-3 col-form-label">Portfolio - '+num+'</label>'+
-                              '<div class="col-sm-9">'+
-                                '<div class="input-group">'+
-                                  '<div class="input-group-prepend">'+
-                                    '<div class="input-group-text">Title</div>'+
-                                  '</div>'+
-                                  '<input type="text" name="name" id="name" class="form-control" data-text="title" value="">'+
-                                '</div>'+
-                              '</div>'+
-                            '</div>'+
-                            '<div class="form-group row">'+
-                              '<div class="offset-sm-3 col-sm-9">'+
-                                '<div class="input-group">'+
-                                  '<div class="input-group-prepend">'+
-                                    '<div class="input-group-text" >Image</div>'+
-                                  '</div>'+
-                                  '<div class="upload-profile-photo">'+
-                                    '<div class="update-photo">'+
-                                      '<img class="image"   src="" alt="">'+
+<!--             $(".add-more").click(function(){-->
+<!--                    num = num + 1-->
+<!--                    var showINform_html = '<div class="input-block-wrap">'+-->
+<!--                            '<div class="form-group row">'+-->
+<!--                              '<label class="col-sm-3 col-form-label">Portfolio - '+num+'</label>'+-->
+<!--                              '<div class="col-sm-9">'+-->
+<!--                                '<div class="input-group">'+-->
+<!--                                  '<div class="input-group-prepend">'+-->
+<!--                                    '<div class="input-group-text">Title</div>'+-->
+<!--                                  '</div>'+-->
+<!--                                  '<input type="text" name="name" id="name" class="form-control" data-text="title" value="">'+-->
+<!--                                '</div>'+-->
+<!--                              '</div>'+-->
+<!--                            '</div>'+-->
+<!--                            '<div class="form-group row">'+-->
+<!--                              '<div class="offset-sm-3 col-sm-9">'+-->
+<!--                                '<div class="input-group">'+-->
+<!--                                  '<div class="input-group-prepend">'+-->
+<!--                                    '<div class="input-group-text" >Image</div>'+-->
+<!--                                  '</div>'+-->
+<!--                                  '<div class="upload-profile-photo">'+-->
+<!--                                    '<div class="update-photo">'+-->
+<!--                                      '<img class="image"   src="" alt="">'+-->
 
-              //  '<img class="image" src="{% static 'images/icon-114x114.png'%}" alt="">'+
-                                    '</div>'+
-                                    '<div class="file-upload">'+
-                                      '<input type="file" name="image" id="image" class="file-input">Change Image'+
-                                    '</div>'+
-                                  '</div>'+
-                                '</div>'+
-                              '</div>'+
-                            '</div>'+
-                            '<div class="form-group row">'+
-                              '<div class="offset-sm-3 col-sm-9">'+
-                                '<div class="input-group">'+
-                                  '<div class="input-group-prepend">'+
-                                    '<div class="input-group-text">Description</div>'+
-                                  '</div>'+
-                                  '<input type="text" name="description" id="description" class="form-control" data-text="description" value="">'+
-                                '</div>'+
-                                '<input type="hidden" id="professional_id" name="professional_id" value="'+id+'">'+
-                              '</div>'+
-                            '</div>'+
-                          '</div>';
+<!--              //  '<img class="image" src="{% static 'images/icon-114x114.png'%}" alt="">'+-->
+<!--                                    '</div>'+-->
+<!--                                    '<div class="file-upload">'+-->
+<!--                                      '<input type="file" name="image" id="image" class="file-input">Change Image'+-->
+<!--                                    '</div>'+-->
+<!--                                  '</div>'+-->
+<!--                                '</div>'+-->
+<!--                              '</div>'+-->
+<!--                            '</div>'+-->
+<!--                            '<div class="form-group row">'+-->
+<!--                              '<div class="offset-sm-3 col-sm-9">'+-->
+<!--                                '<div class="input-group">'+-->
+<!--                                  '<div class="input-group-prepend">'+-->
+<!--                                    '<div class="input-group-text">Description</div>'+-->
+<!--                                  '</div>'+-->
+<!--                                  '<input type="text" name="description" id="description" class="form-control" data-text="description" value="">'+-->
+<!--                                '</div>'+-->
+<!--                                '<input type="hidden" id="professional_id" name="professional_id" value="'+id+'">'+-->
+<!--                              '</div>'+-->
+<!--                            '</div>'+-->
+<!--                          '</div>';-->
 
-                          $('#showinform').append(showINform_html);
+<!--                          $('#showinform').append(showINform_html);-->
 
-                 });
-
-
-
-
-
-
+<!--                 });-->
 
 
         }
