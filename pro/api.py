@@ -944,6 +944,25 @@ def skill_job_chart(request):
         all_query = all_query|jobs
     # count = all_query.filter(created_date__year='2020').values_list('created_date__month').distinct().annotate(total=Count('title'))
     count = all_query.annotate(month=TruncMonth('created_date')).values('month').order_by('month').annotate(total=Count('title'))
-    for x in range(0,len(count)):
-        print(count[x]['month'])
     return Response(count)
+
+
+@api_view(["GET"])
+def pro_recent_activity(request):
+    user = request.user
+    activity = ProRecentActivity.objects.filter(user = user).order_by('time')
+    for obj in activity:
+        if (timezone.now() - obj.time).days >=1:
+            obj.activity_time = '{} days ago'.format((timezone.now() - obj.time).days)
+        elif (((timezone.now() - obj.time).seconds)//3600) >=1:
+            obj.activity_time = '{} hour ago'.format(((timezone.now() - obj.time).seconds) //3600)
+        elif (((timezone.now() - obj.time).seconds)//60) >=1:
+            obj.activity_time = '{} min ago'.format(((timezone.now() - obj.time).seconds) //60)
+        else:
+            obj.activity_time = '{} sec ago'.format(((timezone.now() - obj.time).seconds))
+    activity_list =[{
+        'description': act.description,
+        'time': act.activity_time,
+        'type': act.type
+    }for act in activity]
+    return Response(activity_list)
