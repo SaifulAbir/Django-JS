@@ -348,6 +348,8 @@ def professional_education_save(request):
     if 'major_id' in data and data['major_id'] is not None:
         data['major_obj'] = MajorSerializer(Major.objects.get(pk=data['major_id'])).data
     data['id'] = key_obj.id
+    data['degree'] = data["degree_id"]
+    del data["degree_id"]
     return Response(data)
 
 @api_view(["POST"])
@@ -803,6 +805,9 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
             ip = request.META.get('REMOTE_ADDR')
         request.data.update(
             {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
+        if "degree_id" in request.data:
+            request.data["degree"] = request.data["degree_id"]
+            del request.data["degree_id"]
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalEducationSerializer(ProfessionalEducation.objects.get(pk=pk)).data
         if 'institution_id' in request.data and request.data['institution_id'] is not None:
