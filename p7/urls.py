@@ -60,6 +60,7 @@ urlpatterns = [
     path('terms-and-condition/', TemplateView.as_view(template_name='terms-and-condition.html'), name='terms-and-condition'),
     path('FAQ/', TemplateView.as_view(template_name='FAQ.html'), name='FAQ'),
     path('my_job_search/', TemplateView.as_view(template_name='my_job_search.html'), name='my_job_search'),
+    path('company_dashboard/', TemplateView.as_view(template_name='company_dashboard.html'), name='company_dashboard'),
 
 
 
