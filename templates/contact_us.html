@@ -10,7 +10,7 @@
                     <h1>Contact Us</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
                         </ol>
                     </nav>
@@ -83,7 +83,7 @@
                     <div class="row">
                         <div class="col">
                             <div id="map-area" class="contact-map">
-                                <div class="cp-map" id="location" data-lat="40.713355" data-lng="-74.005535" data-zoom="10"></div>
+                                <div class="cp-map" id="location" data-lat="23.8103" data-lng="90.4125" data-zoom="10"></div>
                             </div>
                         </div>
                     </div>
@@ -92,16 +92,15 @@
         </div>
     </div>
 </div>
-<script>
-    function myMap() {
-        alert('call back');
-        var mapProp= {
-            center:new google.maps.LatLng(51.508742,-0.120850),
-            zoom:5,
-        };
-        var map = new google.maps.Map(document.getElementById("location"),mapProp);
-    }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE&callback=myMap"></script>
 
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+         initMap();
+
+    });
+</script>
 {% endblock %}
