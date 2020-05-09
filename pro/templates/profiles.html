@@ -685,53 +685,52 @@
             </div>
             <div class="professonal-skill dashboard-section details-section">
               <h4><i data-feather="feather"></i>Professional Skill</h4>
-              <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting</p>
-              <div class="progress-group">
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">Photoshop</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">70%</p>
-                  </div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">HTML/CSS</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">90%</p>
-                  </div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">JavaScript</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">74%</p>
-                  </div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">PHP</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">86%</p>
-                  </div>
-                </div>
-              </div>
+{#              <div class="progress-group">#}
+{#                <div class="progress-item">#}
+{#                  <div class="progress-head">#}
+{#                    <p class="progress-on">Photoshop</p>#}
+{#                  </div>#}
+{#                  <div class="progress-body">#}
+{#                    <div class="progress">#}
+{#                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>#}
+{#                    </div>#}
+{#                    <p class="progress-to">7/10</p>#}
+{#                  </div>#}
+{#                </div>#}
+{#                <div class="progress-item">#}
+{#                  <div class="progress-head">#}
+{#                    <p class="progress-on">HTML/CSS</p>#}
+{#                  </div>#}
+{#                  <div class="progress-body">#}
+{#                    <div class="progress">#}
+{#                      <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>#}
+{#                    </div>#}
+{#                    <p class="progress-to">9/10</p>#}
+{#                  </div>#}
+{#                </div>#}
+{#                <div class="progress-item">#}
+{#                  <div class="progress-head">#}
+{#                    <p class="progress-on">JavaScript</p>#}
+{#                  </div>#}
+{#                  <div class="progress-body">#}
+{#                    <div class="progress">#}
+{#                      <div class="progress-bar" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>#}
+{#                    </div>#}
+{#                    <p class="progress-to">74%</p>#}
+{#                  </div>#}
+{#                </div>#}
+{#                <div class="progress-item">#}
+{#                  <div class="progress-head">#}
+{#                    <p class="progress-on">PHP</p>#}
+{#                  </div>#}
+{#                  <div class="progress-body">#}
+{#                    <div class="progress">#}
+{#                      <div class="progress-bar" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>#}
+{#                    </div>#}
+{#                    <p class="progress-to">86%</p>#}
+{#                  </div>#}
+{#                </div>#}
+{#              </div>#}
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-pro-skill">
                 <i data-feather="edit-2"></i>
@@ -743,32 +742,20 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="feather"></i>Professional Skill</h4>
-                        <a href="#" class="add-more">+ Add Skill</a>
+                        <a href="#" id="add-pro-skill" class="add-more">+ Add Skill</a>
                       </div>
                       <div class="content">
-                        <form action="#">
-                          <div class="input-block-wrap">
+                        <form action="#" id="pro-skill-form" novalidate="novalidate">
+                          <div class="input-block-wrap input-block-skill">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">About Skill</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Description</div>
-                                  </div>
-                                  <textarea class="form-control"></textarea>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 01</label>
+                              <label class="col-sm-3 col-form-label skill-div-lavel">01</label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Skill Name</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <select class="form-control" name="skill_name" id="skill_name" data-text="name" data-value="id"  data-placeholder="" data-src="/api/skill_list/" value="" required data-msg-required="Skill is required">
+                                  </select>
                                 </div>
                               </div>
                             </div>
@@ -776,22 +763,23 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
+                                    <div class="input-group-text">Expertise</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <input type="text" class="form-control" name="rating" id="rating">
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="input-block-wrap">
+                          <div class="input-block-wrap input-block-skill">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 02</label>
+                              <label class="col-sm-3 col-form-label skill-div-lavel">02</label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Skill Name</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <select class="form-control" name="skill_name" id="skill_name" data-text="name" data-value="id"  data-placeholder="" data-src="/api/skill_list/" value="" required data-msg-required="Skill is required">
+                                  </select>
                                 </div>
                               </div>
                             </div>
@@ -799,22 +787,23 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
+                                    <div class="input-group-text">Expertise</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <input type="text" class="form-control" name="rating" id="rating">
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="input-block-wrap">
+                          <div class="input-block-wrap input-block-skill">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 03</label>
+                              <label class="col-sm-3 col-form-label skill-div-lavel">03</label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Skill Name</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <select class="form-control" name="skill_name" id="skill_name" data-text="name" data-value="id"  data-placeholder="" data-src="/api/skill_list/" value="" required data-msg-required="Skill is required">
+                                  </select>
                                 </div>
                               </div>
                             </div>
@@ -822,32 +811,9 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
+                                    <div class="input-group-text">Expertise</div>
                                   </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 04</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Skill Name</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
+                                  <input type="text" class="form-control" name="rating" id="rating">
                                 </div>
                               </div>
                             </div>
@@ -1336,6 +1302,49 @@
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
 
+    {#SKill add#}
+    $('#add-pro-skill').on('click', function (event) {
+      event.preventDefault();
+      {#var count = divCounter("input-block-skill")+1;#}
+      var lastDiv = $("#pro-skill-form .input-block-skill:last");
+      var lastDivHtml = $("#pro-skill-form .input-block-skill").html();
+      console.log(lastDivHtml);
+      lastDiv.after('<div class="input-block-wrap input-block-skill" >'+lastDivHtml+'</div>');
+      {#$(".edu-div-lavel:last").text("0"+ count);#}
+    });
+
+      {# Skill create and update #}
+    $('#pro-skill-form').on('submit', function (event) {
+      event.preventDefault();
+      var totalDiv = $('#pro-skill-form').find(".input-block-skill");
+      totalDiv.each(function(){
+        var path = window.location.pathname.split('/');
+        var id = path[path.length-2];
+        var user = id;
+        var skill_id=$(this).find('#id').val();
+        var skill_name=$(this).find('#skill_name').val();
+        var rating=$(this).find('#rating').val();
+        data = { "professional_id" : user}
+        if(skill_name){
+          data.skill_name_id = skill_name;
+        }
+        if(rating){
+          data.rating = rating;
+        }
+        console.log(data)
+
+        skillCreateUrl = "/api/professional/professional_skill/";
+        skillUpdateUrl = "/api/professional/professional_skill/"+skill_id+"/";
+        if(Object.keys(data).length>1 && $(this).hasClass("update-skill")){
+          put(skillUpdateUrl, JSON.stringify(data), loadProfSkills);
+        }
+        if(Object.keys(data).length>1 && !$(this).hasClass("update-skill")){
+          post(skillCreateUrl, JSON.stringify(data), loadProfSkills);
+          $(this).addClass("update-skill");
+        }
+      });
+    })
+
 
     // If social URL is emtpy then add space in value for skipping database data saving problem
     $(".social-network-update").click(function(){
@@ -1503,6 +1512,10 @@
     $("#fb").text(data[1]);
     $("#tw").text(data[2]);
     $("#ln").text(data[3]);
+  }
+  
+  function loadProfSkills() {
+
   }
 </script>
 {% endblock %}
