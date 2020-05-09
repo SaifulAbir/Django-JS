@@ -285,7 +285,21 @@ def job_list(request):
 
         number_of_row_total = paginator.count
         number_of_pages = paginator.num_pages
+        start_index = paginator.page(page).start_index()
+        end_index = paginator.page(page).end_index()
         check_next_available_or_not = paginator.page(page).has_next()
+        check_previous_available_or_not = paginator.page(page).has_previous()
+
+        if check_next_available_or_not :
+            next_page_number = paginator.page(page).next_page_number()
+        else:
+            next_page_number = 0
+
+        if check_previous_available_or_not:
+            previous_page_number = paginator.page(page).previous_page_number()
+        else:
+            previous_page_number = 0
+
         job_list = JobSerializer(job_list, many=True)
 
     except Job.DoesNotExist:
@@ -295,8 +309,13 @@ def job_list(request):
     data = {
         'status': 'success',
         'count': number_of_row_total,
+        'start_index': start_index,
+        'end_index': end_index,
         'number_of_pages': number_of_pages,
         'next_pages': check_next_available_or_not,
+        'previous_pages': check_previous_available_or_not,
+        'next_page_number': next_page_number,
+        'previous_page_number': previous_page_number,
         'code': HTTP_200_OK,
         'current_url': current_url,
         "results":  job_list.data,

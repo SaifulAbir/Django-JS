@@ -316,10 +316,6 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
         }
         paginationIndexString += str;
     }
-    console.log(totalRecord);
-    console.log(pageSize);
-    console.log(initialStartingIndex);
-    console.log(initialStartingIndex*pageSize)
 
     if ((initialStartingIndex*pageSize) > totalRecord){
         var paginationStringEnd = '<button disabled class="next page-numbers" data-value="next"><i class="fas fa-angle-right"></i></button></div></nav>';
