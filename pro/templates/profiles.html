@@ -1359,8 +1359,8 @@
                 <li><i class="fas fa-user"></i><a href="dashboard-edit-profile.html">Edit Profile</a></li>
                 <li><i class="fas fa-file-alt"></i><a href="resume.html">Resume</a></li>
                 <li class="active"><i class="fas fa-edit"></i><a href="edit-resume.html">Edit Resume</a></li>
-                <li><i class="fas fa-heart"></i><a href="dashboard-bookmark.html">Bookmarked</a></li>
-                <li><i class="fas fa-check-square"></i><a href="dashboard-applied.html">Applied Job</a></li>
+                <li><i class="fas fa-heart"></i><a href="{% url 'favourite_jobs' %}">Bookmarked</a></li>
+                <li><i class="fas fa-check-square"></i><a href="{% url 'applied_jobs' %}">Applied Job</a></li>
                 <li><i class="fas fa-comment"></i><a href="dashboard-message.html">Message</a></li>
                 <li><i class="fas fa-calculator"></i><a href="dashboard-pricing.html">Pricing Plans</a></li>
               </ul>

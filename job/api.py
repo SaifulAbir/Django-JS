@@ -132,6 +132,7 @@ def job_list(request):
     try:
         query = request.GET.get('q')
         current_url = request.GET.get('current_url')
+        print(current_url)
         sorting = request.GET.get('sort')
         category = request.GET.get('category')
         district = request.GET.get('location')
@@ -149,7 +150,9 @@ def job_list(request):
         topSkill = request.GET.get('top-skill')
 
         if sorting == 'descending':
-            job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
+            job_list = Job.objects.all().order_by('-created_date')
+            # annotate removed by munir 
+            # job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
         elif sorting == 'top-rated':
             # fav_jobs = FavouriteJob.objects.all()
             # job_list = Job.objects.filter(fav_jobs__in = fav_jobs).annotate(favourite_count=Count('fav_jobs')
@@ -427,6 +430,16 @@ def load_previous_skills(request):
     return JsonResponse(previous_skills, safe=False)
 
 
+@api_view(["GET"])
+def get_company_by_name(request):
+    comp_name = request.GET.get('name')
+    if comp_name:
+        comps = Company.objects.filter(Q(name__icontains = comp_name))
+    
+    result = CompanySerializer(comps, many = True)
+    data = { 'data' : result.data}
+    return Response(data)
+
 @api_view(["POST"])
 def trending_keyword_save(request):
     search_data = json.loads(request.body)
@@ -469,7 +482,9 @@ class PopularJobs(generics.ListCreateAPIView):
 
 @api_view(["GET"])
 def recent_jobs(request):
-    queryset = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')[:6]
+    # queryset = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')[:6]
+    # TODO: Check /munir
+    queryset = Job.objects.all().order_by('-created_date')[:6]
     data = []
     for job in queryset:
         try:
@@ -489,18 +504,15 @@ def recent_jobs(request):
         except ApplyOnline.DoesNotExist:
             applied_job = None
         if favourite_job is not None:
-            job.status = YES_TXT
+            job.is_favourite = YES_TXT
         else:
-            job.status = NO_TXT
+            job.is_favourite = NO_TXT
 
         if applied_job is not None:
             job.is_applied = YES_TXT
         else:
             job.is_applied = NO_TXT
-        try:
-            company = job.company_name
-        except Company.DoesNotExist:
-            company = None
+
         try:
             if job.company_name:
 
@@ -513,11 +525,32 @@ def recent_jobs(request):
                 job.profile_picture = '/static/images/job/company-logo-2.png'
         except Company.DoesNotExist:
             job.profile_picture = '/static/images/job/company-logo-2.png'
+        
         if job.job_location is None:
             job.job_location = NO_LOCATION
-        data.append({'job_id':job.job_id, 'is_applied':job.is_applied, 'slug':job.slug, 'title':job.title, 'job_location':job.job_location, 'created_date':job.created_date, 'status':job.status, 'profile_picture':job.profile_picture, 'employment_status':str(job.employment_status), 'company_name':str(company)})
+        
+        data.append(make_job_list_response(job))
 
     return JsonResponse(list(data), safe=False)
+
+def make_job_list_response(job : Job):
+    return {
+        'job_id': job.job_id, 
+        'slug': job.slug, 
+        'title': job.title, 
+        'job_location': job.job_location,
+        'employment_status': str(job.employment_status), 
+        'job_nature': job.job_nature,
+        'job_site': job.job_site,
+        'job_type': job.job_type,
+        'company_name': str(job.company_name),
+        'profile_picture': job.profile_picture,
+        'is_favourite' : job.is_favourite,
+        'is_applied' : job.is_applied, 
+        'post_date': job.post_date,
+        'created_at': job.created_at,
+        'application_deadline':job.application_deadline,
+    }
 
 @api_view(["GET"])
 def vital_stats(self):
@@ -579,10 +612,9 @@ def similar_jobs(request,identifier):
         else:
             job.profile_picture = '/static/images/job/company-logo-2.png'
 
-        if similar(title, job.title)>.80:
-            data.append({'job_id': job.job_id, 'is_applied':job.is_applied, 'slug':job.slug, 'title': job.title, 'job_location': job.job_location,
-                         'created_date': job.created_date, 'status': job.status, 'profile_picture': job.profile_picture,
-                         'employment_status': str(job.employment_status), 'company_name': str(job.company_name)})
+        if similar(title, job.title)>.80: # ??? Read from settings
+            data.append(make_job_list_response(job))
+
     for i in range(len(data)):
         if str(data[i]['job_id']) == identifier:
             del data[i]
@@ -662,4 +694,67 @@ def apply_online_job_add(request):
 
     return Response(data)
 
+@api_view(["GET"])
+def applied_jobs(request):
+    current_user_id = request.user.id
+    queryset = ApplyOnline.objects.filter(created_by=current_user_id)
+    total_applied = ApplyOnline.objects.filter(created_by=current_user_id).count()
+    query_data = []
+    for jobs in queryset:
+        job = Job.objects.filter(job_id=jobs.job_id)
+        for i in job:
+            if i.company_name.profile_picture:
+                i.profile_picture = '/media/' + str(i.company_name.profile_picture)
+            else:
+                i.profile_picture = '/static/images/job/company-logo-2.png'
 
+            i.is_applied = YES_TXT, # TODO: Load from db
+            i.is_favourite = YES_TXT, # TODO: Load from db
+            
+            query_data.append(make_job_list_response(i))
+
+    data = {
+        'total_applied': total_applied,
+        'applied_jobs': query_data
+    }
+    return JsonResponse(data, safe=False)
+
+@api_view(["GET"])
+def favourite_jobs(request):
+    current_user_id = request.user.id
+    queryset = FavouriteJob.objects.filter(user=current_user_id)
+    total_bookmarked = FavouriteJob.objects.filter(user=current_user_id).count()
+    query_data = []
+    for jobs in queryset:
+        job = Job.objects.filter(job_id=jobs.job_id)
+        for i in job:
+            if i.company_name.profile_picture:
+                i.profile_picture = '/media/' + str(i.company_name.profile_picture)
+            else:
+                i.profile_picture = '/static/images/job/company-logo-2.png'
+
+            i.is_applied = YES_TXT, # TODO: Load from db
+            i.is_favourite = YES_TXT, # TODO: Load from db
+
+            query_data.append(make_job_list_response(i))
+    data = {
+        'total_bookmarked': total_bookmarked,
+        'bookmarked_jobs': query_data
+    }
+    return JsonResponse(data, safe=False)
+
+@api_view(["GET"])
+def del_fav_jobs(request,identifier):
+    current_user_id = request.user.id
+    jobs = FavouriteJob.objects.filter(user=current_user_id)
+    for job in jobs:
+        if str(job.job_id)==identifier:
+            job.delete()
+            break
+
+    total_bookmarked = FavouriteJob.objects.filter(user=current_user_id).count()
+    data = {
+        'total_bookmarked': total_bookmarked
+
+    }
+    return Response(data)

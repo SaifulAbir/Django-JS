@@ -5,6 +5,7 @@ from pro.api import *
 from . import api as pro_views
 urlpatterns = [
     path('profile-update/<str:pk>/', TemplateView.as_view(template_name='profile.html')),
+    path('myprofile_info/<str:pk>/', TemplateView.as_view(template_name='myprofile.html'), name='myprofile'),
     path('create/', profile_create),
     path('create_with_user/', profile_create_with_user_create),
     path('login/', login),
@@ -56,4 +57,7 @@ urlpatterns = [
     path('major/', MajorList.as_view()),
     path('institute/', InstituteList.as_view()),
     path('certificate_name/', CertificateNameList.as_view()),
+    path('applied-jobs/', TemplateView.as_view(template_name='applied_jobs.html'),name='applied_jobs'),
+    path('favourite_jobs/', TemplateView.as_view(template_name='favourite_jobs.html'),name='favourite_jobs'),
+
 ]
