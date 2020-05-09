@@ -352,7 +352,7 @@
         }else {
             paginationSummary = "Showing 0 Jobs";
         }
-        // $('.pagination-summary').show().html(paginationSummary);
+        $('.pagination-summary').show().html(paginationSummary);
         var list = makeListHtml(data.results, template);
         $('.job-result').html(list);
         feather.replace();
