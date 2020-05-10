@@ -149,17 +149,12 @@ def job_list(request):
         qualification = request.GET.get('qualification')
         topSkill = request.GET.get('top-skill')
 
-        if sorting == 'descending':
-            job_list = Job.objects.all().order_by('-created_date')
-            # annotate removed by munir 
-            # job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
-        elif sorting == 'top-rated':
-            # fav_jobs = FavouriteJob.objects.all()
-            # job_list = Job.objects.filter(fav_jobs__in = fav_jobs).annotate(favourite_count=Count('fav_jobs')
-            #                               ).order_by('-favourite_count')
-            job_list = Job.objects.all().order_by('-favorite_count')
-        else:
+        if sorting == 'most-applied':
             job_list = Job.objects.all().order_by('-applied_count')
+        elif sorting == 'top-rated':
+            job_list = Job.objects.all().order_by('-favorite_count')
+        else: # 'most-recent'
+            job_list = Job.objects.all().order_by('-post_date')
         jobtype = JobType(name=NO_NAME)
         company = Company(name=NO_NAME)
         # for i in job_list:
