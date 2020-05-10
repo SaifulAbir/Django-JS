@@ -857,6 +857,9 @@ class WorkExperienceUpdateDelete(GenericAPIView, UpdateModelMixin):
             ip = request.META.get('REMOTE_ADDR')
         request.data.update(
             {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
+        if "company_id" in request.data:
+            request.data["company"] = request.data["company_id"]
+            del request.data["company_id"]
         self.partial_update(request, *args, **kwargs)
         prof_obj = WorkExperienceSerializer(WorkExperience.objects.get(pk=pk)).data
 
