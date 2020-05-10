@@ -187,3 +187,13 @@ def isLoggedIn(request):
         print(data)
         return JsonResponse(list(data), safe=False)
     return Response(HTTP_200_OK)
+
+@api_view(["POST"])
+def send_email_to_admin_contact_us(request):
+    data = json.loads(request.body)
+    print(data)
+    return Response(HTTP_200_OK)
+    # try:
+    #     user_obj = User.objects.get(email=profile_data['email'])
+    # except User.DoesNotExist:
+    #     user_obj = None

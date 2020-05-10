@@ -46,6 +46,7 @@ urlpatterns = [
     path('api/professional/', include('pro.urls')),
     path('professional/', include('pro.urls')),
     path('log/', isLoggedIn),
+    path('api/send_email_to_admin_contact_us/', send_email_to_admin_contact_us),
     path('api/sign_in/', TokenObtainPairCustomView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),

@@ -655,33 +655,34 @@ $(document).ready(function() {
         return pattern.test(emailAddress);
 
     }
-    $("#contactForm").on('submit', function (e) {
-        e.preventDefault();
-        var data = {
-            name: $("#name").val(),
-            email: $("#email").val(),
-            phone: $("#phone").val(),
-            subject: $("#subject").val(),
-            message: $("#message").val()
-        };
-
-        if (isValidEmail(data['email']) && (data['message'].length > 1) && (data['name'].length > 1) && (data['phone'].length > 1)) {
-            $.ajax({
-                type: "POST",
-                url: "sendmail.php",
-                data: data,
-                success: function () {
-                    $('#contactForm .input-success').delay(100).fadeIn(1000);
-                    $('#contactForm .input-error').fadeOut(100);
-                }
-            });
-        } else {
-            $('#contactForm .input-error').delay(100).fadeIn(1000);
-            $('#contactForm .input-success').fadeOut(100);
-
-        }
-        return false;
-    });
+    // $("#contactForm").on('submit', function (e) {
+    //     e.preventDefault();
+    //     var data = {
+    //         name: $("#name").val(),
+    //         email: $("#email").val(),
+    //         phone: $("#phone").val(),
+    //         subject: $("#subject").val(),
+    //         message: $("#message").val()
+    //     };
+    //
+    //     if (isValidEmail(data['email']) && (data['message'].length > 1) && (data['name'].length > 1) && (data['phone'].length > 1)) {
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "sendmail.php",
+    //             data: data,
+    //             success: function () {
+    //                 $('#contactForm .input-success').delay(100).fadeIn(1000);
+    //                 $('#contactForm .input-error').fadeOut(100);
+    //             }
+    //         });
+    //     } else {
+    //         alert('ok');
+    //         $('#contactForm .input-error').delay(100).fadeIn(1000);
+    //         $('#contactForm .input-success').fadeOut(100);
+    //
+    //     }
+    //     return false;
+    // });
 
     /*-------------------------------------
     Window Scroll
