@@ -684,8 +684,8 @@
               </div>
             </div>
             <div class="professonal-skill dashboard-section details-section">
-              <h4><i data-feather="feather"></i>Professional Skill</h4>
-{#              <div class="progress-group">#}
+              <h4 ><i data-feather="feather"></i>Professional Skill</h4>
+              <div class="progress-group" id="skill-label">
 {#                <div class="progress-item">#}
 {#                  <div class="progress-head">#}
 {#                    <p class="progress-on">Photoshop</p>#}
@@ -730,7 +730,7 @@
 {#                    <p class="progress-to">86%</p>#}
 {#                  </div>#}
 {#                </div>#}
-{#              </div>#}
+              </div>
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-pro-skill">
                 <i data-feather="edit-2"></i>
@@ -756,6 +756,7 @@
                                   </div>
                                   <select class="form-control" name="skill_name" id="skill_name" data-text="name" data-value="id"  data-placeholder="" data-src="/api/skill_list/" value="" required data-msg-required="Skill is required">
                                   </select>
+                                    <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -780,6 +781,7 @@
                                   </div>
                                   <select class="form-control" name="skill_name" id="skill_name" data-text="name" data-value="id"  data-placeholder="" data-src="/api/skill_list/" value="" required data-msg-required="Skill is required">
                                   </select>
+                                    <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -804,6 +806,7 @@
                                   </div>
                                   <select class="form-control" name="skill_name" id="skill_name" data-text="name" data-value="id"  data-placeholder="" data-src="/api/skill_list/" value="" required data-msg-required="Skill is required">
                                   </select>
+                                    <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -1298,6 +1301,7 @@
     var staticUrl = '/api/professional/static_urls/';
     get(getUrl,loadsocial);
     get(getUrl,loadabout);
+    get(getUrl,loadProfSkills);
     get(staticUrl,loadstatic);
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
@@ -1305,12 +1309,11 @@
     {#SKill add#}
     $('#add-pro-skill').on('click', function (event) {
       event.preventDefault();
-      {#var count = divCounter("input-block-skill")+1;#}
+      var count = divCounter("input-block-skill")+1;
       var lastDiv = $("#pro-skill-form .input-block-skill:last");
       var lastDivHtml = $("#pro-skill-form .input-block-skill").html();
-      console.log(lastDivHtml);
       lastDiv.after('<div class="input-block-wrap input-block-skill" >'+lastDivHtml+'</div>');
-      {#$(".edu-div-lavel:last").text("0"+ count);#}
+      $(".skill-div-lavel:last").text("0"+ count);
     });
 
       {# Skill create and update #}
@@ -1331,15 +1334,13 @@
         if(rating){
           data.rating = rating;
         }
-        console.log(data)
-
         skillCreateUrl = "/api/professional/professional_skill/";
         skillUpdateUrl = "/api/professional/professional_skill/"+skill_id+"/";
         if(Object.keys(data).length>1 && $(this).hasClass("update-skill")){
-          put(skillUpdateUrl, JSON.stringify(data), loadProfSkills);
+          put(skillUpdateUrl, JSON.stringify(data), loadProfSkillsCreateUpdate);
         }
         if(Object.keys(data).length>1 && !$(this).hasClass("update-skill")){
-          post(skillCreateUrl, JSON.stringify(data), loadProfSkills);
+          post(skillCreateUrl, JSON.stringify(data), loadProfSkillsCreateUpdate);
           $(this).addClass("update-skill");
         }
       });
@@ -1464,7 +1465,6 @@
 
   // load personal_info about and personal details data and append here
   function  loadabout(data){
-    console.log(data.personal_info);
     container = $('#about-details-div');
     json2DivPopulate(data.personal_info, container);
     json2Form(data.personal_info, "info-update-form");
@@ -1513,9 +1513,84 @@
     $("#tw").text(data[2]);
     $("#ln").text(data[3]);
   }
-  
-  function loadProfSkills() {
 
+  function loadProfSkills(data) {
+      console.log(data.skill_info)
+      var skillHtml = $(".skill-label").html();
+      for (index = 0; index < data.skill_info.length; index++) {
+          var skillDivHtml = $("#pro-skill-form .input-block-skill").html();
+          if (index == 0) {
+              $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<a href="' + data.skill_info[index].id + '"></a>' +'<p class="progress-on">'+ data.skill_info[index].skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+ data.skill_info[index].rating+'" aria-valuemin="0" aria-valuemax="10" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.skill_info[index].rating + '/10</p> </div></div>');
+              $('.input-block-skill').remove();
+              count = divCounter("input-block-skill") + 1;
+              $('#pro-skill-form').prepend('<div class="input-block-wrap input-block-skill update-skill skill-01" >' + skillDivHtml + '</div>');
+              $(".skill-div-lavel:last").text("0" + count);
+              json2FormDiv(data.skill_info[index], "skill-01");
+              $('.skill-01 #skill_name').val(data.skill_info[index].skill_obj.id);
+          }
+          else if(index>=1){
+              $('.skill-label:last').after('<div class="progress-item skill-label"> <div class="progress-head">' + '<a href="' + data.skill_info[index].id + '"></a>' +'<p class="progress-on">'+ data.skill_info[index].skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.skill_info[index].rating+'" aria-valuemin="0" aria-valuemax="10" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.skill_info[index].rating + '/10</p> </div></div>');
+              count = divCounter("input-block-skill")+1;
+              $('.input-block-skill:last').after('<div class="input-block-wrap input-block-skill update-skill skill-0'+count+'" >'+skillDivHtml+'</div>');
+              $(".skill-div-lavel:last").text("0"+ count);
+              json2FormDiv(data.skill_info[index], "skill-0"+count);
+              $(".skill-0"+count+ "#skill_name").val(data.skill_info[index].skill_obj.id);
+              $(".skill-0"+count+ "#skill_name").text(data.skill_info[index].skill_obj.name);
+          }
+      }
+  }
+  function loadProfSkillsCreateUpdate(data) {
+      console.log(data)
+      if(data.status==200){
+          $("#modal-pro-skill").modal("hide");
+          if($('.professonal-skill').find(".skill-label").length==0){
+              console.log(data.responseJSON)
+              $('#skill-label').after('<div class="progress-item skill-label"> <div class="progress-head">' + '<a href="' + data.responseJSON.id + '"></a>' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.responseJSON.rating+'" aria-valuemin="0" aria-valuemax="10" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.responseJSON.rating + '/10</p> </div></div>');
+          }
+          else {
+              var el = $(".professonal-skill").find("[href='"+ data.responseJSON.id +"']");
+              if(el.length>0){
+                  el.parent().parent().html('<div class="progress-head">' + '<a href="' + data.responseJSON.id + '"></a>' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.responseJSON.rating+'" aria-valuemin="0" aria-valuemax="10" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.responseJSON.rating + '/10</p> </div>');
+              }
+              else{
+                  $('.skill-label:last').after('<div class="progress-head">' + '<a href="' + data.responseJSON.id + '"></a>' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.responseJSON.rating+'" aria-valuemin="0" aria-valuemax="10" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.responseJSON.rating + '/10</p> </div>');
+              }
+
+          }
+      }
+
+  }
+  function json2FormDiv(data, id){
+      for(key in data){
+          var el = $("." + id).find("[id='"+ key +"']");
+          let elChild = el;
+          let dataValue = data[key];
+          if(el.hasClass("tinymce-editor")){
+              tinymce.get(key).insertContent(data[key]);
+          }
+          else if(el.data("parent")){
+              setTimeout(function () {
+                  elChild.val(dataValue).change();
+              },1000);
+          }
+          setTimeout(function () {
+              elChild.val(dataValue).change();
+          },500);
+
+      }
+  }
+  function divCounter(id){
+      return $('.'+id).length;
   }
 </script>
 {% endblock %}
