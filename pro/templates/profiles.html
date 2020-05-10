@@ -644,19 +644,9 @@
               </div>
             </div>
             <div class="experience dashboard-section details-section">
-              <h4><i data-feather="briefcase"></i>Work Experiance</h4>
-              <div class="experience-section">
-                <span class="service-year">2016 - Present</span>
-                <h5>Lead UI/UX Designer<span>@ Codepassengers LTD</span></h5>
-                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-              </div>
-              <div class="experience-section">
-                <span class="service-year">2012 - 2016</span>
-                <h5>Former Graphic Designer<span>@ Graphicreeeo CO</span></h5>
-                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-              </div>
+              <h4 id="exp-label"><i data-feather="briefcase"></i>Work Experiance</h4>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-experience">
+              <button type="button" class="btn btn-primary edit-resume work-exp" data-toggle="modal" data-target="#modal-experience">
                 <i data-feather="edit-2"></i>
               </button>
               <!-- Modal -->
@@ -666,29 +656,29 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="briefcase"></i>Experience</h4>
-                        <a href="#" class="add-more">+ Add Experience</a>
+                        <a href="#" id="add-experience" class="add-more">+ Add Experience</a>
                       </div>
                       <div class="content">
-                        <form action="#">
-                          <div class="input-block-wrap">
+                        <form action="#" id="experience-form" novalidate="novalidate">
+                          <div class="input-block-wrap input-block-experience">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">01</label>
+                              <label class="col-sm-3 col-form-label experience-div-label">01</label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Title</div>
+                                    <div class="input-group-text">Company</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <select class="form-control" name="company_id" id="company_id" data-text="name" data-value="name"  data-placeholder="Select Company" data-src="/api/company/" value="" required data-msg-required="Company is required"></select>
                                 </div>
                               </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row display-none">
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Company</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <input type="text" name="company_text" id="company_text" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -696,9 +686,9 @@
                               <div class="col-sm-9 offset-sm-3">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Period</div>
+                                    <div class="input-group-text">Designation</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <input type="text" name="designation" id="designation" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -706,32 +696,42 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Description</div>
+                                    <div class="input-group-text">Start Date</div>
                                   </div>
-                                  <textarea class="form-control"></textarea>
+                                  <input type="date" name="start_date" id="start_date" class="form-control"></input>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">End Date</div>
+                                  </div>
+                                  <input type="date" name="end_date" id="end_date" class="form-control"></input>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="input-block-wrap">
+                          <div class="input-block-wrap input-block-experience">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">02</label>
+                              <label class="col-sm-3 col-form-label experience-div-label">02</label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Title</div>
+                                    <div class="input-group-text">Company</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <select class="form-control" name="company_id" id="company_id" data-text="name" data-value="name"  data-placeholder="Select Company" data-src="/api/company/" value=""></select>
                                 </div>
                               </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row display-none">
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Company</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <input type="text" name="company_text" id="company_text" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -739,9 +739,9 @@
                               <div class="col-sm-9 offset-sm-3">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Period</div>
+                                    <div class="input-group-text">Designation</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <input type="text" name="designation" id="designation" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -749,9 +749,19 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Description</div>
+                                    <div class="input-group-text">Start Date</div>
                                   </div>
-                                  <textarea class="form-control"></textarea>
+                                  <input type="date" name="start_date" id="start_date" class="form-control"></input>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">End Date</div>
+                                  </div>
+                                  <input type="date" name="end_date" id="end_date" class="form-control"></input>
                                 </div>
                               </div>
                             </div>
@@ -1417,8 +1427,13 @@
           error.insertAfter(element.parent());
         }
       });
+    $('#experience-form').validate({
+        errorClass: "my-error-class",
+        errorPlacement: function(error, element) {
+          error.insertAfter(element.parent());
+        }
+      });
     TokenAuthenticate();
-    initAjaxSelects();
     $('#profile-form').validate();
     var path = window.location.pathname.split('/');
     var id = path[path.length-2];
@@ -1427,18 +1442,67 @@
     get(getUrl,loadsocial);
     get(getUrl,loadabout);
     get(getUrl,loadEdu);
+    get(getUrl,loadExp);
     get(staticUrl,loadstatic);
+    initAjaxSelects();
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
-
     $('#add-education').on('click', function (event) {
       event.preventDefault();
       var count = divCounter("input-block-edu")+1;
       var lastDiv = $("#education-form .input-block-edu:last");
       var lastDivHtml = $("#education-form .input-block-edu").html();
-      console.log(lastDivHtml);
       lastDiv.after('<div class="input-block-wrap input-block-edu" >'+lastDivHtml+'</div>');
       $(".edu-div-lavel:last").text("0"+ count);
+    });
+
+    $('.work-exp').on('click', function () {
+      get(getUrl,loadExpEdit);
+    });
+
+    $('#add-experience').on('click', function (event) {
+      event.preventDefault();
+      var count = divCounter("input-block-experience")+1;
+      var lastDiv = $("#experience-form .input-block-experience:last");
+      var lastDivHtml = $("#experience-form .input-block-experience").html();
+      lastDiv.after('<div class="input-block-wrap input-block-experience" >'+lastDivHtml+'</div>');
+      $(".experience-div-label:last").text("0"+ count);
+    });
+
+    $('#experience-form').on('submit', function (event) {
+      event.preventDefault();
+      var totalDiv = $('#experience-form').find(".input-block-experience");
+      totalDiv.each(function(){
+        var path = window.location.pathname.split('/');
+        var id = path[path.length-2];
+        var user = id;
+        var company_text=$(this).find('#company_id').val();
+        var company=$(this).find('#company_id').val();
+        var designation=$(this).find('#designation').val();
+        var start_date=$(this).find('#start_date').val();
+        var end_date=$(this).find('#end_date').val();
+        var exp_id=$(this).find('#id').val();
+        data = { "professional_id" : user}
+        if(company){
+          data.company_id = company;
+          data.company_text = company_text;
+        }
+        if(designation){
+          data.designation = designation;
+        }
+        if(start_date){
+          data.start_date = start_date;
+        }
+        if(end_date){
+          data.end_date = end_date;
+        }
+        expCreateUrl = "/api/professional/professional_work_experience/";
+        expUpdateUrl = "/api/professional/professional_work_experience/"+exp_id+"/";
+        if(Object.keys(data).length>1 && !$(this).hasClass("update-exp")){
+          post(expCreateUrl, JSON.stringify(data), loadExperience);
+          $(this).addClass("update-exp");
+        }
+      });
     });
 
     $('#education-form').on('submit', function (event) {
@@ -1618,6 +1682,48 @@
     }
   }
 
+  function loadExperience(data) {
+    console.log(data);
+    if(data.status==200){
+      var dateStartString = data.responseJSON.start_date;
+      var dateEndString = data.responseJSON.end_date;
+
+      var momentObj = moment(dateStartString, 'YYYY-MM-DD');
+      var momentEndObj = moment(dateEndString, 'YYYY-MM-DD');
+      var dateStart = momentObj.format('YYYY');
+      var dateEnd = momentEndObj.format('YYYY');
+      $("#modal-experience").modal("hide");
+      if($('.experience').find(".experience-section").length==0){
+        console.log(data.responseJSON)
+        $('#exp-label').after('<div class="experience-section">\n' +
+                '<a href="'+data.responseJSON.id+'"></a>'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_id+'</span></h5>\n' +
+                '              </div>');
+      }
+      else {
+        var el = $(".experience").find("[href='"+ data.responseJSON.id +"']");
+        if(el.length>0){
+          el.parent().html('<div class="experience-section">\n' +
+                '<a href="'+data.responseJSON.id+'"></a>'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_id+'</span></h5>\n' +
+                '              </div>');
+        }
+        else{
+          $('.experience-section:last').after('<div class="experience-section">\n' +
+                '<a href="'+data.responseJSON.id+'"></a>'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_id+'</span></h5>\n' +
+                '              </div>');
+        }
+
+      }
+    }else{
+      showError("Error Updating")
+    }
+  }
+
   //load social and append social value
   function  loadsocial(data){
     facebook = 'http://facebook.com/'+data.personal_info.facebook_id;
@@ -1646,6 +1752,7 @@
     }
 
   }
+
   function loadEdu(data) {
     console.log(data.edu_info)
     // var totalDiv = $('#education-form').find(".input-block-edu");
@@ -1684,6 +1791,67 @@
         $(".edu-0"+count+" #major").val(data.edu_info[index].major_obj.id);
       }
       }
+  }
+
+  function loadExp(data) {
+    console.log(data.experience_info);
+    // var eduHtml = $(".experience-label").html();
+    for(index=0;index<data.experience_info.length;index++){
+      var dateStartString = data.experience_info[index].start_date;
+      var dateEndString = data.experience_info[index].end_date;
+
+      var momentObj = moment(dateStartString, 'YYYY-MM-DD');
+      var momentEndObj = moment(dateEndString, 'YYYY-MM-DD');
+      var dateStart = momentObj.format('YYYY');
+      var dateEnd = momentEndObj.format('YYYY');
+      var count = divCounter("input-block-experience")+1;
+      var expDivHtml = $("#experience-form .input-block-experience").html();
+      if(index==0){
+        $('#exp-label').after('<div class="experience-section">\n' +
+                '<a href="'+data.experience_info[index].id+'"></a>'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '                <h5>'+data.experience_info[index].designation+'<span>@ '+data.experience_info[index].company+'</span></h5>\n' +
+                '              </div>');
+        $('.input-block-experience').remove();
+        count = divCounter("input-block-experience")+1;
+        $('#experience-form').prepend('<div class="input-block-wrap input-block-experience update-exp exp-01">'+expDivHtml+'</div>');
+        var select = $('.exp-01 #company_id');
+        var url = select.attr('data-src');
+        populateSelect(select, url);
+        $(".experience-div-label:last").text("0"+ count);
+        json2FormDiv(data.experience_info[index], "exp-01");
+
+      }
+      else if(index>=1){
+        $('.experience-section:last').after('<div class="experience-section">\n' +
+                '<a href="'+data.experience_info[index].id+'"></a>'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '                <h5>'+data.experience_info[index].designation+'<span>@ '+data.experience_info[index].company+'</span></h5>\n' +
+                '              </div>');
+        count = divCounter("input-block-experience")+1;
+        $('.input-block-experience:last').after('<div class="input-block-wrap input-block-experience update-exp exp-0'+count+'">'+expDivHtml+'</div>');
+        $(".experience-div-label:last").text("0"+ count);
+        var select = $(".exp-0"+count+" #company_id");
+        var url = select.attr('data-src');
+        populateSelect(select, url);
+        json2FormDiv(data.experience_info[index], "exp-0"+count);
+      }
+    }
+  }
+
+  function loadExpEdit(data) {
+    setTimeout(function () {
+      var count = 2;
+      for(index=0;index<data.experience_info.length;index++){
+      if(index==0){
+        $('.exp-01 #company_id').val(data.experience_info[index].company);
+      }
+      else if(index>=1){
+        $(".exp-0"+count+" #company_id").val(data.experience_info[index].company);
+        count = count+1;
+      }
+    }
+    },500)
   }
 
   function json2FormDiv(data, id){
