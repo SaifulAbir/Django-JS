@@ -1474,8 +1474,17 @@
 
     $('#experience-form').on('submit', function (event) {
       event.preventDefault();
+      var error_count = 0;
       var totalDiv = $('#experience-form').find(".input-block-experience");
-      totalDiv.each(function(){
+      totalDiv.each(function () {
+        var company=$(this).find('#company_id').val();
+        if (!company){
+          error_count = error_count+1;
+          $(this).find('#company_id').parent().parent().append('<label class="my-error-class">Company is required</label>')
+        }
+      });
+      if(error_count==0){
+       totalDiv.each(function(){
         var path = window.location.pathname.split('/');
         var id = path[path.length-2];
         var user = id;
@@ -1509,6 +1518,7 @@
           $(this).addClass("update-exp");
         }
       });
+      }
     });
 
     $('#education-form').on('submit', function (event) {
