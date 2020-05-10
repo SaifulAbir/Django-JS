@@ -230,7 +230,7 @@
       background-image: -webkit-gradient(linear, left top, right top, from(#aea9fe), to(#e1b8fe));
       background-image: -webkit-linear-gradient(left, #aea9fe, #e1b8fe);
       background-image: -o-linear-gradient(left, #aea9fe, #e1b8fe);
-      background-image: linear-gradient(to right, #e0a906, #ffc107); }
+      background-image: linear-gradient(to right, #ffb87b, #ffc107); }
     .user-statistic-block .user-statistic:last-child {
       background-image: -webkit-gradient(linear, left top, right top, from(#91bcf9), to(#99d7f2));
       background-image: -webkit-linear-gradient(left, #91bcf9, #99d7f2);
