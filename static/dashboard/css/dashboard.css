@@ -1533,10 +1533,18 @@
       color: #6e75d0; }
   .manage-candidate-container .status {
     color: #6f7484; }
+
+
     .manage-candidate-container .status svg {
-      height: 15px;
-      width: 15px;
-      margin-right: 8px; }
+      height: 25px;
+      width: 25px;
+      margin-left: 0px;
+      color: red;
+
+
+      }
+
+
   .manage-candidate-container .action {
     text-align: right; }
     .manage-candidate-container .action a svg {
