@@ -679,6 +679,7 @@
                                     <div class="input-group-text">Company</div>
                                   </div>
                                   <input type="text" name="company_text" id="company_text" class="form-control" >
+                                  <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -732,6 +733,7 @@
                                     <div class="input-group-text">Company</div>
                                   </div>
                                   <input type="text" name="company_text" id="company_text" class="form-control" >
+                                  <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
                               </div>
                             </div>
@@ -1498,6 +1500,9 @@
         }
         expCreateUrl = "/api/professional/professional_work_experience/";
         expUpdateUrl = "/api/professional/professional_work_experience/"+exp_id+"/";
+        if(Object.keys(data).length>1 && $(this).hasClass("update-exp")){
+          put(expUpdateUrl, JSON.stringify(data), loadExperience);
+        }
         if(Object.keys(data).length>1 && !$(this).hasClass("update-exp")){
           post(expCreateUrl, JSON.stringify(data), loadExperience);
           $(this).addClass("update-exp");
@@ -1698,23 +1703,21 @@
         $('#exp-label').after('<div class="experience-section">\n' +
                 '<a href="'+data.responseJSON.id+'"></a>'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
-                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_id+'</span></h5>\n' +
+                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>\n' +
                 '              </div>');
       }
       else {
         var el = $(".experience").find("[href='"+ data.responseJSON.id +"']");
         if(el.length>0){
-          el.parent().html('<div class="experience-section">\n' +
-                '<a href="'+data.responseJSON.id+'"></a>'+
+          el.parent().html('<a href="'+data.responseJSON.id+'"></a>'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
-                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_id+'</span></h5>\n' +
-                '              </div>');
+                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>');
         }
         else{
           $('.experience-section:last').after('<div class="experience-section">\n' +
                 '<a href="'+data.responseJSON.id+'"></a>'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
-                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_id+'</span></h5>\n' +
+                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>\n' +
                 '              </div>');
         }
 
