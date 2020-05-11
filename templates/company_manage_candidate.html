@@ -4,6 +4,21 @@
 
 
   <div class="manage-candidate-container">
+
+              <div class="job-filter-wrapper">
+                   <div class="job-filter-dropdown selectJob">
+
+                            <select class="selectpicker" multiple data-max-options="1" data-live-search="true"  title="Choose a job" id="category">
+
+
+                            </select>
+                        </div><br/>
+              </div>
+
+
+
+
+
                   <table class="table">
                     <thead>
                       <tr>
@@ -27,7 +42,7 @@
                             </div>
                           </div>
                         </td>
-                         <td class="status"><a href="#" class="listed"><i data-feather="heart"></i></a></td>
+                         <td class="status"><a href="#" class="listed"><i class="fillheart"></i></a></td>
                         <td class="action">
                           <a href="#" class="download"><i data-feather="download"></i></a>
                           <a href="#" class="inbox"><i data-feather="mail"></i></a>
@@ -67,7 +82,7 @@
                             </div>
                           </div>
                         </td>
-                          <td class="status"><a href="#" class="listed"><i style="background-color:red;" data-feather="heart"></i></a></td>
+                         <td class="status"><a href="#" class="listed"><i class="fillheart"></i></a></td>
                         <td class="action">
                           <a href="#" class="download"><i data-feather="download"></i></a>
                           <a href="#" class="inbox"><i data-feather="mail"></i></a>
@@ -112,7 +127,20 @@
 
 
 
+{% endblock %}
 
 
+ {% block extra_js %}
+<script>
 
+  $('#category').append('<option value="">PHP Developer</option>');
+     $('#category').append('<option value="">Software Engineer</option>');
+     $('#category').append('<option value="">Developer Django</option>');
+     $('#category').append('<option value="">Laravel Developer</option>');
+     $('#category').append('<option value="">PHP Developer</option>');
+     $('#category').append('<option value="">Software Engineer</option>');
+     $('#category').append('<option value="">Developer Django</option>');
+     $('#category').append('<option value="">Laravel Developer</option>');
+
+</script>
 {% endblock %}

@@ -1492,6 +1492,8 @@
   .manage-candidate-container td {
     padding: 30px 0;
     vertical-align: middle; }
+
+
   .manage-candidate-container .table th {
     border-top: 0;
     font-size: 1.4rem;
@@ -1501,6 +1503,21 @@
     padding-left: 0;
     padding-right: 0;
     border-bottom: 0; }
+
+
+
+    .manage-candidate-container .selectJob {
+    border-top: 0;
+    font-size: 1.4rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    color: #6f7484;
+    padding-left: 0;
+    padding-right: 8px;
+    border-bottom: 0; }
+
+
+
   .manage-candidate-container .title {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1540,18 +1557,14 @@
 
 
     .manage-candidate-container .status .listed svg {
-      height: 25px;
-      width: 25px;
       margin-left: 20px;
-      color: red;
-
       }
 
 
      .manage-candidate-container .status .unlisted svg {
       height: 25px;
-      width: 25px;
-      margin-left: 20px;
+      width: 27px;
+      margin-left: 0px;
       color: red;
       }
 
@@ -1632,3 +1645,49 @@
     display: block; }
     .dashboard-section .modal .modal-body .title .add-more {
       margin-top: 15px; } }
+
+
+.fillheart{
+    position: relative;
+    width: 25px;
+    height: 22.5px;
+    float: left;
+
+}
+.fillheart:before,
+.fillheart:after{
+    position: absolute;
+    content: "";
+    left: 12.5px;
+    top: 0;
+    width: 12.5px;
+    height: 20px;
+
+    background: #fc2e5a;
+    -moz-border-radius: 50px 50px 0 0;
+    border-radius: 50px 50px 0 0;
+    -webkit-transform: rotate(-45deg);
+       -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+         -o-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    -webkit-transform-origin: 0 100%;
+       -moz-transform-origin: 0 100%;
+        -ms-transform-origin: 0 100%;
+         -o-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+}
+.fillheart:after{
+
+    left: 0;
+    -webkit-transform: rotate(45deg);
+       -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+         -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+    -webkit-transform-origin: 100% 100%;
+       -moz-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+         -o-transform-origin: 100% 100%;
+            transform-origin :100% 100%;
+}
