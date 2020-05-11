@@ -99,9 +99,16 @@
 {% block extra_js %}
 <script>
     $(document).ready(function() {
-         initMap();
-          initAjaxForms();
+        initMap();
+        initAjaxForms();
         $('#contactForm').validate();
+
+
     });
+
+    function contactUsCallback(data){
+        console.log('success');
+        showSuccess("Thanks for contacting us! We will get in touch with you shortly.")
+    }
 </script>
 {% endblock %}
