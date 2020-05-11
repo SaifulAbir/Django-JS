@@ -9,33 +9,51 @@
                       <img class="image" src="{% static 'images/job/company-logo-1.png' %}" alt="">
                     </div>
                     <div class="file-upload">
-                      <input type="file" class="file-input">Change Avatar
+                      <input type="file" class="file-input">Change
                     </div>
                   </div>
                   <div class="dashboard-section basic-info-input">
                     <h4><i data-feather="user-check"></i>Basic Info</h4>
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Full Name</label>
+                      <label class="col-sm-3 col-form-label">Company Name</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Full Name">
+                        <input type="text" class="form-control" placeholder="ex. Ishraak Solutions">
                       </div>
                     </div>
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Name</label>
+                      <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Company Profile</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Company Name BDjobs">
+                         <input type="text" class="form-control" placeholder="Company Profile" >
                       </div>
                     </div>
+<!--                    <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Name</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                        <input type="text" class="form-control" placeholder="Company Name BDjobs">-->
+<!--                      </div>-->
+<!--                    </div>-->
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Name</label>
+                      <label class="col-sm-3 col-form-label">Facebook Page URL</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Company Name Facebook">
+                        <input type="text" class="form-control" placeholder="ex. http://facebook.com/ishraaksolutions">
                       </div>
                     </div>
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Name</label>
+<!--                    <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Name</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                        <input type="text" class="form-control" placeholder="Company Name Google">-->
+<!--                      </div>-->
+<!--                    </div>-->
+                      <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Linkedin Page URL</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Company Name Google">
+                        <input type="text" class="form-control" placeholder="ex. http://linkedin.com/ishraaksolutions">
+                      </div>
+                    </div>
+                      <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Twitter Page URL</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" placeholder="ex. http://twitter.com/ishraaksolutions">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -48,6 +66,7 @@
                       <label class="col-sm-3 col-form-label">Year of Establishment</label>
                       <div class="col-sm-9">
                          <input type="date" class="form-control" >
+
                       </div>
                     </div>
                   </div>
@@ -57,30 +76,86 @@
                          <input type="text" class="form-control" placeholder="Address">
                       </div>
                     </div>
+                           <div id="address-summery" class="row">
+                                    <label class="col-md-3 col-form-label"></label>
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input  type="text" class="form-control" placeholder="Area">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input  type="text" class="form-control" placeholder="City">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <select class="form-control" name="" id="" data-text="name" data-value="name" data-placeholder="Country" data-src="">
+                                                        <option>Country</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
                   <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Post Code</label>
                       <div class="col-sm-9">
                          <input type="number" class="form-control" placeholder="Post Code" >
                       </div>
                     </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Contact Number 01</label>
-                      <div class="col-sm-9">
-                         <input type="tel" class="form-control" placeholder="Contact Number">
-                      </div>
-                    </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Contact Number 02</label>
-                      <div class="col-sm-9">
-                         <input type="tel" class="form-control" placeholder="Contact Number">
-                      </div>
-                    </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Contact Number 03</label>
-                      <div class="col-sm-9">
-                         <input type="tel" class="form-control" placeholder="Contact Number" >
-                      </div>
-                    </div>
+                     <div class="form-group row">
+                                       <label class="col-sm-3 col-form-label">Contact Number</label>
+                                        <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input  type="number" class="form-control" placeholder="Contact Number 1">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input  type="number" class="form-control" placeholder="Contact Number 2">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                      <input  type="number" class="form-control" placeholder="Contact Number 3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   </div>
+
+
+
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Contact Number 01</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="tel" class="form-control" placeholder="Contact Number">-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Contact Number 02</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="tel" class="form-control" placeholder="Contact Number">-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Contact Number 03</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="tel" class="form-control" placeholder="Contact Number" >-->
+<!--                      </div>-->
+<!--                    </div>-->
                    <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Email</label>
                       <div class="col-sm-9">
@@ -93,24 +168,49 @@
                          <input type="url" class="form-control" placeholder="example.com">
                       </div>
                     </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Organization Head</label>
-                      <div class="col-sm-9">
-                         <input type="text" class="form-control" placeholder="Organization Head" >
-                      </div>
-                    </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Organization Head Designation</label>
-                      <div class="col-sm-9">
-                         <input type="text" class="form-control" placeholder="Organization Head Designation">
-                      </div>
-                    </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Organization Head Number</label>
-                      <div class="col-sm-9">
-                         <input type="number" class="form-control" placeholder="Contact Number" >
-                      </div>
-                    </div>
+
+                    <div class="form-group row">
+                                       <label class="col-sm-3 col-form-label">Organization's Head</label>
+                                        <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input  type="text" class="form-control" placeholder="Name">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input  type="text" class="form-control" placeholder="Designations">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                      <input  type="number" class="form-control" placeholder="Mobile No">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   </div>
+
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Organization Head</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="text" class="form-control" placeholder="Organization Head" >-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Organization Head Designation</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="text" class="form-control" placeholder="Organization Head Designation">-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Organization Head Number</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="number" class="form-control" placeholder="Contact Number" >-->
+<!--                      </div>-->
+<!--                    </div>-->
                    <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Legal Structure of the Company</label>
                       <div class="col-sm-9">
@@ -129,61 +229,91 @@
                          <input type="number" class="form-control" placeholder="IT Resources" min="0">
                       </div>
                     </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Division</label>
-                      <div class="col-sm-9">
-                      <select class="form-control" name="division_id" id="division" data-text="name" data-value="name" data-placeholder="Division" data-src="/api/division">
-                        <option>Division</option>
-                      </select>
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Division</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                      <select class="form-control" name="division_id" id="division" data-text="name" data-value="name" data-placeholder="Division" data-src="/api/division">-->
+<!--                        <option>Division</option>-->
+<!--                      </select>-->
 
-                      </div>
-                    </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">District</label>
-                      <div class="col-sm-9">
-                         <select class="form-control" name="division_id" id="district" data-text="name" data-value="name" data-placeholder="District" data-src="/api/district">
-                           <option>District</option>
-                         </select>
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">District</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <select class="form-control" name="division_id" id="district" data-text="name" data-value="name" data-placeholder="District" data-src="/api/district">-->
+<!--                           <option>District</option>-->
+<!--                         </select>-->
 
-                      </div>
-                    </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Contact Person</label>
-                      <div class="col-sm-9">
-                         <input type="text" class="form-control" placeholder="Name" >
-                      </div>
-                    </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Contact Person Designation</label>
-                      <div class="col-sm-9">
-                         <input type="text" class="form-control" placeholder="Designation">
-                      </div>
-                    </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Contact Person Mobile Number</label>
-                      <div class="col-sm-9">
-                         <input type="tel" class="form-control" placeholder="Contact Number" >
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Contact Person Email</label>
-                      <div class="col-sm-9">
-                         <input type="email" class="form-control" placeholder="Contact Person Email" >
-                      </div>
-                    </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Company Profile</label>
-                      <div class="col-sm-9">
-                         <input type="text" class="form-control" placeholder="Company Profile" >
-                      </div>
-                    </div>
-                   <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Profile Picture</label>
-                      <div class="col-sm-9">
-                         <input type="file" class="form-control" >
+<!--                      </div>-->
+<!--                    </div>-->
 
-                      </div>
-                    </div>
+
+                      <div class="form-group row">
+                                       <label class="col-sm-3 col-form-label">Contact Person</label>
+                                        <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input  type="text" class="form-control" placeholder="Name">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input  type="text" class="form-control" placeholder="Designations">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                      <input  type="number" class="form-control" placeholder="Mobile No">
+                                                </div>
+                                            </div>
+                                             <div class="col-md-6">
+                                                <div class="form-group">
+                                                      <input  type="email" class="form-control" placeholder="Email">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   </div>
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Contact Person</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="text" class="form-control" placeholder="Name" >-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Contact Person Designation</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="text" class="form-control" placeholder="Designation">-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Contact Person Mobile Number</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="tel" class="form-control" placeholder="Contact Number" >-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Contact Person Email</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="email" class="form-control" placeholder="Contact Person Email" >-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Company Profile</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="text" class="form-control" placeholder="Company Profile" >-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                   <div class="form-group row">-->
+<!--                      <label class="col-sm-3 col-form-label">Profile Picture</label>-->
+<!--                      <div class="col-sm-9">-->
+<!--                         <input type="file" class="form-control" >-->
+
+<!--                      </div>-->
+<!--                    </div>-->
                    <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Latitude</label>
                       <div class="col-sm-9">
@@ -199,7 +329,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label"></label>
                       <div class="col-sm-9">
-                        <button class="button">Save Change</button>
+                        <button class="button">Save</button>
                       </div>
                     </div>
 
