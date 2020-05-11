@@ -56,7 +56,7 @@
                         <a href="{% url 'home' %}"><img src="{% static 'images/logo-2.png' %}" alt=""></a>
                     </div>
                     <div class="top-nav">
-                        <a href="/professional/register/" class="account-page-link">Register</a>
+                        <a href="" class="account-page-link">Sign In</a>
                     </div>
                 </div>
             </div>
@@ -65,38 +65,59 @@
 </header>
 
 <div class="padding-top-90 padding-bottom-90 access-page-bg1">
-    <div class="container">
+    <div class="container padding-top-90">
         <div class="row">
             <div class="col-xl-4 col-md-6">
                 <div class="access-form">
                     <div class="form-header">
-                        <h5><i class="fas fa-building" style="margin-right: 5px"></i>Sign In</h5>
+                        <h5><i data-feather="edit"></i>Register Account</h5>
                     </div>
-                    <form action="/api/sign_in/" id="sign-in" class="ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
+                    <div class="account-type display-none">
+                        <label for="idRegisterCan">
+                            <input id="idRegisterCan" type="radio" name="register">
+                            <span>Candidate</span>
+                        </label>
+                        <label for="idRegisterEmp">
+                            <input id="idRegisterEmp" type="radio" name="register">
+                            <span>Employer</span>
+                        </label>
+                    </div>
+                    <form action="/api/professional/create_with_user/" id="sign-up" class="ajax" method="POST" novalidate="novalidate" data-callback="signUpCallback">
                         <div class="form-group">
-                            <input type="email" placeholder="Email Address" name="email" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
+                            <input type="text" name="full_name" id="full_name" placeholder="Name" class="form-control" required data-msg-required="Name is required">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="email" id="email" regex='^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$' placeholder="Email Address" class="form-control" required data-msg-required="Email is required" data-msg-regex="Please enter a valid email">
                             <input type="text" name="alert" id="alert" class="display-none">
                         </div>
                         <div class="form-group">
-                            <input type="password" placeholder="Password" name="password" class="form-control" required data-msg-required="Password is required">
+                            <input type="text" regex="\+?(88)?0?1[56789][0-9]{8}\b" name="phone" placeholder="Mobile" class="form-control" data-msg-regex="Enter a valid Mobile Number" required data-msg-required="Mobile is required">
                         </div>
-                        <div class="more-option">
+                        <div class="form-group">
+                            <input type="password" minlength="8" id="password" regex='(?=.*?[0-9])(?=.*?[A-Za-z]).+' name="password" placeholder="Password" class="form-control" required data-msg-required="Password is required">
+                            <i class="fas fa-question-circle question-mark" data-toggle="tooltip" title="Password must be at least 8 characters long with at least one digit and one letter."></i>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" required data-msg-required="Confirm Password is required" data-rule-equalto="#password" data-msg-equalto="Password and confirm password should be same!!">
+                        </div>
+                        <div class="more-option terms">
                             <div class="mt-0 terms">
-                                <input class="custom-radio" type="checkbox" id="radio-4" name="termsandcondition">
-                                <label for="radio-4">
-                                    <span class="dot"></span> Remember Me
+                                <input class="custom-radio" type="checkbox" id="terms_and_condition_status" name="terms_and_condition_status" required data-msg-required="Please agree our terms & conditions">
+                                <label for="terms_and_condition_status" id="errorToShow">
+                                    <span class="dot"></span> I accept the <a href="/terms-and-condition">terms & conditions</a>
                                 </label>
                             </div>
-                            <a href="/professional/forget-password">Forgot Password?</a>
                         </div>
-                        <button class="button primary-bg btn-block">Sign In</button>
+                        <button class="button primary-bg btn-block">Register</button>
                     </form>
                     <div class="shortcut-login">
+                        <span class="display-none">Or connect with</span>
                         <div class="buttons display-none">
                             <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Facebook</a>
                             <a href="#" class="google"><i class="fab fa-google"></i>Google</a>
                         </div>
-                        <p>Don't have an account? <a href="">Register as a Company</a></p>
+                        <p>Already have an account? <a href="">Sign In as a Company</a></p>
                     </div>
                 </div>
             </div>
@@ -121,47 +142,62 @@
 <script src="{% static '/assets/js/tinymce.min.js' %}"></script>
 <script src="{% static '/assets/js/slick.min.js' %}"></script>
 <script src="{% static '/assets/js/jquery.ajaxchimp.min.js' %}"></script>
-<script src="{% static 'js/jquery.validate.min.js' %}"></script>
 <script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
 <script src="{% static '/assets/js/jquery.cookie.min.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
 <script src="{% static '/assets/js/form2js.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
 <script src="{% static 'js/common.js' %}"></script>
 <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
 <script src="{% static 'dashboard/js/datePicker.js' %}"></script>
 <script src="{% static 'dashboard/js/upload-input.js' %}"></script>
 <script>
     $(document).ready(function() {
-        $('#sign-in').validate({
-            errorClass: "my-error-class",
-        });
         var urlParams = new URLSearchParams(window.location.search);
         if(urlParams.has('email')){
             $('#email').val(urlParams.get('email'));
             $('#alert').val('on');
         }
+        $('#sign-up').validate({
+            errorClass: "my-error-class",
+            ignore: [],
+            errorPlacement: function(error, element) {
+                if (element.attr("name") == "terms_and_condition_status") {
+                    error.appendTo("#errorToShow");
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+        $('[data-toggle="tooltip"]').tooltip({
+            animated: 'fade',
+            trigger: 'click',
+            placement: 'bottom',
+        });
         initAjaxForms();
-        var path = window.location.href
-        var message = path.split('/?').pop()
-        if(message == 'verification_success'){
-            showSuccess("Verified!","Your Account Is Verified!")
-        }
-        if(message == 'verification_failed'){
-            showError("Not Verified!", "Your Account Is not Verified!")
-        }
     });
-    function redirectPage(data) {
-        if(data.status==200){
-            window.location.href = "/";
+    function  signUpCallback(data){
+        if(data.responseJSON.code == 200){
+            {#var id = data.responseJSON.result.user.professional;#}
+            $("#sign-up").toggle();
+            $(".form-header").html('<h5 class="green-color"><i class="fas fa-check-square padding-icon-10 green-color"></i>Email is sent with confirmation link.</h5>');
+            $(".shortcut-login").toggle();
+            $(".access-page-bg").removeClass("padding-bottom-90 padding-top-90").addClass("padding-top-180 padding-bottom-180");
+            // showSuccess("Sign Up Successful!", "A verification code was sent to your email")
+
         }
-        else{
-            showError("Login Error", "No active account found")
+        else {
+            showError('Failed!','Email already exists!')
         }
-        //set cookie
-        {#document.cookie = "token = "+data.responseJSON.token;#}
-        {#console.log(document.cookie);#}
-        {#window.location.href = "/";#}
-    }
+    };
+    $('html').on('click', function (e) {
+        $('[data-toggle=tooltip]').each(function () {
+            // hide any open popovers when the anywhere else in the body is clicked
+            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.tooltip').has(e.target).length === 0) {
+                $(this).tooltip('hide');
+            }
+        });
+    });
 </script>
 </body>
 </html>

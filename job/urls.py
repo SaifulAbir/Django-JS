@@ -37,5 +37,6 @@ urlpatterns = [
     path('applied_jobs/', applied_jobs),
     path('favourite-jobs/',favourite_jobs),
     path('favourite-jobs-delete/<str:identifier>/', del_fav_jobs),
-    path('company-sign-in', TemplateView.as_view(template_name='company_sign_in.html')),
+    path('company-sign-in/', TemplateView.as_view(template_name='company_sign_in.html')),
+    path('company-register/', TemplateView.as_view(template_name='company-register.html')),
 ]

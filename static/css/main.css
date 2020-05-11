@@ -9899,6 +9899,11 @@ header .absolute-nav {
   background: url("../images/bg/access-bg.jpg") no-repeat center;
   background-size: cover;
 }
+.access-page-bg1 {
+ background: url("../images/bg/company-login-pic.png") no-repeat right;
+ background-position:fixed;
+ background-size:700px;
+}
 
 .header-2.access-page-nav {
   -webkit-box-shadow: none;
