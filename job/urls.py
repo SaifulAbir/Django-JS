@@ -40,5 +40,8 @@ urlpatterns = [
     path('post-a-job/', TemplateView.as_view(template_name='post_a_job.html')),
     path('company-edit-profile/', TemplateView.as_view(template_name='company_edit_profile.html')),
     path('company-sign-in/', TemplateView.as_view(template_name='company_sign_in.html')),
+    path('company-reset-password/', TemplateView.as_view(template_name='company_forget_password.html')),
+    path('company-password-reset/<str:token>/', TemplateView.as_view(template_name='company_reset_password.html')),
+    path('company-reset-password-successful/',TemplateView.as_view(template_name='company-reset-password-successful.html')),
 
 ]
