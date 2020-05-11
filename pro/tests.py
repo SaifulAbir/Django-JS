@@ -192,3 +192,19 @@ class ProfessionalMembershipTest(TestCase):
         print(response.content)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Membership.objects.count(), 1)
+
+
+class InfoBoxTest(TestCase):
+    def setUp(self):
+        user = User(email='shoab@ishraak.com',password='shoab123')
+        user.save()
+        self.user = user
+
+    def test__when_proper_data_is_given__membership_is_created(self):
+        url = 'http://127.0.0.1:8000/api/professional/info_box/'
+        client = RequestsClient()
+        login = self.client.login(username='shoab@ishraak.com', password='shoab123')
+        client.headers.update({'x-test': 'true'})
+        response = client.get(url, headers={'api-key': '96d56aceeb9049debeab628ac760aa11'})
+        print(response.content)
+        self.assertEqual(response.status_code, 200)
