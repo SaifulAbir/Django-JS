@@ -352,7 +352,7 @@
         }else {
             paginationSummary = "Showing 0 Jobs";
         }
-        // $('.pagination-summary').show().html(paginationSummary);
+        $('.pagination-summary').show().html(paginationSummary);
         var list = makeListHtml(data.results, template);
         $('.job-result').html(list);
         feather.replace();
@@ -374,9 +374,7 @@
             });
         });
         url = data.current_url;
-        console.log(data.next_pages);
         if (data.next_pages == false){
-            alert('no next page');
             $('button[data-value=' + 'next' + ']').prop( "disabled", true );
         }else {
             $('button[data-value=' + 'next' + ']').prop( "disabled", false );
@@ -526,8 +524,11 @@
             var totalNumberOfData = data.count;
             if (data.previous == null && totalNumberOfData > 0){
                 var numberOfDataInSinglePage = data.results.length;
-                var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
-                //$('.pagination-summary').show().html(paginationSummary);
+                var start_index = data.start_index;
+                var end_index = data.end_index;
+
+                var paginationSummary = "Showing "+ start_index +"-" + end_index + ' of ' + totalNumberOfData + ' Jobs';
+                $('.pagination-summary').show().html(paginationSummary);
             }
             var list = makeListHtml(data.results, template);
             $('.job-result').html(list);
