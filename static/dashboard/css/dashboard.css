@@ -230,7 +230,8 @@
       background-image: -webkit-gradient(linear, left top, right top, from(#aea9fe), to(#e1b8fe));
       background-image: -webkit-linear-gradient(left, #aea9fe, #e1b8fe);
       background-image: -o-linear-gradient(left, #aea9fe, #e1b8fe);
-      background-image: linear-gradient(to right, #ffb87b, #ffc107); }
+      background-image: linear-gradient(to right, #ffb87b, #e1b8fe); }
+
     .user-statistic-block .user-statistic:last-child {
       background-image: -webkit-gradient(linear, left top, right top, from(#91bcf9), to(#99d7f2));
       background-image: -webkit-linear-gradient(left, #91bcf9, #99d7f2);
@@ -1497,6 +1498,23 @@
     padding-left: 0;
     padding-right: 0;
     border-bottom: 0; }
+
+
+
+     .manage-candidate-container .selectJob {
+     border-top: 0;
+     font-size: 1.4rem;
+     font-family: "Poppins", sans-serif;
+     font-weight: 500;
+     color: #6f7484;
+     padding-left: 0;
+     padding-right: 8px;
+     border-bottom: 0; }
+
+
+
+
+
   .manage-candidate-container .title {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1533,10 +1551,24 @@
       color: #6e75d0; }
   .manage-candidate-container .status {
     color: #6f7484; }
-    .manage-candidate-container .status svg {
-      height: 15px;
-      width: 15px;
-      margin-right: 8px; }
+
+
+    .manage-candidate-container .status .listed svg {
+       margin-left: 20px;
+       }
+
+
+      .manage-candidate-container .status .unlisted svg {
+       height: 25px;
+       width: 27px;
+       margin-left: 0px;
+       color: red;
+       }
+
+
+
+
+
   .manage-candidate-container .action {
     text-align: right; }
     .manage-candidate-container .action a svg {
@@ -1611,3 +1643,49 @@
     display: block; }
     .dashboard-section .modal .modal-body .title .add-more {
       margin-top: 15px; } }
+
+
+.fillheart{
+    position: relative;
+    width: 25px;
+    height: 22.5px;
+    float: left;
+
+}
+.fillheart:before,
+.fillheart:after{
+    position: absolute;
+    content: "";
+    left: 12.5px;
+    top: 0;
+    width: 12.5px;
+    height: 20px;
+
+    background: #fc2e5a;
+    -moz-border-radius: 50px 50px 0 0;
+    border-radius: 50px 50px 0 0;
+    -webkit-transform: rotate(-45deg);
+       -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+         -o-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    -webkit-transform-origin: 0 100%;
+       -moz-transform-origin: 0 100%;
+        -ms-transform-origin: 0 100%;
+         -o-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+}
+.fillheart:after{
+
+    left: 0;
+    -webkit-transform: rotate(45deg);
+       -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+         -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+    -webkit-transform-origin: 100% 100%;
+       -moz-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+         -o-transform-origin: 100% 100%;
+            transform-origin :100% 100%;
+}
