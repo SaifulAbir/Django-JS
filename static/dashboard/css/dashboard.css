@@ -1535,14 +1535,23 @@
     color: #6f7484; }
 
 
-    .manage-candidate-container .status svg {
+    .manage-candidate-container .status .listed svg {
       height: 25px;
       width: 25px;
-      margin-left: 0px;
+      margin-left: 20px;
       color: red;
-
-
+      background-color: red;
       }
+
+
+     .manage-candidate-container .status .unlisted svg {
+      height: 25px;
+      width: 25px;
+      margin-left: 20px;
+      color: red;
+      }
+
+
 
 
   .manage-candidate-container .action {
