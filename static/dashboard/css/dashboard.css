@@ -226,11 +226,15 @@
       background-image: -webkit-linear-gradient(left, #aa91fa, #9eacfd);
       background-image: -o-linear-gradient(left, #aa91fa, #9eacfd);
       background-image: linear-gradient(to right, #aa91fa, #9eacfd); }
+
+
     .user-statistic-block .user-statistic:nth-child(2) {
       background-image: -webkit-gradient(linear, left top, right top, from(#aea9fe), to(#e1b8fe));
       background-image: -webkit-linear-gradient(left, #aea9fe, #e1b8fe);
       background-image: -o-linear-gradient(left, #aea9fe, #e1b8fe);
-      background-image: linear-gradient(to right, #ffb87b, #ffc107); }
+      background-image: linear-gradient(to right, #ffb87b, #e1b8fe); }
+
+
     .user-statistic-block .user-statistic:last-child {
       background-image: -webkit-gradient(linear, left top, right top, from(#91bcf9), to(#99d7f2));
       background-image: -webkit-linear-gradient(left, #91bcf9, #99d7f2);
@@ -1540,7 +1544,7 @@
       width: 25px;
       margin-left: 20px;
       color: red;
-      background-color: red;
+
       }
 
 
