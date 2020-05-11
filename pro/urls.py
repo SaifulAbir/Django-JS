@@ -5,6 +5,7 @@ from pro.api import *
 from . import api as pro_views
 urlpatterns = [
     path('profile-update/<str:pk>/', TemplateView.as_view(template_name='profile.html')),
+    path('profile-layout/', TemplateView.as_view(template_name='professional_layout.html')),
     path('myprofile_info/<str:pk>/', TemplateView.as_view(template_name='myprofile.html'), name='myprofile'),
     path('profile-dashboard/', TemplateView.as_view(template_name='dashboard.html')),
     path('create/', profile_create),

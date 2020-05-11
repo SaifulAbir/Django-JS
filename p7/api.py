@@ -184,7 +184,7 @@ def isLoggedIn(request):
         return Response(HTTP_401_UNAUTHORIZED)
     elif request.user.is_authenticated:
         professional = Professional.objects.get(user = request.user)
-        data.append({'user':{'name':professional.full_name,'email':professional.email,'id':professional.id}})
+        data.append({'user':{'name':professional.full_name,'email':professional.email,'id':professional.id,'image':professional.image}})
         print(data)
         return JsonResponse(list(data), safe=False)
     return Response(HTTP_200_OK)
