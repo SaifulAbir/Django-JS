@@ -64,7 +64,7 @@ urlpatterns = [
     path('company_dashboard/', TemplateView.as_view(template_name='company_dashboard.html'), name='company_dashboard'),
     path('company_manage_jobs/', TemplateView.as_view(template_name='company_manage_jobs.html'), name='company_manage_jobs'),
     path('company_manage_candidates/', TemplateView.as_view(template_name='company_manage_candidate.html'),name='company_manage_candidates'),
-    path('shortlisted_candidates/', TemplateView.as_view(template_name='shortlisted_candidates.html'),name='shortlisted_candidates'),
+    path('company_shortlisted_candidates/', TemplateView.as_view(template_name='company_shortlisted_candidates.html'),name='company_shortlisted_candidates'),
 
 ]
 if settings.DEBUG:
