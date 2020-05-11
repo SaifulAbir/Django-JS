@@ -9899,7 +9899,10 @@ header .absolute-nav {
   background: url("../images/bg/access-bg.jpg") no-repeat center;
   background-size: cover;
 }
-
+.access-page-bg1 {
+ background: url("../images/bg/c_login.jpg") no-repeat center;
+ background-size: cover;
+}
 .header-2.access-page-nav {
   -webkit-box-shadow: none;
   box-shadow: none;
