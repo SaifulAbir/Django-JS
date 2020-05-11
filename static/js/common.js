@@ -87,6 +87,7 @@ function initAjaxForms() {
             var url = $(this).prop('action');
             var formId = $(this).attr("id");
             var data = form2Json(formId);
+
             // Image uploading code start here
             var imagesrc = $(".image").attr('src');
             if (imagesrc){
@@ -281,6 +282,8 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
     }
     var initialStartingIndex = startingIndex;
 
+
+    var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><button disabled class="prev page-numbers cursor-pointer cursor-pointer" data-value="prev"><i class="fas fa-angle-left"></i></button>';
     startingIndex = parseInt(startingIndex);
     var numberOfPaginationIndex = totalRecord/pageSize;
     numberOfPaginationIndex = Math.ceil(numberOfPaginationIndex);
@@ -325,6 +328,7 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
         var paginationStringEnd = '<button disabled class="next page-numbers" data-value="next"><i class="fas fa-angle-right"></i></button></div></nav>';
     }
 
+    var paginationStringEnd = '<a class="next page-numbers" data-value="next" href="javascript:void(0);"><i class="fas fa-angle-right"></i></a></div></nav>';
     var paginationString = paginationStringStart + paginationIndexString + paginationStringEnd;
     $('.pagination-list').html(paginationString);
 }
