@@ -155,13 +155,12 @@
                             </div>
                             <div class="dashboard-menu">
                                 <ul>
-                                    <li class="active"><i class="fas fa-home"></i><a href="/professional/profile-dashboard/">Dashboard</a></li>
-                                    <li><i class="fas fa-user"></i><a href="">Basic Profile</a></li>
-                                    <li><i class="fas fa-file-alt"></i><a href="resume.html">Profile Details</a></li>
-                                    <li><i class="fas fa-edit"></i><a href="edit-resume.html">Edit Profiles</a></li>
-                                    <li><i class="fas fa-heart"></i><a href="/professional/favourite_jobs/">Favourite Jobs</a></li>
-                                    <li><i class="fas fa-check-square"></i><a href="/professional/applied-jobs/">Applied Jobs</a></li>
-                                    <li><i class="fas fa-comment"></i><a href="dashboard-message.html">Message</a></li>
+                                    <li class="side-menu active"><i class="fas fa-home"></i><a href="/professional/profile-dashboard/">Dashboard</a></li>
+                                    <li class="side-menu"><i class="fas fa-user"></i><a id="basic-profile" href="">Basic Profile</a></li>
+                                    <li class="side-menu"><i class="fas fa-file-alt"></i><a id="profile-details" href="">Profile Details</a></li>
+                                    <li class="side-menu"><i class="fas fa-edit"></i><a id="edit-profile-details" href="">Edit Profile Details</a></li>
+                                    <li class="side-menu"><i class="fas fa-heart"></i><a href="/professional/favourite_jobs/">Favourite Jobs</a></li>
+                                    <li class="side-menu"><i class="fas fa-check-square"></i><a href="/professional/applied-jobs/">Applied Jobs</a></li>
                                 </ul>
 
                                 <!-- Modal -->
@@ -338,6 +337,12 @@
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialUrl);
         get('/log/', loadUser);
+        {#$('.side-menu').on('click',function (event) {#}
+        {#    event.preventDefault()#}
+        {#    var el = $(this).parent().find("[class= 'side-menu active']")#}
+        {#    console.log(el)#}
+        {#    el.classList.remove('active')#}
+        {#})#}
     });
      function loadSocialUrl(data) {
              if (data.length>0){
@@ -371,7 +376,12 @@
             url = '/professional/myprofile/' + id ;
               $('.pro').attr('href', url);
 
-            basic_profile_url = '/professional/myprofile_info/' + id;
+            profile_details_url = '/professional/myprofile_info/' + id;
+            basic_profile_url = '/professional/profile-update/' + id;
+            edit_profile_url = '/professional/myprofile/' + id;
+            $('#profile-details').attr('href', profile_details_url)
+            $('#basic-profile').attr('href', basic_profile_url)
+            $('#edit-profile-details').attr('href', edit_profile_url)
 
 
         }
