@@ -37,7 +37,7 @@ urlpatterns = [
     path('applied_jobs/', applied_jobs),
     path('favourite-jobs/',favourite_jobs),
     path('favourite-jobs-delete/<str:identifier>/', del_fav_jobs),
-    path('company-forget-password/', TemplateView.as_view(template_name='company_forget_password.html')),
+    path('company-reset-password/', TemplateView.as_view(template_name='company_forget_password.html')),
     path('company-password-reset/<str:token>/', TemplateView.as_view(template_name='company-reset_password.html')),
     path('company-reset-password-successful/', TemplateView.as_view(template_name='company-reset-password-successful.html')),
 ]
