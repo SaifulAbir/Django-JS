@@ -43,5 +43,7 @@ urlpatterns = [
     path('company-reset-password/', TemplateView.as_view(template_name='company_forget_password.html')),
     path('company-password-reset/<str:token>/', TemplateView.as_view(template_name='company_reset_password.html')),
     path('company-reset-password-successful/',TemplateView.as_view(template_name='company-reset-password-successful.html')),
+    path('company-view-profile/',TemplateView.as_view(template_name='company-view-profile.html')),
+
 
 ]
