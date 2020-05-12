@@ -1,0 +1,6 @@
+test_case_id,test_priority,test_description,test_designed_by,test_designed_date,expected_result,_email,_password,_name,actual_result,status,notes,attachments,test_executed_by,test_execution_date
+login_1,,Correct User & Password,,,1,admin,123,admin,,,,,,
+login_2,,Correct User & Wrong Password,,,0,admin,test,admin,,,,,,
+login_3,,Wrong User & Correct Password,,,0,test,123,admin,,,,,,
+login_4,,Correct User & Password but Wrong User type,,,0,admin,123,Test,,,,,,
+login_5,,Wrong User & Password & Type,,,0,test,test,test,,,,,,

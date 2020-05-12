@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=simple
-User=tanvir
+User=ubuntu
 ExecStart=/var/p7/shell/start-prod.sh
 Restart=on-failure
 RestartSec=10
