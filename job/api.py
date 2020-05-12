@@ -25,7 +25,7 @@ from rest_framework.pagination import PageNumberPagination
 from pro.models import Professional
 from resources.strings_job import *
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
-    Skill, FavouriteJob, ApplyOnline
+    Skill, FavouriteJob, ApplyOnline, JobCategory
 
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
     Skill
@@ -486,7 +486,7 @@ class TrendingKeywordPopulate(generics.ListCreateAPIView):
     serializer_class = TrendingKeywordPopulateSerializer
 
 class PopularCategories(generics.ListCreateAPIView):
-    queryset = Industry.objects.all().annotate(num_posts=Count('industries')).order_by('-num_posts')[:16]
+    queryset = JobCategory.objects.all().annotate(num_posts=Count('jobs')).order_by('-num_posts')[:16]
     serializer_class = PopularCategoriesSerializer
 
 class TopSkills(generics.ListCreateAPIView):
@@ -495,7 +495,12 @@ class TopSkills(generics.ListCreateAPIView):
     serializer_class = TopSkillSerializer
 
 class PopularJobs(generics.ListCreateAPIView):
-    queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
+    # queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
+    #                                       ).order_by('-favourite_count')[:16]
+    with_deadline = Job.objects.filter(application_deadline__gte=date.today()).count()
+    without_deadline = Job.objects.filter(application_deadline__isnull=True).count()
+    open_job = with_deadline + without_deadline
+    queryset = Company.objects.all().annotate(favourite_count=Count('companies')
                                           ).order_by('-favourite_count')[:16]
     serializer_class = PopularJobSerializer
 

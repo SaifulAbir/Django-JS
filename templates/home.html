@@ -44,7 +44,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="explore-job">
                     <div class="explore-job-header">
-                        <h5 class="title">TOP Industries</h5>
+                        <h5 class="title">TOP CATEGORIES</h5>
                         <i class="fas fa-city"></i>
                     </div>
                     <div class="key-info">
@@ -68,7 +68,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="explore-job">
                     <div class="explore-job-header">
-                        <h5 class="title">Popular Jobs</h5>
+                        <h5 class="title">Top Companies</h5>
                         <i data-feather="briefcase"></i>
                     </div>
                     <div class="key-info">
@@ -330,7 +330,7 @@
 
     function loadCategory(data) {
         for(index=0;index<data.length;index++){
-            $('#category-list').append('<li><a href="#">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
+            $('#category-list').append('<li><a href="jobs/?top-category='+ data[index].name +'">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
         }
     }
 
@@ -342,7 +342,7 @@
 
     function loadPopularJobs(data) {
         for(index=0;index<data.length;index++){
-            $('#popular-job-list').append('<li><a href="#">'+ data[index].title +'<span>('+ data[index].favourite_count +')</span></a></li>')
+            $('#popular-job-list').append('<li><a href="jobs/?top-company='+ data[index].name +'">'+ data[index].name +'<span>('+ data[index].favourite_count +')</span></a></li>')
         }
     }
 

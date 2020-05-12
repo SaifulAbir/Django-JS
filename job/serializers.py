@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
-    Skill
+    Skill, JobCategory
 from rest_framework.validators import *
 
 
@@ -93,7 +93,7 @@ class PopularCategoriesSerializer(serializers.ModelSerializer):
     num_posts = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = Industry
+        model = JobCategory
         fields= ['name', 'num_posts']
 
 
@@ -108,8 +108,8 @@ class PopularJobSerializer(serializers.ModelSerializer):
     favourite_count = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = Job
-        fields= ['title','favourite_count']
+        model = Company
+        fields= ['name','favourite_count']
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
