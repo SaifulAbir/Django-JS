@@ -25,7 +25,7 @@ from rest_framework.pagination import PageNumberPagination
 from pro.models import Professional
 from resources.strings_job import *
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
-    Skill, FavouriteJob, ApplyOnline
+    Skill, FavouriteJob, ApplyOnline, JobCategory
 
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
     Skill
@@ -462,7 +462,7 @@ class TrendingKeywordPopulate(generics.ListCreateAPIView):
     serializer_class = TrendingKeywordPopulateSerializer
 
 class PopularCategories(generics.ListCreateAPIView):
-    queryset = Industry.objects.all().annotate(num_posts=Count('industries')).order_by('-num_posts')[:16]
+    queryset = JobCategory.objects.all().annotate(num_posts=Count('jobs')).order_by('-num_posts')[:16]
     serializer_class = PopularCategoriesSerializer
 
 class TopSkills(generics.ListCreateAPIView):
@@ -521,8 +521,8 @@ def recent_jobs(request):
         except Company.DoesNotExist:
             job.profile_picture = '/static/images/job/company-logo-2.png'
         
-        if job.job_location is None:
-            job.job_location = NO_LOCATION
+        if job.address is None:
+            job.address = NO_LOCATION
         
         data.append(make_job_list_response(job))
 
@@ -533,7 +533,7 @@ def make_job_list_response(job : Job):
         'job_id': job.job_id, 
         'slug': job.slug, 
         'title': job.title, 
-        'job_location': job.job_location,
+        'job_location': job.address,
         'employment_status': str(job.employment_status), 
         'job_nature': job.job_nature,
         'job_site': job.job_site,
