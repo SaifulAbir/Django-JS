@@ -61,6 +61,7 @@
 {% block extra_js %}
     <script>
         $(document).ready(function() {
+            $('.dashboard-bar').addClass('active')
             get('/api/professional/info_box/',infoBoxCallBack)
             get('/api/professional/skill_job_chart/',DataChartCallBack)
             get('/api/professional/pro_recent_activity/',ActivityCallBack)
