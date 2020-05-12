@@ -76,7 +76,7 @@ class JobObject(APIView):
             job.is_applied = YES_TXT
         else:
             job.is_applied = NO_TXT
-        data = JobDetailSerializer(job).data
+        data = JobSerializer(job).data
         data['skill']=[]
         if data['company_location'] is None:
             data['company_location'] = ''
