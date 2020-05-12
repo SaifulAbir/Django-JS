@@ -5,6 +5,7 @@
     cursor: pointer;
 }
 :disabled {
+    color: #e0c7c7 !important;
     cursor: default;
     opacity: .4;
 }
@@ -210,6 +211,36 @@ a.save.apply.active {
     color: #6f7484;
     font-weight: normal;
 }
+
+.modal-body{
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+/*professional edit profile*/
+
+ #search-form .alert-danger {
+     color: #e60015;
+     background-color: #fff;
+ }
+
+ /*professional edit profile*/
+.about-info-salary{
+    color: #6f7484!important;
+    font-weight: normal!important;
+    margin-right: 0px!important;
+}
+
+.information ul li span:nth-last-child(1){
+    font-size: 1.4rem;
+    color: #6f7484;
+    font-weight: normal;
+}
+
+.personal-information ul li span:nth-last-child(1){
+    font-size: 1.4rem;
+    color: #6f7484;
+    font-weight: normal;
+}
 /*professional edit profile*/
 
  #search-form .alert-danger {
@@ -246,3 +277,8 @@ a.save.apply.active {
 }
  /*forgot password*/
 
+
+
+.error {
+    color: red;
+}

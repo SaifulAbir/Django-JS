@@ -6,6 +6,7 @@ from . import api as pro_views
 urlpatterns = [
     path('profile-update/<str:pk>/', TemplateView.as_view(template_name='profile.html')),
     path('myprofile_info/<str:pk>/', TemplateView.as_view(template_name='myprofile.html'), name='myprofile'),
+    path('profile-dashboard/', TemplateView.as_view(template_name='dashboard.html')),
     path('create/', profile_create),
     path('create_with_user/', profile_create_with_user_create),
     path('login/', login),
@@ -27,16 +28,9 @@ urlpatterns = [
     path('job_alert/', job_alert),
     path('job_alert_notification/', job_alert_notification),
     path('profile_update_partial/<str:pk>/', ProfessionalUpdatePartial.as_view()),
-    # path('professional_education_save/', ProfessionalEducationSave.as_view()),
-    path('professional_skill_save/', professional_skill_save),
-    path('professional_work_experience_save/', professional_workexperience_save),
-    path('professional_portfolio_save/', professional_portfolio_save),
-    path('professional_membership_save/', professional_membership_save),
-    path('professional_certification_save/', professional_certification_save),
-    path('professional_reference_save/', professional_reference_save),
     # path('professional_info/<str:pk>/', professional_info),
     path('myprofile/<str:pk>/', TemplateView.as_view(template_name='profiles.html'),name='profile'),
-    path('static_urls/', StaticUrl),
+    # path('static_urls/', StaticUrl),
     path('professional_education/', professional_education_save),
     path('professional_education/<str:pk>/', EducationUpdateDelete.as_view()),
     path('professional_skill/', professional_skill_save, name = 'professional-skill'),
@@ -60,4 +54,7 @@ urlpatterns = [
     path('applied-jobs/', TemplateView.as_view(template_name='applied_jobs.html'),name='applied_jobs'),
     path('favourite_jobs/', TemplateView.as_view(template_name='favourite_jobs.html'),name='favourite_jobs'),
 
+    path('info_box/', info_box_api),
+    path('skill_job_chart/', skill_job_chart),
+    path('pro_recent_activity/', pro_recent_activity),
 ]

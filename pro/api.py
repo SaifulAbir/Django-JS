@@ -10,6 +10,8 @@ from datetime import timedelta
 from django.contrib.auth.hashers import make_password
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
+from django.db.models import Q, Count
+from django.db.models.functions import TruncMonth
 from django.utils import timezone
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
@@ -33,7 +35,8 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import AUTH_HEADER_TYPES
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
-from job.serializers import SkillSerializer
+from job.models import FavouriteJob, ApplyOnline, Job
+from job.serializers import SkillSerializer, JobSerializer
 from p7.permissions import IsAppAuthenticated
 from p7.settings_dev import SITE_URL
 from pro.models import Professional, Religion, Nationality
@@ -348,6 +351,8 @@ def professional_education_save(request):
     if 'major_id' in data and data['major_id'] is not None:
         data['major_obj'] = MajorSerializer(Major.objects.get(pk=data['major_id'])).data
     data['id'] = key_obj.id
+    data['degree'] = data["degree_id"]
+    del data["degree_id"]
     return Response(data)
 
 @api_view(["POST"])
@@ -803,6 +808,9 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
             ip = request.META.get('REMOTE_ADDR')
         request.data.update(
             {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
+        if "degree_id" in request.data:
+            request.data["degree"] = request.data["degree_id"]
+            del request.data["degree_id"]
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalEducationSerializer(ProfessionalEducation.objects.get(pk=pk)).data
         if 'institution_id' in request.data and request.data['institution_id'] is not None:
@@ -852,6 +860,9 @@ class WorkExperienceUpdateDelete(GenericAPIView, UpdateModelMixin):
             ip = request.META.get('REMOTE_ADDR')
         request.data.update(
             {'modified_by_id': request.user.id, 'modified_at': str(ip), 'modified_date': timezone.now()})
+        if "company_id" in request.data:
+            request.data["company"] = request.data["company_id"]
+            del request.data["company_id"]
         self.partial_update(request, *args, **kwargs)
         prof_obj = WorkExperienceSerializer(WorkExperience.objects.get(pk=pk)).data
 
@@ -918,100 +929,50 @@ class CertificationUpdateDelete(GenericAPIView, UpdateModelMixin):
         return Response(prof_obj)
 
 
-# @api_view(["GET"])
-# def professional_info(request,pk):
-#     basic_info = Professional.objects.get(pk=pk)
-#     education = ProfessionalEducation.objects.filter(professional=pk)
-#     skills = ProfessionalSkill.objects.filter(professional=pk)
-#     experience = WorkExperience.objects.filter(professional=pk)
-#     portfolio = Portfolio.objects.filter(professional=pk)
-#     membership = Membership.objects.filter(professional=pk)
-#     certification = Certification.objects.filter(professional=pk)
-#     reference = Reference.objects.filter(professional=pk)
-#
-#     info_data = [ProfessionalSerializer(basic_info).data]
-#     edu_data = [{
-#         'qualification': str(edu.qualification_id),
-#         'institution': str(edu.institution_id),
-#         'cgpa': str(edu.cgpa),
-#         'major': str(edu.major_id),
-#         'enrolled_date': str(edu.enrolled_date),
-#         'graduation_date': str(edu.graduation_date),
-#     } for edu in education
-#     ]
-#
-#     skill_data = [{
-#         'skill': str(skill.name_id),
-#         'rating': str(skill.rating),
-#         'verified_by_skillcheck': str(skill.verified_by_skillcheck),
-#     } for skill in skills
-#     ]
-#     experience_data = [{
-#         'company': str(exp.company_id),
-#         'designation': str(exp.designation),
-#         'Started_date': str(exp.Started_date),
-#         'end_date': str(exp.end_date),
-#     } for exp in experience
-#     ]
-#
-#     portfolio_data = [{
-#         'name': str(pf.name),
-#         'image': str(pf.image),
-#         'description': str(pf.description),
-#     } for pf in portfolio
-#     ]
-#
-#     membership_data = [{
-#         'org_name': str(ms.org_name_id),
-#         'position_held': str(ms.position_held),
-#         'membership_ongoing': str(ms.membership_ongoing),
-#         'Start_date': str(ms.Start_date),
-#         'end_date': str(ms.end_date),
-#         'desceription': str(ms.desceription),
-#     } for ms in membership
-#     ]
-#
-#     certification_data = [{
-#         'certification_name': str(cert.certification_name_id),
-#         'organization_name': str(cert.organization_name_id),
-#         'has_expiry_period': str(cert.has_expiry_period),
-#         'issue_date': str(cert.issue_date),
-#         'expiry_date': str(cert.expiry_date),
-#         'credential_id': str(cert.credential_id),
-#         'credential_url': str(cert.credential_url),
-#     } for cert in certification
-#     ]
-#
-#     reference_data = [{
-#         'name': str(ref.name),
-#         'current_position': str(ref.current_position),
-#         'email': str(ref.email),
-#         'mobile': str(ref.mobile),
-#     } for ref in reference
-#     ]
-#
-#
-#
-#     prof_data={
-#         'personal_info':info_data,
-#         'edu_info': edu_data,
-#         'skill_info': skill_data,
-#         'experiecnce_info': experience_data,
-#         'portfolio_info': portfolio_data,
-#         'membership_info': membership_data,
-#         'certification_info': certification_data,
-#         'reference_data': reference_data
-#
-#     }
-#
-#
-#     return HttpResponse(json.dumps(prof_data), content_type='application/json')
+@api_view(["GET"])
+def info_box_api(request):
+    user = request.user
+    favourite_job = FavouriteJob.objects.filter(user = user).count()
+    applied_job = ApplyOnline.objects.filter(created_by = user).count()
+    skills_count = ProfessionalSkill.objects.filter(created_by=user).count()
+    data ={'favourite_job_count':favourite_job,
+           'applied_job_count':applied_job,
+           'skills_count':skills_count
+           }
 
-def StaticUrl(self):
-    data = {
-        '1': "http://facebook.com/",
-        '2': "http://twitter.com/",
-        '3': "http://linkedin.com/",
+    return Response(data)
 
-    }
-    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+@api_view(["GET"])
+def skill_job_chart(request):
+    user = request.user
+    skills = ProfessionalSkill.objects.filter(created_by=user)
+    all_query = Job.objects.none()
+    for skill in skills:
+        jobs = Job.objects.filter(job_skills=skill.skill_name)
+        all_query = all_query|jobs
+    # count = all_query.filter(created_date__year='2020').values_list('created_date__month').distinct().annotate(total=Count('title'))
+    count = all_query.annotate(month=TruncMonth('created_date')).values('month').order_by('month').annotate(total=Count('title'))
+    return Response(count)
+
+
+@api_view(["GET"])
+def pro_recent_activity(request):
+    user = request.user
+    activity = ProRecentActivity.objects.filter(user = user).order_by('time')
+    for obj in activity:
+        if (timezone.now() - obj.time).days >=1:
+            obj.activity_time = '{} days ago'.format((timezone.now() - obj.time).days)
+        elif (((timezone.now() - obj.time).seconds)//3600) >=1:
+            obj.activity_time = '{} hour ago'.format(((timezone.now() - obj.time).seconds) //3600)
+        elif (((timezone.now() - obj.time).seconds)//60) >=1:
+            obj.activity_time = '{} min ago'.format(((timezone.now() - obj.time).seconds) //60)
+        else:
+            obj.activity_time = '{} sec ago'.format(((timezone.now() - obj.time).seconds))
+    activity_list =[{
+        'description': act.description,
+        'time': act.activity_time,
+        'type': act.type
+    }for act in activity]
+    return Response(activity_list)
