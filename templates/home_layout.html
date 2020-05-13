@@ -56,13 +56,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav ml-auto main-nav">
-                <li class="menu-item active"><a title="Home" href="{% url 'home' %}">Home</a></li>
-                <li class="menu-item"><a  href="{% url 'jobs' %}">Jobs</a></li>
-                <li class="menu-item"><a  href="{% url 'career_advice' %}">Career Advice</a></li>
-                <li class="menu-item"><a  href="{% url 'skill_check' %}">Skill Check</a></li>
-                <li class="menu-item"><a  href="{% url 'about_us' %}">About Us</a></li>
-                <li class="menu-item"><a  href="{% url 'contact_us' %}">Contact Us</a></li>
-
+                {% include 'nav.html' %}
                 <li>
                     <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i>  </a>
                     <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>
@@ -102,6 +96,10 @@
 <!-- Footer -->
 {% include 'footer.html' %}
 <!-- Footer End -->
+
+{% block extra_js %}
+
+{% endblock %}
 
 </body>
 </html>
