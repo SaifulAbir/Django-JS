@@ -1413,13 +1413,20 @@
         }
         if(Object.keys(data).length>1 && $(this).valid()){
           post(eduCreateUrl, JSON.stringify(data), loadEducation);
-          $(this).addClass("update-edu");
         }
 
 
       // });
       // }
     })
+      $('.edication-background').on('click','.update-education',function () {
+          var path = window.location.pathname.split('/');
+          var id = path[path.length-2];
+          var getUrl = '/api/professional/profile/'+ id + '/';
+          get(getUrl,loadEducationObject)
+          alert($(this).parent().html())
+
+      });
 
     // If social URL is emtpy then add space in value for skipping database data saving problem
     $(".social-network-update").click(function(){
@@ -1536,10 +1543,10 @@
       var dateEnrolledString = momentObj.format('DD/MM/YYYY');
       var dateGraduationString = momentGraduationObj.format('DD/MM/YYYY');
       $("#modal-education").modal("hide");
-      // $("#modal-education").find('form')[0].reset();
+      $("#modal-education").find('form')[0].reset();
       if($('.edication-background').find(".education-label").length==0){
         console.log(data.responseJSON)
-        $('#edu-label').after('<div class="education-label">'+'<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">\n' +
+        $('#edu-label').after('<div class="education-label">'+'<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
@@ -1547,13 +1554,13 @@
       else {
         var el = $(".edication-background").find("[href='"+ data.responseJSON.id +"']");
         if(el.length>0){
-          el.parent().html('<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">\n' +
+          el.parent().html('<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>');
         }
         else{
-          $('.education-label:last').after('<div class="education-label">'+'<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">\n' +
+          $('.education-label:last').after('<div class="education-label">'+'<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
@@ -1563,6 +1570,13 @@
     }else{
       showError("Error Updating")
     }
+    feather.replace();
+  }
+
+  function loadEducationObject(data) {
+        data.edu_info.each(function () {
+
+        })
   }
 
   function loadExperience(data) {
