@@ -24,21 +24,26 @@ class JobGenderList(generics.ListAPIView):
 
 @api_view(["GET"])
 def get_job_site_list(request):
-    return Response(strings_job.JOB_SITES)
+    data = [{'id': item[0], 'text': item[1]} for item in strings_job.JOB_SITES]
+    return Response(data)
 
 @api_view(["GET"])
 def get_job_nature_list(request):
-    return Response(strings_job.JOB_NATURES)
+    data = [{'id': item[0], 'text': item[1]} for item in strings_job.JOB_NATURES]
+    return Response(data)
 
 @api_view(["GET"])
 def get_job_type_list(request):
-    return Response(strings_job.JOB_TYPES)
+    data = [{'id': item[0], 'text': item[1]} for item in strings_job.JOB_TYPES]
+    return Response(data)
 
 @api_view(["GET"])
 def get_job_status_list(request):
-    return Response(strings_job.JOB_STATUSES)
+    data = [{'id': item[0],'text': item[1]} for item in strings_job.JOB_STATUSES]
+    return Response(data)
 
 @api_view(["GET"])
 def get_job_creator_type_list(request):
-    return Response(strings_job.JOB_CREATOR_TYPES)
+    data = [{'id': item[0],'text': item[1]} for item in strings_job.JOB_CREATOR_TYPES]
+    return Response(data)
 
