@@ -25,7 +25,7 @@ from rest_framework.pagination import PageNumberPagination
 from pro.models import Professional
 from resources.strings_job import *
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
-    Skill, FavouriteJob, ApplyOnline
+    Skill, FavouriteJob, ApplyOnline, JobCategory
 
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
     Skill
@@ -78,8 +78,8 @@ class JobObject(APIView):
             job.is_applied = NO_TXT
         data = JobSerializer(job).data
         data['skill']=[]
-        if data['company_location'] is None:
-            data['company_location'] = ''
+        if data['job_city'] is None:
+            data['job_city'] = ''
         if data['company_name'] is not None:
             ob = Company.objects.get(name=data['company_name'])
             if ob.profile_picture:
@@ -91,10 +91,6 @@ class JobObject(APIView):
                 data['latitude'] = str(ob.latitude)
             if ob.longitude:
                 data['longitude'] = str(ob.longitude)
-            if ob.address:
-                data['company_location'] = ob.address
-            else:
-                data['company_location'] = NO_LOCATION
 
 
         else:
@@ -102,13 +98,9 @@ class JobObject(APIView):
         if data['company_name'] is None:
             data['company_name'] = NO_NAME
 
-        if data['job_location'] is None:
-            data['job_location'] = NO_LOCATION
+        if data['job_city'] is None:
+            data['job_city'] = NO_LOCATION
 
-        if data['company_location'] is None:
-            data['company_location'] = NO_LOCATION
-        if data['employment_status'] is None:
-            data['employment_status'] = NO_NAME
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
         for skill in job.job_skills.all():
@@ -148,17 +140,12 @@ def job_list(request):
         qualification = request.GET.get('qualification')
         topSkill = request.GET.get('top-skill')
 
-        if sorting == 'descending':
-            job_list = Job.objects.all().order_by('-created_date')
-            # annotate removed by munir 
-            # job_list = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')
-        elif sorting == 'top-rated':
-            # fav_jobs = FavouriteJob.objects.all()
-            # job_list = Job.objects.filter(fav_jobs__in = fav_jobs).annotate(favourite_count=Count('fav_jobs')
-            #                               ).order_by('-favourite_count')
-            job_list = Job.objects.all().order_by('-favorite_count')
-        else:
+        if sorting == 'most-applied':
             job_list = Job.objects.all().order_by('-applied_count')
+        elif sorting == 'top-rated':
+            job_list = Job.objects.all().order_by('-favorite_count')
+        else: # 'most-recent'
+            job_list = Job.objects.all().order_by('-post_date')
         jobtype = JobType(name=NO_NAME)
         company = Company(name=NO_NAME)
         # for i in job_list:
@@ -175,28 +162,23 @@ def job_list(request):
 
         if category:
             job_list = job_list.filter(
-                industry=category)
-
-        if district:
-            job_list = job_list.filter(
-                district=district
-            )
+                job_category=category)
 
         if datePosted:
             if datePosted == 'Last hour':
-                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(hours=1))
+                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(hours=1))
 
             if datePosted == 'Last 24 hour':
-                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(hours=24))
+                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(hours=24))
 
             if datePosted == 'Last 7 days':
-                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=7))
+                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(days=7))
 
             if datePosted == 'Last 14 days':
-                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=14))
+                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(days=14))
 
             if datePosted == 'Last 30 days':
-                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=30))
+                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(days=30))
 
         if gender and gender != 'Any':
             job_list = job_list.filter(
@@ -466,7 +448,7 @@ class TrendingKeywordPopulate(generics.ListCreateAPIView):
     serializer_class = TrendingKeywordPopulateSerializer
 
 class PopularCategories(generics.ListCreateAPIView):
-    queryset = Industry.objects.all().annotate(num_posts=Count('industries')).order_by('-num_posts')[:16]
+    queryset = JobCategory.objects.all().annotate(num_posts=Count('jobs')).order_by('-num_posts')[:16]
     serializer_class = PopularCategoriesSerializer
 
 class TopSkills(generics.ListCreateAPIView):
@@ -481,9 +463,9 @@ class PopularJobs(generics.ListCreateAPIView):
 
 @api_view(["GET"])
 def recent_jobs(request):
-    # queryset = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')[:6]
+    # queryset = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-post_date')[:6]
     # TODO: Check /munir
-    queryset = Job.objects.all().order_by('-created_date')[:6]
+    queryset = Job.objects.all().order_by('-post_date')[:6]
     data = []
     for job in queryset:
         try:
@@ -525,8 +507,8 @@ def recent_jobs(request):
         except Company.DoesNotExist:
             job.profile_picture = '/static/images/job/company-logo-2.png'
         
-        if job.job_location is None:
-            job.job_location = NO_LOCATION
+        if job.address is None:
+            job.address = NO_LOCATION
         
         data.append(make_job_list_response(job))
 
@@ -537,8 +519,7 @@ def make_job_list_response(job : Job):
         'job_id': job.job_id, 
         'slug': job.slug, 
         'title': job.title, 
-        'job_location': job.job_location,
-        'employment_status': str(job.employment_status), 
+        'job_location': job.address,
         'job_nature': job.job_nature,
         'job_site': job.job_site,
         'job_type': job.job_type,

@@ -152,10 +152,10 @@ class Currency(models.Model):
 
 class JobSource(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
-    description = models.CharField(max_length=255, null=True)
-    url = models.CharField(max_length=255, null=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
+    url = models.CharField(max_length=255, null=True, blank=True)
     created_by = models.CharField(max_length=255, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(null=True)
     created_from = models.CharField(max_length=255, null=True)
     modified_by = models.CharField(max_length=255, null=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -178,7 +178,7 @@ class JobSource(models.Model):
 class JobCategory(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
     created_by = models.CharField(max_length=255, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(null=True)
     created_from = models.CharField(max_length=255, null=True)
     modified_by = models.CharField(max_length=255, null=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -201,7 +201,7 @@ class JobCategory(models.Model):
 class JobGender(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
     created_by = models.CharField(max_length=255, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(null=True)
     created_from = models.CharField(max_length=255, null=True)
     modified_by = models.CharField(max_length=255, null=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -225,41 +225,37 @@ class Job(models.Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False,db_column='id')
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255,unique=True,null=True, blank=True)
-    industry = models.ForeignKey(Industry, on_delete=models.PROTECT,blank=True, null= True,db_column='industry', related_name='industries')
-    employment_status = models.ForeignKey(JobType, on_delete=models.PROTECT,blank=True, null= True,db_column='employment_status')
-    job_location = models.CharField(max_length=50, blank=True,null=True)
-    experience =  models.ForeignKey(Experience, on_delete=models.PROTECT,blank=True, null= True,db_column='experience')
+    address = models.CharField(max_length=50, blank=True, null=True)
+    job_area = models.CharField(max_length=255, blank=True, null = True)
+    job_city = models.CharField(max_length=255, blank=True, null = True)
+    job_country = CountryField(default = strings_job.DEFAULT_JOB_COUNTRY)
+    salary = models.CharField(max_length=255, blank=True, null=True)
     salary_min = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True)
     salary_max = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True)
-    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT,blank=True, null= True,db_column='qualification')
-    gender = models.ForeignKey(Gender, on_delete=models.PROTECT,blank=True, null= True,db_column='gender' )
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT, blank=True, null=True, db_column='currency')
-    vacancy = models.PositiveIntegerField(default=0)
-    application_deadline = models.DateField(null=True, blank=True)
-    descriptions = models.TextField(blank=True, null=True)
-    responsibilities = models.TextField(blank=True, null=True)
-    education = models.TextField(blank=True, null=True)
-    salary = models.CharField(max_length=255, blank=True, null=True)
     other_benefits = models.TextField(max_length=255, blank=True, null=True)
+    experience =  models.CharField(max_length=10, blank=True, null= True)
+    description = models.TextField(blank=True, null=True)
+    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT,blank=True, null= True,db_column='qualification')
+    responsibilities = models.TextField(blank=True, null=True)
+    additional_requirements = models.TextField(blank=True, null=True)
+    education = models.TextField(blank=True, null=True)
+    vacancy = models.PositiveIntegerField(default=1, null=True)
+    application_deadline = models.DateField(null=True, blank=True)
     company_name = models.ForeignKey(Company,on_delete=models.PROTECT, db_column='company')
-    division = models.ForeignKey(Division,on_delete=models.PROTECT, blank=True, null = True,db_column='division')
-    district = models.ForeignKey(District,on_delete=models.PROTECT, blank=True, null = True, db_column='district')
-    zipcode = models.CharField(max_length=255, blank=True, null = True)
-    company_location = models.CharField(max_length=255, blank=True, null = True)
-    company_profile = models.CharField(max_length=255, blank=True, null = True)
+    company_profile = models.TextField(blank=True, null = True)
+    company_address = models.CharField(max_length=255, blank=True, null = True)
+    company_area = models.CharField(max_length=255, blank=True, null = True)
+    company_city = models.CharField(max_length=255, blank=True, null = True)
+    company_country = CountryField(default = strings_job.DEFAULT_JOB_COUNTRY)
     latitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     longitude = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)
     raw_content = models.TextField(blank=True, null=True)
-    web_address = models.CharField(max_length=255, blank=True, null = True)
     favorite_count = models.PositiveIntegerField(default=0)
     applied_count = models.PositiveIntegerField(default=0)
     terms_and_condition = models.BooleanField(default=False)
-    created_date = models.DateTimeField(default=timezone.now)
     job_skills = models.ManyToManyField('Skill', blank=True, related_name='skill_set')
-    entry_date = models.DateTimeField(auto_now_add=True)
-
-    # Added by Munir (02-03).05.2020 >>>
-    status = models.CharField(max_length=20, blank=False, null = False, 
+    status = models.CharField(max_length=20, blank=False, null = False,
         choices=strings_job.JOB_STATUSES, default=strings_job.DEFAULT_JOB_STATUS)
     job_site = models.CharField(max_length=20, blank=False, null = False, 
         choices=strings_job.JOB_SITES, default=strings_job.DEFAULT_JOB_SITE)
@@ -269,8 +265,7 @@ class Job(models.Model):
         choices=strings_job.JOB_TYPES, default=strings_job.DEFAULT_JOB_TYPE)
     creator_type = models.CharField(max_length=20, blank=False, null = False, 
         choices=strings_job.JOB_CREATOR_TYPES, default=strings_job.DEFAULT_JOB_CREATOR_TYPE)
-    additional_requirements = models.TextField(blank=True, null=True)
-    job_source_1 = models.ForeignKey(JobSource, on_delete=models.PROTECT, 
+    job_source_1 = models.ForeignKey(JobSource, on_delete=models.PROTECT,
         related_name='jobs1', db_column='job_source_1', blank=True, null= True)
     job_url_1 = models.CharField(max_length=255, blank=True, null= True)
     job_source_2 = models.ForeignKey(JobSource, on_delete=models.PROTECT, 
@@ -283,18 +278,12 @@ class Job(models.Model):
         related_name='jobs', db_column='job_category',blank=True, null = True)
     job_gender = models.ForeignKey(JobGender, on_delete=models.PROTECT,
         related_name='jobs', db_column='job_gender',blank=True, null = True)
-    job_country = CountryField(default = strings_job.DEFAULT_JOB_COUNTRY)
-    job_city = models.CharField(max_length=255, blank=True, null = True)
-    job_area = models.CharField(max_length=255, blank=True, null = True)
-    company_country = CountryField(default = strings_job.DEFAULT_JOB_COUNTRY)
-    company_city = models.CharField(max_length=255, blank=True, null = True)
-    company_area = models.CharField(max_length=255, blank=True, null = True)
     post_date = models.DateTimeField(blank=True, null = True)
     review_date = models.DateTimeField(blank=True, null = True)
     approve_date = models.DateTimeField(blank=True, null = True)
     publish_date = models.DateTimeField(blank=True, null = True)
     created_by = models.CharField(max_length=255, null=True)
-    created_at = models.DateTimeField(auto_now_add=True, null = True)
+    created_at = models.DateTimeField(null=True)
     created_from = models.CharField(max_length=255, null=True)
     modified_by = models.CharField(max_length=255, null=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -303,15 +292,13 @@ class Job(models.Model):
     archived_by = models.CharField(max_length=255, null=True)
     archived_at = models.DateTimeField(null=True)
     archived_from = models.CharField(max_length=255, null=True)
-    # <<<
-
 
 
     class Meta:
         verbose_name = strings_job.JOB_VERBOSE_NAME
         verbose_name_plural = strings_job.JOB_VERBOSE_NAME_PLURAL
         db_table = 'jobs'
-        ordering = ['-entry_date']
+        ordering = ['-post_date']
 
     def load_data(self, json_data):
         self.__dict__ = json_data
@@ -410,3 +397,17 @@ class ApplyOnline(models.Model):
     def __str__(self):
         return self.job.title
 #Apply Online Model ends here
+
+def populate_user_info(sender, instance, *args, **kwargs):
+    if instance._state.adding:
+        instance.created_at = timezone.now()
+    else:
+        instance.modified_at = timezone.now()
+        if instance.is_archived and not instance.archived_at:
+            instance.archived_at = timezone.now()
+    print(instance._state.adding)
+
+pre_save.connect(populate_user_info, sender=JobCategory)
+pre_save.connect(populate_user_info, sender=JobSource)
+pre_save.connect(populate_user_info, sender=JobGender)
+
