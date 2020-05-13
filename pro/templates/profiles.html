@@ -414,7 +414,7 @@
             </div>
 
             <div class="edication-background details-section dashboard-section">
-              <h4 id="edu-label"><i data-feather="book"></i>Education Background</h4>
+              <h4 id="edu-label"><i data-feather="book"></i>Education</h4>
               <a href="#" id="add-education" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-education">+ Add Education</a>
 
 <!--              <div class="education-label">-->
@@ -449,7 +449,7 @@
                         <form action="#" id="education-form" autocomplete="off">
                           <div class="input-block-wrap input-block-edu" >
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label edu-div-lavel">01</label>
+                              <label class="col-sm-3 col-form-label edu-div-lavel"></label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
@@ -1407,10 +1407,14 @@
           data.major_text = major_text;
         }
         if(enrolled_date){
-          data.enrolled_date = enrolled_date;
+            var momentObj = moment(enrolled_date, 'YYYY-MM-DD');
+            var dateEnrolledString = momentObj.format('YYYY-MM-DD');
+          data.enrolled_date = dateEnrolledString;
         }
         if(graduation_date){
-          data.graduation_date = graduation_date;
+            var momentGraduationObj = moment(graduation_date, 'YYYY-MM-DD');
+            var dateGraduationString = momentGraduationObj.format('YYYY-MM-DD');
+          data.graduation_date = dateGraduationString;
         }
         eduCreateUrl = "/api/professional/professional_education/";
         eduUpdateUrl = "/api/professional/professional_education/"+edu_id+"/";
@@ -1570,9 +1574,9 @@
         console.log(data.responseJSON)
         $('#edu-label').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+
                 '<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
-                '<button type="button" class="btn btn-primary edit-resume delete-education">\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-education delete-icon">\n' +
                 '                <i data-feather="trash-2"></i>\n' +
-                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
@@ -1584,19 +1588,19 @@
         }
         else if(el.length>0){
           el.parent().html('<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
-                  '<button type="button" class="btn btn-primary edit-resume delete-education">\n' +
+                  '<button type="button" class="btn btn-primary edit-resume delete-education delete-icon">\n' +
                 '                <i data-feather="trash-2"></i>\n' +
-                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>');
         }
         else{
           $('.education-label:last').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
-                '<button type="button" class="btn btn-primary edit-resume delete-education">\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-education delete-icon">\n' +
                 '                <i data-feather="trash-2"></i>\n' +
                 '              </button>'+
-                '<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
+                '<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
@@ -1694,18 +1698,18 @@
       var eduDivHtml = $("#education-form .input-block-edu").html();
 
       if(index==0){
-        $('#edu-label').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.edu_info[index].id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume delete-education" >\n' +
+        $('#edu-label').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.edu_info[index].id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume delete-education delete-icon" >\n' +
                 '                <i data-feather="trash-2"></i>\n' +
-                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');
 
       }
       else if(index>=1){
-        $('.education-label:last').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.edu_info[index].id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume delete-education" >\n' +
+        $('.education-label:last').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.edu_info[index].id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume delete-education delete-icon" >\n' +
                 '                <i data-feather="trash-2"></i>\n' +
-                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');

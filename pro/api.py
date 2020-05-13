@@ -811,11 +811,14 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
         if "degree_id" in request.data:
             request.data["degree"] = request.data["degree_id"]
             del request.data["degree_id"]
+        if "institution_id" in request.data:
+            request.data["institution"] = request.data["institution_id"]
+            del request.data["institution_id"]
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalEducationSerializer(ProfessionalEducation.objects.get(pk=pk)).data
-        if 'institution_id' in request.data and request.data['institution_id'] is not None:
+        if 'institution' in request.data and request.data['institution'] is not None:
             prof_obj['institution_obj'] = InstituteNameSerializer(
-                Institute.objects.get(pk=request.data['institution_id'])).data
+                Institute.objects.get(pk=request.data['institution'])).data
         else:
             if prof_obj['institution']:
                 prof_obj['institution_obj'] = InstituteNameSerializer(
@@ -982,31 +985,6 @@ class EducationObject(APIView):
     permission_classes = (IsAppAuthenticated,)
     def get(self, request, pk):
         education = ProfessionalEducationSerializer(get_object_or_404(ProfessionalEducation, pk=pk)).data
-        # education = ProfessionalEducation.objects.filter(professional=pk ,is_archived=False)
-        # skills = ProfessionalSkill.objects.filter(professional=pk, is_archived=False)
-        # experience = WorkExperience.objects.filter(professional=pk, is_archived=False)
-        # portfolio = Portfolio.objects.filter(professional=pk, is_archived=False)
-        # membership = Membership.objects.filter(professional_id=pk, is_archived=False)
-        # certification = Certification.objects.filter(professional=pk, is_archived=False)
-        # reference = Reference.objects.filter(professional=pk, is_archived=False)
-
-        # info_data = ProfessionalSerializer(profile).data
-        # info_data['religion_obj'] = ReligionSerializer(profile.religion).data
-        # info_data['nationality_obj'] = NationalitySerializer(profile.nationality).data
-        # edu_data = [{
-        #     'id': edu.id,
-        #     'degree': edu.degree_id,
-        #     'institution_obj': InstituteNameSerializer(edu.institution).data,
-        #     'institution_text': edu.institution_text,
-        #     'cgpa': edu.cgpa,
-        #     'major_obj':MajorSerializer(edu.major).data,
-        #     'major_text':edu.major_text,
-        #     'enrolled_date': edu.enrolled_date,
-        #     'graduation_date': edu.graduation_date,
-        # } for edu in education
-        # ]
-
-
         edu_data = {
             'edu_info': education,
         }

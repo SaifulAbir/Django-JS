@@ -292,15 +292,22 @@ a.save.apply.active {
     margin-top: 20px;
 }
 
-.update-education{
+.update-icon{
     position: relative !important;
     float: right;
     margin-left: 5px;
 }
-.delete-education{
+.delete-icon{
     position: relative !important;
+    color: #FF0000 !important;
+    background: rgba(255, 0, 0, 0.15) !important;
     float: right;
     margin-left: 5px;
+}
+.delete-icon:hover {
+    color: #fff !important;
+    background-color: #FF0000 !important;
+    border-color: #0062cc;
 }
 
 .datepicker{z-index:1151 !important;}
