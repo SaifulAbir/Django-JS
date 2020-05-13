@@ -280,3 +280,14 @@ a.save.apply.active {
 .error {
     color: red;
 }
+
+.add-new-record{
+    color: #246df8;
+    background: rgba(36, 109, 248, 0.15);
+    border-radius: 3px;
+    border: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 5px 20px;
+    margin-bottom: 30px;
+}
