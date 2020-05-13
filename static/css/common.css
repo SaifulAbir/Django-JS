@@ -289,5 +289,16 @@ a.save.apply.active {
     font-size: 1.3rem;
     font-weight: 500;
     padding: 5px 20px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.update-education{
+    position: relative !important;
+    float: right;
+    margin-left: 5px;
+}
+.delete-education{
+    position: relative !important;
+    float: right;
+    margin-left: 5px;
 }
