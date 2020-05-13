@@ -1411,7 +1411,7 @@
         if(Object.keys(data).length>1 && $(this).hasClass("update-edu")){
           put(eduUpdateUrl, JSON.stringify(data), loadEducation);
         }
-        if(Object.keys(data).length>1 && !$(this).hasClass("update-edu")){
+        if(Object.keys(data).length>1 && $(this).valid()){
           post(eduCreateUrl, JSON.stringify(data), loadEducation);
           $(this).addClass("update-edu");
         }
