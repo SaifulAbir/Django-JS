@@ -46,6 +46,7 @@ urlpatterns = [
     path('api/professional/', include('pro.urls')),
     path('professional/', include('pro.urls')),
     path('log/', isLoggedIn),
+    path('api/send_email_to_admin_contact_us/', send_email_to_admin_contact_us),
     path('api/sign_in/', TokenObtainPairCustomView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
@@ -60,9 +61,6 @@ urlpatterns = [
     path('terms-and-condition/', TemplateView.as_view(template_name='terms-and-condition.html'), name='terms-and-condition'),
     path('FAQ/', TemplateView.as_view(template_name='FAQ.html'), name='FAQ'),
     path('my_job_search/', TemplateView.as_view(template_name='my_job_search.html'), name='my_job_search'),
-    path('company_dashboard/', TemplateView.as_view(template_name='company_dashboard.html'), name='company_dashboard'),
-    path('company_manage_jobs/', TemplateView.as_view(template_name='company_manage_jobs.html'), name='company_manage_jobs'),
-
 
 ]
 if settings.DEBUG:

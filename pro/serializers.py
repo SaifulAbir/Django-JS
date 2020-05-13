@@ -147,6 +147,12 @@ class TokenObtainCustomPairSerializer(TokenObtainCustomSerializer):
 
         return data
 
+
+class SkillJobChartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfessionalSkill
+        fields = ['skill_name',]
+
 class NationalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Nationality

@@ -28,6 +28,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from rest_framework import generics
 from resources.strings_registration import *
+from p7.utils import *
 
 
 @api_view(["GET"])
@@ -183,7 +184,27 @@ def isLoggedIn(request):
         return Response(HTTP_401_UNAUTHORIZED)
     elif request.user.is_authenticated:
         professional = Professional.objects.get(user = request.user)
-        data.append({'user':{'name':professional.full_name,'email':professional.email,'id':professional.id}})
+        data.append({'user':{'name':professional.full_name,'email':professional.email,'id':professional.id,'image':professional.image}})
         print(data)
         return JsonResponse(list(data), safe=False)
     return Response(HTTP_200_OK)
+
+@api_view(["POST"])
+def send_email_to_admin_contact_us(request):
+    data = json.loads(request.body)
+    name = data['name']
+    email = data['email']
+    phone = data['phone']
+    subject = data['subject']
+    message = data['message']
+
+    status = sendContactUsEmail(name, email, subject, phone, message)
+
+    if status:
+        return Response(HTTP_200_OK)
+    else:
+        return Response(HTTP_404_NOT_FOUND)
+    # try:
+    #     user_obj = User.objects.get(email=profile_data['email'])
+    # except User.DoesNotExist:
+    #     user_obj = None

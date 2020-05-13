@@ -1,0 +1,209 @@
+{% extends 'professional_layout.html' %}
+{% load static %}
+
+    <!-- Breadcrumb -->
+
+    <!-- Breadcrumb End -->
+{% block professional_breadcrumb %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Candidates Dashboard</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Candidates Dashboard</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block professional_block %}
+
+        <div class="dashboard-section user-statistic-block">
+            <div class="user-statistic">
+                <i data-feather="settings"></i>
+                <h3 id="prof-skills"></h3>
+                <span>SKills</span>
+            </div>
+            <div class="user-statistic">
+                <i data-feather="briefcase"></i>
+                <h3 id="applied-jobs"></h3>
+                <span>Applied Jobs</span>
+            </div>
+            <div class="user-statistic">
+                <i data-feather="heart"></i>
+                <h3 id="favourite-jobs"></h3>
+                <span>Favourite Jobs</span>
+            </div>
+        </div>
+        <div class="dashboard-section dashboard-view-chart">
+            <canvas id="data-chart" width="400" height="200"></canvas>
+        </div>
+        <div class="dashboard-section dashboard-recent-activity" id="recent-activity">
+            <h4 class="title">Recent Activity</h4>
+        </div>
+
+{% endblock %}
+{% block extra_js %}
+    <script>
+        $(document).ready(function() {
+            $('.dashboard-bar').addClass('active')
+            get('/api/professional/info_box/',infoBoxCallBack)
+            get('/api/professional/skill_job_chart/',DataChartCallBack)
+            get('/api/professional/pro_recent_activity/',ActivityCallBack)
+        });
+        function infoBoxCallBack(data) {
+            $('#prof-skills').text(data.skills_count)
+            $('#applied-jobs').text(data.applied_job_count)
+            $('#favourite-jobs').text(data.favourite_job_count)
+
+        }
+        function DataChartCallBack(data) {
+            months = []
+            jobs = []
+            len = data.length
+            if(len>6){
+               start = len-6
+            }
+            else {
+                start = 1
+            }
+            for (i = start; i < data.length; i++){
+                var dateString = data[i]['month']
+                var momentObj = moment(dateString, 'YYYY-MM-DD');
+                var dateMomentString = momentObj.format('MMM');
+                months.push(dateMomentString)
+                jobs.push(data[i]['total'])
+
+            }
+
+            if ($("#data-chart").length > 0) {
+                var ctx = document.getElementById("data-chart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'Posted Jobs',
+                            data: jobs,
+                            backgroundColor:
+                                'rgba(36, 109, 248, .2)',
+                            borderColor:
+                                'rgba(36, 109, 248, 1 )',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltips: {
+                            mode: 'index',
+                            intersect: true
+                        },
+                        responsive: true,
+                        scales: {
+                            xAxes: [{
+                                stacked: true,
+                            }],
+                            yAxes: [{
+                                stacked: true,
+                            }]
+                        }
+                    }
+                });
+            }
+
+        }
+        function ActivityCallBack(data) {
+            for(i=0; i<data.length;i++){
+                if(data[i]['type'] == 'download'){
+                    $('#recent-activity').append('<div class="activity-list">'+
+                                    '<i class="fas fa-arrow-circle-down"></i>'+
+                                    '<div class="content">' +
+                                        '<h5>'+ data[i]['description']+'</h5>'+
+                                        '<span class="time">'+data[i]['time']+'</span>'+
+                                    '</div>'+
+                                    '<div class="close-activity" style="display: none">'+
+                                        '<i class="fas fa-times"></i>'+
+                                    '</div>'+
+                                '</div>')
+                }
+                if(data[i]['type'] == 'profile'){
+                    $('#recent-activity').append('<div class="activity-list">'+
+                                    '<i class="fas fa-user"></i>'+
+                                    '<div class="content">' +
+                                        '<h5>'+ data[i]['description']+'</h5>'+
+                                        '<span class="time">'+data[i]['time']+'</span>'+
+                                    '</div>'+
+                                    '<div class="close-activity" style="display: none">'+
+                                        '<i class="fas fa-times"></i>'+
+                                    '</div>'+
+                                '</div>')
+                }
+                if(data[i]['type'] == 'bookmark'){
+                    $('#recent-activity').append('<div class="activity-list">'+
+                                    '<i class="fas fa-heart"></i>'+
+                                    '<div class="content">' +
+                                        '<h5>'+ data[i]['description']+'</h5>'+
+                                        '<span class="time">'+data[i]['time']+'</span>'+
+                                    '</div>'+
+                                    '<div class="close-activity" style="display: none">'+
+                                        '<i class="fas fa-times"></i>'+
+                                    '</div>'+
+                                '</div>')
+                }
+                if(data[i]['type'] == 'apply'){
+                    $('#recent-activity').append('<div class="activity-list">'+
+                                    '<i class="fas fa-check-square"></i>'+
+                                    '<div class="content">' +
+                                        '<h5>'+ data[i]['description']+'</h5>'+
+                                        '<span class="time">'+data[i]['time']+'</span>'+
+                                    '</div>'+
+                                    '<div class="close-activity" style="display: none">'+
+                                        '<i class="fas fa-times"></i>'+
+                                    '</div>'+
+                                '</div>')
+                }
+                if(data[i]['type'] == 'update'){
+                    $('#recent-activity').append('<div class="activity-list">'+
+                                    '<i class="fas fa-bolt"></i>'+
+                                    '<div class="content">' +
+                                        '<h5>'+ data[i]['description']+'</h5>'+
+                                        '<span class="time">'+data[i]['time']+'</span>'+
+                                    '</div>'+
+                                    '<div class="close-activity" style="display: none">'+
+                                        '<i class="fas fa-times"></i>'+
+                                    '</div>'+
+                                '</div>')
+                }
+
+
+            }
+        }
+
+
+
+
+    </script>
+{% endblock %}
