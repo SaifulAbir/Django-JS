@@ -446,7 +446,7 @@
 <!--                        <a href="#" id="add-education" class="add-more">+ Add Education</a>-->
                       </div>
                       <div class="content">
-                        <form action="#" id="education-form">
+                        <form action="#" id="education-form" autocomplete="off">
                           <div class="input-block-wrap input-block-edu" >
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label edu-div-lavel">01</label>
@@ -519,7 +519,7 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Enrolled</div>
                                   </div>
-                                  <input type="Date" name="enrolled_date" id="enrolled_date" class="form-control"  placeholder="YYYY/MM/DD" value="" required data-msg-required="Enrolled date is required">
+                                  <input type="text" name="enrolled_date" id="enrolled_date" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="" required data-msg-required="Enrolled date is required">
                                 </div>
                               </div>
                             </div>
@@ -529,7 +529,7 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Graduation</div>
                                   </div>
-                                  <input type="Date" name="graduation_date" id="graduation_date" class="form-control"  placeholder="YYYY/MM/DD" value="">
+                                  <input type="text" name="graduation_date" id="graduation_date" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="">
                                 </div>
                               </div>
                             </div>
@@ -1296,6 +1296,14 @@
     $('.work-exp').on('click', function () {
       get(getUrl,loadExpEdit);
     });
+
+  // datepicker on the date inputs
+  $( ".datepicker" ).datepicker({
+    autoclose: true,
+    todayHighlight: true,
+    format: 'dd/mm/yyyy'
+  });
+
 
     $('#add-experience').on('click', function (event) {
       event.preventDefault();
