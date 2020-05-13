@@ -78,8 +78,8 @@ class JobObject(APIView):
             job.is_applied = NO_TXT
         data = JobSerializer(job).data
         data['skill']=[]
-        if data['company_location'] is None:
-            data['company_location'] = ''
+        if data['job_city'] is None:
+            data['job_city'] = ''
         if data['company_name'] is not None:
             ob = Company.objects.get(name=data['company_name'])
             if ob.profile_picture:
@@ -91,10 +91,6 @@ class JobObject(APIView):
                 data['latitude'] = str(ob.latitude)
             if ob.longitude:
                 data['longitude'] = str(ob.longitude)
-            if ob.address:
-                data['company_location'] = ob.address
-            else:
-                data['company_location'] = NO_LOCATION
 
 
         else:
@@ -102,13 +98,9 @@ class JobObject(APIView):
         if data['company_name'] is None:
             data['company_name'] = NO_NAME
 
-        if data['job_location'] is None:
-            data['job_location'] = NO_LOCATION
+        if data['job_city'] is None:
+            data['job_city'] = NO_LOCATION
 
-        if data['company_location'] is None:
-            data['company_location'] = NO_LOCATION
-        if data['employment_status'] is None:
-            data['employment_status'] = NO_NAME
         # skills = Job_skill_detail.objects.filter(job=job)
         # skills_len = len(skills) - 1
         for skill in job.job_skills.all():
@@ -171,28 +163,23 @@ def job_list(request):
 
         if category:
             job_list = job_list.filter(
-                industry=category)
-
-        if district:
-            job_list = job_list.filter(
-                district=district
-            )
+                job_category=category)
 
         if datePosted:
             if datePosted == 'Last hour':
-                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(hours=1))
+                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(hours=1))
 
             if datePosted == 'Last 24 hour':
-                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(hours=24))
+                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(hours=24))
 
             if datePosted == 'Last 7 days':
-                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=7))
+                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(days=7))
 
             if datePosted == 'Last 14 days':
-                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=14))
+                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(days=14))
 
             if datePosted == 'Last 30 days':
-                job_list = job_list.filter(created_date__gt=datetime.now() - timedelta(days=30))
+                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(days=30))
 
         if gender and gender != 'Any':
             job_list = job_list.filter(
@@ -477,9 +464,9 @@ class PopularJobs(generics.ListCreateAPIView):
 
 @api_view(["GET"])
 def recent_jobs(request):
-    # queryset = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-created_date')[:6]
+    # queryset = Job.objects.all().annotate(status=Value('', output_field=CharField())).order_by('-post_date')[:6]
     # TODO: Check /munir
-    queryset = Job.objects.all().order_by('-created_date')[:6]
+    queryset = Job.objects.all().order_by('-post_date')[:6]
     data = []
     for job in queryset:
         try:
@@ -534,7 +521,6 @@ def make_job_list_response(job : Job):
         'slug': job.slug, 
         'title': job.title, 
         'job_location': job.address,
-        'employment_status': str(job.employment_status), 
         'job_nature': job.job_nature,
         'job_site': job.job_site,
         'job_type': job.job_type,

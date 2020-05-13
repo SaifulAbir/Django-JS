@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
-    Skill
+    Skill, JobSource, JobCategory, JobGender
 from rest_framework.validators import *
 
 
@@ -57,13 +57,38 @@ class JobSerializer(serializers.ModelSerializer):
     is_applied = serializers.CharField(read_only=True)
     class Meta:
         model = Job
-        fields = ('status','is_applied', 'job_id','title','industry','employment_status','job_location','experience'
-            ,'salary_min' ,'salary_max','qualification','gender' ,'currency' ,'vacancy' ,'application_deadline'
-            ,'descriptions' ,'responsibilities','education','salary' ,'other_benefits','company_name','division'
-            ,'district','zipcode' ,'company_location' ,'company_profile','latitude','longitude','raw_content','web_address','terms_and_condition'
-            ,'created_date','job_skills', 'slug')
+        # TODO : Remove fields not needed
+        fields = ('title','status' ,'company_name', 'address','job_category','application_deadline' ,
+         'job_gender','vacancy','experience' ,
+         'salary','salary_min','salary_max','currency' ,
+        'description','responsibilities','education','qualification',
+        'additional_requirements','other_benefits',
+         'job_area','job_city','job_country' ,'company_profile',
+         'company_area','company_city','company_country' ,
+         'job_site','job_nature','job_type' ,'job_skills',
+         'job_source_1','job_url_1' ,
+         'job_source_2','job_url_2' ,
+         'job_source_3','job_url_3' ,
+         'created_by','created_at','modified_by','modified_at' ,
+         'post_date','review_date','approve_date','publish_date' ,
+         'slug', 'applied_count', 'favorite_count', 'is_applied' )
 
 
+
+class JobSourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobSource
+        fields = ['name']
+
+class JobCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobCategory
+        fields = ['name']
+
+class JobGenderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobGender
+        fields = ['name']
 
 class RecentJobSerializer(serializers.ModelSerializer):
 
