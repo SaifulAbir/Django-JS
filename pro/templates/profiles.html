@@ -1297,12 +1297,12 @@
       get(getUrl,loadExpEdit);
     });
 
-  // datepicker on the date inputs
-  $( ".datepicker" ).datepicker({
-    autoclose: true,
-    todayHighlight: true,
-    format: 'dd/mm/yyyy'
-  });
+    // datepicker on the date inputs
+    $( ".datepicker" ).datepicker({
+      autoclose: false,
+      todayHighlight: true,
+      dateFormat: 'dd/mm/yy'
+    });
 
 
     $('#add-experience').on('click', function (event) {
