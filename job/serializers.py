@@ -105,11 +105,11 @@ class TopSkillSerializer(serializers.ModelSerializer):
         fields= '__all__'
 
 class PopularJobSerializer(serializers.ModelSerializer):
-    favourite_count = serializers.IntegerField(read_only=True)
+
 
     class Meta:
         model = Company
-        fields= ['name','favourite_count']
+        fields= '__all__'
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:

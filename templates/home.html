@@ -330,19 +330,20 @@
 
     function loadCategory(data) {
         for(index=0;index<data.length;index++){
-            $('#category-list').append('<li><a href="jobs/?top-category='+ data[index].name +'">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
+            $('#category-list').append('<li><a href="/api/job-list/?top-category='+ data[index].name +'">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
         }
     }
 
     function loadSkills(data) {
         for(index=0;index<data.length;index++){
-            $('#skill-list').append('<li><a href="jobs/?top-skill='+ data[index].id +'">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
+            $('#skill-list').append('<li><a href="/api/job-list/?top-skill='+ data[index].id +'">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
         }
     }
 
     function loadPopularJobs(data) {
-        for(index=0;index<data.length;index++){
-            $('#popular-job-list').append('<li><a href="jobs/?top-company='+ data[index].name +'">'+ data[index].name +'<span>('+ data[index].favourite_count +')</span></a></li>')
+        console.log(data.company_list[0]);
+        for(index=0;index<data.company_list.length;index++){
+            $('#popular-job-list').append('<li><a href="/api/job-list/?top-company='+ data.company_list[index].company_name +'">'+ data.company_list[index].company_name +'<span>('+ data.company_list[index].company_count +')</span></a></li>')
         }
     }
 

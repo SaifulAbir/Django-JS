@@ -397,6 +397,8 @@
         favouriteJobAddRemove('jobs', '/api/favourite_job_add/');
         var location_from_homepage = encodeURIComponent(getUrlParameter('location'));
         var keyword_from_homepage = encodeURIComponent(getUrlParameter('keyword'));
+        var topCategory = encodeURIComponent(getUrlParameter('top-category'));
+        var topCompany = encodeURIComponent(getUrlParameter('top-company'));
 
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialIcon);
