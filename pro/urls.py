@@ -46,6 +46,7 @@ urlpatterns = [
     path('professional_certification/<str:pk>/', CertificationUpdateDelete.as_view()),
     path('professional_reference/', professional_reference_save),
     path('professional_reference/<str:pk>/', ReferenceUpdateDelete.as_view()),
+    path('professional_education_object/<str:pk>/', EducationObject.as_view()),
     path('religion/', ReligionList.as_view()),
     path('nationality/', NationalityList.as_view()),
     path('organization/', OrganizationList.as_view()),

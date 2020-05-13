@@ -1288,14 +1288,10 @@
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
 
-    // $('#add-education').on('click', function (event) {
-    //   event.preventDefault();
-    //   var count = divCounter("input-block-edu")+1;
-    //   var lastDiv = $("#education-form .input-block-edu:last");
-    //   var lastDivHtml = $("#education-form .input-block-edu").html();
-    //   lastDiv.after('<div class="input-block-wrap input-block-edu" >'+lastDivHtml+'</div>');
-    //   $(".edu-div-lavel:last").text("0"+ count);
-    // });
+    $('#add-education').on('click', function (event) {
+      event.preventDefault();
+      $("#modal-education").find('form')[0].reset();
+    });
 
     $('.work-exp').on('click', function () {
       get(getUrl,loadExpEdit);
@@ -1410,10 +1406,10 @@
         }
         eduCreateUrl = "/api/professional/professional_education/";
         eduUpdateUrl = "/api/professional/professional_education/"+edu_id+"/";
-        if(Object.keys(data).length>1 && $(this).hasClass("update-edu")){
+        if(Object.keys(data).length>1 && $(this).valid() && edu_id){
           put(eduUpdateUrl, JSON.stringify(data), loadEducation);
         }
-        if(Object.keys(data).length>1 && $(this).valid()){
+        if(Object.keys(data).length>1 && $(this).valid() && !edu_id){
           post(eduCreateUrl, JSON.stringify(data), loadEducation);
         }
 
@@ -1422,16 +1418,12 @@
       // }
     })
 
-      $('.edication-background').on('click','.update-education',function () {
-          var path = window.location.pathname.split('/');
-          var id = path[path.length-2];
-          var getUrl = '/api/professional/profile/'+ id + '/';
-          var obj_id = $(this).parent().find(".edu-object-id").val()
-          alert(obj_id)
-          loadEducationObject(obj_id)
+    $('.edication-background').on('click','.update-education',function () {
+      var obj_id = $(this).parent().find(".edu-object-id").val()
+      var getUrl = '/api/professional/professional_education_object/'+ obj_id + '/';
+      get(getUrl, loadEducationObject)
+    });
 
-
-      });
     $('.edication-background').on('click','.delete-education',function () {
           var path = window.location.pathname.split('/');
           var id = path[path.length-2];
@@ -1532,6 +1524,7 @@
   function divCounter(id){
     return $('.'+id).length;
   }
+
   function loadEducation(data) {
     console.log(data);
     if(data.status==200){
@@ -1567,10 +1560,12 @@
 
       if($('.edication-background').find(".education-label").length==0){
         console.log(data.responseJSON)
-        $('#edu-label').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
-                '                <i data-feather="edit-2"></i>\n' +
+        $('#edu-label').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-education">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
                 '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
-                '                <i data-feather="delete-2"></i>\n' +
+                '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
       }
@@ -1580,18 +1575,21 @@
             el.parent().remove()
         }
         else if(el.length>0){
-          el.parent().html('<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
-                '                <i data-feather="edit-2"></i>\n' +
+          el.parent().html('<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+                  '<button type="button" class="btn btn-primary edit-resume delete-education">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
                 '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
-                '                <i data-feather="delete-2"></i>\n' +
+                '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>');
         }
         else{
-          $('.education-label:last').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
+          $('.education-label:last').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-education">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+
+                '<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
-                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education" data-toggle="modal" data-target="#modal-education">\n' +
-                '                <i data-feather="delete-2"></i>\n' +
                 '              </button>'+
              '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
         }
@@ -1602,9 +1600,9 @@
     feather.replace();
   }
 
-  function loadEducationObject(obj_id,data) {
-        console.log(obj_id)
-        console.log(data)
+
+  function loadEducationObject(data) {
+    json2Form(data.edu_info, "education-form")
   }
 
   function loadExperience(data) {
