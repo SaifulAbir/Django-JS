@@ -236,6 +236,18 @@ def job_list(request):
         except EmptyPage:
             job_list = paginator.page(1)
 
+        for job in job_list:
+            try:
+                if job.company_name:
+                    if job.company_name.profile_picture:
+                        job.profile_picture = '/media/' + str(job.company_name.profile_picture)
+                    else:
+                        job.profile_picture = '/static/images/job/company-logo-2.png'
+                else:
+                    job.profile_picture = '/static/images/job/company-logo-2.png'
+            except Company.DoesNotExist:
+                job.profile_picture = '/static/images/job/company-logo-2.png'
+
 
         if request.user != "AnonymousUser":
             for job in job_list:
@@ -256,9 +268,9 @@ def job_list(request):
                     applied_job = None
 
                 if favourite_job is not None:
-                    job.status = YES_TXT
+                    job.is_favourite = YES_TXT
                 else:
-                    job.status = NO_TXT
+                    job.is_favourite = NO_TXT
 
                 if applied_job is not None:
                     job.is_applied = YES_TXT
@@ -471,13 +483,12 @@ def recent_jobs(request):
     for job in queryset:
         try:
             if request.user.is_authenticated:
-
                 favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
             else:
                 favourite_job = FavouriteJob.objects.get(job=job)
-
         except FavouriteJob.DoesNotExist:
             favourite_job = None
+
         try:
             if request.user.is_authenticated:
                 applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
@@ -485,6 +496,7 @@ def recent_jobs(request):
                 applied_job = ApplyOnline.objects.get(job=job)
         except ApplyOnline.DoesNotExist:
             applied_job = None
+
         if favourite_job is not None:
             job.is_favourite = YES_TXT
         else:
@@ -497,19 +509,15 @@ def recent_jobs(request):
 
         try:
             if job.company_name:
-
                 if job.company_name.profile_picture:
                     job.profile_picture = '/media/' + str(job.company_name.profile_picture)
                 else:
                     job.profile_picture = '/static/images/job/company-logo-2.png'
-
             else:
                 job.profile_picture = '/static/images/job/company-logo-2.png'
         except Company.DoesNotExist:
             job.profile_picture = '/static/images/job/company-logo-2.png'
-        
-        if job.address is None:
-            job.address = NO_LOCATION
+
         
         data.append(make_job_list_response(job))
 
