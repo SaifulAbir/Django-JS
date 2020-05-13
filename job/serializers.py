@@ -53,7 +53,8 @@ class GenderSerializer(serializers.ModelSerializer):
 
 
 class JobSerializer(serializers.ModelSerializer):
-    status = serializers.CharField(read_only=True)
+    profile_picture = serializers.CharField(read_only=True)
+    is_favourite = serializers.CharField(read_only=True)
     is_applied = serializers.CharField(read_only=True)
     class Meta:
         model = Job
@@ -71,7 +72,7 @@ class JobSerializer(serializers.ModelSerializer):
          'job_source_3','job_url_3' ,
          'created_by','created_at','modified_by','modified_at' ,
          'post_date','review_date','approve_date','publish_date' ,
-         'slug', 'applied_count', 'favorite_count', 'is_applied' )
+         'slug', 'applied_count', 'favorite_count', 'is_applied', 'is_favourite','profile_picture' )
 
 
 

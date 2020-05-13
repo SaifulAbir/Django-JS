@@ -13,12 +13,13 @@ from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 class JobAdmin(admin.ModelAdmin):
     filter_horizontal = ('job_skills',) # Many to many field
     list_display = ['title', 'company_name', 'created_at',  'post_date', 'created_by', 'status' ]
-    search_fields = ['title__icontains', 'industry__name__icontains', 'employment_status__name__icontains', 'job_location__icontains',
-                     'experience__name__icontains', 'qualification__name__icontains', 'gender__name__icontains',
-                     'company_name__name__icontains', 'division__name__icontains', 'district__name__icontains', 'zipcode__iexact','entry_date']
+    search_fields = ['title__icontains', 'company_name__name__icontains']
     date_hierarchy = 'created_at' # Top filter
     list_per_page = 15
-    list_filter = (('created_at', DateRangeFilter), ('post_date', DateRangeFilter))
+    list_filter = (('created_at', DateRangeFilter),
+                   ('post_date', DateRangeFilter),
+                   ('status', DropdownFilter),
+                   ('created_by', DropdownFilter))
     fields = [('title','status'),'company_name',('address','job_category','application_deadline'),
         ('job_gender','vacancy','experience'),
         ('salary','salary_min','salary_max','currency'),
