@@ -1258,12 +1258,14 @@
     $('#job-update-form').validate({
       errorClass: "my-error-class",
     });
+
     $('#experience-form').validate({
         errorClass: "my-error-class",
         errorPlacement: function(error, element) {
           error.insertAfter(element.parent());
         }
       });
+
     $('#education-form').validate({
         errorClass: "my-error-class",
         errorPlacement: function(error, element) {
@@ -1279,7 +1281,7 @@
     var staticUrl = '/api/professional/static_urls/';
     get(getUrl,loadsocial);
     get(getUrl,loadabout);
-    // get(getUrl,loadEdu);
+    get(getUrl,loadEdu);
     get(getUrl,loadExp);
     get(staticUrl,loadstatic);
     initAjaxSelects();
@@ -1648,48 +1650,31 @@
 
   }
 
-  // function loadEdu(data) {
-  //   console.log(data.edu_info)
-  //   // var totalDiv = $('#education-form').find(".input-block-edu");
-  //   // alert(totalDiv[0].find(".edu-div-lavel"))
-  //   var eduHtml = $(".education-label").html();
-  //   for(index=0;index<data.edu_info.length;index++){
-  //     var dateString = data.edu_info[index].enrolled_date;
-  //     var dateGraduationString = data.edu_info[index].graduation_date;
-  //
-  //     var momentObj = moment(dateString, 'YYYY-MM-DD');
-  //     var momentGraduationObj = moment(dateGraduationString, 'YYYY-MM-DD');
-  //     var dateEnrolledString = momentObj.format('YYYY');
-  //     var dateGraduationString = momentGraduationObj.format('YYYY');
-  //     var count = divCounter("input-block-edu")+1;
-  //     var eduDivHtml = $("#education-form .input-block-edu").html();
-  //     if(index==0){
-  //       $('#edu-label').after('<div class="education-label">'+'<a href="'+data.edu_info[index].id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">\n' +
-  //               '                <i data-feather="edit-2"></i>\n' +
-  //               '              </button>'+
-  //            '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');
-  //       $('.input-block-edu').remove();
-  //       count = divCounter("input-block-edu")+1;
-  //       $('#education-form').prepend('<div class="input-block-wrap input-block-edu update-edu edu-01" >'+eduDivHtml+'</div>');
-  //       $(".edu-div-lavel:last").text("0"+ count);
-  //       json2FormDiv(data.edu_info[index], "edu-01");
-  //       $('.edu-01 #institution').val(data.edu_info[index].institution_obj.id);
-  //       $('.edu-01 #major').val(data.edu_info[index].major_obj.id);
-  //
-  //     }
-  //     else if(index>=1){
-  //       $('.education-label:last').after('<div class="education-label">'+'<a href="'+data.edu_info[index].id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
-  //            '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');
-  //       count = divCounter("input-block-edu")+1;
-  //       $('.input-block-edu:last').after('<div class="input-block-wrap input-block-edu update-edu edu-0'+count+'" >'+eduDivHtml+'</div>');
-  //       $(".edu-div-lavel:last").text("0"+ count);
-  //       json2FormDiv(data.edu_info[index], "edu-0"+count);
-  //       $(".edu-0"+count+" #institution").val(data.edu_info[index].institution_obj.id);
-  //       $(".edu-0"+count+" #major").val(data.edu_info[index].major_obj.id);
-  //     }
-  //     feather.replace();
-  //     }
-  // }
+  function loadEdu(data) {
+
+    for(index=0;index<data.edu_info.length;index++){
+      var dateString = data.edu_info[index].enrolled_date;
+      var dateGraduationString = data.edu_info[index].graduation_date;
+      var momentObj = moment(dateString, 'YYYY-MM-DD');
+      var momentGraduationObj = moment(dateGraduationString, 'YYYY-MM-DD');
+      var dateEnrolledString = momentObj.format('DD/MM/YYYY');
+      var dateGraduationString = momentGraduationObj.format('DD/MM/YYYY');
+      var eduDivHtml = $("#education-form .input-block-edu").html();
+
+      if(index==0){
+        $('#edu-label').after('<div class="education-label">'+'<a href="'+data.edu_info[index].id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');
+
+      }
+      else if(index>=1){
+        $('.education-label:last').after('<div class="education-label">'+'<a href="'+data.edu_info[index].id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');
+      }
+      feather.replace();
+      }
+  }
 
   function loadExp(data) {
     console.log(data.experience_info);
