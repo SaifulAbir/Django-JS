@@ -61,10 +61,6 @@ urlpatterns = [
     path('terms-and-condition/', TemplateView.as_view(template_name='terms-and-condition.html'), name='terms-and-condition'),
     path('FAQ/', TemplateView.as_view(template_name='FAQ.html'), name='FAQ'),
     path('my_job_search/', TemplateView.as_view(template_name='my_job_search.html'), name='my_job_search'),
-    path('company_dashboard/', TemplateView.as_view(template_name='company_dashboard.html'), name='company_dashboard'),
-    path('company_manage_jobs/', TemplateView.as_view(template_name='company_manage_jobs.html'), name='company_manage_jobs'),
-    path('company_manage_candidates/', TemplateView.as_view(template_name='company_manage_candidate.html'),name='company_manage_candidates'),
-    path('company_shortlisted_candidates/', TemplateView.as_view(template_name='company_shortlisted_candidates.html'),name='company_shortlisted_candidates'),
 
 ]
 if settings.DEBUG:
