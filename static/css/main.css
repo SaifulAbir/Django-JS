@@ -468,8 +468,8 @@ a:focus {
   padding: 0;
   color: #ffffff;
   outline: none;
-  width: calc(50% - 110px);
-  margin-right: 30px;
+  width: calc(94% - 110px);
+  margin-right: 10px;
 }
 
 .banner-4 .banner-content .banner-search .search-form input::-webkit-input-placeholder {

@@ -100,19 +100,14 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav">
-                            <li class="menu-item active"><a href="/">Home</a></li>
-                            <li class="menu-item"><a href="{% url 'jobs' %}" >Jobs</a></li>
-                            <li class="menu-item"><a href="{% url 'career_advice' %}" >Career Advice</a></li>
-                            <li class="menu-item"><a href="{% url 'skill_check' %}" >Skill Check</a></li>
-                            <li class="menu-item"><a href="{% url 'about_us' %}">About Us</a></li>
-                            <li class="menu-item"><a  href="{% url 'contact_us' %}">Contact Us</a></li>
+                            {% include 'nav.html' %}
                         </ul>
                     </div>
-        <div class="menu-item">
-              <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i>  </a>
-              <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>
-              <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>
-                      </div>
+                    <div class="menu-item">
+                        <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i>  </a>
+                        <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>
+                        <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>
+                    </div>
                 </nav>
             </div>
         </div>
@@ -124,205 +119,32 @@
 {% endblock %}
 <!-- App Banner -->
 <div class="padding-top-90 padding-bottom-90 app-download-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="app-download">
-                        <h2>Get JobSearch App</h2>
-                        <p>Searching for jobs never been that easy. Now you can find job matched your career expectation</p>
-                        <div class="app-download-button">
-                            <a href="" class="apple-app">App Store</a>
-                            <a href="" class="android-app">Google Play</a>
-                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="app-download">
+                    <h2>Get JobSearch App</h2>
+                    <p>Searching for jobs never been that easy. Now you can find job matched your career expectation</p>
+                    <div class="app-download-button">
+                        <a href="" class="apple-app">App Store</a>
+                        <a href="" class="android-app">Google Play</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 <!-- App Banner End -->
 <!-- Footer -->
-    <!-- Footer -->
-    <footer class="footer-bg">
-      <div class="footer-top border-bottom section-padding-top padding-bottom-40">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="footer-logo">
-                <a href="{% url 'home' %}">
-                  <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">
-                </a>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="footer-social">
-                  <ul class="social-icons">
-              <a class="facebook-url" href=""><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i></a>
-              <a class="linkedin-url" href=""><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i></a>
-              <a class="twitter-url" href=""><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i></a>
-                  </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-widget-wrapper padding-bottom-60 padding-top-80">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-2 col-sm-6">
-              <div class="footer-widget footer-shortcut-link">
-                <h4>Information</h4>
-                <div class="widget-inner">
-                  <ul>
-                    <li><a href="{% url 'about_us' %}">About Us</a></li>
-                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
-                    <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
-                    <li><a href="{% url 'terms-and-condition' %}">Terms and Conditions</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2 col-sm-6">
-              <div class="footer-widget footer-shortcut-link">
-                <h4>Job Seekers</h4>
-                <div class="widget-inner">
-                  <ul>
-                    <li><a href="{% url 'register' %}">Create Account</a></li>
-                    <li><a href="{% url 'career_advice' %}">Career Advice</a></li>
-                    <li><a href="{% url 'my_job_search' %}">My Job Search</a></li>
-                    <li><a href="{% url 'FAQ' %}">FAQ</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2 col-sm-6">
-              <div class="footer-widget footer-shortcut-link">
-                   <h4>Address</h4>
+<!-- Footer -->
+{% include 'footer.html' %}
 
-
-
-                  <ul>
-                      <li>House 76 (Level 4)</li>
-                      <li>Road 4, Block B</li>
-                      <li>Niketan, Gulshan 1</li>
-                      <li>Dhaka 1212, Bangladesh</li>
-
-
-                  </ul>
-
-
-                <div class="widget-inner">
-
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-5 offset-lg-1 col-sm-6">
-              <div class="footer-widget footer-newsletter">
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom-area">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="footer-bottom border-top">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <p class="copyright-text">Copyright <a href="{% url 'home' %}">Job Search</a> 2020, All right reserved</p>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="back-to-top">
-                      <a href="#">Back to top<i class="fas fa-angle-up"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
 <!-- Footer End -->
 
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="{% static '/assets/js/jquery.min.js' %}"></script>
-<script src="{% static '/assets/js/popper.min.js' %}"></script>
-<script src="{% static '/assets/js/bootstrap.min.js' %}"></script>
-<script src="{% static '/assets/js/feather.min.js' %}"></script>
-<script src="{% static '/assets/js/bootstrap-select.min.js' %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-<script src="{% static '/assets/js/jquery.nstSlider.min.js' %}"></script>
-<script src="{% static '/assets/js/owl.carousel.min.js' %}"></script>
-<script src="{% static '/assets/js/visible.js' %}"></script>
-<script src="{% static '/assets/js/jquery.countTo.js' %}"></script>
-<script src="{% static '/assets/js/chart.js' %}"></script>
-<script src="{% static '/assets/js/plyr.js' %}"></script>
-{#<script src="{% static '/assets/js/tinymce.min.js' %}"></script>#}
-<script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
-<script src="{% static '/assets/js/slick.min.js' %}"></script>
-<script src="{% static '/assets/js/jquery.ajaxchimp.min.js' %}"></script>
-<script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
-<script src="{% static '/assets/js/jquery.cookie.min.js' %}"></script>
-<script src="{% static 'assets/js/jquery-ui.min.js' %}"></script>
-<script src="{% static 'js/custom.js' %}"></script>
-<script src="{% static 'js/select2.min.js' %}"></script>
-<script src="{% static 'js/jquery.validate.min.js' %}"></script>
-<script src="{% static '/assets/js/form2js.js' %}"></script>
-<script src="{% static 'js/common.js' %}"></script>
-<script src="{% static 'dashboard/js/dashboard.js' %}"></script>
-<script src="{% static 'dashboard/js/datePicker.js' %}"></script>
-<script src="{% static 'dashboard/js/upload-input.js' %}"></script>
-<script src="{% static 'js/moment.min.js'%}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE"></script>
-<script src="{% static 'js/map.js' %}"></script>
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-537d9c316bb7057a"></script>
-
-<script type="text/javascript">
-    $(function () {
-       TokenAuthenticate();
-        socialUrl = '/api/settings/';
-        get(socialUrl,loadSocialUrl);
-        get('/log/', loadUser);
-    });
-     function loadSocialUrl(data) {
-             if (data.length>0){
-            data = data[0];
-            $('.facebook-url').attr('href', data.facebook_url);
-            $('.linkedin-url').attr('href', data.linkedin_url);
-            $('.twitter-url').attr('href', data.twitter_url);
-            $('.apple-app').attr('href', data.appstore_url);
-            $('.android-app').attr('href', data.playstore_url);
-            }
-
-     }
-
-     function loadUser(data) {
-        if(data.length>=1){
-            $('.account-button').text(data[0].user.name);
-            $('.account-body a').text(data[0].user.name);
-            $('.account-body .mail').text(data[0].user.email);
-            id=data[0].user.id;
-            url = '/professional/myprofile/' + id ;
-              $('.pro').attr('href', url);
-
-
-        }
-    }
-
-
-
-</script>
 {% block extra_js %}
 
-
 {% endblock %}
+
 
 </body>
 </html>
