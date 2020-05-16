@@ -1438,6 +1438,7 @@
         var enrolled_date=$(this).find('#enrolled_date').val();
         var graduation_date=$(this).find('#graduation_date').val();
         var is_ongoing = $(this).find('#is_ongoing').is(':checked');
+        var description = $(this).find('#description').val()
         data = { "professional_id" : user}
         if(degree){
           data.degree_id = degree;
@@ -1457,8 +1458,11 @@
         if(major_text){
           data.major_text = major_text;
         }
+        if(description){
+          data.description = description;
+        }
         if(enrolled_date){
-            var momentObj = moment(enrolled_date, 'YYYY-MM-DD');
+            var momentObj = moment(enrolled_date, 'DD-MM-YYYY');
             var dateEnrolledString = momentObj.format('YYYY-MM-DD');
           data.enrolled_date = dateEnrolledString;
         }
@@ -1466,9 +1470,8 @@
             data.is_ongoing = is_ongoing
         }
         else{
-            var momentGraduationObj = moment(graduation_date, 'YYYY-MM-DD');
+            var momentGraduationObj = moment(graduation_date, 'DD-MM-YYYY');
             var dateGraduationString = momentGraduationObj.format('YYYY-MM-DD');
-            alert(dateGraduationString)
           data.graduation_date = dateGraduationString;
           data.is_ongoing = false
         }
@@ -1630,6 +1633,7 @@
       var dateGraduationString = data.responseJSON.graduation_date;
       var major_name = "";
       var institution_name = "";
+      var description = "";
       try{
         if(data.responseJSON.major_obj.name){
         major_name = data.responseJSON.major_obj.name;
@@ -1649,6 +1653,15 @@
           institution_name = "";
         }
       }
+      try {
+        if (data.responseJSON.description) {
+          description = data.responseJSON.description
+        }
+      }catch (e) {
+        if (e instanceof TypeError) {
+          description = "";
+        }
+      }
       var momentObj = moment(dateString, 'YYYY-MM-DD');
       var momentGraduationObj = moment(dateGraduationString, 'YYYY-MM-DD');
       var dateEnrolledString = momentObj.format('DD/MM/YYYY');
@@ -1661,7 +1674,6 @@
       $("#modal-education").find('form')[0].reset();
       $(".graduation-div").show();
       if($('.education-div').find(".education-label").length==0){
-        console.log(data.responseJSON)
         $('#edu-label').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+
                 '<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
                 '<button type="button" class="btn btn-primary edit-resume delete-education delete-icon">\n' +
@@ -1669,7 +1681,8 @@
                 '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
-             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
+             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+
+             '<p>'+ description + '</p>'+'</div>');
       }
       else {
         var el = $(".education-div").find("[value='"+ data.responseJSON.id +"']");
@@ -1683,7 +1696,8 @@
                 '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
-             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>');
+             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+
+              '<p>'+ description + '</p>');
         }
         else{
           $('.education-label:last').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
@@ -1693,7 +1707,8 @@
                 '<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
-             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
+             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+
+              '<p>'+ description + '</p>'+'</div>');
         }
       }
     }else{
@@ -1707,6 +1722,12 @@
       if(!data.edu_info['graduation_date']){
           delete data.edu_info['graduation_date']
       }
+      var momentObj = moment(data.edu_info['enrolled_date'], 'YYYY-MM-DD');
+      var momentGraduationObj = moment(data.edu_info['graduation_date'], 'YYYY-MM-DD');
+      var dateEnrolledString = momentObj.format('DD/MM/YYYY');
+      var dateGraduationString = momentGraduationObj.format('DD/MM/YYYY');
+      data.edu_info['enrolled_date'] = dateEnrolledString
+      data.edu_info['graduation_date'] = dateGraduationString
     json2Form(data.edu_info, "education-form")
       $('#graduation_date').val('')
       if(data.edu_info.is_ongoing){
@@ -1799,6 +1820,9 @@
       if(dateGraduationString == "Invalid date" && data.edu_info[index].is_ongoing == true){
           dateGraduationString = "Ongoing";
       }
+      if(!data.edu_info[index].description){
+          data.edu_info[index].description =''
+      }
       var eduDivHtml = $("#education-form .input-block-edu").html();
 
       if(index==0){
@@ -1807,7 +1831,8 @@
                 '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
-             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_text+'</span></h5>'+'</div>');
+             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_text+'</span></h5>'+
+            '<p>'+ data.edu_info[index].description + '</p>'+'</div>');
 
       }
       else if(index>=1){
@@ -1816,7 +1841,8 @@
                 '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
-             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_text+'</span></h5>'+'</div>');
+             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_text+'</span></h5>'+
+            '<p>'+ data.edu_info[index].description + '</p>'+'</div>');
       }
       feather.replace();
       }
