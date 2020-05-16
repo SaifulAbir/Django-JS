@@ -1,6 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from job.api import *
+from job.api_job_list import similar_jobs, applied_jobs, favourite_jobs, recent_jobs, job_list
 from job.api_job_related import get_job_site_list, JobSourceList, get_job_nature_list, get_job_type_list, \
     get_job_status_list, get_job_creator_type_list, JobCategoryList, JobGenderList
 
@@ -12,8 +13,6 @@ urlpatterns = [
     path('update/<str:pk>/', TemplateView.as_view(template_name='update-job.html')),
     path('company/', CompanyList.as_view()),
     path('company/search/', get_company_by_name),
-    path('job_list/', job_list),
-    path('job_list/', JobList.as_view()),
     path('industry/', IndustryList.as_view()),
     path('job_type/', JobTypeList.as_view()),
     path('experience/', Experience.as_view()),
@@ -30,16 +29,18 @@ urlpatterns = [
     path('trending_keyword_show/', TrendingKeywordPopulate.as_view()),
     path('popular_categories/', PopularCategories.as_view()),
     path('top_skills/', TopSkills.as_view()),
-    path('recent_jobs/', recent_jobs),
     path('vital_stats/', vital_stats),
-    path('similar_jobs/<str:identifier>/', similar_jobs),
     path('popular_jobs/', PopularJobs.as_view()),
     path('salary_range/', salary_range),
     path('skill_list/', SkillList.as_view()),
     path('apply_online_job_add/', apply_online_job_add),
-    path('applied_jobs/', applied_jobs),
-    path('favourite-jobs/',favourite_jobs),
     path('favourite-jobs-delete/<str:identifier>/', del_fav_jobs),
+
+    path('api/job_list/', job_list),
+    path('api/recent_jobs/', recent_jobs),
+    path('api/applied_jobs/', applied_jobs),
+    path('api/favourite-jobs/',favourite_jobs),
+    path('api/similar_jobs/<str:identifier>/', similar_jobs),
     path('api/job-source/list/', JobSourceList.as_view()),
     path('api/job-category/list/', JobCategoryList.as_view()),
     path('api/job-gender/list/', JobGenderList.as_view()),
