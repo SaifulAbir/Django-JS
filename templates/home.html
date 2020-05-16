@@ -11,7 +11,7 @@
                     <h1>All the great jobs in one place!</h1>
                     <p> Find Jobs, Employment & Career Opportunities</p>
                     <div class="banner-search">
-                        <form action="/job-list/" id="search-form" class="search-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate" autocomplete="off">
+                        <form action="/job-list/" id="search-form" class="search-form" method="POST" novalidate="novalidate" autocomplete="off">
                             <input type="text" name="keyword" id="keyword" placeholder="Enter Keywords">
                             <button class="button primary-bg"><i class="fas fa-search" style="color:#ffffff;"></i>Search Job</button>
                             <div class="error-msg-location alert alert-danger" style="text-align: left;position: relative; top: 17px; display: none;"></div>
@@ -388,7 +388,7 @@
     }
 
     function loadAdvice(data) {
-        len= data.length;
+        len= data.length;``
         for(x=0;x<len;x++){
             var dateString = data[x].created_date
             var momentObj = moment(dateString, 'YYYY-MM-DD');
