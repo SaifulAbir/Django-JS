@@ -52,6 +52,7 @@ urlpatterns = [
     path('organization/', OrganizationList.as_view()),
     path('major/', MajorList.as_view()),
     path('institute/', InstituteList.as_view()),
+    path('institute_search/', InstituteSearch.as_view()),
     path('certificate_name/', CertificateNameList.as_view()),
     path('applied-jobs/', TemplateView.as_view(template_name='applied_jobs.html'),name='applied_jobs'),
     path('favourite_jobs/', TemplateView.as_view(template_name='favourite_jobs.html'),name='favourite_jobs'),

@@ -324,6 +324,11 @@ class InstituteList(generics.ListCreateAPIView):
     queryset = Institute.objects.all()
     serializer_class = InstituteNameSerializer
 
+class InstituteSearch(generics.ListCreateAPIView):
+    queryset = Institute.objects.all()
+    serializer_class = InstituteSearchSerializer
+
+
 class OrganizationList(generics.ListCreateAPIView):
     queryset = Organization.objects.all()
     serializer_class = OrganizationNameSerializer
