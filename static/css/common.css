@@ -311,3 +311,7 @@ a.save.apply.active {
 }
 
 .datepicker{z-index:1151 !important;}
+
+.twitter-typeahead, .tt-hint, .tt-input, .tt-menu {
+    width: 100%;
+}
