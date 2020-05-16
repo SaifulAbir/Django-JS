@@ -1487,19 +1487,6 @@
       // }
     })
 
-
-    $('.education-div').on('click','.update-education',function () {
-      var obj_id = $(this).parent().find(".edu-object-id").val()
-      var getUrl = '/api/professional/professional_education_object/'+ obj_id + '/';
-      get(getUrl, loadEducationObject)
-    });
-
-
-    $('.education-div').on('click','.delete-education',function () {
-        var obj_id = $(this).parent().find(".edu-object-id").val();
-        showQuestion('Delete','Do You Want to delete?', function(){eduDelete(obj_id);});
-      });
-
     $.validator.addMethod("greaterThan",
     function(value, element, params) {
 
@@ -1510,6 +1497,19 @@
     return isNaN(value) && isNaN($(params).val())
         || (Number(value) > Number($(params).val()));
     },'Must be greater than Enrolled Date.');
+
+
+    $('.education-div').on('click','.update-education',function () {
+      var obj_id = $(this).parent().find(".edu-object-id").val()
+      var getUrl = '/api/professional/professional_education_object/'+ obj_id + '/';
+      get(getUrl, loadEducationObject);
+    });
+
+
+    $('.education-div').on('click','.delete-education',function () {
+        var obj_id = $(this).parent().find(".edu-object-id").val();
+        showQuestion('Delete','Do You Want to delete?', function(){eduDelete(obj_id);});
+      });
 
 
     // If social URL is emtpy then add space in value for skipping database data saving problem
@@ -1705,17 +1705,12 @@
 
 
   function loadEducationObject(data) {
+    delete data.edu_info['graduation_date']
     json2Form(data.edu_info, "education-form")
       $('#graduation_date').val('')
       if(data.edu_info.is_ongoing){
           $('#is_ongoing').prop('checked',true)
-          $('#modal-education').on('shown.bs.modal',function () {
-              $('#graduation_date').rules('remove');
-              $('#graduation_date').prop('disabled',true)
-          })
-
-
-
+          $('#graduation_date').prop('disabled',true)
       }
   }
 
