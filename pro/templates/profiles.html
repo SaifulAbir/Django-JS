@@ -1299,7 +1299,7 @@
           error.insertAfter(element.parent());
         },
         rules: {
-          graduation_date: { greaterThan: "#enrolled_date" }
+          graduation_date: { greaterThan: "#enrolled_date" },
         }
       });
 
@@ -1330,6 +1330,7 @@
     $('#is_ongoing').click(function () {
       if($(this).prop("checked")){
         $('#graduation_date').prop("disabled", true);
+        $('#graduation_date-error').html('')
       }
       else{
         $('#graduation_date').prop("disabled", false);
