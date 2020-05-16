@@ -229,6 +229,8 @@ class ProfessionalDetail(APIView):
             'major_text':edu.major_text,
             'enrolled_date': edu.enrolled_date,
             'graduation_date': edu.graduation_date,
+            'description': edu.description,
+            'is_onging' :edu.is_ongoing
         } for edu in education
         ]
 
@@ -321,6 +323,11 @@ class NationalityList(generics.ListCreateAPIView):
 class InstituteList(generics.ListCreateAPIView):
     queryset = Institute.objects.all()
     serializer_class = InstituteNameSerializer
+
+class InstituteSearch(generics.ListCreateAPIView):
+    queryset = Institute.objects.all()
+    serializer_class = InstituteSearchSerializer
+
 
 class OrganizationList(generics.ListCreateAPIView):
     queryset = Organization.objects.all()
@@ -814,6 +821,9 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
         if "institution_id" in request.data:
             request.data["institution"] = request.data["institution_id"]
             del request.data["institution_id"]
+        if "major_id" in request.data:
+            request.data["major"] = request.data["major_id"]
+            del request.data["major_id"]
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalEducationSerializer(ProfessionalEducation.objects.get(pk=pk)).data
         if 'institution' in request.data and request.data['institution'] is not None:
