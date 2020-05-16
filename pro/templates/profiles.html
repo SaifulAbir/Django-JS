@@ -527,7 +527,7 @@
                               </div>
                             </div>
                             <div class="form-group row">
-                              <div class="col-sm-9 offset-sm-3">
+                              <div class="col-sm-4 offset-sm-3">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Enrolled</div>
@@ -535,9 +535,7 @@
                                   <input type="text" name="enrolled_date" id="enrolled_date" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="" required data-msg-required="Enrolled date is required">
                                 </div>
                               </div>
-                            </div>
-                            <div class="form-group row graduation-div">
-                              <div class="col-sm-9 offset-sm-3">
+                              <div class="col-sm-5">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Graduation</div>
@@ -555,9 +553,9 @@
 <!--                                  <input type="checkbox" name="on_going" id="on_going" class="form-control" value="">-->
 <!--                                </div>-->
                                 <div class="mt-0 terms">
-                                <input class="custom-radio" type="checkbox" id="on_going" name="on_going">
-                                <label for="on_going">
-                                    <span class="dot"></span> On Going
+                                <input type="checkbox" id="is_ongoing" name="is_ongoing">
+                                <label for="is_ongoing">
+                                    <span class="dot"></span> Ongoing
                                 </label>
                             </div>
                               </div>
@@ -1329,14 +1327,43 @@
       get(getUrl,loadExpEdit);
     });
 
-    $('#on_going').click(function () {
+    $('#is_ongoing').click(function () {
       if($(this).prop("checked")){
-        $(".graduation-div").hide();
+        $('#graduation_date').prop("disabled", true);
       }
       else{
-        $(".graduation-div").show();
+        $('#graduation_date').prop("disabled", false);
       }
     })
+
+    // function autoSuggesion(url, id) {
+    //     var previousItems = new Bloodhound({
+    //         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+    //         queryTokenizer: Bloodhound.tokenizers.whitespace,
+    //         prefetch: {
+    //             url: url,
+    //             filter: function(list) {
+    //                 return $.map(list, function(itemname) {
+    //                     return { name: itemname }; });
+    //             }
+    //         }
+    //     });
+    //     previousItems.initialize();
+    //     $(id).typeahead({
+    //             hint: true,
+    //             highlight: true, /* Enable substring highlighting */
+    //             minLength: 2 /* Specify minimum characters required for showing result */
+    //         },
+    //         {
+    //
+    //             name: 'previousItems',
+    //             displayKey: 'name',
+    //             valueKey: 'name',
+    //             source: previousItems.ttAdapter()
+    //         });
+    // }
+    //
+    // autoSuggesion('/load_previous_schools/', "input[name='name_contains']");
 
     // datepicker on the date inputs
     $( ".datepicker" ).datepicker({
