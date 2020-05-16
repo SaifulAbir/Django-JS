@@ -819,7 +819,7 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
         if "major_id" in request.data:
             request.data["major"] = request.data["major_id"]
             del request.data["major_id"]
-        if 'is_ongoing' in request.data:
+        if 'is_ongoing' in request.data and request.data['is_ongoing'] == True:
             request.data['graduation_date'] = None
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalEducationSerializer(ProfessionalEducation.objects.get(pk=pk)).data

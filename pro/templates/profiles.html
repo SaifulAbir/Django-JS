@@ -1337,9 +1337,6 @@
       }
       else{
         $('#graduation_date').prop("disabled", false);
-        $('#graduation_date').rules('add',{
-            graduation_date: { greaterThan: "#enrolled_date" },
-        });
 
       }
     })
@@ -1471,7 +1468,9 @@
         else{
             var momentGraduationObj = moment(graduation_date, 'YYYY-MM-DD');
             var dateGraduationString = momentGraduationObj.format('YYYY-MM-DD');
+            alert(dateGraduationString)
           data.graduation_date = dateGraduationString;
+          data.is_ongoing = false
         }
         eduCreateUrl = "/api/professional/professional_education/";
         eduUpdateUrl = "/api/professional/professional_education/"+edu_id+"/";
@@ -1705,7 +1704,9 @@
 
 
   function loadEducationObject(data) {
-    delete data.edu_info['graduation_date']
+      if(!data.edu_info['graduation_date']){
+          delete data.edu_info['graduation_date']
+      }
     json2Form(data.edu_info, "education-form")
       $('#graduation_date').val('')
       if(data.edu_info.is_ongoing){
