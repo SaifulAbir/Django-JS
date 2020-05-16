@@ -1722,12 +1722,15 @@
       if(!data.edu_info['graduation_date']){
           delete data.edu_info['graduation_date']
       }
+      if(data.edu_info['graduation_date']){
+          var momentGraduationObj = moment(data.edu_info['graduation_date'], 'YYYY-MM-DD');
+          var dateGraduationString = momentGraduationObj.format('DD/MM/YYYY');
+          data.edu_info['graduation_date'] = dateGraduationString
+      }
       var momentObj = moment(data.edu_info['enrolled_date'], 'YYYY-MM-DD');
-      var momentGraduationObj = moment(data.edu_info['graduation_date'], 'YYYY-MM-DD');
       var dateEnrolledString = momentObj.format('DD/MM/YYYY');
-      var dateGraduationString = momentGraduationObj.format('DD/MM/YYYY');
       data.edu_info['enrolled_date'] = dateEnrolledString
-      data.edu_info['graduation_date'] = dateGraduationString
+
     json2Form(data.edu_info, "education-form")
       $('#graduation_date').val('')
       if(data.edu_info.is_ongoing){
