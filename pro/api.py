@@ -230,7 +230,7 @@ class ProfessionalDetail(APIView):
             'enrolled_date': edu.enrolled_date,
             'graduation_date': edu.graduation_date,
             'description': edu.description,
-            'is_onging' :edu.is_ongoing
+            'is_ongoing' :edu.is_ongoing
         } for edu in education
         ]
 
@@ -819,6 +819,8 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
         if "major_id" in request.data:
             request.data["major"] = request.data["major_id"]
             del request.data["major_id"]
+        if 'is_ongoing' in request.data:
+            request.data['graduation_date'] = None
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalEducationSerializer(ProfessionalEducation.objects.get(pk=pk)).data
         if 'institution' in request.data and request.data['institution'] is not None:
@@ -999,5 +1001,4 @@ class EducationObject(APIView):
 api_view('GET')
 def institute_search(request):
     names = list(Institute.objects.values_list('name',flat=True))
-
     return HttpResponse(json.dumps(names),'application/json')
