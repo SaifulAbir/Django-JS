@@ -324,11 +324,6 @@ class InstituteList(generics.ListCreateAPIView):
     queryset = Institute.objects.all()
     serializer_class = InstituteNameSerializer
 
-class InstituteSearch(generics.ListCreateAPIView):
-    queryset = Institute.objects.all()
-    serializer_class = InstituteSearchSerializer
-
-
 class OrganizationList(generics.ListCreateAPIView):
     queryset = Organization.objects.all()
     serializer_class = OrganizationNameSerializer
@@ -999,3 +994,10 @@ class EducationObject(APIView):
             'edu_info': education,
         }
         return Response(edu_data)
+
+
+api_view('GET')
+def institute_search(request):
+    names = list(Institute.objects.values_list('name',flat=True))
+
+    return HttpResponse(json.dumps(names),'application/json')

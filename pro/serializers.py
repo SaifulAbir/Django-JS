@@ -85,7 +85,7 @@ class InstituteNameSerializer(serializers.ModelSerializer):
 class InstituteSearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institute
-        fields = ['name',]
+        fields = '__all__'
 
 
 
