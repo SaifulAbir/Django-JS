@@ -485,7 +485,7 @@
                               </div>
                             </div>
                             <div class="form-group row">
-                              <div class="col-sm-9 offset-sm-3">
+                              <div class="col-sm-4 offset-sm-3">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">CGPA</div>
@@ -493,9 +493,7 @@
                                   <input type="text" name="cgpa" id="cgpa" class="form-control" >
                                 </div>
                               </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
+                              <div class="col-sm-5">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Major</div>
@@ -504,7 +502,10 @@
                                   </select>
                                 </div>
                               </div>
+
                             </div>
+<!--                            <div class="form-group row">-->
+<!--                            </div>-->
                             <div class="form-group row display-none">
                               <div class="col-sm-9 offset-sm-3">
                                 <div class="input-group">
@@ -519,13 +520,23 @@
                               <div class="col-sm-9 offset-sm-3">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
+                                    <div class="input-group-text">Description</div>
+                                  </div>
+                                  <textarea type="text" name="description" id="description" class="form-control" ></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
                                     <div class="input-group-text">Enrolled</div>
                                   </div>
                                   <input type="text" name="enrolled_date" id="enrolled_date" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="" required data-msg-required="Enrolled date is required">
                                 </div>
                               </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row graduation-div">
                               <div class="col-sm-9 offset-sm-3">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
@@ -535,11 +546,27 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">On Going</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="checkbox" name="on_going" id="on_going" class="form-control" value="">-->
+<!--                                </div>-->
+                                <div class="mt-0 terms">
+                                <input class="custom-radio" type="checkbox" id="on_going" name="on_going">
+                                <label for="on_going">
+                                    <span class="dot"></span> On Going
+                                </label>
+                            </div>
+                              </div>
+                            </div>
                           </div>
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg edu-submit">Save Update</button>
+                                <button class="primary-bg edu-submit">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -1272,6 +1299,9 @@
         errorClass: "my-error-class",
         errorPlacement: function(error, element) {
           error.insertAfter(element.parent());
+        },
+        rules: {
+          graduation_date: { greaterThan: "#enrolled_date" }
         }
       });
 
@@ -1299,11 +1329,23 @@
       get(getUrl,loadExpEdit);
     });
 
+    $('#on_going').click(function () {
+      if($(this).prop("checked")){
+        $(".graduation-div").hide();
+      }
+      else{
+        $(".graduation-div").show();
+      }
+    })
+
     // datepicker on the date inputs
     $( ".datepicker" ).datepicker({
       autoclose: false,
       todayHighlight: true,
       dateFormat: 'dd/mm/yy'
+    }).on('change', function() {
+    $(this).valid();  // triggers a validation test
+    // $(this) refers to $('#eventDate')
     });
 
 
@@ -1432,27 +1474,30 @@
       // }
     })
 
+
     $('.education-div').on('click','.update-education',function () {
       var obj_id = $(this).parent().find(".edu-object-id").val()
       var getUrl = '/api/professional/professional_education_object/'+ obj_id + '/';
       get(getUrl, loadEducationObject)
     });
 
+
     $('.education-div').on('click','.delete-education',function () {
-          var path = window.location.pathname.split('/');
-          var id = path[path.length-2];
-          var obj_id = $(this).parent().find(".edu-object-id").val()
-          eduUpdateUrl = "/api/professional/professional_education/"+obj_id+"/";
-          data={
-              'is_archived':true
-          }
-          put(eduUpdateUrl, JSON.stringify(data), loadEducation);
-          {#showQuestion('Delete','Do You Want to delete?',eduDelete(obj_id))#}
-          {#alert(obj_id)#}
-          {#loadEducationObject(obj_id)#}
-
-
+        var obj_id = $(this).parent().find(".edu-object-id").val();
+        showQuestion('Delete','Do You Want to delete?', function(){eduDelete(obj_id);});
       });
+
+    $.validator.addMethod("greaterThan",
+    function(value, element, params) {
+
+    if (!/Invalid|NaN/.test(new Date(value))) {
+        return new Date(value) > new Date($(params).val());
+    }
+
+    return isNaN(value) && isNaN($(params).val())
+        || (Number(value) > Number($(params).val()));
+    },'Must be greater than Enrolled Date.');
+
 
     // If social URL is emtpy then add space in value for skipping database data saving problem
     $(".social-network-update").click(function(){
@@ -1569,9 +1614,15 @@
       var momentGraduationObj = moment(dateGraduationString, 'YYYY-MM-DD');
       var dateEnrolledString = momentObj.format('DD/MM/YYYY');
       var dateGraduationString = momentGraduationObj.format('DD/MM/YYYY');
+      if(dateEnrolledString == "Invalid date"){
+        dateEnrolledString = "";
+      }
+      if(dateGraduationString == "Invalid date"){
+        dateGraduationString = "";
+      }
       $("#modal-education").modal("hide");
       $("#modal-education").find('form')[0].reset();
-
+      $(".graduation-div").show();
       if($('.education-div').find(".education-label").length==0){
         console.log(data.responseJSON)
         $('#edu-label').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+
@@ -1697,6 +1748,12 @@
       var momentGraduationObj = moment(dateGraduationString, 'YYYY-MM-DD');
       var dateEnrolledString = momentObj.format('DD/MM/YYYY');
       var dateGraduationString = momentGraduationObj.format('DD/MM/YYYY');
+      if(dateEnrolledString == "Invalid date"){
+        dateEnrolledString = "";
+      }
+      if(dateGraduationString == "Invalid date"){
+        dateGraduationString = "";
+      }
       var eduDivHtml = $("#education-form .input-block-edu").html();
 
       if(index==0){
@@ -1856,10 +1913,15 @@
 
 
   function eduDelete(obj_id) {
-        alert(obj_id)
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    eduUpdateUrl = "/api/professional/professional_education/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(eduUpdateUrl, JSON.stringify(data), loadEducation);
   }
-
-
 
 </script>
 {% endblock %}
