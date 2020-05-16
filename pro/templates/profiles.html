@@ -414,7 +414,8 @@
             </div>
 
             <div class="edication-background details-section dashboard-section">
-              <h4 id="edu-label"><i data-feather="book"></i>Education</h4>
+              <div class="education-div">
+                <h4 id="edu-label"><i data-feather="book"></i>Education</h4>
               <a href="#" id="add-education" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-education">+ Add Education</a>
 
 <!--              <div class="education-label">-->
@@ -436,6 +437,7 @@
 {#              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">#}
 {#                <i data-feather="edit-2"></i>#}
 {#              </button>#}
+              </div>
               <!-- Modal -->
               <div class="modal fade modal-education" id="modal-education" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -1430,13 +1432,13 @@
       // }
     })
 
-    $('.edication-background').on('click','.update-education',function () {
+    $('.education-div').on('click','.update-education',function () {
       var obj_id = $(this).parent().find(".edu-object-id").val()
       var getUrl = '/api/professional/professional_education_object/'+ obj_id + '/';
       get(getUrl, loadEducationObject)
     });
 
-    $('.edication-background').on('click','.delete-education',function () {
+    $('.education-div').on('click','.delete-education',function () {
           var path = window.location.pathname.split('/');
           var id = path[path.length-2];
           var obj_id = $(this).parent().find(".edu-object-id").val()
@@ -1570,7 +1572,7 @@
       $("#modal-education").modal("hide");
       $("#modal-education").find('form')[0].reset();
 
-      if($('.edication-background').find(".education-label").length==0){
+      if($('.education-div').find(".education-label").length==0){
         console.log(data.responseJSON)
         $('#edu-label').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+
                 '<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
@@ -1582,7 +1584,7 @@
              '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
       }
       else {
-        var el = $(".edication-background").find("[value='"+ data.responseJSON.id +"']");
+        var el = $(".education-div").find("[value='"+ data.responseJSON.id +"']");
         if(el.length>0 && data.responseJSON.is_archived == true){
             el.parent().remove()
         }
