@@ -1,6 +1,9 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from job.api import *
+from job.api_job_related import get_job_site_list, JobSourceList, get_job_nature_list, get_job_type_list, \
+    get_job_status_list, get_job_creator_type_list, JobCategoryList, JobGenderList
+
 urlpatterns = [
     path('post-job/', TemplateView.as_view(template_name='post-job.html'), name='post_job'),
     path('validation-test', TemplateView.as_view(template_name='company-create.html')),
@@ -37,6 +40,15 @@ urlpatterns = [
     path('applied_jobs/', applied_jobs),
     path('favourite-jobs/',favourite_jobs),
     path('favourite-jobs-delete/<str:identifier>/', del_fav_jobs),
+    path('api/job-source/list/', JobSourceList.as_view()),
+    path('api/job-category/list/', JobCategoryList.as_view()),
+    path('api/job-gender/list/', JobGenderList.as_view()),
+    path('api/job-site/list', get_job_site_list),
+    path('api/job-nature/list', get_job_nature_list),
+    path('api/job-type/list', get_job_type_list),
+    path('api/job-status/list', get_job_status_list),
+    path('api/job-creator-type/list', get_job_creator_type_list),
+
     path('post-a-job/', TemplateView.as_view(template_name='post_a_job.html')),
     path('company-edit-profile/', TemplateView.as_view(template_name='company_edit_profile.html')),
     path('company-sign-in/', TemplateView.as_view(template_name='company_sign_in.html')),
