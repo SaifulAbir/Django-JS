@@ -249,9 +249,32 @@
     </div>
     <!-- Candidates Details End -->
 
-
-
-
-
-
  {% endblock %}
+
+
+ {% block extra_js %}
+    <script>
+        $(document).ready(function() {
+
+            var path = window.location.pathname.split('/');
+            var id = path[path.length-2];
+
+            var getUrl = '/api/professional/profile/'+ id + '/';
+            get(getUrl, loadProfile);
+
+            initAjaxForms();
+
+        });
+
+        function loadProfile(data){
+
+                  console.log('data' , data)
+
+
+
+
+        }
+
+
+    </script>
+{% endblock %}
