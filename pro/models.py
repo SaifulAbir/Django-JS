@@ -173,8 +173,8 @@ class WorkExperience(models.Model):
     created_at = models.CharField(max_length=255, blank=True, null=True)
     modified_at = models.CharField(max_length=255, blank=True, null=True)
     is_archived = models.BooleanField(default=False)
-    currently_working_here = models.BooleanField(default=False)
-
+    is_currently_working = models.BooleanField(default=False)
+    description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         db_table = 'work_experiences'
