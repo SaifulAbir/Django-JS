@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">git st
+            <div class="col-lg-4 col-md-6">
                 <div class="explore-job">
                     <div class="explore-job-header">
                         <h5 class="title">Top Companies</h5>
@@ -269,7 +269,7 @@
         get(skills_url,loadSkills);
         get(recentJobsUrl,loadJobs);
         get(testimonialrUrl,loadTestimonial);
-        get(popularJobsUrl,loadPopularJobs);
+       // get(popularJobsUrl,loadPopularJobs);
         get(jobAlertUrl, loadJobAlert);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
         applyOnlineJobAddRemove('job-list', '/api/apply_online_job_add/');
@@ -284,6 +284,12 @@
             $('#category-list').append('<li><a href="#">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
         }
     }
+
+    {#function loadCategory(data) {#}
+    {#    for(index=0;index<data.length;index++){#}
+    {#        $('#category-list').append('<li><a href="/api/job-list/?top-category='+ data[index].name +'">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')#}
+    {#    }#}
+    {#}#}
 
     function loadTestimonial(data) {
         for(index=0;index<data.length;index++){
@@ -311,11 +317,7 @@
 
     }
 
-    function loadCategory(data) {
-        for(index=0;index<data.length;index++){
-            $('#category-list').append('<li><a href="/api/job-list/?top-category='+ data[index].name +'">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
-        }
-    }
+
 
     function loadSkills(data) {
         for(index=0;index<data.length;index++){
@@ -324,7 +326,7 @@
     }
 
     function loadPopularJobs(data) {
-        console.log(data.company_list[0]);
+
         for(index=0;index<data.company_list.length;index++){
             $('#popular-job-list').append('<li><a href="/api/job-list/?top-company='+ data.company_list[index].company_name +'">'+ data.company_list[index].company_name +'<span>('+ data.company_list[index].company_count +')</span></a></li>')
         }
