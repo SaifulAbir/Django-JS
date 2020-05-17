@@ -64,13 +64,13 @@
     </div>
 </header>
 
-<div class="padding-top-90 padding-bottom-90 access-page-bg">
+<div class="padding-top-100 padding-bottom-100 access-page-bg">
     <div class="container padding-top-100">
         <div class="row">
-            <div id="form-box" class="col-xl-4 col-md-6">
+            <div class="col-xl-5 col-md-6">
                 <div class="access-form">
                     <div class="form-header">
-                        <h5><i data-feather="edit"></i>Reset Password</h5>
+                        <h5 class="green-color"><i class="fas fa-check-square padding-icon-10 green-color"></i>Email is sent successfully with recovery link.</h5>
                     </div>
                     <div class="account-type display-none">
                         <label for="idRegisterCan">
@@ -84,7 +84,7 @@
                     </div>
                     <form action="/api/professional/password_reset/" id="forget-password-form" novalidate="novalidate" method="post" class="ajax" data-callback="forgetPasswordCallback">
                         <div class="form-group">
-                            <input type="email" name="email" id="email"  placeholder="Email Address" class="form-control" required data-msg-required="Please enter a valid email">
+                            <input type="email" name="email" id="email"  placeholder="Email Address" class="form-control display-none" required data-msg-required="Please enter a valid email">
 
                         </div>
                         <div class="form-group display-none">
@@ -101,7 +101,7 @@
                                 </label>
                             </div>
                         </div>
-                        <button class="button primary-bg btn-block">Send Email</button>
+                        <a class="button primary-bg btn-block text-center" href="/professional/forget-password/">Reset Password Again</a>
                     </form>
                     <div class="shortcut-login">
                         <span class="display-none">Or connect with</span>
@@ -144,25 +144,23 @@
 <script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
 <script>
     $(document).ready(function() {
-        $("#forget-password-form").validate({
-            errorClass : 'my-error-class'
-        });
-        initAjaxForms();
+        // $("#forget-password-form").validate({
+        //     errorClass : 'my-error-class'
+        // });
+        // initAjaxForms();
     });
-    function  forgetPasswordCallback(data){
-        if(data.status == 200){
-            $("#forget-password-form").toggle();
-            $(".access-page-bg").removeClass("padding-top-90 padding-bottom-90");
-            $(".access-page-bg").addClass("padding-top-150 padding-bottom-150");
-            $("#form-box").removeClass("col-xl-4").addClass("col-xl-5");
-            $(".form-header").html('<h5 class="green-color"><i class="fas fa-check-square green-color padding-icon-10"></i>Email is sent successfully with recovery link.</h5>');
-            // showSuccess("Email Sent","Email sent succesesfully")
-            // window.location.href = "/professional/reset-password-email/";
-        }
-        else {
-            showError('Email Not Sent!','Enter A Valid Email')
-        }
-    };
+    // function  forgetPasswordCallback(data){
+    //     if(data.status == 200){
+    //         $("#forget-password-form").toggle();
+    //         $(".access-page-bg").removeClass("padding-top-90 padding-bottom-90");
+    //         $(".access-page-bg").addClass("padding-top-150 padding-bottom-150");
+    //         $(".form-header").html('<h5><i data-feather="edit"></i>Email is sent successfully with recovery link.</h5>');
+    //         // showSuccess("Email Sent","Email sent succesesfully")
+    //     }
+    //     else {
+    //         showError('Email Not Sent!','Enter A Valid Email')
+    //     }
+    // };
 </script>
 </body>
 
