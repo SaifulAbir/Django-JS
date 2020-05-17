@@ -18,3 +18,5 @@ admin.site.register(Membership)
 admin.site.register(Reference)
 admin.site.register(Certification)
 admin.site.register(ProRecentActivity)
+admin.site.register(WorkExperience)
+

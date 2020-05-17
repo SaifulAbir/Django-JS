@@ -66,18 +66,18 @@
 
 
 
-                    <div class="experience details-section">
+                    <div class="experience details-section" id="work">
                       <h4><i data-feather="briefcase"></i>Work Experiance</h4>
-                      <div class="experience-section">
-                        <span class="service-year">2016 - Present</span>
-                        <h5>Lead UI/UX Designer<span>@ Codepassengers LTD</span></h5>
-                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-                      </div>
-                      <div class="experience-section">
-                        <span class="service-year">2012 - 2016</span>
-                        <h5>Former Graphic Designer<span>@ Graphicreeeo CO</span></h5>
-                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-                      </div>
+
+
+<!--                      <div class="experience-section" >-->
+<!--                        <span class="service-year">2016 - Present</span>-->
+<!--                        <h5>Lead UI/UX Designer<span>@ Codepassengers LTD</span></h5>-->
+<!--                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--                      </div>-->
+
+
+
                     </div>
 
 
@@ -419,8 +419,8 @@
 
    //view profile Education Background
 
-           edu_data = data['edu_info']
-            console.log('edu_data' , edu_data)
+            edu_data = data['edu_info']
+  //console.log('edu_data' , edu_data)
             len = edu_data.length;
             for(x=0;x<len;x++){
 
@@ -484,13 +484,76 @@
                     }
                 var edu_html='<div class="education-label">'+
                     '<span class="study-year">'+enrolled_date+' - '+graduation_date+'</span>'+
-                    '<h5>'+degree+'<span>@'+institution_obj+'</span></h5>'+
+                    '<h5>'+degree+'<span>@ ' +institution_obj+'</span></h5>'+
                     '<p>'+institution_text+'</p>'+
                     '<p><b>'+major_obj+'</b> - '+cgpa+'</p>'+
                     '<p>'+major_text+'</p>'+
-                    '</div><br><br>';
+                    '</div><br>';
                 $('#edu').append(edu_html);
             }
+
+
+
+
+
+  //view profile Work Experiance
+
+            experience_info = data['experience_info']
+            console.log('experience_info' , experience_info)
+            len = experience_info.length;
+            for(x=0;x<len;x++){
+
+                    if(experience_info[x].start_date){
+                             var start_date = experience_info[x].start_date;
+                             var momentObj = moment(start_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var start_date = momentObj.format('YYYY');    ;
+                    }
+                    else{
+                         start_date = '';
+                    }
+                    if(experience_info[x].end_date){
+
+                             var end_date = experience_info[x].end_date;
+                             var momentObj = moment(end_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var end_date = momentObj.format('YYYY');
+                    }
+                    else{
+                          if(experience_info[x].start_date){
+                              var end_date = 'Present';
+                          }
+                          else{
+                           var end_date = '';
+                           }
+                        }
+                    if(experience_info[x].designation){
+                            var designation = experience_info[x].designation;
+                    }
+                    else{
+                            var designation =  '';
+                    }
+                    if(experience_info[x].company){
+                         var company = experience_info[x].company;
+                    }
+                    else{
+                         var company = '';
+                    }
+                    if(experience_info[x].company_text){
+                         var company_text =  experience_info[x].company_text;
+                    }
+                    else{
+                         var company_text = '';
+                    }
+                var work_html='<div class="experience-section">'+
+                    '<span class="service-year">'+start_date+' - '+end_date+'</span>'+
+                    '<h5>'+designation+'<span>@ ' +company+'</span></h5>'+
+                    '<p>'+company_text+'</p>'+
+                    '</div><br>';
+                $('#work').append(work_html);
+            }
+
+
 
 
 
