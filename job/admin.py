@@ -14,7 +14,7 @@ class JobAdmin(admin.ModelAdmin):
     filter_horizontal = ('job_skills',) # Many to many field
     list_display = ['title', 'company_name', 'created_at',  'post_date', 'created_by', 'status' ]
     search_fields = ['title__icontains', 'company_name__name__icontains']
-    date_hierarchy = 'created_at' # Top filter
+    date_hierarchy = 'post_date' # Top filter
     list_per_page = 15
     list_filter = (('created_at', DateRangeFilter),
                    ('post_date', DateRangeFilter),
