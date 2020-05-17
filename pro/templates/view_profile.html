@@ -202,15 +202,15 @@
                     <div class="information-and-contact">
                       <div class="information">
                         <h4>Information</h4>
-                        <ul id="">
-                          <li><span>Category:</span> Design & Creative</li>
-                          <li><span>Location:</span> Los Angeles</li>
-                          <li><span>Status:</span> Full-time</li>
-                          <li><span>Experience:</span> 3 year(s)</li>
-                          <li><span>Salary:</span> $32k - $36k</li>
-                          <li><span>Gender:</span> Male</li>
-                          <li><span>Age:</span> 24 Year(s)</li>
-                          <li><span>Qualification:</span> Gradute</li>
+                        <ul>
+                          <li id="cat"><span>Category:</span>  </li>
+                          <li id="loc"><span>Location:</span>  </li>
+                          <li id="sts"><span>Status:</span>  </li>
+                          <li id="exp"><span>Experience:</span>  </li>
+                          <li id="sry"><span>Salary:</span> </li>
+                          <li id="gen"><span>Gender:</span>  </li>
+                          <li id="age"><span>Age:</span> </li>
+                          <li id="qua"><span>Qualification:</span>  </li>
                         </ul>
                       </div>
 <!--                      <div class="buttons">-->
@@ -337,13 +337,12 @@
             else{
                   linkedin = '#';
             }
-
             $('.facebook').attr('href',facebook);
             $('.twitter').attr('href',twitter);
             $('.linkedin').attr('href', linkedin);
 
 
-   //about info show
+   //professional view profile about
 
             if(data.personal_info.about_me){
                     var about_html='<p>'+data.personal_info.about_me+'</p>';
@@ -365,14 +364,63 @@
                 }
                 return age;
             }
-            var pro_age = getAge(data.personal_info.date_of_birth)
 
+            if(data.personal_info.industry_expertise){
+                 $('#cat').append(data.personal_info.industry_expertise);
+            }
+            else{
+                $('#cat').append('');
+            }
+              if(data.personal_info.address){
+                 $('#loc').append(data.personal_info.address);
+            }
+            else{
+                $('#loc').append('');
+            }
+            if(data.personal_info.status){
+                 $('#sts').append(data.personal_info.status);
+            }
+            else{
+                $('#sts').append('');
+            }
+            if(data.personal_info.experience){
 
-
-
-
-
-
+                 $('#exp').append(data.personal_info.experience + ' Year(s)');
+            }
+            else{
+                $('#exp').append('');
+            }
+            if(data.personal_info.expected_salary_min){
+                 $('#sry').append(data.personal_info.expected_salary_min);
+            }
+            else{
+                $('#sry').append('');
+            }
+            if(data.personal_info.expected_salary_max){
+                 $('#sry').append(' - ' + data.personal_info.expected_salary_max);
+            }
+            else{
+                $('#sry').append('');
+            }
+            if(data.personal_info.gender){
+                 $('#gen').append(data.personal_info.gender);
+            }
+            else{
+                $('#gen').append('');
+            }
+            if(data.personal_info.date_of_birth){
+                 var pro_age = getAge(data.personal_info.date_of_birth)
+                 $('#age').append(pro_age + ' Year(s)');
+            }
+            else{
+                $('#age').append('');
+            }
+            if(data.personal_info.qualification){
+                 $('#qua').append(data.personal_info.qualification);
+            }
+            else{
+                $('#qua').append('');
+            }
 
 
 
