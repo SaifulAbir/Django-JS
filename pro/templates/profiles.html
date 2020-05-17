@@ -1,10 +1,6 @@
-{% extends 'common_layout.html' %}
+{% extends 'professional_layout.html' %}
 {% load static %}
-{% block body_block %}
-
-
-
-
+{% block professional_breadcrumb %}
 
 <!-- Breadcrumb -->
 <div class="alice-bg padding-top-70 padding-bottom-70">
@@ -12,7 +8,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="breadcrumb-area">
-          <h1>Edit Resume</h1>
+          <h1>Edit Basic Profile Details</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -33,13 +29,8 @@
   </div>
 </div>
 <!-- Breadcrumb End -->
-
-<div class="alice-bg section-padding-bottom">
-  <div class="container no-gliters">
-    <div class="row no-gliters">
-      <div class="col">
-        <div class="dashboard-container">
-          <div class="dashboard-content-wrapper">
+{% endblock %}
+    {% block professional_block %}
             <div class="download-resume dashboard-section">
               <div class="update-file">
                 <input type="file">Update CV <i data-feather="edit-2"></i>
@@ -511,10 +502,7 @@
                                   </select>
                                 </div>
                               </div>
-
                             </div>
-<!--                            <div class="form-group row">-->
-<!--                            </div>-->
                             <div class="form-group row display-none">
                               <div class="col-sm-9 offset-sm-3">
                                 <div class="input-group">
@@ -726,54 +714,12 @@
               </div>
             </div>
             <div class="professonal-skill dashboard-section details-section">
-              <h4><i data-feather="feather"></i>Professional Skill</h4>
-              <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting</p>
-              <div class="progress-group">
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">Photoshop</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">70%</p>
-                  </div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">HTML/CSS</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">90%</p>
-                  </div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">JavaScript</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">74%</p>
-                  </div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">PHP</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">86%</p>
-                  </div>
-                </div>
+            <div class="professional-skill-div">
+                <h4 ><i data-feather="feather"></i>Professional Skill</h4>
+              <div class="progress-group" id="skill-label">
               </div>
+              <a href="#" id="add-skill" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-pro-skill">+ Add Skill</a>
+            </div>
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-pro-skill">
                 <i data-feather="edit-2"></i>
@@ -785,32 +731,20 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="feather"></i>Professional Skill</h4>
-                        <a href="#" class="add-more">+ Add Skill</a>
                       </div>
                       <div class="content">
-                        <form action="#">
-                          <div class="input-block-wrap">
+                        <form action="#" id="pro-skill-form" novalidate="novalidate">
+                          <div class="input-block-wrap input-block-skill">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">About Skill</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Description</div>
-                                  </div>
-                                  <textarea class="form-control"></textarea>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 01</label>
+                              <label class="col-sm-3 col-form-label skill-div-lavel"></label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Skill Name</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <select class="form-control" name="skill_name" id="skill_name" data-text="name" data-value="id"  data-placeholder="" data-src="/api/skill_list/" value="" required data-msg-required="Skill is required">
+                                  </select>
+                                    <input type="hidden" name="id" id="id" class="form-control skill_object_id" >
                                 </div>
                               </div>
                             </div>
@@ -818,78 +752,9 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
+                                    <div class="input-group-text">Expertise</div>
                                   </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 02</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Skill Name</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 03</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Skill Name</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 04</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Skill Name</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
+                                  <input type="text" class="form-control" name="rating" id="rating">
                                 </div>
                               </div>
                             </div>
@@ -897,7 +762,7 @@
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg">Save Update</button>
+                                <button class="primary-bg">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -1189,7 +1054,7 @@
             </div>
             <div class="personal-information dashboard-section last-child details-section">
               <div id="personal-information-div">
-                <h4><i data-feather="user-plus"></i>Personal Details</h4>
+                <h4><i data-feather="user-plus"></i>Personal Deatils</h4>
                 <div class="details">
                   <ul>
                     <li><span>Full Name:</span> <span id="full_name"></span></li>
@@ -1283,84 +1148,14 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="dashboard-sidebar">
-            <div class="user-info">
-              <div class="thumb">
-                <img src="dashboard/images/user-1.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="user-body">
-                <h5>Lula Wallace</h5>
-                <span>@username</span>
-              </div>
-            </div>
-            <div class="profile-progress">
-              <div class="progress-item">
-                <div class="progress-head">
-                  <p class="progress-on">Profile</p>
-                </div>
-                <div class="progress-body">
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                  </div>
-                  <p class="progress-to">70%</p>
-                </div>
-              </div>
-            </div>
-            <div class="dashboard-menu">
-              <ul>
-                <li><i class="fas fa-home"></i><a href="dashboard.html">Dashboard</a></li>
-                <li><i class="fas fa-user"></i><a href="dashboard-edit-profile.html">Edit Profile</a></li>
-                <li><i class="fas fa-file-alt"></i><a href="resume.html">Resume</a></li>
-                <li class="active"><i class="fas fa-edit"></i><a href="edit-resume.html">Edit Resume</a></li>
-                <li><i class="fas fa-heart"></i><a href="{% url 'favourite_jobs' %}">Bookmarked</a></li>
-                <li><i class="fas fa-check-square"></i><a href="{% url 'applied_jobs' %}">Applied Job</a></li>
-                <li><i class="fas fa-comment"></i><a href="dashboard-message.html">Message</a></li>
-                <li><i class="fas fa-calculator"></i><a href="dashboard-pricing.html">Pricing Plans</a></li>
-              </ul>
-              <ul class="delete">
-                <li><i class="fas fa-power-off"></i><a href="#">Logout</a></li>
-                <li><i class="fas fa-trash-alt"></i><a href="#" data-toggle="modal" data-target="#modal-delete">Delete Profile</a></li>
-              </ul>
-              <!-- Modal -->
-              <div class="modal fade modal-delete" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-body">
-                      <h4><i data-feather="trash-2"></i>Delete Account</h4>
-                      <p>Are you sure! You want to delete your profile. This can't be undone!</p>
-                      <form action="#">
-                        <div class="form-group">
-                          <input type="password" class="form-control" placeholder="Enter password">
-                        </div>
-                        <div class="buttons">
-                          <button class="delete-button" >Save Update</button>
-                          <button class="" data-dismiss="modal">Cancel</button>
-                        </div>
-                        <div class="form-group form-check">
-                          <input type="checkbox" class="form-check-input" checked="">
-                          <label class="form-check-label">You accepts our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Call to Action -->
-
-
 {% endblock %}
 {% block extra_js %}
 <script>
   $(document).ready(function() {
+      $('.edit-profile-details-bar').addClass('active')
+
     $('#job-update-form').validate({
       errorClass: "my-error-class",
     });
@@ -1392,6 +1187,7 @@
     get(getUrl,loadabout);
     get(getUrl,loadEdu);
     get(getUrl,loadExp);
+    get(getUrl,loadProfSkills);
     get(staticUrl,loadstatic);
     initAjaxSelects();
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
@@ -1593,6 +1389,53 @@
       });
 
 
+    {#SKill add#}
+    $('#add-skill').on('click', function (event) {
+      $("#modal-pro-skill").find('form')[0].reset();
+      $('.skill_object_id').val('');
+
+    });
+
+    $('.professional-skill-div').on('click','.delete-skill',function () {
+        var obj_id = $(this).parent().parent().find(".skill-obj-id").val();
+        showQuestion('Delete','Do You Want to delete This Skill?', function(){skillDelete(obj_id);});
+
+    });
+
+      $('.professional-skill-div').on('click','.update-skill',function (event) {
+          var obj_id = $(this).parent().parent().find(".skill-obj-id").val();
+          var getUrl = '/api/professional/professional_skill_object/'+ obj_id + '/';
+            get(getUrl, loadSkillObject);
+      });
+
+      {# Skill create and update #}
+    $('#pro-skill-form').on('submit', function (event) {
+      event.preventDefault();
+        var path = window.location.pathname.split('/');
+        var id = path[path.length-2];
+        var user = id;
+        var skill_id=$(this).find('#id').val();
+        var skill_name=$(this).find('#skill_name').val();
+        var rating=$(this).find('#rating').val();
+        data = { "professional_id" : user}
+        if(skill_name){
+          data.skill_name_id = skill_name;
+        }
+        if(rating){
+          data.rating = rating;
+        }
+        skillCreateUrl = "/api/professional/professional_skill/";
+        skillUpdateUrl = "/api/professional/professional_skill/"+skill_id+"/";
+        if(Object.keys(data).length>1 && $(this).valid() && skill_id){
+          put(skillUpdateUrl, JSON.stringify(data), loadProfSkillsCreateUpdate);
+        }
+        if(Object.keys(data).length>1 && $(this).valid() && !skill_id){
+          post(skillCreateUrl, JSON.stringify(data), loadProfSkillsCreateUpdate);
+          $(this).addClass("update-skill");
+        }
+    })
+
+
     // If social URL is emtpy then add space in value for skipping database data saving problem
     $(".social-network-update").click(function(){
       var facebook_url = $("#facebook_id").val();
@@ -1674,9 +1517,7 @@
     initAjaxForms();
   });
 
-  function divCounter(id){
-    return $('.'+id).length;
-  }
+
 
   function autoSuggesion(url, id) {
         var previousItems = new Bloodhound({
@@ -1816,6 +1657,9 @@
           $('#is_ongoing').prop('checked',true)
           $('#graduation_date').prop('disabled',true)
       }
+  }
+  function loadSkillObject(data) {
+        json2Form(data.skill_info, "pro-skill-form")
   }
 
   function loadExperience(data) {
@@ -1991,30 +1835,10 @@
     },500)
   }
 
-  function json2FormDiv(data, id){
-    for(key in data){
-        var el = $("." + id).find("[id='"+ key +"']");
-        let elChild = el;
-        let dataValue = data[key];
-        if(el.hasClass("tinymce-editor")){
-            tinymce.get(key).insertContent(data[key]);
-        }
-        else if(el.data("parent")){
-            setTimeout(function () {
-                elChild.val(dataValue).change();
-            },1000);
-        }
-        setTimeout(function () {
-            elChild.val(dataValue).change();
-        },500);
-
-    }
-}
 
 
   // load personal_info about and personal details data and append here
   function  loadabout(data){
-    console.log(data.personal_info);
     container = $('#about-details-div');
     json2DivPopulate(data.personal_info, container);
     json2Form(data.personal_info, "info-update-form");
@@ -2076,5 +1900,110 @@
     put(eduUpdateUrl, JSON.stringify(data), loadEducation);
   }
 
+  function skillDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    skillUpdateUrl = "/api/professional/professional_skill/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(skillUpdateUrl, JSON.stringify(data), loadProfSkillsCreateUpdate);
+  }
+
+
+  function loadProfSkills(data) {
+      console.log(data.skill_info)
+      var skillHtml = $(".skill-label").html();
+      for (index = 0; index < data.skill_info.length; index++) {
+          var count = divCounter("input-block-skill")+1;
+          var skillDivHtml = $("#pro-skill-form .input-block-skill").html();
+          if (index == 0) {
+              $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[index].id + '">' +'<p class="progress-on">'+ data.skill_info[index].skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+ data.skill_info[index].rating *10 +'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.skill_info[index].rating + '/10</p></div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button></div>'+'</div>');
+          }
+          else if(index>=1){
+              $('.skill-label:last').after('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[index].id + '">' +'<p class="progress-on">'+ data.skill_info[index].skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.skill_info[index].rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.skill_info[index].rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button></div>'+'</div>');
+
+          }
+      }
+      feather.replace()
+  }
+  function loadProfSkillsCreateUpdate(data) {
+      console.log(data)
+      if(data.status==200){
+          $("#modal-pro-skill").modal("hide");
+          $("#modal-pro-skill").find('form')[0].reset();
+          if($('.professional-skill-div').find(".skill-label").length==0){
+              console.log(data.responseJSON)
+              $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.responseJSON.id + '">' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.responseJSON.rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.responseJSON.rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button></div>'+'</div>');
+          }
+          else {
+              var el = $(".professional-skill-div").find("[value='"+ data.responseJSON.id +"']");
+              if(el.length>0 && data.responseJSON.is_archived == true){
+                  el.parent().parent().remove()
+              }
+              else if(el.length>0){
+                  el.parent().parent().html('<div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.responseJSON.id + '">' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
+                      '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.responseJSON.rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                      '<p class="progress-to">'+data.responseJSON.rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+                      '                <i data-feather="trash-2"></i>\n' +
+                      '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
+                      '                <i data-feather="edit-2"></i>\n' +
+                      '              </button></div>');
+              }
+              else{
+                  $('.skill-label:last').after('<div class="progress-item skill-label"><div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.responseJSON.id + '">' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
+                      '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.responseJSON.rating * 10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                      '<p class="progress-to">'+data.responseJSON.rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+                      '                <i data-feather="trash-2"></i>\n' +
+                      '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
+                      '                <i data-feather="edit-2"></i>\n' +
+                      '              </button></div>'+'</div>');
+              }
+
+          }
+      }
+      feather.replace()
+  }
+  function json2FormDiv(data, id){
+      for(key in data){
+          var el = $("." + id).find("[id='"+ key +"']");
+          let elChild = el;
+          let dataValue = data[key];
+          if(el.hasClass("tinymce-editor")){
+              tinymce.get(key).insertContent(data[key]);
+          }
+          else if(el.data("parent")){
+              setTimeout(function () {
+                  elChild.val(dataValue).change();
+              },1000);
+          }
+          setTimeout(function () {
+              elChild.val(dataValue).change();
+          },1000);
+
+      }
+  }
+  function divCounter(id){
+      return $('.'+id).length;
+  }
 </script>
 {% endblock %}
