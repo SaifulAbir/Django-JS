@@ -43,11 +43,14 @@
               <div class="details-information section-padding-60">
                 <div class="row">
                   <div class="col-xl-7 col-lg-8">
-                    <div class="about-details details-section">
+                    <div class="about-details details-section" >
                       <h4><i data-feather="align-left"></i>About Me</h4>
-                      <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including.</p>
-                      <p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable </p>
+                       <div id="pro_about">
+
+                       </div>
                     </div>
+
+
                     <div class="edication-background details-section">
                       <h4><i data-feather="book"></i>Education Background</h4>
                       <div class="education-label">
@@ -66,6 +69,9 @@
                         <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
                       </div>
                     </div>
+
+
+
                     <div class="experience details-section">
                       <h4><i data-feather="briefcase"></i>Work Experiance</h4>
                       <div class="experience-section">
@@ -79,6 +85,9 @@
                         <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
                       </div>
                     </div>
+
+
+
                     <div class="professonal-skill details-section">
                       <h4><i data-feather="feather"></i>Professional Skill</h4>
                       <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting</p>
@@ -129,6 +138,9 @@
                         </div>
                       </div>
                     </div>
+
+
+
                     <div class="special-qualification details-section">
                       <h4><i data-feather="gift"></i>Special Qualification</h4>
                       <ul>
@@ -138,6 +150,8 @@
                         <li>Hard Worker & Quick Lerner.</li>
                       </ul>
                     </div>
+
+
                     <div class="portfolio details-section">
                       <h4><i data-feather="gift"></i>Portfolio</h4>
                       <div class="portfolio-slider owl-carousel">
@@ -178,12 +192,17 @@
                         </div>
                       </div>
                     </div>
+
+
                   </div>
+
+
+
                   <div class="col-xl-4 offset-xl-1 col-lg-4">
                     <div class="information-and-contact">
                       <div class="information">
                         <h4>Information</h4>
-                        <ul>
+                        <ul id="">
                           <li><span>Category:</span> Design & Creative</li>
                           <li><span>Location:</span> Los Angeles</li>
                           <li><span>Status:</span> Full-time</li>
@@ -231,13 +250,13 @@
                   <div class="personal-information details-section">
                     <h4><i data-feather="user-plus"></i>Personal Deatils</h4>
                     <ul>
-                      <li><span>Full Name:</span> Micheal N. Taylor</li>
-                      <li><span>Father's Name:</span> Howard Armour</li>
-                      <li><span>Mother's Name:</span> Megan Higbee</li>
-                      <li><span>Date of Birth:</span> 22/08/1992</li>
-                      <li><span>Nationality:</span> American </li>
-                      <li><span>Sex:</span> Male</li>
-                      <li><span>Address:</span> 2018 Nelm Street, Beltsville, VA 20705</li>
+                      <li id="u_name"><span>Full Name:</span>  </li>
+                      <li id="f_name"><span>Father's Name:</span>  </li>
+                      <li id="m_name"><span>Mother's Name:</span>  </li>
+                      <li id="dob"><span>Date of Birth:</span>  </li>
+                      <li id="nality"><span>Nationality:</span>   </li>
+                      <li id="sex"><span>Sex:</span>  </li>
+                      <li id="add"><span>Address:</span>  </li>
                     </ul>
                   </div>
                 </div>
@@ -322,6 +341,118 @@
             $('.facebook').attr('href',facebook);
             $('.twitter').attr('href',twitter);
             $('.linkedin').attr('href', linkedin);
+
+
+   //about info show
+
+            if(data.personal_info.about_me){
+                    var about_html='<p>'+data.personal_info.about_me+'</p>';
+            }
+            else{
+                 var about_html='<p></p>';
+            }
+            $("#pro_about").html(about_html);
+
+            function getAge(dateString)
+            {
+                var today = new Date();
+                var birthDate = new Date(dateString);
+                var age = today.getFullYear() - birthDate.getFullYear();
+                var m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
+                {
+                    age--;
+                }
+                return age;
+            }
+            var pro_age = getAge(data.personal_info.date_of_birth)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   //view profile personal deatils
+
+            if(data.personal_info.full_name){
+                 $('#u_name').append(data.personal_info.full_name);
+            }
+            else{
+                $('#u_name').append('');
+            }
+
+              if(data.personal_info.father_name){
+                 $('#f_name').append(data.personal_info.father_name);
+            }
+            else{
+                $('#f_name').append('');
+            }
+            if(data.personal_info.mother_name){
+                 $('#m_name').append(data.personal_info.mother_name);
+            }
+            else{
+                $('#m_name').append('');
+            }
+            if(data.personal_info.date_of_birth){
+                 var dateofbirth = data.personal_info.date_of_birth
+                 var momentObj = moment(dateofbirth, 'YYYY-MM-DD');
+                 var dateMomentString = momentObj.format('DD-MM-YYYY');
+                 $('#dob').append(dateMomentString);
+            }
+            else{
+                $('#dob').append('');
+            }
+            if(data.personal_info.nationality_obj.name){
+                 $('#nality').append(data.personal_info.nationality_obj.name);
+            }
+            else{
+                $('#nality').append('');
+            }
+            if(data.personal_info.gender){
+                 $('#sex').append(data.personal_info.gender);
+            }
+            else{
+                $('#sex').append('');
+            }
+            if(data.personal_info.permanent_address){
+                 $('#add').append(data.personal_info.permanent_address);
+            }
+            else{
+                $('#add').append('');
+            }
+
 
 
 
