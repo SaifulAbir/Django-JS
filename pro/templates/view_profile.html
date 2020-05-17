@@ -10,14 +10,14 @@
             <div class="candidate-details">
               <div class="title-and-info">
                 <div class="title">
-                  <div class="thumb">
-                    <img src="images/candidate/thumb-1.jpg" class="img-fluid" alt="">
+                  <div class="thumb" id="pro_pic">
+<!--                    <img src="images/candidate/thumb-1.jpg" class="img-fluid" alt="">-->
                   </div>
                   <div class="title-body">
-                    <h4>Micheal N. Taylor</h4>
+                    <h4 id="uName"></h4>
                     <div class="info">
-                      <span class="candidate-designation"><i data-feather="check-square"></i>ios Developer</span>
-                      <span class="candidate-location"><i data-feather="map-pin"></i>Los Angeles</span>
+                      <span class="candidate-designation"><i data-feather="check-square"></i> </span>
+                      <span class="candidate-location" ><i data-feather="map-pin"></i> </span>
                     </div>
                   </div>
                 </div>
@@ -267,8 +267,36 @@
         });
 
         function loadProfile(data){
+                 console.log('data' , data)
 
-                  console.log('data' , data)
+   //professional view profile picture, designation and location
+
+            $('#uName').append(data.personal_info.full_name);
+            if(data.personal_info.image){
+                $('#pro_pic').append('<img src="'+ data.personal_info.image +'" class="img-fluid" alt="">');
+            }
+            else{
+                $('#pro_pic').append('<img src="/static/images/alternate.jpg" class="img-fluid" alt="">');
+            }
+            if(data.personal_info.current_designation){
+                $('.candidate-designation').append(data.personal_info.current_designation);
+            }
+            else{
+               $('.candidate-designation').append('Unknown');
+            }
+            if(data.personal_info.current_location){
+                 $('.candidate-location').append(data.personal_info.current_location);
+            }
+            else{
+                $('.candidate-location').append('Unknown');
+            }
+
+
+
+
+
+
+
 
 
 
