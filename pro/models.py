@@ -126,6 +126,8 @@ class ProfessionalEducation(models.Model):
     cgpa = models.CharField(max_length=255, blank=True, null=True)
     major = models.ForeignKey(Major, on_delete=models.PROTECT, null=True, blank=True)
     major_text = models.CharField(max_length=255,blank=True, null=True)
+    is_ongoing = models.BooleanField(default=False)
+    description = models.TextField(null=True, blank=True)
     enrolled_date = models.DateField(null=True, blank=True)
     graduation_date = models.DateField(null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)

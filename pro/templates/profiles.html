@@ -414,7 +414,10 @@
             </div>
 
             <div class="edication-background details-section dashboard-section">
-              <h4 id="edu-label"><i data-feather="book"></i>Education Background</h4>
+              <div class="education-div">
+                <h4 id="edu-label"><i data-feather="book"></i>Education</h4>
+              <a href="#" id="add-education" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-education">+ Add Education</a>
+
 <!--              <div class="education-label">-->
 <!--                <span class="study-year">2018 - Present</span>-->
 <!--                <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>-->
@@ -431,9 +434,10 @@
 <!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
 <!--              </div>-->
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">
-                <i data-feather="edit-2"></i>
-              </button>
+{#              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">#}
+{#                <i data-feather="edit-2"></i>#}
+{#              </button>#}
+              </div>
               <!-- Modal -->
               <div class="modal fade modal-education" id="modal-education" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -441,47 +445,47 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="book"></i>Education</h4>
-                        <a href="#" id="add-education" class="add-more">+ Add Education</a>
+<!--                        <a href="#" id="add-education" class="add-more">+ Add Education</a>-->
                       </div>
                       <div class="content">
-                        <form action="#" id="education-form">
+                        <form action="#" id="education-form" autocomplete="off">
                           <div class="input-block-wrap input-block-edu" >
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label edu-div-lavel">01</label>
+                              <label class="col-sm-3 col-form-label edu-div-lavel"></label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Degree</div>
                                   </div>
-                                  <select class="form-control degree_input" name="degree" id="degree" data-text="name" data-value="name"  data-placeholder="Select Degree" data-src="/api/qualification/" value="">
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Institute</div>
-                                  </div>
-                                  <select class="form-control" name="institution" id="institution" data-text="name" data-value="id"  data-placeholder="Select Institute" data-src="/api/professional/institute/" value="">
+                                  <select class="form-control" name="degree" id="degree" data-text="name" data-value="name"  data-placeholder="Select Degree" data-src="/api/qualification/" value="" required data-msg-required="Degree is required">
                                   </select>
                                 </div>
                               </div>
                             </div>
                             <div class="form-group row display-none">
-                              <div class="col-sm-9 offset-sm-3">
+                              <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Institution</div>
+                                    <div class="input-group-text">Institute</div>
                                   </div>
-                                  <input type="text" name="institution_text" id="institution_text" class="form-control" >
-                                  <input type="hidden" name="id" id="id" class="form-control" >
+                                  <select class="form-control" name="institution" id="institution" data-text="name" data-value="id"  data-placeholder="Select Institute" data-src="/api/professional/institute/" value="" required data-msg-required="Institution is required">
+                                  </select>
                                 </div>
                               </div>
                             </div>
                             <div class="form-group row">
                               <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Institution</div>
+                                  </div>
+                                  <input type="text" name="institution_text" id="institution_text" class="form-control" required data-msg-required="Institution is required">
+                                  <input type="hidden" name="id" id="id" class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-4 offset-sm-3">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">CGPA</div>
@@ -489,9 +493,7 @@
                                   <input type="text" name="cgpa" id="cgpa" class="form-control" >
                                 </div>
                               </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
+                              <div class="col-sm-5">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Major</div>
@@ -500,7 +502,10 @@
                                   </select>
                                 </div>
                               </div>
+
                             </div>
+<!--                            <div class="form-group row">-->
+<!--                            </div>-->
                             <div class="form-group row display-none">
                               <div class="col-sm-9 offset-sm-3">
                                 <div class="input-group">
@@ -515,114 +520,51 @@
                               <div class="col-sm-9 offset-sm-3">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Enrolled</div>
+                                    <div class="input-group-text">Description</div>
                                   </div>
-                                  <input type="Date" name="enrolled_date" id="enrolled_date" class="form-control"  placeholder="YYYY/MM/DD" value="">
+                                  <textarea type="text" name="description" id="description" class="form-control" ></textarea>
                                 </div>
                               </div>
                             </div>
                             <div class="form-group row">
-                              <div class="col-sm-9 offset-sm-3">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Graduation</div>
-                                  </div>
-                                  <input type="Date" name="graduation_date" id="graduation_date" class="form-control"  placeholder="YYYY/MM/DD" value="">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap input-block-edu">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label edu-div-lavel">02</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Degree</div>
-                                  </div>
-                                  <select class="form-control degree_input" name="degree" id="degree" data-text="name" data-value="name"  data-placeholder="Select Degree" data-src="/api/qualification/" value="">
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Institute</div>
-                                  </div>
-                                  <select class="form-control" name="institution" id="institution" data-text="name" data-value="id"  data-placeholder="Select Institute" data-src="/api/professional/institute/" value="">
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row display-none">
-                              <div class="col-sm-9 offset-sm-3">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Institution</div>
-                                  </div>
-                                  <input type="text" name="institution_text" id="institution_text" class="form-control" >
-                                  <input type="hidden" name="id" id="id" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="col-sm-9 offset-sm-3">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">CGPA</div>
-                                  </div>
-                                  <input type="text" name="cgpa" id="cgpa" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Major</div>
-                                  </div>
-                                  <select class="form-control" name="major" id="major" data-text="name" data-value="id"  data-placeholder="Select Major" data-src="/api/professional/major/" value="">
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row display-none">
-                              <div class="col-sm-9 offset-sm-3">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Major Text</div>
-                                  </div>
-                                  <input type="text" name="major_text" id="major_text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="col-sm-9 offset-sm-3">
+                              <div class="col-sm-4 offset-sm-3">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Enrolled</div>
                                   </div>
-                                  <input type="Date" name="enrolled_date" id="enrolled_date" class="form-control"  placeholder="YYYY/MM/DD" value="">
+                                  <input type="text" name="enrolled_date" id="enrolled_date" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="" required data-msg-required="Enrolled date is required">
+                                </div>
+                              </div>
+                              <div class="col-sm-5">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Graduation</div>
+                                  </div>
+                                  <input type="text" name="graduation_date" id="graduation_date" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="">
                                 </div>
                               </div>
                             </div>
                             <div class="form-group row">
                               <div class="col-sm-9 offset-sm-3">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Graduation</div>
-                                  </div>
-                                  <input type="Date" name="graduation_date" id="graduation_date" class="form-control"  placeholder="YYYY/MM/DD" value="">
-                                </div>
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">On Going</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="checkbox" name="on_going" id="on_going" class="form-control" value="">-->
+<!--                                </div>-->
+                                <div class="mt-0 terms">
+                                <input type="checkbox" id="is_ongoing" name="is_ongoing">
+                                <label for="is_ongoing">
+                                    <span class="dot"></span> Ongoing
+                                </label>
+                            </div>
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg edu-submit">Save Update</button>
+                                <button class="primary-bg edu-submit">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -1343,16 +1285,21 @@
     $('#job-update-form').validate({
       errorClass: "my-error-class",
     });
+
     $('#experience-form').validate({
         errorClass: "my-error-class",
         errorPlacement: function(error, element) {
           error.insertAfter(element.parent());
         }
       });
+
     $('#education-form').validate({
         errorClass: "my-error-class",
         errorPlacement: function(error, element) {
           error.insertAfter(element.parent());
+        },
+        rules: {
+          graduation_date: { greaterThan: "#enrolled_date" },
         }
       });
 
@@ -1371,18 +1318,42 @@
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
 
-    $('#add-education').on('click', function (event) {
-      event.preventDefault();
-      var count = divCounter("input-block-edu")+1;
-      var lastDiv = $("#education-form .input-block-edu:last");
-      var lastDivHtml = $("#education-form .input-block-edu").html();
-      lastDiv.after('<div class="input-block-wrap input-block-edu" >'+lastDivHtml+'</div>');
-      $(".edu-div-lavel:last").text("0"+ count);
-    });
+      $('#add-education').on('click', function (event) {
+          event.preventDefault();
+          $("#modal-education").find('form')[0].reset();
+          $('#is_ongoing').val(false);
+          $('#graduation_date').prop('disabled',false);
+          $('#graduation_date-error').html('');
+      });
 
     $('.work-exp').on('click', function () {
       get(getUrl,loadExpEdit);
     });
+
+    $('#is_ongoing').click(function () {
+      if($(this).prop("checked")){
+        $('#graduation_date').prop("disabled", true);
+        $('#graduation_date-error').html('')
+      }
+      else{
+        $('#graduation_date').prop("disabled", false);
+
+      }
+    })
+
+
+    autoSuggesion('/api/professional/institute_search/', "institution_text");
+
+    // datepicker on the date inputs
+    $( ".datepicker" ).datepicker({
+      autoclose: false,
+      todayHighlight: true,
+      dateFormat: 'dd/mm/yy'
+    }).on('change', function() {
+    $(this).valid();  // triggers a validation test
+    // $(this) refers to $('#eventDate')
+    });
+
 
     $('#add-experience').on('click', function (event) {
       event.preventDefault();
@@ -1444,17 +1415,16 @@
 
     $('#education-form').on('submit', function (event) {
       event.preventDefault();
-      var error_count = 0;
-      var totalDiv = $('#education-form').find(".input-block-edu");
-      totalDiv.each(function () {
-        var degree=$(this).find('#degree').val();
-        if (!degree){
-          error_count = error_count+1;
-          $(this).find('#degree').parent().parent().append('<label class="my-error-class">Degree is required</label>')
-        }
-      });
-      if(error_count==0){
-       totalDiv.each(function(){
+      // var totalDiv = $('#education-form').find(".input-block-edu");
+      // totalDiv.each(function () {
+      //   var degree=$(this).find('#degree').val();
+      //   if (!degree){
+      //     error_count = error_count+1;
+      //     $(this).find('#degree').parent().parent().append('<label class="my-error-class">Degree is required</label>')
+      //   }
+      // });
+      // if(error_count==0){
+      //  totalDiv.each(function(){
         var path = window.location.pathname.split('/');
         var id = path[path.length-2];
         var user = id;
@@ -1467,6 +1437,8 @@
         var major_text=$(this).find('#major_text').val();
         var enrolled_date=$(this).find('#enrolled_date').val();
         var graduation_date=$(this).find('#graduation_date').val();
+        var is_ongoing = $(this).find('#is_ongoing').is(':checked');
+        var description = $(this).find('#description').val()
         data = { "professional_id" : user}
         if(degree){
           data.degree_id = degree;
@@ -1486,26 +1458,61 @@
         if(major_text){
           data.major_text = major_text;
         }
-        if(enrolled_date){
-          data.enrolled_date = enrolled_date;
+        if(description){
+          data.description = description;
         }
-        if(graduation_date){
-          data.graduation_date = graduation_date;
+        if(enrolled_date){
+            var momentObj = moment(enrolled_date, 'DD-MM-YYYY');
+            var dateEnrolledString = momentObj.format('YYYY-MM-DD');
+          data.enrolled_date = dateEnrolledString;
+        }
+        if(is_ongoing){
+            data.is_ongoing = is_ongoing
+        }
+        else{
+            var momentGraduationObj = moment(graduation_date, 'DD-MM-YYYY');
+            var dateGraduationString = momentGraduationObj.format('YYYY-MM-DD');
+          data.graduation_date = dateGraduationString;
+          data.is_ongoing = false
         }
         eduCreateUrl = "/api/professional/professional_education/";
         eduUpdateUrl = "/api/professional/professional_education/"+edu_id+"/";
-        if(Object.keys(data).length>1 && $(this).hasClass("update-edu")){
+        if(Object.keys(data).length>1 && $(this).valid() && edu_id){
           put(eduUpdateUrl, JSON.stringify(data), loadEducation);
         }
-        if(Object.keys(data).length>1 && !$(this).hasClass("update-edu")){
+        if(Object.keys(data).length>1 && $(this).valid() && !edu_id){
           post(eduCreateUrl, JSON.stringify(data), loadEducation);
-          $(this).addClass("update-edu");
         }
 
 
-      });
-      }
+      // });
+      // }
     })
+
+    $.validator.addMethod("greaterThan",
+    function(value, element, params) {
+
+    if (!/Invalid|NaN/.test(new Date(value))) {
+        return new Date(value) > new Date($(params).val());
+    }
+
+    return isNaN(value) && isNaN($(params).val())
+        || (Number(value) > Number($(params).val()));
+    },'Must be greater than Enrolled Date.');
+
+
+    $('.education-div').on('click','.update-education',function () {
+      var obj_id = $(this).parent().find(".edu-object-id").val()
+      var getUrl = '/api/professional/professional_education_object/'+ obj_id + '/';
+      get(getUrl, loadEducationObject);
+    });
+
+
+    $('.education-div').on('click','.delete-education',function () {
+        var obj_id = $(this).parent().find(".edu-object-id").val();
+        showQuestion('Delete','Do You Want to delete?', function(){eduDelete(obj_id);});
+      });
+
 
     // If social URL is emtpy then add space in value for skipping database data saving problem
     $(".social-network-update").click(function(){
@@ -1591,61 +1598,145 @@
   function divCounter(id){
     return $('.'+id).length;
   }
+
+  function autoSuggesion(url, id) {
+        var previousItems = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            prefetch: {
+                url: url,
+                filter: function(list) {
+                    return $.map(list, function(itemname) {
+                        return { name: itemname }; });
+                }
+            }
+        });
+        previousItems.initialize();
+        $("#"+id).typeahead({
+                hint: true,
+                highlight: true, /* Enable substring highlighting */
+                minLength: 2 /* Specify minimum characters required for showing result */
+            },
+            {
+
+                name: 'previousItems',
+                displayKey: 'name',
+                valueKey: 'name',
+                source: previousItems.ttAdapter()
+            });
+    }
+
   function loadEducation(data) {
     console.log(data);
     if(data.status==200){
-
-      var path = window.location.pathname.split('/');
-      var id = path[path.length-2];
-      var getUrl = '/api/professional/profile/'+ id + '/';
       var dateString = data.responseJSON.enrolled_date;
       var dateGraduationString = data.responseJSON.graduation_date;
-      var major_name = "None";
-      var institution_name = "None";
+      var major_name = "";
+      var institution_name = "";
+      var description = "";
       try{
         if(data.responseJSON.major_obj.name){
         major_name = data.responseJSON.major_obj.name;
       }
       }catch (e) {
         if (e instanceof TypeError) {
-          major_name = "None";
+          major_name = "";
         }
       }
-      
+
       try {
-        if (data.responseJSON.institution_obj.name) {
-          institution_name = data.responseJSON.institution_obj.name;
+        if (data.responseJSON.institution_text) {
+          institution_name = data.responseJSON.institution_text;
         }
       }catch (e) {
         if (e instanceof TypeError) {
-          institution_name = "None";
+          institution_name = "";
+        }
+      }
+      try {
+        if (data.responseJSON.description) {
+          description = data.responseJSON.description
+        }
+      }catch (e) {
+        if (e instanceof TypeError) {
+          description = "";
         }
       }
       var momentObj = moment(dateString, 'YYYY-MM-DD');
       var momentGraduationObj = moment(dateGraduationString, 'YYYY-MM-DD');
-      var dateEnrolledString = momentObj.format('YYYY');
-      var dateGraduationString = momentGraduationObj.format('YYYY');
+      var dateEnrolledString = momentObj.format('DD/MM/YYYY');
+      var dateGraduationString = momentGraduationObj.format('DD/MM/YYYY');
+
+      if(dateGraduationString == "Invalid date" && data.responseJSON.is_ongoing == true){
+          dateGraduationString = "Ongoing";
+      }
       $("#modal-education").modal("hide");
-      if($('.edication-background').find(".education-label").length==0){
-        console.log(data.responseJSON)
-        $('#edu-label').after('<div class="education-label">'+'<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
-             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
+      $("#modal-education").find('form')[0].reset();
+      $(".graduation-div").show();
+      if($('.education-div').find(".education-label").length==0){
+        $('#edu-label').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-education delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+
+             '<p>'+ description + '</p>'+'</div>');
       }
       else {
-        var el = $(".edication-background").find("[href='"+ data.responseJSON.id +"']");
-        if(el.length>0){
-          el.parent().html('<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
-             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>');
+        var el = $(".education-div").find("[value='"+ data.responseJSON.id +"']");
+        if(el.length>0 && data.responseJSON.is_archived == true){
+            el.parent().remove()
+        }
+        else if(el.length>0){
+          el.parent().html('<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+                  '<button type="button" class="btn btn-primary edit-resume delete-education delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+
+              '<p>'+ description + '</p>');
         }
         else{
-          $('.education-label:last').after('<div class="education-label">'+'<a href="'+data.responseJSON.id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
-             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+'</div>');
+          $('.education-label:last').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.responseJSON.id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-education delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+
+                '<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '<h5>'+data.responseJSON.degree+' in '+major_name+'<span>@ '+institution_name+'</span></h5>'+
+              '<p>'+ description + '</p>'+'</div>');
         }
-
       }
     }else{
       showError("Error Updating")
     }
+    feather.replace();
+  }
+
+
+  function loadEducationObject(data) {
+      if(!data.edu_info['graduation_date']){
+          delete data.edu_info['graduation_date']
+      }
+      if(data.edu_info['graduation_date']){
+          var momentGraduationObj = moment(data.edu_info['graduation_date'], 'YYYY-MM-DD');
+          var dateGraduationString = momentGraduationObj.format('DD/MM/YYYY');
+          data.edu_info['graduation_date'] = dateGraduationString
+      }
+      var momentObj = moment(data.edu_info['enrolled_date'], 'YYYY-MM-DD');
+      var dateEnrolledString = momentObj.format('DD/MM/YYYY');
+      data.edu_info['enrolled_date'] = dateEnrolledString
+
+    json2Form(data.edu_info, "education-form")
+      $('#graduation_date').val('')
+      if(data.edu_info.is_ongoing){
+          $('#is_ongoing').prop('checked',true)
+          $('#graduation_date').prop('disabled',true)
+      }
   }
 
   function loadExperience(data) {
@@ -1718,42 +1809,45 @@
   }
 
   function loadEdu(data) {
-    console.log(data.edu_info)
-    // var totalDiv = $('#education-form').find(".input-block-edu");
-    // alert(totalDiv[0].find(".edu-div-lavel"))
-    var eduHtml = $(".education-label").html();
+
     for(index=0;index<data.edu_info.length;index++){
       var dateString = data.edu_info[index].enrolled_date;
       var dateGraduationString = data.edu_info[index].graduation_date;
-
       var momentObj = moment(dateString, 'YYYY-MM-DD');
       var momentGraduationObj = moment(dateGraduationString, 'YYYY-MM-DD');
-      var dateEnrolledString = momentObj.format('YYYY');
-      var dateGraduationString = momentGraduationObj.format('YYYY');
-      var count = divCounter("input-block-edu")+1;
+      var dateEnrolledString = momentObj.format('DD/MM/YYYY');
+      var dateGraduationString = momentGraduationObj.format('DD/MM/YYYY');
+      if(dateEnrolledString == "Invalid date"){
+        dateEnrolledString = "";
+      }
+      if(dateGraduationString == "Invalid date" && data.edu_info[index].is_ongoing == true){
+          dateGraduationString = "Ongoing";
+      }
+      if(!data.edu_info[index].description){
+          data.edu_info[index].description =''
+      }
       var eduDivHtml = $("#education-form .input-block-edu").html();
+
       if(index==0){
-        $('#edu-label').after('<div class="education-label">'+'<a href="'+data.edu_info[index].id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
-             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');
-        $('.input-block-edu').remove();
-        count = divCounter("input-block-edu")+1;
-        $('#education-form').prepend('<div class="input-block-wrap input-block-edu update-edu edu-01" >'+eduDivHtml+'</div>');
-        $(".edu-div-lavel:last").text("0"+ count);
-        json2FormDiv(data.edu_info[index], "edu-01");
-        $('.edu-01 #institution').val(data.edu_info[index].institution_obj.id);
-        $('.edu-01 #major').val(data.edu_info[index].major_obj.id);
+        $('#edu-label').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.edu_info[index].id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume delete-education delete-icon" >\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_text+'</span></h5>'+
+            '<p>'+ data.edu_info[index].description + '</p>'+'</div>');
 
       }
       else if(index>=1){
-        $('.education-label:last').after('<div class="education-label">'+'<a href="'+data.edu_info[index].id+'"></a>'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +
-             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_obj.name+'</span></h5>'+'</div>');
-        count = divCounter("input-block-edu")+1;
-        $('.input-block-edu:last').after('<div class="input-block-wrap input-block-edu update-edu edu-0'+count+'" >'+eduDivHtml+'</div>');
-        $(".edu-div-lavel:last").text("0"+ count);
-        json2FormDiv(data.edu_info[index], "edu-0"+count);
-        $(".edu-0"+count+" #institution").val(data.edu_info[index].institution_obj.id);
-        $(".edu-0"+count+" #major").val(data.edu_info[index].major_obj.id);
+        $('.education-label:last').after('<div class="education-label">'+'<input type="hidden" class="edu-object-id" value="'+data.edu_info[index].id+'">'+'<span class="study-year">'+dateEnrolledString+' - '+dateGraduationString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume delete-education delete-icon" >\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-education update-icon" data-toggle="modal" data-target="#modal-education">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '<h5>'+data.edu_info[index].degree+' in '+data.edu_info[index].major_obj.name+'<span>@ '+data.edu_info[index].institution_text+'</span></h5>'+
+            '<p>'+ data.edu_info[index].description + '</p>'+'</div>');
       }
+      feather.replace();
       }
   }
 
@@ -1890,5 +1984,18 @@
     $("#tw").text(data[2]);
     $("#ln").text(data[3]);
   }
+
+
+  function eduDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    eduUpdateUrl = "/api/professional/professional_education/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(eduUpdateUrl, JSON.stringify(data), loadEducation);
+  }
+
 </script>
 {% endblock %}

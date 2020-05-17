@@ -82,6 +82,11 @@ class InstituteNameSerializer(serializers.ModelSerializer):
         model = Institute
         fields = '__all__'
 
+class InstituteSearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Institute
+        fields = '__all__'
+
 
 
 class CustomTokenSerializer(serializers.Serializer):
