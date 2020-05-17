@@ -8,8 +8,9 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 
 from job.serializers import JobSerializer
-from pro.utils import similar
-from job.models import Job, FavouriteJob, ApplyOnline, JobType, Company
+from job.api_job_core import get_favourite_status, get_company_logo, get_applied_status
+from pro.utils import similar # TODO: Why from pro
+from job.models import Job, FavouriteJob, ApplyOnline
 
 
 @api_view(["GET"])
@@ -33,24 +34,18 @@ def job_list(request):
         qualification = request.GET.get('qualification')
         topSkill = request.GET.get('top-skill')
 
+        job_list = Job.objects.filter(
+            is_archived=False,
+            status='Published',
+            application_deadline__gte=datetime.now()
+        )
+
         if sorting == 'most-applied':
-            job_list = Job.objects.filter(
-                is_archived=False,
-                status='Published',
-                application_deadline__lte=datetime.now()
-            ).order_by('-applied_count')
+            job_list = job_list.order_by('-applied_count')
         elif sorting == 'top-rated':
-            job_list = Job.objects.filter(
-                is_archived=False,
-                status='Published',
-                application_deadline__lte=datetime.now()
-            ).order_by('-favorite_count')
+            job_list = job_list.order_by('-favorite_count')
         else: # 'most-recent'
-            job_list = Job.objects.filter(
-                is_archived=False,
-                status='Published',
-                application_deadline__lte=datetime.now()
-            ).order_by('-post_date')
+            job_list = job_list.order_by('-post_date')
 
         if query:
             job_list = job_list.filter(
@@ -112,7 +107,7 @@ def job_list(request):
         for job in job_list:
             job.is_favourite = get_favourite_status(job, request.user)
             job.is_applied = get_applied_status(job, request.user)
-            job.profile_picture = populate_company_logo(job)
+            job.profile_picture = get_company_logo(job)
 
         number_of_row_total = paginator.count
         number_of_pages = paginator.num_pages
@@ -147,7 +142,7 @@ def similar_jobs(request, identifier, limit = 5):
         ~Q(job_id=identifier),
         is_archived=False,
         status='Published',
-        application_deadline__lte=datetime.now(),
+        application_deadline__gte=datetime.now(),
     ).order_by(
         "-post_date"
     )
@@ -157,7 +152,7 @@ def similar_jobs(request, identifier, limit = 5):
         if(similar(selected_job.title, job.title) > 0.8 ): # TODO: Read from settings)
             job.is_favourite = get_favourite_status(job, request.user)
             job.is_applied = get_applied_status(job, request.user)
-            job.profile_picture = populate_company_logo(job)
+            job.profile_picture = get_company_logo(job)
             data.append(job)
         if len(data) >= limit:
             break
@@ -170,13 +165,13 @@ def recent_jobs(request, limit:int = 6):
     queryset = Job.objects.filter(
         is_archived=False,
         status='Published',
-        application_deadline__lte=datetime.now()
-    )().order_by('-post_date')[:limit]
+        application_deadline__gte=datetime.now()
+    ).order_by('-post_date')[:limit]
 
     for job in queryset:
         job.is_favourite = get_favourite_status(job, request.user)
         job.is_applied = get_applied_status(job, request.user)
-        job.profile_picture = populate_company_logo(job)
+        job.profile_picture = get_company_logo(job)
     data = JobSerializer(queryset, many=True).data
     return Response(data)
 
@@ -188,7 +183,7 @@ def favourite_jobs(request):
     for fav_job in queryset:
         job = Job.objects.get(job_id=fav_job.job_id)
         job.is_applied = get_applied_status(job, request.user)
-        job.profile_picture = populate_company_logo(job)
+        job.profile_picture = get_company_logo(job)
     data = JobSerializer(queryset, many=True).data
     return Response(data)
 
@@ -200,41 +195,9 @@ def applied_jobs(request):
     for app_job in queryset:
         job = Job.objects.filter(job_id=app_job.job_id)
         job.is_favourite = get_favourite_status(job, request.user)
-        job.profile_picture = populate_company_logo(job)
+        job.profile_picture = get_company_logo(job)
     data = JobSerializer(queryset, many=True).data
     return Response(data)
 
 
-def populate_company_logo(job):
-    # TODO: read from string file/ settings
-    if job.company_name:
-        if job.company_name.profile_picture:
-            profile_picture = '/media/' + str(job.company_name.profile_picture)
-        else:
-            profile_picture = '/static/images/job/company-logo-2.png'
-    else:
-        profile_picture = '/static/images/job/company-logo-2.png'
 
-    return profile_picture
-
-def get_favourite_status(job : Job, user):
-    if user.is_authenticated:
-        try:
-            favourite_job = FavouriteJob.objects.get(job=job, user=user)
-        except FavouriteJob.DoesNotExist:
-            favourite_job = None
-    else:
-        favourite_job = None
-
-    return favourite_job != None
-
-def get_applied_status(job : Job, user):
-    if user.is_authenticated:
-        try:
-            applied_job = ApplyOnline.objects.get(job=job, created_by=user)
-        except ApplyOnline.DoesNotExist:
-            applied_job = None
-    else:
-        applied_job = None
-
-    return applied_job != None
