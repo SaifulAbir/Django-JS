@@ -34,9 +34,9 @@
                 </div>
                 <div class="social-profile">
                   <label>Social:</label>
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#"><i class="fab fa-twitter"></i></a>
-                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
 
                 </div>
               </div>
@@ -300,9 +300,28 @@
                 $('.skill').append('<a href="#">'+skill_info[x].skill_obj.name+'</a>');
             }
 
+            if(data.personal_info.facebook_id){
+                   facebook = 'http://facebook.com/'+data.personal_info.facebook_id;
+            }
+            else{
+                   facebook = '#';
+            }
+            if(data.personal_info.twitter_id){
+                   twitter  = 'http://twitter.com/'+data.personal_info.twitter_id;
+            }
+            else{
+                   twitter  = '#';
+            }
+            if(data.personal_info.linkedin_id){
+                   linkedin = 'http://linkedin.com/'+data.personal_info.linkedin_id;
+            }
+            else{
+                  linkedin = '#';
+            }
 
-
-
+            $('.facebook').attr('href',facebook);
+            $('.twitter').attr('href',twitter);
+            $('.linkedin').attr('href', linkedin);
 
 
 
