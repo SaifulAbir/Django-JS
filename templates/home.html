@@ -10,11 +10,9 @@
                 <div class="banner-content">
                     <h1>All the great jobs in one place!</h1>
                     <p> Find Jobs, Employment & Career Opportunities</p>
-
                     <div class="banner-search">
-                        <form action="/api/trending_keyword_save/" id="search-form" class="search-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate" autocomplete="off">
+                        <form action="/job-list/" id="search-form" class="search-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate" autocomplete="off">
                             <input type="text" name="keyword" id="keyword" placeholder="Enter Keywords">
-                            <input type="text" name="location" id="location" placeholder="Location">
                             <button class="button primary-bg"><i class="fas fa-search" style="color:#ffffff;"></i>Search Job</button>
                             <div class="error-msg-location alert alert-danger" style="text-align: left;position: relative; top: 17px; display: none;"></div>
                         </form>
@@ -65,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6">git st
                 <div class="explore-job">
                     <div class="explore-job-header">
                         <h5 class="title">Popular Jobs</h5>
@@ -232,19 +230,8 @@
 {% block extra_js %}
 <script>
     $(document).ready(function() {
-        $("#keyword, #location").keyup(function(){
-            if ($(this).val()){
-                $(".error-msg-location").hide();
-            }
-
-        });
         $('#search-form').validate({
             rules: {
-                location: {
-                    required:  function(element) {
-                        return $("#keyword").val() == '' && $("#location").val() == '';
-                    }
-                },
                 keyword: {
                     required:  function(element) {
                         return $("#location").val() == '' && $("#keyword").val() == '';
@@ -253,11 +240,8 @@
             },
 
             messages: {
-                "location": {
-                    required: "Location and keyword can not be empty at a time"
-                } ,
                 "keyword": {
-                    required: false
+                    required: "keyword can not be empty"
                 }
             },
             errorElement : 'div',
@@ -289,7 +273,6 @@
         get(jobAlertUrl, loadJobAlert);
         favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
         applyOnlineJobAddRemove('job-list', '/api/apply_online_job_add/');
-        // jobAlertRedirectPage();
     });
 
 
@@ -434,12 +417,6 @@
         for(x=0;x<len;x++){
             $('#trend-keywords').append('<a href="jobs/?keyword='+ data[x].keyword +'"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
         }
-    }
-
-    function redirectPage() {
-        key = $('#keyword').val()
-        loc = $('#location').val()
-        window.location.href = "/jobs/?keyword="+ key +"&location="+ loc;
     }
 
     function loadJobAlert(data) {

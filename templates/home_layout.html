@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
-  {% load static %}
+<head>
+    {% load static %}
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css'%}">
     <!-- External Css -->
     <link rel="stylesheet" href="{% static 'assets/fontawesome/css/all.css'%}">
-<!--    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css'%}">-->
+    <!--    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css'%}">-->
     <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css'%}" />
     <link rel="stylesheet" href="{% static 'assets/css/et-line.css'%}" />
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css'%}" />
@@ -28,7 +28,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600%7CRoboto:300i,400,500" rel="stylesheet">
 
-      <link rel="icon" type="image/png" href="{% static 'images/faviconl.png'%}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{% static 'images/faviconl.png'%}" sizes="32x32" />
     <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png'%}">
     <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/icon-72x72.png'%}">
     <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/icon-114x114.png'%}">
@@ -41,216 +41,65 @@
     <script src="{% static 'assets/js/respond.min.js'%}"></script>
     <![endif]-->
 
-  </head>
-  <body>
+</head>
+<body>
 
-    <!-- Header -->
-    <header>
-      <nav class="navbar navbar-expand-xl absolute-nav transparent-nav cp-nav navbar-light bg-light fluid-nav">
+<!-- Header -->
+<header>
+    <nav class="navbar navbar-expand-xl absolute-nav transparent-nav cp-nav navbar-light bg-light fluid-nav">
         <a class="navbar-brand" href="{% url 'home' %}">
-          <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">
+            <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">
         </a>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <div class="navbar-nav ml-auto main-nav">
-            <li class="menu-item active"><a title="Home" href="{% url 'home' %}">Home</a></li>
-            <li class="menu-item"><a  href="{% url 'jobs' %}">Jobs</a></li>
-            <li class="menu-item"><a  href="{% url 'career_advice' %}">Career Advice</a></li>
-            <li class="menu-item"><a  href="{% url 'skill_check' %}">Skill Check</a></li>
-            <li class="menu-item"><a  href="{% url 'about_us' %}">About Us</a></li>
-            <li class="menu-item"><a  href="{% url 'contact_us' %}">Contact Us</a></li>
-
-            <li>
-              <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i>  </a>
-             <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>
-             <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>
-            </li>
-            <li class="menu-item login-popup" id="sign-in"><a href="{% url 'sign-in' %}">Login</a></li>
-            <li class="menu-item login-popup" id="register"><a href="{% url 'register' %}">Register</a></li>
-            <li class="menu-item" id="sign-out" style="display: none; "><a href="professional/sign-out/">Logout</a></li>
-          </ul>
+            <div class="navbar-nav ml-auto main-nav">
+                {% include 'nav.html' %}
+                <li>
+                    <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i>  </a>
+                    <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>
+                    <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>
+                </li>
+                <li class="menu-item login-popup" id="sign-in"><a href="{% url 'sign-in' %}">Login</a></li>
+                <li class="menu-item login-popup" id="register"><a href="{% url 'register' %}">Register</a></li>
+                <li class="menu-item" id="sign-out" style="display: none; "><a href="professional/sign-out/">Logout</a></li>
+                </ul>
+            </div>
         </div>
-        </div>
-      </nav>
-    </header>
-    <!-- Header End -->
+    </nav>
+</header>
+<!-- Header End -->
 
-    {% block body_block %}
+{% block body_block %}
 
-    {% endblock %}
-    <!-- App Banner -->
+{% endblock %}
+<!-- App Banner -->
 <div class="padding-top-90 padding-bottom-90 app-download-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="app-download">
-                        <h2>Get JobSearch App</h2>
-                        <p>Searching for jobs never been that easy. Now you can find job matched your career expectation</p>
-                        <div class="app-download-button">
-                            <a href="" class="apple-app">App Store</a>
-                            <a href="" class="android-app">Google Play</a>
-                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="app-download">
+                    <h2>Get JobSearch App</h2>
+                    <p>Searching for jobs never been that easy. Now you can find job matched your career expectation</p>
+                    <div class="app-download-button">
+                        <a href="" class="apple-app">App Store</a>
+                        <a href="" class="android-app">Google Play</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 <!-- App Banner End -->
-    <!-- Footer -->
-    <footer class="footer-bg">
-      <div class="footer-top border-bottom section-padding-top padding-bottom-40">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="footer-logo">
-                <a href="{% url 'home' %}">
-                  <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">
-                </a>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="footer-social">
-              <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i></a>
-              <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i></a>
-              <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-widget-wrapper padding-bottom-60 padding-top-80">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-2 col-sm-6">
-              <div class="footer-widget footer-shortcut-link">
-                <h4>Information</h4>
-                <div class="widget-inner">
-                  <ul>
-                    <li><a href="{% url 'about_us' %}">About Us</a></li>
-                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
-                    <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
-                    <li><a href="{% url 'terms-and-condition' %}">Terms and Conditions</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2 col-sm-6">
-              <div class="footer-widget footer-shortcut-link">
-                <h4>Job Seekers</h4>
-                <div class="widget-inner">
-                  <ul>
-                    <li><a href="{% url 'register' %}">Create Account</a></li>
-                    <li><a href="{% url 'career_advice' %}">Career Advice</a></li>
-                    <li><a href="{% url 'my_job_search' %}">My Job Search</a></li>
-                    <li><a href="{% url 'FAQ' %}">FAQ</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2 col-sm-6">
-              <div class="footer-widget footer-shortcut-link">
-                <div class="widget-inner">
-                  <h4>Address</h4>
-                  <ul>
-                      <li>House 76 (Level 4)</li>
-                      <li>Road 4, Block B</li>
-                      <li>Niketan, Gulshan 1</li>
-                      <li>Dhaka 1212, Bangladesh</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-5 offset-lg-1 col-sm-6">
-              <div class="footer-widget footer-newsletter">
-                <h4>Job Alert</h4>
-                <p class="display-none" id="alert-msg">Get e-mail updates about our latest news and Special offers.</p>
-                <form action="/api/professional/job_alert/" id="job-alert" class="newsletter-form display-none form-inline ajax" method="POST" data-callback="jobAlertRedirectPage">
-                  <div class="form-group">
-                    <input type="text" name="email" id="email" regex='^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$' class="form-control" required data-msg-required="Email is required" data-msg-regex="Please enter a valid email" placeholder="Email address...">
-                  </div>
-                  <button class="btn button primary-bg">Submit<i class="fas fa-caret-right"></i></button>
-                  <p class="newsletter-error">0 - Please enter a value</p>
-                  <p class="newsletter-success">Thank you for subscribing!</p>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom-area">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="footer-bottom border-top">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <p class="copyright-text">Copyright <a href="{% url 'home' %}">Job Search</a> 2020, All right reserved</p>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="back-to-top">
-                      <a href="#">Back to top<i class="fas fa-angle-up"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- Footer End -->
+<!-- Footer -->
+{% include 'footer.html' %}
+<!-- Footer End -->
 
-
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{% static 'assets/js/jquery.min.js'%}"></script>
-    <script src="{% static 'assets/js/popper.min.js'%}"></script>
-    <script src="{% static 'js/moment.min.js'%}"></script>
-    <script src="{% static 'assets/js/bootstrap.min.js'%}"></script>
-    <script src="{% static 'assets/js/feather.min.js'%}"></script>
-    <script src="{% static 'assets/js/bootstrap-select.min.js'%}"></script>
-    <script src="{% static 'assets/js/jquery.nstSlider.min.js'%}"></script>
-    <script src="{% static 'assets/js/owl.carousel.min.js'%}"></script>
-    <script src="{% static 'assets/js/visible.js'%}"></script>
-    <script src="{% static 'assets/js/jquery.countTo.js'%}"></script>
-    <script src="{% static 'assets/js/chart.js'%}"></script>
-    <script src="{% static 'assets/js/plyr.js'%}"></script>
-    <script src="{% static 'assets/js/tinymce.min.js'%}"></script>
-    <script src="{% static 'assets/js/slick.min.js'%}"></script>
-    <script src="{% static 'assets/js/jquery.ajaxchimp.min.js'%}"></script>
-    <script src="{% static '/assets/js/jquery.cookie.min.js' %}"></script>
-    <script src="{% static 'js/custom.js'%}"></script>
-    <script src="{% static '/assets/js/form2js.js' %}"></script>
-    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
-    <script src="{% static 'js/common.js' %}"></script>
-    <script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE"></script>
-    <script src="{% static 'js/map.js'%}"></script>
-<script type="text/javascript">
-    $(function () {
-       TokenAuthenticate();
-        socialUrl = '/api/settings/';
-        get(socialUrl,loadSocialUrl);
-    });
-     function loadSocialUrl(data) {
-            if (data.length>0){
-            data = data[0];
-            $('.facebook-url').attr('href', data.facebook_url);
-            $('.linkedin-url').attr('href', data.linkedin_url);
-            $('.twitter-url').attr('href', data.twitter_url);
-            $('.apple-app').attr('href', data.appstore_url);
-            $('.android-app').attr('href', data.playstore_url);
-}
-
-        }
-
-</script>
 {% block extra_js %}
 
 {% endblock %}
-  </body>
+
+</body>
 </html>

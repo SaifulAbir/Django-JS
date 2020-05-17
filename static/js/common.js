@@ -255,7 +255,6 @@ function showQuestion(title, msg, yesCallback, noCallback) {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes'
     }).then((result) => {
-        console.log(result.value)
         if (result.value && typeof (yesCallback) ==='function') {
             yesCallback();
         } else if(result.dismiss=='cancel' && typeof(noCallback) ==='function'){
