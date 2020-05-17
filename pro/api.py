@@ -208,7 +208,7 @@ class ProfessionalDetail(APIView):
     permission_classes = (IsAppAuthenticated,)
     def get(self, request, pk):
         profile = get_object_or_404(Professional, pk=pk)
-        education = ProfessionalEducation.objects.filter(professional=pk ,is_archived=False)
+        education = ProfessionalEducation.objects.filter(professional=pk ,is_archived=False).order_by('-enrolled_date')
         skills = ProfessionalSkill.objects.filter(professional=pk, is_archived=False)
         experience = WorkExperience.objects.filter(professional=pk, is_archived=False)
         portfolio = Portfolio.objects.filter(professional=pk, is_archived=False)
@@ -229,6 +229,8 @@ class ProfessionalDetail(APIView):
             'major_text':edu.major_text,
             'enrolled_date': edu.enrolled_date,
             'graduation_date': edu.graduation_date,
+            'description': edu.description,
+            'is_ongoing' :edu.is_ongoing
         } for edu in education
         ]
 
@@ -811,11 +813,19 @@ class EducationUpdateDelete(GenericAPIView, UpdateModelMixin):
         if "degree_id" in request.data:
             request.data["degree"] = request.data["degree_id"]
             del request.data["degree_id"]
+        if "institution_id" in request.data:
+            request.data["institution"] = request.data["institution_id"]
+            del request.data["institution_id"]
+        if "major_id" in request.data:
+            request.data["major"] = request.data["major_id"]
+            del request.data["major_id"]
+        if 'is_ongoing' in request.data and request.data['is_ongoing'] == True:
+            request.data['graduation_date'] = None
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalEducationSerializer(ProfessionalEducation.objects.get(pk=pk)).data
-        if 'institution_id' in request.data and request.data['institution_id'] is not None:
+        if 'institution' in request.data and request.data['institution'] is not None:
             prof_obj['institution_obj'] = InstituteNameSerializer(
-                Institute.objects.get(pk=request.data['institution_id'])).data
+                Institute.objects.get(pk=request.data['institution'])).data
         else:
             if prof_obj['institution']:
                 prof_obj['institution_obj'] = InstituteNameSerializer(
@@ -997,3 +1007,19 @@ def pro_recent_activity(request):
         'type': act.type
     }for act in activity]
     return Response(activity_list)
+
+
+class EducationObject(APIView):
+    permission_classes = (IsAppAuthenticated,)
+    def get(self, request, pk):
+        education = ProfessionalEducationSerializer(get_object_or_404(ProfessionalEducation, pk=pk)).data
+        edu_data = {
+            'edu_info': education,
+        }
+        return Response(edu_data)
+
+
+api_view('GET')
+def institute_search(request):
+    names = list(Institute.objects.values_list('name',flat=True))
+    return HttpResponse(json.dumps(names),'application/json')
