@@ -315,3 +315,27 @@ a.save.apply.active {
 .twitter-typeahead, .tt-menu {
     width: 86%;
 }
+
+.job-list .thumb img {
+    max-width: 80px;
+    max-height: 80px;
+}
+.job-list .body .more .buttons .applied {
+    color: #ffffff;
+    background: #74a9c3;
+    border-color: #74a9c3;
+}
+
+p.copyright-text {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 19px;
+    color: #6f7484;
+}
+
+p.powered-by span{
+    color: #6f7484;
+    position: relative;
+    top: 10px;
+}
