@@ -28,9 +28,9 @@
               <div class="skill-and-profile">
                 <div class="skill">
                   <label>Skills:</label>
-                  <a href="#">Design</a>
-                  <a href="#">Illustration</a>
-                  <a href="#">iOS</a>
+<!--                  <a href="#">Design</a>-->
+<!--                  <a href="#">Illustration</a>-->
+<!--                  <a href="#">iOS</a>-->
                 </div>
                 <div class="social-profile">
                   <label>Social:</label>
@@ -292,6 +292,13 @@
             }
 
 
+   //professional view profile skill and social
+
+            skill_info = data['skill_info']
+            len = skill_info.length;
+            for(x=0;x<len;x++){
+                $('.skill').append('<a href="#">'+skill_info[x].skill_obj.name+'</a>');
+            }
 
 
 
