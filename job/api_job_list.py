@@ -166,7 +166,7 @@ def recent_jobs(request, limit:int = 6):
         is_archived=False,
         status='Published',
         application_deadline__gte=datetime.now()
-    )().order_by('-post_date')[:limit]
+    ).order_by('-post_date')[:limit]
 
     for job in queryset:
         job.is_favourite = get_favourite_status(job, request.user)

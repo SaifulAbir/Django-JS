@@ -90,6 +90,9 @@ class RecentJobSerializer(serializers.ModelSerializer):
         fields = ['job_location', 'job_id', 'company_name', 'employment_status', 'title', 'created_date', 'status']
 
 class JobSerializerAllField(serializers.ModelSerializer):
+    profile_picture = serializers.CharField(read_only=True)
+    is_favourite = serializers.CharField(read_only=True)
+    is_applied = serializers.CharField(read_only=True)
     class Meta:
         model = Job
         fields = '__all__'

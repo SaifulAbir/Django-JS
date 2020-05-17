@@ -8,14 +8,13 @@ from job.serializers import JobSerializerAllField
 
 class JobObject(APIView):
     def get(self, request, slug):
-        queryset = get_object_or_404(Job, slug=slug)
-        for job in queryset:
-            job.is_favourite = get_favourite_status(job, request.user)
-            job.is_applied = get_applied_status(job, request.user)
-            job.profile_picture = get_company_logo(job)
-            job.latitude, job.longitude = get_company_latlng(job)
+        job = get_object_or_404(Job, slug=slug)
+        job.is_favourite = get_favourite_status(job, request.user)
+        job.is_applied = get_applied_status(job, request.user)
+        job.profile_picture = get_company_logo(job)
+        job.latitude, job.longitude = get_company_latlng(job)
 
-        data = JobSerializerAllField(queryset).data
+        data = JobSerializerAllField(job).data
 
         data['skill']=[]
         for skill in job.job_skills.all():
@@ -27,8 +26,8 @@ class JobObject(APIView):
 
 def get_company_latlng(job):
     if job.company_name:
-        latitude = str(job.company_name.latitude)
-        longitude = str(job.company_name.longitude)
+        latitude = job.company_name.latitude
+        longitude = job.company_name.longitude
     return latitude, longitude
 
 def get_company_logo(job):
