@@ -37,7 +37,7 @@ def job_list(request):
         job_list = Job.objects.filter(
             is_archived=False,
             status='Published',
-            application_deadline__lte=datetime.now()
+            application_deadline__gte=datetime.now()
         )
 
         if sorting == 'most-applied':
@@ -142,7 +142,7 @@ def similar_jobs(request, identifier, limit = 5):
         ~Q(job_id=identifier),
         is_archived=False,
         status='Published',
-        application_deadline__lte=datetime.now(),
+        application_deadline__gte=datetime.now(),
     ).order_by(
         "-post_date"
     )
@@ -165,7 +165,7 @@ def recent_jobs(request, limit:int = 6):
     queryset = Job.objects.filter(
         is_archived=False,
         status='Published',
-        application_deadline__lte=datetime.now()
+        application_deadline__gte=datetime.now()
     )().order_by('-post_date')[:limit]
 
     for job in queryset:
