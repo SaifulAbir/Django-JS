@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from job.api import *
-from .views import *
+from job.api_job_list import similar_jobs, applied_jobs, favourite_jobs, recent_jobs, job_list
 from job.api_job_related import get_job_site_list, JobSourceList, get_job_nature_list, get_job_type_list, \
     get_job_status_list, get_job_creator_type_list, JobCategoryList, JobGenderList
 
@@ -9,13 +9,10 @@ urlpatterns = [
     path('post-job/', TemplateView.as_view(template_name='post-job.html'), name='post_job'),
     path('validation-test', TemplateView.as_view(template_name='company-create.html')),
     path('job-detail/<slug:slug>/', TemplateView.as_view(template_name='job-details.html')),
-   ## path('job-list/', TemplateView.as_view(template_name='job-list.html'), name='jobs'),
-    path('job-list/', jobs, name='jobs'),
+    path('jobs/', TemplateView.as_view(template_name='job-list.html'), name='jobs'),
     path('update/<str:pk>/', TemplateView.as_view(template_name='update-job.html')),
     path('company/', CompanyList.as_view()),
     path('company/search/', get_company_by_name),
-    path('job_list/', job_list),
-    path('job_list/', JobList.as_view()),
     path('industry/', IndustryList.as_view()),
     path('job_type/', JobTypeList.as_view()),
     path('experience/', Experience.as_view()),
@@ -32,16 +29,18 @@ urlpatterns = [
     path('trending_keyword_show/', TrendingKeywordPopulate.as_view()),
     path('popular_categories/', PopularCategories.as_view()),
     path('top_skills/', TopSkills.as_view()),
-    path('recent_jobs/', recent_jobs),
     path('vital_stats/', vital_stats),
-    path('similar_jobs/<str:identifier>/', similar_jobs),
-    path('popular_jobs/', top_companies),
+    path('popular_jobs/', PopularJobs.as_view()),
     path('salary_range/', salary_range),
     path('skill_list/', SkillList.as_view()),
     path('apply_online_job_add/', apply_online_job_add),
-    path('applied_jobs/', applied_jobs),
-    path('favourite-jobs/',favourite_jobs),
     path('favourite-jobs-delete/<str:identifier>/', del_fav_jobs),
+
+    path('api/job/search/', job_list),
+    path('api/job/recent/', recent_jobs),
+    path('api/job/applied/', applied_jobs),
+    path('api/job/favourite/',favourite_jobs),
+    path('api/job/similar/<str:identifier>/', similar_jobs),
     path('api/job-source/list/', JobSourceList.as_view()),
     path('api/job-category/list/', JobCategoryList.as_view()),
     path('api/job-gender/list/', JobGenderList.as_view()),
@@ -50,16 +49,5 @@ urlpatterns = [
     path('api/job-type/list', get_job_type_list),
     path('api/job-status/list', get_job_status_list),
     path('api/job-creator-type/list', get_job_creator_type_list),
-
-    path('post-a-job/', TemplateView.as_view(template_name='post_a_job.html')),
-    path('company-edit-profile/', TemplateView.as_view(template_name='company_edit_profile.html')),
-    path('company-sign-in/', TemplateView.as_view(template_name='company_sign_in.html')),
-    path('company-reset-password/', TemplateView.as_view(template_name='company_forget_password.html')),
-    path('company-password-reset/<str:token>/', TemplateView.as_view(template_name='company_reset_password.html')),
-    path('company-reset-password-successful/',TemplateView.as_view(template_name='company-reset-password-successful.html')),
-    path('company_dashboard/', TemplateView.as_view(template_name='company_dashboard.html'), name='company_dashboard'),
-    path('company_manage_jobs/', TemplateView.as_view(template_name='company_manage_jobs.html'), name='company_manage_jobs'),
-    path('company_manage_candidates/', TemplateView.as_view(template_name='company_manage_candidate.html'),name='company_manage_candidates'),
-    path('company_shortlisted_candidates/', TemplateView.as_view(template_name='company_shortlisted_candidates.html'),name='company_shortlisted_candidates'),
 
 ]

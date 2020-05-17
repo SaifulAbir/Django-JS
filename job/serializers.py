@@ -58,22 +58,11 @@ class JobSerializer(serializers.ModelSerializer):
     is_applied = serializers.CharField(read_only=True)
     class Meta:
         model = Job
-        # TODO : Remove fields not needed
-        fields = ('title','status' ,'company_name', 'address','job_category','application_deadline' ,
-         'job_gender','vacancy','experience' ,
-         'salary','salary_min','salary_max','currency' ,
-        'description','responsibilities','education','qualification',
-        'additional_requirements','other_benefits',
-         'job_area','job_city','job_country' ,'company_profile',
-         'company_area','company_city','company_country' ,
-         'job_site','job_nature','job_type' ,'job_skills',
-         'job_source_1','job_url_1' ,
-         'job_source_2','job_url_2' ,
-         'job_source_3','job_url_3' ,
-         'created_by','created_at','modified_by','modified_at' ,
-         'post_date','review_date','approve_date','publish_date' ,
-         'slug', 'applied_count', 'favorite_count', 'is_applied', 'is_favourite','profile_picture' )
-
+        fields = ('vacancy','job_id', 'title', 'status' , 'company_name', 'job_category',
+                  'application_deadline', 'job_area', 'job_city', 'job_country',
+                  'job_site','job_nature','job_type',
+                  'created_at', 'post_date', 'slug', 'applied_count', 'favorite_count',
+                  'is_applied', 'is_favourite','profile_picture' )
 
 
 class JobSourceSerializer(serializers.ModelSerializer):
@@ -91,8 +80,8 @@ class JobGenderSerializer(serializers.ModelSerializer):
         model = JobGender
         fields = ['name']
 
+# TODO: remove if not needed
 class RecentJobSerializer(serializers.ModelSerializer):
-
     status = serializers.CharField()
     # profile_picture = serializers.CharField()
 
@@ -119,7 +108,7 @@ class PopularCategoriesSerializer(serializers.ModelSerializer):
     num_posts = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = JobCategory
+        model = Industry
         fields= ['name', 'num_posts']
 
 
@@ -131,11 +120,11 @@ class TopSkillSerializer(serializers.ModelSerializer):
         fields= '__all__'
 
 class PopularJobSerializer(serializers.ModelSerializer):
-
+    favourite_count = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = Company
-        fields= '__all__'
+        model = Job
+        fields= ['title','favourite_count']
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
