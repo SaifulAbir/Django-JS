@@ -744,11 +744,10 @@
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Skill Name</div>
-                                      <input type="hidden" name="id" id="id" class="form-control" >
                                   </div>
                                   <select class="form-control" name="skill_name" id="skill_name" data-text="name" data-value="id"  data-placeholder="" data-src="/api/skill_list/" value="" required data-msg-required="Skill is required">
                                   </select>
-
+                                    <input type="hidden" name="id" id="id" class="form-control skill_object_id" >
                                 </div>
                               </div>
                             </div>
@@ -1394,8 +1393,9 @@
 
     {#SKill add#}
     $('#add-skill').on('click', function (event) {
-      event.preventDefault();
       $("#modal-pro-skill").find('form')[0].reset();
+      $('.skill_object_id').val('');
+
     });
 
     $('.professional-skill-div').on('click','.delete-skill',function () {
@@ -1405,7 +1405,9 @@
     });
 
       $('.professional-skill-div').on('click','.update-skill',function (event) {
-          event.preventDefault()
+          var obj_id = $(this).parent().parent().find(".skill-obj-id").val();
+          var getUrl = '/api/professional/professional_skill_object/'+ obj_id + '/';
+            get(getUrl, loadSkillObject);
           alert('hi')
       });
 
@@ -1658,6 +1660,9 @@
           $('#is_ongoing').prop('checked',true)
           $('#graduation_date').prop('disabled',true)
       }
+  }
+  function loadSkillObject(data) {
+        json2Form(data.skill_info, "pro-skill-form")
   }
 
   function loadExperience(data) {
@@ -1942,6 +1947,7 @@
       console.log(data)
       if(data.status==200){
           $("#modal-pro-skill").modal("hide");
+          $("#modal-pro-skill").find('form')[0].reset();
           if($('.professional-skill-div').find(".skill-label").length==0){
               console.log(data.responseJSON)
               $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.responseJSON.id + '">' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
