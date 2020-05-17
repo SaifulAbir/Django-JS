@@ -849,6 +849,9 @@ class SkillUpdateDelete(GenericAPIView, UpdateModelMixin):
         else:
             ip = request.META.get('REMOTE_ADDR')
         request.data.update({'modified_by_id': request.user.id, 'modified_at': str(ip),'modified_date':timezone.now()})
+        if 'skill_name_id' in request.data:
+            request.data['skill_name'] = request.data['skill_name_id']
+            del request.data['skill_name_id']
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalSkillSerializer(ProfessionalSkill.objects.get(pk=pk)).data
         prof_obj['rating'] = Decimal(prof_obj['rating'])
