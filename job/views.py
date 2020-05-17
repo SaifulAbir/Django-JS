@@ -10,7 +10,7 @@ def jobs(request):
     }
 
     if request.method == 'GET':
-        return True
+        pass
     elif request.method == 'POST':
         context['keyword'] = request.POST.get('keyword')
 

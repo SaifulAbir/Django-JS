@@ -230,6 +230,13 @@
 {% block extra_js %}
 <script>
     $(document).ready(function() {
+        $("body").delegate("#trend-keywords a", "click", function(){
+           var popularKeyword = $(this).children().html();
+            $("#keyword").val(popularKeyword);
+           $('#search-form').trigger('submit');
+        });
+
+
         $('#search-form').validate({
             rules: {
                 keyword: {
@@ -417,7 +424,7 @@
     function loadKey(data) {
         len= data.length;
         for(x=0;x<len;x++){
-            $('#trend-keywords').append('<a href="jobs/?keyword='+ data[x].keyword +'"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
+            $('#trend-keywords').append('<a href="javascript::void(0)"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
         }
     }
 
