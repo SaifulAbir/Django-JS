@@ -390,11 +390,14 @@ function loadFavouriteJob(data) {
         var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
         el.each(function () {
             if($(this).hasClass('active')){
+                $(this).children().attr("fill", "none");
                 $(this).removeClass('active');
                 showError('Oopss!', 'Job removed.')
             }
             else if($(this).hasClass("favourite")){
                 $(this).addClass('active');
+                $(this).children().attr("fill", "#ff8fa6");
+               // $(".job-list .body .more .buttons .favourite svg").attr("fill", "#ff8fa6");
                 showSuccess('Successful!', 'Job saved as a favourite.')
 
             }

@@ -374,7 +374,8 @@
                     }
                 }
                 if($(this).hasClass("favourite")){
-                    if(data[index].status == 'Yes' && isLoggedIn()){
+                    if(data[index].is_favourite == 'Yes' && isLoggedIn()){
+                        $(this).children().attr("fill", "#ff8fa6");
                         $(this).addClass('active');
                     }
                     // $(this).addClass('active');
