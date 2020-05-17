@@ -2,32 +2,31 @@
 {% load static %}
 {% block body_block %}
 
-<!-- Banner -->
-<div class="banner banner-4 banner-4-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="banner-content">
-                    <h1>All the great jobs in one place!</h1>
-                    <p> Find Jobs, Employment & Career Opportunities</p>
+    <!-- Banner -->
+    <div class="banner banner-4 banner-4-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="banner-content">
+                        <h1>Job Search: All great jobs in one place!</h1>
+                        <p> Find Jobs, Employment & Career Opportunities</p>
 
-                    <div class="banner-search">
-                        <form action="/api/trending_keyword_save/" id="search-form" class="search-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate" autocomplete="off">
-                            <input type="text" name="keyword" id="keyword" placeholder="Enter Keywords">
-                            <input type="text" name="location" id="location" placeholder="Location">
-                            <button class="button primary-bg"><i class="fas fa-search" style="color:#ffffff;"></i>Search Job</button>
-                            <div class="error-msg-location alert alert-danger" style="text-align: left;position: relative; top: 17px; display: none;"></div>
-                        </form>
-                        <div class="trending-key">
-                            <span id="trend-keywords">Trending Keywords:</span>
+                        <div class="banner-search">
+                            <form action="/api/trending_keyword_save/" id="search-form" class="search-form ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate" autocomplete="off">
+                                <input type="text" name="keyword" id="keyword" placeholder="Enter Keywords">
+                                <input type="text" name="location" id="location" placeholder="Location">
+                                <button class="button primary-bg"><i class="fas fa-search" style="color:#ffffff;"></i>Search Job</button>
+                            </form>
+                            <div class="trending-key">
+                                <span id="trend-keywords">Trending Keywords:</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Banner End -->
+    <!-- Banner End -->
 
 <!-- Explore Job -->
 <div class="section-padding-top padding-bottom-90">
@@ -142,87 +141,87 @@
 </div>
 <!-- Jobs End -->
 
-<!-- Fun Facts -->
-<div class="padding-top-90 padding-bottom-60 fact-bg">
-    <div class="container">
-        <div class="row fact-items">
-            <div class="col-md-3 col-sm-6">
-                <div class="fact">
-                    <div class="fact-icon">
-                        <i data-feather="briefcase"></i>
+    <!-- Fun Facts -->
+    <div class="padding-top-90 padding-bottom-60 fact-bg">
+        <div class="container">
+            <div class="row fact-items">
+                <div class="col-md-3 col-sm-6">
+                    <div class="fact">
+                        <div class="fact-icon">
+                            <i data-feather="briefcase"></i>
+                        </div>
+                        <p class="fact-number" id="job_counts"><span class="count" data-form="0" data-to=""></span></p>
+                        <p class="fact-name">Open Jobs</p>
                     </div>
-                    <p class="fact-number" id="job_counts"><span class="count" data-form="0" data-to=""></span></p>
-                    <p class="fact-name">Open Jobs</p>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="fact">
-                    <div class="fact-icon">
-                        <i data-feather="users"></i>
+                <div class="col-md-3 col-sm-6">
+                    <div class="fact">
+                        <div class="fact-icon">
+                            <i data-feather="users"></i>
+                        </div>
+                        <p class="fact-number" id="candidate_count"><span class="count" data-form="0" data-to=""></span></p>
+                        <p class="fact-name">Professionals</p>
                     </div>
-                    <p class="fact-number" id="candidate_count"><span class="count" data-form="0" data-to=""></span></p>
-                    <p class="fact-name">Professionals</p>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="fact">
-                    <div class="fact-icon">
-                        <i data-feather="file-text"></i>
+                <div class="col-md-3 col-sm-6">
+                    <div class="fact">
+                        <div class="fact-icon">
+                            <i data-feather="file-text"></i>
+                        </div>
+                        <p class="fact-number" id="resume_count"><span class="count" data-form="0" data-to="28166"></span></p>
+                        <p class="fact-name">Resume</p>
                     </div>
-                    <p class="fact-number" id="resume_count"><span class="count" data-form="0" data-to="28166"></span></p>
-                    <p class="fact-name">Resume</p>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="fact">
-                    <div class="fact-icon">
-                        <i data-feather="award"></i>
-                    </div>
-                    <p class="fact-number" id="companies_count"><span class="count" data-form="0" data-to="1366"></span></p>
-                    <p class="fact-name">Companies</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fun Facts End -->
-
-<!-- Testimonial -->
-<div class="section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="testimonial">
-                    <div class="testimonial-quote">
-                        <img src="static/images/testimonial/quote.png" class="img-fluid" alt="">
-                    </div>
-                    <div class="testimonial-for">
-                    </div>
-                    <div class="testimonial-nav">
+                <div class="col-md-3 col-sm-6">
+                    <div class="fact">
+                        <div class="fact-icon">
+                            <i data-feather="award"></i>
+                        </div>
+                        <p class="fact-number" id="companies_count"><span class="count" data-form="0" data-to="1366"></span></p>
+                        <p class="fact-name">Companies</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Testimonial End -->
+    <!-- Fun Facts End -->
 
-<!-- Career Advice -->
-<div class="padding-bottom-90">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="section-header">
-                    <h2>Career Advice</h2>
+    <!-- Testimonial -->
+    <div class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="testimonial">
+                        <div class="testimonial-quote">
+                            <img src="static/images/testimonial/quote.png" class="img-fluid" alt="">
+                        </div>
+                        <div class="testimonial-for">
+                        </div>
+                        <div class="testimonial-nav">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row" id="career-advice">
+    </div>
+    <!-- Testimonial End -->
 
+    <!-- Career Advice -->
+    <div class="padding-bottom-90">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="section-header">
+                        <h2>Career Advice</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="career-advice">
+
+            </div>
         </div>
     </div>
-</div>
-<!-- Career Advice End -->
+    <!-- Career Advice End -->
 
 
 
@@ -231,42 +230,12 @@
 
 {% block extra_js %}
 <script>
+
+
     $(document).ready(function() {
-        $("#keyword, #location").keyup(function(){
-            if ($(this).val()){
-                $(".error-msg-location").hide();
-            }
-
-        });
-        $('#search-form').validate({
-            rules: {
-                location: {
-                    required:  function(element) {
-                        return $("#keyword").val() == '' && $("#location").val() == '';
-                    }
-                },
-                keyword: {
-                    required:  function(element) {
-                        return $("#location").val() == '' && $("#keyword").val() == '';
-                    }
-                }
-            },
-
-            messages: {
-                "location": {
-                    required: "Location and keyword can not be empty at a time"
-                } ,
-                "keyword": {
-                    required: false
-                }
-            },
-            errorElement : 'div',
-            errorLabelContainer: '.error-msg-location'
-        });
-
         $('#job-alert').validate({
-            errorClass: "my-error-class"
-        });
+                errorClass: "my-error-class"
+            });
         TokenAuthenticate();
         initAjaxForms();
         statUrl = '/api/vital_stats/';
@@ -302,49 +271,49 @@
         }
     }
 
-    function loadTestimonial(data) {
-        for(index=0;index<data.length;index++){
-            $('.testimonial-for').slick('slickAdd','<div class="testimonial-item">\n' +
-                '<p data-toggle="tooltip" title="'+ data[index].comment +'" style="display: -webkit-box; -webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden; margin: 0 auto;">“'+ data[index].comment +'”</p>\n' +
-                '<h5>'+data[index].client_name+'</h5>\n' +
-                '</div>')
+        function loadTestimonial(data) {
+            for(index=0;index<data.length;index++){
+                $('.testimonial-for').slick('slickAdd','<div class="testimonial-item">\n' +
+                    '<p data-toggle="tooltip" title="'+ data[index].comment +'" style="display: -webkit-box; -webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden; margin: 0 auto;">“'+ data[index].comment +'”</p>\n' +
+                    '<h5>'+data[index].client_name+'</h5>\n' +
+                    '</div>')
 
-            $('.testimonial-nav').slick('slickAdd','<div class="commenter-thumb">\n' +
+                $('.testimonial-nav').slick('slickAdd','<div class="commenter-thumb">\n' +
                 '                                <img src="'+ data[index].profile_picture +'" class="img-fluid commenter" alt="" style="width:150px;height:60px;">\n' +
                 '                            </div>')
 
+            }
+
+
         }
 
 
-    }
 
+        function loadStats(data) {
+            $('#candidate_count').text(data.professional_count)
+            $('#job_counts').text(data.open_job)
+            $('#companies_count').text(data.company_count)
+            $('#resume_count').text(data.resume)
 
-
-    function loadStats(data) {
-        $('#candidate_count').text(data.professional_count)
-        $('#job_counts').text(data.open_job)
-        $('#companies_count').text(data.company_count)
-        $('#resume_count').text(data.resume)
-
-    }
-
-    function loadCategory(data) {
-        for(index=0;index<data.length;index++){
-            $('#category-list').append('<li><a href="#">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
         }
-    }
 
-    function loadSkills(data) {
-        for(index=0;index<data.length;index++){
-            $('#skill-list').append('<li><a href="jobs/?top-skill='+ data[index].id +'">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
+        function loadCategory(data) {
+            for(index=0;index<data.length;index++){
+                $('#category-list').append('<li><a href="#">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
+            }
         }
-    }
 
-    function loadPopularJobs(data) {
-        for(index=0;index<data.length;index++){
-            $('#popular-job-list').append('<li><a href="#">'+ data[index].title +'<span>('+ data[index].favourite_count +')</span></a></li>')
+        function loadSkills(data) {
+            for(index=0;index<data.length;index++){
+                $('#skill-list').append('<li><a href="jobs/?top-skill='+ data[index].id +'">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
+            }
         }
-    }
+
+        function loadPopularJobs(data) {
+            for(index=0;index<data.length;index++){
+                $('#popular-job-list').append('<li><a href="#">'+ data[index].title +'<span>('+ data[index].favourite_count +')</span></a></li>')
+            }
+        }
 
     function loadJobs(data) {
 
@@ -404,84 +373,84 @@
         }
     }
 
-    function loadAdvice(data) {
-        len= data.length;
-        for(x=0;x<len;x++){
-            var dateString = data[x].created_date
-            var momentObj = moment(dateString, 'YYYY-MM-DD');
-            var monthString = momentObj.format('MMM');
-            var dayString = momentObj.format('DD');
+        function loadAdvice(data) {
+            len= data.length;
+            for(x=0;x<len;x++){
+                var dateString = data[x].created_date
+                var momentObj = moment(dateString, 'YYYY-MM-DD');
+                var monthString = momentObj.format('MMM');
+                var dayString = momentObj.format('DD');
 
-            $('#career-advice').append('<div class="col-md-6 col-lg-4">' +
-                ' <article class="blog-grid">' +
-                ' <div class="body">' +
-                '<span class="date">'+dayString+'<span>'+monthString+'</span></span>' +
-                '<h3 style="min-height:50px;max-height:50px"><a href="blog-details.html" id="ad-title"></a>'+data[x].title+'</h3>' +
-                '<p style="max-height:97px;min-height:97px; overflow: hidden;"id="ad-description">'+data[x].short_description+'</p>' +
-                '</div>' +
-                '<div class="info">' +
-                '<span class="author" id="ad-author"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data[x].author+'</span>'+
-                '</div>'+
-                '</article>'+
-                '</div>')
+                $('#career-advice').append('<div class="col-md-6 col-lg-4">' +
+            ' <article class="blog-grid">' +
+            ' <div class="body">' +
+             '<span class="date">'+dayString+'<span>'+monthString+'</span></span>' +
+            '<h3 style="min-height:50px;max-height:50px"><a href="blog-details.html" id="ad-title"></a>'+data[x].title+'</h3>' +
+            '<p style="max-height:97px;min-height:97px; overflow: hidden;"id="ad-description">'+data[x].short_description+'</p>' +
+            '</div>' +
+            '<div class="info">' +
+            '<span class="author" id="ad-author"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data[x].author+'</span>'+
+            '</div>'+
+            '</article>'+
+            '</div>')
+
+            }
+
 
         }
+        function loadKey(data) {
+            len= data.length;
+            for(x=0;x<len;x++){
+                $('#trend-keywords').append('<a href="http://127.0.0.1:8000/jobs/?keyword='+ data[x].keyword +'"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
+            }
+        }
 
+        function redirectPage() {
+            key = $('#keyword').val()
+            loc = $('#location').val()
+            window.location.href = "/jobs/?keyword="+ key +"&location="+ loc;
+        }
 
-    }
-    function loadKey(data) {
-        len= data.length;
-        for(x=0;x<len;x++){
-            $('#trend-keywords').append('<a href="jobs/?keyword='+ data[x].keyword +'"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
+        function loadJobAlert(data) {
+            if(data.code == 200 && data.status == 'subscribed'){
+                $('#job-alert').addClass('display-none');
+                $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
+            }
+            else if(data.code == 200 && data.status == 'not subscribed'){
+                $('#job-alert').removeClass('display-none');
+                $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
+            }
+            else {
+                $('#job-alert').removeClass('display-none');
+                $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
+            }
         }
-    }
 
-    function redirectPage() {
-        key = $('#keyword').val()
-        loc = $('#location').val()
-        window.location.href = "/jobs/?keyword="+ key +"&location="+ loc;
-    }
-
-    function loadJobAlert(data) {
-        if(data.code == 200 && data.status == 'subscribed'){
-            $('#job-alert').addClass('display-none');
-            $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
+        function jobAlertRedirectPage(data) {
+            if(data.responseJSON.status == 'subscribed'){
+                window.location.href = "/professional/sign-in/";
+            }
+            else if(data.responseJSON.status == 'not subscribed'){
+                email = $('#email').val();
+                window.location.href = "/professional/sign-in/?email="+ email;
+            }
+            else if(data.responseJSON.status == 'subscribed_user'){
+                $('#job-alert').addClass('display-none');
+                $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
+            }else{
+                email = $('#email').val();
+                window.location.href = "/professional/register/?email="+ email;
+            }
+            // $("#job-alert").on("submit", function(e){
+            //     e.preventDefault();
+            //     email = $('#email').val();
+            //     if(!email){
+            //         $('.newsletter-error').html("Please enter an email.").fadeIn().delay(3000).fadeOut();
+            //     }else {
+            //         window.location.href = "/professional/register/?email="+ email;
+            //     }
+            // });
         }
-        else if(data.code == 200 && data.status == 'not subscribed'){
-            $('#job-alert').removeClass('display-none');
-            $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
-        }
-        else {
-            $('#job-alert').removeClass('display-none');
-            $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
-        }
-    }
-
-    function jobAlertRedirectPage(data) {
-        if(data.responseJSON.status == 'subscribed'){
-            window.location.href = "/professional/sign-in/";
-        }
-        else if(data.responseJSON.status == 'not subscribed'){
-            email = $('#email').val();
-            window.location.href = "/professional/sign-in/?email="+ email;
-        }
-        else if(data.responseJSON.status == 'subscribed_user'){
-            $('#job-alert').addClass('display-none');
-            $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
-        }else{
-            email = $('#email').val();
-            window.location.href = "/professional/register/?email="+ email;
-        }
-        // $("#job-alert").on("submit", function(e){
-        //     e.preventDefault();
-        //     email = $('#email').val();
-        //     if(!email){
-        //         $('.newsletter-error').html("Please enter an email.").fadeIn().delay(3000).fadeOut();
-        //     }else {
-        //         window.location.href = "/professional/register/?email="+ email;
-        //     }
-        // });
-    }
 
 </script>
 {% endblock %}
