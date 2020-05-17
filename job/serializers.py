@@ -58,11 +58,11 @@ class JobSerializer(serializers.ModelSerializer):
     is_applied = serializers.CharField(read_only=True)
     class Meta:
         model = Job
-        fields = ('vacancy','job_id', 'title', 'status' , 'company_name', 'job_category',
+        fields = ('job_id', 'title', 'status' , 'company_name', 'job_category',
                   'application_deadline', 'job_area', 'job_city', 'job_country',
-                  'job_site','job_nature','job_type',
+                  'job_site', 'job_nature', 'job_type',
                   'created_at', 'post_date', 'slug', 'applied_count', 'favorite_count',
-                  'is_applied', 'is_favourite','profile_picture' )
+                  'is_applied', 'is_favourite', 'profile_picture', 'vacancy' )
 
 
 class JobSourceSerializer(serializers.ModelSerializer):

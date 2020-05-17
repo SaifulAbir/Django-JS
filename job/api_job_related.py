@@ -8,17 +8,23 @@ from resources import strings_job
 
 
 class JobSourceList(generics.ListAPIView):
-    queryset = JobSource.objects.all()
+    queryset = JobSource.objects.filter(
+        is_archived=False
+    ).order_by('-post_date')
     serializer_class = JobSourceSerializer
 
 
 class JobCategoryList(generics.ListAPIView):
-    queryset = JobCategory.objects.all()
+    queryset = JobCategory.objects.filter(
+        is_archived=False
+    ).order_by('-post_date')
     serializer_class = JobSourceSerializer
 
 
 class JobGenderList(generics.ListAPIView):
-    queryset = JobGender.objects.all()
+    queryset = JobGender.objects.filter(
+        is_archived=False
+    ).order_by('-post_date')
     serializer_class = JobSourceSerializer
 
 
