@@ -51,23 +51,17 @@
                     </div>
 
 
-                    <div class="edication-background details-section">
+                    <div class="edication-background details-section" id="edu">
                       <h4><i data-feather="book"></i>Education Background</h4>
-                      <div class="education-label">
-                        <span class="study-year">2018 - Present</span>
-                        <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>
-                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-                      </div>
-                      <div class="education-label">
-                        <span class="study-year">2014 - 2018</span>
-                        <h5>Diploma in Graphics Design<span>@ Graphic Arts Institute</span></h5>
-                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-                      </div>
-                      <div class="education-label">
-                        <span class="study-year">2008 - 2014</span>
-                        <h5>Secondary School Certificate<span>@  Engineering High School</span></h5>
-                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>
-                      </div>
+
+<!--                      <div class="education-label">-->
+<!--                        <span class="study-year">2018 - Present</span>-->
+<!--                        <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>-->
+<!--                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--                      </div>-->
+
+
+
                     </div>
 
 
@@ -423,6 +417,80 @@
             }
 
 
+   //view profile Education Background
+
+           edu_data = data['edu_info']
+            console.log('edu_data' , edu_data)
+            len = edu_data.length;
+            for(x=0;x<len;x++){
+
+                    if(edu_data[x].enrolled_date){
+                             var enrolled_date = edu_data[x].enrolled_date;
+                             var momentObj = moment(enrolled_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var enrolled_date = momentObj.format('YYYY');    ;
+                    }
+                    else{
+                         enrolled_date = '';
+                    }
+                    if(edu_data[x].is_ongoing == true){
+                             var graduation_date = 'Present';
+                    }
+                    else if(edu_data[x].graduation_date){
+
+                             var graduation_date = edu_data[x].graduation_date;
+                             var momentObj = moment(graduation_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var graduation_date = momentObj.format('YYYY');
+                    }
+                    else{
+                           var graduation_date = '';
+                        }
+                    if(edu_data[x].degree){
+                            var degree = edu_data[x].degree;
+                    }
+                    else{
+                            var degree =  '';
+                    }
+                    if(edu_data[x].institution_obj.name){
+                         var institution_obj = edu_data[x].institution_obj.name;
+                    }
+                    else{
+                         var institution_obj = '';
+                    }
+                    if(edu_data[x].institution_text){
+                         var institution_text =  edu_data[x].institution_text;
+                    }
+                    else{
+                         var institution_text = '';
+                    }
+                    if(edu_data[x].major_obj.name){
+                        var major_obj = edu_data[x].major_obj.name;
+                    }
+                    else{
+                        var major_obj = '';
+                    }
+                    if(edu_data[x].cgpa){
+                        var cgpa = edu_data[x].cgpa;
+                    }
+                    else{
+                        var cgpa = '';
+                    }
+                    if(edu_data[x].major_text){
+                        var major_text = edu_data[x].major_text;
+                    }
+                    else{
+                        var major_text = '';
+                    }
+                var edu_html='<div class="education-label">'+
+                    '<span class="study-year">'+enrolled_date+' - '+graduation_date+'</span>'+
+                    '<h5>'+degree+'<span>@'+institution_obj+'</span></h5>'+
+                    '<p>'+institution_text+'</p>'+
+                    '<p><b>'+major_obj+'</b> - '+cgpa+'</p>'+
+                    '<p>'+major_text+'</p>'+
+                    '</div><br><br>';
+                $('#edu').append(edu_html);
+            }
 
 
 
