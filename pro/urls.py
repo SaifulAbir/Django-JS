@@ -59,5 +59,7 @@ urlpatterns = [
     path('certificate_name/', CertificateNameList.as_view()),
     path('applied-jobs/', TemplateView.as_view(template_name='applied_jobs.html'),name='applied_jobs'),
     path('favourite_jobs/', TemplateView.as_view(template_name='favourite_jobs.html'),name='favourite_jobs'),
+    path('professional_skill_object/<str:pk>/', SkillObject.as_view()),
+
 
 ]
