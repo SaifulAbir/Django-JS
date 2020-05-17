@@ -291,6 +291,23 @@ class PopularJobs(generics.ListCreateAPIView):
                                           ).order_by('-favourite_count')[:16]
     serializer_class = PopularJobSerializer
 
+@api_view(["GET"])
+def top_companies(self):
+    # queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
+    #                                       ).order_by('-favourite_count')[:16]
+    company = Company.objects.all().annotate(favourite_count=Count('companies')
+                                          ).order_by('-favourite_count')[:16]
+    with_deadline = Job.objects.filter(application_deadline__gte=date.today())|Job.objects.filter(application_deadline__isnull=True)
+    # without_deadline = Job.objects.filter(application_deadline__isnull=True).count()
+    # open_job = with_deadline + without_deadline
+    company_list = []
+    for item in company:
+        company_list.append({'company_count':with_deadline.filter(company_name=item).count(), 'company_name':item.name})
+    print(company_list)
+    data = {
+        'company_list': company_list,
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 
