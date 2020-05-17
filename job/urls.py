@@ -33,7 +33,7 @@ urlpatterns = [
     path('recent_jobs/', recent_jobs),
     path('vital_stats/', vital_stats),
     path('similar_jobs/<str:identifier>/', similar_jobs),
-    path('popular_jobs/', PopularJobs.as_view()),
+    path('popular_jobs/', top_companies),
     path('salary_range/', salary_range),
     path('skill_list/', SkillList.as_view()),
     path('apply_online_job_add/', apply_online_job_add),

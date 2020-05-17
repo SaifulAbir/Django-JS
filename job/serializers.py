@@ -119,7 +119,7 @@ class PopularCategoriesSerializer(serializers.ModelSerializer):
     num_posts = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = Industry
+        model = JobCategory
         fields= ['name', 'num_posts']
 
 
@@ -131,11 +131,11 @@ class TopSkillSerializer(serializers.ModelSerializer):
         fields= '__all__'
 
 class PopularJobSerializer(serializers.ModelSerializer):
-    favourite_count = serializers.IntegerField(read_only=True)
+
 
     class Meta:
-        model = Job
-        fields= ['title','favourite_count']
+        model = Company
+        fields= '__all__'
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
