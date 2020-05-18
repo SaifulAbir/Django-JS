@@ -80,68 +80,14 @@
 
 
 
-<!--                    <div class="professonal-skill details-section">-->
-<!--                      <h4><i data-feather="feather"></i>Professional Skill</h4>-->
-<!--                      <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting</p>-->
-<!--                      <div class="progress-group">-->
-<!--                        <div class="progress-item">-->
-<!--                          <div class="progress-head">-->
-<!--                            <p class="progress-on">Photoshop</p>-->
-<!--                          </div>-->
-<!--                          <div class="progress-body">-->
-<!--                            <div class="progress">-->
-<!--                              <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>-->
-<!--                            </div>-->
-<!--                            <p class="progress-to">70%</p>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                        <div class="progress-item">-->
-<!--                          <div class="progress-head">-->
-<!--                            <p class="progress-on">HTML/CSS</p>-->
-<!--                          </div>-->
-<!--                          <div class="progress-body">-->
-<!--                            <div class="progress">-->
-<!--                              <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>-->
-<!--                            </div>-->
-<!--                            <p class="progress-to">90%</p>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                        <div class="progress-item">-->
-<!--                          <div class="progress-head">-->
-<!--                            <p class="progress-on">JavaScript</p>-->
-<!--                          </div>-->
-<!--                          <div class="progress-body">-->
-<!--                            <div class="progress">-->
-<!--                              <div class="progress-bar" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>-->
-<!--                            </div>-->
-<!--                            <p class="progress-to">74%</p>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                        <div class="progress-item">-->
-<!--                          <div class="progress-head">-->
-<!--                            <p class="progress-on">PHP</p>-->
-<!--                          </div>-->
-<!--                          <div class="progress-body">-->
-<!--                            <div class="progress">-->
-<!--                              <div class="progress-bar" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>-->
-<!--                            </div>-->
-<!--                            <p class="progress-to">86%</p>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
+                    <div class="professonal-skill details-section">
+                      <h4><i data-feather="feather"></i>Professional Skill</h4>
+                      <div class="progress-group" id="pro_skill">
+
+                      </div>
+                    </div> <br/><br/><br/><br/>
 
 
-
-<!--                    <div class="special-qualification details-section">-->
-<!--                      <h4><i data-feather="gift"></i>Special Qualification</h4>-->
-<!--                      <ul>-->
-<!--                        <li>5 years+ experience designing and building products.</li>-->
-<!--                        <li>Skilled at any Kind Design Tools.</li>-->
-<!--                        <li>Passion for people-centered design, solid intuition.</li>-->
-<!--                        <li>Hard Worker & Quick Lerner.</li>-->
-<!--                      </ul>-->
-<!--                    </div>-->
 
 
 <!--                    <div class="portfolio details-section">-->
@@ -186,10 +132,50 @@
 <!--                    </div>-->
 <!--                    -->
 <!--                    -->
+<!--                      <div class="certification details-section" id="cft">-->
+<!--                      <h4><i data-feather="check-circle"></i>Certification</h4>-->
 
 
 
 
+
+
+
+
+
+
+
+
+
+<!--       view profile certification_info-->
+
+
+
+                     <div class="edication-background details-section" id="cft">
+                      <h4><i data-feather="check-circle"></i>Certification</h4>
+<!--                      <div class="education-label">-->
+<!--                        <span class="study-year">2018 - Present</span>-->
+<!--                        <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>-->
+<!--                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--                      </div>-->
+                    </div>
+
+
+
+
+
+<!--       view profile membership_info-->
+
+
+
+                     <div class="edication-background details-section" id="mbr">
+                      <h4><i data-feather="user-check"></i>Membership</h4>
+<!--                      <div class="education-label">-->
+<!--                        <span class="study-year">2018 - Present</span>-->
+<!--                        <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>-->
+<!--                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--                      </div>-->
+                    </div>
                   </div>
 
                   <div class="col-xl-4 offset-xl-1 col-lg-4">
@@ -235,6 +221,7 @@
 <!--                        </div>-->
 <!--                      </div>-->
 
+
                     </div>
                   </div>
                 </div>
@@ -279,10 +266,10 @@
 
         });
 
-        function loadProfile(data){
-                 console.log('data' , data)
+            function loadProfile(data){
+ //console.log('data' , data)
 
-   //professional view profile picture, designation and location
+ //professional view profile picture, designation and location
 
             $('#uName').append(data.personal_info.full_name);
             if(data.personal_info.image){
@@ -305,7 +292,7 @@
             }
 
 
-   //professional view profile skill and social
+ //professional view profile skill and social
 
             skill_info = data['skill_info']
             len = skill_info.length;
@@ -336,7 +323,7 @@
             $('.linkedin').attr('href', linkedin);
 
 
-   //professional view profile about
+ //professional view profile about
 
             if(data.personal_info.about_me){
                     var about_html='<p>'+data.personal_info.about_me+'</p>';
@@ -417,10 +404,10 @@
             }
 
 
-   //view profile Education Background
+ //view profile Education Background
 
             edu_data = data['edu_info']
-  //console.log('edu_data' , edu_data)
+ //console.log('edu_data' , edu_data)
             len = edu_data.length;
             for(x=0;x<len;x++){
 
@@ -493,10 +480,10 @@
             }
 
 
-  //view profile Work Experiance
+ //view profile Work Experiance
 
             experience_info = data['experience_info']
-            console.log('experience_info' , experience_info)
+ //console.log('experience_info' , experience_info)
             len = experience_info.length;
             for(x=0;x<len;x++){
 
@@ -552,7 +539,155 @@
 
 
 
-   //view profile personal deatils
+ //view profile skill rating
+
+            pro_skill_data = data['skill_info']
+            len = pro_skill_data.length;
+            for(x=0;x<len;x++){
+                var pro_skill_html='<div class="progress-item">'+
+                    '<div class="progress-head">'+
+                    '<p class="progress-on">'+pro_skill_data[x].skill_obj.name+'</p>'+
+                    '</div>'+
+                    '<div class="progress-body">'+
+                    '<div class="progress">'+
+                    '<div class="progress-bar" role="progressbar" aria-valuenow="'+pro_skill_data[x].rating*10+'" aria-valuemin="0" aria-valuemax="10" style="width: 0;"></div>'+
+                    '</div>'+
+                    '<p class="progress-to">'+pro_skill_data[x].rating+'/10</p>'+
+                    '</div>'+
+                    '</div>';
+
+                $('#pro_skill').append(pro_skill_html);
+            }
+
+
+
+ //view profile certification_info
+
+            certification_info = data['certification_info']
+ //console.log('certification_info' , certification_info)
+            len = certification_info.length;
+            for(x=0;x<len;x++){
+
+                    if(certification_info[x].issue_date){
+                             var issue_date = certification_info[x].issue_date;
+                             var momentObj = moment(issue_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var issue_date = momentObj.format('YYYY');    ;
+                    }
+                    else{
+                         issue_date = '';
+                    }
+                    if(certification_info[x].expiry_date){
+
+                             var expiry_date = certification_info[x].expiry_date;
+                             var momentObj = moment(expiry_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var expiry_date = momentObj.format('YYYY');
+                    }
+                    else{
+                          if(certification_info[x].has_expiry_period == false){
+                              var expiry_date = 'Lifetime Certification';
+                          }
+                          else{
+                           var expiry_date = '';
+                           }
+                        }
+                    if(certification_info[x].certificate_name){
+                            var certificate_name = certification_info[x].certificate_name;
+                    }
+                    else{
+                            var certificate_name =  '';
+                    }
+                    if(certification_info[x].credential_id){
+                         var credential_id = certification_info[x].credential_id;
+                    }
+                    else{
+                         var credential_id = '';
+                    }
+                    if(certification_info[x].credential_url){
+                         var credential_url = certification_info[x].credential_url;
+                    }
+                    else{
+                         var credential_url = '';
+                    }
+                    if(certification_info[x].organization){
+                         var organization =  certification_info[x].organization;
+                    }
+                    else{
+                         var organization = '';
+                    }
+
+                   var cft_html='<div class="education-label">'+
+                    '<span class="study-year">'+issue_date+' - '+expiry_date+'</span>'+
+                    '<h5>'+certificate_name+'<span> @ ' +organization+'</span></h5>'+
+                    '<p><b>'+credential_id+'</b> - <a style="color:blue;" href="'+credential_url+'">view</a></p>'+
+                    '</div><br>';
+                $('#cft').append(cft_html);
+            }
+
+
+
+ //view profile membership_info
+
+            membership_info = data['membership_info']
+ //console.log('membership_info' , membership_info)
+            len = membership_info.length;
+            for(x=0;x<len;x++){
+
+                    if(membership_info[x].start_date){
+                             var start_date = membership_info[x].start_date;
+                             var momentObj = moment(start_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var start_date = momentObj.format('YYYY');    ;
+                    }
+                    else{
+                         start_date = '';
+                    }
+                    if(membership_info[x].end_date){
+
+                             var end_date = membership_info[x].end_date;
+                             var momentObj = moment(end_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var end_date = momentObj.format('YYYY');
+                    }
+                    else{
+                          if(membership_info[x].membership_ongoing == true){
+                              var end_date = 'Present';
+                          }
+                          else{
+                           var end_date = '';
+                           }
+                        }
+                    if(membership_info[x].organization){
+                            var organization = membership_info[x].organization;
+                    }
+                    else{
+                            var organization =  '';
+                    }
+                    if(membership_info[x].position_held){
+                         var position_held = membership_info[x].position_held;
+                    }
+                    else{
+                         var position_held = '';
+                    }
+                    if(membership_info[x].description){
+                         var description = membership_info[x].description;
+                    }
+                    else{
+                         var description = '';
+                    }
+
+
+            var mbr_html='<div class="education-label">'+
+                '<span class="study-year">'+start_date+' - '+end_date+'</span>'+
+                '<h5>'+position_held+'<span> @ ' +organization+'</span></h5>'+
+                '<p>'+description+'</p>'+
+                '</div><br>';
+            $('#mbr').append(mbr_html);
+            }
+
+
+ //view profile personal deatils
 
             if(data.personal_info.full_name){
                  $('#u_name').append(data.personal_info.full_name);
