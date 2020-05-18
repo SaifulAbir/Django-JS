@@ -179,24 +179,28 @@ def recent_jobs(request, limit:int = 6):
 @api_view(["GET"])
 def favourite_jobs(request):
     current_user_id = request.user.id
-    queryset = FavouriteJob.objects.filter(user=current_user_id).order_by('-post_date')
+    queryset = FavouriteJob.objects.filter(user=current_user_id).order_by('-created_date')
+    jobs = []
     for fav_job in queryset:
         job = Job.objects.get(job_id=fav_job.job_id)
         job.is_applied = get_applied_status(job, request.user)
         job.profile_picture = get_company_logo(job)
-    data = JobSerializer(queryset, many=True).data
+        jobs.append(job)
+    data = JobSerializer(jobs, many=True).data
     return Response(data)
 
 
 @api_view(["GET"])
 def applied_jobs(request):
     current_user_id = request.user.id
-    queryset = ApplyOnline.objects.filter(created_by=current_user_id).order_by('-post_date')
+    queryset = ApplyOnline.objects.filter(created_by=current_user_id).order_by('-created_at')
+    jobs = []
     for app_job in queryset:
-        job = Job.objects.filter(job_id=app_job.job_id)
+        job = Job.objects.get(job_id=app_job.job_id)
         job.is_favourite = get_favourite_status(job, request.user)
         job.profile_picture = get_company_logo(job)
-    data = JobSerializer(queryset, many=True).data
+        jobs.append(job)
+    data = JobSerializer(jobs, many=True).data
     return Response(data)
 
 
