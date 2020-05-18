@@ -236,14 +236,13 @@
 {% block extra_js %}
 <script>
     var pageSize = 10;
-    var template = $('.template').html();
-    //Helper function start from here
     // Return url parameter value
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = window.location.search.substring(1),
             sURLVariables = sPageURL.split('&'),
             sParameterName,
             i;
+
         for (i = 0; i < sURLVariables.length; i++) {
             sParameterName = sURLVariables[i].split('=');
 
@@ -253,79 +252,58 @@
         }
     };
 
-    function getLocationFromHomepage() {
+    function getSalaryandExperienceValue() {
+        var experienceMin = $(".ex-leftLabel").html();
+        var experienceMax = parseInt($(".ex-rightLabel").html());
+        if (experienceMax == 0){
+            experienceMax='';
+        }
+
+        var salaryMin = parseInt($(".leftLabel").html());
+        var salaryMax = parseInt($(".rightLabel").html());
+        if (salaryMax == 0){
+            salaryMax='';
+        }
+    }
+
+    function filterJobList(salaryMin='', salaryMax='', experienceMin='', experienceMax=null){
+        var pageSize = 10;
         var location_from_homepage = encodeURIComponent(getUrlParameter('location'));
         if (location_from_homepage=='undefined'){
             location_from_homepage='';
         }
-        return location_from_homepage;
-    }
-
-    function getTopSkillFromHomepage() {
         var top_skill = encodeURIComponent(getUrlParameter('top-skill'));
         if (top_skill=='undefined'){
             top_skill='';
         }
-        return top_skill;
-    }
-
-    function getKeywordFromHomePage() {
         var keyword_from_homepage = encodeURIComponent(getUrlParameter('keyword'));
         if (keyword_from_homepage=='undefined'){
             keyword_from_homepage='';
         }
-        return keyword_from_homepage;
-    }
-
-    function getDataPostedValue(){
-        var datePosted = encodeURIComponent($('.filtered-options .post a').html());
-        if (datePosted==undefined || datePosted=='undefined'){
-            datePosted='';
-        }
-        return datePosted;
-    }
-
-    function getGenderValue(){
-        var gender = $('.filtered-options .gender a').html();
-        if (gender==undefined | gender=='undefined'){
-            gender='';
-        }
-        return gender;
-    }
-
-    function getJobTypeValue() {
-        var job_type = $('.filtered-options .job-type a').html();
-        if (job_type==undefined | job_type=='undefined'){
-            job_type='';
-        }
-        return job_type;
-    }
-
-    function getQualificationValue() {
-        var qualification = $('.filtered-options .qualification a').html();
-        if (qualification==undefined | qualification=='undefined'){
-            qualification='';
-        }
-        return qualification;
-    }
-
-
-    //filter function and pagination start from here
-    function filterJobList(salaryMin='', salaryMax='', experienceMin='', experienceMax=null){
-        var pageSize = 10;
-        var location_from_homepage = getLocationFromHomepage();
-        var top_skill = getTopSkillFromHomepage();
-        var keyword_from_homepage = getKeywordFromHomePage();
         var search_keyword = encodeURIComponent($("#search-keyword").val());
         var category = encodeURIComponent($("#category").val());
         var location = encodeURIComponent($("#location").val());
         var skill = encodeURIComponent($("#skill").val());
         var sorting_val = $(".sorting-job .selectpicker").val();
-        var datePosted = getDataPostedValue();
-        var gender = getGenderValue();
-        var job_type = getJobTypeValue();
-        var qualification = getQualificationValue();
 
+        var datePosted = encodeURIComponent($('.filtered-options .post a').html());
+
+        if (datePosted==undefined || datePosted=='undefined'){
+            datePosted='';
+        }
+
+        var gender = $('.filtered-options .gender a').html();
+        if (gender==undefined | gender=='undefined'){
+            gender='';
+        }
+        var job_type = $('.filtered-options .job-type a').html();
+        if (job_type==undefined | job_type=='undefined'){
+            job_type='';
+        }
+        var qualification = $('.filtered-options .qualification a').html();
+        if (qualification==undefined | qualification=='undefined'){
+            qualification='';
+        }
         var url = "/api/job_list/?q="+search_keyword+"&location="+location+"&category="+category+"&top-skill="+top_skill+"&keyword_from_homepage="+keyword_from_homepage+"&location_from_homepage="+location_from_homepage+
             "&skill="+skill+"&salaryMin="+ salaryMin +"&salaryMax="+ salaryMax +"&experienceMin="+ experienceMin +"&experienceMax="+ experienceMax  +"&datePosted="+ datePosted
             +"&gender="+ gender +"&job_type="+ job_type  +"&qualification="+ qualification +"&sort="+ sorting_val +"&page_size="+pageSize;
@@ -338,21 +316,14 @@
     }
 
 
-
+    var template = $('.template').html();
     function fetchDatacallback(data){
         var totalNumberOfData = data.count;
-        var paginationSummary;
-        var url = '';
-        var startingIndex=1;
-
         if (data.previous == null && totalNumberOfData > 0){
-            var numberOfDataInSinglePage = 0;
-            numberOfDataInSinglePage = data.results.length;
-            paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
-        }else {
-            paginationSummary = "Showing 0 Jobs";
+            var numberOfDataInSinglePage = data.results.length;
+            var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
+            $('.pagination-summary').show().html(paginationSummary);
         }
-        $('.pagination-summary').show().html(paginationSummary);
         var list = makeListHtml(data.results, template);
         $('.job-result').html(list);
         feather.replace();
@@ -360,7 +331,11 @@
             var el = $("#jobs").find("[href='"+ data.results[i].job_id +"']");
             el.each(function () {
                 if($(this).hasClass('apply')){
+
+                    // $(this).removeClass('active');
+                    // showError('Oopss!', 'Job removed.')
                     if(data.results[i].is_applied == 'Yes' && isLoggedIn()){
+
                         $(this).addClass('applied');
                         $(this).text('Applied');
                         $(this).attr('href', 'javascript:void(0)')
@@ -370,24 +345,21 @@
                     if(data.results[i].status == 'Yes' && isLoggedIn()){
                         $(this).addClass('active');
                     }
+                    // $(this).addClass('active');
+                    // showSuccess('Successful!', 'Job saved as a favourite.')
+
                 }
+
             });
         });
-        url = data.current_url;
-        if (data.next_pages == false){
-            $('button[data-value=' + 'next' + ']').prop( "disabled", true );
-        }else {
-            $('button[data-value=' + 'next' + ']').prop( "disabled", false );
-        }
 
-        if (totalNumberOfData>0){
-            $(".pagination-list").show();
-            $('.filtered-job-listing-wrapper').attr('data-url', url);
-            makePagination(totalNumberOfData, pageSize, url, startingIndex);
-        }else {
-            $(".pagination-list").hide();
-        }
+        var url = '';
+        var startingIndex=1;
+        url = data.current_url;
+        makePagination(totalNumberOfData, pageSize, url, startingIndex);
         $(".page-numbers:nth-child(2)").addClass('current');
+
+
     }
 
 
@@ -397,8 +369,6 @@
         favouriteJobAddRemove('jobs', '/api/favourite_job_add/');
         var location_from_homepage = encodeURIComponent(getUrlParameter('location'));
         var keyword_from_homepage = encodeURIComponent(getUrlParameter('keyword'));
-        var topCategory = encodeURIComponent(getUrlParameter('top-category'));
-        var topCompany = encodeURIComponent(getUrlParameter('top-company'));
 
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialIcon);
@@ -426,28 +396,20 @@
         //Default job api call at the first time when page load
         filterJobList('', '', '', '');
 
-        $("body").delegate(".page-numbers:not(.current)", "click", function(){
+        $("body").delegate(".page-numbers", "click", function(){
+            $('.page-numbers').removeClass('current');
+            $(this).addClass('current');
             var paginationIndex = $(this).data('value');
-            var url_of_button = $(this).data('url');
             if (paginationIndex=='prev'){
-                var currentIndex = $("a.current").data('value');
-                if (currentIndex>1){
-                    currentIndex = currentIndex-1;
-                    $('.page-numbers').removeClass('current');
-                    $('a[data-value=' + currentIndex + ']').addClass("current");
-                    url_of_button = $('a[data-value=' + currentIndex + ']').data('url');
-                }
+
             }else if(paginationIndex=='next'){
-                var currentIndex = $("a.current").data('value');
-                currentIndex = currentIndex+1;
-                $('.page-numbers').removeClass('current');
-                $('a[data-value=' + currentIndex + ']').addClass("current");
-                url_of_button = $('a[data-value=' + currentIndex + ']').data('url');
-            }else {
-                $('.page-numbers').removeClass('current');
-                $(this).addClass('current');
+
             }
-            get(url_of_button,fetchPaginationDatacallback);``
+            var url_of_button = $(this).data('url');
+
+            get(url_of_button,fetchPaginationDatacallback);
+
+
         });
 
 
@@ -521,55 +483,26 @@
 
         function fetchPaginationDatacallback(data){
             var currentIndex=$('.page-numbers.current').data('value');
-
-            var paginationUrl = $("#jobs").data('url');
             var totalNumberOfData = data.count;
             if (data.previous == null && totalNumberOfData > 0){
                 var numberOfDataInSinglePage = data.results.length;
-                var start_index = data.start_index;
-                var end_index = data.end_index;
-
-                var paginationSummary = "Showing "+ start_index +"-" + end_index + ' of ' + totalNumberOfData + ' Jobs';
+                var paginationSummary = "Showing 1-" + numberOfDataInSinglePage + ' of ' + totalNumberOfData + ' Jobs';
                 $('.pagination-summary').show().html(paginationSummary);
             }
             var list = makeListHtml(data.results, template);
             $('.job-result').html(list);
-            feather.replace();
-            makePagination(totalNumberOfData, pageSize, paginationUrl, currentIndex);
+            var url = '/job_list';
+            makePagination(totalNumberOfData, pageSize, url, currentIndex);
 
             $('.page-numbers[data-value=' + currentIndex + ']').addClass("current");
-            // if (data.next_pages == false){
-            //     $('button[data-value=' + 'next' + ']').prop( "disabled", true );
-            // }else {
-            //     $('button[data-value=' + 'next' + ']').prop( "disabled", false );
-            // }
         }
 
         //filtering code start
 
 
 
-
         $("#search-job-form").submit(function(e){
-            var experienceMin = parseInt($(".ex-leftLabel").html());
-            if (experienceMin == 0){
-                experienceMin='';
-            }
-            var experienceMax = parseInt($(".ex-rightLabel").html());
-            if (experienceMax == 0){
-                experienceMax='';
-            }
-
-            var salaryMin = parseInt($(".leftLabel").html());
-            if (salaryMin == 0){
-                salaryMin='';
-            }
-            var salaryMax = parseInt($(".rightLabel").html());
-            if (salaryMax == 0){
-                salaryMax='';
-            }
-            filterJobList(salaryMin, salaryMax, experienceMin, experienceMax);
-
+            filterJobList();
             return false;
         });
 
@@ -597,8 +530,6 @@
             filterJobList(salaryMin, salaryMax, experienceMin, experienceMax);
 
         });
-
-
 
         //filtering code end
 

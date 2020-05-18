@@ -2,8 +2,9 @@ from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from job.models import JobSource, JobCategory, JobGender
-from job.serializers import JobSourceSerializer
+from job.models import JobSource, JobCategory, JobGender, Industry, JobType, Currency, Qualification, Gender, Experience
+from job.serializers import JobSourceSerializer, CurrencySerializer, JobTypeSerializer, IndustrySerializer, \
+    QualificationSerializer, GenderSerializer, ExperienceSerializer
 from resources import strings_job
 
 
@@ -53,3 +54,26 @@ def get_job_creator_type_list(request):
     data = [{'id': item[0],'text': item[1]} for item in strings_job.JOB_CREATOR_TYPES]
     return Response(data)
 
+class IndustryList(generics.ListAPIView):
+    queryset = Industry.objects.all()
+    serializer_class = IndustrySerializer
+
+class JobTypeList(generics.ListAPIView):
+    queryset = JobType.objects.all()
+    serializer_class = JobTypeSerializer
+
+class CurrencyList(generics.ListAPIView):
+    queryset = Currency.objects.all()
+    serializer_class = CurrencySerializer
+
+class ExperienceList(generics.ListAPIView):
+    queryset = Experience.objects.all()
+    serializer_class = ExperienceSerializer
+
+class QualificationList(generics.ListAPIView):
+    queryset = Qualification.objects.all()
+    serializer_class = QualificationSerializer
+
+class GenderList(generics.ListAPIView):
+    queryset = Gender.objects.all()
+    serializer_class = GenderSerializer

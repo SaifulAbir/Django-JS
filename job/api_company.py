@@ -5,11 +5,9 @@ from rest_framework.response import Response
 from job.models import Company
 from job.serializers import CompanySerializer
 
-
-class CompanyList(generics.ListCreateAPIView):
+class CompanyList(generics.ListAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-
 
 @api_view(["GET"])
 def get_company_by_name(request, limit=10):
@@ -18,3 +16,4 @@ def get_company_by_name(request, limit=10):
         comps = Company.objects.filter(name__icontains=comp_name)[:limit]
     data = CompanySerializer(comps, many=True).data
     return Response(data)
+

@@ -242,7 +242,7 @@ class Job(models.Model):
     education = models.TextField(blank=True, null=True)
     vacancy = models.PositiveIntegerField(default=1, null=True)
     application_deadline = models.DateField(null=True, blank=True)
-    company_name = models.ForeignKey(Company,on_delete=models.PROTECT, db_column='company')
+    company_name = models.ForeignKey(Company,on_delete=models.PROTECT, db_column='company', related_name='jobs')
     company_profile = models.TextField(blank=True, null = True)
     company_address = models.CharField(max_length=255, blank=True, null = True)
     company_area = models.CharField(max_length=255, blank=True, null = True)

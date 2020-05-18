@@ -97,22 +97,28 @@ class JobSerializerAllField(serializers.ModelSerializer):
         model = Job
         fields = '__all__'
 
-class CompanyPopulateSerializer(serializers.ModelSerializer):
+class CompanyListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = ['name', 'web_address', 'company_profile']
 
-class TrendingKeywordPopulateSerializer(serializers.ModelSerializer):
+class TrendingKeywordListSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrendingKeywords
         fields = ['keyword']
 
-class PopularCategoriesSerializer(serializers.ModelSerializer):
+class TopCategoriesSerializer(serializers.ModelSerializer):
     num_posts = serializers.IntegerField(read_only=True)
-
     class Meta:
         model = JobCategory
         fields= ['name', 'num_posts']
+
+class TopCompanySerializer(serializers.ModelSerializer):
+    num_posts = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = Company
+        fields= ['name', 'num_posts']
+
 
 
 class TopSkillSerializer(serializers.ModelSerializer):
@@ -122,12 +128,11 @@ class TopSkillSerializer(serializers.ModelSerializer):
         model = Skill
         fields= '__all__'
 
-class PopularJobSerializer(serializers.ModelSerializer):
-
-
+class TopJobSerializer(serializers.ModelSerializer):
+    favourite_count = serializers.IntegerField(read_only=True)
     class Meta:
-        model = Company
-        fields= '__all__'
+        model = Job
+        fields= ['title','favourite_count']
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
