@@ -997,7 +997,8 @@ class SkillObject(APIView):
         }
         return Response(skill_data)
 
-api_view('GET')
+@api_view(["GET"])
+
 def institute_search(request):
     names = list(Institute.objects.values_list('name',flat=True))
     return HttpResponse(json.dumps(names),'application/json')
@@ -1009,7 +1010,7 @@ def StaticUrl(self):
         '1': "http://facebook.com/",
         '2': "http://twitter.com/",
         '3': "http://linkedin.com/",
-
+    }
 
 class EducationObject(APIView):
     permission_classes = (IsAppAuthenticated,)
@@ -1021,7 +1022,8 @@ class EducationObject(APIView):
         return Response(edu_data)
 
 
-api_view('GET')
+@api_view(["GET"])
+
 def institute_search(request):
     names = list(Institute.objects.values_list('name',flat=True))
     return HttpResponse(json.dumps(names),'application/json')
