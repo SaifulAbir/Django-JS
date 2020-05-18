@@ -92,16 +92,6 @@
 
 
 
-<!--                    <div class="special-qualification details-section">-->
-<!--                      <h4><i data-feather="gift"></i>Special Qualification</h4>-->
-<!--                      <ul>-->
-<!--                        <li>5 years+ experience designing and building products.</li>-->
-<!--                        <li>Skilled at any Kind Design Tools.</li>-->
-<!--                        <li>Passion for people-centered design, solid intuition.</li>-->
-<!--                        <li>Hard Worker & Quick Lerner.</li>-->
-<!--                      </ul>-->
-<!--                    </div>-->
-
 
 <!--                    <div class="portfolio details-section">-->
 <!--                      <h4><i data-feather="gift"></i>Portfolio</h4>-->
@@ -145,10 +135,33 @@
 <!--                    </div>-->
 <!--                    -->
 <!--                    -->
+<!--                      <div class="certification details-section" id="cft">-->
+<!--                      <h4><i data-feather="check-circle"></i>Certification</h4>-->
 
 
 
 
+
+
+
+
+
+
+
+
+
+<!--       view profile certification_info-->
+
+
+
+                     <div class="edication-background details-section" id="cft">
+                      <h4><i data-feather="check-circle"></i>Certification</h4>
+<!--                      <div class="education-label">-->
+<!--                        <span class="study-year">2018 - Present</span>-->
+<!--                        <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>-->
+<!--                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--                      </div>-->
+                    </div>
                   </div>
 
                   <div class="col-xl-4 offset-xl-1 col-lg-4">
@@ -193,6 +206,14 @@
 <!--                          </div>-->
 <!--                        </div>-->
 <!--                      </div>-->
+
+
+
+
+
+
+
+
 
                     </div>
                   </div>
@@ -536,6 +557,70 @@
 
 
 
+
+//view profile certification_info
+
+            certification_info = data['certification_info']
+     console.log('certification_info' , certification_info)
+            len = certification_info.length;
+            for(x=0;x<len;x++){
+
+                    if(certification_info[x].issue_date){
+                             var issue_date = certification_info[x].issue_date;
+                             var momentObj = moment(issue_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var issue_date = momentObj.format('YYYY');    ;
+                    }
+                    else{
+                         issue_date = '';
+                    }
+                    if(certification_info[x].expiry_date){
+
+                             var expiry_date = certification_info[x].expiry_date;
+                             var momentObj = moment(expiry_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var expiry_date = momentObj.format('YYYY');
+                    }
+                    else{
+                          if(certification_info[x].has_expiry_period == false){
+                              var expiry_date = 'Lifetime Certification';
+                          }
+                          else{
+                           var expiry_date = '';
+                           }
+                        }
+                    if(certification_info[x].certificate_name){
+                            var certificate_name = certification_info[x].certificate_name;
+                    }
+                    else{
+                            var certificate_name =  '';
+                    }
+                    if(certification_info[x].credential_id){
+                         var credential_id = certification_info[x].credential_id;
+                    }
+                    else{
+                         var credential_id = '';
+                    }
+                    if(certification_info[x].credential_url){
+                         var credential_url = certification_info[x].credential_url;
+                    }
+                    else{
+                         var credential_url = '';
+                    }
+                    if(certification_info[x].organization){
+                         var organization =  certification_info[x].organization;
+                    }
+                    else{
+                         var organization = '';
+                    }
+
+                   var cft_html='<div class="education-label">'+
+                    '<span class="study-year">'+issue_date+' - '+expiry_date+'</span>'+
+                    '<h5>'+certificate_name+'<span> @ ' +organization+'</span></h5>'+
+                    '<p><b>'+credential_id+'</b> - <a style="color:blue;" href="'+credential_url+'">view</a></p>'+
+                    '</div><br>';
+                $('#cft').append(cft_html);
+            }
 
 
 
