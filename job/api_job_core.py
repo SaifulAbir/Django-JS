@@ -1,13 +1,17 @@
 from django.db.models import QuerySet
-from rest_framework.generics import get_object_or_404
+from rest_framework.decorators import api_view
+from rest_framework.generics import get_object_or_404, GenericAPIView
+from rest_framework.mixins import UpdateModelMixin
 from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK
+from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from job.models import Job, FavouriteJob, ApplyOnline
-from job.serializers import JobSerializerAllField
+from job.models import Job, FavouriteJob, ApplyOnline, Skill
+from job.serializers import JobSerializerAllField, JobSerializer
 
 
-class JobObject(APIView):
+class JobAPI(APIView):
     def get(self, request, slug):
         job = get_object_or_404(Job, slug=slug)
         job.is_favourite = get_favourite_status(job, request.user)
@@ -24,6 +28,36 @@ class JobObject(APIView):
         return Response(data)
 
 
+@api_view(["POST"])
+def create_job(request):
+    job_data = json.loads(request.body)
+    try:
+        skills = job_data['skills']
+        del job_data['skills']
+    except KeyError:
+        skills = None
+
+    job_obj = Job(**job_data)
+    job_obj.save()
+    if skills:
+        skill_list = skills.split(',')
+        for skill in skill_list:
+            try:
+                skill_obj = Skill.objects.get(name=skill)
+            except Skill.DoesNotExist:
+                skill_obj = None
+            if skill_obj:
+                job_obj.job_skills.add(skill_obj)
+
+    return Response(HTTP_200_OK)
+
+
+class JobUpdateView(GenericAPIView, UpdateModelMixin):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
 def get_company_latlng(job):
     if type(job) is QuerySet:
