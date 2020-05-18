@@ -336,6 +336,7 @@ function TokenAuthenticate() {
         $('#sign-in').hide();
         $('#register').hide();
         $('#sign-out').show();
+        $('.header-top-account').show();
     }
     else {
         $('#sign-out').hide();
