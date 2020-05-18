@@ -82,13 +82,10 @@
 
                     <div class="professonal-skill details-section">
                       <h4><i data-feather="feather"></i>Professional Skill</h4>
-
                       <div class="progress-group" id="pro_skill">
 
-
-
                       </div>
-                    </div>
+                    </div> <br/><br/><br/><br/>
 
 
 
@@ -162,6 +159,23 @@
 <!--                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
 <!--                      </div>-->
                     </div>
+
+
+
+
+
+<!--       view profile membership_info-->
+
+
+
+                     <div class="edication-background details-section" id="mbr">
+                      <h4><i data-feather="user-check"></i>Membership</h4>
+<!--                      <div class="education-label">-->
+<!--                        <span class="study-year">2018 - Present</span>-->
+<!--                        <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>-->
+<!--                        <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--                      </div>-->
+                    </div>
                   </div>
 
                   <div class="col-xl-4 offset-xl-1 col-lg-4">
@@ -208,13 +222,6 @@
 <!--                      </div>-->
 
 
-
-
-
-
-
-
-
                     </div>
                   </div>
                 </div>
@@ -259,10 +266,10 @@
 
         });
 
-        function loadProfile(data){
-                 console.log('data' , data)
+            function loadProfile(data){
+ //console.log('data' , data)
 
-   //professional view profile picture, designation and location
+ //professional view profile picture, designation and location
 
             $('#uName').append(data.personal_info.full_name);
             if(data.personal_info.image){
@@ -285,7 +292,7 @@
             }
 
 
-   //professional view profile skill and social
+ //professional view profile skill and social
 
             skill_info = data['skill_info']
             len = skill_info.length;
@@ -316,7 +323,7 @@
             $('.linkedin').attr('href', linkedin);
 
 
-   //professional view profile about
+ //professional view profile about
 
             if(data.personal_info.about_me){
                     var about_html='<p>'+data.personal_info.about_me+'</p>';
@@ -397,10 +404,10 @@
             }
 
 
-   //view profile Education Background
+ //view profile Education Background
 
             edu_data = data['edu_info']
-  //console.log('edu_data' , edu_data)
+ //console.log('edu_data' , edu_data)
             len = edu_data.length;
             for(x=0;x<len;x++){
 
@@ -473,7 +480,7 @@
             }
 
 
-  //view profile Work Experiance
+ //view profile Work Experiance
 
             experience_info = data['experience_info']
  //console.log('experience_info' , experience_info)
@@ -554,14 +561,10 @@
 
 
 
-
-
-
-
-//view profile certification_info
+ //view profile certification_info
 
             certification_info = data['certification_info']
-     console.log('certification_info' , certification_info)
+ //console.log('certification_info' , certification_info)
             len = certification_info.length;
             for(x=0;x<len;x++){
 
@@ -624,20 +627,67 @@
 
 
 
+ //view profile membership_info
+
+            membership_info = data['membership_info']
+ //console.log('membership_info' , membership_info)
+            len = membership_info.length;
+            for(x=0;x<len;x++){
+
+                    if(membership_info[x].start_date){
+                             var start_date = membership_info[x].start_date;
+                             var momentObj = moment(start_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var start_date = momentObj.format('YYYY');    ;
+                    }
+                    else{
+                         start_date = '';
+                    }
+                    if(membership_info[x].end_date){
+
+                             var end_date = membership_info[x].end_date;
+                             var momentObj = moment(end_date, 'YYYY-MM-DD');
+                             var dateMomentString = momentObj.format('DD-MM-YYYY');
+                             var end_date = momentObj.format('YYYY');
+                    }
+                    else{
+                          if(membership_info[x].membership_ongoing == true){
+                              var end_date = 'Present';
+                          }
+                          else{
+                           var end_date = '';
+                           }
+                        }
+                    if(membership_info[x].organization){
+                            var organization = membership_info[x].organization;
+                    }
+                    else{
+                            var organization =  '';
+                    }
+                    if(membership_info[x].position_held){
+                         var position_held = membership_info[x].position_held;
+                    }
+                    else{
+                         var position_held = '';
+                    }
+                    if(membership_info[x].description){
+                         var description = membership_info[x].description;
+                    }
+                    else{
+                         var description = '';
+                    }
 
 
+            var mbr_html='<div class="education-label">'+
+                '<span class="study-year">'+start_date+' - '+end_date+'</span>'+
+                '<h5>'+position_held+'<span> @ ' +organization+'</span></h5>'+
+                '<p>'+description+'</p>'+
+                '</div><br>';
+            $('#mbr').append(mbr_html);
+            }
 
 
-
-
-
-
-
-
-
-
-
-   //view profile personal deatils
+ //view profile personal deatils
 
             if(data.personal_info.full_name){
                  $('#u_name').append(data.personal_info.full_name);
