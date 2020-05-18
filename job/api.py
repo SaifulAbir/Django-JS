@@ -35,10 +35,6 @@ from rest_framework import generics, pagination
 from .utils import favourite_job_counter, applied_job_counter
 
 
-class CompanyList(generics.ListCreateAPIView):
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
-
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 2
     page_size_query_param = 'page_size'
@@ -50,64 +46,7 @@ class JobList(generics.ListAPIView):
     serializer_class = JobSerializerAllField
     pagination_class = StandardResultsSetPagination
 
-class JobObject(APIView):
-    def get(self, request, slug):
-        job = get_object_or_404(Job, slug=slug)
-        try:
-            if request.user.is_authenticated:
-                favourite_job = FavouriteJob.objects.get(job=job, user=request.user)
-            else:
-                favourite_job = FavouriteJob.objects.get(job=job)
-        except FavouriteJob.DoesNotExist:
-            favourite_job = None
-        try:
-            if request.user.is_authenticated:
-                applied_job = ApplyOnline.objects.get(job=job, created_by=request.user)
-            else:
-                applied_job = ApplyOnline.objects.get(job=job)
-        except ApplyOnline.DoesNotExist:
-            applied_job = None
-        if favourite_job is not None:
-            job.status = YES_TXT
-        else:
-            job.status = NO_TXT
-        if applied_job is not None:
-            job.is_applied = YES_TXT
-        else:
-            job.is_applied = NO_TXT
-        data = JobSerializer(job).data
-        data['skill']=[]
-        if data['job_city'] is None:
-            data['job_city'] = ''
-        if data['company_name'] is not None:
-            ob = Company.objects.get(name=data['company_name'])
-            if ob.profile_picture:
-                image = ob.profile_picture
-                data['profile_picture'] = '/media/' + str(image.name)
-            else:
-                data['profile_picture'] = '/static/images/job/company-logo-2.png'
-            if ob.latitude:
-                data['latitude'] = str(ob.latitude)
-            if ob.longitude:
-                data['longitude'] = str(ob.longitude)
 
-
-        else:
-            data['profile_picture'] = '/static/images/job/company-logo-2.png'
-        if data['company_name'] is None:
-            data['company_name'] = NO_NAME
-
-        if data['job_city'] is None:
-            data['job_city'] = NO_LOCATION
-
-        # skills = Job_skill_detail.objects.filter(job=job)
-        # skills_len = len(skills) - 1
-        for skill in job.job_skills.all():
-            #     if skills.index(skill) == skills_len:
-            data['skill'].append(skill.name)
-        #     else:
-        #         data['skill'] = data['skill'] + (skill.skill.name + ', ')
-        return Response(data)
 
 class IndustryList(generics.ListCreateAPIView):
 
@@ -240,16 +179,6 @@ def load_previous_skills(request):
     previous_skills = list(Skill.objects.values_list('name', flat=True))
     return JsonResponse(previous_skills, safe=False)
 
-
-@api_view(["GET"])
-def get_company_by_name(request):
-    comp_name = request.GET.get('name')
-    if comp_name:
-        comps = Company.objects.filter(Q(name__icontains = comp_name))
-    
-    result = CompanySerializer(comps, many = True)
-    data = { 'data' : result.data}
-    return Response(data)
 
 @api_view(["POST"])
 def trending_keyword_save(request):

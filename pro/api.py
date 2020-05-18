@@ -989,6 +989,26 @@ def pro_recent_activity(request):
         'type': act.type
     }for act in activity]
     return Response(activity_list)
+class SkillObject(APIView):
+    def get(self, request, pk):
+        skill = ProfessionalSkillSerializer(get_object_or_404(ProfessionalSkill, pk=pk)).data
+        skill_data = {
+            'skill_info': skill,
+        }
+        return Response(skill_data)
+
+api_view('GET')
+def institute_search(request):
+    names = list(Institute.objects.values_list('name',flat=True))
+    return HttpResponse(json.dumps(names),'application/json')
+
+
+
+def StaticUrl(self):
+    data = {
+        '1': "http://facebook.com/",
+        '2': "http://twitter.com/",
+        '3': "http://linkedin.com/",
 
 
 class EducationObject(APIView):
