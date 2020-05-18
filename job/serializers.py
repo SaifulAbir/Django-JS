@@ -54,8 +54,8 @@ class GenderSerializer(serializers.ModelSerializer):
 
 class JobSerializer(serializers.ModelSerializer):
     profile_picture = serializers.CharField(read_only=True)
-    is_favourite = serializers.CharField(read_only=True)
-    is_applied = serializers.CharField(read_only=True)
+    is_favourite = serializers.BooleanField(read_only=True)
+    is_applied = serializers.BooleanField(read_only=True)
     class Meta:
         model = Job
         fields = ('job_id', 'title', 'status' , 'company_name', 'job_category',

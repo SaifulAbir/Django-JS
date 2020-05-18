@@ -13,21 +13,21 @@ from resources import strings_job
 class JobSourceList(generics.ListAPIView):
     queryset = JobSource.objects.filter(
         is_archived=False
-    ).order_by('-post_date')
+    ).order_by('name')
     serializer_class = JobSourceSerializer
 
 
 class JobCategoryList(generics.ListAPIView):
     queryset = JobCategory.objects.filter(
         is_archived=False
-    ).order_by('-post_date')
+    ).order_by('name')
     serializer_class = JobSourceSerializer
 
 
 class JobGenderList(generics.ListAPIView):
     queryset = JobGender.objects.filter(
         is_archived=False
-    ).order_by('-post_date')
+    ).order_by('name')
     serializer_class = JobSourceSerializer
 
 
