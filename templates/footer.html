@@ -163,6 +163,12 @@
 
     function loadUser(data) {
         if(data.length>=1){
+            if(data[0].user.image){
+                $('.account-thumb').html('<img src="'+ data[0].user.image +'" class="img-fluid" alt="">')
+            } else {
+                $('.account-thumb').html('<img src="/static/images/alternate.jpg" class="img-fluid" alt="">')
+            }
+
             $('.account-button').text(data[0].user.name);
             $('.account-body a').text(data[0].user.name);
             $('.account-body .mail').text(data[0].user.email);

@@ -242,7 +242,9 @@
                 rules: {
                     keyword: {
                         required:  function(element) {
-                            return $("#keyword").val() == '';
+                            var keyword = $("#keyword").val();
+                            keyword = keyword.trim();
+                            return keyword == '';
                         }
                     }
                 },
@@ -298,179 +300,180 @@
         {#    for(index=0;index<data.length;index++){#}
         {#        $('#category-list').append('<li><a href="/api/job-list/?top-category='+ data[index].name +'">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')#}
         {#    }#}
-        {#}#}
+        // }
 
-            function loadTestimonial(data) {
-                for(index=0;index<data.length;index++){
-                    $('.testimonial-for').slick('slickAdd','<div class="testimonial-item">\n' +
-                        '<p data-toggle="tooltip" title="'+ data[index].comment +'" style="display: -webkit-box; -webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden; margin: 0 auto;">“'+ data[index].comment +'”</p>\n' +
-                        '<h5>'+data[index].client_name+'</h5>\n' +
-                        '</div>')
+        function loadTestimonial(data) {
+            for(index=0;index<data.length;index++){
+                $('.testimonial-for').slick('slickAdd','<div class="testimonial-item">\n' +
+                    '<p data-toggle="tooltip" title="'+ data[index].comment +'" style="display: -webkit-box; -webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden; margin: 0 auto;">“'+ data[index].comment +'”</p>\n' +
+                    '<h5>'+data[index].client_name+'</h5>\n' +
+                    '</div>')
 
-                    $('.testimonial-nav').slick('slickAdd','<div class="commenter-thumb">\n' +
-                        '                                <img src="'+ data[index].profile_picture +'" class="img-fluid commenter" alt="" style="width:150px;height:60px;">\n' +
-                        '                            </div>')
-
-                }
-
+                $('.testimonial-nav').slick('slickAdd','<div class="commenter-thumb">\n' +
+                    '                                <img src="'+ data[index].profile_picture +'" class="img-fluid commenter" alt="" style="width:150px;height:60px;">\n' +
+                    '                            </div>')
 
             }
 
 
+        }
 
-            function loadStats(data) {
-                $('#candidate_count').text(data.professional_count)
-                $('#job_counts').text(data.open_job)
-                $('#companies_count').text(data.company_count)
-                $('#resume_count').text(data.resume)
 
+
+        function loadStats(data) {
+            $('#candidate_count').text(data.professional_count)
+            $('#job_counts').text(data.open_job)
+            $('#companies_count').text(data.company_count)
+            $('#resume_count').text(data.resume)
+
+        }
+
+
+
+        function loadSkills(data) {
+            for(index=0;index<data.length;index++){
+                $('#skill-list').append('<li><a href="/api/job-list/?top-skill='+ data[index].id +'">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
             }
+        }
 
+        function loadPopularJobs(data) {
 
-
-            function loadSkills(data) {
-                for(index=0;index<data.length;index++){
-                    $('#skill-list').append('<li><a href="/api/job-list/?top-skill='+ data[index].id +'">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
-                }
-            }
-
-            function loadPopularJobs(data) {
-
+            {% comment %}if (data){
                 for(index=0;index<data.company_list.length;index++){
                     $('#popular-job-list').append('<li><a href="/api/job-list/?top-company='+ data.company_list[index].company_name +'">'+ data.company_list[index].company_name +'<span>('+ data.company_list[index].company_count +')</span></a></li>')
                 }
-            }
+            }{% endcomment %}
+        }
 
-            function loadJobs(data) {
+        function loadJobs(data) {
+            for(index=0;index<data.length;index++){
+                var dateString = data[index].application_deadline;
+                var momentObj = moment(dateString, 'YYYY-MM-DD');
+                var dateMomentString = momentObj.format('MMM DD, YYYY');
+                var job_html= '<div class="job-list">'+
+                    '<div class="thumb">'+
+                    '<a href="#">'+
+                    '<img src="'+data[index].profile_picture+'" class="img-fluid" alt="">'+
+                    '</a>'+
+                    '</div>'+
+                    '<div class="body">'+
+                    '<div class="content">'+
+                    '<h4><a href="'+'job-detail/'+data[index].slug+'">'+data[index].title+'</a></h4>'+
+                    '<div class="info">'+
+                    '<span class="company"><a href="#"><i class="fas fa-building" style="margin-right: 5px"></i>'+data[index].company_name+'</a></span>'+
+                    '<span class="office-location"><a href="#"><i data-feather="map-pin"></i>'+data[index].job_area+'</a></span>'+
+                    '<span class="job-type full-time"><a href="#"><img style="margin-right: 6px; vertical-align: top; padding-top: 5px;" src="/static/images/img_clock.png" width="12">'+data[index].job_type+'</a></span>'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="more">'+
+                    '<div class="buttons">'+
+                    '<a href="'+data[index].job_id+'" class="button apply" data-toggle="modal">Apply Now</a>'+
+                    '<a href="'+data[index].job_id+'" class="favourite"><i data-feather="heart"></i></a>'+
+                    '</div>'+
+                    '<p class="deadline">'+'Deadline: '+dateMomentString+'</p>'+
+                    '</div>'+
+                    '</div>'+
+                    '</div>';
+                $('#job-list').append(job_html);
+                var el = $("#job-list").find("[href='"+ data[index].job_id +"']");
+                el.each(function () {
+                    if($(this).hasClass('apply')){
 
-                for(index=0;index<data.length;index++){
-                    var dateString = data[index].created_date;
-                    var momentObj = moment(dateString, 'YYYY-MM-DD');
-                    var dateMomentString = momentObj.format('MMM DD, YYYY');
-                    var job_html= '<div class="job-list">'+
-                        '<div class="thumb">'+
-                        '<a href="#">'+
-                        '<img src="'+data[index].profile_picture+'" class="img-fluid" alt="">'+
-                        '</a>'+
-                        '</div>'+
-                        '<div class="body">'+
-                        '<div class="content">'+
-                        '<h4><a href="'+'job-detail/'+data[index].slug+'">'+data[index].title+'</a></h4>'+
-                        '<div class="info">'+
-                        '<span class="company"><a href="#"><i class="fas fa-building" style="margin-right: 5px"></i>'+data[index].company_name+'</a></span>'+
-                        '<span class="office-location"><a href="#"><i data-feather="map-pin"></i>'+data[index].job_location+'</a></span>'+
-                        '<span class="job-type full-time"><a href="#"><img style="margin-right: 6px; vertical-align: top; padding-top: 5px;" src="/static/images/img_clock.png" width="12">'+data[index].employment_status+'</a></span>'+
-                        '</div>'+
-                        '</div>'+
-                        '<div class="more">'+
-                        '<div class="buttons">'+
-                        '<a href="'+data[index].job_id+'" class="button apply" data-toggle="modal">Apply Now</a>'+
-                        '<a href="'+data[index].job_id+'" class="favourite"><i data-feather="heart"></i></a>'+
-                        '</div>'+
-                        '<p class="deadline">'+'Deadline: '+dateMomentString+'</p>'+
-                        '</div>'+
-                        '</div>'+
-                        '</div>';
-                    $('#job-list').append(job_html);
-                    var el = $("#job-list").find("[href='"+ data[index].job_id +"']");
-                    el.each(function () {
-                        if($(this).hasClass('apply')){
+                        // $(this).removeClass('active');
+                        // showError('Oopss!', 'Job removed.')
+                        if(data[index].is_applied == 'True' && isLoggedIn()){
 
-                            // $(this).removeClass('active');
-                            // showError('Oopss!', 'Job removed.')
-                            if(data[index].is_applied == 'Yes' && isLoggedIn()){
-
-                                $(this).addClass('applied');
-                                $(this).text('Applied');
-                                $(this).attr('href', 'javascript:void(0)')
-                            }
+                            $(this).addClass('applied');
+                            $(this).text('Applied');
+                            $(this).attr('href', 'javascript:void(0)')
                         }
-                        if($(this).hasClass("favourite")){
-                            if(data[index].status == 'Yes' && isLoggedIn()){
-                                $(this).addClass('active');
-                            }
-                            // $(this).addClass('active');
-                            // showSuccess('Successful!', 'Job saved as a favourite.')
-
+                    }
+                    if($(this).hasClass("favourite")){
+                        if(data[index].is_favourite == 'True' && isLoggedIn()){
+                            $(this).addClass('active');
                         }
+                        // $(this).addClass('active');
+                        // showSuccess('Successful!', 'Job saved as a favourite.')
 
-                    });
-                    feather.replace();
-                }
+                    }
+
+                });
+                feather.replace();
+            }
+        }
+
+        function loadAdvice(data) {
+            len= data.length;
+            for(x=0;x<len;x++){
+                var dateString = data[x].created_date
+                var momentObj = moment(dateString, 'YYYY-MM-DD');
+                var monthString = momentObj.format('MMM');
+                var dayString = momentObj.format('DD');
+
+                $('#career-advice').append('<div class="col-md-6 col-lg-4">' +
+                    ' <article class="blog-grid">' +
+                    ' <div class="body">' +
+                    '<span class="date">'+dayString+'<span>'+monthString+'</span></span>' +
+                    '<h3 style="min-height:50px;max-height:50px"><a href="blog-details.html" id="ad-title"></a>'+data[x].title+'</h3>' +
+                    '<p style="max-height:97px;min-height:97px; overflow: hidden;"id="ad-description">'+data[x].short_description+'</p>' +
+                    '</div>' +
+                    '<div class="info">' +
+                    '<span class="author" id="ad-author"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data[x].author+'</span>'+
+                    '</div>'+
+                    '</article>'+
+                    '</div>')
+
             }
 
-            function loadAdvice(data) {
-                len= data.length;
-                for(x=0;x<len;x++){
-                    var dateString = data[x].created_date
-                    var momentObj = moment(dateString, 'YYYY-MM-DD');
-                    var monthString = momentObj.format('MMM');
-                    var dayString = momentObj.format('DD');
 
-                    $('#career-advice').append('<div class="col-md-6 col-lg-4">' +
-                        ' <article class="blog-grid">' +
-                        ' <div class="body">' +
-                        '<span class="date">'+dayString+'<span>'+monthString+'</span></span>' +
-                        '<h3 style="min-height:50px;max-height:50px"><a href="blog-details.html" id="ad-title"></a>'+data[x].title+'</h3>' +
-                        '<p style="max-height:97px;min-height:97px; overflow: hidden;"id="ad-description">'+data[x].short_description+'</p>' +
-                        '</div>' +
-                        '<div class="info">' +
-                        '<span class="author" id="ad-author"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data[x].author+'</span>'+
-                        '</div>'+
-                        '</article>'+
-                        '</div>')
-
-                }
-
-
+        }
+        function loadKey(data) {
+            len= data.length;
+            for(x=0;x<len;x++){
+                $('#trend-keywords').append('<a href="javascript:void(0)"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
             }
-            function loadKey(data) {
-                len= data.length;
-                for(x=0;x<len;x++){
-                    $('#trend-keywords').append('<a href="javascript:void(0)"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
-                }
-            }
+        }
 
-            function loadJobAlert(data) {
-                if(data.code == 200 && data.status == 'subscribed'){
-                    $('#job-alert').addClass('display-none');
-                    $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
-                }
-                else if(data.code == 200 && data.status == 'not subscribed'){
-                    $('#job-alert').removeClass('display-none');
-                    $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
-                }
-                else {
-                    $('#job-alert').removeClass('display-none');
-                    $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
-                }
+        function loadJobAlert(data) {
+            if(data.code == 200 && data.status == 'subscribed'){
+                $('#job-alert').addClass('display-none');
+                $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
             }
+            else if(data.code == 200 && data.status == 'not subscribed'){
+                $('#job-alert').removeClass('display-none');
+                $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
+            }
+            else {
+                $('#job-alert').removeClass('display-none');
+                $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
+            }
+        }
 
-            function jobAlertRedirectPage(data) {
-                if(data.responseJSON.status == 'subscribed'){
-                    window.location.href = "/professional/sign-in/";
-                }
-                else if(data.responseJSON.status == 'not subscribed'){
-                    email = $('#email').val();
-                    window.location.href = "/professional/sign-in/?email="+ email;
-                }
-                else if(data.responseJSON.status == 'subscribed_user'){
-                    $('#job-alert').addClass('display-none');
-                    $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
-                }else{
-                    email = $('#email').val();
-                    window.location.href = "/professional/register/?email="+ email;
-                }
-                // $("#job-alert").on("submit", function(e){
-                //     e.preventDefault();
-                //     email = $('#email').val();
-                //     if(!email){
-                //         $('.newsletter-error').html("Please enter an email.").fadeIn().delay(3000).fadeOut();
-                //     }else {
-                //         window.location.href = "/professional/register/?email="+ email;
-                //     }
-                // });
+        function jobAlertRedirectPage(data) {
+            if(data.responseJSON.status == 'subscribed'){
+                window.location.href = "/professional/sign-in/";
             }
+            else if(data.responseJSON.status == 'not subscribed'){
+                email = $('#email').val();
+                window.location.href = "/professional/sign-in/?email="+ email;
+            }
+            else if(data.responseJSON.status == 'subscribed_user'){
+                $('#job-alert').addClass('display-none');
+                $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
+            }else{
+                email = $('#email').val();
+                window.location.href = "/professional/register/?email="+ email;
+            }
+            // $("#job-alert").on("submit", function(e){
+            //     e.preventDefault();
+            //     email = $('#email').val();
+            //     if(!email){
+            //         $('.newsletter-error').html("Please enter an email.").fadeIn().delay(3000).fadeOut();
+            //     }else {
+            //         window.location.href = "/professional/register/?email="+ email;
+            //     }
+            // });
+        }
 
     </script>
 {% endblock %}
