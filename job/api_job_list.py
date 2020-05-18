@@ -183,6 +183,7 @@ def favourite_jobs(request):
     jobs = []
     for fav_job in queryset:
         job = Job.objects.get(job_id=fav_job.job_id)
+        job.is_favourite = True
         job.is_applied = get_applied_status(job, request.user)
         job.profile_picture = get_company_logo(job)
         jobs.append(job)
@@ -198,6 +199,7 @@ def applied_jobs(request):
     for app_job in queryset:
         job = Job.objects.get(job_id=app_job.job_id)
         job.is_favourite = get_favourite_status(job, request.user)
+        job.is_applied = True
         job.profile_picture = get_company_logo(job)
         jobs.append(job)
     data = JobSerializer(jobs, many=True).data
