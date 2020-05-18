@@ -1405,6 +1405,7 @@
     get(getUrl,loadabout);
     get(getUrl,loadEdu);
     get(getUrl,loadExp);
+    get(getUrl,loadCer);
     get(staticUrl,loadstatic);
     initAjaxSelects();
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
@@ -1455,6 +1456,17 @@
       }
       else{
         $('#end_date').prop("disabled", false);
+      }
+    })
+
+    $('#has_expiry_period').click(function () {
+      if($(this).prop("checked")){
+        $('#expiry_date').prop("disabled", false);
+        // $('#end_date-error').html('')
+      }
+      else{
+        $('#expiry_date').prop("disabled", true);
+        $('#expiry_date-error').html('')
       }
     })
 
@@ -1629,13 +1641,17 @@
             var dateExpiryString = momentExpiryObj.format('YYYY-MM-DD');
             data.expiry_date = dateExpiryString;
         }
-        eduCreateUrl = " /api/professional/professional_certification/";
-        eduUpdateUrl = "/api/professional/professional_education/"+cer_id+"/";
+        else {
+          data.has_expiry_period = false
+          data.expiry_date = null
+        }
+        cerCreateUrl = " /api/professional/professional_certification/";
+        cerUpdateUrl = "/api/professional/professional_certification/"+cer_id+"/";
         if(Object.keys(data).length>1 && $(this).valid() && cer_id){
-          put(eduUpdateUrl, JSON.stringify(data), loadEducation);
+          put(cerUpdateUrl, JSON.stringify(data), loadCertificates);
         }
         if(Object.keys(data).length>1 && $(this).valid() && !cer_id){
-          post(eduCreateUrl, JSON.stringify(data), loadEducation);
+          post(cerCreateUrl, JSON.stringify(data), loadCertificates);
         }
     })
 
@@ -1711,6 +1727,42 @@
       }
     });
 
+    $('#certification-div').on('click','.update-certification',function () {
+      var obj_id = $(this).parent().find(".cer-object-id").val();
+      var path = window.location.pathname.split('/');
+      var id = path[path.length-2];
+      var getUrl = '/api/professional/profile/'+ id + '/';
+      get(getUrl, loadCertificateObject);
+      function loadCertificateObject(data) {
+        for(index=0;index<data.certification_info.length;index++) {
+          if(data.certification_info[index].id==obj_id){
+              if(!data.certification_info[index].expiry_date){
+                delete data.certification_info[index].expiry_date
+            }
+            if(data.certification_info[index].expiry_date){
+                var momentExpiryObj = moment(data.certification_info[index].expiry_date, 'YYYY-MM-DD');
+                var dateExpiryString = momentExpiryObj.format('DD/MM/YYYY');
+                data.certification_info[index].expiry_date = dateExpiryString
+            }
+            var momentObj = moment(data.certification_info[index].issue_date, 'YYYY-MM-DD');
+            var dateIssueString = momentObj.format('DD/MM/YYYY');
+            data.certification_info[index].issue_date = dateIssueString
+
+          json2Form(data.certification_info[index], "certification-form")
+            $('#issue_date').val('')
+            if(data.certification_info[index].has_expiry_period){
+                $('#has_expiry_period').prop('checked',true)
+                $('#expiry_date').prop('disabled',false)
+            }
+            else{
+              $('#has_expiry_period').prop('checked',false)
+              $('#expiry_date').prop('disabled',true)
+            }
+          }
+        }
+      }
+    });
+
 
     $('.education-div').on('click','.delete-education',function () {
         var obj_id = $(this).parent().find(".edu-object-id").val();
@@ -1720,6 +1772,11 @@
     $('#experience-div').on('click','.delete-experience',function () {
         var obj_id = $(this).parent().find(".exp-object-id").val();
         showQuestion('Delete','Do You Want to delete?', function(){expDelete(obj_id);});
+      });
+
+    $('#certification-div').on('click','.delete-certification',function () {
+        var obj_id = $(this).parent().find(".cer-object-id").val();
+        showQuestion('Delete','Do You Want to delete?', function(){cerDelete(obj_id);});
       });
 
 
@@ -1963,6 +2020,97 @@
     feather.replace();
   }
 
+  function loadCertificates(data) {
+    console.log(data);
+    if(data.status==200){
+      var dateString = data.responseJSON.issue_date;
+      var dateExpiryString = data.responseJSON.expiry_date;
+      // var major_name = "";
+      // var institution_name = "";
+      // var description = "";
+      // try{
+      //   if(data.responseJSON.major_obj.name){
+      //   major_name = data.responseJSON.major_obj.name;
+      // }
+      // }catch (e) {
+      //   if (e instanceof TypeError) {
+      //     major_name = "";
+      //   }
+      // }
+      //
+      // try {
+      //   if (data.responseJSON.institution_text) {
+      //     institution_name = data.responseJSON.institution_text;
+      //   }
+      // }catch (e) {
+      //   if (e instanceof TypeError) {
+      //     institution_name = "";
+      //   }
+      // }
+      // try {
+      //   if (data.responseJSON.description) {
+      //     description = data.responseJSON.description
+      //   }
+      // }catch (e) {
+      //   if (e instanceof TypeError) {
+      //     description = "";
+      //   }
+      // }
+      var momentObj = moment(dateString, 'YYYY-MM-DD');
+      var momentExpiryObj = moment(dateExpiryString, 'YYYY-MM-DD');
+      var dateIssueString = momentObj.format('DD/MM/YYYY');
+      var dateExpString = momentExpiryObj.format('DD/MM/YYYY');
+
+      if(dateExpString == "Invalid date"){
+          dateExpString = "No Expiry Period";
+      }
+      $("#modal-certification").modal("hide");
+      $("#modal-certification").find('form')[0].reset();
+      // $(".graduation-div").show();
+      if($('#certification-div').find(".certification-label").length==0){
+        $('#cer-label').after('<div class="certification-label">'+'<input type="hidden" class="cer-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateIssueString+' - '+dateExpString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '                <h5>'+data.responseJSON.certificate_name+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
+             '</div>');
+      }
+      else {
+        var el = $("#certification-div").find("[value='"+ data.responseJSON.id +"']");
+        if(el.length>0 && data.responseJSON.is_archived == true){
+            el.parent().remove()
+        }
+        else if(el.length>0){
+          el.parent().html('<input type="hidden" class="cer-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateIssueString+' - '+dateExpString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '                <h5>'+data.responseJSON.certificate_name+'<span>@ '+data.responseJSON.organization+'</span></h5>');
+        }
+        else{
+          $('.certification-label:last').after('<div class="certification-label">'+'<input type="hidden" class="cer-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateIssueString+' - '+dateExpString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '                <h5>'+data.responseJSON.certificate_name+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
+             '</div>');
+        }
+      }
+    }else{
+      showError("Error Updating")
+    }
+    feather.replace();
+  }
+
 
   function loadEducationObject(data) {
       if(!data.edu_info['graduation_date']){
@@ -2183,6 +2331,54 @@
     }
   }
 
+  function loadCer(data) {
+    console.log(data.certification_info);
+    // var eduHtml = $(".experience-label").html();
+    for(index=0;index<data.certification_info.length;index++){
+      var dateIssueString = data.certification_info[index].issue_date;
+      var dateExpiryString = data.certification_info[index].expiry_date;
+
+      var momentObj = moment(dateIssueString, 'YYYY-MM-DD');
+      var momentExpiryObj = moment(dateExpiryString, 'YYYY-MM-DD');
+      var dateIssue = momentObj.format('DD/MM/YYYY');
+      var dateExpiry = momentExpiryObj.format('DD/MM/YYYY');
+
+      if(dateExpiry == "Invalid date" && data.certification_info[index].has_expiry_period == false){
+          dateExpiry = "No Expiry Period";
+      }
+      // if(!data.certification_info[index].description){
+      //     description =''
+      // }
+
+      // var expDivHtml = $("#experience-form .input-block-experience").html();
+      if(index==0){
+        $('#cer-label').after('<div class="certification-label">\n' +
+                '<input type="hidden" class="cer-object-id" value="'+data.certification_info[index].id+'">'+
+                '                <span class="service-year">'+dateIssue+' - '+dateExpiry+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.certification_info[index].certificate_name+'<span>@ '+data.certification_info[index].organization+'</span></h5>\n' +
+                '              </div>');
+      }
+      else if(index>=1){
+        $('.certification-label:last').after('<div class="certification-label">\n' +
+                '<input type="hidden" class="cer-object-id" value="'+data.certification_info[index].id+'">'+
+                '                <span class="service-year">'+dateIssue+' - '+dateExpiry+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.certification_info[index].certificate_name+'<span>@ '+data.certification_info[index].organization+'</span></h5>\n' +
+                '              </div>');
+      }
+      feather.replace();
+    }
+  }
+
   function loadExpEdit(data) {
     setTimeout(function () {
       var count = 2;
@@ -2292,6 +2488,17 @@
         'is_archived':true
     }
     put(eduUpdateUrl, JSON.stringify(data), loadExperience);
+  }
+
+  function cerDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    cerUpdateUrl = " /api/professional/professional_certification/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(cerUpdateUrl, JSON.stringify(data), loadCertificates);
   }
 
 </script>
