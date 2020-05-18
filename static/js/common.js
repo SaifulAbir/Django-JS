@@ -282,8 +282,6 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
     }
     var initialStartingIndex = startingIndex;
 
-
-    var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><button disabled class="prev page-numbers cursor-pointer cursor-pointer" data-value="prev"><i class="fas fa-angle-left"></i></button>';
     startingIndex = parseInt(startingIndex);
     var numberOfPaginationIndex = totalRecord/pageSize;
     numberOfPaginationIndex = Math.ceil(numberOfPaginationIndex);
@@ -328,7 +326,6 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
         var paginationStringEnd = '<button disabled class="next page-numbers" data-value="next"><i class="fas fa-angle-right"></i></button></div></nav>';
     }
 
-    var paginationStringEnd = '<a class="next page-numbers" data-value="next" href="javascript:void(0);"><i class="fas fa-angle-right"></i></a></div></nav>';
     var paginationString = paginationStringStart + paginationIndexString + paginationStringEnd;
     $('.pagination-list').html(paginationString);
 }
@@ -339,24 +336,13 @@ function TokenAuthenticate() {
         $('#sign-in').hide();
         $('#register').hide();
         $('#sign-out').show();
-        $('.header-top-account').show();
+        $('.signin-user').show();
     }
     else {
         $('#sign-out').hide();
         $('#register').show();
         $('#sign-in').show();
     }
-   var access_token = $.cookie("access");
-   if(access_token){
-       $('#sign-in').hide();
-       $('#register').hide();
-       $('#sign-out').show();
-   }
-   else {
-       $('#sign-out').hide();
-       $('#register').show();
-       $('#sign-in').show();
-   }
 
 }
 

@@ -119,7 +119,7 @@
                             </ul>
                         </div>
                         <div class="job-filter-dropdown same-pad category">
-                            <select class="selectpicker" multiple data-max-options="1" data-live-search="true" title="Category" id="category">
+                            <select class="selectpicker" multiple data-max-options="1" data-live-search="true" title="Category" id="category" name="category">
 
 
                             </select>
@@ -400,28 +400,33 @@
         var topCategory = encodeURIComponent(getUrlParameter('top-category'));
         var topCompany = encodeURIComponent(getUrlParameter('top-company'));
 
+        cat_url='/api/job/top-categories/';
+        get(cat_url,loadCat);
+
+         $('[name=category]').val('{{ top_categories }}');//To select Blue
+
+        $("#category").val('{{ top_categories }}');
+
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialIcon);
 
-        jobtype_url = '/job_type';
+        jobtype_url = '/api/job_type/list';
         get(jobtype_url, loadJobtype);
 
-        gender_url = '/gender';
+        gender_url = '/api/gender/list';
         get(gender_url,loadGender);
 
-        quali_url = '/qualification';
+        quali_url = '/api/qualification/list';
         get(quali_url, loadQualification);
 
 
         location_url = '/api/location/';
         get(location_url,loadLoc);
 
-
-        cat_url='/api/popular_categories/';
-        get(cat_url,loadCat);
-
         skill_url = '/api/skill_list/';
         get(skill_url,loadskill);
+
+        $("#category").val('{{ top_categories }}');
 
         //Default job api call at the first time when page load
         filterJobList('', '', '', '');

@@ -38,6 +38,10 @@
                     </div>
                 </div>
             </div>
+            <form action="/jobs/" id="top-category-top-company-form" method="POST">{% csrf_token %}
+                <input type="hidden" name="top-category" value="" id="top-category">
+                <input type="hidden" name="top-skill" value="" id="top-skill">
+            </form>
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="explore-job">
@@ -63,6 +67,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-4 col-md-6">
                     <div class="explore-job">
                         <div class="explore-job-header">
@@ -235,8 +240,20 @@
                 var keywordItem = $(this).children().html();
                 $("#keyword").val(keywordItem);
                 $('#search-form').trigger('submit');
-
             });
+
+            $("body").delegate("#category-list li a", "click", function(){
+                var category = $(this).data('category');
+                $("#top-category").val(category);
+                $('#top-category-top-company-form').trigger('submit');
+            });
+
+            $("body").delegate("#skill-list li a", "click", function(){
+                var skill = $(this).data('skill');
+                $("#top-skill").val(skill);
+                $('#top-category-top-company-form').trigger('submit');
+            });
+
 
             $('#search-form').validate({
                 rules: {
@@ -264,13 +281,13 @@
             TokenAuthenticate();
             initAjaxForms();
             statUrl = '/api/vital_stats/';
-            key_url='/api/trending_keyword_show/';
-            cat_url='/api/popular_categories/';
-            skills_url='/api/top_skills/';
+            key_url='/api/job/trending_keywords/';
+            cat_url='/api/job/top-categories/';
+            skills_url='/api/job/top-skills/';
             careerUrl = '/api/career_advise_show/';
             testimonialrUrl = '/api/testimonial_show/';
             recentJobsUrl = 'api/job/recent/';
-            popularJobsUrl = '/api/popular_jobs/';
+            popularJobsUrl = '/api/job/top-companies/';
             jobAlertUrl = '/api/professional/job_alert_notification/';
 
             get(cat_url,loadCategory);
@@ -282,8 +299,8 @@
             get(testimonialrUrl,loadTestimonial);
             get(popularJobsUrl,loadPopularJobs);
             get(jobAlertUrl, loadJobAlert);
-            favouriteJobAddRemove('job-list', '/api/favourite_job_add/');
-            applyOnlineJobAddRemove('job-list', '/api/apply_online_job_add/');
+            favouriteJobAddRemove('job-list', '/api/job/favourite/toggle');
+            applyOnlineJobAddRemove('job-list', '/api/job/apply/');
         });
 
 
@@ -292,15 +309,9 @@
 
         function loadCategory(data) {
             for(index=0;index<data.length;index++){
-                $('#category-list').append('<li><a href="#">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
+                $('#category-list').append('<li><a data-category="'+ data[index].name +'" href="javascript:void(0)">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
             }
         }
-
-        {#function loadCategory(data) {#}
-        {#    for(index=0;index<data.length;index++){#}
-        {#        $('#category-list').append('<li><a href="/api/job-list/?top-category='+ data[index].name +'">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')#}
-        {#    }#}
-        // }
 
         function loadTestimonial(data) {
             for(index=0;index<data.length;index++){
@@ -332,17 +343,16 @@
 
         function loadSkills(data) {
             for(index=0;index<data.length;index++){
-                $('#skill-list').append('<li><a href="/api/job-list/?top-skill='+ data[index].id +'">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
+                $('#skill-list').append('<li><a href="javascript:void(0)" data-skill="'+ data[index].id +'">'+ data[index].name +'<span>('+ data[index].skills_count +')</span></a></li>')
             }
         }
 
         function loadPopularJobs(data) {
-
-            {% comment %}if (data){
-                for(index=0;index<data.company_list.length;index++){
-                    $('#popular-job-list').append('<li><a href="/api/job-list/?top-company='+ data.company_list[index].company_name +'">'+ data.company_list[index].company_name +'<span>('+ data.company_list[index].company_count +')</span></a></li>')
+            if (data){
+                for(index=0;index<data.length;index++){
+                    $('#popular-job-list').append('<li><a data-category="'+ data[index].name +'" href="javascript:void(0)">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
                 }
-            }{% endcomment %}
+            }
         }
 
         function loadJobs(data) {
@@ -391,6 +401,7 @@
                     if($(this).hasClass("favourite")){
                         if(data[index].is_favourite == 'True' && isLoggedIn()){
                             $(this).addClass('active');
+                            $(this).children().attr("fill", "#ff8fa6")
                         }
                         // $(this).addClass('active');
                         // showSuccess('Successful!', 'Job saved as a favourite.')
