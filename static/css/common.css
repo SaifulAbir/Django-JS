@@ -277,6 +277,8 @@ a.save.apply.active {
 }
  /*forgot password*/
 
+
+
 .error {
     color: red;
 }
@@ -316,6 +318,40 @@ a.save.apply.active {
     width: 86%;
 }
 
+.add-new-record{
+    color: #246df8;
+    background: rgba(36, 109, 248, 0.15);
+    border-radius: 3px;
+    border: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 5px 20px;
+    margin-top: 20px;
+}
+
+.update-icon{
+    position: relative !important;
+    float: right;
+    margin-left: 5px;
+}
+.delete-icon{
+    position: relative !important;
+    color: #FF0000 !important;
+    background: rgba(255, 0, 0, 0.15) !important;
+    float: right;
+    margin-left: 5px;
+}
+.delete-icon:hover {
+    color: #fff !important;
+    background-color: #FF0000 !important;
+    border-color: #0062cc;
+}
+
+.datepicker{z-index:1151 !important;}
+
+.twitter-typeahead, .tt-menu {
+    width: 86%;
+}
 .job-list .thumb img {
     max-width: 80px;
     max-height: 80px;

@@ -1,90 +1,22 @@
-from django.contrib.auth.models import User
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db import models
-from django.db.models import Count, QuerySet, Value, CharField
-from django.db.models import Count, QuerySet
-from django.db.models.query_utils import Q
-from django.db.models import Count, QuerySet, Min, Max
-from django.http import Http404
-from datetime import date, datetime, timedelta
+from datetime import date
 
-from django.db.models import Count
-from django.http import Http404, JsonResponse, HttpResponse
-from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view, permission_classes
+from django.contrib.auth.models import User
+from django.db.models import Min, Max
+from django.http import JsonResponse, HttpResponse
+from rest_framework import generics
+from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
-from rest_framework.pagination import *
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.status import *
 from rest_framework.utils import json
-from rest_framework.views import APIView
-
-from rest_framework.pagination import PageNumberPagination
 
 from pro.models import Professional
 from resources.strings_job import *
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
-    Skill, FavouriteJob, ApplyOnline, JobCategory
-
-from .models import Company, Job, Industry, JobType, Experience, Qualification, Gender, Currency, TrendingKeywords, \
-    Skill
+from .models import FavouriteJob, ApplyOnline
 from .serializers import *
-from rest_framework.response import Response
-from rest_framework import generics, pagination
 from .utils import favourite_job_counter, applied_job_counter
 
-
-class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 2
-    page_size_query_param = 'page_size'
-    max_page_size = 1000
-
-class JobList(generics.ListAPIView):
-
-    queryset = Job.objects.all()
-    serializer_class = JobSerializerAllField
-    pagination_class = StandardResultsSetPagination
-
-
-
-class IndustryList(generics.ListCreateAPIView):
-
-    queryset = Industry.objects.all()
-    serializer_class = IndustrySerializer
-
-class JobTypeList(generics.ListCreateAPIView):
-    queryset = JobType.objects.all()
-    serializer_class = JobTypeSerializer
-
-class CurrencyList(generics.ListCreateAPIView):
-    queryset = Currency.objects.all()
-    serializer_class = CurrencySerializer
-
-
-class Experience(generics.ListCreateAPIView):
-    queryset = Experience.objects.all()
-    serializer_class = ExperienceSerializer
-
-# def Experience(self):
-#     data = {
-#         '1': "Fresh",
-#         '2': "Less than 1 year",
-#         '3': "2 Year",
-#         '4': "3 Year",
-#         '5':  "4 Year",
-#         '6': "Above 5 Years",
-#     }
-#     return HttpResponse(json.dumps(data), content_type='application/json')
-
-
-class QualificationList(generics.ListCreateAPIView):
-    queryset = Qualification.objects.all()
-    serializer_class = QualificationSerializer
-
-class GenderList(generics.ListCreateAPIView):
-    queryset = Gender.objects.all()
-    serializer_class = GenderSerializer
 
 @api_view(["POST"])
 def job_create(request):
@@ -133,11 +65,11 @@ def favourite_job_add(request):
         except Job.DoesNotExist:
             job = None
         try:
-            favourite_jobs = FavouriteJob.objects.filter(user = job_data['user_id'],job = job_data['job_id'])
+            favourite_jobs = FavouriteJob.objects.filter(user = request.user.id,job = job_data['job_id'])
         except FavouriteJob.DoesNotExist:
             favourite_jobs = None
         if not favourite_jobs:
-            favourite_job = FavouriteJob(**job_data)
+            favourite_job = FavouriteJob(job_id = job_data['job_id'], user = request.user )
             favourite_job.save()
             favourite_job_counter(job)
             data = {
@@ -170,11 +102,6 @@ class JobUpdateView(GenericAPIView, UpdateModelMixin):
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
-
-class CompanyPopulate(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Company.objects.all()
-    serializer_class = CompanyPopulateSerializer
-
 def load_previous_skills(request):
     previous_skills = list(Skill.objects.values_list('name', flat=True))
     return JsonResponse(previous_skills, safe=False)
@@ -201,44 +128,6 @@ def trending_keyword_save(request):
         return Response(HTTP_200_OK)
     else:
         return HttpResponse('both field can not be blank')
-
-class TrendingKeywordPopulate(generics.ListCreateAPIView):
-    queryset = TrendingKeywords.objects.values('keyword').annotate(key_count = Count('keyword')).order_by('-key_count')[:6]
-    serializer_class = TrendingKeywordPopulateSerializer
-
-class PopularCategories(generics.ListCreateAPIView):
-    queryset = JobCategory.objects.all().annotate(num_posts=Count('jobs')).order_by('-num_posts')[:16]
-    serializer_class = PopularCategoriesSerializer
-
-class TopSkills(generics.ListCreateAPIView):
-    queryset = Skill.objects.all().annotate(skills_count=Count('skill_set')
-                                            ).order_by('-skills_count')[:16]
-    serializer_class = TopSkillSerializer
-
-class PopularJobs(generics.ListCreateAPIView):
-    queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
-                                          ).order_by('-favourite_count')[:16]
-    serializer_class = PopularJobSerializer
-
-@api_view(["GET"])
-def top_companies(self):
-    # queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
-    #                                       ).order_by('-favourite_count')[:16]
-    company = Company.objects.all().annotate(favourite_count=Count('companies')
-                                          ).order_by('-favourite_count')[:16]
-    with_deadline = Job.objects.filter(application_deadline__gte=date.today())|Job.objects.filter(application_deadline__isnull=True)
-    # without_deadline = Job.objects.filter(application_deadline__isnull=True).count()
-    # open_job = with_deadline + without_deadline
-    company_list = []
-    for item in company:
-        company_list.append({'company_count':with_deadline.filter(company_name=item).count(), 'company_name':item.name})
-    print(company_list)
-    data = {
-        'company_list': company_list,
-    }
-    return HttpResponse(json.dumps(data), content_type='application/json')
-
-
 
 
 @api_view(["GET"])
@@ -286,7 +175,7 @@ def apply_online_job_add(request):
     job_data = json.loads(request.body)
 
 
-    user = User.objects.get(id = job_data['user_id'])
+    user = User.objects.get(id = request.user.id)
     j_id = job_data['job_id']
 
     job = Job.objects.get(job_id=j_id)

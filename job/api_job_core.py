@@ -1,3 +1,4 @@
+from django.db.models import QuerySet
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,6 +26,8 @@ class JobObject(APIView):
 
 
 def get_company_latlng(job):
+    if type(job) is QuerySet:
+        job = job[0]
     if job.company_name:
         latitude = job.company_name.latitude
         longitude = job.company_name.longitude
@@ -32,6 +35,8 @@ def get_company_latlng(job):
 
 def get_company_logo(job):
     # TODO: read from string file/ settings
+    if type(job) is QuerySet:
+        job = job[0]
     if job.company_name:
         if job.company_name.profile_picture:
             profile_picture = '/media/' + str(job.company_name.profile_picture)
@@ -43,6 +48,8 @@ def get_company_logo(job):
     return profile_picture
 
 def get_favourite_status(job : Job, user):
+    if type(job) is QuerySet:
+        job = job[0]
     if user.is_authenticated:
         try:
             favourite_job = FavouriteJob.objects.get(job=job, user=user)
@@ -54,6 +61,8 @@ def get_favourite_status(job : Job, user):
     return favourite_job != None
 
 def get_applied_status(job : Job, user):
+    if type(job) is QuerySet:
+        job = job[0]
     if user.is_authenticated:
         try:
             applied_job = ApplyOnline.objects.get(job=job, created_by=user)

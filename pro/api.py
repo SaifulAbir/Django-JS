@@ -210,10 +210,10 @@ class ProfessionalDetail(APIView):
         profile = get_object_or_404(Professional, pk=pk)
         education = ProfessionalEducation.objects.filter(professional=pk ,is_archived=False).order_by('-enrolled_date')
         skills = ProfessionalSkill.objects.filter(professional=pk, is_archived=False)
-        experience = WorkExperience.objects.filter(professional=pk, is_archived=False)
+        experience = WorkExperience.objects.filter(professional=pk, is_archived=False).order_by("-start_date")
         portfolio = Portfolio.objects.filter(professional=pk, is_archived=False)
         membership = Membership.objects.filter(professional_id=pk, is_archived=False)
-        certification = Certification.objects.filter(professional=pk, is_archived=False)
+        certification = Certification.objects.filter(professional=pk, is_archived=False).order_by("-issue_date")
         reference = Reference.objects.filter(professional=pk, is_archived=False)
 
         info_data = ProfessionalSerializer(profile).data
@@ -248,6 +248,8 @@ class ProfessionalDetail(APIView):
             'designation': exp.designation,
             'start_date': exp.start_date,
             'end_date': exp.end_date,
+            'is_currently_working': exp.is_currently_working,
+            'description': exp.description,
         } for exp in experience
         ]
 
@@ -849,9 +851,6 @@ class SkillUpdateDelete(GenericAPIView, UpdateModelMixin):
         else:
             ip = request.META.get('REMOTE_ADDR')
         request.data.update({'modified_by_id': request.user.id, 'modified_at': str(ip),'modified_date':timezone.now()})
-        if 'skill_name_id' in request.data:
-            request.data['skill_name'] = request.data['skill_name_id']
-            del request.data['skill_name_id']
         self.partial_update(request, *args, **kwargs)
         prof_obj = ProfessionalSkillSerializer(ProfessionalSkill.objects.get(pk=pk)).data
         prof_obj['rating'] = Decimal(prof_obj['rating'])
@@ -955,7 +954,28 @@ def info_box_api(request):
 
     return Response(data)
 
+class SkillObject(APIView):
+    def get(self, request, pk):
+        skill = ProfessionalSkillSerializer(get_object_or_404(ProfessionalSkill, pk=pk)).data
+        skill_data = {
+            'skill_info': skill,
+        }
+        return Response(skill_data)
 
+api_view('GET')
+def institute_search(request):
+    names = list(Institute.objects.values_list('name',flat=True))
+    return HttpResponse(json.dumps(names),'application/json')
+
+
+def StaticUrl(self):
+    data = {
+        '1': "http://facebook.com/",
+        '2': "http://twitter.com/",
+        '3': "http://linkedin.com/",
+
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 @api_view(["GET"])
 def skill_job_chart(request):
@@ -989,28 +1009,7 @@ def pro_recent_activity(request):
         'type': act.type
     }for act in activity]
     return Response(activity_list)
-class SkillObject(APIView):
-    def get(self, request, pk):
-        skill = ProfessionalSkillSerializer(get_object_or_404(ProfessionalSkill, pk=pk)).data
-        skill_data = {
-            'skill_info': skill,
-        }
-        return Response(skill_data)
 
-@api_view(["GET"])
-
-def institute_search(request):
-    names = list(Institute.objects.values_list('name',flat=True))
-    return HttpResponse(json.dumps(names),'application/json')
-
-
-
-def StaticUrl(self):
-    data = {
-        '1': "http://facebook.com/",
-        '2': "http://twitter.com/",
-        '3': "http://linkedin.com/",
-    }
 
 class EducationObject(APIView):
     permission_classes = (IsAppAuthenticated,)
@@ -1022,8 +1021,7 @@ class EducationObject(APIView):
         return Response(edu_data)
 
 
-@api_view(["GET"])
-
+api_view('GET')
 def institute_search(request):
     names = list(Institute.objects.values_list('name',flat=True))
     return HttpResponse(json.dumps(names),'application/json')
