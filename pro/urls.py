@@ -64,4 +64,5 @@ urlpatterns = [
     path('pro_recent_activity/', pro_recent_activity),
 
     path('view_profile/<str:pk>/', TemplateView.as_view(template_name='view_profile.html')),
+    path('change_password/<str:pk>/', TemplateView.as_view(template_name='change_password.html')),
 ]
