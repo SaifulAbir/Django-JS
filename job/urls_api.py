@@ -1,39 +1,26 @@
 from django.urls import path
-from django.views.generic import TemplateView
 
-from job.api import IndustryList, JobTypeList, Experience, CurrencyList, QualificationList, GenderList, JobUpdateView, \
-    CompanyPopulate, job_create, favourite_job_add, load_previous_skills, trending_keyword_save, \
-    TrendingKeywordPopulate, PopularCategories, TopSkills, vital_stats, PopularJobs, salary_range, SkillList, \
-    apply_online_job_add, del_fav_jobs
-from job.api_company import CompanyList, get_company_by_name
+from job.api import SkillList, apply_online_job_add, salary_range, vital_stats, trending_keyword_save, \
+    load_previous_skills, favourite_job_add, job_create, JobUpdateView
+from job.api_company import get_company_by_name, CompanyList
 from job.api_job_core import JobObject
+from job.api_job_kpi import TopFavouriteList, TopCategoryList, TopSkillList, TopCompanyList, TrendingKeywordList
 from job.api_job_list import similar_jobs, applied_jobs, favourite_jobs, recent_jobs, job_list
 from job.api_job_related import get_job_site_list, JobSourceList, get_job_nature_list, get_job_type_list, \
-    get_job_status_list, get_job_creator_type_list, JobCategoryList, JobGenderList
+    get_job_status_list, get_job_creator_type_list, JobCategoryList, JobGenderList, IndustryList, JobTypeList, \
+    ExperienceList, CurrencyList, QualificationList, GenderList
 
 urlpatterns = [
     # TODO: review >>>
-    path('industry/', IndustryList.as_view()),
-    path('job_type/', JobTypeList.as_view()),
-    path('experience/', Experience.as_view()),
-    path('currency/', CurrencyList.as_view()),
-    path('qualification/', QualificationList.as_view()),
-    path('gender/', GenderList.as_view()),
+
     path('job_update/<str:pk>/', JobUpdateView.as_view()),
-    path('load_company/<str:pk>/', CompanyPopulate.as_view()),
     path('job_create/', job_create),
-    path('favourite_job_add/', favourite_job_add),
     path('previous_skills/', load_previous_skills),
     path('trending_keyword_save/', trending_keyword_save),
-    path('trending_keyword_show/', TrendingKeywordPopulate.as_view()),
-    path('popular_categories/', PopularCategories.as_view()),
-    path('top_skills/', TopSkills.as_view()),
+
     path('vital_stats/', vital_stats),
-    path('popular_jobs/', PopularJobs.as_view()),
     path('salary_range/', salary_range),
     path('skill_list/', SkillList.as_view()),
-    path('apply_online_job_add/', apply_online_job_add),
-    path('favourite-jobs-delete/<str:identifier>/', del_fav_jobs),
     # <<<
 
     path('job/search/', job_list),
@@ -51,6 +38,23 @@ urlpatterns = [
     path('job-status/list', get_job_status_list),
     path('job-creator-type/list', get_job_creator_type_list),
 
-    path('company/', CompanyList.as_view()),
+    path('company/list', CompanyList.as_view()),
     path('company/search/', get_company_by_name),
+
+    path('industry/list', IndustryList.as_view()),
+    path('job_type/list', JobTypeList.as_view()),
+    path('experience/list', ExperienceList.as_view()),
+    path('currency/list', CurrencyList.as_view()),
+    path('qualification/list', QualificationList.as_view()),
+    path('gender/list', GenderList.as_view()),
+
+    path('job/apply/', apply_online_job_add),
+    path('job/favourite/toggle', favourite_job_add),
+
+    path('job/top-favourites/', TopFavouriteList.as_view()),
+    path('job/top-categories/', TopCategoryList.as_view()),
+    path('job/top-skills/', TopSkillList.as_view()),
+    path('job/top-companies/', TopCompanyList.as_view()),
+    path('job/trending_keywords/', TrendingKeywordList.as_view()),
+
 ]

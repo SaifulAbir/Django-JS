@@ -4,7 +4,6 @@ from rest_framework_simplejwt.state import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from pro.models import Professional, ProfessionalEducation,Nationality
 from pro.models import *
 from rest_framework import exceptions
 from django.utils.translation import ugettext_lazy as _
