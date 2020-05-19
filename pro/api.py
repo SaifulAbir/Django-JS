@@ -210,7 +210,7 @@ class ProfessionalDetail(APIView):
         profile = get_object_or_404(Professional, pk=pk)
         education = ProfessionalEducation.objects.filter(professional=pk ,is_archived=False).order_by('-enrolled_date')
         skills = ProfessionalSkill.objects.filter(professional=pk, is_archived=False)
-        experience = WorkExperience.objects.filter(professional=pk, is_archived=False).order_by("-start_date")
+        experience = WorkExperience.objects.filter(professional=pk, is_archived=False).select_related('company').order_by("-start_date")
         portfolio = Portfolio.objects.filter(professional=pk, is_archived=False)
         membership = Membership.objects.filter(professional_id=pk, is_archived=False)
         certification = Certification.objects.filter(professional=pk, is_archived=False).order_by("-issue_date")
@@ -245,6 +245,7 @@ class ProfessionalDetail(APIView):
             'id': exp.id,
             'company_text':exp.company_text,
             'company': exp.company_id,
+            'profile_pic': str(exp.company.profile_picture),
             'designation': exp.designation,
             'start_date': exp.start_date,
             'end_date': exp.end_date,

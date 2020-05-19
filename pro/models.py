@@ -164,7 +164,7 @@ class ProfessionalSkill(models.Model):
 class WorkExperience(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
     company_text = models.CharField(max_length=255)
-    company = models.ForeignKey(Company, on_delete=models.PROTECT ,blank=True, null=True)
+    company = models.ForeignKey(Company, on_delete=models.PROTECT ,blank=True, null=True, related_name='company_pic')
     designation = models.CharField(max_length=255, blank=True, null=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
