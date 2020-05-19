@@ -153,7 +153,7 @@ function json2Div(data, container){
     }
 }
 function json2DivPopulate(data, container){
-    console.log(data)
+    //console.log(data)
     for(key in data) {
         // var el = $("#" + id).find("[name='"+ key +"']");
         var el = $(container).find("[id='" + key + "']");
