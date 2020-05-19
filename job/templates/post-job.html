@@ -1,40 +1,12 @@
 
-{% extends 'common_layout.html' %}
+{% extends 'company_layout.html' %}
 {% load static %}
 {% block body_block %}
 <!-- Breadcrumb -->
-<div class="alice-bg padding-top-70 padding-bottom-70">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="breadcrumb-area">
-                    <h1>Post A Job</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Post A Job</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="breadcrumb-form">
-                    <form action="#">
-                        <input type="text" placeholder="Enter Keywords">
-                        <button><i data-feather="search"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- Breadcrumb End -->
 
-<div class="alice-bg section-padding-bottom">
-    <div class="container no-gliters">
-        <div class="row no-gliters">
-            <div class="col">
-                <div class="post-container">
+
                     <div class="post-content-wrapper">
                         <form action="/api/job_create/" id="job-post-form" class="job-post-form ajax" method="POST" novalidate="novalidate">
                             <div class="basic-info-input">
@@ -43,6 +15,12 @@
                                     <label class="col-md-3 col-form-label">Job Title</label>
                                     <div class="col-md-9">
                                         <input name="title" id="title" required type="text" regex='[A-Z]' class="form-control" maxlength="50" placeholder="Your job title here" data-msg-required="Title is required">
+                                    </div>
+                                </div>
+                                <div id="job-description" class="row">
+                                    <label class="col-md-3 col-form-label">Job Description</label>
+                                    <div class="col-md-9">
+                                        <textarea name="descriptions" id="descriptions" class="tinymce-editor tinymce-editor-1" placeholder="Description text here"></textarea>
                                     </div>
                                 </div>
                                 <div id="job-summery" class="row">
@@ -56,18 +34,13 @@
                                                     <i class="fa fa-caret-down"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input name="job_location" id="job_location" type="text" class="form-control" placeholder="Job Location">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <select class="form-control" name="employment_status_id" id="employment_status" data-text="name" data-value="name" data-placeholder="Job Type" data-src="/api/job_type">
-                                                    </select>
-                                                    <i class="fa fa-caret-down"></i>
-                                                </div>
-                                            </div>
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="form-group">-->
+<!--                                                    <select class="form-control" name="" id="" data-text="name" data-value="name" data-placeholder="Job Category" data-src="">-->
+<!--                                                    </select>-->
+<!--                                                    <i class="fa fa-caret-down"></i>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <select class="form-control" name="experience_id" id="experience" data-text="name" data-value="name" data-placeholder="Experience" data-src="/api/experience">
@@ -75,33 +48,9 @@
                                                     <i class="fa fa-caret-down"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <select class="form-control" name="salary" id="salary" data-text="name" data-value="name" data-placeholder="Salary">
-                                                        <option value="">Salary</option>
-                                                        <option value="negotiable">Negotiable</option>
-                                                        <option value="salary_range">Salary Range</option>
-                                                    </select>
-                                                    <i class="fa fa-caret-down"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6" id="currency-div">
-                                                <div class="form-group">
-                                                    <select class="form-control" name="currency_id" id="currency" data-text="name" data-value="name" data-placeholder="Currency" data-src="/api/currency">
-                                                    </select>
-                                                    <i class="fa fa-caret-down"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6" id="salary-min">
-                                                <div class="form-group">
-                                                    <input min="5000" max="500000" name="salary_min" id="salary_min" type="text" class="form-control" placeholder="Minimum Salary">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6" id="salary-max">
-                                                <div class="form-group">
-                                                    <input min="5000" max="500000" name="salary_max" id="salary_max" type="text" class="form-control" placeholder="Maximum Salary">
-                                                </div>
-                                            </div>
+
+
+
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <select class="form-control" name="gender_id" id="gender" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender">
@@ -116,31 +65,54 @@
                                                     <i class="fa fa-caret-down"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group datepicker">
-                                                    <input name="application_deadline" id="application_deadline" type="date" class="form-control">
-                                                </div>
-                                            </div>
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="form-group datepicker">-->
+<!--                                                    <input name="application_deadline" id="application_deadline" type="date" class="form-control">-->
+<!--                                                </div>-->
+<!--                                            </div>-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <input type="digits" name="vacancy" id="vacancy" type="text" class="form-control" placeholder="Vacancy">
+                                                    <input type="text" name="vacancy" id="vacancy"  class="form-control" placeholder="No of Vacancy" min="0">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="job-skills" class="form-group row">
-                                    <label class="col-md-3 col-form-label">Job Skills</label>
-                                    <div class="col-md-9">
-                                        <input name="skills" id="skills" required type="text" class="form-control" placeholder="Your job skills here" data-msg-required="Skills are required">
-                                    </div>
-                                </div>
-                                <div id="job-description" class="row">
-                                    <label class="col-md-3 col-form-label">Job Description</label>
-                                    <div class="col-md-9">
-                                        <textarea name="descriptions" id="descriptions" class="tinymce-editor tinymce-editor-1" placeholder="Description text here"></textarea>
-                                    </div>
-                                </div>
+                                   <div class="row">
+                      <label class="col-md-3 col-form-label">Salary </label>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                              <input min="5000" max="500000" name="salary_max" id="salary_max" type="text" class="form-control" placeholder="Salary">
+                          </div>
+                      </div>
+
+
+                      <label class="col-md-3 col-form-label">Salary Range</label>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Salary Min">
+                            </div>
+                          </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Salary Max">
+                            </div>
+                          </div>
+                    </div>
+
+                   <div class="row">
+                      <label class="col-md-3 col-form-label">Application Deadline</label>
+                      <div class="col-md-4">
+                        <div class="form-group datepicker">
+                              <input name="application_deadline" id="application_deadline" type="date" class="form-control">
+                            </div>
+                      </div>
+                    </div>
+
+
+
+
+
                                 <div id="response" class="row">
                                     <label class="col-md-3 col-form-label">Responsibilities</label>
                                     <div class="col-md-9">
@@ -153,58 +125,237 @@
                                         <textarea id="education" name="education" class="tinymce-editor tinymce-editor-2" placeholder="Education (Optional)"></textarea>
                                     </div>
                                 </div>
+                                <div id="job-skills" class="row" >
+                                    <label class="col-md-3 col-form-label">Skills Requirement</label>
+                                    <div class="col-md-9">
+<!--                                        <input name="skills" id="skills" required type="text" class="form-control" placeholder="Your job skills here" data-msg-required="Skills are required">-->
+                                        <textarea name="descriptions" id="descriptions" class="tinymce-editor tinymce-editor-1" placeholder="Description text here"></textarea>
+                                    </div>
+                                </div>
+
                                 <div id="others" class="row">
                                     <label class="col-md-3 col-form-label">Other Benefits</label>
                                     <div class="col-md-9">
                                         <textarea id="other_benefits" name="other_benefits" class="tinymce-editor tinymce-editor-2" placeholder="Description text here"></textarea>
                                     </div>
                                 </div>
-                                <div id="post-location" class="form-group row">
-                                    <label class="col-md-3 col-form-label">Your Location</label>
-                                    <div class="col-md-9">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <select class="form-control" name="division_id" id="division" data-text="name" data-value="name" data-placeholder="Division" data-src="/api/division">
-                                                        <option>Division</option>
-                                                    </select>
-                                                    <i class="fa fa-caret-down"></i>
-                                                </div>
-                                                <div class="form-group">
-                                                    <select class="form-control" name="district_id" id="district" data-text="name" data-value="name" data-src="/api/district_populate" data-placeholder="District" data-parent="#division">
-                                                        <option value="">District</option>
-                                                    </select>
-                                                    <i class="fa fa-caret-down"></i>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input name="zipcode" id="zipcode" type="digits" class="form-control" placeholder="Zip Code">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" name="company_location" id="company_location" class="form-control" placeholder="Company Location">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="set-location">
-                                                    <h5>Pin Location</h5>
-                                                    <div id="map-area" class="contact-location">
-                                                        <div class="cp-map" id="location" data-lat="40.713355" data-lng="-74.005535" data-zoom="10"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                <div id="post-location" class="form-group row">-->
+<!--                                    <label class="col-md-3 col-form-label">Your Location</label>-->
+<!--                                    <div class="col-md-9">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="form-group">-->
+<!--                                                    <select class="form-control" name="division_id" id="division" data-text="name" data-value="name" data-placeholder="Division" data-src="/api/division">-->
+<!--                                                        <option>Division</option>-->
+<!--                                                    </select>-->
+<!--                                                    <i class="fa fa-caret-down"></i>-->
+<!--                                                </div>-->
+<!--                                                <div class="form-group">-->
+<!--                                                    <select class="form-control" name="district_id" id="district" data-text="name" data-value="name" data-src="/api/district_populate" data-placeholder="District" data-parent="#division">-->
+<!--                                                        <option value="">District</option>-->
+<!--                                                    </select>-->
+<!--                                                    <i class="fa fa-caret-down"></i>-->
+<!--                                                </div>-->
+<!--                                                <div class="form-group">-->
+<!--                                                    <input name="zipcode" id="zipcode" type="digits" class="form-control" placeholder="Zip Code">-->
+<!--                                                </div>-->
+<!--                                                <div class="form-group">-->
+<!--                                                    <input type="text" name="company_location" id="company_location" class="form-control" placeholder="Company Location">-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="set-location">-->
+<!--                                                    <h5>Pin Location</h5>-->
+<!--                                                    <div id="map-area" class="contact-location">-->
+<!--                                                        <div class="cp-map" id="location" data-lat="40.713355" data-lng="-74.005535" data-zoom="10"></div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Job Location</label>
+                      <div class="col-md-9">
+                        <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Address">
+                            </div>
+                              <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Area">
+                            </div>
+                                 <div class="form-group">
+                            <input type="text" class="form-control" placeholder="City">
+                            </div>
+
+                            <div class="form-group">
+                              <select class="form-control">
+                                <option>Country</option>
+                                <option>Bangladesh</option>
+                                <option>USA</option>
+
+                              </select>
+                              <i class="fa fa-caret-down"></i>
+                            </div>
+
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                                <div class="form-group row">
+                      <label class="col-md-3 col-form-label">About Job</label>
+                      <div class="col-md-9">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <select class="form-control">
+                                <option>Job Site</option>
+                                <option>On Site</option>
+                                <option>Remote</option>
+
+                              </select>
+                              <i class="fa fa-caret-down"></i>
+                            </div>
+                            <div class="form-group">
+                            <select class="form-control">
+                                <option>Job Nature</option>
+                                <option>full Time</option>
+                                <option>Part Time</option>
+
+                              </select>
+                              <i class="fa fa-caret-down"></i>
+                            </div>
+                            <div class="form-group">
+                               <select class="form-control">
+                                <option>Job Type</option>
+                                <option>Permanent</option>
+                                <option>Contractual</option>
+                              </select>
+                              <i class="fa fa-caret-down"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                     <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Required Skills</label>
+
+                             <div class="skill-and-profile dashboard-section" style="margin-top:1px;">
+              <div class="skill">
+
+                <a href="#">Design</a>
+                <a href="#">Illustration</a>
+                <a href="#">iOS</a>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#modal-skill">
+                  <i data-feather="edit-2"></i>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modal-skill" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+
+                        <div class="title">
+                          <h4><i data-feather="git-branch"></i>MY SKILL</h4>
+                          <a href="#" class="add-more">+ Add Skills</a>
+                        </div>
+                        <div class="content">
+                          <form action="#">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">Type Skills</label>
+                              <div class="col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">01</div>
+                                  </div>
+                                  <input type="text" class="form-control" >
                                 </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">02</div>
+                                  </div>
+                                  <input type="text" class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">03</div>
+                                  </div>
+                                  <input type="text" class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">04</div>
+                                  </div>
+                                  <input type="text" class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">05</div>
+                                  </div>
+                                  <input type="text" class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">06</div>
+                                  </div>
+                                  <input type="text" class="form-control" >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="buttons" style="border: 0;-webkit-box-shadow: none;box-shadow: none;outline: none; sans-serif;font-size: 1.4rem;" >
+                                  <button class="button">Save Update</button>
+                                  <button class="button" data-dismiss="modal">Cancel</button>
+
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                            </div>
+                          </div>
+
+
+
+
                                 <div id="about-company" class="row">
                                     <label class="col-md-3 col-form-label">About Company</label>
                                     <div class="col-md-9">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <select class="form-control" name="company_name_id" id="company" data-text="name" data-value="name" data-placeholder="Company" data-src="/api/company">
-                                                    </select>
-                                                    <i class="fa fa-caret-down"></i>
-                                                </div>
-                                            </div>
+
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <input type="url"  name="web_address" id="web_address" class="form-control" placeholder="Web Address">
@@ -237,46 +388,22 @@
                             </div>
                         </form>
                     </div>
-                    <div class="post-sidebar">
-                        <h5><i data-feather="arrow-down-circle"></i>Navigation</h5>
-                        <ul class="sidebar-menu">
-                            <li><a href="#job-title">Job Title</a></li>
-                            <li><a href="#job-summery">Job Summary</a></li>
-                            <li><a href="#job-description">Job Description</a></li>
-                            <li><a href="#response">Responsibilities</a></li>
-                            <li><a href="#education">Education</a></li>
-                            <li><a href="#others">Your Location</a></li>
-                            <li><a href="#post-location">About Company</a></li>
-                            <li><a href="#package">Select Package</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!--                    <div class="post-sidebar">-->
+<!--                        <h5><i data-feather="arrow-down-circle"></i>Navigation</h5>-->
+<!--                        <ul class="sidebar-menu">-->
+<!--                            <li><a href="#job-title">Job Title</a></li>-->
+<!--                            <li><a href="#job-summery">Job Summary</a></li>-->
+<!--                            <li><a href="#job-description">Job Description</a></li>-->
+<!--                            <li><a href="#response">Responsibilities</a></li>-->
+<!--                            <li><a href="#education">Education</a></li>-->
+<!--                            <li><a href="#others">Your Location</a></li>-->
+<!--                            <li><a href="#post-location">About Company</a></li>-->
+<!--                            <li><a href="#package">Select Package</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
 
-<!-- Call to Action -->
-<div class="call-to-action-bg padding-top-90 padding-bottom-90">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="call-to-action-2">
-                    <div class="call-to-action-content">
-                        <h2>For Find Your Dream Job or Candidate</h2>
-                        <p>Add resume or post a job. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec.</p>
-                    </div>
-                    <div class="call-to-action-button">
-                        <a href="add-resume.html" class="button">Add Resume</a>
-                        <span>Or</span>
-                        <a href="post-job.html" class="button">Post A Job</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Call to Action End -->
+
+
 
 
 {% endblock %}
@@ -333,5 +460,8 @@
         });
 
     }
+
+
+    $('.post_job').addClass("active");
 </script>
 {% endblock %}
