@@ -317,3 +317,81 @@ a.save.apply.active {
 .twitter-typeahead, .tt-menu {
     width: 86%;
 }
+
+.add-new-record{
+    color: #246df8;
+    background: rgba(36, 109, 248, 0.15);
+    border-radius: 3px;
+    border: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 5px 20px;
+    margin-top: 20px;
+}
+
+.update-icon{
+    position: relative !important;
+    float: right;
+    margin-left: 5px;
+}
+.delete-icon{
+    position: relative !important;
+    color: #FF0000 !important;
+    background: rgba(255, 0, 0, 0.15) !important;
+    float: right;
+    margin-left: 5px;
+}
+.delete-icon:hover {
+    color: #fff !important;
+    background-color: #FF0000 !important;
+    border-color: #0062cc;
+}
+
+.datepicker{z-index:1151 !important;}
+
+.twitter-typeahead, .tt-menu {
+    width: 86%;
+}
+.job-list .thumb img {
+    max-width: 80px;
+    max-height: 80px;
+}
+.job-list .body .more .buttons .applied {
+    color: #ffffff;
+    background: #74a9c3;
+    border-color: #74a9c3;
+}
+
+p.copyright-text {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 19px;
+    color: #6f7484;
+}
+
+p.powered-by span{
+    color: #6f7484;
+    position: relative;
+    top: 10px;
+}
+.job-list .body .more .buttons .button:hover {
+    background-color: #74a9c3;
+    border: 1px solid #74a9c3;
+}
+.signin-user {
+    padding-left: 20px;
+}
+header .signin-user .account-button {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+.header-2 .signin-user .account-button {
+    color: #000;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+.header-top-account {
+    display: none;
+}

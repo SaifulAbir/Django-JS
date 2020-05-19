@@ -245,6 +245,7 @@ function showError(title, msg) {
     })
 }
 
+
 function showQuestion(title, msg, yesCallback, noCallback) {
     Swal.fire({
         title: title,
@@ -253,9 +254,9 @@ function showQuestion(title, msg, yesCallback, noCallback) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
     }).then((result) => {
-        console.log(result.value)
         if (result.value && typeof (yesCallback) ==='function') {
             yesCallback();
         } else if(result.dismiss=='cancel' && typeof(noCallback) ==='function'){
@@ -274,8 +275,13 @@ $.validator.addMethod(
 );
 
 function makePagination(totalRecord, pageSize, url, startingIndex){
+    if (startingIndex ==1){
+        var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><button disabled class="prev page-numbers cursor-pointer cursor-pointer" data-value="prev"><i class="fas fa-angle-left"></i></button>';
+    }else {
+        var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><button class="prev page-numbers cursor-pointer cursor-pointer" data-value="prev"><i class="fas fa-angle-left"></i></button>';
+    }
+    var initialStartingIndex = startingIndex;
 
-    var paginationStringStart = '<nav class="navigation pagination"><div class="nav-links"><button disabled class="prev page-numbers cursor-pointer cursor-pointer" data-value="prev"><i class="fas fa-angle-left"></i></button>';
     startingIndex = parseInt(startingIndex);
     var numberOfPaginationIndex = totalRecord/pageSize;
     numberOfPaginationIndex = Math.ceil(numberOfPaginationIndex);
@@ -311,23 +317,32 @@ function makePagination(totalRecord, pageSize, url, startingIndex){
         }
         paginationIndexString += str;
     }
-    var paginationStringEnd = '<a class="next page-numbers" data-value="next" href="javascript:void(0);"><i class="fas fa-angle-right"></i></a></div></nav>';
+
+    if ((initialStartingIndex*pageSize) > totalRecord){
+        var paginationStringEnd = '<button disabled class="next page-numbers" data-value="next"><i class="fas fa-angle-right"></i></button></div></nav>';
+    }else if (totalRecord>pageSize){
+        var paginationStringEnd = '<button class="next page-numbers" data-value="next"><i class="fas fa-angle-right"></i></button></div></nav>';
+    } else {
+        var paginationStringEnd = '<button disabled class="next page-numbers" data-value="next"><i class="fas fa-angle-right"></i></button></div></nav>';
+    }
+
     var paginationString = paginationStringStart + paginationIndexString + paginationStringEnd;
     $('.pagination-list').html(paginationString);
 }
 
 function TokenAuthenticate() {
-   var access_token = $.cookie("access");
-   if(access_token){
-       $('#sign-in').hide();
-       $('#register').hide();
-       $('#sign-out').show();
-   }
-   else {
-       $('#sign-out').hide();
-       $('#register').show();
-       $('#sign-in').show();
-   }
+    var access_token = $.cookie("access");
+    if(access_token){
+        $('#sign-in').hide();
+        $('#register').hide();
+        $('#sign-out').show();
+        $('.signin-user').show();
+    }
+    else {
+        $('#sign-out').hide();
+        $('#register').show();
+        $('#sign-in').show();
+    }
 
 }
 
@@ -376,11 +391,14 @@ function loadFavouriteJob(data) {
         var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
         el.each(function () {
             if($(this).hasClass('active')){
+                $(this).children().attr("fill", "none");
                 $(this).removeClass('active');
                 showError('Oopss!', 'Job removed.')
             }
             else if($(this).hasClass("favourite")){
                 $(this).addClass('active');
+                $(this).children().attr("fill", "#ff8fa6");
+               // $(".job-list .body .more .buttons .favourite svg").attr("fill", "#ff8fa6");
                 showSuccess('Successful!', 'Job saved as a favourite.')
 
             }
@@ -394,19 +412,22 @@ function loadFavouriteJob(data) {
 
 function applyOnlineJobAddRemove(id, url) {
 
+
     $("#"+id).on('click', '.apply:not(.applied)', function (event) {
         event.preventDefault();
         var user = $.cookie("user");
         var job = $(this).attr('href');
+
         if(isLoggedIn() && $(this).hasClass('applied')){
             var data = {'user_id':user, 'job_id':job};
             applyonlineUrl = url;
             post(applyonlineUrl, JSON.stringify(data), loadApplyonlineJob);
         }else if(isLoggedIn()){
-
-            var data = {'user_id':user, 'job_id':job};
-            applyonlineUrl = url;
-            post(applyonlineUrl, JSON.stringify(data), loadApplyonlineJob)
+            showQuestion("Do you want to apply for this job?", "", function () {
+                var data = {'user_id':user, 'job_id':job};
+                applyonlineUrl = url;
+                post(applyonlineUrl, JSON.stringify(data), loadApplyonlineJob);
+            });
         }
         else {
             showQuestion("Sign In required!", "Are you going to sign in now?", goSignIn , 'no')

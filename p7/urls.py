@@ -35,6 +35,7 @@ urlpatterns = [
     path('api/profile-info/<int:user_id>', professional_info),
     path('', include('job.urls')),
     path('api/', include('job.urls_api')),
+    path('', include('job.urls')),
     path('api/', include('registration.urls')),
     path('api/', include('exam.urls')),
     path('api/', include('testimonial.urls')),
@@ -65,6 +66,7 @@ urlpatterns = [
     path('company_manage_jobs/', TemplateView.as_view(template_name='company_manage_jobs.html'), name='company_manage_jobs'),
     path('company_manage_candidates/', TemplateView.as_view(template_name='company_manage_candidate.html'),name='company_manage_candidates'),
     path('company_shortlisted_candidates/', TemplateView.as_view(template_name='company_shortlisted_candidates.html'),name='company_shortlisted_candidates'),
+
 
 ]
 if settings.DEBUG:
