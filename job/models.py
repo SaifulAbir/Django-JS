@@ -9,6 +9,7 @@ from rest_framework.utils import json
 
 from job.utils import unique_slug_generator
 from location.models import Division, District
+from p7.models import P7Model, populate_time_info
 from resources import strings_job
 from django_countries.fields import CountryField
 # Create your models here.
@@ -150,20 +151,10 @@ class Currency(models.Model):
 
 # Added by Munir (02-03).05.2020 >>>
 
-class JobSource(models.Model):
+class JobSource(P7Model):
     name = models.CharField(max_length=255, primary_key=True)
     description = models.CharField(max_length=255, null=True, blank=True)
     url = models.CharField(max_length=255, null=True, blank=True)
-    created_by = models.CharField(max_length=255, null=True)
-    created_at = models.DateTimeField(null=True)
-    created_from = models.CharField(max_length=255, null=True)
-    modified_by = models.CharField(max_length=255, null=True)
-    modified_at = models.DateTimeField(auto_now=True)
-    modified_from = models.CharField(max_length=255, null=True)
-    is_archived = models.BooleanField(default=False)
-    archived_by = models.CharField(max_length=255, null=True)
-    archived_at = models.DateTimeField(null=True)
-    archived_from = models.CharField(max_length=255, null=True)
 
     class Meta:
         verbose_name = strings_job.JOBSOURCE_VERBOSE_NAME
@@ -175,18 +166,8 @@ class JobSource(models.Model):
 
 
 
-class JobCategory(models.Model):
+class JobCategory(P7Model):
     name = models.CharField(max_length=255, primary_key=True)
-    created_by = models.CharField(max_length=255, null=True)
-    created_at = models.DateTimeField(null=True)
-    created_from = models.CharField(max_length=255, null=True)
-    modified_by = models.CharField(max_length=255, null=True)
-    modified_at = models.DateTimeField(auto_now=True)
-    modified_from = models.CharField(max_length=255, null=True)
-    is_archived = models.BooleanField(default=False)
-    archived_by = models.CharField(max_length=255, null=True)
-    archived_at = models.DateTimeField(null=True)
-    archived_from = models.CharField(max_length=255, null=True)
 
     class Meta:
         verbose_name = strings_job.JOBCATEGORY_VERBOSE_NAME
@@ -198,18 +179,8 @@ class JobCategory(models.Model):
 
 
 
-class JobGender(models.Model):
+class JobGender(P7Model):
     name = models.CharField(max_length=255, primary_key=True)
-    created_by = models.CharField(max_length=255, null=True)
-    created_at = models.DateTimeField(null=True)
-    created_from = models.CharField(max_length=255, null=True)
-    modified_by = models.CharField(max_length=255, null=True)
-    modified_at = models.DateTimeField(auto_now=True)
-    modified_from = models.CharField(max_length=255, null=True)
-    is_archived = models.BooleanField(default=False)
-    archived_by = models.CharField(max_length=255, null=True)
-    archived_at = models.DateTimeField(null=True)
-    archived_from = models.CharField(max_length=255, null=True)
 
     class Meta:
         verbose_name = strings_job.JOBGENDER_VERBOSE_NAME
@@ -221,7 +192,7 @@ class JobGender(models.Model):
 # <<<
 
 #Job Model
-class Job(models.Model):
+class Job(P7Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False,db_column='id')
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255,unique=True,null=True, blank=True)
@@ -282,16 +253,6 @@ class Job(models.Model):
     review_date = models.DateTimeField(blank=True, null = True)
     approve_date = models.DateTimeField(blank=True, null = True)
     publish_date = models.DateTimeField(blank=True, null = True)
-    created_by = models.CharField(max_length=255, null=True)
-    created_at = models.DateTimeField(null=True)
-    created_from = models.CharField(max_length=255, null=True)
-    modified_by = models.CharField(max_length=255, null=True)
-    modified_at = models.DateTimeField(auto_now=True)
-    modified_from = models.CharField(max_length=255, null=True)
-    is_archived = models.BooleanField(default=False)
-    archived_by = models.CharField(max_length=255, null=True)
-    archived_at = models.DateTimeField(null=True)
-    archived_from = models.CharField(max_length=255, null=True)
 
 
     class Meta:
@@ -397,18 +358,11 @@ class ApplyOnline(models.Model):
         return self.job.title
 #Apply Online Model ends here
 
-def populate_user_info(sender, instance, *args, **kwargs):
-    if instance._state.adding:
-        instance.created_at = timezone.now()
-    else:
-        instance.modified_at = timezone.now()
-        if instance.is_archived and not instance.archived_at:
-            instance.archived_at = timezone.now()
-    print(instance._state.adding)
+
 
 pre_save.connect(slug_generator, sender=Job)
-pre_save.connect(populate_user_info, sender=Job)
-pre_save.connect(populate_user_info, sender=JobCategory)
-pre_save.connect(populate_user_info, sender=JobSource)
-pre_save.connect(populate_user_info, sender=JobGender)
+pre_save.connect(populate_time_info, sender=Job)
+pre_save.connect(populate_time_info, sender=JobCategory)
+pre_save.connect(populate_time_info, sender=JobSource)
+pre_save.connect(populate_time_info, sender=JobGender)
 

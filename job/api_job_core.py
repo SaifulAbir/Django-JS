@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 
 from job.models import Job, FavouriteJob, ApplyOnline, Skill
 from job.serializers import JobSerializerAllField, JobSerializer
+from p7.models import populate_user_info
 
 
 class JobAPI(APIView):
@@ -38,6 +39,7 @@ def create_job(request):
         skills = None
 
     job_obj = Job(**job_data)
+    populate_user_info(request, job_obj, False, False)
     job_obj.save()
     if skills:
         skill_list = skills.split(',')
