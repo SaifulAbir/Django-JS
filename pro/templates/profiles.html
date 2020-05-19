@@ -585,6 +585,9 @@
                 </div>
               </div>
             </div>
+
+
+
             <div class="experience dashboard-section details-section">
               <h4 id="exp-label"><i data-feather="briefcase"></i>Work Experiance</h4>
               <!-- Button trigger modal -->
@@ -909,84 +912,121 @@
                 </div>
               </div>
             </div>
-            <div class="special-qualification dashboard-section details-section">
-              <h4><i data-feather="gift"></i>Special Qualification</h4>
-              <ul>
-                <li>5 years+ experience designing and building products.</li>
-                <li>Skilled at any Kind Design Tools.</li>
-                <li>Passion for people-centered design, solid intuition.</li>
-                <li>Hard Worker & Quick Lerner.</li>
-              </ul>
+
+
+<!--Membership section -->
+
+
+      <div class="edication-background details-section dashboard-section">
+              <div class="education-div">
+                <h4 id="mbr-label"><i data-feather="user-check"></i>Membership</h4>
+              <a href="#" id="add-membership" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-membership">+ Add Membership</a>
+
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2018 - Present</span>-->
+<!--                <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2014 - 2018</span>-->
+<!--                <h5>Diploma in Graphics Design<span>@ Graphic Arts Institute</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2008 - 2014</span>-->
+<!--                <h5>Secondary School Certificate<span>@  Engineering High School</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-qualification">
-                <i data-feather="edit-2"></i>
-              </button>
+{#              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">#}
+{#                <i data-feather="edit-2"></i>#}
+{#              </button>#}
+              </div>
               <!-- Modal -->
-              <div class="modal fade" id="modal-qualification" tabindex="-1" role="dialog" aria-hidden="true">
+
+      <div class="modal fade modal-education" id="modal-membership" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-body">
                       <div class="title">
-                        <h4><i data-feather="align-left"></i>Special Qualification</h4>
-                        <a href="#" class="add-more">+ Add Another</a>
+                        <h4><i data-feather="user-check"></i>Membership</h4>
+<!--                        <a href="#" id="add-education" class="add-more">+ Add Education</a>-->
                       </div>
                       <div class="content">
-                        <form action="#">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Type Here</label>
-                            <div class="col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">01</div>
+                        <form action="#" id="membership-form" autocomplete="off">
+                          <div class="input-block-wrap mbr" >
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label edu-div-lavel"></label>
+                              <div class="col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Organization</div>
+                                  </div>
+                                  <input type="text" name="organization" id="organization" class="form-control" required data-msg-required="Organization is required">
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">02</div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Position</div>
+                                  </div>
+                                  <input type="text" name="position_held" id="position_held" class="form-control" required data-msg-required="Position is required">
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">03</div>
+<!--                            <div class="form-group row">-->
+<!--                            </div>-->
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Description</div>
+                                  </div>
+                                  <textarea type="text" name="description" id="description" class="form-control" ></textarea>
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">04</div>
+                            <div class="form-group row">
+                              <div class="col-sm-4 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Start Date</div>
+                                  </div>
+                                  <input type="text" name="start_date" id="start_date_mbr" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="" required data-msg-required="Start date is required">
                                 </div>
-                                <input type="text" class="form-control" >
+                              </div>
+                              <div class="col-sm-5">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">End Date</div>
+                                  </div>
+                                  <input type="text" name="end_date" id="end_date_mbr" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="">
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">05</div>
-                                </div>
-                                <input type="text" class="form-control" >
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">On Going</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="checkbox" name="on_going" id="on_going" class="form-control" value="">-->
+<!--                                </div>-->
+                                <div class="mt-0 terms">
+                                <input type="checkbox" id="membership_ongoing" name="membership_ongoing">
+                                <label for="membership_ongoing">
+                                    <span class="dot"></span> Ongoing
+                                </label>
+                            </div>
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg">Save Update</button>
+                                <button class="primary-bg edu-submit">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -998,6 +1038,15 @@
                 </div>
               </div>
             </div>
+
+
+
+
+
+
+
+
+
             <div class="portfolio dashboard-section details-section">
               <h4><i data-feather="gift"></i>Portfolio</h4>
               <div class="portfolio-slider owl-carousel">
@@ -1187,6 +1236,8 @@
                 </div>
               </div>
             </div>
+
+
             <div class="personal-information dashboard-section last-child details-section">
               <div id="personal-information-div">
                 <h4><i data-feather="user-plus"></i>Personal Details</h4>
@@ -1382,6 +1433,16 @@
         }
       });
 
+     $('#membership-form').validate({
+        errorClass: "my-error-class",
+        errorPlacement: function(error, element) {
+          error.insertAfter(element.parent());
+        },
+        rules: {
+          end_date: { MBRgreaterThan: "#start_date" },
+        }
+      });
+
     TokenAuthenticate();
     $('#profile-form').validate();
     var path = window.location.pathname.split('/');
@@ -1391,6 +1452,7 @@
     get(getUrl,loadsocial);
     get(getUrl,loadabout);
     get(getUrl,loadEdu);
+    get(getUrl,loadMbr);
     get(getUrl,loadExp);
     get(staticUrl,loadstatic);
     initAjaxSelects();
@@ -1580,6 +1642,9 @@
     },'Must be greater than Enrolled Date.');
 
 
+
+
+
     $('.education-div').on('click','.update-education',function () {
       var obj_id = $(this).parent().find(".edu-object-id").val()
       var getUrl = '/api/professional/professional_education_object/'+ obj_id + '/';
@@ -1591,6 +1656,26 @@
         var obj_id = $(this).parent().find(".edu-object-id").val();
         showQuestion('Delete','Do You Want to delete?', function(){eduDelete(obj_id);});
       });
+
+
+   $.validator.addMethod("MBRgreaterThan",
+    function(value, element, params) {
+
+    if (!/Invalid|NaN/.test(new Date(value))) {
+        return new Date(value) > new Date($(params).val());
+    }
+
+    return isNaN(value) && isNaN($(params).val())
+        || (Number(value) > Number($(params).val()));
+    },'Must be greater than Start Date.');
+
+
+
+
+
+
+
+
 
 
     // If social URL is emtpy then add space in value for skipping database data saving problem
@@ -1706,7 +1791,7 @@
     }
 
   function loadEducation(data) {
-    console.log(data);
+  //  console.log(data);
     if(data.status==200){
       var dateString = data.responseJSON.enrolled_date;
       var dateGraduationString = data.responseJSON.graduation_date;
@@ -1819,7 +1904,7 @@
   }
 
   function loadExperience(data) {
-    console.log(data);
+   // console.log(data);
     if(data.status==200){
       var dateStartString = data.responseJSON.start_date;
       var dateEndString = data.responseJSON.end_date;
@@ -1830,7 +1915,7 @@
       var dateEnd = momentEndObj.format('YYYY');
       $("#modal-experience").modal("hide");
       if($('.experience').find(".experience-section").length==0){
-        console.log(data.responseJSON)
+       // console.log(data.responseJSON)
         $('#exp-label').after('<div class="experience-section">\n' +
                 '<a href="'+data.responseJSON.id+'"></a>'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
@@ -1930,8 +2015,57 @@
       }
   }
 
+
+
+function loadMbr(data) {
+    console.log('loadMbr' ,data.membership_info);
+    for(index=0;index<data.membership_info.length;index++){
+      var dateString = data.membership_info[index].start_date;
+      var dateEnddateString = data.membership_info[index].end_date;
+      var momentObj = moment(dateString, 'YYYY-MM-DD');
+      var dateEnddateObj = moment(dateEnddateString, 'YYYY-MM-DD');
+      var dateStartdateString = momentObj.format('YYYY');
+      var dateEnddateString = dateEnddateObj.format('YYYY');
+      if(dateStartdateString == "Invalid date"){
+        dateStartdateString = "";
+      }
+      if(dateEnddateString == "Invalid date" && data.membership_info[index].membership_ongoing == true){
+          dateEnddateString = "Present";
+      }
+      if(!data.membership_info[index].description){
+          data.membership_info[index].description =''
+      }
+      var mbrDivHtml = $("#membership-form .input-block-mbr").html();
+
+      if(index==0){
+        $('#mbr-label').after('<div class="education-label" id="mbr_item">'+'<input type="hidden" class="mbr-object-id" value="'+data.membership_info[index].id+'">'+'<span class="study-year">'+dateStartdateString+' - '+dateEnddateString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon" >\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '<h5>'+data.membership_info[index].position_held+'<span> @ '+data.membership_info[index].organization+'</span></h5>'+
+            '<p>'+ data.membership_info[index].description + '</p>'+'</div>');
+
+      }
+      else if(index>=1){
+        $('#mbr_item:last').after('<div class="education-label" id="mbr_item">'+'<input type="hidden" class="mbr-object-id" value="'+data.membership_info[index].id+'">'+'<span class="study-year">'+dateStartdateString+' - '+dateEnddateString+'</span>\n' +'<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon" >\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '<h5>'+data.membership_info[index].position_held+'<span> @ '+data.membership_info[index].organization+'</span></h5>'+
+            '<p>'+ data.membership_info[index].description+ '</p>'+'</div>');
+      }
+      feather.replace();
+      }
+  }
+
+
+
+
+
   function loadExp(data) {
-    console.log(data.experience_info);
+   // console.log(data.experience_info);
     // var eduHtml = $(".experience-label").html();
     for(index=0;index<data.experience_info.length;index++){
       var dateStartString = data.experience_info[index].start_date;
@@ -2014,7 +2148,7 @@
 
   // load personal_info about and personal details data and append here
   function  loadabout(data){
-    console.log(data.personal_info);
+  //  console.log(data.personal_info);
     container = $('#about-details-div');
     json2DivPopulate(data.personal_info, container);
     json2Form(data.personal_info, "info-update-form");
