@@ -1077,6 +1077,127 @@
                 </div>
               </div>
             </div>
+            <div class="membership details-section dashboard-section">
+        <div class="membership-div">
+          <h4 id="mbr-label"><i data-feather="user-check"></i>Membership</h4>
+        <a href="#" id="add-membership" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-membership">+ Add Membership</a>
+
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2018 - Present</span>-->
+<!--                <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2014 - 2018</span>-->
+<!--                <h5>Diploma in Graphics Design<span>@ Graphic Arts Institute</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2008 - 2014</span>-->
+<!--                <h5>Secondary School Certificate<span>@  Engineering High School</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
+        <!-- Button trigger modal -->
+{#              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">#}
+{#                <i data-feather="edit-2"></i>#}
+{#              </button>#}
+        </div>
+        <!-- Modal -->
+
+<div class="modal fade modal-membership" id="modal-membership" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="title">
+                  <h4><i data-feather="user-check"></i>Membership</h4>
+<!--                        <a href="#" id="add-education" class="add-more">+ Add Education</a>-->
+                </div>
+                <div class="content">
+                  <form action="#" id="membership-form" autocomplete="off">
+                    <div class="input-block-wrap mbr" >
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label edu-div-lavel"></label>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">Organization</div>
+                            </div>
+                            <input type="text" name="organization" id="organization" class="form-control" required data-msg-required="Organization is required">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">Position</div>
+                            </div>
+                            <input type="text" name="position_held" id="position_held" class="form-control" required data-msg-required="Position is required">
+                          </div>
+                        </div>
+                      </div>
+<!--                            <div class="form-group row">-->
+<!--                            </div>-->
+                      <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">Description</div>
+                            </div>
+                            <textarea type="text" name="description" id="description" class="form-control" ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 offset-sm-3">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">Start Date</div>
+                            </div>
+                            <input type="text" name="start_date" id="start_date" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="" required data-msg-required="Start date is required">
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">End Date</div>
+                            </div>
+                            <input type="text" name="end_date" id="end_date" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">On Going</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="checkbox" name="on_going" id="on_going" class="form-control" value="">-->
+<!--                                </div>-->
+                          <div class="mt-0 terms">
+                          <input type="checkbox" id="membership_ongoing" name="membership_ongoing">
+                          <label for="membership_ongoing">
+                              <span class="dot"></span> Ongoing
+                          </label>
+                      </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="offset-sm-3 col-sm-9">
+                        <div class="buttons">
+                          <button class="primary-bg edu-submit">Save</button>
+                          <button class="" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
             <div class="portfolio dashboard-section details-section">
               <h4><i data-feather="gift"></i>Portfolio</h4>
               <div class="portfolio-slider owl-carousel">
