@@ -353,7 +353,42 @@ a.save.apply.active {
     top: 7px;
     left: 0;
 }
-.add-new-record{
+
+/*membership*/
+.membership .membership-label {
+    position: relative;
+    padding-left: 25px;
+}
+
+.membership .membership-label + .membership-label {
+    margin-top: 20px;
+}
+
+.membership .membership-label h5 {
+    color: #232630;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.membership .membership-label h5 span {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    color: #6f7484;
+    margin-left: 10px;
+}
+
+.membership .membership-label:before {
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: #246df8;
+    top: 7px;
+    left: 0;
+}.add-new-record{
     color: #246df8;
     background: rgba(36, 109, 248, 0.15);
     border-radius: 3px;
