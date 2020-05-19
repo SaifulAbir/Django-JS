@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
+from pprint import pprint
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db import connection
 from django.db.models import Q, F
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
@@ -187,6 +189,8 @@ def favourite_jobs(request):
         job.is_applied = get_applied_status(job, request.user)
         job.profile_picture = get_company_logo(job)
         jobs.append(job)
+
+    pprint(connection.queries)
     data = JobSerializer(jobs, many=True).data
     return Response(data)
 

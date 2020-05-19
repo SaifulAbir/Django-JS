@@ -312,7 +312,6 @@ def slug_generator(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
 
-pre_save.connect(slug_generator, sender=Job)
 #job Model
 
 
@@ -407,6 +406,8 @@ def populate_user_info(sender, instance, *args, **kwargs):
             instance.archived_at = timezone.now()
     print(instance._state.adding)
 
+pre_save.connect(slug_generator, sender=Job)
+pre_save.connect(populate_user_info, sender=Job)
 pre_save.connect(populate_user_info, sender=JobCategory)
 pre_save.connect(populate_user_info, sender=JobSource)
 pre_save.connect(populate_user_info, sender=JobGender)
