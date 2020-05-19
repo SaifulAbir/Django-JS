@@ -586,11 +586,14 @@
               </div>
             </div>
             <div class="experience dashboard-section details-section">
-              <h4 id="exp-label"><i data-feather="briefcase"></i>Work Experiance</h4>
+              <div id="experience-div">
+                <h4 id="exp-label"><i data-feather="briefcase"></i>Work Experiance</h4>
+              <a href="#" id="add-experience" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-experience">+ Add Experience</a>
+              </div>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume work-exp" data-toggle="modal" data-target="#modal-experience">
-                <i data-feather="edit-2"></i>
-              </button>
+<!--              <button type="button" class="btn btn-primary edit-resume work-exp" data-toggle="modal" data-target="#modal-experience">-->
+<!--                <i data-feather="edit-2"></i>-->
+<!--              </button>-->
               <!-- Modal -->
               <div class="modal fade modal-experience" id="modal-experience" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -598,13 +601,13 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="briefcase"></i>Experience</h4>
-                        <a href="#" id="add-experience" class="add-more">+ Add Experience</a>
+<!--                        <a href="#" id="add-experience" class="add-more">+ Add Experience</a>-->
                       </div>
                       <div class="content">
                         <form action="#" id="experience-form" novalidate="novalidate">
                           <div class="input-block-wrap input-block-experience">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label experience-div-label">01</label>
+                            <div class="form-group row display-none">
+                              <label class="col-sm-3 col-form-label experience-div-label"></label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
@@ -614,67 +617,14 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="form-group row display-none">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Company</div>
-                                  </div>
-                                  <input type="text" name="company_text" id="company_text" class="form-control" >
-                                  <input type="hidden" name="id" id="id" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
                             <div class="form-group row">
-                              <div class="col-sm-9 offset-sm-3">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Designation</div>
-                                  </div>
-                                  <input type="text" name="designation" id="designation" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Start Date</div>
-                                  </div>
-                                  <input type="date" name="start_date" id="start_date" class="form-control"></input>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">End Date</div>
-                                  </div>
-                                  <input type="date" name="end_date" id="end_date" class="form-control"></input>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap input-block-experience">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label experience-div-label">02</label>
+                              <label class="col-sm-3 col-form-label experience-div-label"></label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Company</div>
                                   </div>
-                                  <select class="form-control" name="company_id" id="company_id" data-text="name" data-value="name"  data-placeholder="Select Company" data-src="/api/company/" value=""></select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row display-none">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Company</div>
-                                  </div>
-                                  <input type="text" name="company_text" id="company_text" class="form-control" >
+                                  <input type="text" name="company_text" id="company_text" class="form-control" required data-msg-required="Company is required">
                                   <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
                               </div>
@@ -685,7 +635,17 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Designation</div>
                                   </div>
-                                  <input type="text" name="designation" id="designation" class="form-control" >
+                                  <input type="text" name="designation" id="designation" class="form-control" required data-msg-required="Designation is required">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Description</div>
+                                  </div>
+                                  <textarea type="text" name="description" id="description" class="form-control" ></textarea>
                                 </div>
                               </div>
                             </div>
@@ -695,7 +655,7 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Start Date</div>
                                   </div>
-                                  <input type="date" name="start_date" id="start_date" class="form-control"></input>
+                                  <input type="text" name="start_date" id="start_date" class="form-control datepicker" required data-msg-required="Start date is required">
                                 </div>
                               </div>
                             </div>
@@ -705,15 +665,25 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">End Date</div>
                                   </div>
-                                  <input type="date" name="end_date" id="end_date" class="form-control"></input>
+                                  <input type="text" name="end_date" id="end_date" class="form-control datepicker">
                                 </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="mt-0 terms">
+                                <input type="checkbox" id="is_currently_working" name="is_currently_working">
+                                <label for="is_currently_working">
+                                    <span class="dot"></span> Currently Working
+                                </label>
+                            </div>
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg">Save Update</button>
+                                <button class="primary-bg">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -909,84 +879,193 @@
                 </div>
               </div>
             </div>
-            <div class="special-qualification dashboard-section details-section">
-              <h4><i data-feather="gift"></i>Special Qualification</h4>
-              <ul>
-                <li>5 years+ experience designing and building products.</li>
-                <li>Skilled at any Kind Design Tools.</li>
-                <li>Passion for people-centered design, solid intuition.</li>
-                <li>Hard Worker & Quick Lerner.</li>
-              </ul>
+<!--            <div class="special-qualification dashboard-section details-section">-->
+<!--              <h4><i data-feather="gift"></i>Special Qualification</h4>-->
+<!--              <ul>-->
+<!--                <li>5 years+ experience designing and building products.</li>-->
+<!--                <li>Skilled at any Kind Design Tools.</li>-->
+<!--                <li>Passion for people-centered design, solid intuition.</li>-->
+<!--                <li>Hard Worker & Quick Lerner.</li>-->
+<!--              </ul>-->
+<!--              &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-qualification">-->
+<!--                <i data-feather="edit-2"></i>-->
+<!--              </button>-->
+<!--              &lt;!&ndash; Modal &ndash;&gt;-->
+<!--              <div class="modal fade" id="modal-qualification" tabindex="-1" role="dialog" aria-hidden="true">-->
+<!--                <div class="modal-dialog" role="document">-->
+<!--                  <div class="modal-content">-->
+<!--                    <div class="modal-body">-->
+<!--                      <div class="title">-->
+<!--                        <h4><i data-feather="align-left"></i>Special Qualification</h4>-->
+<!--                        <a href="#" class="add-more">+ Add Another</a>-->
+<!--                      </div>-->
+<!--                      <div class="content">-->
+<!--                        <form action="#">-->
+<!--                          <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label">Type Here</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                  <div class="input-group-text">01</div>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control" >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="form-group row">-->
+<!--                            <div class="offset-sm-3 col-sm-9">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                  <div class="input-group-text">02</div>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control" >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="form-group row">-->
+<!--                            <div class="offset-sm-3 col-sm-9">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                  <div class="input-group-text">03</div>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control" >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="form-group row">-->
+<!--                            <div class="offset-sm-3 col-sm-9">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                  <div class="input-group-text">04</div>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control" >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="form-group row">-->
+<!--                            <div class="offset-sm-3 col-sm-9">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                  <div class="input-group-text">05</div>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control" >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="row">-->
+<!--                            <div class="offset-sm-3 col-sm-9">-->
+<!--                              <div class="buttons">-->
+<!--                                <button class="primary-bg">Save Update</button>-->
+<!--                                <button class="" data-dismiss="modal">Cancel</button>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </form>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+            <div class="certification dashboard-section details-section">
+              <div id="certification-div">
+                <h4 id="cer-label"><i data-feather="briefcase"></i>Certification</h4>
+              <a href="#" id="add-certification" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-certification">+ Add Certification</a>
+              </div>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-qualification">
-                <i data-feather="edit-2"></i>
-              </button>
+<!--              <button type="button" class="btn btn-primary edit-resume work-exp" data-toggle="modal" data-target="#modal-experience">-->
+<!--                <i data-feather="edit-2"></i>-->
+<!--              </button>-->
               <!-- Modal -->
-              <div class="modal fade" id="modal-qualification" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal fade modal-certification" id="modal-certification" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-body">
                       <div class="title">
-                        <h4><i data-feather="align-left"></i>Special Qualification</h4>
-                        <a href="#" class="add-more">+ Add Another</a>
+                        <h4><i data-feather="briefcase"></i>Certification</h4>
+<!--                        <a href="#" id="add-experience" class="add-more">+ Add Experience</a>-->
                       </div>
                       <div class="content">
-                        <form action="#">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Type Here</label>
-                            <div class="col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">01</div>
+                        <form action="#" id="certification-form" novalidate="novalidate">
+                          <div class="input-block-wrap input-block-certification">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label certification-div-label"></label>
+                              <div class="col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Name</div>
+                                  </div>
+                                  <input type="text" name="certificate_name" id="certificate_name" class="form-control" required data-msg-required="Name is required">
+                                  <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">02</div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Organization</div>
+                                  </div>
+                                  <input type="text" name="organization" id="organization" class="form-control" required data-msg-required="Organization is required">
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">03</div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Credential ID</div>
+                                  </div>
+                                  <input type="text" name="credential_id" id="credential_id" class="form-control" >
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">04</div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Credential Url</div>
+                                  </div>
+                                  <input type="text" name="credential_url" id="credential_url" class="form-control" >
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">05</div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Issue Date</div>
+                                  </div>
+                                  <input type="text" name="issue_date" id="issue_date" class="form-control datepicker" required data-msg-required="Issue date is required">
                                 </div>
-                                <input type="text" class="form-control" >
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Expiry Date</div>
+                                  </div>
+                                  <input type="text" name="expiry_date" id="expiry_date" class="form-control datepicker" disabled>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="mt-0 terms">
+                                <input type="checkbox" id="has_expiry_period" name="has_expiry_period">
+                                <label for="has_expiry_period">
+                                    <span class="dot"></span> Expiry Period
+                                </label>
+                            </div>
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg">Save Update</button>
+                                <button class="primary-bg">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -1369,6 +1448,19 @@
         errorClass: "my-error-class",
         errorPlacement: function(error, element) {
           error.insertAfter(element.parent());
+        },
+        rules: {
+          end_date: { greater: "#start_date" },
+        }
+      });
+
+    $('#certification-form').validate({
+        errorClass: "my-error-class",
+        errorPlacement: function(error, element) {
+          error.insertAfter(element.parent());
+        },
+        rules: {
+          expiry_date : { expiry_greater: "#issue_date" },
         }
       });
 
@@ -1392,6 +1484,7 @@
     get(getUrl,loadabout);
     get(getUrl,loadEdu);
     get(getUrl,loadExp);
+    get(getUrl,loadCer);
     get(staticUrl,loadstatic);
     initAjaxSelects();
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
@@ -1405,9 +1498,25 @@
           $('#graduation_date-error').html('');
       });
 
-    $('.work-exp').on('click', function () {
-      get(getUrl,loadExpEdit);
-    });
+      $('#add-experience').on('click', function (event) {
+          event.preventDefault();
+          $("#modal-experience").find('form')[0].reset();
+          $('#is_currently_working').val(false);
+          $('#end_date').prop('disabled',false);
+          $('#end_date-error').html('');
+      });
+
+      $('#add-certification').on('click', function (event) {
+          event.preventDefault();
+          $("#modal-certification").find('form')[0].reset();
+          $('#has_expiry_period').val(false);
+          // $('#expiry_date').prop('disabled',false);
+          // $('#expiry_date-error').html('');
+      });
+
+    // $('.work-exp').on('click', function () {
+    //   get(getUrl,loadExpEdit);
+    // });
 
     $('#is_ongoing').click(function () {
       if($(this).prop("checked")){
@@ -1416,13 +1525,33 @@
       }
       else{
         $('#graduation_date').prop("disabled", false);
+      }
+    })
 
+    $('#is_currently_working').click(function () {
+      if($(this).prop("checked")){
+        $('#end_date').prop("disabled", true);
+        $('#end_date-error').html('')
+      }
+      else{
+        $('#end_date').prop("disabled", false);
+      }
+    })
+
+    $('#has_expiry_period').click(function () {
+      if($(this).prop("checked")){
+        $('#expiry_date').prop("disabled", false);
+        // $('#end_date-error').html('')
+      }
+      else{
+        $('#expiry_date').prop("disabled", true);
+        $('#expiry_date-error').html('')
       }
     })
 
 
     autoSuggesion('/api/professional/institute_search/', "institution_text");
-
+    autoSuggesionCompany('/api/company/search/', "company_text")
     // datepicker on the date inputs
     $( ".datepicker" ).datepicker({
       autoclose: false,
@@ -1434,76 +1563,66 @@
     });
 
 
-    $('#add-experience').on('click', function (event) {
-      event.preventDefault();
-      var count = divCounter("input-block-experience")+1;
-      var lastDiv = $("#experience-form .input-block-experience:last");
-      var lastDivHtml = $("#experience-form .input-block-experience").html();
-      lastDiv.after('<div class="input-block-wrap input-block-experience" >'+lastDivHtml+'</div>');
-      $(".experience-div-label:last").text("0"+ count);
-    });
+    // $('#add-experience').on('click', function (event) {
+    //   event.preventDefault();
+    //   var count = divCounter("input-block-experience")+1;
+    //   var lastDiv = $("#experience-form .input-block-experience:last");
+    //   var lastDivHtml = $("#experience-form .input-block-experience").html();
+    //   lastDiv.after('<div class="input-block-wrap input-block-experience" >'+lastDivHtml+'</div>');
+    //   $(".experience-div-label:last").text("0"+ count);
+    // });
 
     $('#experience-form').on('submit', function (event) {
       event.preventDefault();
-      var error_count = 0;
-      var totalDiv = $('#experience-form').find(".input-block-experience");
-      totalDiv.each(function () {
-        var company=$(this).find('#company_id').val();
-        if (!company){
-          error_count = error_count+1;
-          $(this).find('#company_id').parent().parent().append('<label class="my-error-class">Company is required</label>')
-        }
-      });
-      if(error_count==0){
-       totalDiv.each(function(){
         var path = window.location.pathname.split('/');
         var id = path[path.length-2];
         var user = id;
-        var company_text=$(this).find('#company_id').val();
+        var company_text=$(this).find('#company_text').val();
         var company=$(this).find('#company_id').val();
         var designation=$(this).find('#designation').val();
+        var description=$(this).find('#description').val();
         var start_date=$(this).find('#start_date').val();
         var end_date=$(this).find('#end_date').val();
         var exp_id=$(this).find('#id').val();
+        var is_currently_working = $(this).find('#is_currently_working').is(':checked');
         data = { "professional_id" : user}
-        if(company){
-          data.company_id = company;
+        if(company_text){
+          // data.company_id = company;
           data.company_text = company_text;
         }
         if(designation){
           data.designation = designation;
         }
-        if(start_date){
-          data.start_date = start_date;
+        if(description){
+          data.description = description;
         }
-        if(end_date){
-          data.end_date = end_date;
+        if(start_date){
+            var momentObj = moment(start_date, 'DD-MM-YYYY');
+            var dateStartString = momentObj.format('YYYY-MM-DD');
+          data.start_date = dateStartString;
+        }
+        if(is_currently_working){
+            data.is_currently_working = is_currently_working
+            data.end_date = null;
+        }
+        else{
+            var momentEndObj = moment(end_date, 'DD-MM-YYYY');
+            var dateEndString = momentEndObj.format('YYYY-MM-DD');
+          data.end_date = dateEndString;
+          data.is_currently_working = false
         }
         expCreateUrl = "/api/professional/professional_work_experience/";
         expUpdateUrl = "/api/professional/professional_work_experience/"+exp_id+"/";
-        if(Object.keys(data).length>1 && $(this).hasClass("update-exp")){
+        if(Object.keys(data).length>1 && $(this).valid() && exp_id){
           put(expUpdateUrl, JSON.stringify(data), loadExperience);
         }
-        if(Object.keys(data).length>1 && !$(this).hasClass("update-exp")){
+        if(Object.keys(data).length>1 && $(this).valid() && !exp_id){
           post(expCreateUrl, JSON.stringify(data), loadExperience);
-          $(this).addClass("update-exp");
         }
-      });
-      }
     });
 
     $('#education-form').on('submit', function (event) {
       event.preventDefault();
-      // var totalDiv = $('#education-form').find(".input-block-edu");
-      // totalDiv.each(function () {
-      //   var degree=$(this).find('#degree').val();
-      //   if (!degree){
-      //     error_count = error_count+1;
-      //     $(this).find('#degree').parent().parent().append('<label class="my-error-class">Degree is required</label>')
-      //   }
-      // });
-      // if(error_count==0){
-      //  totalDiv.each(function(){
         var path = window.location.pathname.split('/');
         var id = path[path.length-2];
         var user = id;
@@ -1562,10 +1681,57 @@
         if(Object.keys(data).length>1 && $(this).valid() && !edu_id){
           post(eduCreateUrl, JSON.stringify(data), loadEducation);
         }
+    })
 
-
-      // });
-      // }
+    $('#certification-form').on('submit', function (event) {
+      event.preventDefault();
+        var path = window.location.pathname.split('/');
+        var id = path[path.length-2];
+        var user = id;
+        var certificate_name=$(this).find('#certificate_name').val();
+        var cer_id=$(this).find('#id').val();
+        var organization=$(this).find('#organization').val();
+        var credential_id=$(this).find('#credential_id').val();
+        var credential_url=$(this).find('#credential_url').val();
+        var issue_date=$(this).find('#issue_date').val();
+        var expiry_date=$(this).find('#expiry_date').val();
+        var has_expiry_period = $(this).find('#has_expiry_period').is(':checked');
+        data = { "professional_id" : user}
+        if(certificate_name){
+          data.certificate_name = certificate_name;
+        }
+        if(credential_id){
+          data.credential_id = credential_id;
+        }
+        if(organization){
+          data.organization = organization;
+        }
+        if(credential_url){
+          data.credential_url = credential_url;
+        }
+        if(issue_date){
+            var momentObj = moment(issue_date, 'DD-MM-YYYY');
+            var dateIssueString = momentObj.format('YYYY-MM-DD');
+          data.issue_date = dateIssueString;
+        }
+        if(has_expiry_period){
+            data.has_expiry_period = has_expiry_period
+            var momentExpiryObj = moment(expiry_date, 'DD-MM-YYYY');
+            var dateExpiryString = momentExpiryObj.format('YYYY-MM-DD');
+            data.expiry_date = dateExpiryString;
+        }
+        else {
+          data.has_expiry_period = false
+          data.expiry_date = null
+        }
+        cerCreateUrl = " /api/professional/professional_certification/";
+        cerUpdateUrl = "/api/professional/professional_certification/"+cer_id+"/";
+        if(Object.keys(data).length>1 && $(this).valid() && cer_id){
+          put(cerUpdateUrl, JSON.stringify(data), loadCertificates);
+        }
+        if(Object.keys(data).length>1 && $(this).valid() && !cer_id){
+          post(cerCreateUrl, JSON.stringify(data), loadCertificates);
+        }
     })
 
     $.validator.addMethod("greaterThan",
@@ -1579,6 +1745,28 @@
         || (Number(value) > Number($(params).val()));
     },'Must be greater than Enrolled Date.');
 
+    $.validator.addMethod("greater",
+    function(value, element, params) {
+
+    if (!/Invalid|NaN/.test(new Date(value))) {
+        return new Date(value) > new Date($(params).val());
+    }
+
+    return isNaN(value) && isNaN($(params).val())
+        || (Number(value) > Number($(params).val()));
+    },'Must be greater than Start Date.');
+
+    $.validator.addMethod("expiry_greater",
+    function(value, element, params) {
+
+    if (!/Invalid|NaN/.test(new Date(value))) {
+        return new Date(value) > new Date($(params).val());
+    }
+
+    return isNaN(value) && isNaN($(params).val())
+        || (Number(value) > Number($(params).val()));
+    },'Must be greater than Issue Date.');
+
 
     $('.education-div').on('click','.update-education',function () {
       var obj_id = $(this).parent().find(".edu-object-id").val()
@@ -1586,10 +1774,88 @@
       get(getUrl, loadEducationObject);
     });
 
+    $('#experience-div').on('click','.update-experience',function () {
+      var obj_id = $(this).parent().find(".exp-object-id").val();
+      var path = window.location.pathname.split('/');
+      var id = path[path.length-2];
+      var getUrl = '/api/professional/profile/'+ id + '/';
+      get(getUrl, loadExperienceObject);
+      function loadExperienceObject(data) {
+        for(index=0;index<data.experience_info.length;index++) {
+          if(data.experience_info[index].id==obj_id){
+              if(!data.experience_info[index].end_date){
+                delete data.experience_info[index].end_date
+            }
+            if(data.experience_info[index].end_date){
+                var momentEndObj = moment(data.experience_info[index].end_date, 'YYYY-MM-DD');
+                var dateEndString = momentEndObj.format('DD/MM/YYYY');
+                data.experience_info[index].end_date = dateEndString
+            }
+            var momentObj = moment(data.experience_info[index].start_date, 'YYYY-MM-DD');
+            var dateStartString = momentObj.format('DD/MM/YYYY');
+            data.experience_info[index].start_date = dateStartString
+
+          json2Form(data.experience_info[index], "experience-form")
+            $('#end_date').val('')
+            if(data.experience_info[index].is_currently_working){
+                $('#is_currently_working').prop('checked',true)
+                $('#end_date').prop('disabled',true)
+            }
+          }
+        }
+      }
+    });
+
+    $('#certification-div').on('click','.update-certification',function () {
+      var obj_id = $(this).parent().find(".cer-object-id").val();
+      var path = window.location.pathname.split('/');
+      var id = path[path.length-2];
+      var getUrl = '/api/professional/profile/'+ id + '/';
+      get(getUrl, loadCertificateObject);
+      function loadCertificateObject(data) {
+        for(index=0;index<data.certification_info.length;index++) {
+          if(data.certification_info[index].id==obj_id){
+              if(!data.certification_info[index].expiry_date){
+                delete data.certification_info[index].expiry_date
+            }
+            if(data.certification_info[index].expiry_date){
+                var momentExpiryObj = moment(data.certification_info[index].expiry_date, 'YYYY-MM-DD');
+                var dateExpiryString = momentExpiryObj.format('DD/MM/YYYY');
+                data.certification_info[index].expiry_date = dateExpiryString
+            }
+            var momentObj = moment(data.certification_info[index].issue_date, 'YYYY-MM-DD');
+            var dateIssueString = momentObj.format('DD/MM/YYYY');
+            data.certification_info[index].issue_date = dateIssueString
+
+          json2Form(data.certification_info[index], "certification-form")
+            $('#issue_date').val('')
+            if(data.certification_info[index].has_expiry_period){
+                $('#has_expiry_period').prop('checked',true)
+                $('#expiry_date').prop('disabled',false)
+            }
+            else{
+              $('#has_expiry_period').prop('checked',false)
+              $('#expiry_date').prop('disabled',true)
+            }
+          }
+        }
+      }
+    });
+
 
     $('.education-div').on('click','.delete-education',function () {
         var obj_id = $(this).parent().find(".edu-object-id").val();
         showQuestion('Delete','Do You Want to delete?', function(){eduDelete(obj_id);});
+      });
+
+    $('#experience-div').on('click','.delete-experience',function () {
+        var obj_id = $(this).parent().find(".exp-object-id").val();
+        showQuestion('Delete','Do You Want to delete?', function(){expDelete(obj_id);});
+      });
+
+    $('#certification-div').on('click','.delete-certification',function () {
+        var obj_id = $(this).parent().find(".cer-object-id").val();
+        showQuestion('Delete','Do You Want to delete?', function(){cerDelete(obj_id);});
       });
 
 
@@ -1674,9 +1940,9 @@
     initAjaxForms();
   });
 
-  function divCounter(id){
-    return $('.'+id).length;
-  }
+  // function divCounter(id){
+  //   return $('.'+id).length;
+  // }
 
   function autoSuggesion(url, id) {
         var previousItems = new Bloodhound({
@@ -1704,6 +1970,43 @@
                 source: previousItems.ttAdapter()
             });
     }
+
+  function autoSuggesionCompany(url, id) {
+    var previousItems = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      remote: {
+        url: url,
+        prepare: function (query, settings) {
+          settings.url = settings.url + '?name=' + query
+          settings.headers = {
+            "api-key": "96d56aceeb9049debeab628ac760aa11"
+          };
+
+          return settings;
+        },
+        filter: function(list) {
+          console.log(list.data)
+          return $.map(list.data, function(itemname) {
+            return { name: itemname.name }; });
+        }
+      },
+      limit: 5 });
+
+    previousItems.initialize();
+    $("#"+id).typeahead({
+              hint: true,
+              highlight: true, /* Enable substring highlighting */
+              minLength: 2 /* Specify minimum characters required for showing result */
+            },
+            {
+
+              name: 'previousItems',
+              displayKey: 'name',
+              valueKey: 'name',
+              source: previousItems.ttAdapter()
+            });
+  }
 
   function loadEducation(data) {
     console.log(data);
@@ -1796,6 +2099,97 @@
     feather.replace();
   }
 
+  function loadCertificates(data) {
+    console.log(data);
+    if(data.status==200){
+      var dateString = data.responseJSON.issue_date;
+      var dateExpiryString = data.responseJSON.expiry_date;
+      // var major_name = "";
+      // var institution_name = "";
+      // var description = "";
+      // try{
+      //   if(data.responseJSON.major_obj.name){
+      //   major_name = data.responseJSON.major_obj.name;
+      // }
+      // }catch (e) {
+      //   if (e instanceof TypeError) {
+      //     major_name = "";
+      //   }
+      // }
+      //
+      // try {
+      //   if (data.responseJSON.institution_text) {
+      //     institution_name = data.responseJSON.institution_text;
+      //   }
+      // }catch (e) {
+      //   if (e instanceof TypeError) {
+      //     institution_name = "";
+      //   }
+      // }
+      // try {
+      //   if (data.responseJSON.description) {
+      //     description = data.responseJSON.description
+      //   }
+      // }catch (e) {
+      //   if (e instanceof TypeError) {
+      //     description = "";
+      //   }
+      // }
+      var momentObj = moment(dateString, 'YYYY-MM-DD');
+      var momentExpiryObj = moment(dateExpiryString, 'YYYY-MM-DD');
+      var dateIssueString = momentObj.format('DD/MM/YYYY');
+      var dateExpString = momentExpiryObj.format('DD/MM/YYYY');
+
+      if(dateExpString == "Invalid date"){
+          dateExpString = "No Expiry Period";
+      }
+      $("#modal-certification").modal("hide");
+      $("#modal-certification").find('form')[0].reset();
+      // $(".graduation-div").show();
+      if($('#certification-div').find(".certification-label").length==0){
+        $('#cer-label').after('<div class="certification-label">'+'<input type="hidden" class="cer-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateIssueString+' - '+dateExpString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '                <h5>'+data.responseJSON.certificate_name+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
+             '</div>');
+      }
+      else {
+        var el = $("#certification-div").find("[value='"+ data.responseJSON.id +"']");
+        if(el.length>0 && data.responseJSON.is_archived == true){
+            el.parent().remove()
+        }
+        else if(el.length>0){
+          el.parent().html('<input type="hidden" class="cer-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateIssueString+' - '+dateExpString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '                <h5>'+data.responseJSON.certificate_name+'<span>@ '+data.responseJSON.organization+'</span></h5>');
+        }
+        else{
+          $('.certification-label:last').after('<div class="certification-label">'+'<input type="hidden" class="cer-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateIssueString+' - '+dateExpString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '                <h5>'+data.responseJSON.certificate_name+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
+             '</div>');
+        }
+      }
+    }else{
+      showError("Error Updating")
+    }
+    feather.replace();
+  }
+
 
   function loadEducationObject(data) {
       if(!data.edu_info['graduation_date']){
@@ -1819,36 +2213,71 @@
   }
 
   function loadExperience(data) {
-    console.log(data);
+    console.log(data.responseJSON);
     if(data.status==200){
       var dateStartString = data.responseJSON.start_date;
       var dateEndString = data.responseJSON.end_date;
+      var description = "";
 
       var momentObj = moment(dateStartString, 'YYYY-MM-DD');
       var momentEndObj = moment(dateEndString, 'YYYY-MM-DD');
-      var dateStart = momentObj.format('YYYY');
-      var dateEnd = momentEndObj.format('YYYY');
+      var dateStart = momentObj.format('DD/MM/YYYY');
+      var dateEnd = momentEndObj.format('DD/MM/YYYY');
+      if(dateEnd == "Invalid date" || dateEnd && data.responseJSON.is_currently_working == true){
+          dateEnd = "Currently Working";
+      }
+      try {
+        if (data.responseJSON.description) {
+          description = data.responseJSON.description
+        }
+      }catch (e) {
+        if (e instanceof TypeError) {
+          description = "";
+        }
+      }
       $("#modal-experience").modal("hide");
-      if($('.experience').find(".experience-section").length==0){
+      $("#modal-experience").find('form')[0].reset();
+      if($('#experience-div').find(".experience-section").length==0){
         console.log(data.responseJSON)
         $('#exp-label').after('<div class="experience-section">\n' +
-                '<a href="'+data.responseJSON.id+'"></a>'+
+                '<input type="hidden" class="exp-object-id" value="'+data.responseJSON.id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-experience delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-experience update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
                 '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
                 '              </div>');
       }
       else {
-        var el = $(".experience").find("[href='"+ data.responseJSON.id +"']");
-        if(el.length>0){
-          el.parent().html('<a href="'+data.responseJSON.id+'"></a>'+
+        var el = $("#experience-div").find("[value='"+ data.responseJSON.id +"']");
+        if(el.length>0 && data.responseJSON.is_archived == true){
+            el.parent().remove()
+        }
+        else if(el.length>0){
+          el.parent().html('<input type="hidden" class="exp-object-id" value="'+data.responseJSON.id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
-                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>');
+                '<button type="button" class="btn btn-primary edit-resume delete-experience delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-experience update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>\n' +
+                '<p>'+ description + '</p>');
         }
         else{
           $('.experience-section:last').after('<div class="experience-section">\n' +
-                '<a href="'+data.responseJSON.id+'"></a>'+
+                '<input type="hidden" class="exp-object-id" value="'+data.responseJSON.id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-experience delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-experience update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
                 '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
                 '              </div>');
         }
 
@@ -1856,6 +2285,7 @@
     }else{
       showError("Error Updating")
     }
+    feather.replace();
   }
 
   //load social and append social value
@@ -1939,40 +2369,92 @@
 
       var momentObj = moment(dateStartString, 'YYYY-MM-DD');
       var momentEndObj = moment(dateEndString, 'YYYY-MM-DD');
-      var dateStart = momentObj.format('YYYY');
-      var dateEnd = momentEndObj.format('YYYY');
-      var count = divCounter("input-block-experience")+1;
+      var dateStart = momentObj.format('DD/MM/YYYY');
+      var dateEnd = momentEndObj.format('DD/MM/YYYY');
+
+      if(dateEnd == "Invalid date" && data.experience_info[index].is_currently_working == true){
+          dateEnd = "Currently Working";
+      }
+      if(!data.experience_info[index].description){
+          description =''
+      }
+
       var expDivHtml = $("#experience-form .input-block-experience").html();
       if(index==0){
         $('#exp-label').after('<div class="experience-section">\n' +
-                '<a href="'+data.experience_info[index].id+'"></a>'+
+                '<input type="hidden" class="exp-object-id" value="'+data.experience_info[index].id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
-                '                <h5>'+data.experience_info[index].designation+'<span>@ '+data.experience_info[index].company+'</span></h5>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-experience delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-experience update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.experience_info[index].designation+'<span>@ '+data.experience_info[index].company_text+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
                 '              </div>');
-        $('.input-block-experience').remove();
-        count = divCounter("input-block-experience")+1;
-        $('#experience-form').prepend('<div class="input-block-wrap input-block-experience update-exp exp-01">'+expDivHtml+'</div>');
-        var select = $('.exp-01 #company_id');
-        var url = select.attr('data-src');
-        populateSelect(select, url);
-        $(".experience-div-label:last").text("0"+ count);
-        json2FormDiv(data.experience_info[index], "exp-01");
-
       }
       else if(index>=1){
         $('.experience-section:last').after('<div class="experience-section">\n' +
-                '<a href="'+data.experience_info[index].id+'"></a>'+
+                '<input type="hidden" class="exp-object-id" value="'+data.experience_info[index].id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
-                '                <h5>'+data.experience_info[index].designation+'<span>@ '+data.experience_info[index].company+'</span></h5>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-experience delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-experience update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.experience_info[index].designation+'<span>@ '+data.experience_info[index].company_text+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
                 '              </div>');
-        count = divCounter("input-block-experience")+1;
-        $('.input-block-experience:last').after('<div class="input-block-wrap input-block-experience update-exp exp-0'+count+'">'+expDivHtml+'</div>');
-        $(".experience-div-label:last").text("0"+ count);
-        var select = $(".exp-0"+count+" #company_id");
-        var url = select.attr('data-src');
-        populateSelect(select, url);
-        json2FormDiv(data.experience_info[index], "exp-0"+count);
       }
+      feather.replace();
+    }
+  }
+
+  function loadCer(data) {
+    console.log(data.certification_info);
+    // var eduHtml = $(".experience-label").html();
+    for(index=0;index<data.certification_info.length;index++){
+      var dateIssueString = data.certification_info[index].issue_date;
+      var dateExpiryString = data.certification_info[index].expiry_date;
+
+      var momentObj = moment(dateIssueString, 'YYYY-MM-DD');
+      var momentExpiryObj = moment(dateExpiryString, 'YYYY-MM-DD');
+      var dateIssue = momentObj.format('DD/MM/YYYY');
+      var dateExpiry = momentExpiryObj.format('DD/MM/YYYY');
+
+      if(dateExpiry == "Invalid date" && data.certification_info[index].has_expiry_period == false){
+          dateExpiry = "No Expiry Period";
+      }
+      // if(!data.certification_info[index].description){
+      //     description =''
+      // }
+
+      // var expDivHtml = $("#experience-form .input-block-experience").html();
+      if(index==0){
+        $('#cer-label').after('<div class="certification-label">\n' +
+                '<input type="hidden" class="cer-object-id" value="'+data.certification_info[index].id+'">'+
+                '                <span class="service-year">'+dateIssue+' - '+dateExpiry+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.certification_info[index].certificate_name+'<span>@ '+data.certification_info[index].organization+'</span></h5>\n' +
+                '              </div>');
+      }
+      else if(index>=1){
+        $('.certification-label:last').after('<div class="certification-label">\n' +
+                '<input type="hidden" class="cer-object-id" value="'+data.certification_info[index].id+'">'+
+                '                <span class="service-year">'+dateIssue+' - '+dateExpiry+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.certification_info[index].certificate_name+'<span>@ '+data.certification_info[index].organization+'</span></h5>\n' +
+                '              </div>');
+      }
+      feather.replace();
     }
   }
 
@@ -2074,6 +2556,28 @@
         'is_archived':true
     }
     put(eduUpdateUrl, JSON.stringify(data), loadEducation);
+  }
+
+  function expDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    eduUpdateUrl = "/api/professional/professional_work_experience/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(eduUpdateUrl, JSON.stringify(data), loadExperience);
+  }
+
+  function cerDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    cerUpdateUrl = " /api/professional/professional_certification/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(cerUpdateUrl, JSON.stringify(data), loadCertificates);
   }
 
 </script>
