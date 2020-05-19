@@ -8,6 +8,8 @@ from pro.models import *
 from rest_framework import exceptions
 from django.utils.translation import ugettext_lazy as _
 from resources.strings_pro import *
+from django.contrib.auth.models import User
+
 
 
 class ProfessionalSerializer(serializers.ModelSerializer):
@@ -161,3 +163,13 @@ class NationalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Nationality
         fields = '__all__'
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = User
+
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

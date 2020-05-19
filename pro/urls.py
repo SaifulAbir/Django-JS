@@ -3,6 +3,8 @@ from django.views.generic import TemplateView
 from django_rest_passwordreset import urls
 from pro.api import *
 from . import api as pro_views
+from .api_pro_core import change_password
+
 urlpatterns = [
     path('profile-update/<str:pk>/', TemplateView.as_view(template_name='profile.html')),
     path('myprofile_info/<str:pk>/', TemplateView.as_view(template_name='myprofile.html'), name='myprofile'),
@@ -61,4 +63,5 @@ urlpatterns = [
     path('info_box/', info_box_api),
     path('skill_job_chart/', skill_job_chart),
     path('pro_recent_activity/', pro_recent_activity),
+
 ]
