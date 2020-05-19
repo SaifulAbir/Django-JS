@@ -24,4 +24,7 @@ SUBSCRIBED_TXT = 'subscribed'
 NOT_SUBSCRIBED_TXT = 'not subscribed'
 NOT_USER_TXT = 'not user'
 NOT_SUBSCRIBED_USER_TXT = 'subscribed_user'
+WRONG_OLD_PASSWORD_MSG = 'Your password was incorrect'
+PASSWORD_CHANGED_SUCCESS_MSG = 'Your password changed successfully'
+USER_ID_NOT_EXIST = "This user id doesn't exist"
 # JOB_ALERT_STRINGS
