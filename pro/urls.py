@@ -3,9 +3,10 @@ from django.views.generic import TemplateView
 from django_rest_passwordreset import urls
 from pro.api import *
 from . import api as pro_views
+from .api_pro_core import change_password
+
 urlpatterns = [
     path('profile-update/<str:pk>/', TemplateView.as_view(template_name='profile.html')),
-    path('profile-layout/', TemplateView.as_view(template_name='professional_layout.html')),
     path('myprofile_info/<str:pk>/', TemplateView.as_view(template_name='myprofile.html'), name='myprofile'),
     path('profile-dashboard/', TemplateView.as_view(template_name='dashboard.html')),
     path('create/', profile_create),
@@ -18,7 +19,7 @@ urlpatterns = [
     path('sign-in/', TemplateView.as_view(template_name='sign-in.html'), name='sign-in'),
     # path('sign-up-verification/', TemplateView.as_view(template_name='sign-up-verification.html')),
     path('signup-email-verification/<str:token>', professional_signup_email_verification , name='code-verify'),
-    path('reset-password/', TemplateView.as_view(template_name='forget_password.html'), name='reset-password'),
+    path('forget-password/', TemplateView.as_view(template_name='forget_password.html')),
     path('reset-password-email/', TemplateView.as_view(template_name='reset_email_successful.html')),
     path('password-reset/<str:token>/', TemplateView.as_view(template_name='reset_password.html')),
     path('terms-and-condition/', TemplateView.as_view(template_name='terms-and-condition.html')),
@@ -63,5 +64,4 @@ urlpatterns = [
     path('skill_job_chart/', skill_job_chart),
     path('pro_recent_activity/', pro_recent_activity),
 
-    path('view_profile/<str:pk>/', TemplateView.as_view(template_name='view_profile.html')),
 ]

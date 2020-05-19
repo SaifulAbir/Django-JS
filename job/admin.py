@@ -10,7 +10,10 @@ from job.models import Company, JobType, Experience, Qualification, Gender, Indu
 from django_admin_listfilter_dropdown.filters import DropdownFilter
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
-class JobAdmin(admin.ModelAdmin):
+from p7.admin import P7Admin
+
+
+class JobAdmin(P7Admin):
     filter_horizontal = ('job_skills',) # Many to many field
     list_display = ['title', 'company_name', 'created_at',  'post_date', 'created_by', 'status' ]
     search_fields = ['title__icontains', 'company_name__name__icontains']
@@ -42,19 +45,6 @@ class JobAdmin(admin.ModelAdmin):
     # formfield_overrides = {
     #     models.CharField: {'widget': forms.TextInput(attrs={'size': '40'})}
     # }
-
-    def save_model(self, request, obj, form, change):
-        save_model_with_user(self, request, obj, form, change)
-
-
-def save_model_with_user(self, request, obj, form, change):
-    if change:
-        obj.modified_by = request.user.username
-        if 'is_archived' in form.changed_data and obj.archived_by:
-            obj.archived_by = request.user.username
-    else:
-        obj.created_by = request.user.username
-    obj.save()
 
 
 @admin.register(Company)
@@ -91,13 +81,10 @@ class ApplyOnlineAdmin(admin.ModelAdmin):
 
 
 @admin.register(JobCategory)
-class JobCategoryAdmin(admin.ModelAdmin):
+class JobCategoryAdmin(P7Admin):
     list_display = ['name', 'created_by', 'created_at']
     fields = ['name', 'created_by', 'created_at', 'modified_by', 'modified_at']
     readonly_fields = ['created_by', 'created_at', 'modified_by', 'modified_at']
-
-    def save_model(self, request, obj, form, change):
-        save_model_with_user(self, request, obj, form, change)
 
 @admin.register(JobGender)
 class JobGenderAdmin(admin.ModelAdmin):

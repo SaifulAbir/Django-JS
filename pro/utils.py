@@ -9,6 +9,7 @@ import random
 import socket
 from urllib.parse import urlparse
 from django.http import Http404, HttpResponse
+from rest_framework.response import Response
 from rest_framework.status import (
     HTTP_401_UNAUTHORIZED,
     HTTP_200_OK,
@@ -25,6 +26,7 @@ from p7.settings_dev import *
 from pro.models import Professional
 from resources.strings_pro import *
 from difflib import SequenceMatcher
+from django.contrib.auth.models import User
 
 
 def sendSignupEmail(email,id, date):
@@ -69,3 +71,6 @@ def job_alert_save(email):
 
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
+
+
+
