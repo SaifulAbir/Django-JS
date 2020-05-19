@@ -51,6 +51,6 @@ urlpatterns = [
     path('job/update/<str:pk>/', JobUpdateView.as_view()),
     path('job/create/', create_job),
     path('job/trending_keywords/save/', save_trending_keywords),
-    path('vital_stats/get', get_vital_stats),
+    path('vital_stats/get/', get_vital_stats),
 
 ]

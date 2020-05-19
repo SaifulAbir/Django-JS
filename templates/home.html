@@ -280,7 +280,7 @@
             });
             TokenAuthenticate();
             initAjaxForms();
-            statUrl = '/api/vital_stats/';
+            statUrl = '/api/vital_stats/get/';
             key_url='/api/job/trending_keywords/';
             cat_url='/api/job/top-categories/';
             skills_url='/api/job/top-skills/';
@@ -391,15 +391,15 @@
 
                         // $(this).removeClass('active');
                         // showError('Oopss!', 'Job removed.')
-                        if(data[index].is_applied == 'True' && isLoggedIn()){
-
+                        console.log(data[index].is_applied);
+                        if(data[index].is_applied == true && isLoggedIn()){
                             $(this).addClass('applied');
                             $(this).text('Applied');
                             $(this).attr('href', 'javascript:void(0)')
                         }
                     }
                     if($(this).hasClass("favourite")){
-                        if(data[index].is_favourite == 'True' && isLoggedIn()){
+                        if(data[index].is_favourite == true && isLoggedIn()){
                             $(this).addClass('active');
                             $(this).children().attr("fill", "#ff8fa6")
                         }
