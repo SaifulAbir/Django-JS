@@ -613,7 +613,7 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Company</div>
                                   </div>
-                                  <select class="form-control" name="company_id" id="company_id" data-text="name" data-value="name"  data-placeholder="Select Company" data-src="/api/company/" value="" required data-msg-required="Company is required"></select>
+                                  <select class="form-control" name="company_id" id="company_id" data-text="name" data-value="name"  data-placeholder="Select Company" data-src="/api/company/list" value="" required data-msg-required="Company is required"></select>
                                 </div>
                               </div>
                             </div>
@@ -1986,8 +1986,8 @@
           return settings;
         },
         filter: function(list) {
-          console.log(list.data)
-          return $.map(list.data, function(itemname) {
+          console.log(list)
+          return $.map(list, function(itemname) {
             return { name: itemname.name }; });
         }
       },
@@ -2377,6 +2377,9 @@
       }
       if(!data.experience_info[index].description){
           description =''
+      }
+      else{
+        description = data.experience_info[index].description
       }
 
       var expDivHtml = $("#experience-form .input-block-experience").html();
