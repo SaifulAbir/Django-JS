@@ -3,7 +3,6 @@ var apiKey = '96d56aceeb9049debeab628ac760aa11';
 
 function get(url, callback) {
     var access_token = $.cookie("access");
-    console.log(access_token)
     if(!callback) callback = () => {};
     if(typeof(callback) !== "function") callback = window[callback];
     $.ajax({

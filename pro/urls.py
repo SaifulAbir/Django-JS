@@ -32,7 +32,7 @@ urlpatterns = [
     path('profile_update_partial/<str:pk>/', ProfessionalUpdatePartial.as_view()),
     # path('professional_info/<str:pk>/', professional_info),
     path('myprofile/<str:pk>/', TemplateView.as_view(template_name='profiles.html'),name='profile'),
-    # path('static_urls/', StaticUrl),
+    path('static_urls/', StaticUrl),
     path('professional_education/', professional_education_save),
     path('professional_education/<str:pk>/', EducationUpdateDelete.as_view()),
     path('professional_skill/', professional_skill_save, name = 'professional-skill'),
