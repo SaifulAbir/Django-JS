@@ -37,9 +37,9 @@ def job_list(request):
         topSkill = request.GET.get('top-skill')
 
         job_list = Job.objects.filter(
+            Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
             is_archived=False,
             status='Published',
-            application_deadline__gte=datetime.now()
         )
 
         if sorting == 'most-applied':
@@ -142,9 +142,9 @@ def similar_jobs(request, identifier, limit = 5):
 
     queryset = Job.objects.filter(
         ~Q(job_id=identifier),
+        Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
         is_archived=False,
         status='Published',
-        application_deadline__gte=datetime.now(),
     ).order_by(
         "-post_date"
     )
@@ -165,9 +165,9 @@ def similar_jobs(request, identifier, limit = 5):
 @api_view(["GET"])
 def recent_jobs(request, limit:int = 6):
     queryset = Job.objects.filter(
+        Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
         is_archived=False,
         status='Published',
-        application_deadline__gte=datetime.now()
     ).order_by('-post_date')[:limit]
 
     for job in queryset:
