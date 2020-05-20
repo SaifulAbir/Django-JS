@@ -12,7 +12,7 @@ class Settings(models.Model):
     admin_email = models.CharField(max_length=20)
     support_email = models.CharField(max_length=20)
     address = models.CharField(max_length=200)
-    phone = models.CharField(max_length=10)
+    phone = models.CharField(max_length=11)
     latitude = models.DecimalField(max_digits=10, decimal_places=6, blank=True, null=True)
     longitude = models.DecimalField(max_digits=10, decimal_places=6, blank=True, null=True)
 
