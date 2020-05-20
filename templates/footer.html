@@ -44,7 +44,6 @@
                             <ul>
                                 <li><a href="{% url 'register' %}">Create Account</a></li>
                                 <li><a href="{% url 'career_advice' %}">Career Advice</a></li>
-                                <li><a href="{% url 'my_job_search' %}">My Job Search</a></li>
                                 <li><a href="{% url 'FAQ' %}">FAQ</a></li>
                             </ul>
                         </div>
@@ -155,8 +154,14 @@
             $('.facebook-url').attr('href', data.facebook_url);
             $('.linkedin-url').attr('href', data.linkedin_url);
             $('.twitter-url').attr('href', data.twitter_url);
-            $('.apple-app').attr('href', data.appstore_url);
-            $('.android-app').attr('href', data.playstore_url);
+            if (data.appstore_url){
+                $('.apple-app').show();
+                $('.apple-app').attr('href', data.appstore_url);
+            }
+            if (data.playstore_url){
+                $('.android-app').show();
+                $('.android-app').attr('href', data.playstore_url);
+            }
         }
 
     }

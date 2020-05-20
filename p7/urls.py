@@ -59,7 +59,7 @@ urlpatterns = [
     path('about_us/', TemplateView.as_view(template_name='about_us.html'), name='about_us'),
     path('contact_us/', TemplateView.as_view(template_name='contact_us.html'), name='contact_us'),
     path('privacy_policy/', TemplateView.as_view(template_name='privacy_policy.html'), name='privacy_policy'),
-    path('terms-and-condition/', TemplateView.as_view(template_name='terms-and-condition.html'), name='terms-and-condition'),
+    path('terms_and_conditions/', TemplateView.as_view(template_name='terms-and-condition.html'), name='terms-and-condition'),
     path('FAQ/', TemplateView.as_view(template_name='FAQ.html'), name='FAQ'),
     path('my_job_search/', TemplateView.as_view(template_name='my_job_search.html'), name='my_job_search'),
     path('company_dashboard/', TemplateView.as_view(template_name='company_dashboard.html'), name='company_dashboard'),
