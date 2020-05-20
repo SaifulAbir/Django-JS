@@ -1,115 +1,128 @@
 {% extends 'common_layout.html' %}
 {% load static %}
 {% block body_block %}
-<!-- Breadcrumb -->
-<div class="alice-bg padding-top-70 padding-bottom-70">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="breadcrumb-area">
-                    <h1>Contact Us</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="breadcrumb-form">
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Breadcrumb End -->
-
-<div class="alice-bg section-padding-bottom">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="contact-block">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="contact-address">
-                                <h4>Contact Info</h4>
-                                <ul>
-                                    <li><i data-feather="map-pin"></i>International Noel Nawab Street Los Alamitos CA 90720, USA</li>
-                                    <li><i data-feather="mail"></i>supportjob@gmail.com example@yourmail.com</li>
-                                    <li><i data-feather="phone-call"></i>+99 06 1234 566 88</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-7 offset-lg-1">
-                            <div class="contact-form">
-                                <h4>Keep In Touch</h4>
-                                <form action="/api/send_email_to_admin_contact_us/" id="contactForm" class="ajax" method="POST" novalidate="novalidate" data-callback="contactUsCallback">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <input name="name" type="text" class="form-control" placeholder="Name" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <input name="email" type="email" class="form-control" placeholder="Email" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <input regex="\+?(88)?0?1[56789][0-9]{8}\b" name="phone" type="text" class="form-control" placeholder="Phone" data-msg-regex="Enter a valid Mobile Number" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <input name="subject" type="text" class="form-control" placeholder="Subject" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <textarea name="message" class="form-control" placeholder="Message" required></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button class="button">Submit</button>
-                                    <p class="input-success">Your message has been sent. Thanks for contact.</p>
-                                    <p class="input-error">Something went wrong while sending. Please try leter.</p>
-                                </form>
-                            </div>
-                        </div>
+    <!-- Breadcrumb -->
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Contact Us</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+                            </ol>
+                        </nav>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div id="map-area" class="contact-map">
-                                <div class="cp-map" id="location" data-lat="23.8103" data-lng="90.4125" data-zoom="10"></div>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- Breadcrumb End -->
+
+    <div class="alice-bg section-padding-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="contact-block">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="contact-address">
+                                    <h4>Contact Info</h4>
+                                    <ul>
+                                        <li><i data-feather="map-pin"></i><span id="address"></span></li>
+                                        <li><i data-feather="mail"></i> <span id="support_email"></span> </li>
+                                        <li><i data-feather="phone-call"></i><span id="phone"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 offset-lg-1">
+                                <div class="contact-form">
+                                    <h4>Keep In Touch</h4>
+                                    <form action="/api/send_email_to_admin_contact_us/" id="contactForm" class="ajax" method="POST" novalidate="novalidate" data-callback="contactUsCallback">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input name="name" type="text" class="form-control" placeholder="Name" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input name="email" type="email" class="form-control" placeholder="Email" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input regex="\+?(88)?0?1[56789][0-9]{8}\b" name="phone" type="text" class="form-control" placeholder="Phone" data-msg-regex="Enter a valid Mobile Number" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input name="subject" type="text" class="form-control" placeholder="Subject" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <textarea name="message" class="form-control" placeholder="Message" required></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="button">Submit</button>
+                                        <p class="input-success">Your message has been sent. Thanks for contact.</p>
+                                        <p class="input-error">Something went wrong while sending. Please try leter.</p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div id="map-area" class="contact-map">
+                                    <div class="cp-map" id="location" data-lat="" data-lng="" data-zoom=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    $(document).ready(function() {
-        initMap();
-        initAjaxForms();
-        $('#contactForm').validate();
+    <script>
+        $(document).ready(function() {
 
+            initAjaxForms();
+            $('#contactForm').validate();
+            settingsUrl = '/api/settings/';
+            get(settingsUrl,loadSettings);
+        });
 
-    });
+        function loadSettings(data) {
+            if (data.length>0){
+                data = data[0];
+                $('#address').html(data.address);
+                $('#phone').html(data.phone);
+                $('#support_email').html(data.support_email);
+                $('.cp-map').attr('data-lat',data.latitude);
+                $('.cp-map').attr('data-lng',data.longitude);
+                $('.cp-map').attr('data-zoom',data.zoom);
+                initMap();
+            }
+        }
 
-    function contactUsCallback(data){
-        console.log('success');
-        $("#contactForm input, #contactForm textarea").val('');
-        showSuccess("Thanks for contacting us! We will get in touch with you shortly.")
-    }
-</script>
+        function contactUsCallback(data){
+            console.log('success');
+            $("#contactForm input, #contactForm textarea").val('');
+            showSuccess("Thanks for contacting us! We will get in touch with you shortly.")
+        }
+    </script>
 {% endblock %}
