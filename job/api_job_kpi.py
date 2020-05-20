@@ -14,24 +14,26 @@ class TrendingKeywordList(generics.ListAPIView):
     serializer_class = TrendingKeywordListSerializer
 
 class TopCategoryList(generics.ListAPIView):
-    queryset = JobCategory.objects.all().annotate(num_posts=Count('jobs')).order_by('-num_posts')[:16]
+    queryset = JobCategory.objects.filter(jobs__status='Published', jobs__is_archived=False
+        ).annotate(num_posts=Count('jobs')
+        ).order_by('-num_posts')[:16]
     serializer_class = TopCategoriesSerializer
 
 class TopSkillList(generics.ListAPIView):
-    queryset = Skill.objects.all().annotate(skills_count=Count('skill_set')
-        ).filter(skill_set__status='Published', skill_set__is_archived=False
+    queryset = Skill.objects.filter(skill_set__status='Published', skill_set__is_archived=False
+        ).annotate(skills_count=Count('skill_set')
         ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
     pprint(connection.queries)
 
 class TopFavouriteList(generics.ListAPIView):
-    queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
-        ).filter(status='Published', is_archived=False
+    queryset = Job.objects.filter(status='Published', is_archived=False
+        ).annotate(favourite_count=Count('fav_jobs')
         ).order_by('-favourite_count')[:16]
     serializer_class = TopJobSerializer
 
 class TopCompanyList(generics.ListAPIView):
-    queryset = Company.objects.all().annotate(num_posts=Count('jobs')
-        ).filter(jobs__status='Published', jobs__is_archived=False
+    queryset = Company.objects.filter(jobs__status='Published', jobs__is_archived=False
+        ).annotate(num_posts=Count('jobs')
         ).order_by('-num_posts')[:16]
     serializer_class = TopCompanySerializer
