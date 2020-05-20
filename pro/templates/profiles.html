@@ -970,7 +970,7 @@
 <!--            </div>-->
             <div class="certification dashboard-section details-section">
               <div id="certification-div">
-                <h4 id="cer-label"><i data-feather="briefcase"></i>Certification</h4>
+                <h4 id="cer-label"><i data-feather="gift"></i>Certification</h4>
               <a href="#" id="add-certification" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-certification">+ Add Certification</a>
               </div>
               <!-- Button trigger modal -->
@@ -983,7 +983,7 @@
                   <div class="modal-content">
                     <div class="modal-body">
                       <div class="title">
-                        <h4><i data-feather="briefcase"></i>Certification</h4>
+                        <h4><i data-feather="align-left"></i>Certification</h4>
 <!--                        <a href="#" id="add-experience" class="add-more">+ Add Experience</a>-->
                       </div>
                       <div class="content">
@@ -2126,11 +2126,12 @@
             }
             $('#start_date_mbr').val(data.membership_info[index].start_date)
             if(data.membership_info[index].membership_ongoing){
-                $('#membership_ongoing').prop('checked',true)
-                $('#end_date_mbr').prop('disabled',true)
+                $('#membership_ongoing').prop('checked',true);
+                $('#end_date_mbr').prop('disabled',true);
+                $('#end_date_mbr').val('');
             }else{
-              $('#membership_ongoing').prop('checked',false)
-                $('#end_date_mbr').prop('disabled',false)
+              $('#membership_ongoing').prop('checked',false);
+                $('#end_date_mbr').prop('disabled',false);
             }
           }
         }
