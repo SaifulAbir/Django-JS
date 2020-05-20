@@ -3,7 +3,7 @@ from pprint import pprint
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import connection
-from django.db.models import Q, F
+from django.db.models import Q, F, Count
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -164,49 +164,75 @@ def similar_jobs(request, identifier, limit = 5):
 
 @api_view(["GET"])
 def recent_jobs(request, limit:int = 6):
-    queryset = Job.objects.filter(
-        Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
-        is_archived=False,
-        status='Published',
-    ).order_by('-post_date')[:limit]
+    if request.user.is_authenticated:
+        current_user_id = request.user.id
+        queryset = Job.objects.filter(
+            Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
+            Q(fav_jobs__isnull=True) | Q(fav_jobs__user=current_user_id),
+            Q(applied_jobs__isnull=True) | Q(applied_jobs__created_by=current_user_id),
+            is_archived=False,
+            # status='Published',
+        ).select_related('company_name'
+        ).annotate(is_favourite=Count('fav_jobs')
+        ).annotate(is_applied=Count('applied_jobs')
+        ).order_by('-post_date')[:limit]
 
-    for job in queryset:
-        job.is_favourite = get_favourite_status(job, request.user)
-        job.is_applied = get_applied_status(job, request.user)
-        job.profile_picture = get_company_logo(job)
+        for job in queryset:
+            job.profile_picture = job.company_name.profile_picture
+
+    else:
+        queryset = Job.objects.filter(
+            Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
+            is_archived=False,
+            status='Published',
+        ).select_related('company_name'
+        ).order_by('-post_date')[:limit]
+
+        for job in queryset:
+            job.is_favourite = False
+            job.is_applied = False
+            job.profile_picture = job.company_name.profile_picture
+
     data = JobSerializer(queryset, many=True).data
+    pprint(connection.queries)
     return Response(data)
 
 
 @api_view(["GET"])
 def favourite_jobs(request):
     current_user_id = request.user.id
-    queryset = FavouriteJob.objects.filter(user=current_user_id).order_by('-created_date')
-    jobs = []
-    for fav_job in queryset:
-        job = Job.objects.get(job_id=fav_job.job_id)
-        job.is_favourite = True
-        job.is_applied = get_applied_status(job, request.user)
-        job.profile_picture = get_company_logo(job)
-        jobs.append(job)
+    queryset = Job.objects.filter(
+        Q(applied_jobs__isnull=True) | Q(applied_jobs__created_by=current_user_id),
+        fav_jobs__user=current_user_id,
+    ).select_related('company_name'
+    ).annotate(is_applied=Count('applied_jobs')
+    ).order_by('-post_date')
 
+    for job in queryset:
+        job.is_favourite = True
+        job.profile_picture = job.company_name.profile_picture
+
+    data = JobSerializer(queryset, many=True).data
     pprint(connection.queries)
-    data = JobSerializer(jobs, many=True).data
     return Response(data)
 
 
 @api_view(["GET"])
 def applied_jobs(request):
     current_user_id = request.user.id
-    queryset = ApplyOnline.objects.filter(created_by=current_user_id).order_by('-created_at')
-    jobs = []
-    for app_job in queryset:
-        job = Job.objects.get(job_id=app_job.job_id)
-        job.is_favourite = get_favourite_status(job, request.user)
+    queryset = Job.objects.filter(
+        Q(fav_jobs__isnull=True) | Q(fav_jobs__user=current_user_id),
+        applied_jobs__created_by=current_user_id,
+    ).select_related('company_name'
+    ).annotate(is_favourite=Count('fav_jobs')
+    ).order_by('-post_date')
+
+    for job in queryset:
         job.is_applied = True
-        job.profile_picture = get_company_logo(job)
-        jobs.append(job)
-    data = JobSerializer(jobs, many=True).data
+        job.profile_picture = job.company_name.profile_picture
+
+    data = JobSerializer(queryset, many=True).data
+    pprint(connection.queries)
     return Response(data)
 
 

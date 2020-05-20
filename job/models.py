@@ -341,7 +341,7 @@ class FavouriteJob(models.Model):
 
 #Apply Online Model Starts here
 class ApplyOnline(models.Model):
-    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job')
+    job = models.ForeignKey(Job, on_delete=models.PROTECT, db_column='job', related_name='applied_jobs')
     created_by = models.ForeignKey(User, related_name='Apply_created_by', on_delete=models.PROTECT, db_column='created_by')
     created_at = models.DateTimeField(auto_now_add=True)
     created_from = models.CharField(max_length=255)
