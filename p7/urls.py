@@ -35,6 +35,7 @@ urlpatterns = [
     path('api/profile-info/<int:user_id>', professional_info),
     path('', include('job.urls')),
     path('api/', include('job.urls_api')),
+    path('api/', include('pro.urls_api')),
     path('api/', include('registration.urls')),
     path('api/', include('exam.urls')),
     path('api/', include('testimonial.urls')),
