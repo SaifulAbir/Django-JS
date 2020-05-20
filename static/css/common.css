@@ -231,9 +231,11 @@ a.save.apply.active {
 }
 
 .information ul li span:nth-last-child(1){
-    font-size: 1.4rem;
-    color: #6f7484;
-    font-weight: normal;
+   /* font-size: 1.4rem; */
+
+    font-weight: 500;
+    color: #232630;
+
 }
 
 .personal-information ul li span:nth-last-child(1){
