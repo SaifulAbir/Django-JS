@@ -1199,48 +1199,14 @@
         </div>
       </div>
             <div class="portfolio dashboard-section details-section">
-              <h4><i data-feather="gift"></i>Portfolio</h4>
-              <div class="portfolio-slider owl-carousel">
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-3.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
+                <div id="portfolio-div">
+                    <h4 id="port-label"><i data-feather="gift"></i>Portfolio</h4>
+                    <a href="#" id="add-portfolio" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-portfolio">+ Add Portfolio</a>
                 </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-1.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-2.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-3.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-2.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-              </div>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-portfolio">
-                <i data-feather="edit-2"></i>
-              </button>
+{#              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-portfolio">#}
+{#                <i data-feather="edit-2"></i>#}
+{#              </button>#}
               <!-- Modal -->
               <div class="modal fade modal-portfolio" id="modal-portfolio" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -1248,20 +1214,20 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="grid"></i>Portfolio</h4>
-                        <a href="#" class="add-more">+ Add Another</a>
                       </div>
                       <div class="content">
-                        <form action="#">
+                        <form action="#" id="portfolio-form" autocomplete="off" novalidate="novalidate">
                           <div class="input-block-wrap">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Portfolio 01</label>
+                              <label class="col-sm-3 col-form-label"></label>
                               <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Title</div>
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <div class="input-group-text">Title</div>
+                                      </div>
+                                      <input type="text" class="form-control" name="name" id="name" required>
+                                      <input type="hidden" name="id" id="id" class="form-control portfolio-id" >
                                   </div>
-                                  <input type="text" class="form-control" >
-                                </div>
                               </div>
                             </div>
                             <div class="form-group row">
@@ -1272,10 +1238,10 @@
                                   </div>
                                   <div class="upload-profile-photo">
                                     <div class="update-photo">
-                                      <img class="image" src="images/portfolio/thumb-1.jpg" alt="">
+                                      <img class="image form-control" src="" alt="" name="image" id="image">
                                     </div>
                                     <div class="file-upload">
-                                      <input type="file" class="file-input">Change Avatar
+                                      <input type="file" class="file-input" >Change Avatar
                                     </div>
                                   </div>
                                 </div>
@@ -1285,89 +1251,9 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Link</div>
+                                    <div class="input-group-text">Description</div>
                                   </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Portfolio 02</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Title</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Image</div>
-                                  </div>
-                                  <div class="upload-profile-photo">
-                                    <div class="update-photo">
-                                      <img class="image" src="images/portfolio/thumb-1.jpg" alt="">
-                                    </div>
-                                    <div class="file-upload">
-                                      <input type="file" class="file-input">Change Avatar
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Link</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Portfolio 03</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Title</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Image</div>
-                                  </div>
-                                  <div class="upload-profile-photo">
-                                    <div class="update-photo">
-                                      <img class="image" src="images/portfolio/thumb-1.jpg" alt="">
-                                    </div>
-                                    <div class="file-upload">
-                                      <input type="file" class="file-input">Change Avatar
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Link</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
+                                  <textarea type="text" name="description" id="description" class="form-control"></textarea>
                                 </div>
                               </div>
                             </div>
@@ -1375,7 +1261,7 @@
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg">Save Update</button>
+                                <button class="primary-bg">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -1565,6 +1451,10 @@
       errorClass: "my-error-class",
     });
 
+    $('#portfolio-form').validate({
+      errorClass: "my-error-class",
+    });
+
     $('#experience-form').validate({
         errorClass: "my-error-class",
         errorPlacement: function(error, element) {
@@ -1617,6 +1507,7 @@
     get(getUrl,loadEdu);
     get(getUrl,loadExp);
     get(getUrl,loadCer);
+    get(getUrl,loadPortfolio);
     get(staticUrl,loadstatic);
     initAjaxSelects();
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
@@ -1636,6 +1527,13 @@
           $('#is_currently_working').val(false);
           $('#end_date').prop('disabled',false);
           $('#end_date-error').html('');
+      });
+
+      $('#add-portfolio').on('click', function (event) {
+          event.preventDefault();
+          $("#modal-portfolio").find('form')[0].reset();
+          $('#image').attr('src','')
+          $('.portfolio-id').val('')
       });
 
       $('#add-membership').on('click', function (event) {
@@ -1792,6 +1690,35 @@
         }
         if(Object.keys(data).length>1 && $(this).valid() && !exp_id){
           post(expCreateUrl, JSON.stringify(data), loadExperience);
+        }
+    });
+
+    $('#portfolio-form').on('submit', function (event) {
+      event.preventDefault();
+        var path = window.location.pathname.split('/');
+        var id = path[path.length-2];
+        var user = id;
+        var name=$(this).find('#name').val();
+        var description=$(this).find('#description').val();
+        var image=$(this).find('#image').attr('src');
+        var portfolio_id=$(this).find('#id').val();
+        data = { "professional_id" : user}
+        if(name){
+          data.name = name;
+        }
+        if(description){
+          data.description = description;
+        }
+        if(image){
+            data.image = image;
+        }
+        portfolioCreateUrl = "/api/professional/professional_portfolio/";
+        portfolioUpdateUrl = "/api/professional/professional_portfolio/"+portfolio_id+"/";
+        if(Object.keys(data).length>1 && $(this).valid() && portfolio_id){
+          put(portfolioUpdateUrl, JSON.stringify(data), loadPortfolioCreateUpdate);
+        }
+        if(Object.keys(data).length>1 && $(this).valid() && !portfolio_id){
+          post(portfolioCreateUrl, JSON.stringify(data), loadPortfolioCreateUpdate);
         }
     });
 
@@ -2039,6 +1966,49 @@
       }
     });
 
+    $('#portfolio-div').on('click','.update-portfolio',function () {
+      var obj_id = $(this).parent().find(".portfolio-object-id").val();
+      var path = window.location.pathname.split('/');
+      var id = path[path.length-2];
+      var getUrl = '/api/professional/profile/'+ id + '/';
+      get(getUrl, loadPortfolioObject);
+      function loadPortfolioObject(data) {
+        for(index=0;index<data.portfolio_info.length;index++) {
+          if(data.portfolio_info[index].id==obj_id){
+          json2Form(data.portfolio_info[index], "portfolio-form")
+              getBase64Image(data.portfolio_info[index].image,function(base64image){
+                console.log(base64image);
+                $('#image').attr('src',base64image)
+              });
+
+          }
+        }
+      }
+    });
+
+    function getBase64Image(imgUrl, callback) {
+    var img = new Image();
+
+    // onload fires when the image is fully loadded, and has width and height
+
+    img.onload = function(){
+
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      var dataURL = canvas.toDataURL("image/png")
+      callback(dataURL); // the base64 string
+
+    };
+
+    // set attributes and src
+    img.setAttribute('crossOrigin', 'anonymous'); //
+    img.src = imgUrl;
+
+}
+
     $('#certification-div').on('click','.update-certification',function () {
       var obj_id = $(this).parent().find(".cer-object-id").val();
       var path = window.location.pathname.split('/');
@@ -2084,6 +2054,11 @@
     $('#experience-div').on('click','.delete-experience',function () {
         var obj_id = $(this).parent().find(".exp-object-id").val();
         showQuestion('Delete','Do You Want to delete?', function(){expDelete(obj_id);});
+      });
+    
+    $('#portfolio-div').on('click','.delete-portfolio',function () {
+        var obj_id = $(this).parent().find(".portfolio-object-id").val();
+        showQuestion('Delete','Do You Want to delete Portfolio?', function(){portfolioDelete(obj_id);});
       });
 
     $('#certification-div').on('click','.delete-certification',function () {
@@ -2553,6 +2528,67 @@
     feather.replace();
   }
 
+  function loadPortfolioCreateUpdate(data) {
+    console.log(data.responseJSON);
+    if(data.status==200){
+        try {
+        if (data.responseJSON.description) {
+          description = data.responseJSON.description
+        }
+      }catch (e) {
+        if (e instanceof TypeError) {
+          description = "";
+        }
+      }
+      $("#modal-portfolio").modal("hide");
+      $("#modal-portfolio").find('form')[0].reset();
+      if($('#portfolio-div').find(".portfolio-section").length==0){
+        $('#port-label').after('<div class="portfolio-section">\n' +
+                '<input type="hidden" class="portfolio-object-id" value="'+data.responseJSON.id+'">'+
+                '                <b class="service-year">'+data.responseJSON.name+'</b>\n'  +
+                '<button type="button" class="btn btn-primary edit-resume delete-portfolio delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-portfolio update-icon" data-toggle="modal" data-target="#modal-portfolio">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '<p>'+ data.responseJSON.description + '</p>'+
+                '              </div>');
+      }
+      else {
+        var el = $("#portfolio-div").find("[value='"+ data.responseJSON.id +"']");
+        if(el.length>0 && data.responseJSON.is_archived == true){
+            el.parent().remove()
+        }
+        else if(el.length>0){
+          el.parent().html('<input type="hidden" class="portfolio-object-id" value="'+data.responseJSON.id+'">'+
+                '                <b class="service-year">'+data.responseJSON.name+'</b>\n'  +
+                '<button type="button" class="btn btn-primary edit-resume delete-portfolio delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-portfolio update-icon" data-toggle="modal" data-target="#modal-portfolio">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '<p>'+ data.responseJSON.description + '</p>');
+        }
+        else{
+          $('.portfolio-section:last').after('<div class="portfolio-section">\n' +
+                '<input type="hidden" class="portfolio-object-id" value="'+data.responseJSON.id+'">'+
+                '                <b class="service-year">'+data.responseJSON.name+'</b>\n'  +
+                '<button type="button" class="btn btn-primary edit-resume delete-portfolio delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-portfolio update-icon" data-toggle="modal" data-target="#modal-portfolio">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '<p>'+ data.responseJSON.description + '</p>'+
+                '              </div>');
+        }
+
+      }
+    }else{
+      showError("Error Updating")
+    }
+    feather.replace();
+  }
+
   function loadMembership(data) {
     console.log(data.responseJSON);
     if(data.status==200){
@@ -2754,6 +2790,39 @@
     }
   }
 
+  function loadPortfolio(data) {
+    console.log(data.portfolio_info);
+    // var eduHtml = $(".experience-label").html();
+    for(index=0;index<data.portfolio_info.length;index++){
+      var expDivHtml = $("#experience-form .input-block-experience").html();
+      if(index==0){
+        $('#port-label').after('<div class="portfolio-section">\n' +
+                '<input type="hidden" class="portfolio-object-id" value="'+data.portfolio_info[index].id+'">'+
+                '                <b class="service-year">'+data.portfolio_info[index].name+'</b>\n'  +
+                '<button type="button" class="btn btn-primary edit-resume delete-portfolio delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-portfolio update-icon" data-toggle="modal" data-target="#modal-portfolio">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '<p>'+ data.portfolio_info[index].description + '</p>'+
+                '              </div>');
+      }
+      else if(index>=1){
+        $('.portfolio-section:last').after('<div class="portfolio-section">\n' +
+                '<input type="hidden" class="portfolio-object-id" value="'+data.portfolio_info[index].id+'">'+
+                '                <b class="service-year">'+data.portfolio_info[index].name+'</b>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-portfolio delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-portfolio update-icon" data-toggle="modal" data-target="#modal-portfolio">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '<p>'+ data.portfolio_info[index].description + '</p>'+
+                '              </div>');
+      }
+      feather.replace();
+    }
+  }
+
   function loadCer(data) {
     console.log(data.certification_info);
     // var eduHtml = $(".experience-label").html();
@@ -2923,6 +2992,17 @@
     }
     put(cerUpdateUrl, JSON.stringify(data), loadCertificates);
   }
+  function portfolioDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    cerUpdateUrl = " /api/professional/professional_portfolio/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(cerUpdateUrl, JSON.stringify(data), loadPortfolioCreateUpdate);
+  }
+
 
 </script>
 {% endblock %}

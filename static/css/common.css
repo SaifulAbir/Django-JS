@@ -389,3 +389,20 @@ a.save.apply.active {
     top: 7px;
     left: 0;
 }
+
+
+.portfolio .portfolio-section {
+    position: relative;
+    padding-left: 25px;
+}
+
+.portfolio .portfolio-section:before {
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: #246df8;
+    top: 7px;
+    left: 0;
+}
