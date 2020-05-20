@@ -370,7 +370,7 @@ function favouriteJobAddRemove(id, url) {
             post(favouriteUrl, JSON.stringify(data), loadFavouriteJob)
         }
         else {
-            showQuestion("Sign In required!", "Are you going to sign in now?", goSignIn , 'no')
+            showQuestion("Sign In required!", "Do you want to sign in now?", goSignIn , 'no')
 
         }
 
@@ -431,7 +431,7 @@ function applyOnlineJobAddRemove(id, url) {
             });
         }
         else {
-            showQuestion("Sign In required!", "Are you going to sign in now?", goSignIn , 'no')
+            showQuestion("Sign In required!", "Do you want to sign in now?", goSignIn , 'no')
         }
 
     });
