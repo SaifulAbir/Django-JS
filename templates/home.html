@@ -350,7 +350,9 @@
         function loadPopularJobs(data) {
             if (data){
                 for(index=0;index<data.length;index++){
-                    $('#popular-job-list').append('<li><a data-category="'+ data[index].name +'" href="javascript:void(0)">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
+                    if (data[index].name != 'Unknown'){
+                        $('#popular-job-list').append('<li><a data-category="'+ data[index].name +'" href="javascript:void(0)">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
+                    }
                 }
             }
         }
