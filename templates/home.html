@@ -351,7 +351,7 @@
             if (data){
                 for(index=0;index<data.length;index++){
                     if (data[index].name != 'Unknown'){
-                        $('#popular-job-list').append('<li><a data-category="'+ data[index].name +'" href="javascript:void(0)">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
+                        $('#popular-job-list').append('<li><a data-category="'+ data[index].name +'" href="company-details/'+ data[index].name +'">'+ data[index].name +'<span>('+ data[index].num_posts +')</span></a></li>')
                     }
                 }
             }
