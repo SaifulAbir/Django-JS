@@ -13,7 +13,7 @@ class Settings(models.Model):
     support_email = models.CharField(max_length=20)
     address = models.CharField(max_length=200)
     phone = models.CharField(max_length=11)
-    zoom = models.DecimalField(max_digits=2, blank=True, null=True)
+    zoom = models.IntegerField(max_length=10, blank=True, null=True)
     latitude = models.DecimalField(max_digits=10, decimal_places=6, blank=True, null=True)
     longitude = models.DecimalField(max_digits=10, decimal_places=6, blank=True, null=True)
 
