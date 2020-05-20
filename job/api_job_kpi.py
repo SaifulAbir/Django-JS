@@ -1,3 +1,6 @@
+from pprint import pprint
+
+from django.db import connection
 from django.db.models import Count
 from rest_framework import generics
 
@@ -16,14 +19,19 @@ class TopCategoryList(generics.ListAPIView):
 
 class TopSkillList(generics.ListAPIView):
     queryset = Skill.objects.all().annotate(skills_count=Count('skill_set')
-                                            ).order_by('-skills_count')[:16]
+        ).filter(skill_set__status='Published', skill_set__is_archived=False
+        ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
+    pprint(connection.queries)
 
 class TopFavouriteList(generics.ListAPIView):
     queryset = Job.objects.all().annotate(favourite_count=Count('fav_jobs')
-                                          ).order_by('-favourite_count')[:16]
+        ).filter(status='Published', is_archived=False
+        ).order_by('-favourite_count')[:16]
     serializer_class = TopJobSerializer
 
 class TopCompanyList(generics.ListAPIView):
-    queryset = Company.objects.all().annotate(num_posts=Count('jobs')).order_by('-num_posts')[:16]
+    queryset = Company.objects.all().annotate(num_posts=Count('jobs')
+        ).filter(jobs__status='Published', jobs__is_archived=False
+        ).order_by('-num_posts')[:16]
     serializer_class = TopCompanySerializer
