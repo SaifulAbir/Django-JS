@@ -26,21 +26,21 @@ def change_password(request):
     except User.DoesNotExist:
         data = {
             'status': 'failed',
-            'code': HTTP_200_OK,
+            'code': HTTP_401_UNAUTHORIZED,
             "message": USER_ID_NOT_EXIST,
             "result": ''
         }
-        return Response(data, HTTP_200_OK)
+        return Response(data, HTTP_401_UNAUTHORIZED)
     status = check_password(old_password, user_obj.password)
 
     if not status :
         data = {
-            'status': status,
-            'code': HTTP_200_OK,
+            'status': 'failed',
+            'code': HTTP_401_UNAUTHORIZED,
             "message": WRONG_OLD_PASSWORD_MSG,
             "result": ''
         }
-        return Response(data)
+        return Response(data, HTTP_401_UNAUTHORIZED)
     else:
         new_password = make_password(new_password)
         user_obj.password = new_password
@@ -57,6 +57,6 @@ def change_password(request):
                 }
             }
         }
-    return Response(data)
+    return Response(data, HTTP_200_OK)
 
 
