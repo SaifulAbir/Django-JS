@@ -443,7 +443,9 @@
         function loadKey(data) {
             len= data.length;
             for(x=0;x<len;x++){
-                $('#trend-keywords').append('<a href="javascript:void(0)"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>')
+                if (data[x].keyword !=''){
+                    $('#trend-keywords').append('<a href="javascript:void(0)"><span style="padding-left: 10px">'+ data[x].keyword +'</span></a>');
+                }
             }
         }
 
