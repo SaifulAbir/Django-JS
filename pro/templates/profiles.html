@@ -970,7 +970,7 @@
 <!--            </div>-->
             <div class="certification dashboard-section details-section">
               <div id="certification-div">
-                <h4 id="cer-label"><i data-feather="briefcase"></i>Certification</h4>
+                <h4 id="cer-label"><i data-feather="gift"></i>Certification</h4>
               <a href="#" id="add-certification" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-certification">+ Add Certification</a>
               </div>
               <!-- Button trigger modal -->
@@ -983,7 +983,7 @@
                   <div class="modal-content">
                     <div class="modal-body">
                       <div class="title">
-                        <h4><i data-feather="briefcase"></i>Certification</h4>
+                        <h4><i data-feather="align-left"></i>Certification</h4>
 <!--                        <a href="#" id="add-experience" class="add-more">+ Add Experience</a>-->
                       </div>
                       <div class="content">
@@ -1123,6 +1123,7 @@
                               <div class="input-group-text">Organization</div>
                             </div>
                             <input type="text" name="organization" id="organization" class="form-control" required data-msg-required="Organization is required">
+                            <input type="hidden" name="id" id="id" class="form-control" >
                           </div>
                         </div>
                       </div>
@@ -1617,6 +1618,7 @@
     get(getUrl,loadEdu);
     get(getUrl,loadExp);
     get(getUrl,loadCer);
+    get(getUrl,loadMbr);
     get(staticUrl,loadstatic);
     initAjaxSelects();
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
@@ -1642,8 +1644,8 @@
           event.preventDefault();
           $("#modal-membership").find('form')[0].reset();
           $('#membership_ongoing').val(false);
-          $('#end_date').prop('disabled',false);
-          $('#end_date-error').html('');
+          $('#end_date_mbr').prop('disabled',false);
+          $('#end_date_mbr-error').html('');
       });
 
       $('#add-certification').on('click', function (event) {
@@ -1744,6 +1746,7 @@
 
     datepickerValidation("start_date_mbr", "end_date_mbr");
     datepickerValidation("start_date", "end_date");
+    datepickerValidation("enrolled_date", "graduation_date");
     datepickerValidation("issue_date", "expiry_date");
 
     $('#experience-form').on('submit', function (event) {
@@ -2089,6 +2092,50 @@
     $('#certification-div').on('click','.delete-certification',function () {
         var obj_id = $(this).parent().find(".cer-object-id").val();
         showQuestion('Delete','Do You Want to delete?', function(){cerDelete(obj_id);});
+      });
+
+    $('.membership-div').on('click','.delete-membership',function () {
+        var obj_id = $(this).parent().find(".mem-object-id").val();
+        showQuestion('Delete','Do You Want to delete?', function(){memDelete(obj_id);});
+      });
+
+    $('.membership-div').on('click','.update-membership',function () {
+      var obj_id = $(this).parent().find(".mem-object-id").val();
+      var path = window.location.pathname.split('/');
+      var id = path[path.length-2];
+      var getUrl = '/api/professional/profile/'+ id + '/';
+      get(getUrl, loadMembershipObject);
+      function loadMembershipObject(data) {
+        for(index=0;index<data.membership_info.length;index++) {
+          if(data.membership_info[index].id==obj_id){
+              if(!data.membership_info[index].end_date){
+                delete data.membership_info[index].end_date
+            }
+            if(data.membership_info[index].end_date){
+                var momentEndObj = moment(data.membership_info[index].end_date, 'YYYY-MM-DD');
+                var dateEndString = momentEndObj.format('DD/MM/YYYY');
+                data.membership_info[index].end_date = dateEndString
+            }
+            var momentObj = moment(data.membership_info[index].start_date, 'YYYY-MM-DD');
+            var dateStartString = momentObj.format('DD/MM/YYYY');
+            data.membership_info[index].start_date = dateStartString
+
+          json2Form(data.membership_info[index], "membership-form")
+            if(data.membership_info[index].end_date){
+              $('#end_date_mbr').val(data.membership_info[index].end_date)
+            }
+            $('#start_date_mbr').val(data.membership_info[index].start_date)
+            if(data.membership_info[index].membership_ongoing){
+                $('#membership_ongoing').prop('checked',true);
+                $('#end_date_mbr').prop('disabled',true);
+                $('#end_date_mbr').val('');
+            }else{
+              $('#membership_ongoing').prop('checked',false);
+                $('#end_date_mbr').prop('disabled',false);
+            }
+          }
+        }
+      }
       });
 
 
@@ -2565,7 +2612,7 @@
       var dateStart = momentObj.format('DD/MM/YYYY');
       var dateEnd = momentEndObj.format('DD/MM/YYYY');
       if(dateEnd == "Invalid date" || dateEnd && data.responseJSON.is_currently_working == true){
-          dateEnd = "Currently Working";
+          dateEnd = "Ongoing";
       }
       try {
         if (data.responseJSON.description) {
@@ -2585,7 +2632,7 @@
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
                 '<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon">\n' +
                 '                <i data-feather="trash-2"></i>\n' +
-                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
                 '                <h5>'+data.responseJSON.position_held+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
@@ -2602,7 +2649,7 @@
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
                 '<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon">\n' +
                 '                <i data-feather="trash-2"></i>\n' +
-                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
                 '                <h5>'+data.responseJSON.position_held+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
@@ -2614,7 +2661,7 @@
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
                 '<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon">\n' +
                 '                <i data-feather="trash-2"></i>\n' +
-                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button>'+
                 '                <h5>'+data.responseJSON.position_held+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
@@ -2802,6 +2849,58 @@
     }
   }
 
+  function loadMbr(data) {
+    console.log(data.membership_info);
+    // var eduHtml = $(".experience-label").html();
+    for(index=0;index<data.membership_info.length;index++){
+      var dateStartString = data.membership_info[index].start_date;
+      var dateEndString = data.membership_info[index].end_date;
+
+      var momentObj = moment(dateStartString, 'YYYY-MM-DD');
+      var momentEndObj = moment(dateEndString, 'YYYY-MM-DD');
+      var dateStart = momentObj.format('DD/MM/YYYY');
+      var dateEnd = momentEndObj.format('DD/MM/YYYY');
+
+      if(dateEnd == "Invalid date" && data.membership_info[index].membership_ongoing == true){
+          dateEnd = "Ongoing";
+      }
+      if(!data.membership_info[index].description){
+          description = '';
+      }else{
+        description = data.membership_info[index].description;
+      }
+
+      // var expDivHtml = $("#experience-form .input-block-experience").html();
+      if(index==0){
+        $('#mbr-label').after('<div class="membership-label">\n' +
+                '<input type="hidden" class="mem-object-id" value="'+data.membership_info[index].id+'">'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.membership_info[index].position_held+'<span>@ '+data.membership_info[index].organization+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
+                '              </div>');
+      }
+      else if(index>=1){
+        $('.membership-label:last').after('<div class="membership-label">\n' +
+                '<input type="hidden" class="mem-object-id" value="'+data.membership_info[index].id+'">'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.membership_info[index].position_held+'<span>@ '+data.membership_info[index].organization+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
+                '              </div>');
+      }
+      feather.replace();
+    }
+  }
+
   function loadExpEdit(data) {
     setTimeout(function () {
       var count = 2;
@@ -2922,6 +3021,17 @@
         'is_archived':true
     }
     put(cerUpdateUrl, JSON.stringify(data), loadCertificates);
+  }
+
+  function memDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    memUpdateUrl = "/api/professional/professional_membership/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(memUpdateUrl, JSON.stringify(data), loadMembership);
   }
 
 </script>
