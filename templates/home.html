@@ -236,6 +236,13 @@
     <script>
         $(document).ready(function() {
 
+            $("#search-form").submit(function(){
+                var keyword = $("#keyword").val();
+                var data = {"keyword": keyword};
+                data = JSON.stringify(data);
+                post("/api/job/trending_keywords/save/", data)
+            });
+
             $("body").delegate("#trend-keywords a", "click", function(){
                 var keywordItem = $(this).children().html();
                 $("#keyword").val(keywordItem);
@@ -393,7 +400,6 @@
 
                         // $(this).removeClass('active');
                         // showError('Oopss!', 'Job removed.')
-                        console.log(data[index].is_applied);
                         if(data[index].is_applied == true && isLoggedIn()){
                             $(this).addClass('applied');
                             $(this).text('Applied');
