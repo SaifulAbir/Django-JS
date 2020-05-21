@@ -14,10 +14,10 @@
                     <img src="{% static 'images/company/company-logo-1.png' %}" class="img-fluid" alt="">
                   </div>
                   <div class="title-body">
-                    <h4>Theoreo Digital LTD</h4>
+                    <h4 id='name'> </h4>
                     <div class="info">
-                      <span class="company-type"><i data-feather="briefcase"></i>Software Firm</span>
-                      <span class="office-location"><i data-feather="map-pin"></i>Los Angeles</span>
+<!--                      <span class="company-type"><i data-feather="briefcase"></i>Software Firm</span>-->
+                      <span class="office-location"><i data-feather="map-pin"></i><p style="display: inline-block;" id="division"></p></span>
                     </div>
                   </div>
                 </div>
@@ -146,12 +146,13 @@
                       <div class="information">
                         <h4>Basic Information</h4>
                         <ul>
-                          <li><span>Name:</span><a href="#">Theoreo Digital LTD</a></li>
-                          <li><span>Year of Establishment:</span>2018</li>
-                          <li><span>Legal Structure:</span>Corporation</li>
-                          <li><span>No of Human Resources:</span>40</li>
-                          <li><span>No of IT Resources:</span>20</li>
-                          <li><span>BASIS Membership No:</span>IT-1010120</li>
+                          <li><span >Name:</span><a  href="#"> </a></li>
+
+                          <li  ><span>Year of Establishment:</span><p style="display: inline-block;" id="year_of_eastablishment"></p></li>
+                          <li  ><span>Legal Structure:</span> <p style="display: inline-block;" id="legal_structure_of_this_company"></p></li>
+                          <li  ><span>No of Human Resources:</span> <p style="display: inline-block;" id="total_number_of_human_resources"></p></li>
+                          <li  ><span>No of IT Resources:</span><p style="display: inline-block;" id="no_of_it_resources"></p> </li>
+                          <li  ><span>BASIS Membership No:</span> <p style="display: inline-block;" id="basis_membership_no"></p></li>
                         </ul>
                       </div>
 
@@ -165,30 +166,30 @@
                             <div class="information">
                         <h4>Organization's Head</h4>
                         <ul>
-                          <li><span>Name:</span>XYC Hossain</li>
-                          <li><span>Designation:</span>CEO</li>
-                          <li><span>Mobile No:</span>0145636941</li>
+                          <li ><span>Name:</span> <p style="display: inline-block;" id="organization_head"></p></li>
+                          <li ><span>Designation:</span><p style="display: inline-block;" id="organization_head_designation"></p> </li>
+                          <li ><span>Mobile No:</span><p style="display: inline-block;" id="organization_head_number"></p></li>
                         </ul>
                       </div><br>
 
                             <div class="information">
                         <h4>Contact Person</h4>
                         <ul>
-                          <li><span>Name:</span>Mr. Abdullah Hamid</li>
-                          <li><span>Designation:</span>Business officer</li>
-                          <li><span>Mobile No:</span>0145636941</li>
-                          <li><span>Email:</span>abdullah@hotmail.com</li>
+                          <li  ><span>Name:</span> <p style="display: inline-block;" id="contact_person"></p></li>
+                          <li  ><span>Designation:</span><p style="display: inline-block;" id="contact_person_designation"></p> </li>
+                          <li  ><span>Mobile No:</span> <p style="display: inline-block;" id="contact_person_mobile_no"></p></li>
+                          <li  ><span>Email:</span><p style="display: inline-block;" id="contact_person_email"></p></li>
                         </ul>
                       </div><br>
 
                             <div class="information">
                         <h4>Contact Number</h4>
                         <ul>
-                          <li><span>Mobile No-1:</span>0145636941</li>
-                          <li><span>Mobile No-2:</span>0155636942</li>
-                          <li><span>Mobile No-3:</span>0165636943</li>
-                          <li><span>Email:</span>theoreodigital@hotmail.com</li>
-                          <li><span>Website:</span> <a href="#">www.theoreodigital.com</a></li>
+                          <li><span>Mobile No-1:</span> <p style="display: inline-block;" id="company_contact_no_one"></p> </li>
+                          <li><span>Mobile No-2:</span> <p style="display: inline-block;" id="company_contact_no_two"></p> </li>
+                          <li><span>Mobile No-3:</span> <p style="display: inline-block;" id="company_contact_no_three"></p> </li>
+                          <li><span>Email:</span> <p style="display: inline-block;" id="email"></p></li>
+                          <li><span>Website:</span> <p style="display: inline-block;" id="web_address"></p> <a href="#"> </a></li>
                         </ul>
                       </div><br>
 
@@ -223,11 +224,10 @@
                      <div class="information">
                         <h4>Address</h4>
                         <ul>
-                          <li><span>Address:</span>House 76, Road 4,Block B</li>
-                          <li><span>Area:</span>Niketan, Gulshan 1</li>
-                          <li><span>City:</span>Dhaka</li>
-                          <li><span>Country:</span>Bangladesh</li>
-                          <li><span>Post Code:</span>1207</li>
+                          <li><span>Address:</span><span style="color: inherit;line-height: 1.85;font-size: 1.4rem; font-weight: 400;"id="address"></span></li>
+                          <li><span>Area:</span><p style="display: inline-block;" id="district"></p> </li>
+                          <li><span>City:</span><p style="display: inline-block;" id="division"></p> </li>
+                          <li><span>Post Code:</span> <p style="display: inline-block;" id="post_code"></p></li>
                         </ul>
                       </div>
 
@@ -256,23 +256,21 @@
 {% block extra_js %}
 <script>
   $(document).ready(function() {
-<!--    TokenAuthenticate();-->
+    TokenAuthenticate();
 
-<!--    var path = window.location.pathname.split('/');-->
-<!--    var id = path[path.length-2];-->
-<!--    -->
-<!--    var getUrl = 'company/search/'+ id + '/';-->
+    var path = window.location.pathname.split('/');
+    var name = path[path.length-2];
 
-<!--    get(getUrl,loadCompany);-->
+    var getUrl = '/api/company/search/?name=' + name;
 
-
-
-<!--    function loadCompany(data) {-->
-<!--        console.log(data);-->
-
-<!--    }-->
-
+    get(getUrl,loadCompany);
     });
+
+    function loadCompany(data) {
+        console.log('data' ,data);
+        var container = $('.container');
+        json2Div(data[0], container);
+    }
 
    </script>
 {% endblock %}
