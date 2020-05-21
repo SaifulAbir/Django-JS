@@ -4,6 +4,7 @@ from rest_framework_simplejwt.state import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from job.serializers import CompanySerializer, CompanyProfilePictureSerializer
 from pro.models import *
 from rest_framework import exceptions
 from django.utils.translation import ugettext_lazy as _
@@ -11,6 +12,15 @@ from resources.strings_pro import *
 from django.contrib.auth.models import User
 
 
+
+class WorkExperienceDetailSerializer(serializers.ModelSerializer):
+    # company = serializers.RelatedField(
+    #     source='company.profile_picture', read_only=True
+    # )
+    company = CompanyProfilePictureSerializer(many=False)
+    class Meta:
+        model = WorkExperience
+        fields = ('professional','company_text','company','designation','start_date','end_date','is_currently_working')
 
 class ProfessionalSerializer(serializers.ModelSerializer):
     class Meta:

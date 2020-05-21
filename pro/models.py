@@ -181,6 +181,7 @@ class WorkExperience(models.Model):
     class Meta:
         db_table = 'work_experiences'
 
+
 class Portfolio(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)
     name = models.CharField(max_length=255)
