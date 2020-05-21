@@ -19,12 +19,17 @@ class TopCategoryList(generics.ListAPIView):
         ).order_by('-num_posts')[:16]
     serializer_class = TopCategoriesSerializer
 
+    def get(self, request, *args, **kwargs):
+        result = self.list(self, request, *args, **kwargs)
+        pprint(connection.queries)
+        return result
+
+
 class TopSkillList(generics.ListAPIView):
     queryset = Skill.objects.filter(skill_set__status='Published', skill_set__is_archived=False
         ).annotate(skills_count=Count('skill_set')
         ).order_by('-skills_count')[:16]
     serializer_class = TopSkillSerializer
-    pprint(connection.queries)
 
 class TopFavouriteList(generics.ListAPIView):
     queryset = Job.objects.filter(status='Published', is_archived=False
