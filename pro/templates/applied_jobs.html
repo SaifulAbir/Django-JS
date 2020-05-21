@@ -45,7 +45,7 @@
            $('.applied-job-bar').addClass('active')
         var path = window.location.pathname.split('/')
         var id = path[path.length-2]
-        var getUrl = '/api/applied_jobs/';
+        var getUrl = '/api/job/applied/';
         get(getUrl, appliedJobs);
         TokenAuthenticate();
 

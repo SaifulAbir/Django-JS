@@ -360,6 +360,7 @@
             $('#prof-email').text(data[0].user.email);
 
             if(data[0].user.image){
+                alert(data[0].user.image)
                 $('#prof-image').html('<img src="'+ data[0].user.image +'" class="img-fluid" alt="">')
             }
             else{
