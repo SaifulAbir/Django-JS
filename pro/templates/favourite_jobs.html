@@ -51,7 +51,7 @@
            $('.favourite-job-bar').addClass('active')
         var path = window.location.pathname.split('/')
         var id = path[path.length-2]
-        var getUrl = '/api/favourite-jobs/';
+        var getUrl = '/api/job/favourite/';
         get(getUrl, favJobs);
         TokenAuthenticate();
 

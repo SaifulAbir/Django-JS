@@ -199,7 +199,7 @@
     $(document).ready(function() {
         var path = window.location.pathname.split('/')
         var id = path[path.length-2]
-        var getUrl = '/api/load_job/'+ id + '/'
+        var getUrl = '/api/job/get/'+ id + '/'
         get(getUrl, loadJob);
         favouriteJobAddRemove('jobs', '/api/favourite_job_add/');
         applyOnlineJobAddRemove('jobs', '/api/apply_online_job_add/');
@@ -214,8 +214,8 @@
             $('.save').attr("href", data.job_id);
             $('.apply').attr("href", data.job_id);
             var deadline= data.application_deadline
-            var created_date = data.created_date
-            data.created_date = created_date.split("-").reverse().join("-")
+            var created_date = data.created_at
+            data.created_at = created_date.split("-").reverse().join("-")
             if(data.application_deadline){
                 data.application_deadline = deadline.split("-").reverse().join("-")
             }
@@ -240,7 +240,7 @@
             }
             json2Div(data, container);
             identifier = data['job_id'];
-            catUrl = '/api/similar_jobs/'+ identifier;
+            catUrl = '/api/job/similar/'+ identifier;
             get(catUrl,loadSimilarJob)
 
         }
@@ -251,7 +251,9 @@
 
     }
     function loadSimilarJob(data) {
-        for(index=0;index<6;index++){
+        console.log(data)
+        if(data.length > 0){
+            for(index=0;index<6;index++){
             var dateString = data[index].created_date;
             var momentObj = moment(dateString, 'YYYY-MM-DD');
             var dateMomentString = momentObj.format('MMM DD, YYYY');
@@ -304,6 +306,7 @@
 
             });
             feather.replace();
+        }
         }
     }
 </script>
