@@ -59,10 +59,11 @@
     });
        //appending fav jobs to html
        function  favJobs(data){
-            number_of_jobs_bookmarked=data.total_bookmarked;
+           console.log(data)
+            number_of_jobs_bookmarked=data.length;
             $('.bookmark-title').append(number_of_jobs_bookmarked," Job Bookmarked");
             for(index=0;index<6;index++){
-            var dateString = data.bookmarked_jobs[index].application_deadline;
+            var dateString = data[index].application_deadline;
             var momentObj = moment(dateString, 'YYYY-MM-DD');
             var dateMomentString = momentObj.format('MMM DD, YYYY');
             if (dateMomentString=='Invalid date'){
@@ -71,16 +72,16 @@
             var fav_jobs_html = '<div class="job-list" >'+
                       '<div class="thumb">'+
                         '<a href="#">'+
-                          '<img src="'+data.bookmarked_jobs[index].profile_picture+'" style="max-width:70px"; class="img-fluid" alt="">'+
+                          '<img src="'+data[index].profile_picture+'" style="max-width:70px"; class="img-fluid" alt="">'+
                         '</a>'+
                       '</div>'+
                       '<div class="body">'+
                         '<div class="content">'+
-                          '<h4><a href="/job-detail/'+ data.bookmarked_jobs[index].slug+'">'+data.bookmarked_jobs[index].title+'</a></h4>'+
+                          '<h4><a href="/job-detail/'+ data[index].slug+'">'+data[index].title+'</a></h4>'+
                           '<div class="info">'+
-                            '<span class="company"><a href="#"><i class="fas fa-building" style="margin-right: 5px"></i>'+data.bookmarked_jobs[index].company_name+'</a></span>'+
-                            '<span class="office-location"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>'+data.bookmarked_jobs[index].job_location+'</a></span>'+
-                            '<span class="job-type full-time"><a href="#"><img style="margin-right: 6px; vertical-align: top; padding-top: 5px;" src="/static/images/img_clock.png" width="12">'+data.bookmarked_jobs[index].employment_status+'</a></span>'+
+                            '<span class="company"><a href="#"><i class="fas fa-building" style="margin-right: 5px"></i>'+data[index].company_name+'</a></span>'+
+                            '<span class="office-location"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>'+data[index].job_location+'</a></span>'+
+                            '<span class="job-type full-time"><a href="#"><img style="margin-right: 6px; vertical-align: top; padding-top: 5px;" src="/static/images/img_clock.png" width="12">'+data[index].employment_status+'</a></span>'+
                           '</div>'+
                         '</div>'+
                         '<div class="more">'+
@@ -88,7 +89,7 @@
                             '<a href="#" class="button">Apply Now</a>'+
                             '<a href="#" class="favourite"><i data-feather="heart"></i></a>'+
                           '</div>'+
-                          '<a href="javascript:void(0)"  class="bookmark-remove" id="'+data.bookmarked_jobs[index].job_id+'" onclick="myFunction(this)" ><i class="fas fa-times"></i></a>'+
+                          '<a href="javascript:void(0)"  class="bookmark-remove" id="'+data[index].job_id+'" onclick="myFunction(this)" ><i class="fas fa-times"></i></a>'+
                           '<p class="deadline">Deadline:'+dateMomentString+'</p>'+
                         '</div>'+
                       '</div>'+
