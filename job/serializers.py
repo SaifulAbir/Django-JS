@@ -20,6 +20,16 @@ class CompanyNameSerializer(serializers.ModelSerializer):
         model = Company
         fields = ['name']
 
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = '__all__'
+
+class CompanyProfilePictureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ['profile_picture']
+
 class IndustrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Industry

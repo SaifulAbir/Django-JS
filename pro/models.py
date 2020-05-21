@@ -78,6 +78,7 @@ class Professional(models.Model):
     twitter_id= models.CharField(max_length=255, blank=True, null=True)
     linkedin_id= models.CharField(max_length=255, blank=True, null=True)
     date_of_birth = models.DateField(default=datetime.date.today)
+    blood_group = models.CharField(max_length=5, null=True, blank=True)
     gender = models.ForeignKey(Gender,on_delete=models.PROTECT, null=True, blank=True)
     status = models.ForeignKey(JobType,on_delete=models.PROTECT, null=True, blank=True)
     experience = models.ForeignKey(Experience,on_delete=models.PROTECT, null=True, blank=True)
@@ -180,6 +181,7 @@ class WorkExperience(models.Model):
 
     class Meta:
         db_table = 'work_experiences'
+
 
 class Portfolio(models.Model):
     professional = models.ForeignKey(Professional,on_delete=models.PROTECT)

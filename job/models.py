@@ -52,7 +52,7 @@ class Company(models.Model):
         verbose_name_plural = strings_job.COMPANY_VERBOSE_NAME_PLURAL
         db_table = 'companies'
 
-
+    
     def load_data(self, json_data):
         self.__dict__ = json_data
 
