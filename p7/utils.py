@@ -26,6 +26,8 @@ from pro.models import Professional
 from resources.strings_pro import *
 from difflib import SequenceMatcher
 
+from settings.models import Settings
+
 
 def sendContactUsEmail(name, email, subject, phone, message):
 
@@ -41,7 +43,12 @@ def sendContactUsEmail(name, email, subject, phone, message):
     )
     subject_text = loader.render_to_string('contact_us_email_subject.txt')
 
+    settingsObj = Settings.objects.all()[0]
+    admin_email = settingsObj.admin_email
+
+    print(admin_email)
+
     message = ' it  means a world to us '
     email_from = EMAIL_HOST_USER
-    recipient_list = ['rashedhsn16@gmail.com']
+    recipient_list = ['admin_email']
     return send_mail(subject_text, message, email_from, recipient_list,html_message=html_message)
