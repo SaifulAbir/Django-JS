@@ -3,16 +3,15 @@ from pprint import pprint
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import connection
-from django.db.models import Q, F, Count
+from django.db.models import Q, Count
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 
+from job.models import Job
 from job.serializers import JobSerializer
-from job.api_job_core import get_favourite_status, get_company_logo, get_applied_status
-from pro.utils import similar # TODO: Why from pro
-from job.models import Job, FavouriteJob, ApplyOnline
+from pro.utils import similar  # TODO: Why from pro
 
 
 @api_view(["GET"])
@@ -23,7 +22,6 @@ def job_list(request):
         current_url = request.GET.get('current_url')
         sorting = request.GET.get('sort')
         category = request.GET.get('category')
-        district = request.GET.get('location')
         skill = request.GET.get('skill')
         job_city = request.GET.get('job_city')
         salaryMin = request.GET.get('salaryMin')
@@ -36,88 +34,104 @@ def job_list(request):
         qualification = request.GET.get('qualification')
         topSkill = request.GET.get('top-skill')
 
-        job_list = Job.objects.filter(
-            Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
-            is_archived=False,
-            status='Published',
-        )
+        if request.user.is_authenticated:
+            current_user_id = request.user.id
+            queryset = Job.objects.filter(
+                Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
+                Q(fav_jobs__isnull=True) | Q(fav_jobs__user=current_user_id),
+                Q(applied_jobs__isnull=True) | Q(applied_jobs__created_by=current_user_id),
+                is_archived=False,
+                status='Published',
+            ).select_related('company_name'
+            ).annotate(is_favourite=Count('fav_jobs')
+            ).annotate(is_applied=Count('applied_jobs'))
+
+        else:
+            queryset = Job.objects.filter(
+                Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
+                is_archived=False,
+                status='Published',
+            ).select_related('company_name')
+
+
 
         if sorting == 'most-applied':
-            job_list = job_list.order_by('-applied_count')
+            queryset = queryset.order_by('-applied_count')
         elif sorting == 'top-rated':
-            job_list = job_list.order_by('-favorite_count')
+            queryset = queryset.order_by('-favorite_count')
         else: # 'most-recent'
-            job_list = job_list.order_by('-post_date')
+            queryset = queryset.order_by('-post_date')
 
         if query:
-            job_list = job_list.filter(
+            queryset = queryset.filter(
                 Q(title__icontains=query)
             )
 
         if category:
-            job_list = job_list.filter(job_category=category)
+            queryset = queryset.filter(job_category=category)
 
         if datePosted:
             if datePosted == 'Last hour':
-                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(hours=1))
+                queryset = queryset.filter(post_date__gt=datetime.now() - timedelta(hours=1))
             elif datePosted == 'Last 24 hour':
-                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(hours=24))
+                queryset = queryset.filter(post_date__gt=datetime.now() - timedelta(hours=24))
             elif datePosted == 'Last 7 days':
-                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(days=7))
+                queryset = queryset.filter(post_date__gt=datetime.now() - timedelta(days=7))
             elif datePosted == 'Last 14 days':
-                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(days=14))
+                queryset = queryset.filter(post_date__gt=datetime.now() - timedelta(days=14))
             elif datePosted == 'Last 30 days':
-                job_list = job_list.filter(post_date__gt=datetime.now() - timedelta(days=30))
+                queryset = queryset.filter(post_date__gt=datetime.now() - timedelta(days=30))
 
         if gender and gender != 'Any':
-            job_list = job_list.filter(job_gender=gender)
+            queryset = queryset.filter(job_gender=gender)
 
         if job_type:
-            job_list = job_list.filter(job_type=job_type)
+            queryset = queryset.filter(job_type=job_type)
 
         if qualification:
-            job_list = job_list.filter(qualification_id=qualification)
+            queryset = queryset.filter(qualification_id=qualification)
 
         if skill:
-            job_list = job_list.filter(job_skills__in = [skill])
+            queryset = queryset.filter(job_skills__in = [skill])
 
         if topSkill:
-            job_list = job_list.filter(job_skills__in=[topSkill])
+            queryset = queryset.filter(job_skills__in=[topSkill])
 
         if salaryMin and salaryMax:
-            job_list = job_list.filter(salary_min__gte=salaryMin) & job_list.filter(salary_min__lte = salaryMax)
+            queryset = queryset.filter(salary_min__gte=salaryMin) & queryset.filter(salary_min__lte = salaryMax)
 
         if experienceMin and  experienceMax:
-            job_list = job_list.filter(experience__gte=experienceMin) & job_list.filter(experience__lte = experienceMax)
+            queryset = queryset.filter(experience__gte=experienceMin) & queryset.filter(experience__lte = experienceMax)
 
         if job_city:
-            job_list = job_list.filter(job_city__icontains=job_city)
+            queryset = queryset.filter(job_city__icontains=job_city)
 
         page = request.GET.get('page', 1)
         page_size = request.GET.get('page_size', 20)
 
         default_number_of_row = 20
-        paginator = Paginator(job_list, page_size)
+        paginator = Paginator(queryset, page_size)
 
         try:
-            job_list = paginator.page(page)
+            queryset = paginator.page(page)
         except PageNotAnInteger:
-            job_list = paginator.page(1)
+            queryset = paginator.page(1)
         except EmptyPage:
-            job_list = paginator.page(1)
+            queryset = paginator.page(1)
 
-        for job in job_list:
-            job.is_favourite = get_favourite_status(job, request.user)
-            job.is_applied = get_applied_status(job, request.user)
-            job.profile_picture = get_company_logo(job)
+        for job in queryset:
+            job.profile_picture = job.company_name.profile_picture
+            if not request.user.is_authenticated:
+                job.is_favourite = False
+                job.is_applied = False
 
         number_of_row_total = paginator.count
         number_of_pages = paginator.num_pages
         check_next_available_or_not = paginator.page(page).has_next()
-        job_list = JobSerializer(job_list, many=True)
+        queryset = JobSerializer(queryset, many=True)
 
     except Job.DoesNotExist:
-        job_list = []
+        queryset = [] # TODO:Does this work with .data?
 
 
     data = {
@@ -127,7 +141,7 @@ def job_list(request):
         'next_pages': check_next_available_or_not,
         'code': HTTP_200_OK,
         'current_url': current_url,
-        "results":  job_list.data,
+        "results":  queryset.data,
     }
 
     return Response(data, HTTP_200_OK)
@@ -140,21 +154,35 @@ def similar_jobs(request, identifier, limit = 5):
     except Job.DoesNotExist:
         return JsonResponse(Job.DoesNotExist)
 
-    queryset = Job.objects.filter(
-        ~Q(job_id=identifier),
-        Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
-        is_archived=False,
-        status='Published',
-    ).order_by(
-        "-post_date"
-    )
+    if request.user.is_authenticated:
+        current_user_id = request.user.id
+        queryset = Job.objects.filter(
+            ~Q(job_id=identifier),
+            Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
+            Q(fav_jobs__isnull=True) | Q(fav_jobs__user=current_user_id),
+            Q(applied_jobs__isnull=True) | Q(applied_jobs__created_by=current_user_id),
+            is_archived=False,
+            status='Published',
+        ).select_related('company_name'
+        ).annotate(is_favourite=Count('fav_jobs')
+        ).annotate(is_applied=Count('applied_jobs')
+        ).order_by('-post_date')
+
+    else:
+        queryset = Job.objects.filter(
+            ~Q(job_id=identifier),
+            Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
+            is_archived=False,
+            status='Published',
+        ).order_by("-post_date")
 
     data = []
     for job in queryset:
         if(similar(selected_job.title, job.title) > 0.8 ): # TODO: Read from settings)
-            job.is_favourite = get_favourite_status(job, request.user)
-            job.is_applied = get_applied_status(job, request.user)
-            job.profile_picture = get_company_logo(job)
+            job.profile_picture = job.company_name.profile_picture
+            if not request.user.is_authenticated:
+                job.is_favourite = False
+                job.is_applied = False
             data.append(job)
         if len(data) >= limit:
             break
@@ -171,14 +199,11 @@ def recent_jobs(request, limit:int = 6):
             Q(fav_jobs__isnull=True) | Q(fav_jobs__user=current_user_id),
             Q(applied_jobs__isnull=True) | Q(applied_jobs__created_by=current_user_id),
             is_archived=False,
-            # status='Published',
+            status='Published',
         ).select_related('company_name'
         ).annotate(is_favourite=Count('fav_jobs')
         ).annotate(is_applied=Count('applied_jobs')
         ).order_by('-post_date')[:limit]
-
-        for job in queryset:
-            job.profile_picture = job.company_name.profile_picture
 
     else:
         queryset = Job.objects.filter(
@@ -188,10 +213,11 @@ def recent_jobs(request, limit:int = 6):
         ).select_related('company_name'
         ).order_by('-post_date')[:limit]
 
-        for job in queryset:
+    for job in queryset:
+        job.profile_picture = job.company_name.profile_picture
+        if not request.user.is_authenticated:
             job.is_favourite = False
             job.is_applied = False
-            job.profile_picture = job.company_name.profile_picture
 
     data = JobSerializer(queryset, many=True).data
     pprint(connection.queries)
