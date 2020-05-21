@@ -89,7 +89,7 @@
                             '<a href="#" class="button">Apply Now</a>'+
                             '<a href="#" class="favourite"><i data-feather="heart"></i></a>'+
                           '</div>'+
-                          '<a href="javascript:void(0)"  class="bookmark-remove" id="'+data[index].job_id+'" onclick="myFunction(this)" ><i class="fas fa-times"></i></a>'+
+                          '<a href="'+data[index].job_id+'"  class="bookmark-remove" ><i class="fas fa-times"></i></a>'+
                           '<p class="deadline">Deadline:'+dateMomentString+'</p>'+
                         '</div>'+
                       '</div>'+
@@ -100,11 +100,20 @@
 
 }
 //on click function for removing and sending id for each job in api
-function myFunction(elm,clicked_id) {
- $(elm ).closest('.job-list').remove();
+       $('.bookmark-area').on('click','.bookmark-remove',function (event) {
+           event.preventDefault()
+           $(this).parent().parent().parent().remove();
+           favouriteJobAddRemove('job-list', '/api/job/favourite/toggle')
+
+       });
+
+{% comment %}function myFunction(event,elm,clicked_id) {
+           event.preventDefault()
+ $(elm )
  identifier = elm.id;
- catUrl ='/api/favourite-jobs-delete/'+ identifier +'/';
+ catUrl ='job/favourite/toggle';
  get(catUrl,reWriter);
+    favouriteJobAddRemove('job-list', '/api/job/favourite/toggle');
 }
 
 //function for rewriting for showing up to date total bookmarked jobs
@@ -112,7 +121,7 @@ function reWriter(data){
 showSuccess("Job Removed!", "")
 number_of_jobs_bookmarked=data.total_bookmarked;
 document.getElementsByClassName("bookmark-title")[0].innerHTML = number_of_jobs_bookmarked + " Job Bookmarked";
-}
+}{% endcomment %}
 
 
     </script>
