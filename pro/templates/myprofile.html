@@ -331,7 +331,6 @@
 
             var getUrl = '/api/professional/profile/'+ id + '/';
             get(getUrl, loadProfile);
-
             initAjaxForms();
 
         });
@@ -355,6 +354,15 @@
 
 
             //social link shows
+                   if (!data.personal_info.facebook_id){
+                    data.personal_info.facebook_id= "";
+                    }
+                    if (!data.personal_info.facebook_id){
+                    data.personal_info.twitter_id= "";
+                    }
+                    if (!data.personal_info.facebook_id){
+                    data.personal_info.linkedin_id= "";
+                    }
 
                     facebook = 'http://facebook.com/'+data.personal_info.facebook_id;
                     twitter  = 'http://twitter.com/'+data.personal_info.twitter_id;
@@ -362,6 +370,8 @@
                     $('#facebook').attr('href',facebook);
                     $('#twitter').attr('href',twitter);
                     $('#linkedin').attr('href', linkedin);
+
+
 
 
             //skills show
@@ -375,6 +385,7 @@
 
             //about info show
 
+
                  function getAge(dateString)
                       {
                           var today = new Date();
@@ -387,16 +398,51 @@
                           }
                           return age;
                       }
+
                           var pro_age = getAge(data.personal_info.date_of_birth)
+                          if (!data.personal_info.about_me){
+                              data.personal_info.about_me= "";
+                                 }
                           var about_html='<p>'+data.personal_info.about_me+'</p>';
                           $(".pro_about").html(about_html);
+                                if (!data.personal_info.industry_expertise){
+                                data.personal_info.industry_expertise= "";
+                                   }
+                                 if (!data.personal_info.address){
+                                 data.personal_info.address= "";
+                                 }
+                                 if (!data.personal_info.status){
+                                 data.personal_info.status= "";
+                                 }
+                                 if (!data.personal_info.experience){
+                                  data.personal_info.experience= "";
+                                 }if (!data.personal_info.status){
+                                     data.personal_info.status= "";
+                                 }if (data.personal_info.expected_salary_min && data.personal_info.expected_salary_max){
+                                    data.personal_info.expected_salary_min = '$'+data.personal_info.expected_salary_min+'k-';
+                                    data.personal_info.expected_salary_max = '$'+data.personal_info.expected_salary_max+'k';
+                                 }
+                                 else{
+                                 data.personal_info.expected_salary_min = "";
+                                 data.personal_info.expected_salary_max = "";
+                                 }
+
+                                 if (!data.personal_info.gender){
+                                    data.personal_info.gender= "";
+                                 }
+                                 if (!pro_age){
+                                    pro_age= "";
+                                 }
+                                 if (!data.personal_info.qualification){
+                                    data.personal_info.qualification= "";
+                                 }
                           var info_html = '<h4>Information</h4>'+
                                   '<ul>'+
                                   '<li><span>Category:</span> '+data.personal_info.industry_expertise+'</li>'+
                                   '<li><span>Location:</span> '+data.personal_info.address+'</li>'+
                                   '<li><span>Status:</span>'+data.personal_info.status+'</li>'+
-                                  '<li><span>Experience:</span>'+data.personal_info.experience+'</li>'+
-                                  '<li><span>Salary:</span> $'+data.personal_info.expected_salary_min+'k - $'+data.personal_info.expected_salary_max+'k</li>'+
+                                  '<li class="ex"><span>Experience:</span>'+data.personal_info.experience+'</li>'+
+                                  '<li><span>Salary:</span> '+data.personal_info.expected_salary_min+'  '+data.personal_info.expected_salary_max+'</li>'+
                                   '<li><span>Gender:</span>'+data.personal_info.gender+'</li>'+
                                   '<li><span>Age:</span>'+pro_age+' Year(s)</li>'+
                                   '<li><span>Qualification:</span>'+data.personal_info.qualification+'</li>'+
@@ -406,14 +452,42 @@
 
             //education info show
 
+
+
+
                     edu_data = data['edu_info']
                     len = edu_data.length;
                     for(x=0;x<len;x++){
+                                 if(edu_data[x].enrolled_date && edu_data[x].graduation_date){
+                                    edu_data[x].enrolled_date = edu_data[x].enrolled_date+'k-';
+                                    edu_data[x].graduation_date = edu_data[x].graduation_date;
+                                 }
+                                 else{
+                                 edu_data[x].enrolled_date = "";
+                                 edu_data[x].graduation_date = "";
+                                 }
+                                 if (!edu_data[x].institution_text){
+                                    edu_data[x].institution_text="";
+                                 }
+
+                                 if(edu_data[x].major_obj.name && edu_data[x].cgpa){
+                                    edu_data[x].major_obj.name = edu_data[x].major_obj.name+'</b> -';
+                                    edu_data[x].cgpa = edu_data[x].cgpa;
+                                 }
+                                 else{
+                                  edu_data[x].major_obj.name = "";
+                                 edu_data[x].cgpa = "";
+                                 }
+                                 if (!edu_data[x].major_text){
+                                    edu_data[x].major_text="";
+                                 }
+
+
                           var edu_html='<div class="education-label">'+
-                                 '<span class="study-year">'+edu_data[x].enrolled_date+' - '+edu_data[x].graduation_date+'</span>'+
+                                 '<span class="study-year">'+edu_data[x].enrolled_date+'  '+edu_data[x].graduation_date+'</span>'+
                                  '<h5>'+edu_data[x].degree+'<span>@'+edu_data[x].institution_obj.name+'</span></h5>'+
                                  '<p>'+edu_data[x].institution_text+'</p>'+
-                                 '<p><b>'+edu_data[x].major_obj.name+'</b> - '+edu_data[x].cgpa+'</p>'+
+                                 '<p><b>'+edu_data[x].major_obj.name+' '+edu_data[x].cgpa+'</p>'+
                                  '<p>'+edu_data[x].major_text+'</p>'+
                                  '</div><br>';
                     $('#edu').append(edu_html);
@@ -425,8 +499,27 @@
                     work_data = data.experience_info
                     len = work_data.length;
                     for(x=0;x<len;x++){
+                             if (work_data[x].start_date && work_data[x].end_date){
+                                 work_data[x].start_date = work_data[x].start_date+'-';
+                                 work_data[x].end_date = work_data[x].end_date;
+                                 }
+                                 else{
+                                 work_data[x].start_date = "";
+                                 work_data[x].end_date = "";
+                                 }
+                                 if (!work_data[x].designation){
+                                    work_data[x].designation="";
+                                 }
+                                 if (!work_data[x].company){
+                                    work_data[x].company="";
+                                 }
+                                 if (!work_data[x].company_text){
+                                   work_data[x].company_text="";
+                                 }
+
+
                           var work_html='<div class="experience-section">'+
-                                    '<span class="service-year">'+work_data[x].start_date+'-'+work_data[x].end_date+'</span>'+
+                                    '<span class="service-year">'+work_data[x].start_date+ +work_data[x].end_date+'</span>'+
                                     '<h5>'+work_data[x].designation+'<span>@'+work_data[x].company+'</span></h5>'+
                                     '<p>'+work_data[x].company_text+'</p>'+
                                     '</div><br>';
@@ -485,6 +578,14 @@
 
 
             //personal details show
+                           if (!data.personal_info.father_name){
+                                       data.personal_info.father_name= "";
+                                   }if (!data.personal_info.mother_name){
+                                       data.personal_info.mother_name= "";
+                                   }if (!data.personal_info.permanent_address){
+                                       data.personal_info.permanent_address= "";
+                                   }
+
                       var detail_html = '<ul>'+
                               '<li><span>Full Name:</span> '+ data.personal_info.full_name+'</li>'+
                               '<li><span>Fathers Name:</span> '+data.personal_info.father_name+'</li>'+
@@ -497,17 +598,8 @@
                       $("#details").append(detail_html);
 
 
-
-
-
-
-
-
-
-
-
-
             }
+
 
 
     </script>
