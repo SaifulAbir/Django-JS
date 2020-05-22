@@ -72,7 +72,7 @@ class JobSerializer(serializers.ModelSerializer):
                   'application_deadline', 'job_area', 'job_city', 'job_country',
                   'job_site', 'job_nature', 'job_type',
                   'created_at', 'post_date', 'slug', 'applied_count', 'favorite_count',
-                  'is_applied', 'is_favourite', 'profile_picture', 'vacancy' )
+                  'is_applied', 'is_favourite', 'profile_picture', 'vacancy' , 'address')
 
 
 class JobSourceSerializer(serializers.ModelSerializer):

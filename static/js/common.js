@@ -202,6 +202,7 @@ function populateSelect(select, url){
 }
 
 function makeListHtml(data, template){
+    console.log(data);
     var wrapper = $("<div>");
     for (i=0; i < data.length; i++){
         var templateEl = $(template);
