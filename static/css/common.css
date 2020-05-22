@@ -391,3 +391,12 @@ a.save.apply.active {
     top: 7px;
     left: 0;
 }
+
+.text-normal{
+    text-transform: lowercase;
+    display: inline-block;
+}
+
+.text-normal::first-letter{
+    text-transform: uppercase;
+}
