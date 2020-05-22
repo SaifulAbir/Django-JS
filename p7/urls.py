@@ -66,7 +66,10 @@ urlpatterns = [
     path('company-manage-jobs/', TemplateView.as_view(template_name='company_manage_jobs.html'), name='company_manage_jobs'),
     path('company-manage-candidates/', TemplateView.as_view(template_name='company_manage_candidate.html'),name='company_manage_candidates'),
     path('company-shortlisted-candidates/', TemplateView.as_view(template_name='company_shortlisted_candidates.html'),name='company_shortlisted_candidates'),
-
+    path('about-us-app/', TemplateView.as_view(template_name='about_us_app.html')),
+    path('contact-us-app/', TemplateView.as_view(template_name='contact_us_app.html')),
+    path('career-advice-app/', TemplateView.as_view(template_name='career_advice_app.html')),
+    path('FAQ-app/', TemplateView.as_view(template_name='FAQ_app.html')),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,
