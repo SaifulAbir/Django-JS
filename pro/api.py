@@ -204,21 +204,24 @@ def login(request):
     token, _ = Token.objects.get_or_create(user=user)
     return Response({'token': token.key}, status=HTTP_200_OK)
 
-class ProfessionalDetail(APIView):
+class ProfessionalDetail(generics.ListAPIView):
     permission_classes = (IsAppAuthenticated,)
     def get(self, request, pk):
+
         profile = get_object_or_404(Professional, pk=pk)
         education = ProfessionalEducation.objects.filter(professional=pk ,is_archived=False).order_by('-enrolled_date')
         skills = ProfessionalSkill.objects.filter(professional=pk, is_archived=False)
-        experience = WorkExperience.objects.filter(professional=pk, is_archived=False).select_related('company').order_by("-start_date")
+        experience = WorkExperience.objects.filter(professional=pk, is_archived=False).order_by("-start_date")
         portfolio = Portfolio.objects.filter(professional=pk, is_archived=False)
         membership = Membership.objects.filter(professional_id=pk, is_archived=False)
         certification = Certification.objects.filter(professional=pk, is_archived=False).order_by("-issue_date")
         reference = Reference.objects.filter(professional=pk, is_archived=False)
-
         info_data = ProfessionalSerializer(profile).data
         info_data['religion_obj'] = ReligionSerializer(profile.religion).data
         info_data['nationality_obj'] = NationalitySerializer(profile.nationality).data
+        work_experience_data = WorkExperienceDetailSerializer(experience, many=True).data
+
+
         edu_data = [{
             'id': edu.id,
             'degree': edu.degree_id,
@@ -240,19 +243,8 @@ class ProfessionalDetail(APIView):
             'rating': skill.rating,
             'verified_by_skillcheck': skill.verified_by_skillcheck,
         } for skill in skills
-        ]
-        experience_data = [{
-            'id': exp.id,
-            'company_text':exp.company_text,
-            'company': exp.company_id,
-            'profile_pic': str(exp.company.profile_picture),
-            'designation': exp.designation,
-            'start_date': exp.start_date,
-            'end_date': exp.end_date,
-            'is_currently_working': exp.is_currently_working,
-            'description': exp.description,
-        } for exp in experience
-        ]
+        ],
+
 
         portfolio_data = [{
             'id': pf.id,
@@ -295,7 +287,7 @@ class ProfessionalDetail(APIView):
             'personal_info': info_data,
             'edu_info': edu_data,
             'skill_info': skill_data,
-            'experience_info': experience_data,
+            'experience_info': work_experience_data,
             'portfolio_info': portfolio_data,
             'membership_info': membership_data,
             'certification_info': certification_data,
