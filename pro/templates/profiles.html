@@ -1901,7 +1901,6 @@
           if(data.portfolio_info[index].id==obj_id){
           json2Form(data.portfolio_info[index], "portfolio-form")
               getBase64Image(data.portfolio_info[index].image,function(base64image){
-                console.log(base64image);
                 $('#image').attr('src',base64image)
               });
 
