@@ -66,9 +66,10 @@ class JobSerializer(serializers.ModelSerializer):
     profile_picture = serializers.CharField(read_only=True)
     is_favourite = serializers.BooleanField(read_only=True)
     is_applied = serializers.BooleanField(read_only=True)
+    company = CompanySerializer(many=False)
     class Meta:
         model = Job
-        fields = ('job_id', 'title', 'status' , 'company_name', 'job_category',
+        fields = ('job_id', 'title', 'status' , 'company_name', 'job_category',' company',
                   'application_deadline', 'job_area', 'job_city', 'job_country',
                   'job_site', 'job_nature', 'job_type',
                   'created_at', 'post_date', 'slug', 'applied_count', 'favorite_count',
@@ -103,6 +104,7 @@ class JobSerializerAllField(serializers.ModelSerializer):
     profile_picture = serializers.CharField(read_only=True)
     is_favourite = serializers.CharField(read_only=True)
     is_applied = serializers.CharField(read_only=True)
+    company_name = CompanySerializer(many=False)
     class Meta:
         model = Job
         fields = '__all__'
