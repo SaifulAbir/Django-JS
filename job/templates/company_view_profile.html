@@ -152,7 +152,7 @@
                           <li  ><span>Legal Structure:</span> <p style="display: inline-block;" id="legal_structure_of_this_company"></p></li>
                           <li  ><span>No of Human Resources:</span> <p style="display: inline-block;" id="total_number_of_human_resources"></p></li>
                           <li  ><span>No of IT Resources:</span><p style="display: inline-block;" id="no_of_it_resources"></p> </li>
-                          <li  ><span>BASIS Membership No:</span> <p style="display: inline-block;" id="basis_membership_no"></p></li>
+
                         </ul>
                       </div>
 
@@ -201,9 +201,19 @@
                           <li><span>Address:</span><span style="color: inherit;line-height: 1.85;font-size: 1.4rem; font-weight: 400;"id="address"></span></li>
                           <li><span>Area:</span><p style="display: inline-block;" id="district"></p> </li>
                           <li><span>City:</span><p style="display: inline-block;" id="division"></p> </li>
-                          <li><span>Post Code:</span> <p style="display: inline-block;" id="post_code"></p></li>
+                          <li><span>Post Code:</span><p style="display: inline-block;" id="post_code"></p></li>
+                        </ul>
+                      </div><br>
+
+                  <div class="information">
+                        <h4>Other Information</h4>
+                        <ul>
+                          <li ><span>BASIS Membership No:</span> <p style="display: inline-block;" id="basis_membership_no"></p></li>
+                          <li ><span>Name in Google:</span> <p style="display: inline-block;" id="company_name_google"></p></li>
+                          <li ><span>Name in Bdjobs:</span> <p style="display: inline-block;" id="company_name_bdjobs"></p></li>
                         </ul>
                       </div>
+
 
 
                     <div class="job-location">
@@ -241,7 +251,7 @@
     });
 
     function loadCompany(data) {
-  //console.log('data' ,data);
+  console.log('data' ,data);
         var container = $('.container');
         json2Div(data[0], container);
         if(data[0].company_profile){
