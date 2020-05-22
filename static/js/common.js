@@ -3,6 +3,7 @@ var apiKey = '96d56aceeb9049debeab628ac760aa11';
 
 function get(url, callback) {
     var access_token = $.cookie("access");
+    console.log(access_token)
     if(!callback) callback = () => {};
     if(typeof(callback) !== "function") callback = window[callback];
     $.ajax({
@@ -386,7 +387,7 @@ function isLoggedIn() {
 
 function loadFavouriteJob(data) {
     if(data.responseJSON.code == 200){
-        console.log(data.responseJSON)
+
         var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
         el.each(function () {
             if($(this).hasClass('active')){
@@ -440,7 +441,6 @@ function applyOnlineJobAddRemove(id, url) {
 
 function loadApplyonlineJob(data) {
     if(data.responseJSON.code == 200){
-        console.log(data.responseJSON.result.user.job)
         var el = $("#jobs").find("[href='"+ data.responseJSON.result.user.job +"']");
         el.each(function () {
             if($(this).hasClass("apply")){

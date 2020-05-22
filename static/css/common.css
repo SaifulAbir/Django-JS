@@ -370,7 +370,15 @@ a.save.apply.active {
     top: 7px;
     left: 0;
 }
-/*membership*/
+
+.text-normal{
+    text-transform: lowercase;
+    display: inline-block;
+}
+
+.text-normal::first-letter{
+    text-transform: uppercase;
+}/*membership*/
 .membership .membership-label {
     position: relative;
     padding-left: 25px;

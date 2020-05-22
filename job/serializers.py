@@ -20,6 +20,16 @@ class CompanyNameSerializer(serializers.ModelSerializer):
         model = Company
         fields = ['name']
 
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = '__all__'
+
+class CompanyProfilePictureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ['profile_picture']
+
 class IndustrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Industry
@@ -62,7 +72,7 @@ class JobSerializer(serializers.ModelSerializer):
                   'application_deadline', 'job_area', 'job_city', 'job_country',
                   'job_site', 'job_nature', 'job_type',
                   'created_at', 'post_date', 'slug', 'applied_count', 'favorite_count',
-                  'is_applied', 'is_favourite', 'profile_picture', 'vacancy' )
+                  'is_applied', 'is_favourite', 'profile_picture', 'vacancy' , 'address')
 
 
 class JobSourceSerializer(serializers.ModelSerializer):
