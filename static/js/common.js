@@ -139,7 +139,7 @@ function json2Form(data, id){
 }
 
 function json2Div(data, container){
-    console.log(data)
+    //console.log(data)
     for(key in data) {
         // var el = $("#" + id).find("[name='"+ key +"']");
         var el = $(container).find("[id='" + key + "']");
