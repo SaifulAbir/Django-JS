@@ -333,6 +333,12 @@ a.save.apply.active {
     font-family: "Poppins", sans-serif;
     font-size: 1.4rem;
     font-weight: 500;
+}
+.certification .certification-label p {
+    color: #232630;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
     margin-bottom: 10px;
 }
 
@@ -381,6 +387,12 @@ a.save.apply.active {
 }
 
 .membership .membership-label h5 {
+    color: #232630;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+.membership .membership-label p {
     color: #232630;
     font-family: "Poppins", sans-serif;
     font-size: 1.4rem;
