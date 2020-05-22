@@ -17,14 +17,6 @@
           </nav>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="breadcrumb-form">
-          <form action="#">
-            <input type="text" placeholder="Enter Keywords">
-            <button><i data-feather="search"></i></button>
-          </form>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -304,7 +296,7 @@
                       <li><span>Location:</span> <span id="address"></span></li>
                       <li><span>Status:</span> <span id="status"></span></li>
                       <li><span>Experience:</span> <span id="experience"></span></li>
-                      <li><span>Salary:</span> <span class="about-info-salary" id="expected_salary_min"></span>k - <span class="about-info-salary" id="expected_salary_max"></span>k</li>
+                      <li><span>Salary:</span> <span class="about-info-salary" id="expected_salary_min"></span><span class="about-info-salary" id="expected_salary_max"></span></li>
                       <li><span>Gender:</span> <span id="gender"></span></li>
                       <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
                       <li><span>Qualification:</span> <span id="qualification"></span></li>
@@ -641,7 +633,7 @@
                               </div>
                             </div>
                             <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
+                              <div class="offset-sm-3 col-sm-4">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Start Date</div>
@@ -649,9 +641,7 @@
                                   <input type="text" name="start_date" id="start_date" class="form-control datepicker" required data-msg-required="Start date is required">
                                 </div>
                               </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
+                                <div class="col-sm-5">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">End Date</div>
@@ -1022,26 +1012,24 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Issue Date</div>
+                              <div class="form-group row">
+                                  <div class="offset-sm-3 col-sm-4">
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <div class="input-group-text">Issue Date</div>
+                                          </div>
+                                          <input type="text" name="issue_date" id="issue_date" class="form-control datepicker" required data-msg-required="Issue date is required">
+                                      </div>
                                   </div>
-                                  <input type="text" name="issue_date" id="issue_date" class="form-control datepicker" required data-msg-required="Issue date is required">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Expiry Date</div>
+                                  <div class="col-sm-5">
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <div class="input-group-text">Expiry Date</div>
+                                          </div>
+                                          <input type="text" name="expiry_date" id="expiry_date" class="form-control datepicker" disabled>
+                                      </div>
                                   </div>
-                                  <input type="text" name="expiry_date" id="expiry_date" class="form-control datepicker" disabled>
-                                </div>
                               </div>
-                            </div>
                             <div class="form-group row">
                               <div class="col-sm-9 offset-sm-3">
                                 <div class="mt-0 terms">
@@ -1233,7 +1221,7 @@
                                       <img class="image form-control" src="" alt="" name="image" id="image">
                                     </div>
                                     <div class="file-upload">
-                                      <input type="file" class="file-input" >Change Avatar
+                                      <input type="file" class="file-input" >Add Image
                                     </div>
                                   </div>
                                 </div>
@@ -1901,7 +1889,6 @@
           if(data.portfolio_info[index].id==obj_id){
           json2Form(data.portfolio_info[index], "portfolio-form")
               getBase64Image(data.portfolio_info[index].image,function(base64image){
-                console.log(base64image);
                 $('#image').attr('src',base64image)
               });
 

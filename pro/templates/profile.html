@@ -16,14 +16,6 @@
                         </nav>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="breadcrumb-form">
-                        <form action="#">
-                            <input type="text" placeholder="Enter Keywords">
-                            <button><i data-feather="search"></i></button>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -81,7 +73,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Industry Expertise</label>
                 <div class="col-sm-9">
-                    <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name" data-placeholder="Select Category" data-src="/api/industry">
+                    <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name" data-placeholder="Select Category" data-src="/api/industry/list">
                     </select>
                 </div>
             </div>
@@ -142,13 +134,22 @@
             initAjaxForms();
         });
         function  loadProfile(data){
+            console.log(data.personal_info)
             id = $('form.ajax').attr('id');
-            json2Form(data, id);
-            $('#full_user_name').text(data.full_name)
-            $('#user_email').text(data.email)
+            json2Form(data.personal_info, id);
+            if(data.personal_info.image){
+                // $('.image').attr('src', data.personal_info.image)
+                getBase64Image(data.personal_info.image,function(base64image){
+                console.log(base64image);
+                $('.image').attr('src',base64image)
+              });
+            }
+            // $('#full_user_name').text(data.full_name)
+            // $('#user_email').text(data.email)
         }
 
         imageUPload("#professional-image");
+
 
         function  profileUpdateCallback(data){
             if(data.status == 200){
@@ -158,5 +159,28 @@
                 showError('Profile Not Updated','Enter Valid Data');
             }
         }
+
+        function getBase64Image(imgUrl, callback) {
+    var img = new Image();
+
+    // onload fires when the image is fully loadded, and has width and height
+
+    img.onload = function(){
+
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      var dataURL = canvas.toDataURL("image/png")
+      callback(dataURL); // the base64 string
+
+    };
+
+    // set attributes and src
+    img.setAttribute('crossOrigin', 'anonymous'); //
+    img.src = imgUrl;
+
+}
     </script>
 {% endblock %}
