@@ -73,7 +73,7 @@ class JobSerializer(serializers.ModelSerializer):
                   'application_deadline', 'job_area', 'job_city', 'job_country',
                   'job_site', 'job_nature', 'job_type',
                   'created_at', 'post_date', 'slug', 'applied_count', 'favorite_count',
-                  'is_applied', 'is_favourite', 'profile_picture', 'vacancy' )
+                  'is_applied', 'is_favourite', 'profile_picture', 'vacancy' , 'address')
 
 
 class JobSourceSerializer(serializers.ModelSerializer):
@@ -104,7 +104,7 @@ class JobSerializerAllField(serializers.ModelSerializer):
     profile_picture = serializers.CharField(read_only=True)
     is_favourite = serializers.CharField(read_only=True)
     is_applied = serializers.CharField(read_only=True)
-    company_name = CompanySerializer(many=False)
+    ##company_name = CompanySerializer(many=False)
     class Meta:
         model = Job
         fields = '__all__'
