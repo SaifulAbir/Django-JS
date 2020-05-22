@@ -30,7 +30,6 @@
     <!-- Breadcrumb End -->
 
 
-
     <!-- Job Listing -->
     <div class="alice-bg section-padding-bottom">
         <div class="container">
@@ -121,18 +120,15 @@
                             <div class="job-filter-dropdown same-pad category">
                                 <select class="selectpicker" multiple data-max-options="1" data-live-search="true" title="Category" id="category" name="category">
 
-
                                 </select>
                             </div>
                             <div class="job-filter-dropdown same-pad location">
                                 <select class="selectpicker" multiple data-max-options="1" data-live-search="true" title="Location" id="location">
 
-
                                 </select>
                             </div>
                             <div class="job-filter-dropdown same-pad skill">
                                 <select class="selectpicker" multiple data-max-options="1" data-live-search="true" title="Skill" id="skill">
-
 
                                 </select>
                             </div>
@@ -360,15 +356,16 @@
                 var el = $("#jobs").find("[href='"+ data.results[i].job_id +"']");
                 el.each(function () {
                     if($(this).hasClass('apply')){
-                        if(data.results[i].is_applied == 'Yes' && isLoggedIn()){
+                        if(data.results[i].is_applied == true && isLoggedIn()){
                             $(this).addClass('applied');
                             $(this).text('Applied');
-                            $(this).attr('href', 'javascript:void(0)')
+                            $(this).attr('href', 'javascript:void(0)');
                         }
                     }
                     if($(this).hasClass("favourite")){
-                        if(data.results[i].status == 'Yes' && isLoggedIn()){
+                        if(data.results[i].is_favourite == true && isLoggedIn()){
                             $(this).addClass('active');
+                            $(this).children().attr("fill", "#ff8fa6")
                         }
                     }
                 });
@@ -393,8 +390,8 @@
 
 
         $(document).ready(function () {
-            applyOnlineJobAddRemove('jobs', '/api/apply_online_job_add/');
-            favouriteJobAddRemove('jobs', '/api/favourite_job_add/');
+            applyOnlineJobAddRemove('jobs', '/api/job/apply/');
+            favouriteJobAddRemove('jobs', '/api/job/favourite/toggle');
             var location_from_homepage = encodeURIComponent(getUrlParameter('location'));
             var keyword_from_homepage = encodeURIComponent(getUrlParameter('keyword'));
             var topCategory = encodeURIComponent(getUrlParameter('top-category'));
@@ -423,8 +420,16 @@
             get(location_url,loadLoc);
 
             setTimeout(function () {
-                $("#skill").val('{{ top_skill }}');
-                $("#category").val('{{ top_categories }}');
+                var skill = '{{ top_skill }}';
+                skill = decodeURIComponent(skill);
+                console.log(skill);
+                $("#skill").val(skill);
+
+
+                var category = '{{ top_categories }}';
+                category = decodeURIComponent(category);
+                $("#category").val(category);
+
                 $("#skill").selectpicker('refresh');
                 $("#category").selectpicker('refresh');
             },1000);

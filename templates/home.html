@@ -251,12 +251,14 @@
 
             $("body").delegate("#category-list li a", "click", function(){
                 var category = $(this).data('category');
+                category = encodeURIComponent(category);
                 $("#top-category").val(category);
                 $('#top-category-top-company-form').trigger('submit');
             });
 
             $("body").delegate("#skill-list li a", "click", function(){
                 var skill = $(this).data('skill');
+                skill = encodeURIComponent(skill);
                 $("#top-skill").val(skill);
                 $('#top-category-top-company-form').trigger('submit');
             });
@@ -409,7 +411,7 @@
                     if($(this).hasClass("favourite")){
                         if(data[index].is_favourite == true && isLoggedIn()){
                             $(this).addClass('active');
-                            $(this).children().attr("fill", "#ff8fa6")
+                            $(this).children().attr("fill", "#ff8fa6");
                         }
                         // $(this).addClass('active');
                         // showSuccess('Successful!', 'Job saved as a favourite.')
