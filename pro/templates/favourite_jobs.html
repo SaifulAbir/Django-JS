@@ -34,7 +34,7 @@
 {% block professional_block %}
                 <div class="dashboard-bookmarked">
                   <h4 class="bookmark-title"></h4>
-                  <div class="bookmark-area">
+                  <div class="bookmark-area" id="job-list">
 
 
 
@@ -62,6 +62,7 @@
            console.log(data)
             number_of_jobs_bookmarked=data.length;
             $('.bookmark-title').append(number_of_jobs_bookmarked," Job Bookmarked");
+            $('.bookmark-title').val(number_of_jobs_bookmarked);
             for(index=0;index<6;index++){
             var dateString = data[index].application_deadline;
             var momentObj = moment(dateString, 'YYYY-MM-DD');
@@ -89,12 +90,12 @@
                             '<a href="#" class="button">Apply Now</a>'+
                             '<a href="#" class="favourite"><i data-feather="heart"></i></a>'+
                           '</div>'+
-                          '<a href="'+data[index].job_id+'"  class="bookmark-remove" ><i class="fas fa-times"></i></a>'+
+                          '<a href="'+data[index].job_id+'"  class="bookmark-remove favourite active" ><i class="fas fa-times "></i></a>'+
                           '<p class="deadline">Deadline:'+dateMomentString+'</p>'+
                         '</div>'+
                       '</div>'+
                    '</div>';
-                 $('.bookmark-area').append(fav_jobs_html);
+                 $('#job-list').append(fav_jobs_html);
 
         }
 
@@ -104,6 +105,9 @@
            event.preventDefault()
            $(this).parent().parent().parent().remove();
            favouriteJobAddRemove('job-list', '/api/job/favourite/toggle')
+           var bookmark_value =$('.bookmark-title').val()-1;
+           $('.bookmark-title').html(bookmark_value + " Job Bookmarked");
+            $('.bookmark-title').val(bookmark_value);
 
        });
 
