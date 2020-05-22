@@ -371,10 +371,16 @@
                 var dateString = data[index].application_deadline;
                 var momentObj = moment(dateString, 'YYYY-MM-DD');
                 var dateMomentString = momentObj.format('MMM DD, YYYY');
+                var image_url;
+                if (data[index].profile_picture){
+                        var image_url = "media/"+data[index].profile_picture;
+                    }else {
+                        var image_url = "/static/images/job/company-logo-2.png";
+                    }
                 var job_html= '<div class="job-list">'+
                     '<div class="thumb">'+
                     '<a href="#">'+
-                    '<img src="media/'+data[index].profile_picture+'" class="img-fluid" alt="">'+
+                    '<img src="'+image_url+'" class="img-fluid" alt="">'+
                     '</a>'+
                     '</div>'+
                     '<div class="body">'+
