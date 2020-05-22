@@ -265,8 +265,17 @@
         else{
             $('#year_of_eastablishment').hide(); }
         if(data[0].web_address){
-            $('#web').append('<li><span>Web Address:</span><p style="display: inline-block;" id="web_address"></p><a href="'+data[0].web_address+'">'+data[0].web_address+'</a></li>');
+            var http = data[0].web_address.includes("http");
+            if(http == false)
+            {
+                 web_address = 'http://' + data[0].web_address;
+                 $('#web').append('<li><span>Web Address:</span><p style="display: inline-block;" id="web_address"></p><a href="'+web_address+'">'+data[0].web_address+'</a></li>');
             }
+            else{
+             $('#web').append('<li><span>Web Address:</span><p style="display: inline-block;" id="web_address"></p><a href="'+data[0].web_address+'">'+data[0].web_address+'</a></li>');
+            }
+
+        }
         if(data[0].profile_picture){
            $('#img').append('<img src=" '+data[0].profile_picture+'" class="img-fluid" style="width:70px;" alt="">');
         }
