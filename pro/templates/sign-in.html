@@ -151,8 +151,9 @@
         }
     });
     function redirectPage(data) {
+        var professionalId = data.responseJSON.professional_id;
         if(data.status==200){
-            window.location.href = "/";
+            window.location.href = "/professional/profile-dashboard/";
         }
         else{
             showError("Login Error", "No active account found")
