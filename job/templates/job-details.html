@@ -20,7 +20,7 @@
                                     <div class="info">
                                         <span class="company"><a href="#"><i class="fas fa-building" style="margin-right: 5px"></i><span id="company_name"></span></a></span>
                                         <span class="office-location"><a href="#"><i data-feather="map-pin"></i><span id="address"></span></a></span>
-                                        <span class="job-type full-time"><a href="#"><i data-feather="clock"></i><span id="job_type"></span></a></span>
+                                        <span class="job-type full-time"><a href="#"><i data-feather="clock"></i><span id="job_type" class="text-normal"></span></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                         <div class="job-summary">
                                             <h4>Job Summary</h4>
                                             <ul>
-                                                <li><span>Published on:</span> <span id="created_at" class="detail-color"></span></li>
+                                                <li><span>Published on:</span> <span id="post_date" class="detail-color"></span></li>
                                                 <li><span>Vacancy:</span><span id="vacancy" class="detail-color"></span></li>
                                                 <li><span>Job Type:</span> <span id="job_type" class="detail-color text-normal"></span></li>
                                                 <li><span>Years of Experience:</span> <span id="experience" class="detail-color"></span></li>
@@ -214,8 +214,8 @@
             $('.save').attr("href", data.job_id);
             $('.apply').attr("href", data.job_id);
             var deadline= data.application_deadline;
-            var momentObj = moment(data.created_at, 'YYYY-MM-DD');
-            data.created_at = momentObj.format('DD-MM-YYYY');
+            var momentObj = moment(data.post_date, 'YYYY-MM-DD');
+            data.post_date = momentObj.format('DD-MM-YYYY');
             // var created_date = data.created_at
             // data.created_at = created_date.split("-").reverse().join("-")
             if(data.application_deadline){
