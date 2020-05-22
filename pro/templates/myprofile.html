@@ -266,10 +266,49 @@
             work_data = data.experience_info
             len = work_data.length;
             for(x=0;x<len;x++){
+                if(experience_info[x].start_date){
+                             var start_date = experience_info[x].start_date;
+                             var momentObj = moment(start_date, 'YYYY-MM-DD');
+                             var start_date = momentObj.format('DD-MM-YYYY');
+                    }
+                    else{
+                         start_date = '';
+                    }
+                    if(experience_info[x].end_date){
+
+                             var end_date = experience_info[x].end_date;
+                             var momentObj = moment(end_date, 'YYYY-MM-DD');
+                             var end_date = momentObj.format('DD-MM-YYYY');
+                    }
+                    else{
+                          if(experience_info[x].start_date){
+                              var end_date = 'Present';
+                          }
+                          else{
+                           var end_date = '';
+                           }
+                        }
+                    if(experience_info[x].designation){
+                            var designation = experience_info[x].designation;
+                    }
+                    else{
+                            var designation =  '';
+                    }
+                    if(experience_info[x].company){
+                         var company = experience_info[x].company;
+                    }
+                    else{
+                         var company = '';
+                    }
+                    if(experience_info[x].company_text){
+                         var company_text =  experience_info[x].company_text;
+                    }
+                    else{
+                         var company_text = '';
+                    }
                 var work_html='<div class="experience-section">'+
-                    '<span class="service-year">'+work_data[x].start_date+'-'+work_data[x].end_date+'</span>'+
-                    '<h5>'+work_data[x].designation+'<span>@'+work_data[x].company+'</span></h5>'+
-                    '<p>'+work_data[x].company_text+'</p>'+
+                    '<span class="service-year">'+start_date+'-'+end_date+'</span>'+
+                    '<h5>'+designation+'<span>@'+company_text+'</span></h5>'+
                     '</div><br>';
                 $('#work').append(work_html);
             }
