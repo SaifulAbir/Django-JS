@@ -211,8 +211,10 @@ function makeListHtml(data, template){
                 if($(item).hasClass("dynamic-link")){
                     var href = $(item).attr("href") + data[i][k];
                     $(item).attr("href", href);
-                }
-                else {
+                }else if($(item).hasClass("dynamic-img")){
+                    var src = $(item).attr("src") + data[i][k];
+                    $(item).attr("src", '/media/'+src);
+                }else {
                     $(item).html(data[i][k]);
                 }
             });
