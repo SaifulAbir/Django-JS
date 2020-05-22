@@ -213,7 +213,13 @@ function makeListHtml(data, template){
                     $(item).attr("href", href);
                 }else if($(item).hasClass("dynamic-img")){
                     var src = $(item).attr("src") + data[i][k];
-                    $(item).attr("src", '/media/'+src);
+                    var static_url = "/static/images/job/company-logo-2.png";
+                    if (src){
+                        $(item).attr("src", '/media/'+src);
+                    }else {
+                        $(item).attr("src", static_url);
+                    }
+
                 }else {
                     $(item).html(data[i][k]);
                 }
