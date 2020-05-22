@@ -129,7 +129,7 @@
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Company Dashboard</li>
+                  <li class="breadcrumb-item active" aria-current="page">{% block breadcrumb %} {% endblock %}</li>
                 </ol>
               </nav>
             </div>
@@ -199,12 +199,12 @@
                 </div>
                 <div class="dashboard-menu">
                   <ul>
-                    <li class="dashboard"><i class="fas fa-home"></i><a href="/company_dashboard/">Dashboard</a></li>
-                    <li ><i class="fas fa-user"></i><a href="#">Edit Profile</a></li>
-                    <li class="managejobs "><i class="fas fa-briefcase"></i><a href="/company_manage_jobs/">Manage Jobs</a></li>
-                    <li class="managecandidate "><i class="fas fa-users"></i><a href="/company_manage_candidates/">Manage Candidates</a></li>
-                    <li class="shotlisted "><i class="fas fa-heart"></i><a href="/company_shortlisted_candidates/">Shortlisted Candidates</a></li>
-                    <li  ><i class="fas fa-plus-square"></i><a href="#">Post New Job</a></li>
+                    <li class="dashboard"><i class="fas fa-home"></i><a href="/company-dashboard/">Dashboard</a></li>
+                    <li class="edit_pro" ><i class="fas fa-user"></i><a href="/company/edit-profile/">Edit Profile</a></li>
+                    <li class="managejobs "><i class="fas fa-briefcase"></i><a href="/company-manage-jobs/">Manage Jobs</a></li>
+                    <li class="managecandidate "><i class="fas fa-users"></i><a href="/company-manage-candidates/">Manage Candidates</a></li>
+                    <li class="shotlisted "><i class="fas fa-heart"></i><a href="/company-shortlisted-candidates/">Shortlisted Candidates</a></li>
+                    <li class="post_job"  ><i class="fas fa-plus-square"></i><a href="/company/post-job/">Post New Job</a></li>
 
 
 <!--                    <li><i class="fas fa-comment"></i><a href="employer-dashboard-message.html">Message</a></li>-->
@@ -417,6 +417,12 @@
 <script src="{% static 'js/moment.min.js'%}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE"></script>
 <script src="{% static 'js/map.js' %}"></script>
+<link href="/static/css/admin/location_picker.css" type="text/css" media="all" rel="stylesheet">
+<script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&amp;libraries=places&amp;key=AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/js/admin/location_picker.js"></script>
+<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps/api/place/js/AutocompletionService.GetPredictions?1sa&amp;4sen-US&amp;6m6&amp;1m2&amp;1d23.606079467557464&amp;2d90.49721914607163&amp;2m2&amp;1d23.61099490024658&amp;2d90.50419825392838&amp;15e3&amp;20s13624C4A-0C46-4FF0-AA32-CA997EEB1E5Em3aoi55ro03x&amp;21m1&amp;2e1&amp;callback=_xdc_._p2yrdx&amp;key=AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE&amp;token=83757"></script>
 <script type="text/javascript">
 
 
