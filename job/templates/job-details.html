@@ -233,6 +233,7 @@
             var apply = $(".apply");
             if(data.is_favourite == 'True' && isLoggedIn()){
                 fav.addClass('active');
+                fav.children().attr("fill", "#ff8fa6");
             }
             if(data.is_applied == 'True' && isLoggedIn()){
                 apply.addClass('applied');
@@ -313,6 +314,7 @@
                 if($(this).hasClass("favourite")){
                     if(data[index].is_favourite == true && isLoggedIn()){
                         $(this).addClass('active');
+                        $(this).children().attr("fill", "#ff8fa6");
                     }
                     // $(this).addClass('active');
                     // showSuccess('Successful!', 'Job saved as a favourite.')
