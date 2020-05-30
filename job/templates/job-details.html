@@ -110,9 +110,9 @@
                                     <h4><i data-feather="briefcase"></i>About the Company</h4>
                                     <ul>
                                         <li><span>Company Name:</span> <span id="company_name" class="name detail-color"></span></li>
-                                        <li><span>Address:</span> <span id="company_address" class="detail-color"></span></li>
-                                        <li><span>Website:</span> <a id="web_address" href="#"></a></li>
-                                        <li><span>Company Profile:</span><span id="company_profile" class="detail-color"></span></li>
+                                        <li><span>Address:</span> <span class="detail-color company_address"></span></li>
+                                        <li><span>Website:</span> <a class="web_address" href="#"></a></li>
+                                        <li><span>Company Profile:</span><span class="detail-color company_profile"></span></li>
                                         <li style="display:none;"><span id="industry" name="industry"></span></li>
 <!--                                        <li id="company_profile">It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum looked up one of the more obscure Latin words, consectetur.</li>-->
                                     </ul>
@@ -244,19 +244,19 @@
                 $(".name").html(data.company_name.name);
             }
             if(data.company_name.address){
-                $('#company_address').html(data.company_name.address);
+                $('.company_address').html(data.company_name.address);
             }else {
-                $('#company_address').parent().hide();
+                $('.company_address').parent().hide();
             }
             if(data.company_name.web_address){
-                $('#web_address').html(data.company_name.web_address);
+                $('.web_address').html(data.company_name.web_address);
             }else {
-                $('#web_address').parent().hide();
+                $('.web_address').parent().hide();
             }
             if(data.company_name.company_profile){
-                $('#company_profile').html(data.company_name.company_profile);
+                $('.company_profile').html(data.company_name.company_profile);
             }else {
-                $('#company_profile').parent().hide();
+                $('.company_profile').parent().hide();
             }
             identifier = data['job_id'];
             catUrl = '/api/job/similar/'+ identifier;

@@ -38,7 +38,7 @@
                         <div class="dashboard-menu">
                             <ul>
                                 <li class="side-menu dashboard-bar"><i class="fas fa-home"></i><a href="/professional/profile-dashboard/">Dashboard</a></li>
-                                <li class="side-menu basic-profile-bar"><i class="fas fa-user"></i><a id="basic-profile" href="">Basic Profile</a></li>
+{#                                <li class="side-menu basic-profile-bar"><i class="fas fa-user"></i><a id="basic-profile" href="">Basic Profile</a></li>#}
                                 <li class="side-menu profile-details-bar"><i class="fas fa-file-alt"></i><a id="profile-details" href="">Profile Details</a></li>
                                 <li class="side-menu edit-profile-details-bar"><i class="fas fa-edit"></i><a id="edit-profile-details" href="">Edit Profile Details</a></li>
                                 <li class="side-menu favourite-job-bar"><i class="fas fa-heart"></i><a href="/professional/favourite_jobs/">Favourite Jobs</a></li>
@@ -251,6 +251,10 @@
             id=data[0].user.id;
             url = '/professional/myprofile/' + id ;
            // $('.pro').attr('href', url);
+            cp_url = '/professional/change-password/' + id ;
+            $('.cp').attr('href', cp_url);
+
+
 
             profile_details_url = '/professional/myprofile_info/' + id;
             basic_profile_url = '/professional/profile-update/' + id;

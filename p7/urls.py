@@ -70,6 +70,7 @@ urlpatterns = [
     path('contact-us-app/', TemplateView.as_view(template_name='contact_us_app.html')),
     path('career-advice-app/', TemplateView.as_view(template_name='career_advice_app.html')),
     path('FAQ-app/', TemplateView.as_view(template_name='FAQ_app.html')),
+
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,
