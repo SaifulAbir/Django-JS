@@ -2732,7 +2732,7 @@
   }
 
   function loadProfSkills(data) {
-      console.log('skill',data.skill_info)
+      console.log('skill',data.skill_info[0].skill_name)
       var skillHtml = $(".skill-label").html();
       for (index = 0; index < data.skill_info.length; index++) {
           var skillDivHtml = $("#pro-skill-form .input-block-skill").html();

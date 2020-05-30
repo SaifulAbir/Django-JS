@@ -5,16 +5,16 @@
 
     <!-- Breadcrumb End -->
 {% block professional_breadcrumb %}
-    <div class="alice-bg padding-top-70 padding-bottom-70">
+    <div class="alice-bg padding-top-70 padding-bottom-70" xmlns="http://www.w3.org/1999/html">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <div class="breadcrumb-area">
-                        <h1>Candidates Dashboard</h1>
+                        <h1>Dashboard</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Candidates Dashboard</li>
+                                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                             </ol>
                         </nav>
                     </div>
@@ -29,17 +29,17 @@
             <div class="user-statistic">
                 <i data-feather="feather"></i>
                 <h3 id="prof-skills"></h3>
-                <span>SKills</span>
+                <a id="skill-link" href=""><span>SKills</span></a>
             </div>
             <div class="user-statistic">
                 <i data-feather="briefcase"></i>
                 <h3 id="applied-jobs"></h3>
-                <span>Applied Jobs</span>
+                <a href="/professional/applied-jobs/"><span>Applied Jobs</span></a>
             </div>
             <div class="user-statistic">
                 <i data-feather="heart"></i>
                 <h3 id="favourite-jobs"></h3>
-                <span>Favourite Jobs</span>
+                <a href="/professional/favourite_jobs/"><span>Favourite Jobs</span></a>
             </div>
         </div>
         <div class="dashboard-section dashboard-view-chart">
@@ -58,6 +58,7 @@
             get('/api/professional/skill_job_chart/',DataChartCallBack)
             get('/api/professional/pro_recent_activity/',ActivityCallBack)
         });
+
         function infoBoxCallBack(data) {
             $('#prof-skills').text(data.skills_count)
             $('#applied-jobs').text(data.applied_job_count)
@@ -82,8 +83,11 @@
                 jobs.push(data[i]['total'])
 
             }
-
-            if ($("#data-chart").length > 0) {
+            if(data.length == 0){
+                $('.dashboard-view-chart').html('<p class="text-center" ">Please Enter Your Skills For Accesing Job Chart</p>')
+            }
+            else{
+                if ($("#data-chart").length > 0) {
                 var ctx = document.getElementById("data-chart").getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'line',
@@ -125,6 +129,8 @@
                     }
                 });
             }
+            }
+
 
         }
         function ActivityCallBack(data) {
