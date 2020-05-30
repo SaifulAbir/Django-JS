@@ -323,13 +323,13 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Phone</label>
                 <div class="col-sm-9">
-                    <input type="digits" maxlength="11" minlength="11" id="phone" name="phone" class="form-control" placeholder="01626296800" required data-msg-required="Phone is required">
+                    <input type="digits" maxlength="11" minlength="11" id="phone" name="phone" class="form-control" placeholder="Your Number" required data-msg-required="Phone is required">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Address</label>
                 <div class="col-sm-9">
-                    <input type="text" id="address" name="address" class="form-control" placeholder="Gulshan">
+                    <input type="text" id="address" name="address" class="form-control" placeholder="Your Address">
                 </div>
             </div>
             <div class="form-group row">
@@ -1329,6 +1329,38 @@
 <script>
   $(document).ready(function() {
       $('.edit-profile-details-bar').addClass('active')
+      var postUrl = '/api/professional/profile_update/'+ id + '/';
+      $('form.profile-form-ajax').attr('action',postUrl);
+       $("form.profile-form-ajax").on('submit', function(event) {
+        event.preventDefault();
+        if ($(this).valid()){
+            var url = $(this).prop('action');
+            var formId = $(this).attr("id");
+            var data = form2Json(formId);
+            // Image uploading code start here
+            var imagesrc = $(".image").attr('src');
+            if (imagesrc){
+                var imagesrcPart = imagesrc.split(":");
+                var jsonObj;
+                if (imagesrcPart[0] === "data"){
+                    jsonObj = JSON.parse(data);
+                    jsonObj.image = imagesrc;
+                    data = JSON.stringify(jsonObj);
+                }else {
+                    jsonObj = JSON.parse(data);
+                    jsonObj.image = '';
+                    data = JSON.stringify(jsonObj);
+                }
+            }
+
+            // Image uploading code end here
+
+            var method = $(this).attr('method');
+            var callback= $(this).data("callback");  // $(this).attr("data-callback");
+            send(url, method, data, callback);
+        }
+        return false;
+    });
 
     $('#job-update-form').validate({
       errorClass: "my-error-class",
@@ -2136,7 +2168,14 @@
   // function divCounter(id){
   //   return $('.'+id).length;
   // }
-
+  function  profileUpdateCallback(data){
+            if(data.status == 200){
+                showSuccess("Profile Done","Updated succesesfully!");
+            }
+            else {
+                showError('Profile Not Updated','Enter Valid Data');
+            }
+        }
   function  loadProfile(data){
             console.log(data.personal_info)
             id = $('form.profile-form-ajax').attr('id');
