@@ -133,10 +133,9 @@ def save_trending_keywords(request):
     os_name = request.user_agent.os.family
 
     search_data.update([('device', device_name), ('browser', browser_name), ('operating_system', os_name)])
-    print(search_data['location'])
-    if search_data['location'] or search_data['keyword']:
+
+    if search_data['keyword']:
         key_obj = TrendingKeywords(**search_data)
         key_obj.save()
         return Response(HTTP_200_OK)
-    else:
-        return HttpResponse('both field can not be blank')
+

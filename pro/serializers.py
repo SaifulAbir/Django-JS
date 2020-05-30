@@ -20,7 +20,7 @@ class WorkExperienceDetailSerializer(serializers.ModelSerializer):
     company = CompanyProfilePictureSerializer(many=False)
     class Meta:
         model = WorkExperience
-        fields = ('professional','company_text','company','designation','start_date','end_date','is_currently_working')
+        fields = ('id','professional','company_text','company','designation','start_date','end_date','is_currently_working')
 
 class ProfessionalSerializer(serializers.ModelSerializer):
     class Meta:
