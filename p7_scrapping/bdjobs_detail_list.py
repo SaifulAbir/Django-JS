@@ -22,8 +22,8 @@ bdjobs = 'http://jobs.bdjobs.com/'
 # Job search url
 url = f'{bdjobs}/jobsearch.asp?fcatId=8'
 
-COMPANY_LIST_API = main_site+'company/'
-JOB_LIST_API = main_site+'api/job_create/'
+COMPANY_LIST_API = main_site+'api/company/list'
+JOB_LIST_API = main_site+'api/job/create/'
 JOB_LIST_API_KEY = '96d56aceeb9049debeab628ac760aa11'
 API_HEADER = {'api-key': JOB_LIST_API_KEY}
 
@@ -97,9 +97,9 @@ def main():
                 title = "JOB TITLE"
 
             try:
-                data_dict['web_address'] = bdjobs + title.find('a', {'href': True})['href']
+                data_dict['job_url_1'] = bdjobs + title.find('a', {'href': True})['href']
             except Exception as ex:
-                data_dict['web_address'] = "JOB LINK"
+                data_dict['job_url_1'] = "JOB LINK"
 
             try:
                 data_dict['title'] = title.text.strip()
@@ -155,9 +155,9 @@ def main():
                 try:
                     published_date = data_detail.find('div', {'class': 'panel-body'}).findNext('h4').text.strip().replace(u'\xa0',u'').replace(u'Published on:',u'')
                     datetimeobject = datetime.datetime.strptime(published_date, "%b %d, %Y")
-                    data_dict['created_date'] = datetimeobject.strftime('%Y-%m-%d') + " 00:00:00.000000"
+                    data_dict['post_date'] = datetimeobject.strftime('%Y-%m-%d') + " 00:00:00.000000"
                 except Exception as ex:
-                    data_dict['created_date'] = "Error"
+                    data_dict['post_date'] = "Error"
 
 
                 try:
@@ -174,9 +174,9 @@ def main():
                 #     data_dict['employment_status'] = "Error"
 
                 try:
-                    data_dict['job_location'] = data_detail.find(text="Job Location").findNext('p').text.strip()
+                    data_dict['address'] = data_detail.find(text="Job Location").findNext('p').text.strip()
                 except Exception as ex:
-                    data_dict['job_location'] = "Error"
+                    data_dict['address'] = "Error"
 
                 # try:
                 #     data_dict['salary'] = data_detail.find(text="Salary").findNext('ul').text.strip()
@@ -211,14 +211,14 @@ def main():
                 print("Detail Data error")
 
 
-            if data_dict['created_date'] < last_scrapping_date:
+            if data_dict['post_date'] < last_scrapping_date:
                 scrapping_status = False
                 break
             
-            if data_dict['web_address'] in job_links:
+            if data_dict['job_url_1'] in job_links:
                 continue
 
-            job_links.append(data_dict['web_address'])
+            job_links.append(data_dict['job_url_1'])
             response = requests.post(JOB_LIST_API,json=data_dict, headers=API_HEADER)
 
             if response.status_code == 200:
@@ -228,7 +228,7 @@ def main():
                 min_data = {
                     'title': 'Error BdJobs Scraping',
                     'company_name_id': unknown_company,
-                    'web_address': data_dict['web_address'],
+                    'job_url_1': data_dict['job_url_1'],
                     'raw_content': data_dict['raw_content']
                 }
                 response = requests.post(JOB_LIST_API,json=min_data, headers=API_HEADER)
