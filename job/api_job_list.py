@@ -22,6 +22,7 @@ def job_list(request):
         current_url = request.GET.get('current_url')
         sorting = request.GET.get('sort')
         category = request.GET.get('category')
+        company = request.GET.get('company')
         skill = request.GET.get('skill')
         job_city = request.GET.get('job_city')
         salaryMin = request.GET.get('salaryMin')
@@ -87,6 +88,9 @@ def job_list(request):
 
         if job_type:
             queryset = queryset.filter(job_type=job_type)
+
+        if company:
+            queryset = queryset.filter(company=company)
 
         if qualification:
             queryset = queryset.filter(qualification_id=qualification)
