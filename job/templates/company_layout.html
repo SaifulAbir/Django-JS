@@ -451,7 +451,11 @@
             $('.account-body .mail').text(data[0].user.email);
             id=data[0].user.id;
             url = '/professional/myprofile/' + id ;
+            cp_url = '/professional/change-password/' + id ;
               $('.pro').attr('href', url);
+              $('.cp').attr('href', cp_url);
+
+
 
 
         }

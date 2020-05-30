@@ -65,4 +65,6 @@ urlpatterns = [
     path('skill_job_chart/', skill_job_chart),
     path('pro_recent_activity/', pro_recent_activity),
 
+    path('change-password/<str:pk>/', TemplateView.as_view(template_name='change_password.html'), name='change_password'),
+
 ]
