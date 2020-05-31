@@ -1,3 +1,7 @@
+from datetime import datetime, timedelta
+from pprint import pprint
+
+from django.db import connection
 from django.db.models import QuerySet
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404, GenericAPIView
@@ -6,27 +10,42 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from rest_framework.utils import json
 from rest_framework.views import APIView
-
+from django.db.models import Q, Count
 from job.models import Job, FavouriteJob, ApplyOnline, Skill
 from job.serializers import JobSerializerAllField, JobSerializer
 from p7.models import populate_user_info
 
-
+# TODO Handle try catch
 class JobAPI(APIView):
     def get(self, request, slug):
-        job = get_object_or_404(Job, slug=slug)
-        job.is_favourite = get_favourite_status(job, request.user)
-        job.is_applied = get_applied_status(job, request.user)
-        job.profile_picture = get_company_logo(job)
-        job.latitude, job.longitude = get_company_latlng(job)
+        if request.user.is_authenticated:
+            current_user_id = request.user.id
+            queryset = Job.objects.filter(
+                Q(fav_jobs__isnull=True) | Q(fav_jobs__user=current_user_id),
+                Q(applied_jobs__isnull=True) | Q(applied_jobs__created_by=current_user_id),
+                is_archived=False,
+                status='Published',
+                slug=slug,
+                ).select_related('company_name'
+                                 ).annotate(is_favourite=Count('fav_jobs')
+                                            ).annotate(is_applied=Count('applied_jobs')
+                                                       ).order_by('-post_date').first()
 
-        data = JobSerializerAllField(job).data
+        else:
+            queryset = Job.objects.filter(
+                is_archived=False,
+                status='Published',
+                slug=slug,
+            ).select_related('company_name'
+                             ).order_by('-post_date').first()
 
-        data['skill']=[]
-        for skill in job.job_skills.all():
-            data['skill'].append(skill.name)
+            if not request.user.is_authenticated:
+                queryset.is_favourite = False
+                queryset.is_applied = False
 
+        data = JobSerializerAllField(queryset).data
         return Response(data)
+
 
 
 @api_view(["POST"])
