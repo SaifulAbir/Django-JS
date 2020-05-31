@@ -70,8 +70,8 @@ urlpatterns = [
     path('contact-us-app/', TemplateView.as_view(template_name='contact_us_app.html')),
     path('career-advice-app/', TemplateView.as_view(template_name='career_advice_app.html')),
     path('FAQ-app/', TemplateView.as_view(template_name='FAQ_app.html')),
-    path('company-details/<str:name>/', TemplateView.as_view(template_name='company_details.html'),name='company_details')
-
+    path('company-details/<str:name>/', TemplateView.as_view(template_name='company_details.html'),name='company_details'),
+    path('career-advice/details/<int:id>/', TemplateView.as_view(template_name='career_advice_details.html'), name='career_advice_details')
 
 ]
 if settings.DEBUG:
