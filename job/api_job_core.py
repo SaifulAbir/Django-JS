@@ -26,7 +26,7 @@ class JobAPI(APIView):
                 is_archived=False,
                 status='Published',
                 slug=slug,
-                ).select_related('company_name'
+                ).select_related('company'
                                  ).annotate(is_favourite=Count('fav_jobs')
                                             ).annotate(is_applied=Count('applied_jobs')
                                                        ).order_by('-post_date').first()
@@ -36,7 +36,7 @@ class JobAPI(APIView):
                 is_archived=False,
                 status='Published',
                 slug=slug,
-            ).select_related('company_name'
+            ).select_related('company'
                              ).order_by('-post_date').first()
 
             if not request.user.is_authenticated:

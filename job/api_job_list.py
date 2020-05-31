@@ -43,8 +43,8 @@ def job_list(request):
                 Q(applied_jobs__isnull=True) | Q(applied_jobs__created_by=current_user_id),
                 is_archived=False,
                 status='Published',
-            ).select_related('company_name'
-            ).annotate(is_favourite=Count('fav_jobs')
+            ).select_related('company'
+                             ).annotate(is_favourite=Count('fav_jobs')
             ).annotate(is_applied=Count('applied_jobs'))
 
         else:
@@ -52,7 +52,7 @@ def job_list(request):
                 Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
                 is_archived=False,
                 status='Published',
-            ).select_related('company_name')
+            ).select_related('company')
 
 
 
@@ -124,7 +124,6 @@ def job_list(request):
             queryset = paginator.page(1)
 
         for job in queryset:
-            job.profile_picture = job.company_name.profile_picture
             if not request.user.is_authenticated:
                 job.is_favourite = False
                 job.is_applied = False
@@ -167,8 +166,8 @@ def similar_jobs(request, identifier, limit = 5):
             Q(applied_jobs__isnull=True) | Q(applied_jobs__created_by=current_user_id),
             is_archived=False,
             status='Published',
-        ).select_related('company_name'
-        ).annotate(is_favourite=Count('fav_jobs')
+        ).select_related('company'
+                         ).annotate(is_favourite=Count('fav_jobs')
         ).annotate(is_applied=Count('applied_jobs')
         ).order_by('-post_date')
 
@@ -183,7 +182,6 @@ def similar_jobs(request, identifier, limit = 5):
     data = []
     for job in queryset:
         if(similar(selected_job.title, job.title) > 0.8 ): # TODO: Read from settings)
-            job.profile_picture = job.company_name.profile_picture
             if not request.user.is_authenticated:
                 job.is_favourite = False
                 job.is_applied = False
@@ -204,8 +202,8 @@ def recent_jobs(request, limit:int = 6):
             Q(applied_jobs__isnull=True) | Q(applied_jobs__created_by=current_user_id),
             is_archived=False,
             status='Published',
-        ).select_related('company_name'
-        ).annotate(is_favourite=Count('fav_jobs')
+        ).select_related('company'
+                         ).annotate(is_favourite=Count('fav_jobs')
         ).annotate(is_applied=Count('applied_jobs')
         ).order_by('-post_date')[:limit]
 
@@ -214,17 +212,15 @@ def recent_jobs(request, limit:int = 6):
             Q(application_deadline__gte=datetime.now()) | Q(application_deadline=None),
             is_archived=False,
             status='Published',
-        ).select_related('company_name'
-        ).order_by('-post_date')[:limit]
+        ).select_related('company'
+                         ).order_by('-post_date')[:limit]
 
     for job in queryset:
-        job.profile_picture = job.company_name.profile_picture
         if not request.user.is_authenticated:
             job.is_favourite = False
             job.is_applied = False
 
     data = JobSerializer(queryset, many=True).data
-    pprint(connection.queries)
     return Response(data)
 
 
@@ -234,16 +230,14 @@ def favourite_jobs(request):
     queryset = Job.objects.filter(
         Q(applied_jobs__isnull=True) | Q(applied_jobs__created_by=current_user_id),
         fav_jobs__user=current_user_id,
-    ).select_related('company_name'
-    ).annotate(is_applied=Count('applied_jobs')
+    ).select_related('company'
+                     ).annotate(is_applied=Count('applied_jobs')
     ).order_by('-post_date')
 
     for job in queryset:
         job.is_favourite = True
-        job.profile_picture = job.company_name.profile_picture
 
     data = JobSerializer(queryset, many=True).data
-    pprint(connection.queries)
     return Response(data)
 
 
@@ -253,16 +247,14 @@ def applied_jobs(request):
     queryset = Job.objects.filter(
         Q(fav_jobs__isnull=True) | Q(fav_jobs__user=current_user_id),
         applied_jobs__created_by=current_user_id,
-    ).select_related('company_name'
-    ).annotate(is_favourite=Count('fav_jobs')
+    ).select_related('company'
+                     ).annotate(is_favourite=Count('fav_jobs')
     ).order_by('-post_date')
 
     for job in queryset:
         job.is_applied = True
-        job.profile_picture = job.company_name.profile_picture
 
     data = JobSerializer(queryset, many=True).data
-    pprint(connection.queries)
     return Response(data)
 
 
