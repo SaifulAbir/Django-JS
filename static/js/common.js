@@ -3,7 +3,6 @@ var apiKey = '96d56aceeb9049debeab628ac760aa11';
 
 function get(url, callback) {
     var access_token = $.cookie("access");
-    console.log(access_token)
     if(!callback) callback = () => {};
     if(typeof(callback) !== "function") callback = window[callback];
     $.ajax({
@@ -407,7 +406,7 @@ function loadFavouriteJob(data) {
                 $(this).addClass('active');
                 $(this).children().attr("fill", "#ff8fa6");
                // $(".job-list .body .more .buttons .favourite svg").attr("fill", "#ff8fa6");
-                showSuccess('Successful!', 'Job saved as a favourite.')
+                showSuccess('Successful!', 'Job saved as a favorite.')
 
             }
 
@@ -445,7 +444,13 @@ function applyOnlineJobAddRemove(id, url) {
 
 }
 
-
+$('.account-button, .account-card').hover( function(e) {
+        e.preventDefault();
+        $('.account-card').css('display', 'block');
+    },function(e) {
+        e.preventDefault();
+        $('.account-card').css('display', 'none');
+    })
 
 function loadApplyonlineJob(data) {
     if(data.responseJSON.code == 200){
