@@ -504,3 +504,8 @@ header .signin-user .account-button {
 .header-top .header-top-account .account-button {
     padding-right: 0;
 }
+
+.profile-picture-button{
+    margin: 15px 0px 75px 5px!important;
+
+}
