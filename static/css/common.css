@@ -506,7 +506,7 @@ header .signin-user .account-button {
 }
 
 .profile-picture-button{
-    margin: 15px 0px 75px 5px!important;
+    margin: 15px 0px 75px 0px!important;
 
 }
 
@@ -521,4 +521,16 @@ header .signin-user .account-button {
 
 .upload-profile-photo{
     margin-top: 0px !important;
+}
+
+#basic-info-margin{
+    margin-bottom: 10px;
+}
+
+.picture-save-button{
+    padding: 12px 34px !important;
+}
+
+#about-details{
+    margin-top: 20px;
 }
