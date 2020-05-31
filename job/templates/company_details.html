@@ -1,7 +1,7 @@
 {% extends 'common_layout.html' %}
 {% load static %}
 {% block body_block %}
-
+<div id="jobs">
  <!-- Company Details -->
     <div class="alice-bg padding-top-60 section-padding-bottom">
       <div class="container">
@@ -16,48 +16,42 @@
                   <div class="title-body">
                     <h4 id='name'> </h4>
                     <div class="info">
-                      <span class="company-type"><i data-feather="briefcase"></i>Unknown</span>
+<!--                      <span class="company-type"><i data-feather="briefcase"></i>Unknown</span>-->
                       <span class="office-location"><i data-feather="map-pin"></i><p style="display: inline-block;" id="division"></p></span>
                     </div>
                   </div>
                 </div>
-                <div class="download-resume">
-                  <a href="#" class="save-btn"><i data-feather="heart"></i>Favorite</a>
-                  <a href="#">4 Open Job(s)</a>
+                <div class="download-resume" id="jobCount">
+<!--                  <a href="#" class="save-btn"><i data-feather="heart"></i>Favorite</a>-->
+
                 </div>
               </div>
               <div class="details-information padding-top-60">
                 <div class="row">
                   <div class="col-xl-7 col-lg-8">
-                    <div class="about-details details-section">
+
+                    <div class="about-details details-section" id="about_us">
                       <h4><i data-feather="align-left"></i>About Us</h4>
-                      <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including.</p>
-                      <p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable </p>
+
                     </div>
-                    <div class="intor-video details-section">
+
+
+
+                    <div class="intor-video details-section" id="video">
                       <h4><i data-feather="video"></i>Intro Video</h4>
-                      <div class="video-area">
-                        <!-- <div data-type="vimeo" data-video-id="126777001"></div> -->
-                        <div id="player" data-plyr-provider="vimeo" data-plyr-embed-id="126777001"></div>
-                      </div>
+<!--                      <div class="video-area">-->
+<!--                        &lt;!&ndash; <div data-type="vimeo" data-video-id="126777001"></div> &ndash;&gt;-->
+<!--                        <div id="player" data-plyr-provider="vimeo" data-plyr-embed-id="126777001"></div>-->
+<!--                      </div>-->
                     </div>
-                    <div class="portfolio details-section">
+
+
+
+                    <div class="portfolio details-section" id="image">
                       <h4><i data-feather="grid"></i>Image Gallery</h4>
-                      <div class="portfolio-slider owl-carousel">
-                        <div class="portfolio-item">
-                          <img src="{% static 'images/portfolio/thumb-3.jpg' %}" class="img-fluid" alt="">
-                          <div class="overlay">
-                            <a href="#"><i data-feather="eye"></i></a>
-                            <a href="#"><i data-feather="link"></i></a>
-                          </div>
-                        </div>
-                        <div class="portfolio-item">
-                          <img src="{% static 'images/portfolio/thumb-1.jpg' %}" class="img-fluid" alt="">
-                          <div class="overlay">
-                            <a href="#"><i data-feather="eye"></i></a>
-                            <a href="#"><i data-feather="link"></i></a>
-                          </div>
-                        </div>
+
+                      <div class="portfolio-slider owl-carousel" id="images">
+
                         <div class="portfolio-item">
                           <img src="{% static 'images/portfolio/thumb-2.jpg' %}" class="img-fluid" alt="">
                           <div class="overlay">
@@ -65,105 +59,61 @@
                             <a href="#"><i data-feather="link"></i></a>
                           </div>
                         </div>
-                        <div class="portfolio-item">
-                          <img src="{% static 'images/portfolio/thumb-3.jpg' %}" class="img-fluid" alt="">
-                          <div class="overlay">
-                            <a href="#"><i data-feather="eye"></i></a>
-                            <a href="#"><i data-feather="link"></i></a>
-                          </div>
-                        </div>
-                        <div class="portfolio-item">
-                          <img src="{% static 'images/portfolio/thumb-2.jpg' %}" class="img-fluid" alt="">
-                          <div class="overlay">
-                            <a href="#"><i data-feather="eye"></i></a>
-                            <a href="#"><i data-feather="link"></i></a>
-                          </div>
-                        </div>
+
+
                       </div>
                     </div>
-                    <div class="open-job details-section">
+
+                    <div class="open-job details-section" id="open_jobs">
                       <h4><i data-feather="check-circle"></i>Open Job(s)</h4>
-                      <div class="job-list">
-                        <div class="body">
-                          <div class="content">
-                            <h4><a href="job-details.html">Restaurant Team Member - Crew </a></h4>
-                            <div class="info">
-                              <span class="office-location"><a href="#"><i data-feather="map-pin"></i>New Orleans</a></span>
-                              <span class="job-type temporary"><a href="#"><i data-feather="clock"></i>Temporary</a></span>
-                            </div>
-                          </div>
-                          <div class="more">
-                            <div class="buttons">
-                              <a href="#" class="button">Apply Now</a>
-                              <a href="#" class="favourite"><i data-feather="heart"></i></a>
-                            </div>
-                            <p class="deadline">Deadline: Oct 31,  2020</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="job-list">
-                        <div class="body">
-                          <div class="content">
-                            <h4><a href="job-details.html">Restaurant Team Member - Crew </a></h4>
-                            <div class="info">
-                              <span class="office-location"><a href="#"><i data-feather="map-pin"></i>New Orleans</a></span>
-                              <span class="job-type temporary"><a href="#"><i data-feather="clock"></i>Temporary</a></span>
-                            </div>
-                          </div>
-                          <div class="more">
-                            <div class="buttons">
-                              <a href="#" class="button">Apply Now</a>
-                              <a href="#" class="favourite"><i data-feather="heart"></i></a>
-                            </div>
-                            <p class="deadline">Deadline: Oct 31,  2020</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="job-list">
-                        <div class="body">
-                          <div class="content">
-                            <h4><a href="job-details.html">Restaurant Team Member - Crew </a></h4>
-                            <div class="info">
-                              <span class="office-location"><a href="#"><i data-feather="map-pin"></i>New Orleans</a></span>
-                              <span class="job-type temporary"><a href="#"><i data-feather="clock"></i>Temporary</a></span>
-                            </div>
-                          </div>
-                          <div class="more">
-                            <div class="buttons">
-                              <a href="#" class="button">Apply Now</a>
-                              <a href="#" class="favourite"><i data-feather="heart"></i></a>
-                            </div>
-                            <p class="deadline">Deadline: Oct 31,  2020</p>
-                          </div>
-                        </div>
-                      </div>
+
+
+<!--                      <div class="job-list">-->
+<!--                        <div class="body">-->
+<!--                          <div class="content">-->
+<!--                            <h4><a href="job-details.html">Restaurant Team Member - Crew </a></h4>-->
+<!--                            <div class="info">-->
+<!--                              <span class="office-location"><a href="#"><i data-feather="map-pin"></i>New Orleans</a></span>-->
+<!--                              <span class="job-type temporary"><a href="#"><i data-feather="clock"></i>Temporary</a></span>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="more">-->
+<!--                            <div class="buttons">-->
+<!--                              <a href="#" class="button">Apply Now</a>-->
+<!--                              <a href="#" class="favourite"><i data-feather="heart"></i></a>-->
+<!--                            </div>-->
+<!--                            <p class="deadline">Deadline: Oct 31,  2020</p>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+
+
                     </div>
                   </div>
+
+
                   <div class="col-xl-4 offset-xl-1 col-lg-4">
                     <div class="information-and-contact">
-
-
                       <div class="information">
                         <h4>Basic Information</h4>
                         <ul>
                           <li><span >Name:</span><a class="profilelink" id="name"> </a><p style="display: inline-block;"></p></li>
-
                           <li ><span>Year of Establishment:</span><p style="display: inline-block;" id="year_of_eastablishment"></p></li>
                           <li  ><span>Legal Structure:</span> <p style="display: inline-block;" id="legal_structure_of_this_company"></p></li>
                           <li  ><span>No of Human Resources:</span> <p style="display: inline-block;" id="total_number_of_human_resources"></p></li>
                           <li  ><span>No of IT Resources:</span><p style="display: inline-block;" id="no_of_it_resources"></p> </li>
-
                         </ul>
-                      </div>
+                      </div><br>
 
-                           <div class="share-job-post">
-                      <span class="share">Social Profile:</span>
-                      <a href="#"><i class="fab fa-facebook-f"></i></a>
-                      <a href="#"><i class="fab fa-twitter"></i></a>
-                      <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div><br>
+<!--                           <div class="share-job-post">-->
+<!--                      <span class="share">Social Profile:</span>-->
+<!--                      <a href="#"><i class="fab fa-facebook-f"></i></a>-->
+<!--                      <a href="#"><i class="fab fa-twitter"></i></a>-->
+<!--                      <a href="#"><i class="fab fa-linkedin-in"></i></a>-->
 
-                            <div class="information">
+<!--                    </div><br>-->
+
+                            <div class="information" id="orghead">
                         <h4>Organization's Head</h4>
                         <ul>
                           <li ><span>Name:</span> <p style="display: inline-block;" id="organization_head"></p></li>
@@ -172,7 +122,7 @@
                         </ul>
                       </div><br>
 
-                            <div class="information">
+                            <div class="information" id="conperson">
                         <h4>Contact Person</h4>
                         <ul>
                           <li  ><span>Name:</span> <p style="display: inline-block;" id="contact_person"></p></li>
@@ -182,7 +132,7 @@
                         </ul>
                       </div><br>
 
-                            <div class="information">
+                            <div class="information" id="coninfo">
                         <h4>Contact Number</h4>
                         <ul id="web">
                           <li><span>Mobile No-1:</span> <p style="display: inline-block;" id="company_contact_no_one"></p> </li>
@@ -195,7 +145,7 @@
 
                     </div>
 
-                     <div class="information">
+                     <div class="information" id="info">
                         <h4>Address</h4>
                         <ul>
                           <li><span>Address:</span><span style="color: inherit;line-height: 1.85;font-size: 1.4rem; font-weight: 400;"id="address"></span></li>
@@ -205,18 +155,19 @@
                         </ul>
                       </div><br>
 
-                  <div class="information">
+                  <div class="information" id="otherinfo">
                         <h4>Other Information</h4>
                         <ul>
                           <li ><span>BASIS Membership No:</span> <p style="display: inline-block;" id="basis_membership_no"></p></li>
                           <li ><span>Name in Google:</span> <p style="display: inline-block;" id="company_name_google"></p></li>
                           <li ><span>Name in Bdjobs:</span> <p style="display: inline-block;" id="company_name_bdjobs"></p></li>
+                          <li ><span>Name in Facebook:</span> <p style="display: inline-block;" id="company_name_facebook"></p></li>
                         </ul>
                       </div>
 
 
 
-                    <div class="job-location">
+                    <div class="job-location" id="maploc">
                       <h4>Our Location</h4>
                       <div id="map-area">
                         <div class="cp-map" id="location" data-zoom="10"></div>
@@ -235,6 +186,8 @@
       </div>
     </div>
     <!-- Company Details End -->
+
+  </div>
 {% endblock %}
 
 {% block extra_js %}
@@ -244,14 +197,19 @@
 
     var path = window.location.pathname.split('/');
     var name = path[path.length-2];
-
+    applyOnlineJobAddRemove('open_jobs', '/api/job/apply/');
+    favouriteJobAddRemove('open_jobs', '/api/job/favourite/toggle');
     var getUrl = '/api/company/search/?name=' + name;
-
     get(getUrl,loadCompany);
+
+    var jobUrl = '/api/job/search/?company_name=' + name;
+    get(jobUrl,loadJob);
+
+
     });
 
     function loadCompany(data) {
-  console.log('data' ,data);
+  //console.log('data' ,data);
         var container = $('.container');
         json2Div(data[0], container);
         if(data[0].company_profile){
@@ -287,8 +245,131 @@
         $('.cp-map').attr('data-lng',data[0].longitude);
   //console.log('data[0].longitude' ,data[0].longitude);
         initMap();
+
+        if(data[0].about_us){
+           $('#about_us').append('<p>Hello! This is a sentence</p>');
+        }
+        else{
+           $('#about_us').hide();
+
+        }
+
+        if(data[0].video){
+           $('#video').append('<div class="video-area">'+
+                     '<div id="player" data-plyr-provider="vimeo" data-plyr-embed-id="126777001"></div>'+
+                      '</div>');
+        }
+        else{
+          $('#video').hide();
+
+        }
+
+       if(data[0].portfolio){
+           $('#images').append('<div class="portfolio-item">'+
+                          '<img src="{% static 'images/portfolio/thumb-3.jpg' %}" class="img-fluid" alt="">'+
+                          '<div class="overlay">'+
+                          '<a href="#"><i data-feather="eye"></i></a>'+
+                          '<a href="#"><i data-feather="link"></i></a>'+
+                          '</div>'+
+                          '</div>');
+       }
+       else{
+          $('#image').hide();
+       }
+
+       if(!data[0].basis_membership_no && !data[0].company_name_bdjobs && !data[0].company_name_google
+        && !data[0].company_name_facebook){$('#otherinfo').hide();}
+
+       if(!data[0].address && !data[0].district && !data[0].division
+        && !data[0].post_code){$('#info').hide();}
+
+       if(!data[0].web && !data[0].company_contact_no_one && !data[0].company_contact_no_two
+        && !data[0].company_contact_no_three && !data[0].email){$('#coninfo').hide();}
+
+       if(!data[0].contact_person && !data[0].contact_person_designation && !data[0].contact_person_mobile_no
+        && !data[0].contact_person_email){$('#conperson').hide();}
+
+       if(!data[0].organization_head && !data[0].organization_head_designation
+        && !data[0].organization_head_number){$('#orghead').hide();}
+
+       if(!data[0].latitude && !data[0].longitude){$('#maploc').hide();}
+
     }
 
+    function loadJob(data) {
+  //console.log('loadJob' ,data);
+        var path = window.location.pathname.split('/');
+        var name = path[path.length-2];
+        var name = unescape(name);
+
+        var job_counter = 0;
+  //console.log('data.results.length' ,data.results.length);
+        if(data.results.length > 0){
+            for(index=0;index<data.results.length;index++){
+
+            var name_checker = (data.results[index].company_name == name);
+  //console.log('name' , name);
+  //console.log('company_name' ,data.results[index].company_name);
+  //console.log('name_checker' ,name_checker);
+            if(name_checker == true)
+            {
+            if(data.results[index].job_area)
+            {var job_area = data.results[index].job_area}
+            else{ job_area= ''; }
+            if(data.results[index].job_type)
+            {var job_type = data.results[index].job_type}
+            else{ job_type= ''; }
+             if(data.results[index].application_deadline)
+            {
+            var dateString = data.results[index].application_deadline;
+            var momentObj = moment(dateString, 'YYYY-MM-DD');
+            var dateMomentString = momentObj.format('DD-MM-YYYY');
+            var application_deadline = dateMomentString;}
+            else{ application_deadline= 'n/a'; }
+            var job_html= '<div class="job-list">'+
+                '<div class="body">'+
+                '<div class="content">'+
+                '<h4><a href="/job-detail/'+ data.results[index].slug+'">'+data.results[index].title+'</a></h4>'+
+                '<div class="info">'+
+                '<span class="office-location"><a href="#"><i data-feather="map-pin"></i>'+job_area+'</a></span>'+
+                '<span class="job-type full-time"><a href="#"><i data-feather="clock"></i>'+job_type+'</a></span>'+
+                '</div>'+
+                '</div>'+
+                '<div class="more">'+
+                '<div class="buttons">'+
+                '<a href="'+data.results[index].job_id+'" class="button apply" data-toggle="modal">Apply Now</a>'+
+                '<a href="'+data.results[index].job_id+'" class="favourite"><i data-feather="heart"></i></a>'+
+                '</div>'+
+                '<p class="deadline">'+'Deadline: '+application_deadline+'</p>'+
+                '</div>'+
+                '</div>'+
+                '</div>';
+            $('#open_jobs').append(job_html);
+            var job_counter = job_counter + 1;
+  //console.log('job_counter' ,job_counter);
+            var el = $("#jobs").find("[href='"+ data.results[index].job_id +"']");
+            el.each(function () {
+                if($(this).hasClass('apply')){
+                    if(data.results[index].is_applied == true && isLoggedIn()){
+                        $(this).addClass('applied');
+                        $(this).text('Applied');
+                        $(this).attr('href', 'javascript:void(0)')
+                    }
+                }
+                if($(this).hasClass("favourite")){
+                    if(data.results[index].is_favourite == true && isLoggedIn()){
+                        $(this).addClass('active');
+                        $(this).children().attr("fill", "#ff8fa6")
+                    }
+                }
+            });
+            feather.replace();
+            }
+          }
+        }
+  //console.log('job_counterFinal' ,job_counter);
+        $('#jobCount').append('<a>'+job_counter+' Open Job(s)</a>');
+                    }
    </script>
 {% endblock %}
 

@@ -8,11 +8,11 @@
     <div class="row">
       <div class="col-md-6">
         <div class="breadcrumb-area">
-          <h1>Edit Profile Details</h1>
+          <h1>Edit Profile</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Edit Profile Details</li>
+              <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
             </ol>
           </nav>
         </div>
@@ -287,68 +287,18 @@
             <form action="" id="profile-form" class="dashboard-form ajax profile-form-ajax" method="PUT" data-callback = "profileUpdateCallback" enctype="multipart/form-data" novalidate="novalidate">
         <div class="dashboard-section upload-profile-photo">
             <div class="update-photo">
-                <input type="text" id="image" value="">
+<!--                <input type="text" id="image" value="">-->
                 <img id="image1" class="image" src="{% static 'dashboard/images/user-1.jpg' %}" alt="">
             </div>
             <div class="file-upload">
-                <input src="ok" type="file" accept="image/*" class="file-input">Change Avatar
+                <input src="ok" type="file" accept="image/*" class="file-input">Change Picture
             </div>
         </div>
-        <div class="dashboard-section basic-info-input">
-            <h4><i data-feather="user-check"></i>Basic Info</h4>
+        <div class="dashboard-section basic-info-input profile-picture-button">
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Professional ID</label>
-                <div class="col-sm-9">
-                    <input type="text" name="professional_id" id="professional_id" class="form-control" placeholder="Professional ID">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Full Name</label>
-                <div class="col-sm-9">
-                    <input type="text" id="full_name" name="full_name" class="form-control" placeholder="Full Name" required data-msg-required="Name is required">
-                </div>
-            </div>
-            <div class="form-group row display-none">
-                <label class="col-sm-3 col-form-label">Username</label>
-                <div class="col-sm-9">
-                    <input type="text" id="username" name="username" class="form-control" placeholder="@username">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Email Address</label>
-                <div class="col-sm-9">
-                    <input type="text" name="email" id="email" class="form-control" placeholder="email@example.com" readonly>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Phone</label>
-                <div class="col-sm-9">
-                    <input type="digits" maxlength="11" minlength="11" id="phone" name="phone" class="form-control" placeholder="Your Number" required data-msg-required="Phone is required">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Address</label>
-                <div class="col-sm-9">
-                    <input type="text" id="address" name="address" class="form-control" placeholder="Your Address">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Industry Expertise</label>
-                <div class="col-sm-9">
-                    <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name" data-placeholder="Select Category" data-src="/api/industry/list">
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">About Me</label>
-                <div class="col-sm-9">
-                    <textarea class="form-control" id="about_me" name="about_me" placeholder="Introduce Yourself"></textarea>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9">
-                    <button class="button">Save</button>
+{#                <label class="col-form-label"></label>#}
+                <div class="col-sm-12">
+                    <button class="button"> Save Update </button>
                 </div>
             </div>
         </div>
@@ -382,22 +332,40 @@
     </form>
             <div class="about-details details-section dashboard-section" id="about-details">
               <div id="about-details-div">
-                <h4><i data-feather="align-left"></i>About Me</h4>
-                <div class="about" id="about_me"></div>
+                <h4><i data-feather="user-check"></i>Basic Info</h4>
                 <div class="information-and-contact">
-                  <div class="information">
-                    <h4>Information</h4>
+{#                  <div class="information">#}
+{#                    <h4>Information</h4>#}
                     <ul>
-                      <li><span>Category:</span> <span class="detail-color" id="industry_expertise"></span></li>
-                      <li><span>Location:</span> <span id="address"></span></li>
-                      <li><span>Status:</span> <span id="status"></span></li>
-                      <li><span>Experience:</span> <span id="experience"></span></li>
-                      <li><span>Salary:</span> <span class="about-info-salary" id="expected_salary_min"></span><span class="about-info-salary" id="expected_salary_max"></span></li>
-                      <li><span>Gender:</span> <span id="gender"></span></li>
-                      <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
-                      <li><span>Qualification:</span> <span id="qualification"></span></li>
+                        <span><h8>About Me: </h8></span><span class="about" id="about_me"></span>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Industry: </h8></span> <span id="industry_expertise"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Location: </h8></span> <span id="address"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Status:</h8></span> <span id="status"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Experience:</h8></span> <span id="experience"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span> - <span class="about-info-salary" id="expected_salary_max"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Gender:</h8></span> <span id="gender"></span>
+                            </div>
+                        </div>
+                        <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
+                        <span><h8>Qualification:</h8></span> <span id="qualification"></span>
                     </ul>
-                  </div>
+{#                  </div>#}
                 </div>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-about-me">
@@ -410,17 +378,16 @@
                   <div class="modal-content">
                     <div class="modal-body">
                       <div class="title">
-                        <h4><i data-feather="align-left"></i>About Me</h4>
+                        <h4><i data-feather="user-check"></i>Basic Info</h4>
                       </div>
                       <div class="content">
                         <form action="" class="job-post-form ajax" method="PUT" id="info-update-form" data-callback="aboutCallback">
                           <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Write Yourself</label>
+                            <label class="col-sm-3 col-form-label"> About Me</label>
                             <div class="col-sm-9">
                               <textarea class="form-control" id="about_me" name="about_me" placeholder="Write Yourself" value=""></textarea>
                             </div>
                           </div>
-                          <h4><i data-feather="align-left"></i>Information</h4>
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Category</label>
                             <div class="col-sm-9">
@@ -1236,7 +1203,7 @@
                     <li><span>Mother's Name:</span> <span id="mother_name"></span></li>
                     <li><span>Date of Birth:</span> <span id="date_of_birth"></span></li>
                     <li><span>Nationality:</span> <span id="nationality"></span> </li>
-                    <li><span>Sex:</span> <span id="gender"></span></li>
+                    <li><span>Gender:</span> <span id="gender"></span></li>
                     <li><span>Address:</span> <span id="permanent_address"></span></li>
                   </ul>
                 </div>
@@ -2170,7 +2137,7 @@
   // }
   function  profileUpdateCallback(data){
             if(data.status == 200){
-                showSuccess("Profile Done","Updated succesesfully!");
+                showSuccess("Profile Picture Updated succesesfully!","");
             }
             else {
                 showError('Profile Not Updated','Enter Valid Data');
@@ -2732,23 +2699,23 @@
   }
 
   function loadProfSkills(data) {
-      console.log('skill',data.skill_info)
+      console.log('skill',data.skill_info[0])
       var skillHtml = $(".skill-label").html();
-      for (index = 0; index < data.skill_info.length; index++) {
+      for (index = 0; index < data.skill_info[0].length; index++) {
           var skillDivHtml = $("#pro-skill-form .input-block-skill").html();
           if (index == 0) {
-              $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[index].id + '">' +'<p class="progress-on">'+ data.skill_info[index].skill_obj.name +'</p></div>'+
-                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+ data.skill_info[index].rating *10 +'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
-                    '<p class="progress-to">'+data.skill_info[index].rating + '/10</p></div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+              $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[0][index].id + '">' +'<p class="progress-on">'+ data.skill_info[0][index].skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+ data.skill_info[0][index].rating *10 +'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.skill_info[0][index].rating + '/10</p></div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
                 '                <i data-feather="trash-2"></i>\n' +
                 '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button></div>'+'</div>');
           }
           else if(index>=1){
-              $('.skill-label:last').after('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[index].id + '">' +'<p class="progress-on">'+ data.skill_info[index].skill_obj.name +'</p></div>'+
-                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.skill_info[index].rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
-                    '<p class="progress-to">'+data.skill_info[index].rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+              $('.skill-label:last').after('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[0][index].id + '">' +'<p class="progress-on">'+ data.skill_info[0][index].skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.skill_info[0][index].rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.skill_info[0][index].rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
                 '                <i data-feather="trash-2"></i>\n' +
                 '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
                 '                <i data-feather="edit-2"></i>\n' +

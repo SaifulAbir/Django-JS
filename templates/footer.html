@@ -144,8 +144,13 @@
 <script type="text/javascript">
     $(function () {
         TokenAuthenticate();
+        $('#job-alert').validate({
+                errorClass: "my-error-class"
+            });
         socialUrl = '/api/settings/';
+        jobAlertUrl = '/api/professional/job_alert_notification/';
         get(socialUrl,loadSocialUrl);
+        get(jobAlertUrl, loadJobAlert);
         get('/log/', loadUser);
     });
     function loadSocialUrl(data) {
@@ -166,6 +171,22 @@
 
     }
 
+
+    function loadJobAlert(data) {
+            if(data.code == 200 && data.status == 'subscribed'){
+                $('#job-alert').addClass('display-none');
+                $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
+            }
+            else if(data.code == 200 && data.status == 'not subscribed'){
+                $('#job-alert').removeClass('display-none');
+                $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
+            }
+            else {
+                $('#job-alert').removeClass('display-none');
+                $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
+            }
+        }
+
     function loadUser(data) {
         if(data.length>=1){
             if(data[0].user.image){
@@ -178,7 +199,7 @@
             $('.account-body a').text(data[0].user.name);
             $('.account-body .mail').text(data[0].user.email);
             id=data[0].user.id;
-            url = '/professional/myprofile/' + id ;
+            url = '/professional/profile-dashboard/';
             cp_url = '/professional/change-password/' + id ;
               $('.pro').attr('href', url);
               $('.cp').attr('href', cp_url);
