@@ -509,3 +509,12 @@ header .signin-user .account-button {
     margin: 15px 0px 75px 5px!important;
 
 }
+
+.details-section span h8{
+    color: #212529;
+    font-weight: 500;
+}
+
+.details-section ul{
+    padding-left: 0!important;
+}

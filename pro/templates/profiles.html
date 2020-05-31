@@ -333,21 +333,39 @@
             <div class="about-details details-section dashboard-section" id="about-details">
               <div id="about-details-div">
                 <h4><i data-feather="user-check"></i>Basic Info</h4>
-                <div class="about" id="about_me"></div>
                 <div class="information-and-contact">
-                  <div class="information">
-                    <h4>Information</h4>
+{#                  <div class="information">#}
+{#                    <h4>Information</h4>#}
                     <ul>
-                      <li><span>Industry:</span> <span id="industry_expertise"></span></li>
-                      <li><span>Location:</span> <span id="address"></span></li>
-                      <li><span>Status:</span> <span id="status"></span></li>
-                      <li><span>Experience:</span> <span id="experience"></span></li>
-                      <li><span>Salary:</span> <span class="about-info-salary" id="expected_salary_min"></span><span class="about-info-salary" id="expected_salary_max"></span></li>
-                      <li><span>Gender:</span> <span id="gender"></span></li>
-                      <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
-                      <li><span>Qualification:</span> <span id="qualification"></span></li>
+                        <span><h8>About Me: </h8></span><span class="about" id="about_me"></span>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Industry: </h8></span> <span id="industry_expertise"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Location: </h8></span> <span id="address"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Status:</h8></span> <span id="status"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Experience:</h8></span> <span id="experience"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span> - <span class="about-info-salary" id="expected_salary_max"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Gender:</h8></span> <span id="gender"></span>
+                            </div>
+                        </div>
+                        <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
+                        <span><h8>Qualification:</h8></span> <span id="qualification"></span>
                     </ul>
-                  </div>
+{#                  </div>#}
                 </div>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-about-me">
@@ -2681,23 +2699,23 @@
   }
 
   function loadProfSkills(data) {
-      console.log('skill',data.skill_info[0].skill_name)
+      console.log('skill',data.skill_info[0])
       var skillHtml = $(".skill-label").html();
-      for (index = 0; index < data.skill_info.length; index++) {
+      for (index = 0; index < data.skill_info[0].length; index++) {
           var skillDivHtml = $("#pro-skill-form .input-block-skill").html();
           if (index == 0) {
-              $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[index].id + '">' +'<p class="progress-on">'+ data.skill_info[index].skill_obj.name +'</p></div>'+
-                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+ data.skill_info[index].rating *10 +'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
-                    '<p class="progress-to">'+data.skill_info[index].rating + '/10</p></div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+              $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[0][index].id + '">' +'<p class="progress-on">'+ data.skill_info[0][index].skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+ data.skill_info[0][index].rating *10 +'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.skill_info[0][index].rating + '/10</p></div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
                 '                <i data-feather="trash-2"></i>\n' +
                 '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
                 '                <i data-feather="edit-2"></i>\n' +
                 '              </button></div>'+'</div>');
           }
           else if(index>=1){
-              $('.skill-label:last').after('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[index].id + '">' +'<p class="progress-on">'+ data.skill_info[index].skill_obj.name +'</p></div>'+
-                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.skill_info[index].rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
-                    '<p class="progress-to">'+data.skill_info[index].rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+              $('.skill-label:last').after('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[0][index].id + '">' +'<p class="progress-on">'+ data.skill_info[0][index].skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.skill_info[0][index].rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.skill_info[0][index].rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
                 '                <i data-feather="trash-2"></i>\n' +
                 '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
                 '                <i data-feather="edit-2"></i>\n' +

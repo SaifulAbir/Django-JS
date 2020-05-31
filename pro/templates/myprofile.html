@@ -10,11 +10,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="breadcrumb-area">
-                        <h1>Profile Details</h1>
+                        <h1>View Profile</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Profile Details</li>
+                                <li class="breadcrumb-item active" aria-current="page">View Profile</li>
                             </ol>
                         </nav>
                     </div>
@@ -27,15 +27,15 @@
 
 
 {% block professional_block %}
-    <div class="download-resume dashboard-section">
-        <a href="#">Download CV<i data-feather="download"></i></a>
-        <a href="#">Download Cover Letter<i data-feather="download"></i></a>
-    </div>
-    <div class="skill-and-profile dashboard-section">
-        <div class="skill">
-            <label>Skills:</label>
-        </div>
-        <div class="social-profile">
+{#    <div class="download-resume dashboard-section">#}
+{#        <a href="#">Download CV<i data-feather="download"></i></a>#}
+{#        <a href="#">Download Cover Letter<i data-feather="download"></i></a>#}
+{#    </div>#}
+    <div class="skill-and-profile dashboard-section float-right">
+{#        <div class="skill">#}
+{#            <label>Skills:</label>#}
+{#        </div>#}
+        <div class="social-profile ">
             <label>Social:</label>
 
             <a href="#" id="facebook"><i class="fab fa-facebook-f" ></i></a>
@@ -49,9 +49,6 @@
         <div class="pro_about">
         </div>
         <div class="information-and-contact">
-            <div class="information">
-                <h4>Information</h4>
-            </div>
         </div>
     </div>
     <div class="edication-background details-section dashboard-section" id="edu">
@@ -195,7 +192,7 @@
             if (!data.personal_info.qualification){
                 data.personal_info.qualification= "";
             }
-            var info_html = '<h4>Information</h4>'+
+            var info_html =
                 '<ul>'+
                 '<li><span>Category:</span> '+data.personal_info.industry_expertise+'</li>'+
                 '<li><span>Location:</span> '+data.personal_info.address+'</li>'+
@@ -206,7 +203,7 @@
                 '<li><span>Age:</span>'+pro_age+' Year(s)</li>'+
                 '<li><span>Qualification:</span>'+data.personal_info.qualification+'</li>'+
                 '</ul>';
-            $(".information").html(info_html);
+            $(".information-and-contact").html(info_html);
 
 
             //education info show
@@ -309,6 +306,7 @@
             //Professional Skill info show
 
             pro_skill_data = data['skill_info']
+            console.log(pro_skill_data)
             len = pro_skill_data.length;
             for(x=0;x<len;x++){
                 var pro_skill_html='<div class="progress-item">'+
