@@ -44,12 +44,47 @@
 
         </div>
     </div>
+    <div class="dashboard-section upload-profile-photo">
+        <div class="update-photo">
+            <!--                <input type="text" id="image" value="">-->
+            <img id="image1" class="image" src="{% static 'dashboard/images/user-1.jpg' %}" alt="">
+        </div>
+    </div>
     <div class="about-details details-section dashboard-section">
-        <h4><i data-feather="align-left"></i>About Me</h4>
-        <div class="pro_about">
-        </div>
+        <h4><i data-feather="user-check"></i>Basic Info</h4>
+        <div class="pro_about" id="about-details-div">
         <div class="information-and-contact">
+            <ul>
+                        <span><h8>About Me: </h8></span><span class="about" id="about_me"></span>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Industry: </h8></span> <span id="industry_expertise"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Location: </h8></span> <span id="address"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Status:</h8></span> <span id="status"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Experience:</h8></span> <span id="experience"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span> - <span class="about-info-salary" id="expected_salary_max"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Gender:</h8></span> <span id="gender"></span>
+                            </div>
+                        </div>
+                        <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
+                        <span><h8>Qualification:</h8></span> <span id="qualification"></span>
+                    </ul>
         </div>
+    </div>
     </div>
     <div class="edication-background details-section dashboard-section" id="edu">
         <h4><i data-feather="book"></i>Education</h4>
@@ -108,7 +143,7 @@
 
             // $('#pro_pic').append('<img src="'+data.personal_info.image+'" class="img-fluid" alt="">');
 
-            $('#pro_pic').append('<img src="'+data.personal_info.image+'" class="img-fluid" alt="">');
+            $('#image1').attr('src', data.personal_info.image);
 
             //            console.log(data.personal_info.image)
             //        $('#pro_pic').append('<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">');
@@ -135,14 +170,6 @@
             $('#linkedin').attr('href', linkedin);
 
 
-            //skills show
-
-            skill_info = data['skill_info']
-            len = skill_info.length;
-            for(x=0;x<len;x++){
-                $('.skill').append('<a href="#">'+skill_info[x].skill_obj.name+'</a>');
-            }
-
 
             //about info show
 
@@ -159,8 +186,8 @@
                 return age;
             }
             var pro_age = getAge(data.personal_info.date_of_birth)
-            var about_html='<p>'+data.personal_info.about_me+'</p>';
-            $(".pro_about").html(about_html);
+            {#var about_html='<p>'+data.personal_info.about_me+'</p>';#}
+            {#$(".pro_about").html(about_html);#}
             if (!data.personal_info.industry_expertise){
                 data.personal_info.industry_expertise= "";
             }
@@ -192,18 +219,21 @@
             if (!data.personal_info.qualification){
                 data.personal_info.qualification= "";
             }
-            var info_html =
-                '<ul>'+
-                '<li><span>Category:</span> '+data.personal_info.industry_expertise+'</li>'+
-                '<li><span>Location:</span> '+data.personal_info.address+'</li>'+
-                '<li><span>Status:</span>'+data.personal_info.status+'</li>'+
-                '<li><span>Experience:</span>'+data.personal_info.experience+'</li>'+
-                '<li><span>Salary:</span> '+data.personal_info.expected_salary_min+'  '+data.personal_info.expected_salary_max+'</li>'+
-                '<li><span>Gender:</span>'+data.personal_info.gender+'</li>'+
-                '<li><span>Age:</span>'+pro_age+' Year(s)</li>'+
-                '<li><span>Qualification:</span>'+data.personal_info.qualification+'</li>'+
-                '</ul>';
-            $(".information-and-contact").html(info_html);
+            about_container = $('.pro_about');
+            console.log(about_container)
+            json2DivPopulate(data.personal_info, about_container);
+            {#var info_html =#}
+            {#    '<ul>'+#}
+            {#    '<li><span>Category:</span> '+data.personal_info.industry_expertise+'</li>'+#}
+            {#    '<li><span>Location:</span> '+data.personal_info.address+'</li>'+#}
+            {#    '<li><span>Status:</span>'+data.personal_info.status+'</li>'+#}
+            {#    '<li><span>Experience:</span>'+data.personal_info.experience+'</li>'+#}
+            {#    '<li><span>Salary:</span> '+data.personal_info.expected_salary_min+'  '+data.personal_info.expected_salary_max+'</li>'+#}
+            {#    '<li><span>Gender:</span>'+data.personal_info.gender+'</li>'+#}
+            {#    '<li><span>Age:</span>'+pro_age+' Year(s)</li>'+#}
+            {#    '<li><span>Qualification:</span>'+data.personal_info.qualification+'</li>'+#}
+            {#    '</ul>';#}
+            {#$(".information-and-contact").html(info_html);#}
 
 
             //education info show
@@ -305,7 +335,7 @@
 
             //Professional Skill info show
 
-            pro_skill_data = data['skill_info']
+            pro_skill_data = data['skill_info'][0]
             console.log(pro_skill_data)
             len = pro_skill_data.length;
             for(x=0;x<len;x++){

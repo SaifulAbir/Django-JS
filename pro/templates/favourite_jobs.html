@@ -54,7 +54,7 @@
        function  favJobs(data){
            console.log(data)
             number_of_jobs_bookmarked=data.length;
-            $('.bookmark-title').append(number_of_jobs_bookmarked," Job Bookmarked");
+            $('.bookmark-title').append(number_of_jobs_bookmarked," Favorite Job");
             $('.bookmark-title').val(number_of_jobs_bookmarked);
             for(index=0;index<6;index++){
             var dateString = data[index].application_deadline;
@@ -98,7 +98,7 @@
            event.preventDefault()
            $(this).parent().parent().parent().remove();
            var bookmark_value =$('.bookmark-title').val()-1;
-           $('.bookmark-title').html(bookmark_value + " Job Bookmarked");
+           $('.bookmark-title').html(bookmark_value + " Favorite Job");
             $('.bookmark-title').val(bookmark_value);
 
        });
