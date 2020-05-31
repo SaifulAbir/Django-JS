@@ -63,17 +63,16 @@ class GenderSerializer(serializers.ModelSerializer):
 
 
 class JobSerializer(serializers.ModelSerializer):
-    profile_picture = serializers.CharField(read_only=True)
     is_favourite = serializers.BooleanField(read_only=True)
     is_applied = serializers.BooleanField(read_only=True)
-   # company = CompanySerializer(many=False)
+    company = CompanySerializer(many=False)
     class Meta:
         model = Job
-        fields = ('job_id', 'title', 'status' , 'company_name', 'job_category',
+        fields = ('job_id', 'title', 'status' , 'company', 'job_category',
                   'application_deadline', 'job_area', 'job_city', 'job_country',
                   'job_site', 'job_nature', 'job_type',
                   'created_at', 'post_date', 'slug', 'applied_count', 'favorite_count',
-                  'is_applied', 'is_favourite', 'profile_picture', 'vacancy' , 'address')
+                  'is_applied', 'is_favourite', 'vacancy' , 'address', 'company')
 
 
 class JobSourceSerializer(serializers.ModelSerializer):
@@ -94,17 +93,15 @@ class JobGenderSerializer(serializers.ModelSerializer):
 # TODO: remove if not needed
 class RecentJobSerializer(serializers.ModelSerializer):
     status = serializers.CharField()
-    # profile_picture = serializers.CharField()
 
     class Meta:
         model = Job
-        fields = ['job_location', 'job_id', 'company_name', 'employment_status', 'title', 'created_date', 'status']
+        fields = ['job_location', 'job_id', 'company', 'employment_status', 'title', 'created_date', 'status']
 
 class JobSerializerAllField(serializers.ModelSerializer):
-    profile_picture = serializers.CharField(read_only=True)
     is_favourite = serializers.CharField(read_only=True)
     is_applied = serializers.CharField(read_only=True)
-    ##company_name = CompanySerializer(many=False)
+    company = CompanySerializer(many=False)
     class Meta:
         model = Job
         fields = '__all__'

@@ -15,8 +15,8 @@ from p7.admin import P7Admin
 
 class JobAdmin(P7Admin):
     filter_horizontal = ('job_skills',) # Many to many field
-    list_display = ['title', 'company_name', 'created_at',  'post_date', 'created_by', 'status' ]
-    search_fields = ['title__icontains', 'company_name__name__icontains']
+    list_display = ['title', 'company', 'created_at',  'post_date', 'created_by', 'status' ]
+    search_fields = ['title__icontains', 'company__name__icontains']
     date_hierarchy = 'post_date' # Top filter
     list_per_page = 15
     list_filter = (('created_at', DateRangeFilter),
@@ -24,7 +24,7 @@ class JobAdmin(P7Admin):
                    ('status', DropdownFilter),
                    ('created_by', DropdownFilter))
     fields = [('title','status', 'featured'),
-        'company_name',
+        'company',
         ('address','job_category','application_deadline'),
         ('job_gender','vacancy','experience'),
         ('salary','salary_min','salary_max','currency'),
