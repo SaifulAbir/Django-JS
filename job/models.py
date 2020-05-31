@@ -204,7 +204,7 @@ class Job(P7Model):
     salary_min = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True)
     salary_max = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT, blank=True, null=True, db_column='currency')
-    other_benefits = models.TextField(max_length=255, blank=True, null=True)
+    other_benefits = models.TextField(blank=True, null=True)
     experience =  models.CharField(max_length=10, blank=True, null= True)
     description = models.TextField(blank=True, null=True)
     qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT,blank=True, null= True,db_column='qualification')
@@ -253,6 +253,7 @@ class Job(P7Model):
     review_date = models.DateTimeField(blank=True, null = True)
     approve_date = models.DateTimeField(blank=True, null = True)
     publish_date = models.DateTimeField(blank=True, null = True)
+    featured = models.BooleanField(default=False)
 
 
     class Meta:
