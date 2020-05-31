@@ -8,7 +8,8 @@
         <div class="row">
           <div class="col-md-6">
             <div class="breadcrumb-area">
-              <h1>Career Advice Details</h1>
+                <div  id="title"> </div>
+<!--              <h1>Career Advice Details</h1>-->
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
@@ -77,7 +78,7 @@
             var momentObj = moment(dateString, 'YYYY-MM-DD');
             var created_date = momentObj.format('Do MMM, YYYY');
   //console.log(created_date);
-
+         $('#title').append('<h1>'+data[x].title+'</h1>');
          $('.blog-details-wrapper').prepend('<div class="info">'+
                   '<span class="date">'+created_date+'</span>'+
                   '<span class="author"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data[x].author+'</a></span>'+
