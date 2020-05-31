@@ -23,7 +23,9 @@ class JobAdmin(P7Admin):
                    ('post_date', DateRangeFilter),
                    ('status', DropdownFilter),
                    ('created_by', DropdownFilter))
-    fields = [('title','status'),'company_name',('address','job_category','application_deadline'),
+    fields = [('title','status', 'featured'),
+        'company_name',
+        ('address','job_category','application_deadline'),
         ('job_gender','vacancy','experience'),
         ('salary','salary_min','salary_max','currency'),
         'description','responsibilities','education','qualification',
