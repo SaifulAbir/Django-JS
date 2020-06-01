@@ -1,10 +1,10 @@
-{% extends 'public_view_layout.html' %}
+{% extends 'common_layout.html' %}
 {% load static %}
-
+{%  block body_block %}
 
 
 <!-- Breadcrumb -->
-{% block professional_breadcrumb %}
+
     <div class="alice-bg padding-top-70 padding-bottom-70">
         <div class="container">
             <div class="row">
@@ -22,11 +22,13 @@
             </div>
         </div>
     </div>
+
+
     <!-- Breadcrumb End -->
-{% endblock %}
 
 
-{% block professional_block %}
+
+
 {#    <div class="download-resume dashboard-section">#}
 {#        <a href="#">Download CV<i data-feather="download"></i></a>#}
 {#        <a href="#">Download Cover Letter<i data-feather="download"></i></a>#}
@@ -44,12 +46,23 @@
 {##}
 {#        </div>#}
 {#    </div>#}
-{#    <div class="dashboard-section upload-profile-photo">#}
-{#        <div class="update-photo">#}
-{#            <!--                <input type="text" id="image" value="">-->#}
-{#            <img id="image1" class="image" src="{% static 'dashboard/images/user-1.jpg' %}" alt="">#}
-{#        </div>#}
-{#    </div>#}
+
+    <div class="alice-bg section-padding-bottom">
+    <div class="container no-gliters">
+        <div class="row no-gliters">
+            <div class="col">
+                <div class="dashboard-container" style="width:100%;">
+                    <div class="dashboard-content-wrapper" style="width: 100%;">
+                        <div class="dashboard-section upload-profile-photo">
+        <div class="update-photo" id="img">
+
+
+        </div>
+                            <div class="user-body" style="margin-top: 15px">
+                             <span><h8 ><b id="name"></b></h8></span>
+                            </div>
+    </div>
+
     <div class="about-details details-section dashboard-section">
         <h4><i data-feather="user-check"></i>Basic Info</h4>
         <div class="pro_about" id="about-details-div">
@@ -113,6 +126,14 @@
     </div>
 
 
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
 {#    <div class="personal-information dashboard-section last-child details-section" id="details">#}
 {#        <h4><i data-feather="user-plus"></i>Personal Deatils</h4>#}
 {#    </div>#}
@@ -129,10 +150,29 @@
 
             var getUrl = '/api/professional/profile/'+ id + '/';
             get(getUrl, loadProfile);
-
+            get('/log/', loadUser);
             initAjaxForms();
 
         });
+        function loadUser(data) {
+        if(data.length>=1){
+
+            $('#name').text(data[0].user.name);
+
+
+            if(data[0].user.image){
+                $('#img').html('<img src="'+ data[0].user.image +'" class="img-fluid" alt="">')
+            }
+            else{
+                $('#img').html('<img src="/static/images/alternate.jpg" class="img-fluid" alt="">')
+            }
+
+
+
+
+        }
+    }
+
 
         function loadProfile(data){
             console.log(data)
@@ -144,7 +184,7 @@
 
             // $('#pro_pic').append('<img src="'+data.personal_info.image+'" class="img-fluid" alt="">');
 
-            $('#image1').attr('src', data.personal_info.image);
+            {##}
 
             //            console.log(data.personal_info.image)
             //        $('#pro_pic').append('<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">');
@@ -156,7 +196,7 @@
             //social link shows
             if (!data.personal_info.facebook_id){
                 data.personal_info.facebook_id= "";
-            }
+            }$('#image1').attr('src', data.personal_info.image);
             if (!data.personal_info.facebook_id){
                 data.personal_info.twitter_id= "";
             }
@@ -508,31 +548,7 @@
             }
 
 
-
-
-            {#//personal details show#}
-            {#if (!data.personal_info.father_name){#}
-            {#    data.personal_info.father_name= "";#}
-            {#}#}
-            {#if (!data.personal_info.mother_name){#}
-            {#    data.personal_info.mother_name= "";#}
-            {#}#}
-            {#if (!data.personal_info.permanent_address){#}
-            {#    data.personal_info.permanent_address= "";#}
-            {#}#}
-            {#var dateofbirth = data.personal_info.date_of_birth#}
-            {#var momentObj = moment(dateofbirth, 'YYYY-MM-DD');#}
-            {#var dateMomentString = momentObj.format('DD-MM-YYYY');#}
-            {#var detail_html = '<ul>'+#}
-            {#    '<li><span>Full Name:</span> '+ data.personal_info.full_name+'</li>'+#}
-            {#    '<li><span>Fathers Name:</span> '+data.personal_info.father_name+'</li>'+#}
-            {#    '<li><span>Mothers Name:</span>'+ data.personal_info.mother_name+'</li>'+#}
-            {#    '<li><span>Date of Birth:</span>'+dateMomentString+'</li>'+#}
-            {#    '<li><span>Nationality:</span> '+data.personal_info.nationality_obj.name+'</li>'+#}
-            {#    '<li><span>Gender:</span>'+data.personal_info.gender+'</li>'+#}
-            {#    '<li><span>Address:</span>'+data.personal_info.permanent_address+'</li>'+#}
-            {#    '</ul>';#}
-            {#$("#details").append(detail_html);#}
+}
 
 
 
@@ -540,11 +556,6 @@
 
 
 
-
-
-
-
-        }
 
 
     </script>
