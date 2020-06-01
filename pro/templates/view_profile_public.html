@@ -1,0 +1,55 @@
+{% extends 'common_layout.html' %}
+{% load static %}
+{% block body_block %}
+<div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>User Profile</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="edication-background details-section dashboard-section" id="edu">
+        <h4><i data-feather="book"></i>Education</h4>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(document).ready(function() {
+
+            initAjaxForms();
+            $('#contactForm').validate();
+            settingsUrl = '/api/settings/';
+            get(settingsUrl,loadSettings);
+        });
+
+        function loadSettings(data) {
+            if (data.length>0){
+                data = data[0];
+                $('#address').html(data.address);
+                $('#phone').html(data.phone);
+                $('#support_email').html(data.support_email);
+                $('.cp-map').attr('data-lat',data.latitude);
+                $('.cp-map').attr('data-lng',data.longitude);
+                $('.cp-map').attr('data-zoom',data.zoom);
+                initMap();
+            }
+        }
+
+        function contactUsCallback(data){
+            console.log('success');
+            $("#contactForm input, #contactForm textarea").val('');
+            showSuccess("Thanks for contacting us! We will get in touch with you shortly.")
+        }
+    </script>
+{% endblock %}
