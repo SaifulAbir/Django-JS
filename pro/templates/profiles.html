@@ -284,8 +284,9 @@
                 </div>
               </div>
             </div>
+        <div class="col-sm-6">
             <form action="" id="profile-form" class="dashboard-form ajax profile-form-ajax" method="PUT" data-callback = "profileUpdateCallback" enctype="multipart/form-data" novalidate="novalidate">
-        <div class="dashboard-section upload-profile-photo">
+        <div class="dashboard-section upload-profile-photo ">
             <div class="update-photo">
 <!--                <input type="text" id="image" value="">-->
                 <img id="image1" class="image" src="{% static 'dashboard/images/user-1.jpg' %}" alt="">
@@ -330,7 +331,8 @@
             </div>
         </div>
     </form>
-            <div class="about-details details-section dashboard-section" id="about-details">
+        </div>
+        <div class="about-details details-section dashboard-section" id="about-details">
               <div id="about-details-div">
                 <h4><i data-feather="user-check"></i>Basic Info</h4>
                 <div class="information-and-contact">
