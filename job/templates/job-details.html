@@ -245,7 +245,7 @@
                 apply.attr('href', 'javascript:void(0)')
             }
             json2Div(data, container);
-            $('#company-details').attr("href", "/company-details/"+data.company_name)
+            $('#company-details').attr("href", "/company-details/"+data.company.name)
             if(data.company){
                 $(".name").html(data.company.name);
             }
