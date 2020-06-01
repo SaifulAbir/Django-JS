@@ -55,7 +55,10 @@
         <div class="pro_about" id="about-details-div">
         <div class="information-and-contact">
             <ul>
-                        <span><h8>About Me: </h8></span><span class="about" id="about_me"></span>
+                        <div id="basic-info-margin">
+                            <span><h8>About Me: </h8></span><br>
+                            <span class="about" id="about_me"></span>
+                        </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <span><h8>Industry: </h8></span> <span id="industry_expertise"></span>
@@ -77,11 +80,10 @@
                                 <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span> - <span class="about-info-salary" id="expected_salary_max"></span>
                             </div>
                             <div class="col-sm-6">
-                                <span><h8>Gender:</h8></span> <span id="gender"></span>
+                                <span><h8>Qualification:</h8></span> <span id="qualification"></span>
                             </div>
                         </div>
                         <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
-                        <span><h8>Qualification:</h8></span> <span id="qualification"></span>
                     </ul>
         </div>
     </div>
@@ -282,7 +284,8 @@
 
             //work experience info show
 
-            work_data = data.experience_info
+            work_data = data.experience_info[0]
+            console.log(work_data)
             len = work_data.length;
             for(x=0;x<len;x++){
                 if(experience_info[x].start_date){
