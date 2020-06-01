@@ -61,6 +61,10 @@ class GenderSerializer(serializers.ModelSerializer):
         fields = ['name']
 
 
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skill
+        fields = ['id', 'name']
 
 class JobSerializer(serializers.ModelSerializer):
     is_favourite = serializers.BooleanField(read_only=True)
@@ -74,6 +78,15 @@ class JobSerializer(serializers.ModelSerializer):
                   'created_at', 'post_date', 'slug', 'applied_count', 'favorite_count',
                   'is_applied', 'is_favourite', 'vacancy' , 'address', 'company')
 
+
+class JobSerializerAllField(serializers.ModelSerializer):
+    is_favourite = serializers.CharField(read_only=True)
+    is_applied = serializers.CharField(read_only=True)
+    company = CompanySerializer(many=False)
+    job_skills = SkillSerializer(many=True)
+    class Meta:
+        model = Job
+        fields = '__all__'
 
 class JobSourceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -98,13 +111,6 @@ class RecentJobSerializer(serializers.ModelSerializer):
         model = Job
         fields = ['job_location', 'job_id', 'company', 'employment_status', 'title', 'created_date', 'status']
 
-class JobSerializerAllField(serializers.ModelSerializer):
-    is_favourite = serializers.CharField(read_only=True)
-    is_applied = serializers.CharField(read_only=True)
-    company = CompanySerializer(many=False)
-    class Meta:
-        model = Job
-        fields = '__all__'
 
 class CompanyListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -142,8 +148,3 @@ class TopJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields= ['title','favourite_count']
-
-class SkillSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Skill
-        fields = '__all__'

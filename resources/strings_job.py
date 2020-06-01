@@ -102,6 +102,7 @@ JOB_CREATOR_TYPES = (
 DEFAULT_JOB_CREATOR_TYPE = 'OPERATOR'
 
 JOB_STATUSES = (
+    ('RAW', 'Raw'),
     ('DRAFT', 'Draft'),
     ('REVIEWED', 'Reviewed'),
     ('APPROVED', 'Approved'),
