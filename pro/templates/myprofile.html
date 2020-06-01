@@ -222,7 +222,6 @@
                 data.personal_info.qualification= "";
             }
             about_container = $('.pro_about');
-            console.log(about_container)
             json2DivPopulate(data.personal_info, about_container);
             {#var info_html =#}
             {#    '<ul>'+#}
@@ -273,6 +272,9 @@
                 if (!edu_data[x].major_text){
                     edu_data[x].major_text="";
                 }
+                if(!edu_data[x].description){
+                    edu_data[x].description = ''
+                }
                 var edu_html='<div class="education-label">'+
                     '<span class="study-year">'+enrolled_date+'  '+graduation_date+'</span>'+
                     '<h5>'+edu_data[x].degree+'<span>@'+edu_data[x].institution_text+'</span></h5>'+
@@ -284,9 +286,9 @@
 
             //work experience info show
 
-            work_data = data.experience_info[0]
-            console.log(work_data)
-            len = work_data.length;
+            experience_info = data.experience_info
+            console.log(data.experience_info)
+            len = experience_info.length;
             for(x=0;x<len;x++){
                 if(experience_info[x].start_date){
                              var start_date = experience_info[x].start_date;
@@ -328,10 +330,16 @@
                     else{
                          var company_text = '';
                     }
+                    if(experience_info[x].description){
+                        var description = experience_info[x].description
+                    }
+                    else{
+                        var description = ''
+                    }
                 var work_html='<div class="experience-section">'+
                     '<span class="service-year">'+start_date+'-'+end_date+'</span>'+
                     '<h5>'+designation+'<span>@'+company_text+'</span></h5>'+
-                    '</div><br>';
+                    '</div><p>'+ description +'</p><br>';
                 $('#work').append(work_html);
             }
 
@@ -339,7 +347,6 @@
             //Professional Skill info show
 
             pro_skill_data = data['skill_info'][0]
-            console.log(pro_skill_data)
             len = pro_skill_data.length;
             for(x=0;x<len;x++){
                 var pro_skill_html='<div class="progress-item">'+
