@@ -52,11 +52,11 @@
     });
        //appending fav jobs to html
        function  favJobs(data){
-           console.log(data)
+           console.log(data[0].company)
             number_of_jobs_bookmarked=data.length;
             $('.bookmark-title').append(number_of_jobs_bookmarked," Favorite Job");
             $('.bookmark-title').val(number_of_jobs_bookmarked);
-            for(index=0;index<6;index++){
+            for(index=0;index<data.length;index++){
             var dateString = data[index].application_deadline;
             var momentObj = moment(dateString, 'YYYY-MM-DD');
             var dateMomentString = momentObj.format('MMM DD, YYYY');
@@ -66,16 +66,16 @@
             var fav_jobs_html = '<div class="job-list" >'+
                       '<div class="thumb">'+
                         '<a href="#">'+
-                          '<img src="'+data[index].profile_picture+'" style="max-width:70px"; class="img-fluid" alt="">'+
+                          '<img src="'+data[index].company.profile_picture+'" style="max-width:70px"; class="img-fluid" alt="">'+
                         '</a>'+
                       '</div>'+
                       '<div class="body">'+
                         '<div class="content">'+
                           '<h4><a href="/job-detail/'+ data[index].slug+'">'+data[index].title+'</a></h4>'+
                           '<div class="info">'+
-                            '<span class="company"><a href="#"><i class="fas fa-building" style="margin-right: 5px"></i>'+data[index].company_name+'</a></span>'+
-                            '<span class="office-location"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>'+data[index].job_location+'</a></span>'+
-                            '<span class="job-type full-time"><a href="#"><img style="margin-right: 6px; vertical-align: top; padding-top: 5px;" src="/static/images/img_clock.png" width="12">'+data[index].employment_status+'</a></span>'+
+                            '<span class="company"><a href="#"><i class="fas fa-building" style="margin-right: 5px"></i>'+data[index].company.name+'</a></span>'+
+                            '<span class="office-location"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>'+data[index].address+'</a></span>'+
+                            '<span class="job-type full-time"><a href="#"><img style="margin-right: 6px; vertical-align: top; padding-top: 5px;" src="/static/images/img_clock.png" width="12">'+data[index].job_type+'</a></span>'+
                           '</div>'+
                         '</div>'+
                         '<div class="more">'+

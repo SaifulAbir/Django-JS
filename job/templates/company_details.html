@@ -307,9 +307,9 @@
         if(data.results.length > 0){
             for(index=0;index<data.results.length;index++){
 
-            var name_checker = (data.results[index].company_name == name);
+            var name_checker = (data.results[index].company.name == name);
   //console.log('name' , name);
-  //console.log('company_name' ,data.results[index].company_name);
+  //console.log('company_name' ,data.results[index].company.name);
   //console.log('name_checker' ,name_checker);
             if(name_checker == true)
             {
