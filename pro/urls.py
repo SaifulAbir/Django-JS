@@ -61,7 +61,6 @@ urlpatterns = [
 
 
     path('info_box/', info_box_api),
-    path('skill_job_chart/', skill_job_chart),
     path('pro_recent_activity/', pro_recent_activity),
 
 ]
