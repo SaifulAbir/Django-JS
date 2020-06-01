@@ -522,3 +522,10 @@ header .signin-user .account-button {
 .upload-profile-photo{
     margin-top: 0px !important;
 }
+
+.job-apply-buttons .quick-apply {
+    background: #246df8;
+    color: #ffffff;
+    border-color: #246df8;
+    margin-right: 10px;
+}

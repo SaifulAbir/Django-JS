@@ -59,6 +59,7 @@
                                     </div>
                                     <div class="job-apply-buttons">
                                         <a href="#" class="apply"  data-toggle="#" data-target="#apply-popup-id">Apply Online</a>
+<!--                                        <a href="#" class="quick-apply" data-target="#apply-popup-id">Quick Apply</a>-->
                                         <a href="#" class="email"><i data-feather="mail"></i>Email Job</a>
                                     </div>
                                 </div>
@@ -139,25 +140,22 @@
                     <div class="modal-body">
                         <form action="#">
                             <div class="form-group">
-                                <input type="text" placeholder="Full Name" class="form-control">
+                                <input type="text" placeholder="Name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Phone" class="form-control">
                             </div>
                             <div class="form-group">
                                 <input type="email" placeholder="Email Address" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <textarea class="form-control" placeholder="Message"></textarea>
-                            </div>
+<!--                            <div class="form-group">-->
+<!--                                <textarea class="form-control" placeholder="Message"></textarea>-->
+<!--                            </div>-->
                             <div class="form-group file-input-wrap">
                                 <label for="up-cv">
                                     <input id="up-cv" type="file">
                                     <i data-feather="upload-cloud"></i>
                                     <span>Upload your resume <span>(pdf,zip,doc,docx)</span></span>
-                                </label>
-                            </div>
-                            <div class="more-option">
-                                <input class="custom-radio" type="checkbox" id="radio-4" name="termsandcondition">
-                                <label for="radio-4">
-                                    <span class="dot"></span> I accept the <a href="#">terms and conditions</a>
                                 </label>
                             </div>
                             <button class="button primary-bg btn-block">Apply Now</button>
@@ -203,6 +201,11 @@
         get(getUrl, loadJob);
         favouriteJobAddRemove('jobs', '/api/job/favourite/toggle');
         applyOnlineJobAddRemove('jobs', '/api/job/apply/');
+        if(!isLoggedIn()){
+            $('.quick-apply').attr('data-toggle', 'modal');
+        }else{
+
+        }
 
     });
 
