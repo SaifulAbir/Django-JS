@@ -211,14 +211,20 @@ function makeListHtml(data, template){
                     var href = $(item).attr("href") + data[i][k];
                     $(item).attr("href", href);
                 }else if($(item).hasClass("dynamic-img")){
-                    var src = $(item).attr("src") + data[i][k];
+                    var src = $(item).attr("src") + data[i][k].profile_picture;
+                    console.log(src);
                     var static_url = "/static/images/job/company-logo-2.png";
                     if (src){
-                        $(item).attr("src", '/media/'+src);
+                        $(item).attr("src", src);
                     }else {
                         $(item).attr("src", static_url);
                     }
 
+                }else if($(item).hasClass("company-child-info")){
+                    $(item).html(data[i][k].name);
+                }else if($(item).hasClass("company-details-link")){
+                    var href = "/company-details/" + data[i][k].name;
+                    $(item).attr("href", href);
                 }else {
                     $(item).html(data[i][k]);
                 }
@@ -405,7 +411,7 @@ function loadFavouriteJob(data) {
             else if($(this).hasClass("favourite")){
                 $(this).addClass('active');
                 $(this).children().attr("fill", "#ff8fa6");
-               // $(".job-list .body .more .buttons .favourite svg").attr("fill", "#ff8fa6");
+                // $(".job-list .body .more .buttons .favourite svg").attr("fill", "#ff8fa6");
                 showSuccess('Successful!', 'Job saved as a favorite.')
 
             }
@@ -445,12 +451,12 @@ function applyOnlineJobAddRemove(id, url) {
 }
 
 $('.account-button, .account-card').hover( function(e) {
-        e.preventDefault();
-        $('.account-card').css('display', 'block');
-    },function(e) {
-        e.preventDefault();
-        $('.account-card').css('display', 'none');
-    })
+    e.preventDefault();
+    $('.account-card').css('display', 'block');
+},function(e) {
+    e.preventDefault();
+    $('.account-card').css('display', 'none');
+})
 
 function loadApplyonlineJob(data) {
     if(data.responseJSON.code == 200){
