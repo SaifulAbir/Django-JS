@@ -13,7 +13,7 @@
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Career Advice Details</li>
+                  <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'career_advice' %}">Career Advice</a></li>
                 </ol>
               </nav>
             </div>
@@ -84,8 +84,6 @@
                   '<span class="author"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data[x].author+'</a></span>'+
                   '</div>'+
                   '<div class="post-content">'+
-                  '<h2>'+data[x].title+'</h2>'+
-                  '<p>'+data[x].short_description+'</p><br>'+
                   '<p>'+data[x].description+'</p>'+
                   '</div>')
              }
