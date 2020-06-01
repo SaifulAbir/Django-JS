@@ -27,6 +27,7 @@ class JobAPI(APIView):
                 status='Published',
                 slug=slug,
             ).select_related('company'
+            ).prefetch_related('job_skills'
             ).annotate(is_favourite=Count('fav_jobs')
             ).annotate(is_applied=Count('applied_jobs')
             ).order_by('-post_date'
@@ -38,6 +39,7 @@ class JobAPI(APIView):
                 status='Published',
                 slug=slug,
             ).select_related('company'
+            ).prefetch_related('job_skills'
             ).order_by('-post_date'
             ).first()
 
@@ -45,6 +47,7 @@ class JobAPI(APIView):
             queryset.is_applied = False
 
         data = JobSerializerAllField(queryset).data
+        # pprint(connection.queries)
         return Response(data)
 
 
