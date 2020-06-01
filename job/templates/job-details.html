@@ -231,7 +231,7 @@
             initMap();
             len= data.job_skills.length;
             for(x=0;x<len;x++){
-                $('#skills').append('<p>'+ data.job_skills[x] +'</p>')
+                $('#skills').append('<p>'+ data.job_skills[x].name +'</p>')
             }
             var fav = $(".save");
             var apply = $(".apply");
