@@ -212,7 +212,6 @@
 
 
     function  loadJob(data){
-        console.log(data)
         container = $('.job-detail');
         if(data){
             $('.save').attr("href", data.job_id);
@@ -245,7 +244,15 @@
                 apply.text('Applied');
                 apply.attr('href', 'javascript:void(0)')
             }
+            if(data.experience){
+                if(data.experience == '1'){
+                    data.experience = data.experience + ' year';
+                }else{
+                    data.experience = data.experience + ' years';
+                }
+            }
             json2Div(data, container);
+            $('#company-details').text()
             $('#company-details').attr("href", "/company-details/"+data.company.name)
             if(data.company){
                 $(".name").html(data.company.name);
