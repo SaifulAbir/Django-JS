@@ -28,89 +28,17 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <div class="blog-post-wrapper">
-<!--              <article class="blog-list">-->
-<!--                <div class="info">-->
-<!--                  <span class="date">24th dec,  2020</span>-->
-<!--                  <span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>-->
-<!--                  <span class="comments"><i data-feather="message-circle"></i>42</span>-->
-<!--                </div>-->
-<!--                <div class="content">-->
-<!--                  <h3><a href="blog-details.html">But I must explain to you how all</a></h3>-->
-<!--                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release...</p>-->
-<!--                </div>-->
-<!--                <div class="read-more">-->
-<!--                  <a href="#" class="button">Read More</a>-->
-<!--                </div>-->
-<!--              </article>-->
-<!--              <article class="blog-list">-->
-<!--                <div class="info">-->
-<!--                  <span class="date">31th dec,  2020</span>-->
-<!--                  <span class="author"><a href="#"><i data-feather="user"></i>Dorothy Kiger</a></span>-->
-<!--                  <span class="comments"><i data-feather="message-circle"></i>16</span>-->
-<!--                </div>-->
-<!--                <div class="content">-->
-<!--                  <h3><a href="blog-details.html">Nor again is there anyone who loves pursues</a></h3>-->
-<!--                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release...</p>-->
-<!--                </div>-->
-<!--                <div class="read-more">-->
-<!--                  <a href="#" class="button">Read More</a>-->
-<!--                </div>-->
-<!--              </article>-->
-<!--              <article class="blog-list">-->
-<!--                <div class="info">-->
-<!--                  <span class="date">17th dec,  2020</span>-->
-<!--                  <span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>-->
-<!--                  <span class="comments"><i data-feather="message-circle"></i>24</span>-->
-<!--                </div>-->
-<!--                <div class="content">-->
-<!--                  <h3><a href="blog-details.html">Because it is pleasure but those</a></h3>-->
-<!--                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release...</p>-->
-<!--                </div>-->
-<!--                <div class="read-more">-->
-<!--                  <a href="#" class="button">Read More</a>-->
-<!--                </div>-->
-<!--              </article>-->
-<!--              <article class="blog-list">-->
-<!--                <div class="info">-->
-<!--                  <span class="date">04th dec,  2020</span>-->
-<!--                  <span class="author"><a href="#"><i data-feather="user"></i>Samuel Alvarado</a></span>-->
-<!--                  <span class="comments"><i data-feather="message-circle"></i>51</span>-->
-<!--                </div>-->
-<!--                <div class="content">-->
-<!--                  <h3><a href="blog-details.html">Who chooses to enjoy a pleasure </a></h3>-->
-<!--                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release...</p>-->
-<!--                </div>-->
-<!--                <div class="read-more">-->
-<!--                  <a href="#" class="button">Read More</a>-->
-<!--                </div>-->
-<!--              </article>-->
-<!--              <article class="blog-list">-->
-<!--                <div class="info">-->
-<!--                  <span class="date">21th Nov,  2020</span>-->
-<!--                  <span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>-->
-<!--                  <span class="comments"><i data-feather="message-circle"></i>42</span>-->
-<!--                </div>-->
-<!--                <div class="content">-->
-<!--                  <h3><a href="blog-details.html">How to pursue pleasure rationally</a></h3>-->
-<!--                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release...</p>-->
-<!--                </div>-->
-<!--                <div class="read-more">-->
-<!--                  <a href="#" class="button">Read More</a>-->
-<!--                </div>-->
-<!--              </article>-->
-              <div class="pagination-list text-center">
-                <nav class="navigation pagination">
-                  <div class="nav-links">
-                    <a class="prev page-numbers" href="#"><i class="fas fa-angle-left"></i></a>
-                    <a class="page-numbers" href="#">1</a>
-                    <span aria-current="page" class="page-numbers current">2</span>
-                    <a class="page-numbers" href="#">3</a>
-                    <a class="page-numbers" href="#">4</a>
-                    <a class="next page-numbers" href="#"><i class="fas fa-angle-right"></i></a>
-                  </div>
-                </nav>
-              </div>
+              <div><span style="margin-left: 890px;"  class="paginationa-summary"></span></div>
+            <div class="blog-post-wrapper" id="career-result">
+
+
+
+
+
+                           <div class="pagination-list text-center">
+                                {#                                comes from js#}
+                            </div>
+
             </div>
           </div>
         </div>
@@ -120,40 +48,158 @@
 {% endblock %}
 {% block extra_js %}
 <script>
-    $(document).ready(function() {
+  //filter function and pagination start from here
 
-        TokenAuthenticate();
-        initAjaxForms();
-        careerUrl = '/api/career_advise/';
-        get(careerUrl,loadAdvice);
-    });
+        function fetchDatacallback(data){
+ //console.log('fetchDatacallback' , data);
 
-    function loadAdvice(data) {
- //console.log('data' , data);
-        for(index=0;index<5;index++){
-            var dateString = data[index].created_date
+
+         if(data) {
+ //console.log('loadAdvice' , data);
+            $(".blog-list").hide();
+        for(index=0;index<data.results.length;index++){
+            var dateString = data.results[index].created_date
             var momentObj = moment(dateString, 'YYYY-MM-DD');
             var created_date = momentObj.format('Do MMM, YYYY');
 
  //console.log(created_date);
 
+
              $('.blog-post-wrapper').prepend('<article class="blog-list">'+
                 '<div class="info">'+
                 '<span class="date">'+created_date+'</span>'+
-                '<span class="author"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data[index].author+'</a></span>'+
+                '<span class="author"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data.results[index].author+'</a></span>'+
                 '</div>'+
                 '<div class="content">'+
-                '<h3><a href="details/'+ data[index].id +'">'+data[index].title+'</a></h3>'+
-                '<p>'+data[index].short_description+'</p>'+
+                '<h3><a href="details/'+ data.results[index].id +'">'+data.results[index].title+'</a></h3>'+
+                '<p>'+data.results[index].short_description+'</p>'+
                 '</div>'+
                 '<div class="read-more">'+
-                '<a href="details/'+ data[index].id +'" class="button">Read More</a>'+
+                '<a href="details/'+ data.results[index].id +'" class="button">Read More</a>'+
                 '</div>'+
                 '</article>')
         }
     }
 
+            var totalNumberOfData = data.count;
+            var paginationSummary;
+            var url = '';
+            var startingIndex=1;
+            var pageSize = 3;
+            var page = 1;
+
+            url = "/api/career_advise/?page_size="+pageSize+"&page="+page;
+
+            if (data.next_pages == false){
+                $('button[data-value=' + 'next' + ']').prop( "disabled", true );
+            }else {
+                $('button[data-value=' + 'next' + ']').prop( "disabled", false );
+            }
+
+            if (totalNumberOfData>0){
+                $(".pagination-list").show();
+                makePagination(totalNumberOfData, pageSize, url, startingIndex);
+            }else {
+                $(".pagination-list").hide();
+            }
+            $(".page-numbers:nth-child(2)").addClass('current');
+        }
 
 
+        $(document).ready(function () {
+            TokenAuthenticate();
+            initAjaxForms();
+            var pageSize = 3;
+            var page = 1;
+            var careerUrl = "/api/career_advise/?page_size="+pageSize+"&page="+page;
+
+            get(careerUrl,fetchDatacallback);
+
+
+            $("body").delegate(".page-numbers:not(.current)", "click", function(){
+                var paginationIndex = $(this).data('value');
+ //console.log('paginationIndex', paginationIndex)
+                var url_of_button = $(this).data('url');
+                if (paginationIndex=='prev'){
+                    var currentIndex = $("a.current").data('value');
+
+                    if (currentIndex>1){
+                        currentIndex = currentIndex-1;
+                        $('.page-numbers').removeClass('current');
+                        $('a[data-value=' + currentIndex + ']').addClass("current");
+                        url_of_button = $('a[data-value=' + currentIndex + ']').data('url');
+                    }
+                }else if(paginationIndex=='next'){
+                    var currentIndex = $("a.current").data('value');
+ //console.log('currentIndex1next', currentIndex)
+                    currentIndex = currentIndex+1;
+ //console.log('currentIndex2next', currentIndex)
+                    $('.page-numbers').removeClass('current');
+                    $('a[data-value=' + currentIndex + ']').addClass("current");
+                    url_of_button = $('a[data-value=' + currentIndex + ']').data('url');
+                }else {
+                    $('.page-numbers').removeClass('current');
+                    $(this).addClass('current');
+                }
+ //console.log('url_of_button', url_of_button)
+                get(url_of_button,fetchPaginationDatacallback);``
+            });
+
+
+            function fetchPaginationDatacallback(data){
+ //console.log('fetchPaginationDatacallback' , data);
+
+
+       if(data) {
+ //console.log('loadAdvice' , data);
+        $(".blog-list").hide();
+        for(index=0;index<data.results.length;index++){
+            var dateString = data.results[index].created_date
+            var momentObj = moment(dateString, 'YYYY-MM-DD');
+            var created_date = momentObj.format('Do MMM, YYYY');
+
+ //console.log(created_date);
+
+
+             $('.blog-post-wrapper').prepend('<article class="blog-list">'+
+                '<div class="info">'+
+                '<span class="date">'+created_date+'</span>'+
+                '<span class="author"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data.results[index].author+'</a></span>'+
+                '</div>'+
+                '<div class="content">'+
+                '<h3><a href="details/'+ data.results[index].id +'">'+data.results[index].title+'</a></h3>'+
+                '<p>'+data.results[index].short_description+'</p>'+
+                '</div>'+
+                '<div class="read-more">'+
+                '<a href="details/'+ data.results[index].id +'" class="button">Read More</a>'+
+                '</div>'+
+                '</article>')
+        }
+    }
+
+                var pageSize = 3;
+                var page = 1;
+                var currentIndex=$('.page-numbers.current').data('value');
+                var paginationUrl = "/api/career_advise/?page_size="+pageSize+"&page="+page;
+
+                var totalNumberOfData = data.count;
+                if (data.previous == null && totalNumberOfData > 0){
+                    var numberOfDataInSinglePage = data.results.length;
+                    var start_index = data.start_index;
+                    var end_index = data.end_index;
+                }
+
+                makePagination(totalNumberOfData, pageSize, paginationUrl, currentIndex);
+                $('.page-numbers[data-value=' + currentIndex + ']').addClass("current");
+                 if (data.next_pages == false){
+                $('button[data-value=' + 'next' + ']').prop( "disabled", true );
+                }else {
+                    $('button[data-value=' + 'next' + ']').prop( "disabled", false );
+                }
+            }
+
+            //filtering code start
+
+   })
 </script>
 {% endblock %}
