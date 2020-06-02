@@ -1364,6 +1364,9 @@
           errorPlacement: function(error, element) {
               error.insertAfter(element.parent());
           },
+          errorPlacement: function(error, element) {
+          error.insertAfter(element);
+        },
           rules: {
               expected_salary_max: { greaterValue: "#expected_salary_min" },
           }
@@ -1837,8 +1840,11 @@
 
 
       $.validator.addMethod('greaterValue', function(value, element, param) {
-          return this.optional(element) || value >= $(param).val();
-      }, 'Must be greater than minimum expected salary.');
+          if (this.optional(element)) return true;
+          var i = parseInt(value);
+          var j = parseInt($(param).val());
+          return i > j;
+      }, "Must be greater than minimum expected salary.");
 
 
     $.validator.addMethod("greaterThan",
