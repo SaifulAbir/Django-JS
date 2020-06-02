@@ -17,7 +17,7 @@ UNKNOWN_VACANCY = 9999
 last_scrapping_date = '2020-01-01 00:00:00'
 scrapping_status = True
 main_site = 'http://127.0.0.1:8000/'
-main_site = 'http://p7.ishraak.com/'
+main_site = 'http://dev.ishraak.com/'
 bdjobs = 'http://jobs.bdjobs.com/'
 # Job search url
 url = f'{bdjobs}/jobsearch.asp?fcatId=8'
