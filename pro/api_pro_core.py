@@ -59,4 +59,11 @@ def change_password(request):
         }
     return Response(data, HTTP_200_OK)
 
+@api_view(["GET"])
+def profile_completeness(request):
+    data = {
+        'percent_of_profile_completeness': 70
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
 
