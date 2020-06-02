@@ -19,8 +19,8 @@
                                     <h4 id="title"></h4>
                                     <div class="info">
                                         <span class="company"><a id="company-details" href="#"><i class="fas fa-building" style="margin-right: 5px"></i><span class="name" id="company_name"></span></a></span>
-                                        <span class="office-location"><a href="#"><i data-feather="map-pin"></i><span id="address"></span></a></span>
-                                        <span class="job-type full-time"><a href="#"><i data-feather="clock"></i><span id="job_type" class="text-normal"></span></a></span>
+                                        <span class="office-location"><a><i data-feather="map-pin"></i><span id="address"></span></a></span>
+                                        <span class="job-type full-time"><a><i data-feather="clock"></i><span id="job_type" class="text-normal"></span></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -226,8 +226,8 @@
                 data.application_deadline = deadline.split("-").reverse().join("-")
             }
             $('#img').append('<img src=" '+data.company.profile_picture+'" class="img-fluid" style="width:70px;" alt="">')
-            $('.cp-map').attr('data-lat',data.latitude);
-            $('.cp-map').attr('data-lng',data.longitude);
+            $('.cp-map').attr('data-lat',data.company.latitude);
+            $('.cp-map').attr('data-lng',data.company.longitude);
             initMap();
             len= data.job_skills.length;
             for(x=0;x<len;x++){
