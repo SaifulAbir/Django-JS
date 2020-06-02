@@ -364,6 +364,7 @@ a.save.apply.active {
 .portfolio .portfolio-section {
     position: relative;
     padding-left: 25px;
+    margin-bottom: 20px;
 }
 
 .portfolio .portfolio-section:before {
@@ -400,13 +401,13 @@ a.save.apply.active {
     font-size: 1.4rem;
     font-weight: 500;
 }
-.membership .membership-label p {
-    color: #232630;
-    font-family: "Poppins", sans-serif;
-    font-size: 1.4rem;
-    font-weight: 500;
-    margin-bottom: 10px;
-}
+/*.membership .membership-label p {*/
+/*    color: #232630;*/
+/*    font-family: "Poppins", sans-serif;*/
+/*    font-size: 1.4rem;*/
+/*    font-weight: 500;*/
+/*    margin-bottom: 10px;*/
+/*}*/
 
 .membership .membership-label h5 span {
     font-family: "Roboto", sans-serif;

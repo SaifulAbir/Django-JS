@@ -778,7 +778,7 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Expertise</div>
                                   </div>
-                                  <input type="text" class="form-control" name="rating" id="rating" required data-msg-required="Rating is required">
+                                  <input type="text" max="10" class="form-control" name="rating" id="rating" required data-msg-required="Rating is required">
                                 </div>
                               </div>
                             </div>
@@ -1156,7 +1156,7 @@
                                   </div>
                                   <div class="upload-profile-photo">
                                     <div class="update-photo">
-                                      <img class="image form-control" src="" alt="" name="image" id="image">
+                                      <img class="image " src="" alt="" name="image" id="image">
                                     </div>
                                     <div class="file-upload">
                                       <input type="file" class="file-input" >Add Image
@@ -1364,6 +1364,9 @@
           errorPlacement: function(error, element) {
               error.insertAfter(element.parent());
           },
+          errorPlacement: function(error, element) {
+          error.insertAfter(element);
+        },
           rules: {
               expected_salary_max: { greaterValue: "#expected_salary_min" },
           }
@@ -1837,8 +1840,11 @@
 
 
       $.validator.addMethod('greaterValue', function(value, element, param) {
-          return this.optional(element) || value >= $(param).val();
-      }, 'Must be greater than minimum expected salary.');
+          if (this.optional(element)) return true;
+          var i = parseInt(value);
+          var j = parseInt($(param).val());
+          return i > j;
+      }, "Must be greater than minimum expected salary.");
 
 
     $.validator.addMethod("greaterThan",

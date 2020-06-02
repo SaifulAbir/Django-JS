@@ -1,3 +1,8 @@
+from datetime import datetime, timedelta
+from pprint import pprint
+
+from django.db import connection
+from django.db.models import Q, Count
 from django.db.models.functions import TruncMonth
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -8,12 +13,24 @@ from pro.models import ProfessionalSkill
 
 @api_view(["GET"])
 def skill_job_chart(request):
-    user = request.user
-    skills = ProfessionalSkill.objects.filter(created_by=user)
-    all_query = Job.objects.none()
-    for skill in skills:
-        jobs = Job.objects.filter(job_skills=skill.skill_name)
-        all_query = all_query|jobs
-    # count = all_query.filter(created_date__year='2020').values_list('created_date__month').distinct().annotate(total=Count('title'))
-    count = all_query.annotate(month=TruncMonth('publish_date')).values('month').order_by('month').annotate(total=Count('title'))
-    return Response(count)
+    current_user_id = 1
+    last_year = datetime.now() - timedelta(days=365)
+    queryset = Job.objects.filter(
+        Q(job_skills__professionalskill__professional_id=current_user_id),
+    ).filter(post_date__gte = last_year
+    ).values_list('post_date__month'
+    ).distinct(
+    ).annotate(total=Count('*'))
+
+    data = list(queryset)
+    pprint(connection.queries)
+    return Response(data)
+    # user = request.user
+    # skills = ProfessionalSkill.objects.filter(created_by=user)
+    # all_query = Job.objects.none()
+    # for skill in skills:
+    #     jobs = Job.objects.filter(job_skills=skill.skill_name)
+    #     all_query = all_query|jobs
+    # # count = all_query.filter(created_date__year='2020').values_list('created_date__month').distinct().annotate(total=Count('title'))
+    # count = all_query.annotate(month=TruncMonth('publish_date')).values('month').order_by('month').annotate(total=Count('title'))
+    # return Response(count)

@@ -45,6 +45,13 @@
     <![endif]-->
 
 </head>
+<style>
+    .question-mark1 {
+    position: absolute;
+    bottom: 255px;
+    right: 2px;
+}
+</style>
 <body>
 
 <header class="header-2 access-page-nav">
@@ -87,16 +94,16 @@
                             <input type="text" name="full_name" id="full_name" placeholder="Name" class="form-control" required data-msg-required="Name is required">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="eml">
                             <input type="text" name="email" id="email" regex='^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$' placeholder="Email Address" class="form-control" required data-msg-required="Email is required" data-msg-regex="Please enter a valid email">
-                            <input type="text" name="alert" id="alert" class="display-none">
+{#                            <input type="text" name="alert" id="alert" class="display-none">#}
                         </div>
                         <div class="form-group">
                             <input type="text" regex="\+?(88)?0?1[56789][0-9]{8}\b" name="phone" placeholder="Mobile" class="form-control" data-msg-regex="Enter a valid Mobile Number" required data-msg-required="Mobile is required">
                         </div>
                         <div class="form-group">
                             <input type="password" minlength="8" id="password" regex='(?=.*?[0-9])(?=.*?[A-Za-z]).+' name="password" placeholder="Password" class="form-control" required data-msg-required="Password is required">
-                            <i class="fas fa-question-circle question-mark" data-toggle="tooltip" title="Password must be at least 8 characters long with at least one digit and one letter."></i>
+                            <i class="fas fa-question-circle question-mark1" data-toggle="tooltip" title="Password must be at least 8 characters long with at least one digit and one letter."></i>
                         </div>
                         <div class="form-group">
                             <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" required data-msg-required="Confirm Password is required" data-rule-equalto="#password" data-msg-equalto="Password and confirm password should be same!!">
@@ -187,9 +194,13 @@
 
         }
         else {
-            showError('Failed!','Email already exists!')
+           $("p").remove(".pt");
+           $("#eml").append("<p class='pt' style='color: red'>Email Already Exist!</p>");
         }
     };
+            $( "#eml" ).on( "click", function() {
+            $("p").remove(".pt");
+});
     $('html').on('click', function (e) {
         $('[data-toggle=tooltip]').each(function () {
             // hide any open popovers when the anywhere else in the body is clicked
