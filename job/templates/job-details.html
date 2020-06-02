@@ -219,11 +219,12 @@
             $('.apply').attr("href", data.job_id);
             var deadline= data.application_deadline;
             var momentObj = moment(data.post_date, 'YYYY-MM-DD');
-            data.post_date = momentObj.format('DD-MM-YYYY');
+            data.post_date = momentObj.format('DD/MM/YYYY');
             // var created_date = data.created_at
             // data.created_at = created_date.split("-").reverse().join("-")
             if(data.application_deadline){
-                data.application_deadline = deadline.split("-").reverse().join("-")
+                var app_deadline = moment(data.application_deadline, 'YYYY-MM-DD');
+                data.application_deadline = app_deadline.format('DD/MM/YYYY');
             }
             $('#img').append('<img src=" '+data.company.profile_picture+'" class="img-fluid" style="width:70px;" alt="">')
             $('.cp-map').attr('data-lat',data.company.latitude);
