@@ -25,16 +25,16 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 from p7.api import *
+from pro.api_pro_core import TokenObtainPairCustomView
 
 from testimonial.urls import *
-from pro.api import TokenObtainPairCustomView
-from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('api/app-dashboard/<int:user_id>', dashboard),
     path('api/profile-info/<int:user_id>', professional_info),
     path('', include('job.urls')),
     path('api/', include('job.urls_api')),
+    path('', include('pro.urls')),
     path('api/', include('pro.urls_api')),
     path('api/', include('registration.urls')),
     path('api/', include('exam.urls')),
@@ -44,8 +44,6 @@ urlpatterns = [
     path('api/', include('question.urls')),
     path('api/', include('exam_paper.urls')),
     path('api/', include('career_advice.urls')),
-    path('api/professional/', include('pro.urls')),
-    path('professional/', include('pro.urls')),
     path('log/', isLoggedIn),
     path('api/send_email_to_admin_contact_us/', send_email_to_admin_contact_us),
     path('api/sign_in/', TokenObtainPairCustomView.as_view(), name='token_obtain_pair'),
@@ -74,6 +72,7 @@ urlpatterns = [
     path('career-advice/details/<int:id>/', TemplateView.as_view(template_name='career_advice_details.html'), name='career_advice_details')
 
 ]
+from . import views
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,
                               document_root=settings.MEDIA_ROOT)
