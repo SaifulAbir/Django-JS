@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="other-benifit details-section">
                                         <h4><i data-feather="gift"></i>Salary</h4>
-                                        <span id="salary_min"></span><span id="currency"></span> - <span id="salary_max"></span><span id="currency"></span>
+                                        <span class="salary_min"></span><span>/-</span>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span class="salary_max"></span><span>/-</span>
                                         </span>
                                     </div>
                                     <div class="other-benifit details-section">
@@ -73,7 +73,7 @@
                                                 <li><span>Job Type:</span> <span id="job_type" class="detail-color text-normal"></span></li>
                                                 <li><span>Years of Experience:</span> <span id="experience" class="detail-color"></span></li>
                                                 <li><span>Location:</span> <span id="address" class="detail-color"></span></li>
-                                                <li><span>Salary:</span><span id="salary_min" class="detail-color"></span><span id="currency" class="detail-color"></span><span class="detail-color">-</span> <span id="salary_max" class="detail-color"></span><span id="currency" class="detail-color"></span></li>
+                                                <li><span>Salary:</span><span class="detail-color salary_min"></span><span class="detail-color">/-</span><span class="detail-color">&nbsp;&nbsp;-&nbsp;&nbsp;</span> <span class="detail-color salary_max"></span><span class="detail-color">/-</span></li>
                                                 <li><span>Gender:</span></span><span id="job_gender" class="detail-color"></span></li>
                                                 <li><span>Application Deadline:</span> <span id="application_deadline" class="detail-color"></span></li>
                                             </ul>
@@ -252,8 +252,17 @@
                 }
             }
             json2Div(data, container);
-            $('#company-details').text()
-            $('#company-details').attr("href", "/company-details/"+data.company.name)
+            if(data.salary_min){
+                $('.salary_min').html(Number(data.salary_min).toLocaleString('en'));
+            }else {
+                $('.salary_min').parent().hide();
+            }
+            if(data.salary_max){
+                $('.salary_max').html(Number(data.salary_max).toLocaleString('en'));
+            }else {
+                $('.salary_max').parent().hide();
+            }
+            $('#company-details').attr("href", "/company-details/"+data.company.name);
             if(data.company){
                 $(".name").html(data.company.name);
             }
