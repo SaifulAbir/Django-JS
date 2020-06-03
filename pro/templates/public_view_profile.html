@@ -54,12 +54,12 @@
                 <div class="dashboard-container" style="width:100%;">
                     <div class="dashboard-content-wrapper" style="width: 100%;">
                         <div class="dashboard-section upload-profile-photo">
-        <div class="update-photo" id="img">
+        <div id="img" style="width:310px;padding: 30px;margin-bottom: 20px;">
 
 
         </div>
-                            <div class="user-body" style="margin-top: 15px">
-                             <span><h8 ><b id="name"></b></h8></span>
+                            <div class="user-body" style="font-size: 20px; max-width: 210px;padding-left: 30px;">
+                                <span><b><h8  style="margin-bottom: 10px;" id="name"></h8></b></span>
                             </div>
     </div>
 
@@ -69,7 +69,7 @@
         <div class="information-and-contact">
             <ul>
                         <span><h8>About Me: </h8></span><span class="about" id="about_me"></span>
-                        <div class="row">
+                        <div class="row" style="margin-top: 30px;">
                             <div class="col-sm-6">
                                 <span><h8>Industry: </h8></span> <span id="industry_expertise"></span>
                             </div>
@@ -150,28 +150,28 @@
 
             var getUrl = '/api/professional/profile/'+ id + '/';
             get(getUrl, loadProfile);
-            get('/log/', loadUser);
+            // get('/log/', loadUser);
             initAjaxForms();
 
         });
-        function loadUser(data) {
-        if(data.length>=1){
-
-            $('#name').text(data[0].user.name);
-
-
-            if(data[0].user.image){
-                $('#img').html('<img src="'+ data[0].user.image +'" class="img-fluid" alt="">')
-            }
-            else{
-                $('#img').html('<img src="/static/images/alternate.jpg" class="img-fluid" alt="">')
-            }
-
-
-
-
-        }
-    }
+    //     function loadUser(data) {
+    //     if(data.length>=1){
+    //
+    //         $('#name').text(data[0].user.name);
+    //
+    //
+    //         if(data[0].user.image){
+    //             $('#img').html('<img src="'+ data[0].user.image +'"  class="img-fluid" alt="">')
+    //         }
+    //         else{
+    //             $('#img').html('<img src="/static/images/alternate.jpg" class="img-fluid" alt="">')
+    //         }
+    //
+    //
+    //
+    //
+    //     }
+    // }
 
 
         function loadProfile(data){
@@ -209,9 +209,14 @@
             $('#facebook').attr('href',facebook);
             $('#twitter').attr('href',twitter);
             $('#linkedin').attr('href', linkedin);
-
-
-
+            // profile picture here
+           if(data.personal_info.image){
+                $('#img').html('<img src="'+ data.personal_info.image +'"  class="img-fluid" alt="">')
+             }
+            else{
+              $('#img').html('<img src="/static/images/alternate.jpg" class="img-fluid" alt="">')
+            }
+            $('#name').text(data.personal_info.full_name);
             //about info show
 
             function getAge(dateString)
@@ -339,7 +344,6 @@
             //work experience info show
 
             work_data = data.experience_info
-            console.log(work_data[0].start_date)
             len = work_data.length;
             for(x=0;x<len;x++){
                 if(work_data[x].start_date){
