@@ -553,3 +553,7 @@ header .signin-user .account-button {
 .job-title-and-info .title .title-body{
     width: calc(100% - 120px);
 }
+
+.span-margin-remove{
+    margin-right: 0px!important;
+}
