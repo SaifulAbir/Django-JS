@@ -1,10 +1,6 @@
-{% extends 'common_layout.html' %}
+{% extends 'professional_layout.html' %}
 {% load static %}
-{% block body_block %}
-
-
-
-
+{% block professional_breadcrumb %}
 
 <!-- Breadcrumb -->
 <div class="alice-bg padding-top-70 padding-bottom-70">
@@ -12,144 +8,131 @@
     <div class="row">
       <div class="col-md-6">
         <div class="breadcrumb-area">
-          <h1>Edit Resume</h1>
+          <h1>Edit Profile</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Edit Resume</li>
+              <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
             </ol>
           </nav>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="breadcrumb-form">
-          <form action="#">
-            <input type="text" placeholder="Enter Keywords">
-            <button><i data-feather="search"></i></button>
-          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
 <!-- Breadcrumb End -->
-
-<div class="alice-bg section-padding-bottom">
-  <div class="container no-gliters">
-    <div class="row no-gliters">
-      <div class="col">
-        <div class="dashboard-container">
-          <div class="dashboard-content-wrapper">
-            <div class="download-resume dashboard-section">
-              <div class="update-file">
-                <input type="file">Update CV <i data-feather="edit-2"></i>
-              </div>
-              <div class="update-file">
-                <input type="file">Update Cover Letter <i data-feather="edit-2"></i>
-              </div>
-              <span>Upload PDF File</span>
-            </div>
-            <div class="skill-and-profile dashboard-section">
-              <div class="skill">
-                <label>Skills:</label>
-                <a href="#">Design</a>
-                <a href="#">Illustration</a>
-                <a href="#">iOS</a>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#modal-skill">
-                  <i data-feather="edit-2"></i>
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="modal-skill" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-body">
-                        <div class="title">
-                          <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-branch"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>Social Networks</h4>
-                          <!--                              <a href="#" class="add-more">+ Add Social</a>-->
-                        </div>
-                        <div class="title">
-                          <h4><i data-feather="git-branch"></i>MY SKILL</h4>
-                          <a href="#" class="add-more">+ Add Skills</a>
-                        </div>
-                        <div class="content">
-                          <form action="#">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Type Skills</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">01</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">02</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">03</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">04</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">05</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">06</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="buttons">
-                                  <button class="primary-bg">Save Update</button>
-                                  <button class="" data-dismiss="modal">Cancel</button>
-                                </div>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+{% endblock %}
+    {% block professional_block %}
+<!--            <div class="download-resume dashboard-section display-none">-->
+<!--              <div class="update-file">-->
+<!--                <input type="file">Update CV <i data-feather="edit-2"></i>-->
+<!--              </div>-->
+<!--              <div class="update-file">-->
+<!--                <input type="file">Update Cover Letter <i data-feather="edit-2"></i>-->
+<!--              </div>-->
+<!--              <span>Upload PDF File</span>-->
+<!--            </div>-->
+            <div class="skill-and-profile dashboard-section float-right">
+<!--              <div class="skill display-none">-->
+<!--                <label>Skills:</label>-->
+<!--                <a href="#">Design</a>-->
+<!--                <a href="#">Illustration</a>-->
+<!--                <a href="#">iOS</a>-->
+<!--                &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--                <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#modal-skill">-->
+<!--                  <i data-feather="edit-2"></i>-->
+<!--                </button>-->
+<!--                &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                <div class="modal fade" id="modal-skill" tabindex="-1" role="dialog" aria-hidden="true">-->
+<!--                  <div class="modal-dialog" role="document">-->
+<!--                    <div class="modal-content">-->
+<!--                      <div class="modal-body">-->
+<!--                        <div class="title">-->
+<!--                          <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-branch"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>Social Networks</h4>-->
+<!--                          &lt;!&ndash;                              <a href="#" class="add-more">+ Add Social</a>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="title">-->
+<!--                          <h4><i data-feather="git-branch"></i>MY SKILL</h4>-->
+<!--                          <a href="#" class="add-more">+ Add Skills</a>-->
+<!--                        </div>-->
+<!--                        <div class="content">-->
+<!--                          <form action="#">-->
+<!--                            <div class="form-group row">-->
+<!--                              <label class="col-sm-3 col-form-label">Type Skills</label>-->
+<!--                              <div class="col-sm-9">-->
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">01</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="text" class="form-control" >-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                              <div class="offset-sm-3 col-sm-9">-->
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">02</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="text" class="form-control" >-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                              <div class="offset-sm-3 col-sm-9">-->
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">03</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="text" class="form-control" >-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                              <div class="offset-sm-3 col-sm-9">-->
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">04</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="text" class="form-control" >-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                              <div class="offset-sm-3 col-sm-9">-->
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">05</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="text" class="form-control" >-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                              <div class="offset-sm-3 col-sm-9">-->
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">06</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="text" class="form-control" >-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                            <div class="row">-->
+<!--                              <div class="offset-sm-3 col-sm-9">-->
+<!--                                <div class="buttons">-->
+<!--                                  <button class="primary-bg">Save Update</button>-->
+<!--                                  <button class="" data-dismiss="modal">Cancel</button>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </form>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
               <div class="social-profile">
                 <label>Social:</label>
                 <a class="facebook" href=""><i class="fab fa-facebook-f"></i></a>
@@ -301,24 +284,93 @@
                 </div>
               </div>
             </div>
-            <div class="about-details details-section dashboard-section" id="about-details">
+        <div class="col-sm-6">
+            <form action="" id="profile-form" class="dashboard-form ajax profile-form-ajax" method="PUT" data-callback = "profileUpdateCallback" enctype="multipart/form-data" novalidate="novalidate">
+        <div class="dashboard-section upload-profile-photo ">
+            <div class="update-photo">
+<!--                <input type="text" id="image" value="">-->
+                <img id="image1" class="image" src="{% static 'dashboard/images/user-1.jpg' %}" alt="">
+            </div>
+            <div class="file-upload">
+                <input src="ok" type="file" accept="image/*" class="file-input profile-image-input">Change Picture
+            </div>
+        </div>
+        <div class="dashboard-section basic-info-input profile-picture-button" style="display: none">
+            <div class="form-group row">
+{#                <label class="col-form-label"></label>#}
+                <div class="col-sm-12">
+                    <button class="button picture-save-button"> Save Picture </button>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-section basic-info-input display-none">
+            <h4><i data-feather="lock"></i>Password</h4>
+            {#                                    <div class="form-group row">#}
+            {#                                        <label class="col-sm-3 col-form-label">Current Password</label>#}
+            {#                                        <div class="col-sm-9">#}
+            {#                                            <input type="password" class="form-control" placeholder="Current Password">#}
+            {#                                        </div>#}
+            {#                                    </div>#}
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9">
+                    <input type="password" name="password" class="form-control" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Retype Password</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" placeholder="Retype Password">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9">
+                    <button class="button">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+        </div>
+        <div class="about-details details-section dashboard-section" id="about-details">
               <div id="about-details-div">
-                <h4><i data-feather="align-left"></i>About Me</h4>
-                <div class="about" id="about_me"></div>
+                <h4><i data-feather="user-check"></i>Basic Info</h4>
                 <div class="information-and-contact">
-                  <div class="information">
-                    <h4>Information</h4>
+{#                  <div class="information">#}
+{#                    <h4>Information</h4>#}
                     <ul>
-                      <li><span>Category:</span> <span class="detail-color" id="industry_expertise"></span></li>
-                      <li><span>Location:</span> <span id="address"></span></li>
-                      <li><span>Status:</span> <span id="status"></span></li>
-                      <li><span>Experience:</span> <span id="experience"></span></li>
-                      <li><span>Salary:</span> <span class="about-info-salary" id="expected_salary_min"></span>k - <span class="about-info-salary" id="expected_salary_max"></span>k</li>
-                      <li><span>Gender:</span> <span id="gender"></span></li>
-                      <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
-                      <li><span>Qualification:</span> <span id="qualification"></span></li>
+                        <div id="basic-info-margin">
+                            <span><h8>About Me: </h8></span><br>
+                            <span class="about" id="about_me"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Industry: </h8></span> <span id="industry_expertise"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Location: </h8></span> <span id="address"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Status:</h8></span> <span id="status"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Experience:</h8></span> <span id="experience"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span> - <span class="about-info-salary" id="expected_salary_max"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span><h8>Qualification:</h8></span> <span id="qualification"></span>
+                            </div>
+                        </div>
+                        <!--                    <li><span>Age:</span> <span id="status"></span></li>-->
+
                     </ul>
-                  </div>
+{#                  </div>#}
                 </div>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-about-me">
@@ -331,36 +383,35 @@
                   <div class="modal-content">
                     <div class="modal-body">
                       <div class="title">
-                        <h4><i data-feather="align-left"></i>About Me</h4>
+                        <h4><i data-feather="user-check"></i>Basic Info</h4>
                       </div>
                       <div class="content">
-                        <form action="" class="job-post-form ajax" method="PUT" id="info-update-form" data-callback="aboutCallback">
+                        <form action="" class="job-post-form ajax" method="PUT" id="info-update-form" data-callback="aboutCallback" novalidate="novalidate">
                           <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Write Yourself</label>
+                            <label class="col-sm-3 col-form-label"> About Me</label>
                             <div class="col-sm-9">
                               <textarea class="form-control" id="about_me" name="about_me" placeholder="Write Yourself" value=""></textarea>
                             </div>
                           </div>
-                          <h4><i data-feather="align-left"></i>Information</h4>
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Category</label>
                             <div class="col-sm-9">
                               <!--                                  <input type="text" class="form-control"  placeholder="Design &amp; Creative">-->
-                              <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name"  data-placeholder="Select Category" data-src="/api/industry" value="">
+                              <select class="form-control" name="industry_expertise" id="industry_expertise" data-text="name" data-value="name"  data-placeholder="Select Category" data-src="/api/industry/list" value="">
                               </select>
                             </div>
                           </div>
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Location</label>
                             <div class="col-sm-9">
-                              <input type="text" name="address" id="address" class="form-control"  placeholder="Los Angeles">
+                              <input type="text" name="address" id="address" class="form-control"  placeholder="Dhaka">
                             </div>
                           </div>
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Status</label>
                             <div class="col-sm-9">
                               <!--                                  <input type="text" class="form-control"  placeholder="Full Time">-->
-                              <select class="form-control" name="status" id="status" data-text="name" data-value="name" data-placeholder="Job Type" data-src="/api/job_type">
+                              <select class="form-control" name="status" id="status" data-text="name" data-value="name" data-placeholder="Job Type" data-src="/api/job_type/list">
                               </select>
                             </div>
                           </div>
@@ -368,30 +419,23 @@
                             <label class="col-sm-3 col-form-label">Experience</label>
                             <div class="col-sm-9">
                               <!--                                  <input type="text" class="form-control"  placeholder="3 Year">-->
-                              <select class="form-control" name="experience" id="experience" data-text="name" data-value="name" data-placeholder="Experience" data-src="/api/experience">
+                              <select class="form-control" name="experience" id="experience" data-text="name" data-value="name" data-placeholder="Experience" data-src="/api/experience/list">
                               </select>
                             </div>
                           </div>
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Salary Range</label>
-                            <div class="col-sm-9">
-                              <input type="text" name="expected_salary_min" id="expected_salary_min" class="form-control"  placeholder="30">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Expectded Salary Range</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="expected_salary_min" id="expected_salary_min" class="form-control"  placeholder="Minimum expected salary">
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" name="expected_salary_max" id="expected_salary_max" placeholder="Maximum expected salary">
+                                </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Salary Range</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="expected_salary_max" id="expected_salary_max" placeholder="40">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Gender</label>
-                            <div class="col-sm-9">
-                              <!--                                  <input type="text" class="form-control"  placeholder="Male">-->
-                              <select class="form-control" name="gender" id="gender" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender">
-                              </select>
-                            </div>
-                          </div>
+                            {#                          <div class="form-group row">#}
+{#                            <label class="col-sm-3 col-form-label">Salary Range</label>#}
+{#                            #}
+{#                          </div>#}
                           <!--                              <div class="form-group row">-->
                           <!--                                <label class="col-sm-3 col-form-label">Age</label>-->
                           <!--                                <div class="col-sm-9">-->
@@ -402,7 +446,7 @@
                             <label class="col-sm-3 col-form-label">Qualification</label>
                             <div class="col-sm-9">
                               <!--                                  <input type="text" class="form-control"  placeholder="Gradute">-->
-                              <select class="form-control" name="qualification" id="qualification" data-text="name" data-value="name" data-placeholder="Qualification" data-src="/api/qualification">
+                              <select class="form-control" name="qualification" id="qualification" data-text="name" data-value="name" data-placeholder="Qualification" data-src="/api/qualification/list">
                               </select>
                             </div>
                           </div>
@@ -466,7 +510,7 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Degree</div>
                                   </div>
-                                  <select class="form-control" name="degree" id="degree" data-text="name" data-value="name"  data-placeholder="Select Degree" data-src="/api/qualification/" value="" required data-msg-required="Degree is required">
+                                  <select class="form-control" name="degree" id="degree" data-text="name" data-value="name"  data-placeholder="Select Degree" data-src="/api/qualification/list" value="" required data-msg-required="Degree is required">
                                   </select>
                                 </div>
                               </div>
@@ -586,11 +630,14 @@
               </div>
             </div>
             <div class="experience dashboard-section details-section">
-              <h4 id="exp-label"><i data-feather="briefcase"></i>Work Experiance</h4>
+              <div id="experience-div">
+                <h4 id="exp-label"><i data-feather="briefcase"></i>Work Experiance</h4>
+              <a href="#" id="add-experience" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-experience">+ Add Experience</a>
+              </div>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume work-exp" data-toggle="modal" data-target="#modal-experience">
-                <i data-feather="edit-2"></i>
-              </button>
+<!--              <button type="button" class="btn btn-primary edit-resume work-exp" data-toggle="modal" data-target="#modal-experience">-->
+<!--                <i data-feather="edit-2"></i>-->
+<!--              </button>-->
               <!-- Modal -->
               <div class="modal fade modal-experience" id="modal-experience" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -598,29 +645,30 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="briefcase"></i>Experience</h4>
-                        <a href="#" id="add-experience" class="add-more">+ Add Experience</a>
+<!--                        <a href="#" id="add-experience" class="add-more">+ Add Experience</a>-->
                       </div>
                       <div class="content">
-                        <form action="#" id="experience-form" novalidate="novalidate">
+                        <form action="#" id="experience-form" novalidate="novalidate" autocomplete="off">
                           <div class="input-block-wrap input-block-experience">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label experience-div-label">01</label>
+                            <div class="form-group row display-none">
+                              <label class="col-sm-3 col-form-label experience-div-label"></label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Company</div>
                                   </div>
-                                  <select class="form-control" name="company_id" id="company_id" data-text="name" data-value="name"  data-placeholder="Select Company" data-src="/api/company/" value="" required data-msg-required="Company is required"></select>
+                                  <select class="form-control" name="company_id" id="company_id" data-text="name" data-value="name"  data-placeholder="Select Company" data-src="/api/company/list" value="" required data-msg-required="Company is required"></select>
                                 </div>
                               </div>
                             </div>
-                            <div class="form-group row display-none">
-                              <div class="offset-sm-3 col-sm-9">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label experience-div-label"></label>
+                              <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Company</div>
                                   </div>
-                                  <input type="text" name="company_text" id="company_text" class="form-control" >
+                                  <input type="text" name="company_text" id="company_text" class="form-control" required data-msg-required="Company is required">
                                   <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
                               </div>
@@ -631,51 +679,7 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Designation</div>
                                   </div>
-                                  <input type="text" name="designation" id="designation" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Start Date</div>
-                                  </div>
-                                  <input type="date" name="start_date" id="start_date" class="form-control"></input>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">End Date</div>
-                                  </div>
-                                  <input type="date" name="end_date" id="end_date" class="form-control"></input>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap input-block-experience">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label experience-div-label">02</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Company</div>
-                                  </div>
-                                  <select class="form-control" name="company_id" id="company_id" data-text="name" data-value="name"  data-placeholder="Select Company" data-src="/api/company/" value=""></select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row display-none">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Company</div>
-                                  </div>
-                                  <input type="text" name="company_text" id="company_text" class="form-control" >
-                                  <input type="hidden" name="id" id="id" class="form-control" >
+                                  <input type="text" name="designation" id="designation" class="form-control" required data-msg-required="Designation is required">
                                 </div>
                               </div>
                             </div>
@@ -683,37 +687,45 @@
                               <div class="col-sm-9 offset-sm-3">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Designation</div>
+                                    <div class="input-group-text">Description</div>
                                   </div>
-                                  <input type="text" name="designation" id="designation" class="form-control" >
+                                  <textarea type="text" name="description" id="description" class="form-control" ></textarea>
                                 </div>
                               </div>
                             </div>
                             <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
+                              <div class="offset-sm-3 col-sm-4">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Start Date</div>
                                   </div>
-                                  <input type="date" name="start_date" id="start_date" class="form-control"></input>
+                                  <input type="text" name="start_date" id="start_date" class="form-control datepicker" required data-msg-required="Start date is required">
                                 </div>
                               </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
+                                <div class="col-sm-5">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">End Date</div>
                                   </div>
-                                  <input type="date" name="end_date" id="end_date" class="form-control"></input>
+                                  <input type="text" name="end_date" id="end_date" class="form-control datepicker">
                                 </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="mt-0 terms">
+                                <input type="checkbox" id="is_currently_working" name="is_currently_working">
+                                <label for="is_currently_working">
+                                    <span class="dot"></span> Currently Working
+                                </label>
+                            </div>
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg">Save Update</button>
+                                <button class="primary-bg">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -726,58 +738,16 @@
               </div>
             </div>
             <div class="professonal-skill dashboard-section details-section">
-              <h4><i data-feather="feather"></i>Professional Skill</h4>
-              <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which  It has survived not only five centuries, but also the leap into electronic typesetting</p>
-              <div class="progress-group">
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">Photoshop</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">70%</p>
-                  </div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">HTML/CSS</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">90%</p>
-                  </div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">JavaScript</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">74%</p>
-                  </div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-head">
-                    <p class="progress-on">PHP</p>
-                  </div>
-                  <div class="progress-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                    </div>
-                    <p class="progress-to">86%</p>
-                  </div>
-                </div>
+            <div class="professional-skill-div">
+                <h4 ><i data-feather="feather"></i>Professional Skill</h4>
+              <div class="progress-group" id="skill-label">
               </div>
+              <a href="#" id="add-skill" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-pro-skill">+ Add Skill</a>
+            </div>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-pro-skill">
-                <i data-feather="edit-2"></i>
-              </button>
+{#              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-pro-skill">#}
+{#                <i data-feather="edit-2"></i>#}
+{#              </button>#}
               <!-- Modal -->
               <div class="modal fade modal-pro-skill" id="modal-pro-skill" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -785,32 +755,20 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="feather"></i>Professional Skill</h4>
-                        <a href="#" class="add-more">+ Add Skill</a>
                       </div>
                       <div class="content">
-                        <form action="#">
-                          <div class="input-block-wrap">
+                        <form action="#" id="pro-skill-form" novalidate="novalidate">
+                          <div class="input-block-wrap input-block-skill">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">About Skill</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Description</div>
-                                  </div>
-                                  <textarea class="form-control"></textarea>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 01</label>
+                              <label class="col-sm-3 col-form-label skill-div-lavel"></label>
                               <div class="col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Skill Name</div>
                                   </div>
-                                  <input type="text" class="form-control" >
+                                  <select class="form-control" name="skill_name" id="skill_name" data-text="name" data-value="id"  data-placeholder="" data-src="/api/skill/list/" value="" required data-msg-required="Skill is required">
+                                  </select>
+                                    <input type="hidden" name="id" id="id" class="form-control skill_object_id" >
                                 </div>
                               </div>
                             </div>
@@ -818,78 +776,9 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
+                                    <div class="input-group-text">Expertise</div>
                                   </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 02</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Skill Name</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 03</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Skill Name</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Skill 04</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Skill Name</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Percentage</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
+                                  <input type="text" max="10" class="form-control" name="rating" id="rating" required data-msg-required="Rating is required">
                                 </div>
                               </div>
                             </div>
@@ -897,7 +786,7 @@
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg">Save Update</button>
+                                <button class="primary-bg">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -909,84 +798,191 @@
                 </div>
               </div>
             </div>
-            <div class="special-qualification dashboard-section details-section">
-              <h4><i data-feather="gift"></i>Special Qualification</h4>
-              <ul>
-                <li>5 years+ experience designing and building products.</li>
-                <li>Skilled at any Kind Design Tools.</li>
-                <li>Passion for people-centered design, solid intuition.</li>
-                <li>Hard Worker & Quick Lerner.</li>
-              </ul>
+<!--            <div class="special-qualification dashboard-section details-section">-->
+<!--              <h4><i data-feather="gift"></i>Special Qualification</h4>-->
+<!--              <ul>-->
+<!--                <li>5 years+ experience designing and building products.</li>-->
+<!--                <li>Skilled at any Kind Design Tools.</li>-->
+<!--                <li>Passion for people-centered design, solid intuition.</li>-->
+<!--                <li>Hard Worker & Quick Lerner.</li>-->
+<!--              </ul>-->
+<!--              &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-qualification">-->
+<!--                <i data-feather="edit-2"></i>-->
+<!--              </button>-->
+<!--              &lt;!&ndash; Modal &ndash;&gt;-->
+<!--              <div class="modal fade" id="modal-qualification" tabindex="-1" role="dialog" aria-hidden="true">-->
+<!--                <div class="modal-dialog" role="document">-->
+<!--                  <div class="modal-content">-->
+<!--                    <div class="modal-body">-->
+<!--                      <div class="title">-->
+<!--                        <h4><i data-feather="align-left"></i>Special Qualification</h4>-->
+<!--                        <a href="#" class="add-more">+ Add Another</a>-->
+<!--                      </div>-->
+<!--                      <div class="content">-->
+<!--                        <form action="#">-->
+<!--                          <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label">Type Here</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                  <div class="input-group-text">01</div>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control" >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="form-group row">-->
+<!--                            <div class="offset-sm-3 col-sm-9">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                  <div class="input-group-text">02</div>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control" >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="form-group row">-->
+<!--                            <div class="offset-sm-3 col-sm-9">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                  <div class="input-group-text">03</div>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control" >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="form-group row">-->
+<!--                            <div class="offset-sm-3 col-sm-9">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                  <div class="input-group-text">04</div>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control" >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="form-group row">-->
+<!--                            <div class="offset-sm-3 col-sm-9">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                  <div class="input-group-text">05</div>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control" >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="row">-->
+<!--                            <div class="offset-sm-3 col-sm-9">-->
+<!--                              <div class="buttons">-->
+<!--                                <button class="primary-bg">Save Update</button>-->
+<!--                                <button class="" data-dismiss="modal">Cancel</button>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </form>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+            <div class="certification dashboard-section details-section">
+              <div id="certification-div">
+                <h4 id="cer-label"><i data-feather="gift"></i>Certification</h4>
+              <a href="#" id="add-certification" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-certification">+ Add Certification</a>
+              </div>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-qualification">
-                <i data-feather="edit-2"></i>
-              </button>
+<!--              <button type="button" class="btn btn-primary edit-resume work-exp" data-toggle="modal" data-target="#modal-experience">-->
+<!--                <i data-feather="edit-2"></i>-->
+<!--              </button>-->
               <!-- Modal -->
-              <div class="modal fade" id="modal-qualification" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal fade modal-certification" id="modal-certification" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-body">
                       <div class="title">
-                        <h4><i data-feather="align-left"></i>Special Qualification</h4>
-                        <a href="#" class="add-more">+ Add Another</a>
+                        <h4><i data-feather="align-left"></i>Certification</h4>
+<!--                        <a href="#" id="add-experience" class="add-more">+ Add Experience</a>-->
                       </div>
                       <div class="content">
-                        <form action="#">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Type Here</label>
-                            <div class="col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">01</div>
+                        <form action="#" id="certification-form" novalidate="novalidate" autocomplete="off">
+                          <div class="input-block-wrap input-block-certification">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label certification-div-label"></label>
+                              <div class="col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Name</div>
+                                  </div>
+                                  <input type="text" name="certificate_name" id="certificate_name" class="form-control" required data-msg-required="Name is required">
+                                  <input type="hidden" name="id" id="id" class="form-control" >
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">02</div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Organization</div>
+                                  </div>
+                                  <input type="text" name="organization" id="organization" class="form-control" required data-msg-required="Organization is required">
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">03</div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Credential ID</div>
+                                  </div>
+                                  <input type="text" name="credential_id" id="credential_id" class="form-control" >
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">04</div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Credential Url</div>
+                                  </div>
+                                  <input type="text" name="credential_url" id="credential_url" class="form-control" >
                                 </div>
-                                <input type="text" class="form-control" >
                               </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-3 col-sm-9">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">05</div>
-                                </div>
-                                <input type="text" class="form-control" >
+                              <div class="form-group row">
+                                  <div class="offset-sm-3 col-sm-4">
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <div class="input-group-text">Issue Date</div>
+                                          </div>
+                                          <input type="text" name="issue_date" id="issue_date" class="form-control datepicker" required data-msg-required="Issue date is required">
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <div class="input-group-text">Expiry Date</div>
+                                          </div>
+                                          <input type="text" name="expiry_date" id="expiry_date" class="form-control datepicker" disabled>
+                                      </div>
+                                  </div>
+                              </div>
+                            <div class="form-group row">
+                              <div class="col-sm-9 offset-sm-3">
+                                <div class="mt-0 terms">
+                                <input type="checkbox" id="has_expiry_period" name="has_expiry_period">
+                                <label for="has_expiry_period">
+                                    <span class="dot"></span> Expiry Period
+                                </label>
+                            </div>
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg">Save Update</button>
+                                <button class="primary-bg">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -998,49 +994,137 @@
                 </div>
               </div>
             </div>
-            <div class="portfolio dashboard-section details-section">
-              <h4><i data-feather="gift"></i>Portfolio</h4>
-              <div class="portfolio-slider owl-carousel">
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-3.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
+            <div class="membership details-section dashboard-section">
+        <div class="membership-div">
+          <h4 id="mbr-label"><i data-feather="user-check"></i>Membership</h4>
+        <a href="#" id="add-membership" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-membership">+ Add Membership</a>
+
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2018 - Present</span>-->
+<!--                <h5>Masters in Software Engineering<span>@ Engineering University</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2014 - 2018</span>-->
+<!--                <h5>Diploma in Graphics Design<span>@ Graphic Arts Institute</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
+<!--              <div class="education-label">-->
+<!--                <span class="study-year">2008 - 2014</span>-->
+<!--                <h5>Secondary School Certificate<span>@  Engineering High School</span></h5>-->
+<!--                <p>Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage</p>-->
+<!--              </div>-->
+        <!-- Button trigger modal -->
+{#              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-education">#}
+{#                <i data-feather="edit-2"></i>#}
+{#              </button>#}
+        </div>
+        <!-- Modal -->
+
+<div class="modal fade modal-membership" id="modal-membership" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="title">
+                  <h4><i data-feather="user-check"></i>Membership</h4>
+<!--                        <a href="#" id="add-education" class="add-more">+ Add Education</a>-->
                 </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-1.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-2.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-3.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-item">
-                  <img src="images/portfolio/thumb-2.jpg" class="img-fluid" alt="">
-                  <div class="overlay">
-                    <a href="#"><i data-feather="eye"></i></a>
-                    <a href="#"><i data-feather="link"></i></a>
-                  </div>
+                <div class="content">
+                  <form action="#" id="membership-form" autocomplete="off" novalidate="novalidate">
+                    <div class="input-block-wrap mbr" >
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label edu-div-lavel"></label>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">Organization</div>
+                            </div>
+                            <input type="text" name="organization" id="organization" class="form-control" required data-msg-required="Organization is required">
+                            <input type="hidden" name="id" id="id" class="form-control" >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">Position</div>
+                            </div>
+                            <input type="text" name="position_held" id="position_held" class="form-control" required data-msg-required="Position is required">
+                          </div>
+                        </div>
+                      </div>
+<!--                            <div class="form-group row">-->
+<!--                            </div>-->
+                      <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">Description</div>
+                            </div>
+                            <textarea type="text" name="description" id="description" class="form-control" ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 offset-sm-3">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">Start Date</div>
+                            </div>
+                            <input type="text" name="start_date_mbr" id="start_date_mbr" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="" required data-msg-required="Start date is required">
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">End Date</div>
+                            </div>
+                            <input type="text" name="end_date_mbr" id="end_date_mbr" class="form-control datepicker"  placeholder="DD/MM/YYYY" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+<!--                                <div class="input-group">-->
+<!--                                  <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text">On Going</div>-->
+<!--                                  </div>-->
+<!--                                  <input type="checkbox" name="on_going" id="on_going" class="form-control" value="">-->
+<!--                                </div>-->
+                          <div class="mt-0 terms">
+                          <input type="checkbox" id="membership_ongoing" name="membership_ongoing">
+                          <label for="membership_ongoing">
+                              <span class="dot"></span> Ongoing
+                          </label>
+                      </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="offset-sm-3 col-sm-9">
+                        <div class="buttons">
+                          <button class="primary-bg edu-submit">Save</button>
+                          <button class="" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+            <div class="portfolio dashboard-section details-section">
+                <div id="portfolio-div">
+                    <h4 id="port-label"><i data-feather="gift"></i>Portfolio</h4>
+                    <a href="#" id="add-portfolio" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-portfolio">+ Add Portfolio</a>
+                </div>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-portfolio">
-                <i data-feather="edit-2"></i>
-              </button>
+{#              <button type="button" class="btn btn-primary edit-resume" data-toggle="modal" data-target="#modal-portfolio">#}
+{#                <i data-feather="edit-2"></i>#}
+{#              </button>#}
               <!-- Modal -->
               <div class="modal fade modal-portfolio" id="modal-portfolio" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -1048,20 +1132,20 @@
                     <div class="modal-body">
                       <div class="title">
                         <h4><i data-feather="grid"></i>Portfolio</h4>
-                        <a href="#" class="add-more">+ Add Another</a>
                       </div>
                       <div class="content">
-                        <form action="#">
+                        <form action="#" id="portfolio-form" autocomplete="off" novalidate="novalidate">
                           <div class="input-block-wrap">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Portfolio 01</label>
+                              <label class="col-sm-3 col-form-label"></label>
                               <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Title</div>
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <div class="input-group-text">Title</div>
+                                      </div>
+                                      <input type="text" class="form-control" name="name" id="name" required>
+                                      <input type="hidden" name="id" id="id" class="form-control portfolio-id" >
                                   </div>
-                                  <input type="text" class="form-control" >
-                                </div>
                               </div>
                             </div>
                             <div class="form-group row">
@@ -1072,10 +1156,10 @@
                                   </div>
                                   <div class="upload-profile-photo">
                                     <div class="update-photo">
-                                      <img class="image" src="images/portfolio/thumb-1.jpg" alt="">
+                                      <img class="image " src="" alt="" name="image" id="image">
                                     </div>
                                     <div class="file-upload">
-                                      <input type="file" class="file-input">Change Avatar
+                                      <input type="file" class="file-input" >Add Image
                                     </div>
                                   </div>
                                 </div>
@@ -1085,89 +1169,9 @@
                               <div class="offset-sm-3 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <div class="input-group-text">Link</div>
+                                    <div class="input-group-text">Description</div>
                                   </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Portfolio 02</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Title</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Image</div>
-                                  </div>
-                                  <div class="upload-profile-photo">
-                                    <div class="update-photo">
-                                      <img class="image" src="images/portfolio/thumb-1.jpg" alt="">
-                                    </div>
-                                    <div class="file-upload">
-                                      <input type="file" class="file-input">Change Avatar
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Link</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="input-block-wrap">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Portfolio 03</label>
-                              <div class="col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Title</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Image</div>
-                                  </div>
-                                  <div class="upload-profile-photo">
-                                    <div class="update-photo">
-                                      <img class="image" src="images/portfolio/thumb-1.jpg" alt="">
-                                    </div>
-                                    <div class="file-upload">
-                                      <input type="file" class="file-input">Change Avatar
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">Link</div>
-                                  </div>
-                                  <input type="text" class="form-control" >
+                                  <textarea type="text" name="description" id="description" class="form-control"></textarea>
                                 </div>
                               </div>
                             </div>
@@ -1175,7 +1179,7 @@
                           <div class="row">
                             <div class="offset-sm-3 col-sm-9">
                               <div class="buttons">
-                                <button class="primary-bg">Save Update</button>
+                                <button class="primary-bg">Save</button>
                                 <button class="" data-dismiss="modal">Cancel</button>
                               </div>
                             </div>
@@ -1197,7 +1201,7 @@
                     <li><span>Mother's Name:</span> <span id="mother_name"></span></li>
                     <li><span>Date of Birth:</span> <span id="date_of_birth"></span></li>
                     <li><span>Nationality:</span> <span id="nationality"></span> </li>
-                    <li><span>Sex:</span> <span id="gender"></span></li>
+                    <li><span>Gender:</span> <span id="gender"></span></li>
                     <li><span>Address:</span> <span id="permanent_address"></span></li>
                   </ul>
                 </div>
@@ -1252,7 +1256,7 @@
                             <label class="col-sm-3 col-form-label">Gender</label>
                             <div class="col-sm-9">
                               <!--                                  <input type="text" id="gender_id" name="gender" class="form-control"  placeholder="Male">-->
-                              <select class="form-control" name="gender" id="gender" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender" value="">
+                              <select class="form-control" name="gender" id="gender" data-text="name" data-value="name" data-placeholder="Gender" data-src="/api/gender/list" value="">
                               </select>
                             </div>
                           </div>
@@ -1283,92 +1287,109 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="dashboard-sidebar">
-            <div class="user-info">
-              <div class="thumb">
-                <img src="dashboard/images/user-1.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="user-body">
-                <h5>Lula Wallace</h5>
-                <span>@username</span>
-              </div>
-            </div>
-            <div class="profile-progress">
-              <div class="progress-item">
-                <div class="progress-head">
-                  <p class="progress-on">Profile</p>
-                </div>
-                <div class="progress-body">
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
-                  </div>
-                  <p class="progress-to">70%</p>
-                </div>
-              </div>
-            </div>
-            <div class="dashboard-menu">
-              <ul>
-                <li><i class="fas fa-home"></i><a href="dashboard.html">Dashboard</a></li>
-                <li><i class="fas fa-user"></i><a href="dashboard-edit-profile.html">Edit Profile</a></li>
-                <li><i class="fas fa-file-alt"></i><a href="resume.html">Resume</a></li>
-                <li class="active"><i class="fas fa-edit"></i><a href="edit-resume.html">Edit Resume</a></li>
-                <li><i class="fas fa-heart"></i><a href="{% url 'favourite_jobs' %}">Bookmarked</a></li>
-                <li><i class="fas fa-check-square"></i><a href="{% url 'applied_jobs' %}">Applied Job</a></li>
-                <li><i class="fas fa-comment"></i><a href="dashboard-message.html">Message</a></li>
-                <li><i class="fas fa-calculator"></i><a href="dashboard-pricing.html">Pricing Plans</a></li>
-              </ul>
-              <ul class="delete">
-                <li><i class="fas fa-power-off"></i><a href="#">Logout</a></li>
-                <li><i class="fas fa-trash-alt"></i><a href="#" data-toggle="modal" data-target="#modal-delete">Delete Profile</a></li>
-              </ul>
-              <!-- Modal -->
-              <div class="modal fade modal-delete" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-body">
-                      <h4><i data-feather="trash-2"></i>Delete Account</h4>
-                      <p>Are you sure! You want to delete your profile. This can't be undone!</p>
-                      <form action="#">
-                        <div class="form-group">
-                          <input type="password" class="form-control" placeholder="Enter password">
-                        </div>
-                        <div class="buttons">
-                          <button class="delete-button" >Save Update</button>
-                          <button class="" data-dismiss="modal">Cancel</button>
-                        </div>
-                        <div class="form-group form-check">
-                          <input type="checkbox" class="form-check-input" checked="">
-                          <label class="form-check-label">You accepts our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Call to Action -->
-
-
 {% endblock %}
 {% block extra_js %}
 <script>
   $(document).ready(function() {
+      $('.edit-profile-details-bar').addClass('active')
+      $('.profile-image-input').on('click',function () {
+            $('.profile-picture-button').css('display','')
+      })
+      var postUrl = '/api/professional/profile_update/'+ id + '/';
+      $('form.profile-form-ajax').attr('action',postUrl);
+       $("form.profile-form-ajax").on('submit', function(event) {
+        event.preventDefault();
+        if ($(this).valid()){
+            var url = $(this).prop('action');
+            var formId = $(this).attr("id");
+            var data = form2Json(formId);
+            // Image uploading code start here
+            var imagesrc = $(".image").attr('src');
+            if (imagesrc){
+                var imagesrcPart = imagesrc.split(":");
+                var jsonObj;
+                if (imagesrcPart[0] === "data"){
+                    jsonObj = JSON.parse(data);
+                    jsonObj.image = imagesrc;
+                    data = JSON.stringify(jsonObj);
+                }else {
+                    jsonObj = JSON.parse(data);
+                    jsonObj.image = '';
+                    data = JSON.stringify(jsonObj);
+                }
+            }
+
+            // Image uploading code end here
+
+            var method = $(this).attr('method');
+            var callback= $(this).data("callback");  // $(this).attr("data-callback");
+            send(url, method, data, callback);
+        }
+        return false;
+    });
+
     $('#job-update-form').validate({
       errorClass: "my-error-class",
     });
+
+
+      $('#portfolio-form').validate({
+          errorClass: "my-error-class",
+          errorPlacement: function(error, element) {
+              error.insertAfter(element.parent());
+          },
+      });
+
+      $('#pro-skill-form').validate({
+          errorClass: "my-error-class",
+          errorPlacement: function(error, element) {
+              error.insertAfter(element.parent());
+          },
+      });
 
     $('#experience-form').validate({
         errorClass: "my-error-class",
         errorPlacement: function(error, element) {
           error.insertAfter(element.parent());
+        },
+        rules: {
+          end_date: { greater: "#start_date" },
+        }
+      });
+
+      $('#info-update-form').validate({
+          errorClass: "my-error-class",
+          errorPlacement: function(error, element) {
+              error.insertAfter(element.parent());
+          },
+          errorPlacement: function(error, element) {
+          error.insertAfter(element);
+        },
+          rules: {
+              expected_salary_max: { greaterValue: "#expected_salary_min" },
+          }
+      });
+
+
+    $('#membership-form').validate({
+        errorClass: "my-error-class",
+        errorPlacement: function(error, element) {
+          error.insertAfter(element.parent());
+        },
+        rules: {
+          end_date_mbr: {greater: "#start_date_mbr"}
+        }
+      });
+
+    $('#certification-form').validate({
+        errorClass: "my-error-class",
+        errorPlacement: function(error, element) {
+          error.insertAfter(element.parent());
+        },
+        rules: {
+          expiry_date : { expiry_greater: "#issue_date" },
         }
       });
 
@@ -1392,7 +1413,12 @@
     get(getUrl,loadabout);
     get(getUrl,loadEdu);
     get(getUrl,loadExp);
+    get(getUrl,loadCer);
+    get(getUrl,loadMbr);
+    get(getUrl,loadProfSkills);
+    get(getUrl,loadPortfolio);
     get(staticUrl,loadstatic);
+    get(getUrl, loadProfile);
     initAjaxSelects();
     var postUrl = '/api/professional/profile_update_partial/'+ id + '/';
     $('form.ajax').attr('action',postUrl);
@@ -1405,9 +1431,40 @@
           $('#graduation_date-error').html('');
       });
 
-    $('.work-exp').on('click', function () {
-      get(getUrl,loadExpEdit);
-    });
+      $('#add-experience').on('click', function (event) {
+          event.preventDefault();
+          $("#modal-experience").find('form')[0].reset();
+          $('#is_currently_working').val(false);
+          $('#end_date').prop('disabled',false);
+          $('#end_date-error').html('');
+      });
+
+      $('#add-portfolio').on('click', function (event) {
+          event.preventDefault();
+          $("#modal-portfolio").find('form')[0].reset();
+          $('#image').attr('src','')
+          $('.portfolio-id').val('')
+      });
+
+      $('#add-membership').on('click', function (event) {
+          event.preventDefault();
+          $("#modal-membership").find('form')[0].reset();
+          $('#membership_ongoing').val(false);
+          $('#end_date_mbr').prop('disabled',false);
+          $('#end_date_mbr-error').html('');
+      });
+
+      $('#add-certification').on('click', function (event) {
+          event.preventDefault();
+          $("#modal-certification").find('form')[0].reset();
+          $('#has_expiry_period').val(false);
+          // $('#expiry_date').prop('disabled',false);
+          // $('#expiry_date-error').html('');
+      });
+
+    // $('.work-exp').on('click', function () {
+    //   get(getUrl,loadExpEdit);
+    // });
 
     $('#is_ongoing').click(function () {
       if($(this).prop("checked")){
@@ -1416,94 +1473,260 @@
       }
       else{
         $('#graduation_date').prop("disabled", false);
+      }
+    })
 
+    $('#is_currently_working').click(function () {
+      if($(this).prop("checked")){
+        $('#end_date').prop("disabled", true);
+        $('#end_date-error').html('')
+      }
+      else{
+        $('#end_date').prop("disabled", false);
       }
     })
 
 
+    $('#membership_ongoing').click(function () {
+      if($(this).prop("checked")){
+        $('#end_date_mbr').prop("disabled", true);
+        $('#end_date_mbr-error').html('')
+      }
+      else{
+        $('#end_date_mbr').prop("disabled", false);
+      }
+    })
+
+    $('#has_expiry_period').click(function () {
+      if($(this).prop("checked")){
+        $('#expiry_date').prop("disabled", false);
+        // $('#end_date-error').html('')
+      }
+      else{
+        $('#expiry_date').prop("disabled", true);
+        $('#expiry_date-error').html('')
+      }
+    })
+
+      $('#add-skill').on('click', function (event) {
+          $("#modal-pro-skill").find('form')[0].reset();
+          $('.skill_object_id').val('');
+
+      });
+
+      $('.professional-skill-div').on('click','.delete-skill',function () {
+          var obj_id = $(this).parent().parent().find(".skill-obj-id").val();
+          showQuestion('Delete','Do You Want to delete This Skill?', function(){skillDelete(obj_id);});
+
+      });
+
+      $('.professional-skill-div').on('click','.update-skill',function (event) {
+          var obj_id = $(this).parent().parent().find(".skill-obj-id").val();
+          var getUrl = '/api/professional/professional_skill_object/'+ obj_id + '/';
+          get(getUrl, loadSkillObject);
+      });
+
+      {# Skill create and update #}
+      $('#pro-skill-form').on('submit', function (event) {
+          event.preventDefault();
+          var path = window.location.pathname.split('/');
+          var id = path[path.length-2];
+          var user = id;
+          var skill_id=$(this).find('#id').val();
+          var skill_name=$(this).find('#skill_name').val();
+          var rating=$(this).find('#rating').val();
+          data = { "professional_id" : user}
+          if(skill_name){
+              data.skill_name_id = skill_name;
+          }
+          if(rating){
+              data.rating = rating;
+          }
+          skillCreateUrl = "/api/professional/professional_skill/";
+          skillUpdateUrl = "/api/professional/professional_skill/"+skill_id+"/";
+          if(Object.keys(data).length>1 && $(this).valid() && skill_id){
+              put(skillUpdateUrl, JSON.stringify(data), loadProfSkillsCreateUpdate);
+          }
+          if(Object.keys(data).length>1 && $(this).valid() && !skill_id){
+              post(skillCreateUrl, JSON.stringify(data), loadProfSkillsCreateUpdate);
+              $(this).addClass("update-skill");
+          }
+      })
+
+
     autoSuggesion('/api/professional/institute_search/', "institution_text");
+    autoSuggesionCompany('/api/company/search/', "company_text")
+    // // datepicker on the date inputs
+    // $( ".datepicker" ).datepicker({
+    //   autoclose: false,
+    //   todayHighlight: true,
+    //   dateFormat: 'dd/mm/yy'
+    // }).on('change', function() {
+    // $(this).valid();  // triggers a validation test
+    // // $(this) refers to $('#eventDate')
+    // });
 
-    // datepicker on the date inputs
-    $( ".datepicker" ).datepicker({
-      autoclose: false,
-      todayHighlight: true,
-      dateFormat: 'dd/mm/yy'
-    }).on('change', function() {
-    $(this).valid();  // triggers a validation test
-    // $(this) refers to $('#eventDate')
-    });
+    // $("#start_date_mbr").datepicker({
+    //     numberOfMonths: 2,
+    //     autoclose: false,
+    //     todayHighlight: true,
+    //     dateFormat: 'dd/mm/yy',
+    //     onSelect: function(selected) {
+    //       $("#end_date_mbr").datepicker("option","minDate", selected)
+    //     }
+    // });
+    // $("#end_date_mbr").datepicker({
+    //     numberOfMonths: 2,
+    //     autoclose: false,
+    //     todayHighlight: true,
+    //     dateFormat: 'dd/mm/yy',
+    //     onSelect: function(selected) {
+    //        $("#start_date_mbr").datepicker("option","maxDate", selected)
+    //     }
+    // });
 
 
-    $('#add-experience').on('click', function (event) {
-      event.preventDefault();
-      var count = divCounter("input-block-experience")+1;
-      var lastDiv = $("#experience-form .input-block-experience:last");
-      var lastDivHtml = $("#experience-form .input-block-experience").html();
-      lastDiv.after('<div class="input-block-wrap input-block-experience" >'+lastDivHtml+'</div>');
-      $(".experience-div-label:last").text("0"+ count);
-    });
+    // $('#add-experience').on('click', function (event) {
+    //   event.preventDefault();
+    //   var count = divCounter("input-block-experience")+1;
+    //   var lastDiv = $("#experience-form .input-block-experience:last");
+    //   var lastDivHtml = $("#experience-form .input-block-experience").html();
+    //   lastDiv.after('<div class="input-block-wrap input-block-experience" >'+lastDivHtml+'</div>');
+    //   $(".experience-div-label:last").text("0"+ count);
+    // });
+
+    datepickerValidation("start_date_mbr", "end_date_mbr");
+    datepickerValidation("start_date", "end_date");
+    datepickerValidation("enrolled_date", "graduation_date");
+    datepickerValidation("issue_date", "expiry_date");
 
     $('#experience-form').on('submit', function (event) {
       event.preventDefault();
-      var error_count = 0;
-      var totalDiv = $('#experience-form').find(".input-block-experience");
-      totalDiv.each(function () {
-        var company=$(this).find('#company_id').val();
-        if (!company){
-          error_count = error_count+1;
-          $(this).find('#company_id').parent().parent().append('<label class="my-error-class">Company is required</label>')
-        }
-      });
-      if(error_count==0){
-       totalDiv.each(function(){
         var path = window.location.pathname.split('/');
         var id = path[path.length-2];
         var user = id;
-        var company_text=$(this).find('#company_id').val();
+        var company_text=$(this).find('#company_text').val();
         var company=$(this).find('#company_id').val();
         var designation=$(this).find('#designation').val();
+        var description=$(this).find('#description').val();
         var start_date=$(this).find('#start_date').val();
         var end_date=$(this).find('#end_date').val();
         var exp_id=$(this).find('#id').val();
+        var is_currently_working = $(this).find('#is_currently_working').is(':checked');
         data = { "professional_id" : user}
-        if(company){
-          data.company_id = company;
+        if(company_text){
+          // data.company_id = company;
           data.company_text = company_text;
         }
         if(designation){
           data.designation = designation;
         }
-        if(start_date){
-          data.start_date = start_date;
+        if(description){
+          data.description = description;
         }
-        if(end_date){
-          data.end_date = end_date;
+        if(start_date){
+            var momentObj = moment(start_date, 'DD-MM-YYYY');
+            var dateStartString = momentObj.format('YYYY-MM-DD');
+          data.start_date = dateStartString;
+        }
+        if(is_currently_working){
+            data.is_currently_working = is_currently_working
+            data.end_date = null;
+        }
+        else{
+            var momentEndObj = moment(end_date, 'DD-MM-YYYY');
+            var dateEndString = momentEndObj.format('YYYY-MM-DD');
+          data.end_date = dateEndString;
+          data.is_currently_working = false
         }
         expCreateUrl = "/api/professional/professional_work_experience/";
         expUpdateUrl = "/api/professional/professional_work_experience/"+exp_id+"/";
-        if(Object.keys(data).length>1 && $(this).hasClass("update-exp")){
+        if(Object.keys(data).length>1 && $(this).valid() && exp_id){
           put(expUpdateUrl, JSON.stringify(data), loadExperience);
         }
-        if(Object.keys(data).length>1 && !$(this).hasClass("update-exp")){
+        if(Object.keys(data).length>1 && $(this).valid() && !exp_id){
           post(expCreateUrl, JSON.stringify(data), loadExperience);
-          $(this).addClass("update-exp");
         }
-      });
-      }
+    });
+
+    $('#portfolio-form').on('submit', function (event) {
+      event.preventDefault();
+        var path = window.location.pathname.split('/');
+        var id = path[path.length-2];
+        var user = id;
+        var name=$(this).find('#name').val();
+        var description=$(this).find('#description').val();
+        var image=$(this).find('#image').attr('src');
+        var portfolio_id=$(this).find('#id').val();
+        data = { "professional_id" : user}
+        if(name){
+          data.name = name;
+        }
+        if(description){
+          data.description = description;
+        }
+        if(image){
+            data.image = image;
+        }
+        portfolioCreateUrl = "/api/professional/professional_portfolio/";
+        portfolioUpdateUrl = "/api/professional/professional_portfolio/"+portfolio_id+"/";
+        if(Object.keys(data).length>1 && $(this).valid() && portfolio_id){
+          put(portfolioUpdateUrl, JSON.stringify(data), loadPortfolioCreateUpdate);
+        }
+        if(Object.keys(data).length>1 && $(this).valid() && !portfolio_id){
+          post(portfolioCreateUrl, JSON.stringify(data), loadPortfolioCreateUpdate);
+        }
+    });
+
+    $('#membership-form').on('submit', function (event) {
+      event.preventDefault();
+        var path = window.location.pathname.split('/');
+        var id = path[path.length-2];
+        var user = id;
+        var organization=$(this).find('#organization').val();
+        var position_held=$(this).find('#position_held').val();
+        var description=$(this).find('#description').val();
+        var start_date=$(this).find('#start_date_mbr').val();
+        var end_date=$(this).find('#end_date_mbr').val();
+        var mem_id=$(this).find('#id').val();
+        var membership_ongoing = $(this).find('#membership_ongoing').is(':checked');
+        data = { "professional_id" : user}
+        if(organization){
+          data.organization = organization;
+        }
+        if(position_held){
+          data.position_held = position_held;
+        }
+        if(description){
+          data.description = description;
+        }
+        if(start_date){
+            var momentObj = moment(start_date, 'DD-MM-YYYY');
+            var dateStartString = momentObj.format('YYYY-MM-DD');
+          data.start_date = dateStartString;
+        }
+        if(membership_ongoing){
+            data.membership_ongoing = membership_ongoing
+            data.end_date = null;
+        }
+        else{
+            var momentEndObj = moment(end_date, 'DD-MM-YYYY');
+            var dateEndString = momentEndObj.format('YYYY-MM-DD');
+          data.end_date = dateEndString;
+          data.membership_ongoing = false
+        }
+        memCreateUrl = "/api/professional/professional_membership/";
+        memUpdateUrl = "/api/professional/professional_membership/"+mem_id+"/";
+        if(Object.keys(data).length>1 && $(this).valid() && mem_id){
+          put(memUpdateUrl, JSON.stringify(data), loadMembership);
+        }
+        if(Object.keys(data).length>1 && $(this).valid() && !mem_id){
+          post(memCreateUrl, JSON.stringify(data), loadMembership);
+        }
     });
 
     $('#education-form').on('submit', function (event) {
       event.preventDefault();
-      // var totalDiv = $('#education-form').find(".input-block-edu");
-      // totalDiv.each(function () {
-      //   var degree=$(this).find('#degree').val();
-      //   if (!degree){
-      //     error_count = error_count+1;
-      //     $(this).find('#degree').parent().parent().append('<label class="my-error-class">Degree is required</label>')
-      //   }
-      // });
-      // if(error_count==0){
-      //  totalDiv.each(function(){
         var path = window.location.pathname.split('/');
         var id = path[path.length-2];
         var user = id;
@@ -1562,11 +1785,67 @@
         if(Object.keys(data).length>1 && $(this).valid() && !edu_id){
           post(eduCreateUrl, JSON.stringify(data), loadEducation);
         }
-
-
-      // });
-      // }
     })
+
+    $('#certification-form').on('submit', function (event) {
+      event.preventDefault();
+        var path = window.location.pathname.split('/');
+        var id = path[path.length-2];
+        var user = id;
+        var certificate_name=$(this).find('#certificate_name').val();
+        var cer_id=$(this).find('#id').val();
+        var organization=$(this).find('#organization').val();
+        var credential_id=$(this).find('#credential_id').val();
+        var credential_url=$(this).find('#credential_url').val();
+        var issue_date=$(this).find('#issue_date').val();
+        var expiry_date=$(this).find('#expiry_date').val();
+        var has_expiry_period = $(this).find('#has_expiry_period').is(':checked');
+        data = { "professional_id" : user}
+        if(certificate_name){
+          data.certificate_name = certificate_name;
+        }
+        if(credential_id){
+          data.credential_id = credential_id;
+        }
+        if(organization){
+          data.organization = organization;
+        }
+        if(credential_url){
+          data.credential_url = credential_url;
+        }
+        if(issue_date){
+            var momentObj = moment(issue_date, 'DD-MM-YYYY');
+            var dateIssueString = momentObj.format('YYYY-MM-DD');
+          data.issue_date = dateIssueString;
+        }
+        if(has_expiry_period){
+            data.has_expiry_period = has_expiry_period
+            var momentExpiryObj = moment(expiry_date, 'DD-MM-YYYY');
+            var dateExpiryString = momentExpiryObj.format('YYYY-MM-DD');
+            data.expiry_date = dateExpiryString;
+        }
+        else {
+          data.has_expiry_period = false
+          data.expiry_date = null
+        }
+        cerCreateUrl = " /api/professional/professional_certification/";
+        cerUpdateUrl = "/api/professional/professional_certification/"+cer_id+"/";
+        if(Object.keys(data).length>1 && $(this).valid() && cer_id){
+          put(cerUpdateUrl, JSON.stringify(data), loadCertificates);
+        }
+        if(Object.keys(data).length>1 && $(this).valid() && !cer_id){
+          post(cerCreateUrl, JSON.stringify(data), loadCertificates);
+        }
+    })
+
+
+      $.validator.addMethod('greaterValue', function(value, element, param) {
+          if (this.optional(element)) return true;
+          var i = parseInt(value);
+          var j = parseInt($(param).val());
+          return i > j;
+      }, "Must be greater than minimum expected salary.");
+
 
     $.validator.addMethod("greaterThan",
     function(value, element, params) {
@@ -1579,6 +1858,40 @@
         || (Number(value) > Number($(params).val()));
     },'Must be greater than Enrolled Date.');
 
+    $.validator.addMethod("greater",
+    function(value, element, params) {
+
+    if (!/Invalid|NaN/.test(new Date(value))) {
+        return new Date(value) > new Date($(params).val());
+    }
+
+    return isNaN(value) && isNaN($(params).val())
+        || (Number(value) > Number($(params).val()));
+    },'Must be greater than Start Date.');
+
+    $.validator.addMethod("startDate",
+    function(value, element, params) {
+
+    if (!/Invalid|NaN/.test(new Date(value))) {
+        return new Date(value) < new Date($(params).val());
+    }
+
+    return isNaN(value) && isNaN($(params).val())
+        || (Number(value) < Number($(params).val()));
+    },'Must be less than End Date.');
+
+
+    $.validator.addMethod("expiry_greater",
+    function(value, element, params) {
+
+    if (!/Invalid|NaN/.test(new Date(value))) {
+        return new Date(value) > new Date($(params).val());
+    }
+
+    return isNaN(value) && isNaN($(params).val())
+        || (Number(value) > Number($(params).val()));
+    },'Must be greater than Issue Date.');
+
 
     $('.education-div').on('click','.update-education',function () {
       var obj_id = $(this).parent().find(".edu-object-id").val()
@@ -1586,10 +1899,179 @@
       get(getUrl, loadEducationObject);
     });
 
+    $('#experience-div').on('click','.update-experience',function () {
+      var obj_id = $(this).parent().find(".exp-object-id").val();
+      var path = window.location.pathname.split('/');
+      var id = path[path.length-2];
+      var getUrl = '/api/professional/profile/'+ id + '/';
+      get(getUrl, loadExperienceObject);
+      function loadExperienceObject(data) {
+        for(index=0;index<data.experience_info.length;index++) {
+          if(data.experience_info[index].id==obj_id){
+              if(!data.experience_info[index].end_date){
+                delete data.experience_info[index].end_date
+            }
+            if(data.experience_info[index].end_date){
+                var momentEndObj = moment(data.experience_info[index].end_date, 'YYYY-MM-DD');
+                var dateEndString = momentEndObj.format('DD/MM/YYYY');
+                data.experience_info[index].end_date = dateEndString
+            }
+            var momentObj = moment(data.experience_info[index].start_date, 'YYYY-MM-DD');
+            var dateStartString = momentObj.format('DD/MM/YYYY');
+            data.experience_info[index].start_date = dateStartString
+
+          json2Form(data.experience_info[index], "experience-form")
+            $('#end_date').val('')
+            if(data.experience_info[index].is_currently_working){
+                $('#is_currently_working').prop('checked',true)
+                $('#end_date').prop('disabled',true)
+            }
+          }
+        }
+      }
+    });
+
+    $('#portfolio-div').on('click','.update-portfolio',function () {
+      var obj_id = $(this).parent().find(".portfolio-object-id").val();
+      var path = window.location.pathname.split('/');
+      var id = path[path.length-2];
+      var getUrl = '/api/professional/profile/'+ id + '/';
+      get(getUrl, loadPortfolioObject);
+      function loadPortfolioObject(data) {
+        for(index=0;index<data.portfolio_info.length;index++) {
+          if(data.portfolio_info[index].id==obj_id){
+          json2Form(data.portfolio_info[index], "portfolio-form")
+              getBase64Image(data.portfolio_info[index].image,function(base64image){
+                $('#image').attr('src',base64image)
+              });
+
+          }
+        }
+      }
+    });
+
+    function getBase64Image(imgUrl, callback) {
+    var img = new Image();
+
+    // onload fires when the image is fully loadded, and has width and height
+
+    img.onload = function(){
+
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      var dataURL = canvas.toDataURL("image/png")
+      callback(dataURL); // the base64 string
+
+    };
+
+    // set attributes and src
+    img.setAttribute('crossOrigin', 'anonymous'); //
+    img.src = imgUrl;
+
+}
+
+    $('#certification-div').on('click','.update-certification',function () {
+      var obj_id = $(this).parent().find(".cer-object-id").val();
+      var path = window.location.pathname.split('/');
+      var id = path[path.length-2];
+      var getUrl = '/api/professional/profile/'+ id + '/';
+      get(getUrl, loadCertificateObject);
+      function loadCertificateObject(data) {
+        for(index=0;index<data.certification_info.length;index++) {
+          if(data.certification_info[index].id==obj_id){
+              if(!data.certification_info[index].expiry_date){
+                delete data.certification_info[index].expiry_date
+            }
+            if(data.certification_info[index].expiry_date){
+                var momentExpiryObj = moment(data.certification_info[index].expiry_date, 'YYYY-MM-DD');
+                var dateExpiryString = momentExpiryObj.format('DD/MM/YYYY');
+                data.certification_info[index].expiry_date = dateExpiryString
+            }
+            var momentObj = moment(data.certification_info[index].issue_date, 'YYYY-MM-DD');
+            var dateIssueString = momentObj.format('DD/MM/YYYY');
+            data.certification_info[index].issue_date = dateIssueString
+
+          json2Form(data.certification_info[index], "certification-form")
+            $('#issue_date').val('')
+            if(data.certification_info[index].has_expiry_period){
+                $('#has_expiry_period').prop('checked',true)
+                $('#expiry_date').prop('disabled',false)
+            }
+            else{
+              $('#has_expiry_period').prop('checked',false)
+              $('#expiry_date').prop('disabled',true)
+            }
+          }
+        }
+      }
+    });
+
 
     $('.education-div').on('click','.delete-education',function () {
         var obj_id = $(this).parent().find(".edu-object-id").val();
         showQuestion('Delete','Do You Want to delete?', function(){eduDelete(obj_id);});
+      });
+
+    $('#experience-div').on('click','.delete-experience',function () {
+        var obj_id = $(this).parent().find(".exp-object-id").val();
+        showQuestion('Delete','Do You Want to delete?', function(){expDelete(obj_id);});
+      });
+
+    $('#portfolio-div').on('click','.delete-portfolio',function () {
+        var obj_id = $(this).parent().find(".portfolio-object-id").val();
+        showQuestion('Delete','Do You Want to delete Portfolio?', function(){portfolioDelete(obj_id);});
+      });
+
+    $('#certification-div').on('click','.delete-certification',function () {
+        var obj_id = $(this).parent().find(".cer-object-id").val();
+        showQuestion('Delete','Do You Want to delete?', function(){cerDelete(obj_id);});
+      });
+
+    $('.membership-div').on('click','.delete-membership',function () {
+        var obj_id = $(this).parent().find(".mem-object-id").val();
+        showQuestion('Delete','Do You Want to delete?', function(){memDelete(obj_id);});
+      });
+
+    $('.membership-div').on('click','.update-membership',function () {
+      var obj_id = $(this).parent().find(".mem-object-id").val();
+      var path = window.location.pathname.split('/');
+      var id = path[path.length-2];
+      var getUrl = '/api/professional/profile/'+ id + '/';
+      get(getUrl, loadMembershipObject);
+      function loadMembershipObject(data) {
+        for(index=0;index<data.membership_info.length;index++) {
+          if(data.membership_info[index].id==obj_id){
+              if(!data.membership_info[index].end_date){
+                delete data.membership_info[index].end_date
+            }
+            if(data.membership_info[index].end_date){
+                var momentEndObj = moment(data.membership_info[index].end_date, 'YYYY-MM-DD');
+                var dateEndString = momentEndObj.format('DD/MM/YYYY');
+                data.membership_info[index].end_date = dateEndString
+            }
+            var momentObj = moment(data.membership_info[index].start_date, 'YYYY-MM-DD');
+            var dateStartString = momentObj.format('DD/MM/YYYY');
+            data.membership_info[index].start_date = dateStartString
+
+          json2Form(data.membership_info[index], "membership-form")
+            if(data.membership_info[index].end_date){
+              $('#end_date_mbr').val(data.membership_info[index].end_date)
+            }
+            $('#start_date_mbr').val(data.membership_info[index].start_date)
+            if(data.membership_info[index].membership_ongoing){
+                $('#membership_ongoing').prop('checked',true);
+                $('#end_date_mbr').prop('disabled',true);
+                $('#end_date_mbr').val('');
+            }else{
+              $('#membership_ongoing').prop('checked',false);
+                $('#end_date_mbr').prop('disabled',false);
+            }
+          }
+        }
+      }
       });
 
 
@@ -1674,9 +2156,87 @@
     initAjaxForms();
   });
 
-  function divCounter(id){
-    return $('.'+id).length;
-  }
+  // function divCounter(id){
+  //   return $('.'+id).length;
+  // }
+  function  profileUpdateCallback(data){
+            if(data.status == 200){
+                showSuccess("Profile Picture Updated succesesfully!","");
+                $('.profile-picture-button').css('display','none')
+            }
+            else {
+                showError('Profile Not Updated','Enter Valid Data');
+            }
+        }
+  function  loadProfile(data){
+            console.log(data.personal_info)
+            id = $('form.profile-form-ajax').attr('id');
+            json2Form(data.personal_info, id);
+            if(data.personal_info.image){
+                // $('.image').attr('src', data.personal_info.image)
+                getBase64Image(data.personal_info.image,function(base64image){
+                console.log(base64image);
+                $('.image').attr('src',base64image)
+              });
+            }
+            // $('#full_user_name').text(data.full_name)
+            // $('#user_email').text(data.email)
+        }
+
+  function getBase64Image(imgUrl, callback) {
+    var img = new Image();
+
+    // onload fires when the image is fully loadded, and has width and height
+
+    img.onload = function(){
+
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      var dataURL = canvas.toDataURL("image/png")
+      callback(dataURL); // the base64 string
+
+    };
+
+    // set attributes and src
+    img.setAttribute('crossOrigin', 'anonymous'); //
+    img.src = imgUrl;
+
+}
+
+  function datepickerValidation(startDate, endDate){
+
+      $('#'+startDate).datepicker({
+        autoclose: false,
+        todayHighlight: true,
+        dateFormat: 'dd/mm/yy',
+        onSelect: function(dateStr) {
+          var date = $(this).datepicker('getDate');
+          if (date) {
+            date.setDate(date.getDate() + 1);
+          }
+          $('#'+endDate).datepicker('option', 'minDate', date);
+          $(this).valid();
+        }
+      });
+
+      $('#'+endDate).datepicker({
+        autoclose: false,
+        todayHighlight: true,
+        dateFormat: 'dd/mm/yy',
+        onSelect: function (selectedDate) {
+          var date = $(this).datepicker('getDate');
+          if (date) {
+            date.setDate(date.getDate() - 1);
+          }
+          $('#'+startDate).datepicker('option', 'maxDate', date || 0);
+          $(this).valid();
+        }
+      });
+
+    }
 
   function autoSuggesion(url, id) {
         var previousItems = new Bloodhound({
@@ -1704,6 +2264,43 @@
                 source: previousItems.ttAdapter()
             });
     }
+
+  function autoSuggesionCompany(url, id) {
+    var previousItems = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      remote: {
+        url: url,
+        prepare: function (query, settings) {
+          settings.url = settings.url + '?name=' + query
+          settings.headers = {
+            "api-key": "96d56aceeb9049debeab628ac760aa11"
+          };
+
+          return settings;
+        },
+        filter: function(list) {
+          console.log(list)
+          return $.map(list, function(itemname) {
+            return { name: itemname.name }; });
+        }
+      },
+      limit: 5 });
+
+    previousItems.initialize();
+    $("#"+id).typeahead({
+              hint: true,
+              highlight: true, /* Enable substring highlighting */
+              minLength: 2 /* Specify minimum characters required for showing result */
+            },
+            {
+
+              name: 'previousItems',
+              displayKey: 'name',
+              valueKey: 'name',
+              source: previousItems.ttAdapter()
+            });
+  }
 
   function loadEducation(data) {
     console.log(data);
@@ -1796,6 +2393,97 @@
     feather.replace();
   }
 
+  function loadCertificates(data) {
+    console.log(data);
+    if(data.status==200){
+      var dateString = data.responseJSON.issue_date;
+      var dateExpiryString = data.responseJSON.expiry_date;
+      // var major_name = "";
+      // var institution_name = "";
+      // var description = "";
+      // try{
+      //   if(data.responseJSON.major_obj.name){
+      //   major_name = data.responseJSON.major_obj.name;
+      // }
+      // }catch (e) {
+      //   if (e instanceof TypeError) {
+      //     major_name = "";
+      //   }
+      // }
+      //
+      // try {
+      //   if (data.responseJSON.institution_text) {
+      //     institution_name = data.responseJSON.institution_text;
+      //   }
+      // }catch (e) {
+      //   if (e instanceof TypeError) {
+      //     institution_name = "";
+      //   }
+      // }
+      // try {
+      //   if (data.responseJSON.description) {
+      //     description = data.responseJSON.description
+      //   }
+      // }catch (e) {
+      //   if (e instanceof TypeError) {
+      //     description = "";
+      //   }
+      // }
+      var momentObj = moment(dateString, 'YYYY-MM-DD');
+      var momentExpiryObj = moment(dateExpiryString, 'YYYY-MM-DD');
+      var dateIssueString = momentObj.format('DD/MM/YYYY');
+      var dateExpString = momentExpiryObj.format('DD/MM/YYYY');
+
+      if(dateExpString == "Invalid date"){
+          dateExpString = "No Expiry Period";
+      }
+      $("#modal-certification").modal("hide");
+      $("#modal-certification").find('form')[0].reset();
+      // $(".graduation-div").show();
+      if($('#certification-div').find(".certification-label").length==0){
+        $('#cer-label').after('<div class="certification-label">'+'<input type="hidden" class="cer-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateIssueString+' - '+dateExpString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '                <h5>'+data.responseJSON.certificate_name+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
+             '</div>');
+      }
+      else {
+        var el = $("#certification-div").find("[value='"+ data.responseJSON.id +"']");
+        if(el.length>0 && data.responseJSON.is_archived == true){
+            el.parent().remove()
+        }
+        else if(el.length>0){
+          el.parent().html('<input type="hidden" class="cer-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateIssueString+' - '+dateExpString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '                <h5>'+data.responseJSON.certificate_name+'<span>@ '+data.responseJSON.organization+'</span></h5>');
+        }
+        else{
+          $('.certification-label:last').after('<div class="certification-label">'+'<input type="hidden" class="cer-object-id" value="'+data.responseJSON.id+'">'+
+                '<span class="study-year">'+dateIssueString+' - '+dateExpString+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+             '                <h5>'+data.responseJSON.certificate_name+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
+             '</div>');
+        }
+      }
+    }else{
+      showError("Error Updating")
+    }
+    feather.replace();
+  }
+
 
   function loadEducationObject(data) {
       if(!data.edu_info['graduation_date']){
@@ -1818,37 +2506,76 @@
       }
   }
 
+  function loadSkillObject(data) {
+        json2Form(data.skill_info, "pro-skill-form")
+  }
+
   function loadExperience(data) {
-    console.log(data);
+    console.log(data.responseJSON);
     if(data.status==200){
       var dateStartString = data.responseJSON.start_date;
       var dateEndString = data.responseJSON.end_date;
+      var description = "";
 
       var momentObj = moment(dateStartString, 'YYYY-MM-DD');
       var momentEndObj = moment(dateEndString, 'YYYY-MM-DD');
-      var dateStart = momentObj.format('YYYY');
-      var dateEnd = momentEndObj.format('YYYY');
+      var dateStart = momentObj.format('DD/MM/YYYY');
+      var dateEnd = momentEndObj.format('DD/MM/YYYY');
+      if(dateEnd == "Invalid date" || dateEnd && data.responseJSON.is_currently_working == true){
+          dateEnd = "Currently Working";
+      }
+      try {
+        if (data.responseJSON.description) {
+          description = data.responseJSON.description
+        }
+      }catch (e) {
+        if (e instanceof TypeError) {
+          description = "";
+        }
+      }
       $("#modal-experience").modal("hide");
-      if($('.experience').find(".experience-section").length==0){
+      $("#modal-experience").find('form')[0].reset();
+      if($('#experience-div').find(".experience-section").length==0){
         console.log(data.responseJSON)
         $('#exp-label').after('<div class="experience-section">\n' +
-                '<a href="'+data.responseJSON.id+'"></a>'+
+                '<input type="hidden" class="exp-object-id" value="'+data.responseJSON.id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-experience delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-experience update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
                 '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
                 '              </div>');
       }
       else {
-        var el = $(".experience").find("[href='"+ data.responseJSON.id +"']");
-        if(el.length>0){
-          el.parent().html('<a href="'+data.responseJSON.id+'"></a>'+
+        var el = $("#experience-div").find("[value='"+ data.responseJSON.id +"']");
+        if(el.length>0 && data.responseJSON.is_archived == true){
+            el.parent().remove()
+        }
+        else if(el.length>0){
+          el.parent().html('<input type="hidden" class="exp-object-id" value="'+data.responseJSON.id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
-                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>');
+                '<button type="button" class="btn btn-primary edit-resume delete-experience delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-experience update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>\n' +
+                '<p>'+ description + '</p>');
         }
         else{
           $('.experience-section:last').after('<div class="experience-section">\n' +
-                '<a href="'+data.responseJSON.id+'"></a>'+
+                '<input type="hidden" class="exp-object-id" value="'+data.responseJSON.id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-experience delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-experience update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
                 '                <h5>'+data.responseJSON.designation+'<span>@ '+data.responseJSON.company_text+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
                 '              </div>');
         }
 
@@ -1856,6 +2583,216 @@
     }else{
       showError("Error Updating")
     }
+    feather.replace();
+  }
+
+  function loadPortfolioCreateUpdate(data) {
+    console.log(data.responseJSON);
+    if(data.status==200){
+        try {
+        if (data.responseJSON.description) {
+          description = data.responseJSON.description
+        }
+      }catch (e) {
+        if (e instanceof TypeError) {
+          description = "";
+        }
+      }
+      $("#modal-portfolio").modal("hide");
+      $("#modal-portfolio").find('form')[0].reset();
+      if($('#portfolio-div').find(".portfolio-section").length==0){
+        $('#port-label').after('<div class="portfolio-section">\n' +
+                '<input type="hidden" class="portfolio-object-id" value="'+data.responseJSON.id+'">'+
+                '                <b class="service-year">'+data.responseJSON.name+'</b>\n'  +
+                '<button type="button" class="btn btn-primary edit-resume delete-portfolio delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-portfolio update-icon" data-toggle="modal" data-target="#modal-portfolio">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '<p>'+ data.responseJSON.description + '</p>'+
+                '              </div>');
+      }
+      else {
+        var el = $("#portfolio-div").find("[value='"+ data.responseJSON.id +"']");
+        if(el.length>0 && data.responseJSON.is_archived == true){
+            el.parent().remove()
+        }
+        else if(el.length>0){
+          el.parent().html('<input type="hidden" class="portfolio-object-id" value="'+data.responseJSON.id+'">'+
+                '                <b class="service-year">'+data.responseJSON.name+'</b>\n'  +
+                '<button type="button" class="btn btn-primary edit-resume delete-portfolio delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-portfolio update-icon" data-toggle="modal" data-target="#modal-portfolio">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '<p>'+ data.responseJSON.description + '</p>');
+        }
+        else{
+          $('.portfolio-section:last').after('<div class="portfolio-section">\n' +
+                '<input type="hidden" class="portfolio-object-id" value="'+data.responseJSON.id+'">'+
+                '                <b class="service-year">'+data.responseJSON.name+'</b>\n'  +
+                '<button type="button" class="btn btn-primary edit-resume delete-portfolio delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-portfolio update-icon" data-toggle="modal" data-target="#modal-portfolio">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '<p>'+ data.responseJSON.description + '</p>'+
+                '              </div>');
+        }
+
+      }
+    }else{
+      showError("Error Updating")
+    }
+    feather.replace();
+  }
+
+  function loadMembership(data) {
+    console.log(data.responseJSON);
+    if(data.status==200){
+      var dateStartString = data.responseJSON.start_date;
+      var dateEndString = data.responseJSON.end_date;
+      var description = "";
+
+      var momentObj = moment(dateStartString, 'YYYY-MM-DD');
+      var momentEndObj = moment(dateEndString, 'YYYY-MM-DD');
+      var dateStart = momentObj.format('DD/MM/YYYY');
+      var dateEnd = momentEndObj.format('DD/MM/YYYY');
+      if(dateEnd == "Invalid date" || dateEnd && data.responseJSON.is_currently_working == true){
+          dateEnd = "Ongoing";
+      }
+      try {
+        if (data.responseJSON.description) {
+          description = data.responseJSON.description
+        }
+      }catch (e) {
+        if (e instanceof TypeError) {
+          description = "";
+        }
+      }
+      $("#modal-membership").modal("hide");
+      $("#modal-membership").find('form')[0].reset();
+      if($('.membership-div').find(".membership-label").length==0){
+        console.log(data.responseJSON)
+        $('#mbr-label').after('<div class="membership-label">\n' +
+                '<input type="hidden" class="mem-object-id" value="'+data.responseJSON.id+'">'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.responseJSON.position_held+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
+                '              </div>');
+      }
+      else {
+        var el = $(".membership-div").find("[value='"+ data.responseJSON.id +"']");
+        if(el.length>0 && data.responseJSON.is_archived == true){
+            el.parent().remove()
+        }
+        else if(el.length>0){
+          el.parent().html('<input type="hidden" class="mem-object-id" value="'+data.responseJSON.id+'">'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.responseJSON.position_held+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
+                '<p>'+ description + '</p>');
+        }
+        else{
+          $('.membership-label:last').after('<div class="membership-label">\n' +
+                '<input type="hidden" class="mem-object-id" value="'+data.responseJSON.id+'">'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.responseJSON.position_held+'<span>@ '+data.responseJSON.organization+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
+                '              </div>');
+        }
+
+      }
+    }else{
+      showError("Error Updating")
+    }
+    feather.replace();
+  }
+
+  function loadProfSkills(data) {
+      console.log('skill',data.skill_info[0])
+      var skillHtml = $(".skill-label").html();
+      for (index = 0; index < data.skill_info[0].length; index++) {
+          var skillDivHtml = $("#pro-skill-form .input-block-skill").html();
+          if (index == 0) {
+              $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[0][index].id + '">' +'<p class="progress-on">'+ data.skill_info[0][index].skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+ data.skill_info[0][index].rating *10 +'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.skill_info[0][index].rating + '/10</p></div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button></div>'+'</div>');
+          }
+          else if(index>=1){
+              $('.skill-label:last').after('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.skill_info[0][index].id + '">' +'<p class="progress-on">'+ data.skill_info[0][index].skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.skill_info[0][index].rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.skill_info[0][index].rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button></div>'+'</div>');
+
+          }
+      }
+      feather.replace()
+  }
+
+  function loadProfSkillsCreateUpdate(data) {
+      console.log(data)
+      if(data.status==200){
+          $("#modal-pro-skill").modal("hide");
+          $("#modal-pro-skill").find('form')[0].reset();
+          if($('.professional-skill-div').find(".skill-label").length==0){
+              console.log(data.responseJSON)
+              $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.responseJSON.id + '">' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
+                  '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.responseJSON.rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                    '<p class="progress-to">'+data.responseJSON.rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button></div>'+'</div>');
+          }
+          else {
+              var el = $(".professional-skill-div").find("[value='"+ data.responseJSON.id +"']");
+              if(el.length>0 && data.responseJSON.is_archived == true){
+                  el.parent().parent().remove()
+              }
+              else if(el.length>0){
+                  el.parent().parent().html('<div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.responseJSON.id + '">' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
+                      '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.responseJSON.rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                      '<p class="progress-to">'+data.responseJSON.rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+                      '                <i data-feather="trash-2"></i>\n' +
+                      '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
+                      '                <i data-feather="edit-2"></i>\n' +
+                      '              </button></div>');
+              }
+              else{
+                  $('.skill-label:last').after('<div class="progress-item skill-label"><div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.responseJSON.id + '">' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
+                      '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.responseJSON.rating * 10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
+                      '<p class="progress-to">'+data.responseJSON.rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
+                      '                <i data-feather="trash-2"></i>\n' +
+                      '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-skill update-icon" data-toggle="modal" data-target="#modal-pro-skill">\n' +
+                      '                <i data-feather="edit-2"></i>\n' +
+                      '              </button></div>'+'</div>');
+              }
+
+          }
+      }
+      feather.replace()
   }
 
   //load social and append social value
@@ -1939,40 +2876,180 @@
 
       var momentObj = moment(dateStartString, 'YYYY-MM-DD');
       var momentEndObj = moment(dateEndString, 'YYYY-MM-DD');
-      var dateStart = momentObj.format('YYYY');
-      var dateEnd = momentEndObj.format('YYYY');
-      var count = divCounter("input-block-experience")+1;
+      var dateStart = momentObj.format('DD/MM/YYYY');
+      var dateEnd = momentEndObj.format('DD/MM/YYYY');
+
+      if(dateEnd == "Invalid date" && data.experience_info[index].is_currently_working == true){
+          dateEnd = "Currently Working";
+      }
+      if(!data.experience_info[index].description){
+          description =''
+      }
+      else{
+        description = data.experience_info[index].description
+      }
+
       var expDivHtml = $("#experience-form .input-block-experience").html();
       if(index==0){
         $('#exp-label').after('<div class="experience-section">\n' +
-                '<a href="'+data.experience_info[index].id+'"></a>'+
+                '<input type="hidden" class="exp-object-id" value="'+data.experience_info[index].id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
-                '                <h5>'+data.experience_info[index].designation+'<span>@ '+data.experience_info[index].company+'</span></h5>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-experience delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-experience update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.experience_info[index].designation+'<span>@ '+data.experience_info[index].company_text+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
                 '              </div>');
-        $('.input-block-experience').remove();
-        count = divCounter("input-block-experience")+1;
-        $('#experience-form').prepend('<div class="input-block-wrap input-block-experience update-exp exp-01">'+expDivHtml+'</div>');
-        var select = $('.exp-01 #company_id');
-        var url = select.attr('data-src');
-        populateSelect(select, url);
-        $(".experience-div-label:last").text("0"+ count);
-        json2FormDiv(data.experience_info[index], "exp-01");
-
       }
       else if(index>=1){
         $('.experience-section:last').after('<div class="experience-section">\n' +
-                '<a href="'+data.experience_info[index].id+'"></a>'+
+                '<input type="hidden" class="exp-object-id" value="'+data.experience_info[index].id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
-                '                <h5>'+data.experience_info[index].designation+'<span>@ '+data.experience_info[index].company+'</span></h5>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-experience delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-experience update-icon" data-toggle="modal" data-target="#modal-experience">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.experience_info[index].designation+'<span>@ '+data.experience_info[index].company_text+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
                 '              </div>');
-        count = divCounter("input-block-experience")+1;
-        $('.input-block-experience:last').after('<div class="input-block-wrap input-block-experience update-exp exp-0'+count+'">'+expDivHtml+'</div>');
-        $(".experience-div-label:last").text("0"+ count);
-        var select = $(".exp-0"+count+" #company_id");
-        var url = select.attr('data-src');
-        populateSelect(select, url);
-        json2FormDiv(data.experience_info[index], "exp-0"+count);
       }
+      feather.replace();
+    }
+  }
+
+  function loadPortfolio(data) {
+    console.log(data.portfolio_info);
+    // var eduHtml = $(".experience-label").html();
+    for(index=0;index<data.portfolio_info.length;index++){
+      var expDivHtml = $("#experience-form .input-block-experience").html();
+      if(index==0){
+        $('#port-label').after('<div class="portfolio-section">\n' +
+                '<input type="hidden" class="portfolio-object-id" value="'+data.portfolio_info[index].id+'">'+
+                '                <b class="service-year">'+data.portfolio_info[index].name+'</b>\n'  +
+                '<button type="button" class="btn btn-primary edit-resume delete-portfolio delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-portfolio update-icon" data-toggle="modal" data-target="#modal-portfolio">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '<p>'+ data.portfolio_info[index].description + '</p>'+
+                '              </div>');
+      }
+      else if(index>=1){
+        $('.portfolio-section:last').after('<div class="portfolio-section">\n' +
+                '<input type="hidden" class="portfolio-object-id" value="'+data.portfolio_info[index].id+'">'+
+                '                <b class="service-year">'+data.portfolio_info[index].name+'</b>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-portfolio delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-portfolio update-icon" data-toggle="modal" data-target="#modal-portfolio">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '<p>'+ data.portfolio_info[index].description + '</p>'+
+                '              </div>');
+      }
+      feather.replace();
+    }
+  }
+
+  function loadCer(data) {
+    console.log(data.certification_info);
+    // var eduHtml = $(".experience-label").html();
+    for(index=0;index<data.certification_info.length;index++){
+      var dateIssueString = data.certification_info[index].issue_date;
+      var dateExpiryString = data.certification_info[index].expiry_date;
+
+      var momentObj = moment(dateIssueString, 'YYYY-MM-DD');
+      var momentExpiryObj = moment(dateExpiryString, 'YYYY-MM-DD');
+      var dateIssue = momentObj.format('DD/MM/YYYY');
+      var dateExpiry = momentExpiryObj.format('DD/MM/YYYY');
+
+      if(dateExpiry == "Invalid date" && data.certification_info[index].has_expiry_period == false){
+          dateExpiry = "No Expiry Period";
+      }
+      // if(!data.certification_info[index].description){
+      //     description =''
+      // }
+
+      // var expDivHtml = $("#experience-form .input-block-experience").html();
+      if(index==0){
+        $('#cer-label').after('<div class="certification-label">\n' +
+                '<input type="hidden" class="cer-object-id" value="'+data.certification_info[index].id+'">'+
+                '                <span class="service-year">'+dateIssue+' - '+dateExpiry+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.certification_info[index].certificate_name+'<span>@ '+data.certification_info[index].organization+'</span></h5>\n' +
+                '              </div>');
+      }
+      else if(index>=1){
+        $('.certification-label:last').after('<div class="certification-label">\n' +
+                '<input type="hidden" class="cer-object-id" value="'+data.certification_info[index].id+'">'+
+                '                <span class="service-year">'+dateIssue+' - '+dateExpiry+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-certification delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-certification update-icon" data-toggle="modal" data-target="#modal-certification">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.certification_info[index].certificate_name+'<span>@ '+data.certification_info[index].organization+'</span></h5>\n' +
+                '              </div>');
+      }
+      feather.replace();
+    }
+  }
+
+  function loadMbr(data) {
+    console.log(data.membership_info);
+    // var eduHtml = $(".experience-label").html();
+    for(index=0;index<data.membership_info.length;index++){
+      var dateStartString = data.membership_info[index].start_date;
+      var dateEndString = data.membership_info[index].end_date;
+
+      var momentObj = moment(dateStartString, 'YYYY-MM-DD');
+      var momentEndObj = moment(dateEndString, 'YYYY-MM-DD');
+      var dateStart = momentObj.format('DD/MM/YYYY');
+      var dateEnd = momentEndObj.format('DD/MM/YYYY');
+
+      if(dateEnd == "Invalid date" && data.membership_info[index].membership_ongoing == true){
+          dateEnd = "Ongoing";
+      }
+      if(!data.membership_info[index].description){
+          description = '';
+      }else{
+        description = data.membership_info[index].description;
+      }
+
+      // var expDivHtml = $("#experience-form .input-block-experience").html();
+      if(index==0){
+        $('#mbr-label').after('<div class="membership-label">\n' +
+                '<input type="hidden" class="mem-object-id" value="'+data.membership_info[index].id+'">'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.membership_info[index].position_held+'<span>@ '+data.membership_info[index].organization+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
+                '              </div>');
+      }
+      else if(index>=1){
+        $('.membership-label:last').after('<div class="membership-label">\n' +
+                '<input type="hidden" class="mem-object-id" value="'+data.membership_info[index].id+'">'+
+                '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
+                '<button type="button" class="btn btn-primary edit-resume delete-membership delete-icon">\n' +
+                '                <i data-feather="trash-2"></i>\n' +
+                '              </button>'+'<button type="button" class="btn btn-primary edit-resume update-membership update-icon" data-toggle="modal" data-target="#modal-membership">\n' +
+                '                <i data-feather="edit-2"></i>\n' +
+                '              </button>'+
+                '                <h5>'+data.membership_info[index].position_held+'<span>@ '+data.membership_info[index].organization+'</span></h5>\n' +
+                '<p>'+ description + '</p>'+
+                '              </div>');
+      }
+      feather.replace();
     }
   }
 
@@ -2074,6 +3151,62 @@
         'is_archived':true
     }
     put(eduUpdateUrl, JSON.stringify(data), loadEducation);
+  }
+
+  function expDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    eduUpdateUrl = "/api/professional/professional_work_experience/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(eduUpdateUrl, JSON.stringify(data), loadExperience);
+  }
+
+  function cerDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    cerUpdateUrl = " /api/professional/professional_certification/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(cerUpdateUrl, JSON.stringify(data), loadCertificates);
+  }
+
+  function portfolioDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    cerUpdateUrl = " /api/professional/professional_portfolio/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(cerUpdateUrl, JSON.stringify(data), loadPortfolioCreateUpdate);
+  }
+
+  function skillDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    skillUpdateUrl = "/api/professional/professional_skill/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(skillUpdateUrl, JSON.stringify(data), loadProfSkillsCreateUpdate);
+  }
+
+
+  function memDelete(obj_id) {
+    var path = window.location.pathname.split('/');
+    var id = path[path.length-2];
+    var obj_id = obj_id
+    memUpdateUrl = "/api/professional/professional_membership/"+obj_id+"/";
+    data={
+        'is_archived':true
+    }
+    put(memUpdateUrl, JSON.stringify(data), loadMembership);
   }
 
 </script>

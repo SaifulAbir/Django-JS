@@ -95,11 +95,11 @@ $(document).ready(function() {
         }
     });
 
-    $('.account-button').on('click', function(e) {
-        e.preventDefault();
-        $('.account-card').toggleClass('show');
-        $('.account-card').fadeToggle();
-    })
+    // $('.account-button').on('click', function(e) {
+    //     e.preventDefault();
+    //     $('.account-card').toggleClass('show');
+    //     $('.account-card').fadeToggle();
+    // })
 
     $(document).on('click', function(event){
         var clickovrAcc = $(event.target);

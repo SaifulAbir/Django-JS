@@ -1,0 +1,212 @@
+{% load static %}
+
+<footer class="footer-bg">
+    <div class="footer-top border-bottom section-padding-top padding-bottom-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="footer-logo">
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'images/logo-2.png'%}" class="img-fluid" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="footer-social">
+                        <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i></a>
+                        <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i></a>
+                        <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-widget-wrapper padding-bottom-60 padding-top-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-sm-6">
+                    <div class="footer-widget footer-shortcut-link">
+                        <h4>Information</h4>
+                        <div class="widget-inner">
+                            <ul>
+                                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                                <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                                <li><a href="{% url 'terms-and-condition' %}">Terms and Conditions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <div class="footer-widget footer-shortcut-link">
+                        <h4>Job Seekers</h4>
+                        <div class="widget-inner">
+                            <ul>
+                                <li><a href="{% url 'register' %}">Create Account</a></li>
+                                <li><a href="{% url 'career_advice' %}">Career Advice</a></li>
+                                <li><a href="{% url 'FAQ' %}">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <div class="footer-widget footer-shortcut-link">
+                        <div class="widget-inner">
+                            <h4>Address</h4>
+                            <ul>
+                                <li>House 76 (Level 4)</li>
+                                <li>Road 4, Block B</li>
+                                <li>Niketan, Gulshan 1</li>
+                                <li>Dhaka 1212, Bangladesh</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-1 col-sm-6">
+                    <div class="footer-widget footer-newsletter">
+                        <h4>Job Alert</h4>
+                        <p class="display-none" id="alert-msg">Get e-mail updates about our latest news and Special offers.</p>
+                        <form action="/api/professional/job_alert/" id="job-alert" class="newsletter-form display-none form-inline ajax" method="POST" data-callback="jobAlertRedirectPage">
+                            <div class="form-group">
+                                <input type="text" name="email" id="email" regex='^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$' class="form-control" required data-msg-required="Email is required" data-msg-regex="Please enter a valid email" placeholder="Email address...">
+                            </div>
+                            <button class="btn button primary-bg">Submit<i class="fas fa-caret-right"></i></button>
+                            <p class="newsletter-error">0 - Please enter a value</p>
+                            <p class="newsletter-success">Thank you for subscribing!</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom-area">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="footer-bottom border-top">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p class="powered-by"><span>Powered By </span> <a target="_blank" href="http://www.ishraak.com"><img src="/static/images/ishraak-solutions-logo.png" alt="ISHRAAK" width="80px"></a>
+                                </p>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="back-to-top">
+                                    <a href="#">Back to top<i class="fas fa-angle-up"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<p class="copyright-text">Copyright © 2020 Job Search</p>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{% static 'assets/js/jquery.min.js'%}"></script>
+<script src="{% static 'assets/js/popper.min.js'%}"></script>
+<script src="{% static 'js/moment.min.js'%}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js'%}"></script>
+<script src="{% static 'assets/js/feather.min.js'%}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js'%}"></script>
+<script src="{% static 'assets/js/jquery.nstSlider.min.js'%}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js'%}"></script>
+<script src="{% static 'assets/js/visible.js'%}"></script>
+<script src="{% static 'assets/js/jquery.countTo.js'%}"></script>
+<script src="{% static 'assets/js/chart.js'%}"></script>
+<script src="{% static 'assets/js/plyr.js'%}"></script>
+<script src="{% static 'assets/js/tinymce.min.js'%}"></script>
+<script src="{% static 'assets/js/slick.min.js'%}"></script>
+<script src="{% static 'assets/js/jquery.ajaxchimp.min.js'%}"></script>
+<script src="{% static '/assets/js/jquery.cookie.min.js' %}"></script>
+<script src="{% static 'js/custom.js'%}"></script>
+<script src="{% static '/assets/js/form2js.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static '/assets/js/sweetalert2@9.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYT7cwP2Ki9fwJBmRH6t2FkjjkjsywVaE"></script>
+<script src="{% static 'js/map.js'%}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+<script src="{% static '/assets/js/jquery.ajaxchimp.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/select2.min.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'dashboard/js/dashboard.js' %}"></script>
+<script src="{% static 'dashboard/js/datePicker.js' %}"></script>
+<script src="{% static 'dashboard/js/upload-input.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-537d9c316bb7057a"></script>
+
+<script type="text/javascript">
+    $(function () {
+        TokenAuthenticate();
+        $('#job-alert').validate({
+                errorClass: "my-error-class"
+            });
+        socialUrl = '/api/settings/';
+        jobAlertUrl = '/api/professional/job_alert_notification/';
+        get(socialUrl,loadSocialUrl);
+        get(jobAlertUrl, loadJobAlert);
+        get('/log/', loadUser);
+    });
+    function loadSocialUrl(data) {
+        if (data.length>0){
+            data = data[0];
+            $('.facebook-url').attr('href', data.facebook_url);
+            $('.linkedin-url').attr('href', data.linkedin_url);
+            $('.twitter-url').attr('href', data.twitter_url);
+            if (data.appstore_url){
+                $('.apple-app').show();
+                $('.apple-app').attr('href', data.appstore_url);
+            }
+            if (data.playstore_url){
+                $('.android-app').show();
+                $('.android-app').attr('href', data.playstore_url);
+            }
+        }
+
+    }
+
+
+    function loadJobAlert(data) {
+            if(data.code == 200 && data.status == 'subscribed'){
+                $('#job-alert').addClass('display-none');
+                $('.footer-newsletter p').html('You have subscribed job alert.').removeClass('display-none');
+            }
+            else if(data.code == 200 && data.status == 'not subscribed'){
+                $('#job-alert').removeClass('display-none');
+                $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
+            }
+            else {
+                $('#job-alert').removeClass('display-none');
+                $('.footer-newsletter p').html('Get e-mail updates about our latest news and Special offers.').removeClass('display-none');
+            }
+        }
+
+    function loadUser(data) {
+        if(data.length>=1){
+            if(data[0].user.image){
+                $('.account-thumb').html('<img src="'+ data[0].user.image +'" class="img-fluid" alt="">')
+            } else {
+                $('.account-thumb').html('<img src="/static/images/alternate.jpg" class="img-fluid" alt="">')
+            }
+
+            $('.account-button').text(data[0].user.name);
+            $('.account-body a').text(data[0].user.name);
+            $('.account-body .mail').text(data[0].user.email);
+            id=data[0].user.id;
+            url = '/professional/profile-dashboard/';
+            cp_url = '/professional/change-password/' + id ;
+              $('.pro').attr('href', url);
+              $('.cp').attr('href', cp_url);
+
+
+
+        }
+    }
+
+</script>

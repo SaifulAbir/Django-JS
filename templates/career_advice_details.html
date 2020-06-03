@@ -1,0 +1,99 @@
+{% extends 'common_layout.html' %}
+{% load static %}
+{% block body_block %}
+
+ <!-- Breadcrumb -->
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="breadcrumb-area">
+                <div  id="title"> </div>
+<!--              <h1>Career Advice Details</h1>-->
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'career_advice' %}">Career Advice</a></li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+<div class="alice-bg padding-top-30 section-padding-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="blog-post-details-container">
+              <div class="blog-details-wrapper">
+
+<!--                <div class="info">-->
+<!--                  <span class="date">24th dec, 2020</span>-->
+<!--                  <span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>-->
+<!--                  <span class="comments"><i data-feather="message-circle"></i>42</span>-->
+<!--                </div>-->
+
+
+<!--                <div class="post-content">-->
+<!--                  <h2>There are many variations  of passages</h2>-->
+<!--                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release  circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us.</p>-->
+<!--                  <p>Ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences.</p>-->
+
+<!--                </div>-->
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+
+        TokenAuthenticate();
+        initAjaxForms();
+        getApiurl = '/api/career_advise/';
+        get(getApiurl,getApi);
+
+    });
+
+   function getApi(data) {
+//console.log('getApi', data);
+        var page_Size = data.count;
+        detailsUrl = '/api/career_advise/?page_size='+page_Size+'&page=1';
+        get(detailsUrl,loadDetails);
+    }
+
+    function loadDetails(data) {
+//console.log('data', data);
+        var path = window.location.pathname.split('/');
+        var detailsId = path[path.length-2];
+        for(x=0;x<data.results.length;x++){
+          if(data.results[x].id == detailsId)
+           {
+//console.log('detailsId', data.results[x]);
+            var dateString = data.results[x].created_date;
+            var momentObj = moment(dateString, 'YYYY-MM-DD');
+            var created_date = momentObj.format('Do MMM, YYYY');
+//console.log(created_date);
+         $('#title').append('<h1>'+data.results[x].title+'</h1>');
+         $('.blog-details-wrapper').prepend('<div class="info">'+
+                  '<span class="date">'+created_date+'</span>'+
+                  '<span class="author"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data.results[x].author+'</a></span>'+
+                  '</div>'+
+                  '<div class="post-content">'+
+                  '<p>'+data.results[x].description+'</p>'+
+                  '</div>')
+             }
+        }
+    }
+</script>
+{% endblock %}

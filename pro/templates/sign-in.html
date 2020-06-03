@@ -55,8 +55,8 @@
                     <div class="logo-area">
                         <a href="{% url 'home' %}"><img src="{% static 'images/logo-2.png' %}" alt=""></a>
                     </div>
-                    <div class="top-nav">
-                        <a href="/professional/register/" class="account-page-link">Register</a>
+                    <div class="top-nav" id="top-nav">
+                        <a  href="/professional/register/" class="account-page-link">Register</a>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                                     <span class="dot"></span> Remember Me
                                 </label>
                             </div>
-                            <a href="/professional/forget-password">Forgot Password?</a>
+                            <a href="/professional/forget-password/">Forgot Password?</a>
                         </div>
                         <button class="button primary-bg btn-block">Sign In</button>
                     </form>
@@ -96,7 +96,7 @@
                             <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Facebook</a>
                             <a href="#" class="google"><i class="fab fa-google"></i>Google</a>
                         </div>
-                        <p>Don't have an account? <a href="/professional/register/">Register</a></p>
+                        <p class="pt">Don't have an account? <a href="/professional/register/">Register</a></p>
                     </div>
                 </div>
             </div>
@@ -144,15 +144,29 @@
         var path = window.location.href
         var message = path.split('/?').pop()
         if(message == 'verification_success'){
-            showSuccess("Verified!","Your Account Is Verified!")
+             $(".access-page-bg").removeClass("padding-top-90 padding-bottom-90");
+             $(".access-page-bg").addClass("padding-top-150 padding-bottom-150");
+             $("#form-box").removeClass("col-xl-4").addClass("col-xl-5");
+             $(".form-header").html('<h5 class="green-color"><i class="fas fa-check-square green-color padding-icon-10"></i>Your Account is verified.</h5>');
+             $("p").remove(".pt");
+             $("a").remove(".account-page-link");
+             $(".top-nav").append('<a href="/professional/sign-in" class="account-page-link">Sign In</a>');
+             $("#sign-in").toggle();
         }
         if(message == 'verification_failed'){
-            showError("Not Verified!", "Your Account Is not Verified!")
+            $("#sign-in").toggle();
+            $(".access-page-bg").removeClass("padding-top-90 padding-bottom-90");
+            $(".access-page-bg").addClass("padding-top-150 padding-bottom-150");
+            $("#form-box").removeClass("col-xl-4").addClass("col-xl-5");
+            $(".form-header").html('<h5 class="red-color"><i class="fas fa-times-circle padding-icon-10 red-color"></i>Your Account is not verified</h5>' );
+            $("p").remove(".pt");
+
         }
     });
     function redirectPage(data) {
+        var professionalId = data.responseJSON.professional_id;
         if(data.status==200){
-            window.location.href = "/";
+            window.location.href = "/professional/profile-dashboard/";
         }
         else{
             showError("Login Error", "No active account found")

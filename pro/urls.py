@@ -6,7 +6,8 @@ from . import api as pro_views
 from .api_pro_core import change_password
 
 urlpatterns = [
-    path('profile-update/<str:pk>/', TemplateView.as_view(template_name='profile.html')),
+    # path('profile-update/<str:pk>/', TemplateView.as_view(template_name='profile.html')),
+    path('profile-layout/', TemplateView.as_view(template_name='professional_layout.html')),
     path('myprofile_info/<str:pk>/', TemplateView.as_view(template_name='myprofile.html'), name='myprofile'),
     path('profile-dashboard/', TemplateView.as_view(template_name='dashboard.html')),
     path('create/', profile_create),
@@ -32,7 +33,7 @@ urlpatterns = [
     path('profile_update_partial/<str:pk>/', ProfessionalUpdatePartial.as_view()),
     # path('professional_info/<str:pk>/', professional_info),
     path('myprofile/<str:pk>/', TemplateView.as_view(template_name='profiles.html'),name='profile'),
-    # path('static_urls/', StaticUrl),
+    path('static_urls/', StaticUrl),
     path('professional_education/', professional_education_save),
     path('professional_education/<str:pk>/', EducationUpdateDelete.as_view()),
     path('professional_skill/', professional_skill_save, name = 'professional-skill'),
@@ -63,4 +64,6 @@ urlpatterns = [
     path('info_box/', info_box_api),
     path('pro_recent_activity/', pro_recent_activity),
 
+    path('change-password/<str:pk>/', TemplateView.as_view(template_name='change_password.html'), name='change_password'),
+    path('userprofile_info/<str:pk>/', TemplateView.as_view(template_name='public_view_profile.html'), name='public_myprofile'),
 ]

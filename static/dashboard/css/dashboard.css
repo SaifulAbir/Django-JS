@@ -698,8 +698,13 @@
 .modal-education .modal-content .modal-body .content .input-group-text,
 .modal-pro-skill .modal-content .modal-body .content .input-group-text,
 .modal-portfolio .modal-content .modal-body .content .input-group-text,
+.modal-membership .modal-content .modal-body .content .input-group-text,
 .modal-experience .modal-content .modal-body .content .input-group-text {
   width: 80px; }
+
+.modal-certification .modal-content .modal-body .content .input-group-text{
+  width: 85px;
+}
 
 .modal-education .modal-content .modal-body .content textarea.form-control,
 .modal-pro-skill .modal-content .modal-body .content textarea.form-control,

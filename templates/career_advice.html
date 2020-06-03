@@ -1,4 +1,205 @@
 {% extends 'common_layout.html' %}
 {% load static %}
 {% block body_block %}
+
+
+    <!-- Breadcrumb -->
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="breadcrumb-area">
+              <h1>Career Advice</h1>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Career Advice</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <div class="alice-bg section-padding-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+              <div><span style="margin-left: 890px;"  class="paginationa-summary"></span></div>
+            <div class="blog-post-wrapper" id="career-result">
+
+
+
+
+
+                           <div class="pagination-list text-center">
+                                {#                                comes from js#}
+                            </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+{% block extra_js %}
+<script>
+  //filter function and pagination start from here
+
+        function fetchDatacallback(data){
+ //console.log('fetchDatacallback' , data);
+
+
+         if(data) {
+ //console.log('loadAdvice' , data);
+            $(".blog-list").hide();
+        for(index=0;index<data.results.length;index++){
+            var dateString = data.results[index].created_date
+            var momentObj = moment(dateString, 'YYYY-MM-DD');
+            var created_date = momentObj.format('Do MMM, YYYY');
+
+ //console.log(created_date);
+
+
+             $('.blog-post-wrapper').prepend('<article class="blog-list">'+
+                '<div class="info">'+
+                '<span class="date">'+created_date+'</span>'+
+                '<span class="author"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data.results[index].author+'</a></span>'+
+                '</div>'+
+                '<div class="content">'+
+                '<h3><a href="details/'+ data.results[index].id +'">'+data.results[index].title+'</a></h3>'+
+                '<p>'+data.results[index].short_description+'</p>'+
+                '</div>'+
+                '<div class="read-more">'+
+                '<a href="details/'+ data.results[index].id +'" class="button">Read More</a>'+
+                '</div>'+
+                '</article>')
+        }
+    }
+
+            var totalNumberOfData = data.count;
+            var paginationSummary;
+            var url = '';
+            var startingIndex=1;
+            var pageSize = 3;
+            var page = 1;
+
+            url = "/api/career_advise/?page_size="+pageSize+"&page="+page;
+
+            if (data.next_pages == false){
+                $('button[data-value=' + 'next' + ']').prop( "disabled", true );
+            }else {
+                $('button[data-value=' + 'next' + ']').prop( "disabled", false );
+            }
+
+            if (totalNumberOfData>0){
+                $(".pagination-list").show();
+                makePagination(totalNumberOfData, pageSize, url, startingIndex);
+            }else {
+                $(".pagination-list").hide();
+            }
+            $(".page-numbers:nth-child(2)").addClass('current');
+        }
+
+
+        $(document).ready(function () {
+            TokenAuthenticate();
+            initAjaxForms();
+            var pageSize = 3;
+            var page = 1;
+            var careerUrl = "/api/career_advise/?page_size="+pageSize+"&page="+page;
+
+            get(careerUrl,fetchDatacallback);
+
+
+            $("body").delegate(".page-numbers:not(.current)", "click", function(){
+                var paginationIndex = $(this).data('value');
+ //console.log('paginationIndex', paginationIndex)
+                var url_of_button = $(this).data('url');
+                if (paginationIndex=='prev'){
+                    var currentIndex = $("a.current").data('value');
+
+                    if (currentIndex>1){
+                        currentIndex = currentIndex-1;
+                        $('.page-numbers').removeClass('current');
+                        $('a[data-value=' + currentIndex + ']').addClass("current");
+                        url_of_button = $('a[data-value=' + currentIndex + ']').data('url');
+                    }
+                }else if(paginationIndex=='next'){
+                    var currentIndex = $("a.current").data('value');
+ //console.log('currentIndex1next', currentIndex)
+                    currentIndex = currentIndex+1;
+ //console.log('currentIndex2next', currentIndex)
+                    $('.page-numbers').removeClass('current');
+                    $('a[data-value=' + currentIndex + ']').addClass("current");
+                    url_of_button = $('a[data-value=' + currentIndex + ']').data('url');
+                }else {
+                    $('.page-numbers').removeClass('current');
+                    $(this).addClass('current');
+                }
+ //console.log('url_of_button', url_of_button)
+                get(url_of_button,fetchPaginationDatacallback);``
+            });
+
+
+            function fetchPaginationDatacallback(data){
+ //console.log('fetchPaginationDatacallback' , data);
+
+
+       if(data) {
+ //console.log('loadAdvice' , data);
+        $(".blog-list").hide();
+        for(index=0;index<data.results.length;index++){
+            var dateString = data.results[index].created_date
+            var momentObj = moment(dateString, 'YYYY-MM-DD');
+            var created_date = momentObj.format('Do MMM, YYYY');
+
+ //console.log(created_date);
+
+
+             $('.blog-post-wrapper').prepend('<article class="blog-list">'+
+                '<div class="info">'+
+                '<span class="date">'+created_date+'</span>'+
+                '<span class="author"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'+data.results[index].author+'</a></span>'+
+                '</div>'+
+                '<div class="content">'+
+                '<h3><a href="details/'+ data.results[index].id +'">'+data.results[index].title+'</a></h3>'+
+                '<p>'+data.results[index].short_description+'</p>'+
+                '</div>'+
+                '<div class="read-more">'+
+                '<a href="details/'+ data.results[index].id +'" class="button">Read More</a>'+
+                '</div>'+
+                '</article>')
+        }
+    }
+
+                var pageSize = 3;
+                var page = 1;
+                var currentIndex=$('.page-numbers.current').data('value');
+                var paginationUrl = "/api/career_advise/?page_size="+pageSize+"&page="+page;
+
+                var totalNumberOfData = data.count;
+                if (data.previous == null && totalNumberOfData > 0){
+                    var numberOfDataInSinglePage = data.results.length;
+                    var start_index = data.start_index;
+                    var end_index = data.end_index;
+                }
+
+                makePagination(totalNumberOfData, pageSize, paginationUrl, currentIndex);
+                $('.page-numbers[data-value=' + currentIndex + ']').addClass("current");
+                 if (data.next_pages == false){
+                $('button[data-value=' + 'next' + ']').prop( "disabled", true );
+                }else {
+                    $('button[data-value=' + 'next' + ']').prop( "disabled", false );
+                }
+            }
+
+            //filtering code start
+
+   })
+</script>
 {% endblock %}

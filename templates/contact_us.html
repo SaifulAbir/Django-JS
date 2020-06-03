@@ -72,6 +72,12 @@
                                                     <textarea name="message" class="form-control" placeholder="Message" required></textarea>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                     <div class="g-recaptcha" data-sitekey="6LcZev4UAAAAAJNSfRZy82GGrXwd5w50pLaMw3M4" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
+                                                    <label id="error-captcha" class="my-error-class"></label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <button class="button">Submit</button>
                                         <p class="input-success">Your message has been sent. Thanks for contact.</p>
@@ -100,11 +106,55 @@
     <script>
         $(document).ready(function() {
 
-            initAjaxForms();
+            $("form.ajax:not(.ajax-linked)").on('submit', function(event) {
+                event.preventDefault();
+                var response = grecaptcha.getResponse();
+                if(response.length == 0){
+                    document.getElementById('error-captcha').innerHTML="You can't leave Captcha";
+                }else{
+                    if ($(this).valid()){
+                    var url = $(this).prop('action');
+                    var formId = $(this).attr("id");
+                    var data = form2Json(formId);
+                    // Image uploading code start here
+                    var imagesrc = $(".image").attr('src');
+                    if (imagesrc){
+                        var imagesrcPart = imagesrc.split(":");
+                        var jsonObj;
+                        if (imagesrcPart[0] === "data"){
+                            jsonObj = JSON.parse(data);
+                            jsonObj.image = imagesrc;
+                            data = JSON.stringify(jsonObj);
+                        }else {
+                            jsonObj = JSON.parse(data);
+                            jsonObj.image = '';
+                            data = JSON.stringify(jsonObj);
+                        }
+                    }
+
+                    // Image uploading code end here
+
+                    var method = $(this).attr('method');
+                    var callback= $(this).data("callback");  // $(this).attr("data-callback");
+                    send(url, method, data, callback);
+                    grecaptcha.reset();
+                    document.getElementById('error-captcha').innerHTML="";
+                }
+                }
+                return false;
+            });
+
             $('#contactForm').validate();
             settingsUrl = '/api/settings/';
             get(settingsUrl,loadSettings);
         });
+
+        function verifyRecaptchaCallback() {
+            recaptchachecked = true;
+            if(recaptchachecked==true){
+                document.getElementById('error-captcha').innerHTML="";
+            }
+        }
 
         function loadSettings(data) {
             if (data.length>0){
