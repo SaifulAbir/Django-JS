@@ -132,13 +132,15 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"><i data-feather="edit"></i>APPLY FOR THIS JOB</h5>
+                        <h5 class="modal-title"><i data-feather="edit"></i>Quick APPLY</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
+                        <h5 id="job-title"></h5>
                         <form action="#" id="quick-apply-form" novalidate="novalidate">
+
                             <div class="form-group">
                                 <input type="text" name="name" placeholder="Name" class="form-control" required>
                             </div>
@@ -153,7 +155,7 @@
 <!--                            </div>-->
                             <div class="form-group file-input-wrap">
                                 <label for="up-cv">
-                                    <input id="up-cv" type="file">
+                                    <input id="up-cv" type="file" accept=".pdf,.doc,.docx,.zip">
                                     <i data-feather="upload-cloud"></i>
                                     <span>Upload your resume <span>(pdf,zip,doc,docx)</span></span>
                                 </label>
@@ -245,6 +247,7 @@
                 apply.attr('href', 'javascript:void(0)')
             }
             json2Div(data, container);
+            $('#job-title').text(data.title);
             $('#company-details').attr("href", "/company-details/"+data.company_name)
             // if(data.company_name){
             //     $(".name").html(data.company_name.name);
