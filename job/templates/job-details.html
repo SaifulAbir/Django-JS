@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="other-benifit details-section">
                                         <h4><i data-feather="gift"></i>Salary</h4>
-                                        <span class="salary_min"></span><span>/-</span>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span class="salary_max"></span><span>/-</span>
+                                        <span id="currency"></span>&nbsp;<span class="salary_min"></span><span></span>&nbsp;&nbsp;-&nbsp;&nbsp;<span class="salary_max"></span><span></span>
                                         </span>
                                     </div>
                                     <div class="other-benifit details-section">
@@ -60,7 +60,7 @@
                                     <div class="job-apply-buttons">
                                         <a href="#" class="apply"  data-toggle="#" data-target="#apply-popup-id">Apply Online</a>
 <!--                                        <a href="#" class="quick-apply" data-target="#apply-popup-id">Quick Apply</a>-->
-                                        <a href="#" class="email"><i data-feather="mail"></i>Email Job</a>
+                                        <a href="#" class="email display-none"><i data-feather="mail"></i>Email Job</a>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 offset-xl-1 col-lg-4">
@@ -73,7 +73,7 @@
                                                 <li><span>Job Type:</span> <span id="job_type" class="detail-color text-normal"></span></li>
                                                 <li><span>Years of Experience:</span> <span id="experience" class="detail-color"></span></li>
                                                 <li><span>Location:</span> <span id="address" class="detail-color"></span></li>
-                                                <li><span>Salary:</span><span class="detail-color salary_min"></span><span class="detail-color">/-</span><span class="detail-color">&nbsp;&nbsp;-&nbsp;&nbsp;</span> <span class="detail-color salary_max"></span><span class="detail-color">/-</span></li>
+                                                <li><span>Salary:</span><span class="detail-color" id="currency"></span><span class="detail-color salary_min"></span><span class="detail-color"></span><span class="detail-color">&nbsp;-&nbsp;</span> <span class="detail-color salary_max"></span><span class="detail-color"></span></li>
                                                 <li><span>Gender:</span></span><span id="job_gender" class="detail-color"></span></li>
                                                 <li><span>Application Deadline:</span> <span id="application_deadline" class="detail-color"></span></li>
                                             </ul>
@@ -90,7 +90,7 @@
                                         <div class="share-job-post" style="padding-bottom: 3px;">
                                             <div class="addthis_inline_share_toolbox_algq"></div>
                                         </div>
-                                        <div class="buttons">
+                                        <div class="buttons display-none">
                                             <a href="#" class="button print"><i data-feather="briefcase"></i>Add Job</a>
                                             <a href="#" class="button report"><i data-feather="flag"></i>Report Job</a>
                                         </div>
@@ -252,13 +252,23 @@
                 }
             }
             json2Div(data, container);
+            // if(data.salary_min){
+            //     $('.salary_min').html(Number(data.salary_min).toLocaleString('en'));
+            // }else {
+            //     $('.salary_min').parent().hide();
+            // }
+            // if(data.salary_max){
+            //     $('.salary_max').html(Number(data.salary_max).toLocaleString('en'));
+            // }else {
+            //     $('.salary_max').parent().hide();
+            // }
             if(data.salary_min){
-                $('.salary_min').html(Number(data.salary_min).toLocaleString('en'));
+                $('.salary_min').html(Math.round(data.salary_min));
             }else {
                 $('.salary_min').parent().hide();
             }
             if(data.salary_max){
-                $('.salary_max').html(Number(data.salary_max).toLocaleString('en'));
+                $('.salary_max').html(Math.round(data.salary_max));
             }else {
                 $('.salary_max').parent().hide();
             }

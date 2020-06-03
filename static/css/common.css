@@ -550,6 +550,6 @@ header .signin-user .account-button {
     max-width: 65%;
 }
 
-.title .title-body{
+.job-title-and-info .title .title-body{
     width: calc(100% - 120px);
 }
