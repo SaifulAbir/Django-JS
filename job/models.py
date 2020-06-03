@@ -205,7 +205,7 @@ class Job(P7Model):
     salary_max = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT, blank=True, null=True, db_column='currency')
     other_benefits = models.TextField(blank=True, null=True)
-    experience =  models.CharField(max_length=10, blank=True, null= True)
+    experience =  models.PositiveIntegerField(default=0, blank=True, null= True)  ## 0080_auto_20200603_1242 migrations.RunSQL("UPDATE jobs SET experience=1 WHERE experience='1 Year'"),
     description = models.TextField(blank=True, null=True)
     qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT,blank=True, null= True,db_column='qualification')
     responsibilities = models.TextField(blank=True, null=True)
