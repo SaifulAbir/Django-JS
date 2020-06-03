@@ -631,7 +631,7 @@
             </div>
             <div class="experience dashboard-section details-section">
               <div id="experience-div">
-                <h4 id="exp-label"><i data-feather="briefcase"></i>Work Experiance</h4>
+                <h4 id="exp-label"><i data-feather="briefcase"></i>Work Experience</h4>
               <a href="#" id="add-experience" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-experience">+ Add Experience</a>
               </div>
               <!-- Button trigger modal -->
@@ -3092,9 +3092,22 @@
   // load personal_info about and personal details data and append here
   function  loadabout(data){
     console.log(data.personal_info);
+    json2Form(data.personal_info, "info-update-form");
+    if (data.personal_info.expected_salary_min){
+           data.personal_info.expected_salary_min = 'BDT '+Number(data.personal_info.expected_salary_min).toLocaleString('en')+' - ';
+    }
+    else{
+         data.personal_info.expected_salary_min = ''
+    }
+    if(data.personal_info.expected_salary_max){
+        data.personal_info.expected_salary_max = Number(data.personal_info.expected_salary_max).toLocaleString('en');
+    }
+    else{
+        data.personal_info.expected_salary_max = ''
+    }
+
     container = $('#about-details-div');
     json2DivPopulate(data.personal_info, container);
-    json2Form(data.personal_info, "info-update-form");
     json2Form(data.personal_info, "details-update-form");
     var dateString = data.personal_info.date_of_birth;
     var momentObj = moment(dateString, 'YYYY-MM-DD');
