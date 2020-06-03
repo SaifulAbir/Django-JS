@@ -111,7 +111,7 @@ DATABASES = {
         'NAME': 'p7',
         'USER': 'root',
         'PASSWORD': '123',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
