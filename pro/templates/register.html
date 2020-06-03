@@ -47,9 +47,11 @@
 </head>
 <style>
     .question-mark1 {
-    position: absolute;
-    bottom: 255px;
-    right: 2px;
+
+<!--    bottom: 255px;-->
+<!--    right: 2px;-->
+<!--    height: auto;-->
+<!--    position:fixed;-->
 }
 </style>
 <body>
@@ -102,8 +104,8 @@
                             <input type="text" regex="\+?(88)?0?1[56789][0-9]{8}\b" name="phone" placeholder="Mobile" class="form-control" data-msg-regex="Enter a valid Mobile Number" required data-msg-required="Mobile is required">
                         </div>
                         <div class="form-group">
-                            <input type="password" minlength="8" id="password" regex='(?=.*?[0-9])(?=.*?[A-Za-z]).+' name="password" placeholder="Password" class="form-control" required data-msg-required="Password is required">
-                            <i class="fas fa-question-circle question-mark1" data-toggle="tooltip" title="Password must be at least 8 characters long with at least one digit and one letter."></i>
+                           <input type="password" required name="password" id="password"  class="form-control" minlength="8" regex="(?=.*?[0-9])(?=.*?[A-Za-z]).+" data-msg-regex="Password requires at least one digit and one letter." placeholder="Password" data-msg-required="Password is required.">
+                            <i class="fas fa-question-circle question-mark1 float-right" style=";" data-toggle="tooltip" title="Password must be at least 8 characters long with at least one digit and one letter."></i>
                         </div>
                         <div class="form-group">
                             <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" required data-msg-required="Confirm Password is required" data-rule-equalto="#password" data-msg-equalto="Password and confirm password should be same!!">
@@ -195,7 +197,7 @@
         }
         else {
            $("p").remove(".pt");
-           $("#eml").append("<p class='pt' style='color: red'>Email Already Exist!</p>");
+           $("#eml").append("<p class='pt' style='color: red'>Email already exist! Enter a valid email.</p>");
         }
     };
             $( "#eml" ).on( "click", function() {

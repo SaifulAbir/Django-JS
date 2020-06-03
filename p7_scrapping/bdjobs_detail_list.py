@@ -17,7 +17,7 @@ UNKNOWN_VACANCY = 9999
 last_scrapping_date = '2020-01-01 00:00:00'
 scrapping_status = True
 main_site = 'http://127.0.0.1:8000/'
-main_site = 'http://dev.ishraak.com/'
+# main_site = 'http://dev.ishraak.com/'
 bdjobs = 'http://jobs.bdjobs.com/'
 # Job search url
 url = f'{bdjobs}/jobsearch.asp?fcatId=8'
@@ -107,7 +107,7 @@ def main():
                 data_dict['title'] = "JOB TITLE TEXT"
 
             try:
-                data_dict['company_name_id'] = dt.find('div', {'class': 'comp-name-text'}).text.strip()
+                data_dict['company_id'] = dt.find('div', {'class': 'comp-name-text'}).text.strip()
 
                 # TODO: Move outside loop
                 print('Retrieving company data..')
@@ -117,12 +117,12 @@ def main():
 
                 companyName = unknown_company
                 for company in josnResponse:
-                    if company['name'] == data_dict['company_name_id']:
+                    if company['name'] == data_dict['company_id']:
                         companyName = companyName['name']
-                data_dict['company_name_id'] = companyName
+                data_dict['company_id'] = companyName
 
             except Exception as ex:
-                data_dict['company'] = unknown_company
+                data_dict['company_id'] = unknown_company
 
             try:
                 data_dict['application_deadline'] = dt.find('div', {'class': 'dead-text-d'}).text.strip()
@@ -227,10 +227,11 @@ def main():
                 print("Trying with minimum")
                 min_data = {
                     'title': 'Error BdJobs Scraping',
-                    'company_name_id': unknown_company,
+                    'company_id': unknown_company,
                     'job_url_1': data_dict['job_url_1'],
                     'raw_content': data_dict['raw_content']
                 }
+                print(min_data)
                 response = requests.post(JOB_LIST_API,json=min_data, headers=API_HEADER)
                 if response.status_code == 200 : 
                     print('Saved with minimum')

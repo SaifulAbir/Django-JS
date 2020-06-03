@@ -511,6 +511,10 @@ header .signin-user .account-button {
 
 }
 
+.salary_max, .salary_min{
+    margin-right: 0px!important;
+}
+
 .details-section span h8{
     color: #212529;
     font-weight: 500;
@@ -540,4 +544,16 @@ header .signin-user .account-button {
     color: #ffffff;
     border-color: #246df8;
     margin-right: 10px;
+}
+
+.job-title-and-info .title {
+    max-width: 65%;
+}
+
+.job-title-and-info .title .title-body{
+    width: calc(100% - 120px);
+}
+
+.span-margin-remove{
+    margin-right: 0px!important;
 }
