@@ -317,7 +317,10 @@
             {var job_area = data.results[index].job_area}
             else{ job_area= ''; }
             if(data.results[index].job_type)
-            {var job_type = data.results[index].job_type}
+            {var job_type = data.results[index].job_type;
+ //console.log('job_type' ,job_type);
+             var job_type =  job_type.charAt(0).toUpperCase() + job_type.slice(1).toLowerCase(); }
+ //console.log('capitalize job_type' ,job_type);
             else{ job_type= ''; }
              if(data.results[index].application_deadline)
             {
@@ -325,14 +328,14 @@
             var momentObj = moment(dateString, 'YYYY-MM-DD');
             var dateMomentString = momentObj.format('DD-MM-YYYY');
             var application_deadline = dateMomentString;}
-            else{ application_deadline= 'n/a'; }
+            else{ application_deadline= 'None'; }
             var job_html= '<div class="job-list">'+
                 '<div class="body">'+
                 '<div class="content">'+
                 '<h4><a href="/job-detail/'+ data.results[index].slug+'">'+data.results[index].title+'</a></h4>'+
                 '<div class="info">'+
-                '<span class="office-location"><a href="#"><i data-feather="map-pin"></i>'+job_area+'</a></span>'+
-                '<span class="job-type full-time"><a href="#"><i data-feather="clock"></i>'+job_type+'</a></span>'+
+                '<span class="office-location"><i data-feather="map-pin"></i>'+job_area+'</a></span>'+
+                '<span class="job-type full-time"><i data-feather="clock"></i>'+job_type+'</a></span>'+
                 '</div>'+
                 '</div>'+
                 '<div class="more">'+
