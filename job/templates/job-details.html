@@ -263,12 +263,12 @@
             //     $('.salary_max').parent().hide();
             // }
             if(data.salary_min){
-                $('.salary_min').html(Math.round(data.salary_min));
+                $('.salary_min').html(Number(data.salary_min).toLocaleString('en'));
             }else {
                 $('.salary_min').parent().hide();
             }
             if(data.salary_max){
-                $('.salary_max').html(Math.round(data.salary_max));
+                $('.salary_max').html(Number(data.salary_max).toLocaleString('en'));
             }else {
                 $('.salary_max').parent().hide();
             }
