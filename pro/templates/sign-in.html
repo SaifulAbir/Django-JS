@@ -69,24 +69,27 @@
         <div class="row">
             <div class="col-xl-4 col-md-6">
                 <div class="access-form">
+                    <div class="display-none">
+                        <h5><i data-feather="user"></i></h5>
+                    </div>
                     <div class="form-header">
                         <h5><i data-feather="user"></i>Sign In</h5>
                     </div>
                     <form action="/api/sign_in/" id="sign-in" class="ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
                         <div class="form-group">
-                            <input type="email" placeholder="Email Address" name="email" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
+                            <input type="email" placeholder="Email Address" name="email" id="email" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
                             <input type="text" name="alert" id="alert" class="display-none">
                         </div>
                         <div class="form-group">
                             <input type="password" placeholder="Password" name="password" class="form-control" required data-msg-required="Password is required">
                         </div>
                         <div class="more-option">
-                            <div class="mt-0 terms">
-                                <input class="custom-radio" type="checkbox" id="radio-4" name="termsandcondition">
-                                <label for="radio-4">
-                                    <span class="dot"></span> Remember Me
-                                </label>
-                            </div>
+{#                            <div class="mt-0 terms">#}
+{#                                <input class="custom-radio" type="checkbox" id="radio-4" name="termsandcondition">#}
+{#                                <label for="radio-4">#}
+{#                                    <span class="dot"></span> Remember Me#}
+{#                                </label>#}
+{#                            </div>#}
                             <a href="/professional/forget-password/">Forgot Password?</a>
                         </div>
                         <button class="button primary-bg btn-block">Sign In</button>
@@ -165,17 +168,19 @@
     });
     function redirectPage(data) {
         var professionalId = data.responseJSON.professional_id;
+
         if(data.status==200){
             window.location.href = "/professional/profile-dashboard/";
         }
         else{
-            showError("Login Error", "No active account found")
+            $(".form-header").html('<h5 class="red-color"><i class="fas fa-times-circle padding-icon-10 red-color"></i>Login Error!No Active account found</h5>' );
         }
         //set cookie
         {#document.cookie = "token = "+data.responseJSON.token;#}
         {#console.log(document.cookie);#}
         {#window.location.href = "/";#}
     }
+
 </script>
 </body>
 </html>
