@@ -145,7 +145,7 @@ def job_list(request):
             next_page_number = 0
         check_next_available_or_not = paginator.page(page).has_next()
         queryset = JobSerializer(queryset, many=True)
-
+        pprint(connection.queries)
     except Job.DoesNotExist:
         queryset = [] # TODO:Does this work with .data?
 
