@@ -1,0 +1,55 @@
+diff --git a/p7/settings_dev.py b/p7/settings_dev.py
+index ca344a4..90efbf1 100644
+--- a/p7/settings_dev.py
++++ b/p7/settings_dev.py
+@@ -111,7 +111,7 @@ DATABASES = {
+         'NAME': 'p7',
+         'USER': 'root',
+         'PASSWORD': '123',
+-        'HOST': 'localhost',
++        'HOST': '127.0.0.1',
+         'PORT': '3306',
+         'OPTIONS': {
+             'sql_mode': 'traditional',
+diff --git a/templates/common_header.html b/templates/common_header.html
+index c8846bc..b28d92b 100644
+--- a/templates/common_header.html
++++ b/templates/common_header.html
+@@ -102,11 +102,11 @@
+                             {% include 'nav.html' %}
+                         </ul>
+                     </div>
+-                    <div class="menu-item">
+-                        <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i>  </a>
+-                        <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>
+-                        <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>
+-                    </div>
++<!--                    <div class="menu-item">-->
++<!--                        <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i>  </a>-->
++<!--                        <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>-->
++<!--                        <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>-->
++<!--                    </div>-->
+                 </nav>
+             </div>
+         </div>
+diff --git a/templates/home_layout.html b/templates/home_layout.html
+index c3e12f3..c31d341 100644
+--- a/templates/home_layout.html
++++ b/templates/home_layout.html
+@@ -57,11 +57,11 @@
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+             <div class="navbar-nav ml-auto main-nav">
+                 {% include 'nav.html' %}
+-                <li>
+-                    <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i>  </a>
+-                    <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>
+-                    <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>
+-                </li>
++<!--                <li>-->
++<!--                    <a class="facebook-url" href="#"><i> <img src="{% static 'images/social-icon/facebook.png'%}"style="height:27px;" class="img-fluid" alt=""></i>  </a>-->
++<!--                    <a class="linkedin-url" href="#"><i> <img src="{% static 'images/social-icon/linkedIn.png'%}" style="height:27px;margin-left:2.5px;margin-right:2.5px;" class="img-fluid" alt=""></i>  </a>-->
++<!--                    <a class="twitter-url" href="#"><i> <img src="{% static 'images/social-icon/twitter.png'%}"  style="height:27px;"class="img-fluid" alt=""></i>  </a>-->
++<!--                </li>-->
+                 <li class="menu-item login-popup" id="sign-in"><a href="{% url 'sign-in' %}">Sign in</a></li>
+                 <li class="menu-item login-popup" id="register"><a href="{% url 'register' %}">Register</a></li>
+                 </ul>
