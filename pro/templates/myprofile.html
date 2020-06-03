@@ -44,10 +44,12 @@
 
         </div>
     </div>
-    <div class="dashboard-section upload-profile-photo">
-        <div class="update-photo">
-            <!--                <input type="text" id="image" value="">-->
-            <img id="image1" class="image" src="{% static 'dashboard/images/user-1.jpg' %}" alt="">
+    <div class="col-sm-6">
+        <div class="dashboard-section upload-profile-photo">
+            <div class="update-photo">
+                <!--                <input type="text" id="image" value="">-->
+                <img id="image1" class="image" src="{% static 'dashboard/images/user-1.jpg' %}" alt="">
+            </div>
         </div>
     </div>
     <div class="about-details details-section dashboard-section">
@@ -77,7 +79,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span> - <span class="about-info-salary" id="expected_salary_max"></span>
+                                <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span><span class="about-info-salary" id="expected_salary_max"></span>
                             </div>
                             <div class="col-sm-6">
                                 <span><h8>Qualification:</h8></span> <span id="qualification"></span>
@@ -155,6 +157,7 @@
 
 
             //social link shows
+            console.log(data.personal_info)
             if (!data.personal_info.facebook_id){
                 data.personal_info.facebook_id= "";
             }
@@ -204,9 +207,10 @@
             }if (!data.personal_info.status){
                 data.personal_info.status= "";
             }if (data.personal_info.expected_salary_min && data.personal_info.expected_salary_max){
-                data.personal_info.expected_salary_min = '$'+data.personal_info.expected_salary_min+' - ';
-                data.personal_info.expected_salary_max = '$'+data.personal_info.expected_salary_max;
+                data.personal_info.expected_salary_min = 'BDT '+Number(data.personal_info.expected_salary_min).toLocaleString('en')+' - ';
+                data.personal_info.expected_salary_max = Number(data.personal_info.expected_salary_max).toLocaleString('en');
             }
+
             else{
                 data.personal_info.expected_salary_min = "";
                 data.personal_info.expected_salary_max = "";
@@ -339,7 +343,7 @@
                 var work_html='<div class="experience-section">'+
                     '<span class="service-year">'+start_date+'-'+end_date+'</span>'+
                     '<h5>'+designation+'<span>@'+company_text+'</span></h5>'+
-                    '</div><p>'+ description +'</p><br>';
+                    '<p>'+ description +'</p></div><br>';
                 $('#work').append(work_html);
             }
 
