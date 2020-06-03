@@ -7768,8 +7768,8 @@ header .absolute-nav {
 .company-details .title-and-info .download-resume a {
   padding: 15px 30px;
   border-radius: 3px;
-  background: #246df8;
-  color: #ffffff;
+  background: #f7f9fc;
+  color: #101725;
   font-size: 1.4rem;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
@@ -7781,8 +7781,8 @@ header .absolute-nav {
 }
 
 .company-details .title-and-info .download-resume a:hover {
-  color: #ffffff;
-  background: #246df8;
+  background: #f7f9fc;
+  color: #101725;
 }
 
 .company-details .title-and-info .download-resume .save-btn {
