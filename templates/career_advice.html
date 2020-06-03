@@ -85,7 +85,7 @@
             var paginationSummary;
             var url = '';
             var startingIndex=1;
-            var pageSize = 3;
+            var pageSize = 10;
             var page = 1;
 
             url = "/api/career_advise/?page_size="+pageSize+"&page="+page;
@@ -109,7 +109,7 @@
         $(document).ready(function () {
             TokenAuthenticate();
             initAjaxForms();
-            var pageSize = 3;
+            var pageSize = 10;
             var page = 1;
             var careerUrl = "/api/career_advise/?page_size="+pageSize+"&page="+page;
 
@@ -177,7 +177,7 @@
         }
     }
 
-                var pageSize = 3;
+                var pageSize = 10;
                 var page = 1;
                 var currentIndex=$('.page-numbers.current').data('value');
                 var paginationUrl = "/api/career_advise/?page_size="+pageSize+"&page="+page;
