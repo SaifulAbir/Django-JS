@@ -149,7 +149,6 @@
 
             $('#image1').attr('src', data.personal_info.image);
 
-            //            console.log(data.personal_info.image)
             //        $('#pro_pic').append('<img src="{% static 'images/icon-114x114.png'%}" class="img-fluid" alt="">');
 
 
@@ -157,7 +156,6 @@
 
 
             //social link shows
-            console.log(data.personal_info)
             if (!data.personal_info.facebook_id){
                 data.personal_info.facebook_id= "";
             }
@@ -291,7 +289,6 @@
             //work experience info show
 
             experience_info = data.experience_info
-            console.log(data.experience_info)
             len = experience_info.length;
             for(x=0;x<len;x++){
                 if(experience_info[x].start_date){

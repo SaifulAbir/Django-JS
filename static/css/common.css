@@ -542,3 +542,14 @@ header .signin-user .account-button {
     border-color: #246df8;
     margin-right: 10px;
 }
+
+.dashboard-skill{
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 20px;
+    height: 40px;
+    width: 40px;
+}

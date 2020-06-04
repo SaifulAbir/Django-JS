@@ -29,9 +29,9 @@
                                 </div>
                                 <div class="progress-body">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
+                                        <div class="progress-bar profile-completeness" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
                                     </div>
-                                    <p class="progress-to">70%</p>
+                                    <p class="progress-to"></p>
                                 </div>
                             </div>
                         </div>
@@ -219,6 +219,7 @@
         socialUrl = '/api/settings/';
         get(socialUrl,loadSocialUrl);
         get('/log/', loadUser);
+        get('/api/pro/profile-completeness/',loadProfileCompleteness)
 
     });
     function loadSocialUrl(data) {
@@ -268,6 +269,12 @@
 
 
         }
+    }
+
+    function loadProfileCompleteness(data) {
+        $('.profile-completeness').attr('aria-valuenow', data.percent_of_profile_completeness);
+        $('.progress-to').text(data.percent_of_profile_completeness + '%')
+
     }
 
 
