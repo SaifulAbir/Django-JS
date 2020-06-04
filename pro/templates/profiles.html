@@ -11,7 +11,7 @@
           <h1>Edit Profile</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
             </ol>
           </nav>
@@ -361,7 +361,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span> - <span class="about-info-salary" id="expected_salary_max"></span>
+                                <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span><span class="about-info-salary" id="expected_salary_max"></span>
                             </div>
                             <div class="col-sm-6">
                                 <span><h8>Qualification:</h8></span> <span id="qualification"></span>
@@ -1363,12 +1363,6 @@
           errorClass: "my-error-class",
           errorPlacement: function(error, element) {
               error.insertAfter(element.parent());
-          },
-          errorPlacement: function(error, element) {
-          error.insertAfter(element);
-        },
-          rules: {
-              expected_salary_max: { greaterValue: "#expected_salary_min" },
           }
       });
 
@@ -3092,7 +3086,21 @@
   // load personal_info about and personal details data and append here
   function  loadabout(data){
     console.log(data.personal_info);
+    if (data.personal_info.expected_salary_min){
+           data.personal_info.expected_salary_min = Math.trunc(data.personal_info.expected_salary_min);
+    }
+    else{
+         data.personal_info.expected_salary_min = ''
+    }
+    if(data.personal_info.expected_salary_max){
+        data.personal_info.expected_salary_max = Math.trunc(data.personal_info.expected_salary_max);
+    }
+    else{
+        data.personal_info.expected_salary_max = ''
+    }
+
     json2Form(data.personal_info, "info-update-form");
+
     if (data.personal_info.expected_salary_min){
            data.personal_info.expected_salary_min = 'BDT '+Number(data.personal_info.expected_salary_min).toLocaleString('en')+' - ';
     }
@@ -3122,6 +3130,18 @@
   function aboutCallback(data) {
     if(data.status==200){
       $("#modal-about-me").modal("hide");
+      if (data.responseJSON.expected_salary_min){
+           data.responseJSON.expected_salary_min = 'BDT '+Number(data.responseJSON.expected_salary_min).toLocaleString('en')+' - ';
+    }
+    else{
+         data.responseJSON.expected_salary_min = ''
+    }
+    if(data.responseJSON.expected_salary_max){
+        data.responseJSON.expected_salary_max = Number(data.responseJSON.expected_salary_max).toLocaleString('en');
+    }
+    else{
+        data.responseJSON.expected_salary_max = ''
+    }
       container = $('#about-details-div');
       json2DivPopulate(data.responseJSON, container);
     }else{
