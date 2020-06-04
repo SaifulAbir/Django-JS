@@ -11,7 +11,7 @@
           <h1>Edit Profile</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
             </ol>
           </nav>
@@ -361,7 +361,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span> - <span class="about-info-salary" id="expected_salary_max"></span>
+                                <span><h8>Salary:</h8></span> <span class="about-info-salary" id="expected_salary_min"></span><span class="about-info-salary" id="expected_salary_max"></span>
                             </div>
                             <div class="col-sm-6">
                                 <span><h8>Qualification:</h8></span> <span id="qualification"></span>
@@ -631,7 +631,7 @@
             </div>
             <div class="experience dashboard-section details-section">
               <div id="experience-div">
-                <h4 id="exp-label"><i data-feather="briefcase"></i>Work Experiance</h4>
+                <h4 id="exp-label"><i data-feather="briefcase"></i>Work Experience</h4>
               <a href="#" id="add-experience" class="add-new-field add-new-record" data-toggle="modal" data-target="#modal-experience">+ Add Experience</a>
               </div>
               <!-- Button trigger modal -->
@@ -1241,7 +1241,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Date Of Birth</label>
                             <div class="col-sm-9">
-                              <input type="Date" name="date_of_birth" id="date_of_birth" class="form-control"  placeholder="YYYY/MM/DD" value="">
+                              <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" placeholder="DD/MM/YYYY" value="">
                             </div>
                           </div>
                           <div class="form-group row">
@@ -1363,12 +1363,6 @@
           errorClass: "my-error-class",
           errorPlacement: function(error, element) {
               error.insertAfter(element.parent());
-          },
-          errorPlacement: function(error, element) {
-          error.insertAfter(element);
-        },
-          rules: {
-              expected_salary_max: { greaterValue: "#expected_salary_min" },
           }
       });
 
@@ -1402,6 +1396,7 @@
           graduation_date: { greaterThan: "#enrolled_date" },
         }
       });
+
 
     TokenAuthenticate();
     $('#profile-form').validate();
@@ -2169,13 +2164,11 @@
             }
         }
   function  loadProfile(data){
-            console.log(data.personal_info)
             id = $('form.profile-form-ajax').attr('id');
             json2Form(data.personal_info, id);
             if(data.personal_info.image){
                 // $('.image').attr('src', data.personal_info.image)
                 getBase64Image(data.personal_info.image,function(base64image){
-                console.log(base64image);
                 $('.image').attr('src',base64image)
               });
             }
@@ -2280,7 +2273,6 @@
           return settings;
         },
         filter: function(list) {
-          console.log(list)
           return $.map(list, function(itemname) {
             return { name: itemname.name }; });
         }
@@ -2303,7 +2295,6 @@
   }
 
   function loadEducation(data) {
-    console.log(data);
     if(data.status==200){
       var dateString = data.responseJSON.enrolled_date;
       var dateGraduationString = data.responseJSON.graduation_date;
@@ -2394,7 +2385,6 @@
   }
 
   function loadCertificates(data) {
-    console.log(data);
     if(data.status==200){
       var dateString = data.responseJSON.issue_date;
       var dateExpiryString = data.responseJSON.expiry_date;
@@ -2511,7 +2501,6 @@
   }
 
   function loadExperience(data) {
-    console.log(data.responseJSON);
     if(data.status==200){
       var dateStartString = data.responseJSON.start_date;
       var dateEndString = data.responseJSON.end_date;
@@ -2536,7 +2525,6 @@
       $("#modal-experience").modal("hide");
       $("#modal-experience").find('form')[0].reset();
       if($('#experience-div').find(".experience-section").length==0){
-        console.log(data.responseJSON)
         $('#exp-label').after('<div class="experience-section">\n' +
                 '<input type="hidden" class="exp-object-id" value="'+data.responseJSON.id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
@@ -2587,7 +2575,6 @@
   }
 
   function loadPortfolioCreateUpdate(data) {
-    console.log(data.responseJSON);
     if(data.status==200){
         try {
         if (data.responseJSON.description) {
@@ -2648,7 +2635,6 @@
   }
 
   function loadMembership(data) {
-    console.log(data.responseJSON);
     if(data.status==200){
       var dateStartString = data.responseJSON.start_date;
       var dateEndString = data.responseJSON.end_date;
@@ -2673,7 +2659,6 @@
       $("#modal-membership").modal("hide");
       $("#modal-membership").find('form')[0].reset();
       if($('.membership-div').find(".membership-label").length==0){
-        console.log(data.responseJSON)
         $('#mbr-label').after('<div class="membership-label">\n' +
                 '<input type="hidden" class="mem-object-id" value="'+data.responseJSON.id+'">'+
                 '                <span class="service-year">'+dateStart+' - '+dateEnd+'</span>\n' +
@@ -2724,7 +2709,6 @@
   }
 
   function loadProfSkills(data) {
-      console.log('skill',data.skill_info[0])
       var skillHtml = $(".skill-label").html();
       for (index = 0; index < data.skill_info[0].length; index++) {
           var skillDivHtml = $("#pro-skill-form .input-block-skill").html();
@@ -2752,12 +2736,10 @@
   }
 
   function loadProfSkillsCreateUpdate(data) {
-      console.log(data)
       if(data.status==200){
           $("#modal-pro-skill").modal("hide");
           $("#modal-pro-skill").find('form')[0].reset();
           if($('.professional-skill-div').find(".skill-label").length==0){
-              console.log(data.responseJSON)
               $('#skill-label').append('<div class="progress-item skill-label"> <div class="progress-head">' + '<input type="hidden" class="skill-obj-id" value="' + data.responseJSON.id + '">' +'<p class="progress-on">'+ data.responseJSON.skill_obj.name +'</p></div>'+
                   '<div class="progress-body"><div class="progress">' + '<div class="progress-bar" role="progressbar" aria-valuenow="'+data.responseJSON.rating *10+'" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div>'+
                     '<p class="progress-to">'+data.responseJSON.rating + '/10</p> </div>'+'<div style="padding-top: 5px"><button type="button" class="btn btn-primary edit-resume delete-skill delete-icon">\n' +
@@ -2868,7 +2850,6 @@
   }
 
   function loadExp(data) {
-    console.log(data.experience_info);
     // var eduHtml = $(".experience-label").html();
     for(index=0;index<data.experience_info.length;index++){
       var dateStartString = data.experience_info[index].start_date;
@@ -2921,7 +2902,6 @@
   }
 
   function loadPortfolio(data) {
-    console.log(data.portfolio_info);
     // var eduHtml = $(".experience-label").html();
     for(index=0;index<data.portfolio_info.length;index++){
       var expDivHtml = $("#experience-form .input-block-experience").html();
@@ -2954,7 +2934,6 @@
   }
 
   function loadCer(data) {
-    console.log(data.certification_info);
     // var eduHtml = $(".experience-label").html();
     for(index=0;index<data.certification_info.length;index++){
       var dateIssueString = data.certification_info[index].issue_date;
@@ -3002,7 +2981,6 @@
   }
 
   function loadMbr(data) {
-    console.log(data.membership_info);
     // var eduHtml = $(".experience-label").html();
     for(index=0;index<data.membership_info.length;index++){
       var dateStartString = data.membership_info[index].start_date;
@@ -3091,17 +3069,43 @@
 
   // load personal_info about and personal details data and append here
   function  loadabout(data){
-    console.log(data.personal_info);
+    if (data.personal_info.expected_salary_min){
+           data.personal_info.expected_salary_min = Math.trunc(data.personal_info.expected_salary_min);
+    }
+    else{
+         data.personal_info.expected_salary_min = ''
+    }
+    if(data.personal_info.expected_salary_max){
+        data.personal_info.expected_salary_max = Math.trunc(data.personal_info.expected_salary_max);
+    }
+    else{
+        data.personal_info.expected_salary_max = ''
+    }
+
+    json2Form(data.personal_info, "info-update-form");
+
+    if (data.personal_info.expected_salary_min){
+           data.personal_info.expected_salary_min = 'BDT '+Number(data.personal_info.expected_salary_min).toLocaleString('en')+' - ';
+    }
+    else{
+         data.personal_info.expected_salary_min = ''
+    }
+    if(data.personal_info.expected_salary_max){
+        data.personal_info.expected_salary_max = Number(data.personal_info.expected_salary_max).toLocaleString('en');
+    }
+    else{
+        data.personal_info.expected_salary_max = ''
+    }
+
     container = $('#about-details-div');
     json2DivPopulate(data.personal_info, container);
-    json2Form(data.personal_info, "info-update-form");
-    json2Form(data.personal_info, "details-update-form");
     var dateString = data.personal_info.date_of_birth;
     var momentObj = moment(dateString, 'YYYY-MM-DD');
     var dateMomentString = momentObj.format('DD/MM/YYYY');
     data.personal_info.date_of_birth = dateMomentString;
     container_personal = $('#personal-information-div');
     json2DivPopulate(data.personal_info, container_personal);
+    json2Form(data.personal_info, "details-update-form");
     $('#nationality').html(data.personal_info.nationality_obj.name);
   }
 
@@ -3109,6 +3113,18 @@
   function aboutCallback(data) {
     if(data.status==200){
       $("#modal-about-me").modal("hide");
+      if (data.responseJSON.expected_salary_min){
+           data.responseJSON.expected_salary_min = 'BDT '+Number(data.responseJSON.expected_salary_min).toLocaleString('en')+' - ';
+    }
+    else{
+         data.responseJSON.expected_salary_min = ''
+    }
+    if(data.responseJSON.expected_salary_max){
+        data.responseJSON.expected_salary_max = Number(data.responseJSON.expected_salary_max).toLocaleString('en');
+    }
+    else{
+        data.responseJSON.expected_salary_max = ''
+    }
       container = $('#about-details-div');
       json2DivPopulate(data.responseJSON, container);
     }else{

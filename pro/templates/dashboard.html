@@ -13,7 +13,7 @@
                         <h1>Dashboard</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                             </ol>
                         </nav>
@@ -27,7 +27,7 @@
 
         <div class="dashboard-section user-statistic-block">
             <div class="user-statistic">
-                <i data-feather="feather"></i>
+                <i class="fas fa-tools dashboard-skill"></i>
                 <h3 id="prof-skills"></h3>
                 <a id="skill-link" href=""><span>Skills</span></a>
             </div>
@@ -55,7 +55,7 @@
         $(document).ready(function() {
             $('.dashboard-bar').addClass('active')
             get('/api/professional/info_box/',infoBoxCallBack)
-            get('/api/professional/skill_job_chart/',DataChartCallBack)
+            get('/api/pro/dashboard/skill/',DataChartCallBack)
             get('/api/professional/pro_recent_activity/',ActivityCallBack)
         });
 
