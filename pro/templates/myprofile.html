@@ -202,7 +202,17 @@
             }
             if (!data.personal_info.experience){
                 data.personal_info.experience= "";
-            }if (!data.personal_info.status){
+            }
+            else{
+                if(data.personal_info.experience == 1){
+                    data.personal_info.experience = data.personal_info.experience + " year"
+                }
+                else {
+                    data.personal_info.experience = data.personal_info.experience + " years"
+                }
+
+            }
+            if (!data.personal_info.status){
                 data.personal_info.status= "";
             }if (data.personal_info.expected_salary_min && data.personal_info.expected_salary_max){
                 data.personal_info.expected_salary_min = 'BDT '+Number(data.personal_info.expected_salary_min).toLocaleString('en')+' - ';

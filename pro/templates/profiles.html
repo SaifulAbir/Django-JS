@@ -3081,6 +3081,18 @@
     else{
         data.personal_info.expected_salary_max = ''
     }
+      if (!data.personal_info.experience){
+          data.personal_info.experience= "";
+      }
+      else{
+          if(data.personal_info.experience == 1){
+              data.personal_info.experience = data.personal_info.experience + " year"
+          }
+          else {
+              data.personal_info.experience = data.personal_info.experience + " years"
+          }
+
+      }
 
     json2Form(data.personal_info, "info-update-form");
 
@@ -3125,6 +3137,18 @@
     else{
         data.responseJSON.expected_salary_max = ''
     }
+        if (!data.responseJSON.experience){
+            data.responseJSON.experience= "";
+        }
+        else{
+            if(data.responseJSON.experience == 1){
+                data.responseJSON.experience = data.responseJSON.experience + " year"
+            }
+            else {
+                data.responseJSON.experience = data.responseJSON.experience + " years"
+            }
+
+        }
       container = $('#about-details-div');
       json2DivPopulate(data.responseJSON, container);
     }else{
