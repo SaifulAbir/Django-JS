@@ -103,7 +103,7 @@
         <h4><i data-feather="book"></i>Education</h4>
     </div>
     <div class="experience dashboard-section details-section" id="work">
-        <h4><i data-feather="briefcase"></i>Work Experiance</h4>
+        <h4><i data-feather="briefcase"></i>Work Experience</h4>
     </div>
 
     <div class="professonal-skill dashboard-section details-section">
@@ -390,9 +390,17 @@
                     else{
                          var company_text = '';
                     }
+                    if(work_data[x].description){
+                         var description =  work_data[x].description;
+
+                    }
+                    else{
+                         var description = '';
+                    }
                 var work_html='<div class="experience-section">'+
                     '<span class="service-year">'+start_date+'- '+end_date+'</span>'+
                     '<h5>'+designation+'<span>@'+company_text+'</span></h5>'+
+                        '<p>'+ description + '</p>'+
                     '</div><br>';
                 $('#work').append(work_html);
             }
