@@ -306,6 +306,7 @@
     function loadSimilarJob(data) {
         if(data.length > 0){
             for(index=0;index<6;index++){
+                 var dateMomentString = 'None'
                  var deadline= data[index].application_deadline;
             var momentObj = moment(data[index].post_date, 'YYYY-MM-DD');
             data[index].post_date = momentObj.format('DD/MM/YYYY');
@@ -314,6 +315,9 @@
             if(data[index].application_deadline){
                 var app_deadline = moment(data[index].application_deadline, 'YYYY-MM-DD');
                 data[index].application_deadline = app_deadline.format('DD/MM/YYYY');
+            }
+            else{
+                data[index].application_deadline = dateMomentString;
             }
             var job_html= '<div class="job-list">'+
                 '<div class="thumb">'+
@@ -325,9 +329,9 @@
                 '<div class="content">'+
                 '<h4><a href="/job-detail/'+ data[index].slug+'">'+data[index].title+'</a></h4>'+
                 '<div class="info">'+
-                '<span class="company"><a href="#"><i class="fas fa-building" style="margin-right: 5px"></i>'+data[index].company_name+'</a></span>'+
-                '<span class="office-location"><a href="#"><i data-feather="map-pin"></i>'+data[index].job_area+'</a></span>'+
-                '<span class="job-type full-time"><a href="#"><i data-feather="clock"></i>'+data[index].job_type+'</a></span>'+
+                '<span class="company"><a><i class="fas fa-building" style="margin-right: 5px"></i>'+data[index].company_name+'</a></span>'+
+                '<span class="office-location"><a><i data-feather="map-pin"></i>'+data[index].job_area+'</a></span>'+
+                '<span class="job-type full-time"><a><i data-feather="clock"></i><span class="text-normal">'+data[index].job_type+'</span></a></span>'+
                 '</div>'+
                 '</div>'+
                 '<div class="more">'+

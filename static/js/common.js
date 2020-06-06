@@ -201,6 +201,7 @@ function populateSelect(select, url){
 }
 
 function makeListHtml(data, template){
+    console.log(data)
     var wrapper = $("<div>");
     for (i=0; i < data.length; i++){
         var templateEl = $(template);
@@ -222,6 +223,13 @@ function makeListHtml(data, template){
 
                 }else if($(item).hasClass("company-child-info")){
                     $(item).html(data[i][k].name);
+                }else if($(item).hasClass("date-after-format")){
+                    var newDate = 'None';
+                    if(data[i][k]){
+                        var dateObj = moment(data[i][k], 'YYYY-MM-DD');
+                        newDate = dateObj.format('DD/MM/YYYY');
+                    }
+                    $(item).html(newDate);
                 }else if($(item).hasClass("company-details-link")){
                     var href = "/company-details/" + data[i][k].name;
                     $(item).attr("href", href);

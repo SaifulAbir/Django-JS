@@ -778,7 +778,7 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Expertise</div>
                                   </div>
-                                  <input type="text" max="10" class="form-control" name="rating" id="rating" required data-msg-required="Rating is required">
+                                  <input type="text" max="10" class="form-control" name="rating" id="rating" placeholder="Enter value between 1-10" required data-msg-required="Rating is required">
                                 </div>
                               </div>
                             </div>
@@ -1548,7 +1548,7 @@
           }
       })
 
-
+    {#$('.dob_datepicker').datepicker();#}
     autoSuggesion('/api/professional/institute_search/', "institution_text");
     autoSuggesionCompany('/api/company/search/', "company_text")
     // // datepicker on the date inputs
@@ -2199,6 +2199,7 @@
 
 }
 
+
   function datepickerValidation(startDate, endDate){
 
       $('#'+startDate).datepicker({
@@ -2497,6 +2498,9 @@
   }
 
   function loadSkillObject(data) {
+        if(data.skill_info.rating){
+            data.skill_info.rating = Number(data.skill_info.rating)
+        }
         json2Form(data.skill_info, "pro-skill-form")
   }
 
@@ -3081,6 +3085,18 @@
     else{
         data.personal_info.expected_salary_max = ''
     }
+      if (!data.personal_info.experience){
+          data.personal_info.experience= "";
+      }
+      else{
+          if(data.personal_info.experience == 1){
+              data.personal_info.experience = data.personal_info.experience + " year"
+          }
+          else {
+              data.personal_info.experience = data.personal_info.experience + " years"
+          }
+
+      }
 
     json2Form(data.personal_info, "info-update-form");
 
@@ -3125,6 +3141,18 @@
     else{
         data.responseJSON.expected_salary_max = ''
     }
+        if (!data.responseJSON.experience){
+            data.responseJSON.experience= "";
+        }
+        else{
+            if(data.responseJSON.experience == 1){
+                data.responseJSON.experience = data.responseJSON.experience + " year"
+            }
+            else {
+                data.responseJSON.experience = data.responseJSON.experience + " years"
+            }
+
+        }
       container = $('#about-details-div');
       json2DivPopulate(data.responseJSON, container);
     }else{
