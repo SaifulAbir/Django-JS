@@ -939,7 +939,7 @@ def info_box_api(request):
     user = request.user
     favourite_job = FavouriteJob.objects.filter(user = user).count()
     applied_job = ApplyOnline.objects.filter(created_by = user).count()
-    skills_count = ProfessionalSkill.objects.filter(created_by=user).count()
+    skills_count = ProfessionalSkill.objects.filter(created_by=user, is_archived=False).count()
     data ={'favourite_job_count':favourite_job,
            'applied_job_count':applied_job,
            'skills_count':skills_count
