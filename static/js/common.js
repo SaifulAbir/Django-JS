@@ -227,7 +227,7 @@ function makeListHtml(data, template){
                     var newDate = 'None';
                     if(data[i][k]){
                         var dateObj = moment(data[i][k], 'YYYY-MM-DD');
-                        newDate = dateObj.format('MMM DD, YYYY');
+                        newDate = dateObj.format('DD/MM/YYYY');
                     }
                     $(item).html(newDate);
                 }else if($(item).hasClass("company-details-link")){
