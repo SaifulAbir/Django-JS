@@ -1,0 +1,18 @@
+diff --git a/pro/templates/change_password.html b/pro/templates/change_password.html
+index f17b191..bd6edc7 100644
+--- a/pro/templates/change_password.html
++++ b/pro/templates/change_password.html
+@@ -47,9 +47,10 @@
+ </head>
+ <style>
+     .question-mark1{
+-    position: absolute;
+-    bottom: 252px;
+-    right: 2px;
++    position: relative;
++        float: right;
++        bottom: 20px;
++
+ }
+ 
+ 
