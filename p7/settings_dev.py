@@ -112,7 +112,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '123',
         'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PORT': '3307',
         'OPTIONS': {
             'sql_mode': 'traditional',
             'isolation_level': "repeatable read",
