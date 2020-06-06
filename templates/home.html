@@ -370,7 +370,7 @@
                 if(data[index].application_deadline){
                     var dateString = data[index].application_deadline;
                     var momentObj = moment(dateString, 'YYYY-MM-DD');
-                    dateMomentString = momentObj.format('MMM DD, YYYY');
+                    dateMomentString = momentObj.format('DD/MM/YYYY');
                 }
                 var image_url;
                 if (data[index].company.profile_picture){
