@@ -1,0 +1,44 @@
+diff --git a/pro/templates/public_view_profile.html b/pro/templates/public_view_profile.html
+index 31f31b5..47d62be 100644
+--- a/pro/templates/public_view_profile.html
++++ b/pro/templates/public_view_profile.html
+@@ -103,7 +103,7 @@
+         <h4><i data-feather="book"></i>Education</h4>
+     </div>
+     <div class="experience dashboard-section details-section" id="work">
+-        <h4><i data-feather="briefcase"></i>Work Experiance</h4>
++        <h4><i data-feather="briefcase"></i>Work Experience</h4>
+     </div>
+ 
+     <div class="professonal-skill dashboard-section details-section">
+@@ -390,9 +390,17 @@
+                     else{
+                          var company_text = '';
+                     }
++                    if(work_data[x].description){
++                         var description =  work_data[x].description;
++
++                    }
++                    else{
++                         var description = '';
++                    }
+                 var work_html='<div class="experience-section">'+
+                     '<span class="service-year">'+start_date+'- '+end_date+'</span>'+
+                     '<h5>'+designation+'<span>@'+company_text+'</span></h5>'+
++                        '<p>'+ description + '</p>'+
+                     '</div><br>';
+                 $('#work').append(work_html);
+             }
+diff --git a/pro/templates/sign-in.html b/pro/templates/sign-in.html
+index bf5f6ba..4cb1922 100644
+--- a/pro/templates/sign-in.html
++++ b/pro/templates/sign-in.html
+@@ -77,7 +77,7 @@
+                     </div>
+                     <form action="/api/sign_in/" id="sign-in" class="ajax" method="POST" data-callback = "redirectPage" novalidate="novalidate">
+                         <div class="form-group">
+-                            <input type="email" placeholder="Email Address" name="email" id="email" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
++                            <input type="email" regex="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" placeholder="Email Address" name="email" id="email" class="form-control" required data-msg-required="Email is required" data-msg-email="Please enter a valid email">
+                             <input type="text" name="alert" id="alert" class="display-none">
+                         </div>
+                         <div class="form-group">

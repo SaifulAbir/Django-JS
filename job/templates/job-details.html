@@ -212,6 +212,7 @@
 
 
     function  loadJob(data){
+        console.log(data);
         container = $('.job-detail');
         if(data){
             $('.save').attr("href", data.job_id);
@@ -305,6 +306,15 @@
     function loadSimilarJob(data) {
         if(data.length > 0){
             for(index=0;index<6;index++){
+                 var deadline= data[index].application_deadline;
+            var momentObj = moment(data[index].post_date, 'YYYY-MM-DD');
+            data[index].post_date = momentObj.format('DD/MM/YYYY');
+            // var created_date = data.created_at
+            // data.created_at = created_date.split("-").reverse().join("-")
+            if(data[index].application_deadline){
+                var app_deadline = moment(data[index].application_deadline, 'YYYY-MM-DD');
+                data[index].application_deadline = app_deadline.format('DD/MM/YYYY');
+            }
             var job_html= '<div class="job-list">'+
                 '<div class="thumb">'+
                 '<a href="#">'+
